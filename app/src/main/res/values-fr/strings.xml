@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="email">Email</string>
+    
+    <string name="app_name">Grigora</string>
+    
+    
+    <string name="login">se connecter</string>
+    <string name="please_login_to_your_account">Veuillez vous connecter à votre compte</string>
+    <string name="sign_up">S\'inscrire</string>
+    <string name="forgot_password">Mot de passe oublié?</string>
+    <string name="email_phone_number">Email / numéro de téléphone</string>
+    <string name="password">Mot de passe</string>
+    <string name="send">Envoyer</string>
+    <string name="please_enter_your_registered">Veuillez entrer votre email enregistré pour récupérer votre mot de passe par email</string>
+    <string name="code">Code : </string>
+    <string name="delivery_location">Lieu de livraison des aliments</string>
+    <string name="city">Ville</string>
+    <string name="use_my_current_location">Utiliser ma position actuelle</string>
+    <string name="select_city">Sélectionnez une ville</string>
+    <string name="select_area">Sélectionner une zone</string>
+    <string name="continueTxt">Continuer</string>
+    <string name="preparation_time">Temps de préparation</string>
+    
+    <string name="area">Zone</string>
+    <string name="loading_getting_location">Obtenir l\'emplacement</string>
+    <string name="deliver_to">Livrer à :</string>
+    <string name="loading">Chargement</string>
+    <string name="error_location">Veuillez sélectionner un lieu</string>
+    <string name="quick_order">Ordre rapide</string>
+    <string name="popular">Populaire</string>
+    <string name="login_required">Connexion requise</string>
+    <string name="to_continue_you_need_to_be_logged_in">Pour continuer, vous devez être connecté.</string>
+    <string name="login_signup_now">Connexion / Inscription maintenant</string>
+    <string name="later">Plus tard</string>
+    <string name="currency_sym">$</string>
+    <string name="food_not_found">Nourriture non trouvée</string>
+    <string name="current_orders">Ordres en cours</string>
+    <string name="past_orders">Ordres passées</string>
+    <string name="choices">Les choix : </string>
+    <string name="placed_on">Placé sur :</string>
+    <string name="order_items">Items Ordres:</string>
+    <string name="status">Statut:</string>
+    <string name="estimated_arrival">Arrivée estimée</string>
+    <string name="track">Piste</string>
+    <string name="add_delivery_note">Ajouter un bon de livraison</string>
+    <string name="detail">Détails</string>
+    <string name="profile">Profil</string>
+    <string name="order_history">Historique des Ordres</string>
+    <string name="payment_method">Mode de paiement</string>
+    <string name="delivery_address">Adresse de livraison</string>
+    <string name="logout">Se déconnecter</string>
+    <string name="rate_now">Évaluer maintenant</string>
+    <string name="submit">Soumettre</string>
+    <string name="driver_text">Comment était la livraison de nourriture de %s?</string>
+    <string name="restaurant_text">Comment était la nourriture %s?</string>
+    
+    <string name="add_comment">Ajouter un commentaire</string>
+    <string name="name">Nom</string>
+    <string name="phone_number">Numéro de téléphone</string>
+    <string name="confirm_password">Confirmez le mot de passe</string>
+    <string name="by_clicking_on_signup_you_agree">En cliquant sur Inscription, vous acceptez nos conditions.></string>
+    <string name="save">sauver</string>
+    <string name="permission_denial_message">S\'il vous plaît approuver les autorisations</string>
+    <string name="settings">Paramètres</string>
+    <string name="about_us">À propos de nous</string>
+    <string name="contact_us">Contactez-nous</string>
+    <string name="change_password">Changer le mot de passe</string>
+    <string name="change_language">Changer de langue</string>
+    <string name="notifications">Les notifications</string>
+    <string name="old_password">ancien mot de passe</string>
+    <string name="new_password">nouveau mot de passe</string>
+    <string name="change">Changement</string>
+    <string name="reviews">Commentaires</string>
+    <string name="menu">M e n u</string>
+    <string name="search">Chercher</string>
+    <string name="continuetxt">Continuez</string>
+    <string name="choose_your_preferred_language">Choisissez votre langue préférée</string>
+     <string name="home">Accueil</string>
+    <string name="nearby">Proche</string>
+    <string name="bag">Chariot</string>
+    <string name="my_account">Mon compte</string>
+    <string name="sorry_no_restaurant_available">Pardon! Pas de restaurant disponible</string>
+    <string name="orders">Ordres</string>
+    <string name="order_details">détails de la Ordre</string>
+    <string name="pos">Payez par le point de vente à la livraison</string>
+    <string name="pay_now">Carte de débit / crédit</string>
+    <string name="paypal">Pay Pal</string>
+    <string name="add_card">Ajouter une carte</string>
+    
+    <string name="credit_or_debit_card">Carte de crédit ou de débit</string>
+    <string name="rating">Évaluation</string>
+    <string name="all">Tout</string>
+    <string name="empty_bag">Sac vide</string>
+    <string name="place_order">Passer la ordre</string>
+    <string name="setting_up">Mise en place</string>
+    <string name="language">La langue</string>
+    <string name="apply">Appliquer</string>
+    <string name="enter_promocode">Saisir le code promotionnel</string>
+    <string name="payment_mode">Détails paiement</string>
+    <string name="subtotal">Sous-total:</string>
+    <string name="total">Total :</string>
+    <string name="delivery_fee">Frais de livraison :</string>
+    <string name="add">Ajouter</string>
+    <string name="offers">Des offres</string>
+    <string name="order_id">Numéro de ordre</string>
+    <string name="description">La description</string>
+    <string name="or">Ou</string>
+    
+    
+    <string name="who_we_are">QUI NOUS SOMMES?</string>
+    <string name="who_we_are_detail">Grigora Limited a été créée en 2019 pour fournir des solutions rapides et fiables aux utilisateurs finaux utilisant la technologie. La société offre actuellement un service de livraison de nourriture aux restaurateurs et aux consommateurs de manière rapide et fiable à l\'aide de la technologie.</string>
+    <string name="our_vision">NOTRE VISION</string>
+    <string name="our_vision_detail">Être le principal fournisseur de solutions rapides et fiables utilisant la technologie</string>
+    <string name="our_value_proposition">NOTRE PROPOSITION DE VALEUR</string>
+    <string name="our_value_detail">Le modèle d’affaires sera basé sur la localisation, l’application mobile, la facilité de paiement, une large gamme de services et notre excellente culture de service à la clientèle compteront certainement comme un avantage concurrentiel pour Grigora Limited. Nous avons donc aussi une équipe qui peut faire tout ce qui est en son pouvoir pour donner à nos clients un bon rapport qualité-prix; une équipe formée et équipée pour prêter attention aux détails et fournir des services à temps et en toute sécurité</string>
+    <string name="rate_first">Évaluez en premier</string>
+    <string name="promotion">Promotion:</string>
+    <string name="internetnotavailable">Internet non disponible</string>
+    <string name="went_wrong">Quelque chose a mal tourné</string>
+    <string name="sending_request">Envoyer une requete</string>
+    <string name="required">Champs obligatoires</string>
+    <string name="please_select_type">Veuillez sélectionner le type</string>
+    <string name="ok">Daccord</string>
+    <string name="sendtoadmin">Votre demande a bien été envoyée à ladministrateur</string>
+    <string name="successfull">Réussie</string>
+    <string name="refund">Rembourser</string>
+    <string name="Suggestions">Suggestions</string>
+    <string name="feedback">Retour d information</string>
+    <string name="complaint">Plainte</string>
+    <string name="english">Anglais</string>
+    <string name="french">Française</string>
+    <string name="select_type">Sélectionner le genre</string>
+    <string name="no_promo_selected">Aucune promo sélectionnée</string>
+    <string name="wallet">Argent Grigora</string>
+    
+    
+    <string name="sendmoney">Envoyer de l\'argent</string>
+    <string name="history">Histoire</string>
+    <string name="addmoney">Ajouter de l\'argent</string>
+    <string name="transfer">Transférer de l\'argent</string>
+    <string name="last">Dernière</string>
+    <string name="transactions">Transactions</string>
+    <string name="enteramount">Entrez le montant à envoyer</string>
+    <string name="emptywallet">0.0 ₦</string>
+    <string name="transfr">Transfert</string>
+    <string name="are_you_sure">Êtes-vous sûr?</string>
+    <string name="clear_cart">Vider le panier</string>
+    
+    <string name="forwhat">Qu\'est-ce que c\'est pour?</string>
+    <string name="confirmation_message">Transfert ₦ %s\ à %s\ pour %s?</string>
+    <string name="confirmation_message1">Transfert ₦ %s\ à %s\?</string>
+    <string name="enter_amount">Entrer le montant</string>
+    <string name="pay">Payer</string>
+    <string name="op1">100 ₦</string>
+    <string name="op2">200 ₦</string>
+    <string name="op3">500 ₦</string>
+    <string name="add_amount">Ajouter un montant</string>
+    <string name="ratings">3 de 5 notes</string>
+    
+    <string name="notdelivering">Désolé, nous ne livrons pas à votre adresse pour le moment. Nous serons là bientôt.</string>
+    <string name="changelocation">Changer de lieu</string>
+    
+    <string name="of_ratings">%s\ de 5 notes</string>
+    <string name="wallet_drawer">Argent Grigora : ₦</string>
+
+</resources>

@@ -1,0 +1,226 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.drawerlayout.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/drawerLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white">
+        
+        <ImageView
+            android:layout_width="@dimen/_24sdp"
+            android:layout_height="@dimen/_24sdp"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="24dp"
+            android:layout_marginRight="@dimen/_8sdp"
+            app:srcCompat="@drawable/ic_close" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/content2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="0dp"
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
+    
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        
+        android:background="@color/white"
+        android:orientation="vertical">
+        
+        
+        <fragment
+            android:id="@+id/main_nav_fragment"
+            android:name="androidx.navigation.fragment.NavHostFragment"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_weight="1"
+            android:fitsSystemWindows="true"
+            app:defaultNavHost="true"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            app:navGraph="@navigation/nav_graph" />
+        
+        <RelativeLayout
+            android:id="@+id/rel_img"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="24dp">
+            
+            <ImageView
+                android:id="@+id/img_menu"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                
+                android:padding="4dp"
+                app:srcCompat="@drawable/ic_menu" />
+            
+            <ImageView
+                android:id="@+id/img_back"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                
+                app:srcCompat="@drawable/ic_back_white_24dp" />
+        </RelativeLayout>
+        
+        
+        <RelativeLayout
+            android:id="@+id/deliverLayout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="24dp"
+            android:layout_toRightOf="@+id/rel_img"
+            android:visibility="visible">
+            
+            <TextView
+                android:id="@+id/textView48"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/deliver_to"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_10sdp" />
+            
+            <TextView
+                android:id="@+id/address"
+                style="@style/normalText"
+                android:layout_width="@dimen/_150sdp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView48"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp"
+                tools:text="Address" />
+            
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView48"
+                android:layout_marginStart="8dp"
+                android:layout_marginBottom="8dp"
+                android:layout_toRightOf="@+id/address"
+                android:src="@drawable/ic_arrow_down" />
+        </RelativeLayout>
+    
+    
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/drawer"
+        
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:orientation="vertical"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingTop="@dimen/_16sdp"
+        android:paddingRight="@dimen/_16sdp"
+        android:paddingBottom="@dimen/_16sdp">
+        <!--android:layout_gravity="start"-->
+        
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/img_user"
+            android:layout_width="@dimen/_70sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:src="@drawable/logo" />
+        
+        
+        <TextView
+            android:id="@+id/tv_username"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img_user"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:text="@string/app_name"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/_12sdp" />
+        
+        <LinearLayout
+            android:id="@+id/li_wallet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_username"
+            android:orientation="horizontal">
+            
+            <TextView
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_user"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="2dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                tools:text="@string/wallet_drawer" />
+            
+            <TextView
+                android:id="@+id/tv_wallet"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img_user"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginEnd="2dp"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp"
+                tools:text="2.00" />
+        </LinearLayout>
+        
+        
+        <com.google.android.material.navigation.NavigationView
+            android:id="@+id/nav_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/linearLayoutLogout"
+            android:layout_below="@+id/li_wallet"
+            android:layout_marginTop="@dimen/_30sdp"
+            android:background="@android:color/transparent"
+            android:elevation="0dp"
+            app:elevation="0dp"
+            app:menu="@menu/bottom_nav_menu" />
+        
+        
+        <LinearLayout
+            android:id="@+id/linearLayoutLogout"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:padding="4dp"
+            android:visibility="visible">
+            
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:src="@drawable/ic_logout" />
+            
+            
+            <TextView
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="@dimen/_4sdp"
+                android:text="@string/logout"
+                android:textColor="@color/colorAccent"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+    </RelativeLayout>
+
+</androidx.drawerlayout.widget.DrawerLayout>

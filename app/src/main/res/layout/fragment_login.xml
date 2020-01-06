@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="loginFragmentViewModel"
+            type="com.rvtechnologies.grigora.view_model.LoginFragmentViewModel" />
+        
+        <variable
+            name="loginFragment"
+            type="com.rvtechnologies.grigora.view.ui.login_signup.LoginFragment" />
+    
+    
+    </data>
+    
+    
+    <RelativeLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
+        
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="@dimen/_220sdp"
+            android:scaleType="fitXY"
+            android:src="@drawable/login_bg" />
+        
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_30sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="60dp"
+            android:layout_marginRight="16dp">
+            
+            <ImageView
+                
+                android:layout_width="@dimen/_70sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_alignParentBottom="true"
+                android:src="@drawable/fire_bg" />
+            
+            
+            <Button
+                android:id="@+id/button3"
+                style="@style/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:gravity="right|center_vertical"
+                android:onClick="@{()->loginFragment.toSignUp()}"
+                android:text="@string/sign_up"
+                android:textAllCaps="false"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/_12sdp" />
+        </RelativeLayout>
+        
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutUsername"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/img"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/_32sdp"
+            android:layout_marginEnd="16dp"
+            
+            >
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/email_phone_number"
+                android:inputType="textEmailAddress"
+                android:text="@={loginFragmentViewModel.email}"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/_12sdp"
+                app:layout_constraintBottom_toTopOf="@+id/editText2"
+                app:layout_constraintEnd_toEndOf="parent" />
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/textInputLayoutPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/textInputLayoutUsername"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp">
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editText2"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/password"
+                android:inputType="textPassword"
+                android:text="@={loginFragmentViewModel.password}"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/_12sdp" />
+        
+        
+        </com.google.android.material.textfield.TextInputLayout>
+        
+        <TextView
+            android:id="@+id/btnForgot"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/textInputLayoutPassword"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="16dp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/underline_textview_back"
+            android:onClick="@{()-> loginFragment.toForgotPassword()}"
+            android:text="@string/forgot_password"
+            android:textAllCaps="false"
+            android:textColor="@color/textGrey" />
+        
+        <Button
+            android:id="@+id/fb_login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="@{()->loginFragment.fbLogin()}"
+            android:text="FB"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+        
+        <Button
+            android:id="@+id/google_login"
+            android:layout_width="wrap_content"
+            
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_toRightOf="@+id/fb_login"
+            android:background="@android:color/holo_blue_dark"
+            android:onClick="@{()->loginFragment.googleLogin()}"
+            android:text="GOOGLE"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+        
+        
+        <Button
+            android:id="@+id/btnLogin"
+            style="@style/normalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnForgot"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_48sdp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="@dimen/_48sdp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1dp"
+            android:onClick="@{()-> loginFragmentViewModel.login()}"
+            android:paddingLeft="@dimen/_22sdp"
+            android:paddingRight="@dimen/_22sdp"
+            android:text="@string/login"
+            android:textAllCaps="true"
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_12sdp" />
+    
+    
+    </RelativeLayout>
+
+
+</layout>

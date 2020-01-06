@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
+        
+        <TextView
+            android:id="@+id/txtRestaurantName"
+            style="@style/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:text="@string/my_account"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/shadow"
+            android:orientation="vertical"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingBottom="16dp">
+            
+            <ScrollView
+                android:id="@+id/sv_parent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:overScrollMode="never"
+                android:scrollbars="none">
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingTop="16dp"
+                    android:paddingBottom="16dp">
+                    
+                    <com.github.siyamed.shapeimageview.CircularImageView
+                        android:id="@+id/profilePic"
+                        android:layout_width="100dp"
+                        android:layout_height="100dp"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center"
+                        android:layout_marginStart="1dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="1dp"
+                        android:layout_marginBottom="1dp"
+                        android:elevation="0dp"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/user_placeholder"
+                        app:image_url_person="@{profileFragment.getProfileImage()}" />
+                    
+                    <TextView
+                        android:id="@+id/textView19"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/profilePic"
+                        android:layout_centerHorizontal="true"
+                        android:layout_gravity="center_horizontal|bottom"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@{profileFragment.getName()}"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="normal"
+                        tools:text="John Wick" />
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/textView19"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toProfileDetails()}">
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/profile"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    </RelativeLayout>
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView9"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toWallet()}">
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/wallet"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    </RelativeLayout>
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView9"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toOrders()}">
+                        
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="center_vertical"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/order_history"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    
+                    </RelativeLayout>
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView3"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView2"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toSettings()}">
+                        
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/settings"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    
+                    </RelativeLayout>
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView5"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView3"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toAboutUs()}">
+                        
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/about_us"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    </RelativeLayout>
+                    
+                    <RelativeLayout
+                        android:id="@+id/cardView6"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView5"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.toContactUs()}">
+                        
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/contact_us"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    </RelativeLayout>
+                    
+                    
+                    <RelativeLayout
+                        android:id="@+id/layoutLogout"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_below="@+id/cardView6"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginEnd="8dp"
+                        android:onClick="@{()->profileFragment.logout()}">
+                        
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="8dp"
+                            android:drawableEnd="@drawable/ic_arrow_right"
+                            android:drawablePadding="8dp"
+                            android:drawableTint="@color/textBlack"
+                            android:gravity="center_vertical"
+                            android:text="@string/logout"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:layout_alignParentBottom="true"
+                            android:background="@color/grey_bg" />
+                    
+                    
+                    </RelativeLayout>
+                
+                
+                </RelativeLayout>
+            </ScrollView>
+        </LinearLayout>
+    
+    </RelativeLayout>
+    
+    <data>
+        
+        <variable
+            name="profileFragment"
+            type="com.rvtechnologies.grigora.view.ui.profile.ProfileFragment" />
+    </data>
+</layout>

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="offerModel"
+            type="com.rvtechnologies.grigora.model.models.OfferModel" />
+    </data>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:layout_marginTop="1dp"
+        android:orientation="vertical"
+        android:padding="@dimen/_8sdp">
+        
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            
+            android:layout_alignParentTop="true"
+            android:text="@{offerModel.code}"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            android:textStyle="italic"
+            tools:text="Title" />
+        
+        <TextView
+            android:id="@+id/tv_per"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_title"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="4dp"
+            android:text="@{offerModel.name}"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/_10sdp"
+            tools:text="50%" />
+        
+        
+        <TextView
+            android:id="@+id/tv_desc"
+            
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_per"
+            android:layout_alignParentLeft="true"
+            android:layout_marginTop="4dp"
+            android:text="@{offerModel.description}"
+            android:textColor="@color/textGrey"
+            android:textSize="@dimen/_8sdp"
+            tools:text="Desctiption" />
+        
+        
+        <Button
+            android:id="@+id/bt_apply"
+            style="@style/normalText"
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:background="@color/white"
+            android:clickable="true"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/apply"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp" />
+    
+    
+    </RelativeLayout>
+</layout>

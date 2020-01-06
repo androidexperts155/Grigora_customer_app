@@ -1,0 +1,135 @@
+{
+  "project_info": {
+    "project_number": "652242170156",
+    "firebase_url": "https://grigora-1565171931304.firebaseio.com",
+    "project_id": "grigora-1565171931304",
+    "storage_bucket": "grigora-1565171931304.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652242170156:android:4d0cde6787aff421",
+        "android_client_info": {
+          "package_name": "com.deepak.grigorago"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652242170156-9f12gi0eb9gvot31op0aba5pc1292at5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.deepak.grigorago",
+            "certificate_hash": "82647fcef18d93ce13df606d6ba1b1615f1746c1"
+          }
+        },
+        {
+          "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo51Rxb7QMQ_bKj3hBmZ6Ty8p7BYp7oWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652242170156-vrij7fpvu2v4695pq5681rhln5cgqehj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.RV.Grigora.Driver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652242170156:android:af6fa791c31d992c6cbc89",
+        "android_client_info": {
+          "package_name": "com.rvtechnologies.grigora"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652242170156-7hogdlb8hl46e6p5c33qvhrn5l9nu0df.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.rvtechnologies.grigora",
+            "certificate_hash": "c42c9529d6a33561763bcdd4a29d11b420b9f42a"
+          }
+        },
+        {
+          "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo51Rxb7QMQ_bKj3hBmZ6Ty8p7BYp7oWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652242170156-vrij7fpvu2v4695pq5681rhln5cgqehj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.RV.Grigora.Driver"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:652242170156:android:50edafd17fb149c8",
+        "android_client_info": {
+          "package_name": "com.rvtechnologies.grigorahq"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDo51Rxb7QMQ_bKj3hBmZ6Ty8p7BYp7oWU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "652242170156-936pecfct2vse7i21qnhvtk824p56g1t.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "652242170156-vrij7fpvu2v4695pq5681rhln5cgqehj.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.RV.Grigora.Driver"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

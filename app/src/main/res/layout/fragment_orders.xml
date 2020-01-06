@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ui.orders.OrdersParentFragment">
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_200sdp"
+        android:layout_alignParentTop="true"
+        android:background="@color/colorPrimaryDark" />
+    
+    <TextView
+        android:id="@+id/txtRestaurantName"
+        style="@style/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:text="@string/orders"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="12dp"
+        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginRight="12dp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:background="@drawable/shadow"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginTop="8dp"
+            android:elevation="1dp"
+            android:orientation="horizontal">
+            
+            <TextView
+                android:id="@+id/tv_current"
+                style="@style/normalText"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/left_round_dark"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_16sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:text="@string/current_orders"
+                
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp" />
+            
+            <TextView
+                android:id="@+id/tv_past"
+                style="@style/normalText"
+                android:layout_width="@dimen/_110sdp"
+                android:layout_height="wrap_content"
+                android:background="@drawable/right_round_light"
+                android:gravity="center"
+                android:paddingLeft="@dimen/_16sdp"
+                android:paddingTop="@dimen/_8sdp"
+                android:paddingRight="@dimen/_16sdp"
+                android:paddingBottom="@dimen/_8sdp"
+                android:text="@string/past_orders"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/_10sdp" />
+        
+        
+        </LinearLayout>
+        
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vpOrders"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginBottom="8dp"
+            android:layout_weight="1" />
+    
+    </LinearLayout>
+
+
+</RelativeLayout>

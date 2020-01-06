@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="selectLocationView"
+            type="com.rvtechnologies.grigora.view.ui.dashboard.SelectLocationFragment" />
+    </data>
+    
+    <RelativeLayout
+        
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".view.ui.dashboard.SelectLocationFragment">
+        
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
+        
+        <TextView
+            android:id="@+id/txtRestaurantName"
+            style="@style/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:text="@string/delivery_location"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            
+            <TextView
+                android:id="@+id/textView34"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_50sdp"
+                android:text="@string/area"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp"
+                android:textStyle="bold" />
+            
+            
+            <TextView
+                android:id="@+id/txtAddress"
+                style="@style/normalText"
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:background="@drawable/edit_bottom_line_back"
+                android:hint="@string/select_area"
+                android:onClick="@{()-> selectLocationView.selectArea()}"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_10sdp" />
+            
+            <TextView
+                android:id="@+id/textView36"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtRestaurantName"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="8dp"
+                android:background="@drawable/btn_transparent"
+                android:drawableStart="@drawable/ic_my_location"
+                android:drawablePadding="@dimen/_6sdp"
+                android:gravity="start|center_vertical"
+                android:onClick="@{()->selectLocationView.useCurrentLocation()}"
+                android:text="@string/use_my_current_location"
+                android:textAllCaps="false"
+                android:textColor="@color/white" />
+        
+        </LinearLayout>
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="@dimen/_150sdp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/shadow"
+            android:orientation="vertical">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+                
+                <fragment
+                    android:id="@+id/map"
+                    android:name="com.google.android.gms.maps.SupportMapFragment"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_above="@+id/button5"
+                    android:layout_alignParentTop="true"
+                    android:layout_centerVertical="true"
+                    android:enabled="true" />
+                
+                
+                <Button
+                    android:id="@+id/button5"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_centerHorizontal="true"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="@drawable/btn_rounded"
+                    android:elevation="1dp"
+                    android:onClick="@{()->selectLocationView.saveLocationContinue()}"
+                    android:paddingLeft="@dimen/_22sdp"
+                    android:paddingRight="@dimen/_22sdp"
+                    android:text="@string/continueTxt"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
+        </LinearLayout>
+    
+    
+    </RelativeLayout>
+</layout>

@@ -1,0 +1,308 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph.xml"
+    app:startDestination="@id/splashFragment2">
+    
+    <fragment
+        
+        android:id="@+id/navigationMyAccounts"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.ProfileFragment"
+        android:label="ProfileFragment">
+        <action
+            
+            android:id="@+id/action_navigationMyAccounts_to_ordersFragment"
+            app:destination="@id/ordersFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_profileDetailsFragment"
+            app:destination="@id/profileDetailsFragment" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_settingFragment"
+            app:destination="@id/settingFragment" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_aboutUsFragment"
+            app:destination="@id/aboutUsFragment" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_contactFragment"
+            app:destination="@id/contactFragment" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_walletFragment"
+            app:destination="@id/walletFragment" />
+    
+    
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailsFragment"
+        android:label="fragment_restaurant_details"
+        tools:layout="@layout/restaurant_details_fragment">
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment" />
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_reviewsFragment"
+            app:destination="@id/reviewsFragment" />
+        
+        <action
+            android:id="@+id/action_restaurantDetailsFragment_to_loginFragment"
+            app:destination="@id/loginFragment2" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/menuItemDetailsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.MenuItemDetailsFragment"
+        android:label="MenuItemDetailsFragment">
+        <action
+            android:id="@+id/action_menuItemDetailsFragment_to_loginFragment22"
+            app:destination="@id/loginFragment2" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigationCart"
+        android:name="com.rvtechnologies.grigora.view.ui.cart.CartFragment"
+        android:label="cart_fragment"
+        tools:layout="@layout/cart_fragment">
+        <action
+            android:id="@+id/action_navigationCart_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_navigationCart_to_orderDetailsFragment"
+            app:destination="@id/orderDetailsFragment" />
+        <action
+            android:id="@+id/action_navigationCart_to_offerFragment"
+            app:destination="@id/offerFragment" />
+    
+        <action
+            android:id="@+id/action_navigationCart_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment" />
+    
+        <action
+            android:id="@+id/action_navigationCart_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment" />
+    
+    
+    </fragment>
+    
+    
+    <fragment
+        android:id="@+id/ordersFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.orders.OrdersParentFragment"
+        android:label="fragment_orders"
+        tools:layout="@layout/fragment_orders">
+        <action
+            android:id="@+id/action_ordersFragment_to_orderDetailsFragment2"
+            app:destination="@id/orderDetailsFragment"
+            app:launchSingleTop="false"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_ordersFragment_to_loginFragment2"
+            app:destination="@id/loginFragment2" />
+        <action
+            android:id="@+id/action_ordersFragment_to_rateDriverFragment"
+            app:destination="@id/rateDriverFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/chooseLanguageFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.ChooseLanguageFragment"
+        android:label="ChooseLanguageFragment">
+        <action
+            android:id="@+id/action_chooseLanguageFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    </fragment>
+    
+    
+    <fragment
+        android:id="@+id/navigationRestaurants"
+        android:name="com.rvtechnologies.grigora.view.ui.dashboard.DashboardFragment"
+        android:label="DashboardFragment">
+        <action
+            android:id="@+id/action_dashboardFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+        
+        <action
+            android:id="@+id/action_dashboardFragment_to_loginFragment"
+            app:destination="@id/loginFragment2" />
+        
+        <action
+            android:id="@+id/action_dashboardFragment_to_changeLocation"
+            app:destination="@id/selectLocationFragment" />
+        
+        
+        <action
+            android:id="@+id/action_navigationRestaurants_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/selectLocationFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.dashboard.SelectLocationFragment"
+        android:label="select_location_fragment"
+        tools:layout="@layout/select_location_fragment">
+        <action
+            android:id="@+id/action_selectLocationFragment_to_locationTypeFragment"
+            app:destination="@id/locationTypeFragment" />
+        <action
+            android:id="@+id/action_selectLocationFragment_to_navigationRestaurants"
+            app:destination="@id/navigationRestaurants"
+            app:launchSingleTop="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/navigationNearbyRestaurants"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantsListFragment"
+        android:label="RestaurantsListFragment">
+        <action
+            android:id="@+id/action_restaurantsListFragment_to_restaurantDetailsFragment"
+            app:destination="@id/restaurantDetailsFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/splashFragment2"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.SplashFragment"
+        android:label="fragment_spash"
+        tools:layout="@layout/fragment_spash">
+        <action
+            android:id="@+id/action_splashFragment2_to_chooseLanguageFragment"
+            app:destination="@id/chooseLanguageFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_splashFragment2_to_selectLocationFragment2"
+            app:destination="@id/selectLocationFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/locationTypeFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.dashboard.LocationTypeFragment"
+        android:label="location_type_fragment"
+        tools:layout="@layout/location_type_fragment">
+        <action
+            android:id="@+id/action_locationTypeFragment_to_navigationRestaurants"
+            app:destination="@id/navigationRestaurants" />
+    </fragment>
+    <fragment
+        android:id="@+id/loginFragment2"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.LoginFragment"
+        android:label="LoginFragment">
+        <action
+            android:id="@+id/action_loginFragment2_to_signUpFragment"
+            app:destination="@id/signUpFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_loginFragment2_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signUpFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.SignUpFragment"
+        android:label="SignUpFragment">
+        <action
+            android:id="@+id/action_signUpFragment_to_forgotPasswordFragment"
+            app:destination="@id/forgotPasswordFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/forgotPasswordFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.ForgotPasswordFragment"
+        android:label="ForgotPasswordFragment" />
+    <fragment
+        android:id="@+id/orderDetailsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.orders.OrderDetailsFragment"
+        android:label="OrderDetailsFragment">
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_rateDriverFragment"
+            app:destination="@id/rateDriverFragment" />
+        <action
+            android:id="@+id/action_orderDetailsnavigationRestaurantsFragment_to_navigationCart"
+            app:destination="@id/navigationCart"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/rateDriverFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.orders.RateFragment"
+        android:label="rate_driver_fragment"
+        tools:layout="@layout/rate_driver_fragment">
+        <action
+            android:id="@+id/action_rateDriverFragment_self"
+            app:destination="@id/rateDriverFragment" />
+        <action
+            android:id="@+id/action_rateDriverFragment_to_rateDishFragment"
+            app:destination="@id/rateDishFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/profileDetailsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.ProfileDetailsFragment"
+        android:label="profile_details_fragment"
+        tools:layout="@layout/profile_details_fragment" />
+    <fragment
+        android:id="@+id/settingFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.SettingFragment"
+        android:label="setting_fragment"
+        tools:layout="@layout/setting_fragment">
+        <action
+            android:id="@+id/action_settingFragment_to_changePasswordFragment"
+            app:destination="@id/changePasswordFragment" />
+        <action
+            android:id="@+id/action_settingFragment_to_chooseLanguageFragment"
+            app:destination="@id/chooseLanguageFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/changePasswordFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.ChangePasswordFragment"
+        android:label="ChangePasswordFragment" />
+    <fragment
+        android:id="@+id/aboutUsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.AboutUsFragment"
+        android:label="fragment_about_us"
+        tools:layout="@layout/fragment_about_us" />
+    <fragment
+        android:id="@+id/contactFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.ContactFragment"
+        android:label="fragment_contact"
+        tools:layout="@layout/fragment_contact" />
+    <fragment
+        android:id="@+id/reviewsFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.ReviewsFragment"
+        android:label="reviews_fragment"
+        tools:layout="@layout/reviews_fragment" />
+    <fragment
+        android:id="@+id/offerFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.offers.OfferFragment"
+        android:label="OfferFragment">
+        <action
+            android:id="@+id/action_offerFragment_to_navigationCart"
+            app:destination="@id/navigationCart" />
+    </fragment>
+    <fragment
+        android:id="@+id/walletFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.WalletFragment"
+        android:label="WalletFragment">
+        <action
+            android:id="@+id/action_walletFragment_to_sendMoneyFragment"
+            app:destination="@id/sendMoneyFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/sendMoneyFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.SendMoneyFragment"
+        android:label="SendMoneyFragment" />
+    <fragment
+        android:id="@+id/rateDishFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.orders.RateDishFragment"
+        android:label="RateDishFragment" />
+
+</navigation>

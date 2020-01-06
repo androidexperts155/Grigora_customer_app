@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shadow"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp">
+    
+    <ImageView
+        android:id="@+id/imageView14"
+        android:layout_width="@dimen/_100sdp"
+        android:layout_height="@dimen/_100sdp"
+        android:layout_gravity="center_horizontal"
+        android:scaleType="centerInside"
+        android:src="@drawable/driver" />
+    
+    
+    <TextView
+        android:id="@+id/textView4"
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:gravity="center_horizontal"
+        android:text="@string/food_delivery_message"
+        android:textColor="@color/text_primary"
+        android:textSize="@dimen/_12sdp" />
+    
+    <RatingBar
+        android:id="@+id/rt_rating"
+        style="@style/RatingBarToRate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:progressTint="@color/duskYellow" />
+    
+    <Button
+        android:id="@+id/bt_rate_now"
+        style="@style/normalText"
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="8dp"
+        android:background="@drawable/btn_rounded"
+        android:text="@string/rate_now"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+    
+    <Button
+        android:id="@+id/bt_no_thanks"
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@android:color/transparent"
+        android:elevation="0dp"
+        android:gravity="center"
+        android:padding="@dimen/_8sdp"
+        android:text="@string/no_thanks"
+        android:textColor="@color/textGrey"
+        android:textSize="@dimen/_12sdp" />
+</LinearLayout>
+
+

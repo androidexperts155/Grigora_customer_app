@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <LinearLayout
+        android:layout_width="@dimen/_120sdp"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:padding="4dp">
+        
+        
+        <androidx.cardview.widget.CardView
+            android:layout_width="@dimen/_105sdp"
+            android:layout_height="@dimen/_70sdp"
+            android:layout_gravity="left"
+            android:elevation="1dp"
+            app:cardCornerRadius="@dimen/_8sdp">
+            
+            
+            <ImageView
+                android:id="@+id/imgRestaurant"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/restaurant"
+                app:normal_image_url="@{restaurantModel.image}" />
+        
+        </androidx.cardview.widget.CardView>
+        
+        
+        <TextView
+            android:id="@+id/txtRestaurantName"
+            style="@style/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:shadowColor="@android:color/black"
+            android:text="@{restaurantModel.nameToShow}"
+            android:textAlignment="center"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/_12sdp"
+            tools:text="Restaurant Name" />
+        
+        <TextView
+            android:id="@+id/txtRestaurantLocation"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left"
+            android:layout_marginTop="4dp"
+            android:layout_marginEnd="8dp"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@{restaurantModel.address}"
+            android:textAlignment="center"
+            android:textColor="@color/textLightGrey"
+            android:textSize="@dimen/_8sdp"
+            tools:text="Restaurant Location" />
+    
+    
+    </LinearLayout>
+    
+    
+    <data>
+        
+        <variable
+            name="restaurantModel"
+            type="com.rvtechnologies.grigora.model.models.RestaurantModel" />
+    </data>
+
+</layout>

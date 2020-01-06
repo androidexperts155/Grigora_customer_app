@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        
+        <variable
+            name="chooseLanguageViewModel"
+            type="com.rvtechnologies.grigora.view_model.ChooseLanguageViewModel" />
+        
+        <variable
+            name="chooseLanguage"
+            type="com.rvtechnologies.grigora.view.ui.login_signup.ChooseLanguageFragment" />
+    </data>
+    
+    
+    <RelativeLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true"
+            android:layout_marginBottom="@dimen/_180sdp"
+            android:background="@drawable/lang_bg"
+            android:scaleType="centerCrop" />
+        
+        <TextView
+            style="@style/title"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/li_choose"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:text="@string/welcome_to_grigora"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_16sdp" />
+        
+        <LinearLayout
+            android:id="@+id/li_choose"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_220sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:background="@drawable/shadow28"
+            android:gravity="center_horizontal"
+            android:orientation="vertical"
+            android:padding="@dimen/_16sdp">
+            
+            <TextView
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_language"
+                android:textColor="@color/textBlack"
+                android:textSize="@dimen/_12sdp" />
+            
+            <RelativeLayout
+                android:id="@+id/rel_english"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_12sdp"
+                
+                android:background="@drawable/select_lang_round_grey"
+                android:clickable="true"
+                android:onClick="@{()-> chooseLanguage.setEnglish()}"
+                android:padding="@dimen/_8sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/english" />
+                
+                <TextView
+                    android:id="@+id/tv_english"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:text="@string/english"
+                    android:textAllCaps="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/rel_french"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:background="@drawable/select_lang_round_white"
+                android:clickable="true"
+                android:onClick="@{()-> chooseLanguage.setFrench()}"
+                android:padding="@dimen/_8sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_22sdp"
+                    android:layout_height="@dimen/_22sdp"
+                    android:layout_alignParentLeft="true"
+                    
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/french_lan" />
+                
+                <TextView
+                    android:id="@+id/tv_french"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:text="@string/french"
+                    android:textAllCaps="true"
+                    android:textColor="@color/textBlack"
+                    android:textSize="@dimen/_12sdp" />
+            
+            </RelativeLayout>
+            
+            <Button
+                android:id="@+id/button2"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
+                android:onClick="@{()->chooseLanguageViewModel.setSelectedLanguage()}"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/continueTxt"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+        
+        
+        </LinearLayout>
+    
+    
+    </RelativeLayout>
+</layout>

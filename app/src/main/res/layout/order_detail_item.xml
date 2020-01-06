@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="1dp"
+    android:background="@color/white"
+    android:orientation="vertical"
+    app:cardCornerRadius="0dp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="0dp">
+        
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/rd_type"
+            android:text="1 x Veggie"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/_10sdp" />
+        
+        
+        <TextView
+            android:id="@+id/tv_price"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_name"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:text="@{cartItem.total}"
+            android:textColor="@color/textGrey"
+            android:textSize="@dimen/_10sdp"
+            tools:text="120" />
+        
+        <TextView
+            android:id="@+id/tv_choices"
+            
+            style="@style/normalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_price"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/textGrey"
+            android:textSize="@dimen/_8sdp"
+            tools:text="Choices" />
+    
+    </RelativeLayout>
+
+</LinearLayout>

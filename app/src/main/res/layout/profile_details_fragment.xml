@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <RelativeLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context=".view.ui.profile.ProfileDetailsFragment">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_alignParentTop="true"
+            android:background="@color/colorPrimaryDark" />
+        
+        <TextView
+            android:id="@+id/txtRestaurantName"
+            style="@style/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="28dp"
+            android:text="@string/profile"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="@dimen/_80sdp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/shadow"
+            android:orientation="vertical"
+            android:padding="20dp">
+            <com.github.siyamed.shapeimageview.CircularImageView
+                android:id="@+id/profilePic"
+                android:layout_width="@dimen/_96sdp"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="8dp"
+                android:layout_gravity="center"
+                android:onClick="@{()->profileDetailsView.chooseProfilePic()}"
+                android:src="@drawable/user_placeholder"
+                app:image_url_person="@{profileDetailsViewModel.image}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintDimensionRatio="h,1:1"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.10" />
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:ems="10"
+                android:hint="@string/name"
+                style="@style/normalText"
+                android:layout_marginTop="30dp"
+                android:paddingLeft="10dp"
+                android:inputType="textEmailAddress"
+                android:text="@={profileDetailsViewModel.name}"
+                app:layout_constraintBottom_toTopOf="@+id/editText2"
+                app:layout_constraintEnd_toEndOf="parent" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                android:layout_marginTop="20dp"
+                android:enabled="false"
+                android:paddingLeft="10dp"
+                style="@style/normalText"
+                android:hint="@string/email"
+                android:inputType="textEmailAddress"
+                android:text="@={profileDetailsViewModel.email}"
+                app:layout_constraintBottom_toTopOf="@+id/editText2"
+                app:layout_constraintEnd_toEndOf="parent" />
+            
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/etPhone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:editable="false"
+                android:ems="10"
+                style="@style/normalText"
+                android:paddingLeft="10dp"
+                android:enabled="false"
+                android:hint="@string/phone_number"
+                android:layout_marginTop="20dp"
+                android:inputType="phone"
+                android:text="@={profileDetailsViewModel.phone}"
+                app:layout_constraintBottom_toTopOf="@+id/editText2"
+                app:layout_constraintEnd_toEndOf="parent" />
+            
+            <Button
+                android:id="@+id/btnSave"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="30dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/btn_rounded"
+                android:onClick="@{()-> profileDetailsViewModel.saveProfile()}"
+                android:text="@string/save"
+                android:textColor="@android:color/white"
+                android:visibility="visible"
+                style="@style/normalText"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone"/>
+        </LinearLayout>
+    
+    </RelativeLayout>
+    <data>
+        <variable
+            name="profileDetailsViewModel"
+            type="com.rvtechnologies.grigora.view_model.ProfileDetailsViewModel" />
+        
+        <variable
+            name="profileDetailsView"
+            type="com.rvtechnologies.grigora.view.ui.profile.ProfileDetailsFragment" />
+    </data>
+</layout>

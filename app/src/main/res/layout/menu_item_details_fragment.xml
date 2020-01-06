@@ -1,0 +1,211 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <RelativeLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+        
+        
+        <ImageView
+            android:id="@+id/imageView17"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_200sdp"
+            android:layout_alignParentTop="true"
+            android:scaleType="centerCrop"
+            android:src="@drawable/main_top_bg"
+            app:normal_image_url="@{menuItemViewModel.menuItem.image}" />
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="12dp"
+            android:layout_marginTop="@dimen/_130sdp"
+            android:layout_marginRight="12dp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/shadow"
+            android:orientation="vertical">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+                
+                
+                <TextView
+                    android:id="@+id/textView17"
+                    style="@style/title"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@{menuItemViewModel.isFrench()?menuItemViewModel.menuItem.frenchName:menuItemViewModel.menuItem.name}"
+                    android:textColor="@color/textBlack"
+                    android:textSize="@dimen/_14sdp"
+                    tools:text="Meal Name" />
+                
+                <TextView
+                    android:id="@+id/textView12"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="4dp"
+                    android:layout_marginEnd="16dp"
+                    android:ellipsize="end"
+                    android:maxLines="3"
+                    android:text="@{menuItemViewModel.isFrench()?menuItemViewModel.menuItem.frenchDescription:menuItemViewModel.menuItem.description}"
+                    android:textColor="@color/textLightGrey"
+                    android:textSize="@dimen/_10sdp"
+                    
+                    tools:text="Description" />
+                
+                <View
+                    android:id="@+id/view"
+                    android:layout_width="match_parent"
+                    android:layout_height="0.3dp"
+                    android:layout_marginTop="8dp"
+                    android:background="@color/def_rate" />
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp">
+                    
+                    <TextView
+                        android:id="@+id/textView59"
+                        style="@style/title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginStart="16dp"
+                        
+                        android:text="@string/add"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/_14sdp" />
+                    
+                    
+                    <LinearLayout
+                        android:id="@+id/linearLayout"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="8dp"
+                        android:background="@drawable/btn_rounded_corners"
+                        android:orientation="horizontal"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView59"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="@+id/textView59">
+                        
+                        <TextView
+                            style="@style/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="@{()->menuItemViewModel.decreaseQuantity()}"
+                            android:paddingLeft="@dimen/_12sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingRight="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:text="-"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_14sdp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_count"
+                            style="@style/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="center"
+                            android:paddingLeft="@dimen/_4sdp"
+                            android:paddingRight="@dimen/_4sdp"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_12sdp" />
+                        
+                        <TextView
+                            style="@style/title"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:onClick="@{()->menuItemViewModel.increaseQuantity()}"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingRight="@dimen/_12sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:text="+"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_14sdp" />
+                    
+                    
+                    </LinearLayout>
+                
+                </RelativeLayout>
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvOptions"
+                        android:layout_width="match_parent"
+                        
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/btn_add"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:orientation="vertical"
+                        android:paddingRight="16dp"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+                    
+                    <Button
+                        
+                        android:id="@+id/btn_add"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:background="@drawable/btn_rounded"
+                        android:elevation="1dp"
+                        android:onClick="@{()->menuItemViewModel.addItemToCart()}"
+                        android:paddingLeft="@dimen/_12sdp"
+                        android:paddingRight="@dimen/_12sdp"
+                        android:text="@string/add"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp" />
+                </RelativeLayout>
+            
+            </LinearLayout>
+        
+        </LinearLayout>
+    
+    </RelativeLayout>
+    
+    <data>
+        
+        <import type="android.view.View" />
+        
+        <variable
+            name="menuItemViewModel"
+            type="com.rvtechnologies.grigora.view_model.MenuItemDetailsViewModel" />
+        
+        <variable
+            name="menuItemView"
+            type="com.rvtechnologies.grigora.view.ui.restaurant_list.MenuItemDetailsFragment" />
+    
+    
+    </data>
+</layout>

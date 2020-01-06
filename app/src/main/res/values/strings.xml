@@ -1,0 +1,307 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="default_notification_channel_id" translatable="false">212</string>
+    
+    <string name="facebook_app_id">612856392875692</string>
+    <string name="fb_login_protocol_scheme">fb612856392875692</string>
+    
+    
+    <string name="app_name">Grigora</string>
+    <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
+    <string name="login">Sign in</string>
+    <string name="please_login_to_your_account">Please login to your account</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="forgot_password">Forgot Password?</string>
+    <string name="email_phone_number">Email/Phone number</string>
+    <string name="password">Password</string>
+    <string name="send">Send</string>
+    <string name="please_enter_your_registered">Please enter your registered email to recover your password via email</string>
+    <string name="email">Email</string>
+    "Material is the metaphor.\n\n"
+    
+    "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+    "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+    "technologically advanced and open to imagination and magic.\n"
+    "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+    "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+    "flexibility of the material creates new affordances that supercede those in the physical "
+    "world, without breaking the rules of physics.\n"
+    "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+    "interact, and exist in space and in relation to each other. Realistic lighting shows "
+    "seams, divides space, and indicates moving parts.\n\n"
+    
+    "Bold, graphic, intentional.\n\n"
+    
+    "The foundational elements of print based design typography, grids, space, scale, color, "
+    "and use of imagery guide visual treatments. These elements do far more than please the "
+    "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+    "imagery, large scale typography, and intentional white space create a bold and graphic "
+    "interface that immerse the user in the experience.\n"
+    "An emphasis on user actions makes core functionality immediately apparent and provides "
+    "waypoints for the user.\n\n"
+    
+    "Motion provides meaning.\n\n"
+    
+    "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+    "inflection points that initiate motion, transforming the whole design.\n"
+    "All action takes place in a single environment. Objects are presented to the user without "
+    "breaking the continuity of experience even as they transform and reorganize.\n"
+    "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+    "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+    
+    "3D world.\n\n"
+    
+    "The material environment is a 3D space, which means all objects have x, y, and z "
+    "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+    "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+    "position along the z-axis and has a standard 1dp thickness.\n"
+    "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+    "emulated by manipulating the y-axis.\n\n"
+    
+    "Light and shadow.\n\n"
+    
+    "Within the material environment, virtual lights illuminate the scene. Key lights create "
+    "directional shadows, while ambient light creates soft shadows from all angles.\n"
+    "Shadows in the material environment are cast by these two light sources. In Android "
+    "development, shadows occur when light sources are blocked by sheets of material at "
+    "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+    "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+    
+    "Resting elevation.\n\n"
+    
+    "All material objects, regardless of size, have a resting elevation, or default elevation "
+    "that does not change. If an object changes elevation, it should return to its resting "
+    "elevation as soon as possible.\n\n"
+    
+    "Component elevations.\n\n"
+    
+    "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+    "does not vary from 6dp in one app to 16dp in another app).\n"
+    "Components may have different resting elevations across platforms, depending on the depth "
+    "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+    
+    "Responsive elevation and dynamic elevation offsets.\n\n"
+    
+    "Some component types have responsive elevation, meaning they change elevation in response "
+    "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+    "changes are consistently implemented using dynamic elevation offsets.\n"
+    "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+    "to the component’s resting state. They ensure that elevation changes are consistent "
+    "across actions and component types. For example, all components that lift on press have "
+    "the same elevation change relative to their resting elevation.\n"
+    "Once the input event is completed or cancelled, the component will return to its resting "
+    "elevation.\n\n"
+    
+    "Avoiding elevation interference.\n\n"
+    
+    "Components with responsive elevations may encounter other components as they move between "
+    "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+    "through other material, components avoid interfering with one another any number of ways, "
+    "whether on a per component basis or using the entire app layout.\n"
+    "On a component level, components can move or be removed before they cause interference. "
+    "For example, a floating action button (FAB) can disappear or move off screen before a "
+    "user picks up a card, or it can move if a snackbar appears.\n"
+    "On the layout level, design your app layout to minimize opportunities for interference. "
+    "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+    "when a user tries to pick up one of cards.\n\n"
+    <string name="code">Code : </string>
+    <string name="welcome_to_grigora">WELCOME TO GRIGORA</string>
+    <string name="delivery_location">Delivery Location</string>
+    <string name="city">City</string>
+    <string name="use_my_current_location">Use my current location</string>
+    <string name="select_city">Select City</string>
+    <string name="select_area">Select Area</string>
+    <string name="continueTxt">Continue</string>
+    <string name="area">Area</string>
+    <string name="loading_getting_location">Getting Location</string>
+    <string name="deliver_to">Deliver to :</string>
+    <string name="loading">Loading</string>
+    <string name="error_location">Please select location</string>
+    
+    <string name="login_required">Login Required</string>
+    <string name="to_continue_you_need_to_be_logged_in">To Continue you need to be logged in.</string>
+    <string name="login_signup_now">Login/SignUp Now</string>
+    <string name="later">Later</string>
+    <string name="currency_sym">$</string>
+    <string name="food_not_found">Food not found</string>
+    <string name="current_orders">Current Orders</string>
+    <string name="past_orders">Past Orders</string>
+    <string name="choices">Choices :</string>
+    <string name="placed_on">Placed On :</string>
+    <string name="order_items">Order Items :</string>
+    <string name="status">Status :</string>
+    <string name="estimated_arrival">Estimated arrival </string>
+    <string name="preparation_time">Preparation Time</string>
+    <string name="track">Track</string>
+    <string name="add_delivery_note">Add delivery note</string>
+    <string name="detail">Details</string>
+    <string name="profile">Profile</string>
+    <string name="order_history">Order History</string>
+    <string name="payment_method">Payment Method</string>
+    <string name="delivery_address">Delivery Address</string>
+    <string name="logout">Logout</string>
+    <string name="rate_now">Rate Now</string>
+    <string name="submit">Submit</string>
+    <string name="driver_text">How was %s\'s food delivery?</string>
+    <string name="restaurant_text">How was %s\'s food?</string>
+    <string name="add_comment">Add comment</string>
+    <string name="name">Name</string>
+    <string name="phone_number">Phone Number</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="by_clicking_on_signup_you_agree"><![CDATA[By Clicking on Signup you agree to our terms & Conditions]]></string>
+    <string name="save">Save</string>
+    <string name="permission_denial_message">Please approve permissions</string>
+    <string name="settings">Settings</string>
+    <string name="about_us">About Us</string>
+    <string name="contact_us">Contact us</string>
+    <string name="change_password">Change Password</string>
+    <string name="change_language">Change Language</string>
+    <string name="notifications">Notifications</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="change">Change</string>
+    
+    <string name="reviews">Reviews</string>
+    <string name="menu">Menu</string>
+    <string name="search">Search</string>
+    <string name="continuetxt">Continue</string>
+    <string name="choose_your_preferred_language">Choose your Preferred language</string>
+    <string name="french">French</string>
+    <string name="english">English</string>
+    <string name="home">Home</string>
+    <string name="nearby">Nearby</string>
+    <string name="bag">Cart</string>
+    <string name="my_account">My Account</string>
+    <string name="sorry_no_restaurant_available">Sorry! No Restaurant available</string>
+    <string name="orders">Orders</string>
+    <string name="order_details">Order Details</string>
+    
+    <string name="pos">Pay through POS on delivery</string>
+    
+    
+    <string name="pay_now">Debit/Credit card</string>
+    <string name="add_card">Add Card</string>
+    <string name="paypal">Pay Pal</string>
+    <string name="credit_or_debit_card"> Credit or Debit Card</string>
+    <string name="rating">Rating</string>
+    <string name="all">All</string>
+    <string name="empty_bag">Empty Bag</string>
+    <string name="place_order">Place Order</string>
+    <string name="clear_cart">Clear Cart</string>
+    <string name="setting_up">Setting up</string>
+    <string name="language">Language</string>
+    <string name="apply">Apply</string>
+    <string name="enter_promocode">Enter promocode</string>
+    <string name="payment_mode">Payment Details</string>
+    <string name="subtotal">Subtotal :</string>
+    <string name="total">Total :</string>
+    <string name="delivery_fee">Delivery fee :</string>
+    <string name="add">Add</string>
+    <string name="offers">Offers</string>
+    <string name="order_id">Order id</string>
+    <string name="description">Description</string>
+    <string name="or">Or</string>
+    
+    <string name="select_type">Select Type</string>
+    <string name="complaint">Complaint</string>
+    <string name="feedback">Feedback</string>
+    <string name="Suggestions">Suggestions</string>
+    <string name="refund">Refund</string>
+    <string name="successfull">Successfull</string>
+    <string name="sendtoadmin">Your request is successfully sent to admin</string>
+    <string name="ok">Ok</string>
+    <string name="please_select_type">Please select type</string>
+    <string name="required">Required fields</string>
+    <string name="sending_request">Sending Request</string>
+    <string name="went_wrong">Something went wrong</string>
+    <string name="internetnotavailable">Internet not available</string>
+    
+    
+    <string name="who_we_are">WHO WE ARE?</string>
+    <string name="who_we_are_detail">Grigora Limited was established in 2019 to provide quick and reliable solutions to end users using technology. The company currently offers food delivery service to restaurant owners and consumers in a quick and reliable manner using technology.</string>
+    <string name="our_vision">OUR VISION</string>
+    <string name="our_vision_detail">To be the leading provider of quick and reliable solutions using technology</string>
+    <string name="our_value_proposition">OUR VALUE PROPOSITION</string>
+    <string name="our_value_detail">The business model will be operating on, Location Tracking, mobile application, ease of payment, wide range of services and our excellent customer service culture will definitely count as a competitive advantage for Grigora Limited. So also we have a team that can go all the way to give our clients value for their money; a team that are trained and equipped to pay attention to details and deliver services on time and safely</string>
+    <string name="promotion">Promotion :</string>
+    <string name="rate_first">Rate first</string>
+    <string name="no_promo_selected">No promo selected</string>
+    <string name="wallet">Grigora money</string>
+    <string name="sendmoney">Send Money</string>
+    <string name="history">History</string>
+    <string name="addmoney">Add Money</string>
+    <string name="transfer">Transfer Money</string>
+    <string name="last">Last</string>
+    <string name="transactions">Transactions</string>
+    <string name="enteramount">Enter amount to send</string>
+    <string name="emptywallet">0.0 ₦</string>
+    <string name="transfr">Transfer</string>
+    <string name="are_you_sure">Are you sure?</string>
+    
+    <string name="forwhat">What\'s this for?</string>
+    <string name="confirmation_message">Transfer ₦ %s\ to %s\ for %s?</string>
+    <string name="confirmation_message1">Transfer ₦ %s\ to %s\?</string>
+    <string name="enter_amount">Enter amount</string>
+    <string name="pay">Pay</string>
+    <string name="op1">100 ₦</string>
+    <string name="op2">200 ₦</string>
+    <string name="op3">500 ₦</string>
+    <string name="add_amount">Add Amount</string>
+    <string name="ratings">of 5 ratings</string>
+    <string name="notdelivering">Sorry, we are not delivering to your address yet. We will be there soon.</string>
+    <string name="changelocation">Change Location</string>
+    
+    
+    <!--    new designs-->
+    <string name="choose_categories">Choose Categories</string>
+    <string name="of_ratings">%s\ of 5 ratings</string>
+    
+    <string name="quick_order">Quick Order</string>
+    <string name="popular">Popular</string>
+    <string name="wallet_drawer">Grigora Money : ₦</string>
+    <string name="checkout">Checkout</string>
+    <string name="deliver_to_you">DELIVER TO YOU</string>
+    <string name="deliver_in">Delivery in approximately %s\ minutes</string>
+    <string name="apply_promocode">Apply Promocode</string>
+    <string name="addnew">Add New</string>
+    <string name="change_title">Change Location</string>
+    <string name="change_desc">You may loose cart data after changing location</string>
+    <string name="remove">Remove</string>
+    <string name="promo_applied">Promocode applied</string>
+    <string name="your_order_details">YOUR ORDER DETAILS</string>
+    <string name="payondelivery">Pay on delivery</string>
+    <string name="paystack">PayStack</string>
+    <string name="order_hash">ORDER#</string>
+    
+    
+    <string name="waiting_for_confirmation">Waiting for confirmation</string>
+    <string name="order_schduled">Order scheduled</string>
+    <string name="order_prepared">Order prepared</string>
+    <string name="order_accepted">Order Accepted</string>
+    <string name="assigned">Driver assigned</string>
+    <string name="picked">Order picked</string>
+    <string name="delivered">Order delivered</string>
+    <string name="delivered_by">Order delivered by</string>
+    <string name="rejected_by_customer">Order rejected by Customer</string>
+    <string name="rejected_by_restaurant">Order rejected by Restaurant</string>
+    <string name="being_prepared">Order is being prepared</string>
+    <string name="out_for_delivey">Out for delivery</string>
+    <string name="ready_to_diapatch">Ready to dispatch</string>
+    <string name="items">ITEMS</string>
+    <string name="orderedon">ORDERED ON</string>
+    <string name="total2">TOTAL</string>
+    <string name="status2">STATUS</string>
+    <string name="almostready">Order almost ready</string>
+    <string name="driver_assigned">Driver Assigned</string>
+    
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="food_delivery_message">How was food delivery?</string>
+    <string name="no_thanks">No Thanks</string>
+    <string name="food_message">How did you like the food?</string>
+    <string name="meals_message">Tell us how you\'d rate these items?</string>
+    <string name="ttext">I have read and agree to the</string>
+    <string name="termsandconditions"> Terms &amp; conditions </string>
+    <string name="select_language">Select Language</string>
+
+
+</resources>

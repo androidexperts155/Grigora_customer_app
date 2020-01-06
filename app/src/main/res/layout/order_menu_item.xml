@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <TextView
+            
+            android:id="@+id/menuItem"
+            style="@style/normalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_2sdp"
+            android:text="@{orderDetail.orderItem}"
+            android:textColor="@color/textBlack"
+            android:textSize="@dimen/_8sdp" />
+    </LinearLayout>
+    
+    <data>
+        
+        <variable
+            name="orderDetail"
+            type="com.rvtechnologies.grigora.model.models.OrderItemModel.OrderDetail" />
+    </data>
+</layout>
