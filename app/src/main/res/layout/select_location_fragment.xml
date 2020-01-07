@@ -7,7 +7,7 @@
         
         <variable
             name="selectLocationView"
-            type="com.rvtechnologies.grigora.view.ui.dashboard.SelectLocationFragment" />
+            type="com.rvtechnologies.grigora.view.ui.addresses.SelectLocationFragment" />
     </data>
     
     <RelativeLayout
@@ -15,7 +15,7 @@
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".view.ui.dashboard.SelectLocationFragment">
+        tools:context=".view.ui.addresses.SelectLocationFragment">
         
         
         <View

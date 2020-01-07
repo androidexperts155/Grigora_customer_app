@@ -10,13 +10,13 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
 
 
 class SplashFragment : Fragment() {
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,15 +34,22 @@ class SplashFragment : Fragment() {
             (activity as MainActivity).lockDrawer(true)
             (activity as MainActivity).updateLocale(false)
 
-
             Handler().postDelayed({
-                if (CommonUtils.getBooleanPrefValue(context, PrefConstants.IS_LANGUAGE_SELECTED)) {
+                if (GrigoraApp.getInstance().isLogin(this.context!!)) {
                     view?.findNavController()
                         ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
-                } else
-                    view?.findNavController()?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+                } else {
+                    view?.findNavController()
+                        ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+                }
 
-            }, 1000)
+//                if (CommonUtils.getBooleanPrefValue(context, PrefConstants.IS_LANGUAGE_SELECTED)) {
+//                    view?.findNavController()
+//                        ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
+//                } else
+//                    view?.findNavController()?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+
+            }, 2000)
 
         }
     }

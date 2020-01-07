@@ -76,11 +76,11 @@
         <action
             android:id="@+id/action_navigationCart_to_offerFragment"
             app:destination="@id/offerFragment" />
-    
+        
         <action
             android:id="@+id/action_navigationCart_to_menuItemDetailsFragment"
             app:destination="@id/menuItemDetailsFragment" />
-    
+        
         <action
             android:id="@+id/action_navigationCart_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment" />
@@ -116,9 +116,15 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
+        
+        <action
+            android:id="@+id/action_chooseLanguageFragment_to_loginfragment"
+            app:destination="@id/loginFragment2"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    
     </fragment>
-    
-    
     <fragment
         android:id="@+id/navigationRestaurants"
         android:name="com.rvtechnologies.grigora.view.ui.dashboard.DashboardFragment"
@@ -131,10 +137,17 @@
             android:id="@+id/action_dashboardFragment_to_loginFragment"
             app:destination="@id/loginFragment2" />
         
-        <action
-            android:id="@+id/action_dashboardFragment_to_changeLocation"
-            app:destination="@id/selectLocationFragment" />
+        <!--        <action-->
+        <!--            android:id="@+id/action_dashboardFragment_to_changeLocation"-->
+        <!--            app:destination="@id/selectLocationFragment" />-->
         
+        <action
+            android:id="@+id/action_dashboardFragment_to_addressListFragment"
+            app:destination="@id/addressListFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
         
         <action
             android:id="@+id/action_navigationRestaurants_to_menuItemDetailsFragment"
@@ -142,7 +155,7 @@
     </fragment>
     <fragment
         android:id="@+id/selectLocationFragment"
-        android:name="com.rvtechnologies.grigora.view.ui.dashboard.SelectLocationFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.addresses.SelectLocationFragment"
         android:label="select_location_fragment"
         tools:layout="@layout/select_location_fragment">
         <action
@@ -181,7 +194,7 @@
     </fragment>
     <fragment
         android:id="@+id/locationTypeFragment"
-        android:name="com.rvtechnologies.grigora.view.ui.dashboard.LocationTypeFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.addresses.LocationTypeFragment"
         android:label="location_type_fragment"
         tools:layout="@layout/location_type_fragment">
         <action
@@ -304,5 +317,20 @@
         android:id="@+id/rateDishFragment"
         android:name="com.rvtechnologies.grigora.view.ui.orders.RateDishFragment"
         android:label="RateDishFragment" />
+    <fragment
+        android:id="@+id/addressListFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.addresses.AddressList"
+        android:label="AddressList">
+        
+        <action
+            android:id="@+id/action_addressListFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    
+    
+    </fragment>
 
 </navigation>

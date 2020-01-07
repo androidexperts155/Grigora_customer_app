@@ -1,4 +1,4 @@
-package com.rvtechnologies.grigora.view.ui.dashboard
+package com.rvtechnologies.grigora.view.ui.addresses
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
@@ -18,7 +18,7 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.dashboard.adapter.LocationTypeAdapter
+import com.rvtechnologies.grigora.view.ui.addresses.adapter.LocationTypeAdapter
 import com.rvtechnologies.grigora.view_model.LocationTypeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.location_type_fragment.*
@@ -33,7 +33,8 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
     }
 
     companion object {
-        fun newInstance() = LocationTypeFragment()
+        fun newInstance() =
+            LocationTypeFragment()
     }
 
     private lateinit var viewModel: LocationTypeViewModel
@@ -83,7 +84,11 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getLocationTypeList()
 
-        adapter = LocationTypeAdapter(locationTypeList, this)
+        adapter =
+            LocationTypeAdapter(
+                locationTypeList,
+                this
+            )
         rvLocationType.adapter = adapter
     }
 

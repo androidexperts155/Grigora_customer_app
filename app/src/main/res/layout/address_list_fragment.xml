@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="AddressListViewModel"
+            type="com.rvtechnologies.grigora.view_model.AddressListViewModel" />
+        
+        <variable
+            name="AddressListfragment"
+            type="com.rvtechnologies.grigora.view.ui.addresses.AddressList" />
+    
+    </data>
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@android:color/white">
+        
+        <RelativeLayout
+            android:id="@+id/rel_top"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="28dp"
+            android:background="@android:color/transparent"
+            android:elevation="1dp">
+            
+            <ImageButton
+                android:id="@+id/img_back"
+                style="@style/title"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_transparent"
+                android:clickable="true"
+                android:onClick="@{()-> AddressListfragment.back()}"
+                app:srcCompat="@drawable/ic_back_black_24dp" />
+            
+            <TextView
+                android:id="@+id/txtRestaurantName"
+                style="@style/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="@string/delivery_address"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_14sdp" />
+            
+            
+            <ImageButton
+                android:id="@+id/img_add"
+                style="@style/title"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_transparent"
+                android:clickable="true"
+                android:onClick="@{()-> AddressListfragment.addClicked()}"
+                app:srcCompat="@drawable/ic_add_black" />
+        </RelativeLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvRestaurants"
+            
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@id/rel_top"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="8dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_address" />
+    
+    </RelativeLayout>
+
+</layout>

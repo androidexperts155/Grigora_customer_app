@@ -34,13 +34,16 @@ class ChooseLanguageFragment : Fragment() {
         chooseLanguageViewModel?.langSelectionResult?.observe(this, Observer { response ->
             if (response is String) {
                 CommonUtils.saveBooleanPrefs(context, PrefConstants.IS_LANGUAGE_SELECTED, true)
-
                 CommonUtils.savePrefs(context, PrefConstants.LANGUAGE_SELECTED, response)
                 GrigoraApp.getInstance().setCurrentActivity(activity as MainActivity)
                 (activity as MainActivity).updateLocale(true)
 
-                view?.findNavController()
-                    ?.navigate(R.id.action_chooseLanguageFragment_to_selectLocationFragment)
+                if (GrigoraApp.getInstance().isLogin(this.context!!))
+                    view?.findNavController()
+                        ?.navigate(R.id.action_chooseLanguageFragment_to_selectLocationFragment)
+                else
+                    view?.findNavController()
+                        ?.navigate(R.id.action_chooseLanguageFragment_to_loginfragment)
             }
         })
 

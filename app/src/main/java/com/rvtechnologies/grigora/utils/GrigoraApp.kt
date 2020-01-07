@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.utils
 
 import android.app.Activity
 import android.app.Application
+import android.content.Context
 import android.os.Handler
 import android.os.Looper
 import android.provider.Settings
@@ -83,6 +84,8 @@ class GrigoraApp : Application() {
             ?: GrigoraApp().also {
                 grigoraApp = it
             }
+
+
     }
 
     fun setCurrentActivity(activity: Activity) {
@@ -129,5 +132,10 @@ class GrigoraApp : Application() {
         );
 
     }
+
+    fun isLogin(context: Context): Boolean{
+        return  !CommonUtils.getPrefValue(context,PrefConstants.TOKEN).isNullOrEmpty()
+    }
+
 
 }

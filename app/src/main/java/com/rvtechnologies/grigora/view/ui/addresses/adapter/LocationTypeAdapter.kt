@@ -1,4 +1,4 @@
-package com.rvtechnologies.grigora.view.ui.dashboard.adapter
+package com.rvtechnologies.grigora.view.ui.addresses.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
@@ -25,7 +25,9 @@ class LocationTypeAdapter(var locationTypeList: ArrayList<LocationTypeModel>, va
         val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, R.layout.location_type_item, parent,false)
 
 
-        return ViewHolder(binding as LocationTypeItemBinding)
+        return ViewHolder(
+            binding as LocationTypeItemBinding
+        )
     }
 
     override fun getItemCount(): Int {

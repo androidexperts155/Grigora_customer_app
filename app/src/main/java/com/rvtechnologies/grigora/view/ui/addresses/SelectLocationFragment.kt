@@ -1,4 +1,4 @@
-package com.rvtechnologies.grigora.view.ui.dashboard
+package com.rvtechnologies.grigora.view.ui.addresses
 
 import android.Manifest.permission
 import android.annotation.SuppressLint
@@ -51,7 +51,8 @@ import java.net.URISyntaxException
 class SelectLocationFragment : Fragment(), OnMapReadyCallback {
 
     companion object {
-        fun newInstance() = SelectLocationFragment()
+        fun newInstance() =
+            SelectLocationFragment()
     }
 
     private lateinit var mMap: GoogleMap
@@ -77,14 +78,14 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        selectLocationViewBinding = DataBindingUtil.inflate<ViewDataBinding>(
-            inflater,
-            R.layout.select_location_fragment,
-            container,
-            false
-        ) as SelectLocationFragmentBinding
-        selectLocationViewBinding.selectLocationView = this
-        return selectLocationViewBinding.root
+            selectLocationViewBinding = DataBindingUtil.inflate<ViewDataBinding>(
+                inflater,
+                R.layout.select_location_fragment,
+                container,
+                false
+            ) as SelectLocationFragmentBinding
+            selectLocationViewBinding.selectLocationView = this
+            return selectLocationViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -293,5 +294,6 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
 
 
     }
+
 
 }

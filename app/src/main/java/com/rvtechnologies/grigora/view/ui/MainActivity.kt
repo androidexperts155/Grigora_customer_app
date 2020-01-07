@@ -78,34 +78,11 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
 
         deliverLayout.setOnClickListener {
-
-            //            save in temp values before clearing so that if we press back at choose location, we can have previous location stored. This functionality is done because in select location fragment in onCreate user is aitomatically redirected to dashboard if there is location
-            CommonUtils.savePrefs(
-                this,
-                PrefConstants.TEMP_LATITUDE,
-                CommonUtils.getPrefValue(this, PrefConstants.LATITUDE)
-            )
-            CommonUtils.savePrefs(
-                this,
-                PrefConstants.TEMP_LONGITUDE,
-                CommonUtils.getPrefValue(this, PrefConstants.LONGITUDE)
-            )
-            CommonUtils.savePrefs(
-                this,
-                PrefConstants.TEMP_ADDRESS,
-                CommonUtils.getPrefValue(this, PrefConstants.ADDRESS)
-            )
-
-
-            CommonUtils.savePrefs(this, PrefConstants.LATITUDE, "")
-            CommonUtils.savePrefs(this, PrefConstants.LONGITUDE, "")
-            CommonUtils.savePrefs(this, PrefConstants.ADDRESS, "")
-
 //            Navigation.findNavController(this, R.id.main_nav_fragment)
 //                .popBackStack(R.id.nav_graph_xml, true)
 
             Navigation.findNavController(this, R.id.main_nav_fragment)
-                .navigate(R.id.selectLocationFragment)
+                .navigate(R.id.addressListFragment)
         }
 
         Log.e("token:: ", CommonUtils.getPrefValue(this, PrefConstants.TOKEN))
@@ -118,8 +95,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         img_menu.setOnClickListener {
             closeOrOpenDrawer()
         }
-
-
     }
 
     private fun setDrawer() {
