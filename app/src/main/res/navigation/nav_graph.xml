@@ -144,10 +144,8 @@
         <action
             android:id="@+id/action_dashboardFragment_to_addressListFragment"
             app:destination="@id/addressListFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         
         <action
             android:id="@+id/action_navigationRestaurants_to_menuItemDetailsFragment"
@@ -191,10 +189,12 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
-    
+        
         <action
             android:id="@+id/action_splashFragment2_to_navigationRestaurants"
             app:destination="@id/navigationRestaurants"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
@@ -326,10 +326,8 @@
         <action
             android:id="@+id/action_walletFragment_to_sendMoneyFragment"
             app:destination="@id/sendMoneyFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
     <fragment
         android:id="@+id/sendMoneyFragment"
@@ -347,10 +345,8 @@
         <action
             android:id="@+id/action_addressListFragment_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
-            app:enterAnim="@anim/nav_default_enter_anim"
-            app:exitAnim="@anim/nav_default_exit_anim"
-            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
-            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     
     
     </fragment>

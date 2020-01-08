@@ -34,8 +34,7 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_90sdp"
                     android:scaleType="centerCrop"
-                    android:src="@drawable/restaurant"
-                    app:layout_constraintEnd_toStartOf="@+id/imgRestaurant"
+                     app:layout_constraintEnd_toStartOf="@+id/imgRestaurant"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:normal_image_url="@{menuItemModel.image}" />

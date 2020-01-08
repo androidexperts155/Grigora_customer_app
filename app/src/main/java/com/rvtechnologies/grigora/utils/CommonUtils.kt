@@ -75,14 +75,14 @@ object CommonUtils {
 
     fun showLoader(context: Context?, message: String) {
         if (progressBarDialog == null && context != null) {
-            val view = LayoutInflater.from(context).inflate(R.layout.loader_layout, null)
+            val view = LayoutInflater.from(context).inflate(R.layout.custom_loader, null)
             progressBarDialog = Dialog(context)
             progressBarDialog?.window?.requestFeature(Window.FEATURE_NO_TITLE)
             progressBarDialog?.setContentView(view)
             progressBarDialog?.setCancelable(false)
             progressBarDialog?.window?.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
             view.bringToFront()
-            view.loadingMessage.text = message
+//            view.loadingMessage.text = message
             progressBarDialog?.setCancelable(false)
             progressBarDialog?.show()
         }

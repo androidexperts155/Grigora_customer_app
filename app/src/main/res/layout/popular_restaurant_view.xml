@@ -24,8 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                android:src="@drawable/restaurant"
-                app:normal_image_url="@{restaurantModel.image}" />
+                 app:normal_image_url="@{restaurantModel.image}" />
         
         </androidx.cardview.widget.CardView>
         

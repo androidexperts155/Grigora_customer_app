@@ -75,7 +75,6 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
 
     }
 
-
     private fun showLoginAlert(activity: MainActivity?) {
         var alertDialog: AlertDialog? = null
 
@@ -196,7 +195,7 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
         rec_quick?.adapter = QuickAdapter(quickList, this)
 
         bt_location.setOnClickListener {
-//            CommonUtils.savePrefs(
+            //            CommonUtils.savePrefs(
 //                activity,
 //                PrefConstants.TEMP_LATITUDE,
 //                CommonUtils.getPrefValue(activity, PrefConstants.LATITUDE)
