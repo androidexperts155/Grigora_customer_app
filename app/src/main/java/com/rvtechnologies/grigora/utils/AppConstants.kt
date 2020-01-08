@@ -19,6 +19,13 @@ object AppConstants {
     const val REVIEW_RESTAURANT="2"
     const val REVIEW_DRIVER="3"
     const val NOT_LOGIN="notlogin"
+    const val ADDRESS_DATA="address_data"
+    const val LATITUDE="lat"
+    const val LONGITUDE="lng"
+    const val ADDRESS="address"
+    const val TOKEN="token"
+    const val LOCATION_TYPE_ID="location_type_id"
+    const val COMPLETE_ADDRESS="complete_address"
 
 
     const val SELECT_CITY=100

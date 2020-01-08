@@ -1,4 +1,4 @@
-package com.rvtechnologies.grigora.model
+package com.rvtechnologies.grigora.model.models
 
 
 import com.google.gson.annotations.SerializedName
@@ -24,6 +24,9 @@ data class AddAddressModel(
     var longitude: String = "",
     @SerializedName("updated_at")
     var updatedAt: String = "",
+    @SerializedName("location_type_name")
+    var locationTypeName: String = "",
+
     @SerializedName("user_id")
     var userId: Int = 0
 )

@@ -12,6 +12,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -78,14 +79,14 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-            selectLocationViewBinding = DataBindingUtil.inflate<ViewDataBinding>(
-                inflater,
-                R.layout.select_location_fragment,
-                container,
-                false
-            ) as SelectLocationFragmentBinding
-            selectLocationViewBinding.selectLocationView = this
-            return selectLocationViewBinding.root
+        selectLocationViewBinding = DataBindingUtil.inflate<ViewDataBinding>(
+            inflater,
+            R.layout.select_location_fragment,
+            container,
+            false
+        ) as SelectLocationFragmentBinding
+        selectLocationViewBinding.selectLocationView = this
+        return selectLocationViewBinding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -100,14 +101,12 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
             address = CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
         }
 
-
-
-        if (latitude > 0.0 &&
-            longitude > 0.0
-        ) {
-            view.findNavController()
-                .navigate(R.id.action_selectLocationFragment_to_navigationRestaurants)
-        }
+//        if (latitude > 0.0 &&
+//            longitude > 0.0
+//        ) {
+//            view.findNavController()
+//                .navigate(R.id.action_selectLocationFragment_to_navigationRestaurants)
+//        }
     }
 
     override fun onResume() {
@@ -189,7 +188,38 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
                     AddressUtils.getAddressFromLocation(latitude.toDouble(), longitude.toDouble(),
                         it, Handler {
                             address = it.data?.get("address").toString()
-                            saveLocationContinue()
+                            CommonUtils.hideLoader()
+
+                            if (latitude > 0.0 &&
+                                longitude > 0.0
+                            ) {
+                                txtAddress.text = address
+
+//                                CommonUtils.savePrefs(
+//                                    context,
+//                                    PrefConstants.LATITUDE,
+//                                    latitude.toString()
+//                                )
+//                                CommonUtils.savePrefs(
+//                                    context,
+//                                    PrefConstants.LONGITUDE,
+//                                    longitude.toString()
+//                                )
+//                                CommonUtils.savePrefs(context, PrefConstants.ADDRESS, address)
+                                (activity as MainActivity).updateLocation()
+
+//            clear stack before proceeding further as whole new thread start here
+//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                .popBackStack(R.id.nav_graph_xml, true)
+//
+//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                .navigate(R.id.locationTypeFragment)
+                            } else {
+                                CommonUtils.showMessage(
+                                    parentView,
+                                    getString(R.string.error_location)
+                                )
+                            }
                             return@Handler true
                         })
                 }
@@ -204,17 +234,29 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         if (latitude > 0.0 &&
             longitude > 0.0
         ) {
-            CommonUtils.savePrefs(context, PrefConstants.LATITUDE, latitude.toString())
-            CommonUtils.savePrefs(context, PrefConstants.LONGITUDE, longitude.toString())
-            CommonUtils.savePrefs(context, PrefConstants.ADDRESS, address)
+
             (activity as MainActivity).updateLocation()
 
-//            clear stack before proceeding further as whole new thread start here
-            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                .popBackStack(R.id.nav_graph_xml, true)
+            var map = HashMap<String, String>()
+            map.put(AppConstants.LATITUDE, latitude.toString())
+            map.put(AppConstants.LONGITUDE, longitude.toString())
+            map.put(AppConstants.ADDRESS, address)
+            map.put(AppConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
 
-            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                .navigate(R.id.locationTypeFragment)
+            val bundle = bundleOf(AppConstants.ADDRESS_DATA to map)
+
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_selectLocationFragment_to_locationTypeFragment,
+                    bundle
+                )
+
+//            clear stack before proceeding further as whole new thread start here
+//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                .popBackStack(R.id.nav_graph_xml, true)
+//
+//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                .navigate(R.id.locationTypeFragment)
         } else {
             CommonUtils.showMessage(parentView, getString(R.string.error_location))
         }
@@ -247,38 +289,38 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         super.onDestroy()
 
 //        restore old lat lng as user has aborted select location
-        if (latitude == 0.0 &&
-            longitude == 0.0
-        ) {
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.LATITUDE,
-                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LATITUDE)
-            )
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.LONGITUDE,
-                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LONGITUDE)
-            )
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.ADDRESS,
-                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_ADDRESS)
-            )
-
-
-            CommonUtils.savePrefs(activity, PrefConstants.TEMP_ADDRESS, "")
-            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LONGITUDE, "")
-            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LATITUDE, "")
-
-            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                .popBackStack(R.id.nav_graph_xml, true)
-
-            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                .navigate(R.id.navigationRestaurants)
-        }
+//        if (latitude == 0.0 &&
+//            longitude == 0.0
+//        ) {
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.LATITUDE,
+//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LATITUDE)
+//            )
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.LONGITUDE,
+//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LONGITUDE)
+//            )
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.ADDRESS,
+//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_ADDRESS)
+//            )
+//
+//
+//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_ADDRESS, "")
+//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LONGITUDE, "")
+//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LATITUDE, "")
+//
+////            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+////                .popBackStack(R.id.nav_graph_xml, true)
+//
+//
+//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                .navigate(R.id.action_selectLocationFragment_to_locationTypeFragment)
+//        }
     }
-
 
     fun updateMap() {
         mMap.clear()

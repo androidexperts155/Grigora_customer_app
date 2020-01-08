@@ -24,6 +24,17 @@ interface ApiInterface {
         @Field("role") role: String
     ): Call<JsonElement>
 
+    //login_type(1:instagram,2:twiter,3:facebook,4:google)
+    @FormUrlEncoded
+    @POST(ApiConstants.SOCIAL_LOGIN_URL)
+    fun socialLogin(
+        @Field("name") name: String,
+        @Field("email") email: String,
+        @Field("phone") phone: String,
+        @Field("login_type") login_type: String,
+        @Field("social_id") social_id: String
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.SIGNUP_URL)
@@ -58,6 +69,12 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
+    @GET(ApiConstants.GET_ALL_ADDRESSES)
+    fun getAllAddresses(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+
     @GET(ApiConstants.GET_ALL_CATEGORIES_URL)
     fun getAllCategories(
     ): Call<JsonElement>
@@ -71,6 +88,19 @@ interface ApiInterface {
         @Field("search") search: String,
         @Field("user_id") user_id: String
     ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.ADD_ADDRESS)
+    fun addAddress(
+        @Header("Authorization") token: String,
+        @Field("address") name: String,
+        @Field("latitude") email: String,
+        @Field("longitude") sort: String,
+        @Field("location_type_id") search: String,
+        @Field("complete_address") user_id: String
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.GET_POPULAR_RESTAURANT_URL)

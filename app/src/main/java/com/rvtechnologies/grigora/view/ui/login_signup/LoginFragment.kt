@@ -50,9 +50,6 @@ class LoginFragment : Fragment(), GoogleSignin {
                 .build()
 
         intent = GoogleSignIn.getClient(activity!!, gso!!).signInIntent
-
-
-
         loginViewModel = ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
 
         loginViewModel?.loginResult?.observe(this, Observer { response ->
@@ -89,7 +86,6 @@ class LoginFragment : Fragment(), GoogleSignin {
         return loginFragmentBinding.root
     }
 
-
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
@@ -105,9 +101,14 @@ class LoginFragment : Fragment(), GoogleSignin {
         CommonUtils.savePrefs(context, PrefConstants.ID, data.data?.id?.toString())
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
-        back()
-    }
 
+        if (data?.data?.have_address!!) {
+            view?.findNavController()?.navigate(R.id.action_loginFragment2_to_addressListFragment)
+        } else {
+            view?.findNavController()
+                ?.navigate(R.id.action_loginFragment2_to_selectLocationFragment)
+        }
+    }
 
     fun toSignUp() {
         view?.findNavController()?.navigate(R.id.action_loginFragment2_to_signUpFragment)
@@ -155,6 +156,11 @@ class LoginFragment : Fragment(), GoogleSignin {
         } catch (e: ApiException) {
             Log.w("Google Exception", "signInResult:failed code=" + e.statusCode)
         }
+    }
+
+
+    fun checkAddresses() {
+
     }
 }
 

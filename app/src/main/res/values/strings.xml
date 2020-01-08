@@ -302,6 +302,8 @@
     <string name="ttext">I have read and agree to the</string>
     <string name="termsandconditions"> Terms &amp; conditions </string>
     <string name="select_language">Select Language</string>
+    <string name="delivery_to">Delivery to</string>
+    <string name="apt_number">Apt/Suite Number (optional)</string>
 
 
 </resources>

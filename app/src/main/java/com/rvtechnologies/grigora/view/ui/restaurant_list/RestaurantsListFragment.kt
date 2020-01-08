@@ -2,7 +2,6 @@ package com.rvtechnologies.grigora.view.ui.restaurant_list
 
 
 import android.content.Context
-import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.text.Editable
@@ -32,7 +31,6 @@ import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantAdapter
 import com.rvtechnologies.grigora.view_model.RestaurantsListFragmentViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.dialog_filter.*
 import kotlinx.android.synthetic.main.fragment_restaurants_list.*
 
 class RestaurantsListFragment : Fragment(), OnItemClickListener {
@@ -130,7 +128,7 @@ class RestaurantsListFragment : Fragment(), OnItemClickListener {
                 if (response is CommonResponseModel<*>) {
                     if (response.status!!) {
                         restaurantList.addAll(response.data as Collection<RestaurantModel>)
-                        rvRestaurants.adapter?.notifyDataSetChanged()
+                        rc_addresses.adapter?.notifyDataSetChanged()
                         noRestaurant.visibility = if (restaurantList.isEmpty()) VISIBLE else GONE
                     }
                 } else {
@@ -167,9 +165,9 @@ class RestaurantsListFragment : Fragment(), OnItemClickListener {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        rvRestaurants.adapter = RestaurantAdapter(restaurantList, this)
+        rc_addresses.adapter = RestaurantAdapter(restaurantList, this)
 
-        rvRestaurants.isNestedScrollingEnabled = false
+        rc_addresses.isNestedScrollingEnabled = false
 
         etSearch.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(text: Editable?) {

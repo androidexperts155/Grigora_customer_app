@@ -78,6 +78,32 @@ class ApiRepo {
             })
     }
 
+    fun socialLogin(
+        email: String,
+        password: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().login(email, password, AppConstants.ROLE_CUSTOMER)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
+
     /*
   Signup repo
    */
@@ -154,6 +180,63 @@ Cuisine repo
     ) {
 
         ApiClient.getClient().getCuisine(token)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
+
+    // get all addresses repo
+    fun getAllAddresses(
+        token: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().getAllAddresses(token)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
+    // get all addresses repo
+    fun addAddress(
+        map: HashMap<String, String>,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().addAddress(
+            map[AppConstants.TOKEN]!!,
+            map[AppConstants.ADDRESS]!!,
+            map[AppConstants.LATITUDE]!!,
+            map[AppConstants.LONGITUDE]!!,
+            map[AppConstants.LOCATION_TYPE_ID]!!,
+            map[AppConstants.COMPLETE_ADDRESS]!!
+        )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,

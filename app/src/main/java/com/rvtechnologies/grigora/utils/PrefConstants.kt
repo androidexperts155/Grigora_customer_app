@@ -7,11 +7,13 @@ object PrefConstants {
     val LATITUDE = "latitude"
     val LONGITUDE = "longitude"
     val ADDRESS = "address"
+    val COMPLETE_ADDRESS = "complete_address"
+    val ADDRESS_ID = "address_id"
 
 
-    val TEMP_LATITUDE = "temp_latitude"
-    val TEMP_LONGITUDE = "temp_longitude"
-    val TEMP_ADDRESS = "temp_address"
+//    val TEMP_LATITUDE = "temp_latitude"
+//    val TEMP_LONGITUDE = "temp_longitude"
+//    val TEMP_ADDRESS = "temp_address"
 
 
     val LOCATION_TYPE = "location_type"

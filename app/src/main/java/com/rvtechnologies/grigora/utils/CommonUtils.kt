@@ -33,7 +33,7 @@ object CommonUtils {
             Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun savePrefs(context: Context?, key: String, value: String?) {
+    fun     savePrefs(context: Context?, key: String, value: String?) {
         if (context != null && value != null) {
             val prefs = context.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
             val editor = prefs.edit()

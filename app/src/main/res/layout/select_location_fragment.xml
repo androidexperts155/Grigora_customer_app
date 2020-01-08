@@ -11,12 +11,10 @@
     </data>
     
     <RelativeLayout
-        
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:context=".view.ui.addresses.SelectLocationFragment">
-        
         
         <View
             android:layout_width="match_parent"
@@ -37,6 +35,7 @@
             android:textSize="@dimen/_14sdp" />
         
         <LinearLayout
+            android:id="@+id/li_up"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical">
@@ -57,7 +56,8 @@
             <TextView
                 android:id="@+id/txtAddress"
                 style="@style/normalText"
-                
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_8sdp"
@@ -66,6 +66,7 @@
                 android:hint="@string/select_area"
                 android:onClick="@{()-> selectLocationView.selectArea()}"
                 android:textColor="@color/white"
+                android:textColorHint="@color/white"
                 android:textSize="@dimen/_10sdp" />
             
             <TextView
@@ -84,15 +85,31 @@
                 android:text="@string/use_my_current_location"
                 android:textAllCaps="false"
                 android:textColor="@color/white" />
+            
+            
+            <EditText
+                android:id="@+id/ed_apartment"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="@dimen/_16sdp"
+                android:background="@drawable/edit_bottom_line_back"
+                android:hint="@string/apt_number"
+                android:textColor="@color/white"
+                android:textColorHint="@color/white" />
+        
         
         </LinearLayout>
         
-        
-        <LinearLayout
+        <androidx.cardview.widget.CardView
+            android:layout_below="@+id/li_up"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="12dp"
-            android:layout_marginTop="@dimen/_150sdp"
+            android:layout_marginTop="8dp"
+            app:cardCornerRadius="8dp"
             android:layout_marginRight="12dp"
             android:layout_marginBottom="@dimen/_20sdp"
             android:background="@drawable/shadow"
@@ -102,17 +119,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent">
                 
-                <fragment
-                    android:id="@+id/map"
-                    android:name="com.google.android.gms.maps.SupportMapFragment"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_above="@+id/button5"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerVertical="true"
-                    android:enabled="true" />
+        
+                    
+                    <fragment
+                        android:id="@+id/map"
+                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        
+                        android:enabled="true" />
                 
-                
+                 
                 <Button
                     android:id="@+id/button5"
                     style="@style/normalText"
@@ -134,8 +151,7 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_12sdp" />
             </RelativeLayout>
-        </LinearLayout>
-    
+        </androidx.cardview.widget.CardView>
     
     </RelativeLayout>
 </layout>

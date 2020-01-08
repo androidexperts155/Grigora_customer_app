@@ -44,5 +44,8 @@ data class User(
     @SerializedName("status")
     var status: String?,
     @SerializedName("updated_at")
-    var updatedAt: String?
-):Parcelable
+    var updatedAt: String?,
+    @SerializedName("have_address")
+    var have_address: Boolean?
+
+) : Parcelable

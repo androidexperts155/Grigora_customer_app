@@ -191,6 +191,13 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
+    
+        <action
+            android:id="@+id/action_splashFragment2_to_navigationRestaurants"
+            app:destination="@id/navigationRestaurants"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/locationTypeFragment"
@@ -210,6 +217,21 @@
             app:destination="@id/signUpFragment"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
+        
+        
+        <action
+            android:id="@+id/action_loginFragment2_to_addressListFragment"
+            app:destination="@id/addressListFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+        
+        <action
+            android:id="@+id/action_loginFragment2_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+        
+        
         <action
             android:id="@+id/action_loginFragment2_to_forgotPasswordFragment"
             app:destination="@id/forgotPasswordFragment" />

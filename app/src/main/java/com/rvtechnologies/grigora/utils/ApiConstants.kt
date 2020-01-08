@@ -7,6 +7,7 @@ object ApiConstants {
     const val CHANGE_LANGUAGE_URL = "change-language"
     const val LOGIN_URL = "login"
     const val SIGNUP_URL = "signup"
+    const val SOCIAL_LOGIN_URL = "social-login"
 
     const val FORGOT_PASSWORD_URL = "forgot-password"
 
@@ -30,7 +31,7 @@ object ApiConstants {
     const val ADD_ITEM_URL = "add-cart"
     const val UPDATE_CART_QTY = "update-cart-item-quantity"
     const val REMOVE_CART_URL = "remove-cart"
-        const val CART_ITEMS_URL= "cart-item-list"
+    const val CART_ITEMS_URL = "cart-item-list"
 
 
     const val PAY_STACK = "pay-stack"
@@ -57,6 +58,8 @@ object ApiConstants {
     const val TRANSFER_MONEY = "send-wallet-money"
     const val WALLET_HISTORY = "wallet-history"
     const val ADD_MONEY = "wallet-in"
+    const val GET_ALL_ADDRESSES = "get-user-addresses"
+    const val ADD_ADDRESS = "add-user-location"
 
 
 }

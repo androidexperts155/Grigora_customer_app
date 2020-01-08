@@ -36,8 +36,23 @@ class SplashFragment : Fragment() {
 
             Handler().postDelayed({
                 if (GrigoraApp.getInstance().isLogin(this.context!!)) {
-                    view?.findNavController()
-                        ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
+                    var latitude = 0.0
+                    if (!CommonUtils.getPrefValue(
+                            context,
+                            PrefConstants.LATITUDE
+                        ).isNullOrEmpty()
+                    )
+                        latitude =
+                            CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble()
+
+                    if (latitude > 0.0
+
+                    ) {
+                        view?.findNavController()
+                            ?.navigate(R.id.action_splashFragment2_to_navigationRestaurants)
+                    } else
+                        view?.findNavController()
+                            ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
                 } else {
                     view?.findNavController()
                         ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)

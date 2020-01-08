@@ -196,26 +196,28 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
         rec_quick?.adapter = QuickAdapter(quickList, this)
 
         bt_location.setOnClickListener {
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.TEMP_LATITUDE,
-                CommonUtils.getPrefValue(activity, PrefConstants.LATITUDE)
-            )
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.TEMP_LONGITUDE,
-                CommonUtils.getPrefValue(activity, PrefConstants.LONGITUDE)
-            )
-            CommonUtils.savePrefs(
-                activity,
-                PrefConstants.TEMP_ADDRESS,
-                CommonUtils.getPrefValue(activity, PrefConstants.ADDRESS)
-            )
-
-
-            CommonUtils.savePrefs(activity, PrefConstants.LATITUDE, "")
-            CommonUtils.savePrefs(activity, PrefConstants.LONGITUDE, "")
-            CommonUtils.savePrefs(activity, PrefConstants.ADDRESS, "")
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.TEMP_LATITUDE,
+//                CommonUtils.getPrefValue(activity, PrefConstants.LATITUDE)
+//            )
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.TEMP_LONGITUDE,
+//                CommonUtils.getPrefValue(activity, PrefConstants.LONGITUDE)
+//            )
+//            CommonUtils.savePrefs(
+//                activity,
+//                PrefConstants.TEMP_ADDRESS,
+//                CommonUtils.getPrefValue(activity, PrefConstants.ADDRESS)
+//            )
+//
+//
+//            CommonUtils.savePrefs(activity, PrefConstants.LATITUDE, "")
+//            CommonUtils.savePrefs(activity, PrefConstants.LONGITUDE, "")
+//            CommonUtils.savePrefs(activity, PrefConstants.ADDRESS, "")
+//            CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, "")
+//            CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, "")
 
 
 //            Navigation.findNavController(this, R.id.main_nav_fragment)
@@ -266,15 +268,4 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
         viewModel.categoryListRes.removeObservers(context as AppCompatActivity)
         viewModel.restaurantListRes.removeObservers(context as AppCompatActivity)
     }
-
-//    private fun runLayoutAnimation(recyclerView: ViewGroup) {
-//        val context = recyclerView.context
-//        val controller =
-//            AnimationUtils.loadLayoutAnimation(context, R.anim.layout_animation_fall_down)
-//
-//        recyclerView.layoutAnimation = controller
-////        recyclerView.adapter!!.notifyDataSetChanged()
-//        recyclerView.scheduleLayoutAnimation()
-//    }
-
 }
