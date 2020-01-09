@@ -219,7 +219,7 @@
             </LinearLayout>
             
             <Button
-                android:id="@+id/btnLogin"
+                android:id="@+id/bt_signup"
                 style="@style/normalText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -232,7 +232,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_rounded"
                 android:elevation="1dp"
-                android:onClick="@{()-> signUpFragmentViewModel.signUp()}"
+                android:onClick="@{()-> signUpFragment.signUp()}"
                 android:paddingLeft="@dimen/_22sdp"
                 android:paddingRight="@dimen/_22sdp"
                 android:text="@string/sign_up"

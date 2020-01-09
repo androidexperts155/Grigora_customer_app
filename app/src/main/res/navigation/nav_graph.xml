@@ -176,7 +176,7 @@
         android:id="@+id/splashFragment2"
         android:name="com.rvtechnologies.grigora.view.ui.login_signup.SplashFragment"
         android:label="fragment_spash"
-        tools:layout="@layout/fragment_spash">
+        tools:layout="@layout/fragment_splash">
         <action
             android:id="@+id/action_splashFragment2_to_chooseLanguageFragment"
             app:destination="@id/chooseLanguageFragment"

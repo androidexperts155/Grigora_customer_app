@@ -5,6 +5,7 @@ import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
 import android.media.ExifInterface
+import android.os.Build
 import android.os.Environment
 import android.text.TextUtils
 import android.util.DisplayMetrics
@@ -14,6 +15,8 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.view.WindowManager
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -300,5 +303,13 @@ object CommonUtils {
             n,
             context.resources.displayMetrics
         ).toInt()
+    }
+
+    fun changeStatusBarColor(activity: AppCompatActivity, color:Int){
+        val window = activity.window
+        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            window.statusBarColor = color
+        }
     }
 }

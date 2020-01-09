@@ -56,7 +56,7 @@ class SignUpFragmentViewModel : ViewModel() {
     /*
     Validate login credentials from user
      */
-    private fun isValidData(): Boolean {
+      fun isValidData(): Boolean {
         if (name.value.isNullOrBlank()) {
             isLoading.value = false
             signUpResult.value = "Invalid name"

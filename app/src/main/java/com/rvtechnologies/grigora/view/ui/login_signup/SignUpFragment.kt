@@ -1,5 +1,6 @@
 package com.rvtechnologies.grigora.view.ui.login_signup
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,9 +10,11 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentSignUpBinding
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view_model.SignUpFragmentViewModel
@@ -69,5 +72,26 @@ class SignUpFragment : Fragment() {
 
     fun toLogin() {
         activity?.onBackPressed()
+    }
+
+    fun signUp() {
+        if (signUpViewModel?.isValidData()!!) {
+            startActivityForResult(
+                Intent(context, OtpActivity::class.java).putExtra(
+                    "phone",
+                    signUpViewModel?.phone?.value
+                ), AppConstants.OTP_CODE
+            )
+
+        }
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == AppConstants.OTP_CODE) {
+            if (data?.getBooleanExtra("verified", false)!!) {
+                signUpViewModel?.signUp()
+            }
+        }
     }
 }

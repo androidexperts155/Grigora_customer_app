@@ -22,7 +22,7 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_spash, container, false)
+        return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
     override fun onResume() {
@@ -64,7 +64,7 @@ class SplashFragment : Fragment() {
 //                } else
 //                    view?.findNavController()?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
 
-            }, 2000)
+            }, 10000)
 
         }
     }

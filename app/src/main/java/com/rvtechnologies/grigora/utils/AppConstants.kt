@@ -31,4 +31,5 @@ object AppConstants {
     const val SELECT_CITY=100
     const val SELECT_AREA=101
     const val SELECT_IMAGE_CODE=102
+    const val OTP_CODE=103
 }

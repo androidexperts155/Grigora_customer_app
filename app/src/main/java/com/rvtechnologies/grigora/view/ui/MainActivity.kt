@@ -50,12 +50,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         super.onCreate(savedInstanceState)
         printHashKey()
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//            )
+//        }
         GrigoraApp.getInstance().setCurrentActivity(this)
         updateLocale(false)
         setContentView(R.layout.activity_main)
