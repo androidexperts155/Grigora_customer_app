@@ -14,9 +14,9 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
-import com.fxn.pix.Options
-import com.fxn.pix.Pix
-import com.fxn.utility.PermUtil
+//import com.fxn.pix.Options
+//import com.fxn.pix.Pix
+//import com.fxn.utility.PermUtil
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileDetailsFragmentBinding
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
@@ -110,18 +110,18 @@ class ProfileDetailsFragment : Fragment() {
     }
 
     fun chooseProfilePic() {
-        Pix.start(this, Options.init().setRequestCode(AppConstants.SELECT_IMAGE_CODE))
+//        Pix.start(this, Options.init().setRequestCode(AppConstants.SELECT_IMAGE_CODE))
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
-        if (resultCode == Activity.RESULT_OK && requestCode == AppConstants.SELECT_IMAGE_CODE) {
-            val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-            if (returnValue != null) {
-                viewModel.image.value = returnValue[0]
-                profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
-            }
-        }
+//        if (resultCode == Activity.RESULT_OK && requestCode == AppConstants.SELECT_IMAGE_CODE) {
+//            val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
+//            if (returnValue != null) {
+//                viewModel.image.value = returnValue[0]
+//                profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
+//            }
+//        }
 
     }
 
@@ -130,19 +130,19 @@ class ProfileDetailsFragment : Fragment() {
         permissions: Array<String>,
         grantResults: IntArray
     ) {
-        when (requestCode) {
-            PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
-                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-                    Pix.start(this, Options.init().setRequestCode(AppConstants.SELECT_IMAGE_CODE))
-                } else {
-                    CommonUtils.showMessage(
-                        parentView,
-                        getString(R.string.permission_denial_message)
-                    )
-                }
-                return
-            }
-        }
+//        when (requestCode) {
+//            PermUtil.REQUEST_CODE_ASK_MULTIPLE_PERMISSIONS -> {
+//                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+//                    Pix.start(this, Options.init().setRequestCode(AppConstants.SELECT_IMAGE_CODE))
+//                } else {
+//                    CommonUtils.showMessage(
+//                        parentView,
+//                        getString(R.string.permission_denial_message)
+//                    )
+//                }
+//                return
+//            }
+//        }
     }
 
 

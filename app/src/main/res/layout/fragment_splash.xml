@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="?attr/backgroundColor"
     tools:context=".view.ui.login_signup.SplashFragment">
     
     <ImageView
@@ -12,15 +12,32 @@
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_top" />
+        android:src="@drawable/splash_bottom" />
     
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
+    <LinearLayout
         android:layout_centerInParent="true"
-        android:layout_gravity="center"
-        android:src="@drawable/logo" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+        
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_100sdp"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@drawable/logo" />
+        
+        <ImageView
+            android:id="@+id/img_logo_name"
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_below="@id/imageView"
+            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:src="@drawable/logo_name" />
+    
+    </LinearLayout>
     
     <ImageView
         android:layout_width="@dimen/_160sdp"
@@ -28,7 +45,7 @@
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/splash_bottom" />
+        android:src="@drawable/splash_top" />
 </RelativeLayout>
 
 

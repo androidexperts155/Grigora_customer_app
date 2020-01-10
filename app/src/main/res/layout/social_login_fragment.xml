@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:fillViewport="true"
+    tools:context=".view.ui.login_signup.SocialLoginFragment">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_40sdp"
+            android:layout_marginRight="@dimen/_40sdp"
+            android:orientation="vertical">
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/img_facebook" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/img_twitter" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/img_google" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_45sdp"
+                android:src="@drawable/img_insta" />
+        
+        </LinearLayout>
+        
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_25sdp"
+            android:orientation="horizontal">
+            
+            <TextView
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/loginn"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <View
+                android:layout_width="1dp"
+                android:layout_height="match_parent"
+                android:layout_margin="6dp"
+                android:background="?attr/lightGray" />
+            
+            <TextView
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/sign_up"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+        
+        
+        </LinearLayout>
+        
+        <TextView
+            style="@style/normalText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:padding="@dimen/_20sdp"
+            android:text="@string/termsandconditions_social"
+            android:textColor="?attr/lightGray" />
+    
+    </LinearLayout>
+
+
+</ScrollView>

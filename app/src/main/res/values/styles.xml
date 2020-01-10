@@ -7,12 +7,40 @@
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
-
+        <item name="backgroundColor">@color/background_light</item>
 
     </style>
     
     <style name="AppTheme.Splash">
         <item name="android:windowBackground">@drawable/background</item>
+    </style>
+    
+    
+    <style name="AppTheme.Light" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+        <item name="backgroundColor">@color/background_light</item>
+        <item name="lightGray">@color/lightGrey</item>
+        <item name="textWhite">@color/textBlack</item>
+
+
+
+    </style>
+    <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/_10sdp</item>
+        <item name="android:fontFamily">@font/roboto_regular</item>
+        <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
+        <item name="backgroundColor">@color/background_dark</item>
+        <item name="lightGray">@color/lightGrey</item>
+        <item name="textWhite">@color/white</item>
+        
     </style>
     
     

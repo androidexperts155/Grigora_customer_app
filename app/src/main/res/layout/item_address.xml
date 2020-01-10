@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -33,7 +34,7 @@
         tools:text="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque " />
     
     <TextView
-            android:id="@+id/tv_apt_number"
+        android:id="@+id/tv_apt_number"
         style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -51,7 +52,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginLeft="@dimen/_8sdp"
-        android:src="@drawable/ic_check_black_24dp"
-        android:tint="@color/colorPrimaryDark" />
+        android:tint="@color/colorPrimaryDark"
+        app:srcCompat="@drawable/ic_check_" />
 
 </RelativeLayout>

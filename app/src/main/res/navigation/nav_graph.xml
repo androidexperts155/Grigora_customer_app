@@ -350,5 +350,13 @@
     
     
     </fragment>
+    <fragment
+        android:id="@+id/socialLoginFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.SocialLoginFragment"
+        android:label="SocialLogin">
+    
+    
+    </fragment>
+
 
 </navigation>

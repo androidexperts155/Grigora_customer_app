@@ -304,6 +304,8 @@
     <string name="select_language">Select Language</string>
     <string name="delivery_to">Delivery to</string>
     <string name="apt_number">Apt/Suite Number (optional)</string>
+    <string name="loginn">Login</string>
+    <string name="termsandconditions_social">By LOGIN or SIGNUP you will accept all Terms and Conditions and Privacy Policy of GRIGORA</string>
 
 
 </resources>

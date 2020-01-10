@@ -35,30 +35,12 @@
     <color name="viewbg">#DFDEDE</color>
     <color name="textBlack">#262626</color>
     <color name="texftBlack">#EEECEC</color>
-    
+    <color name="white">#ffffff</color>
     
     <color name="lightPrimary">#FDE8E7</color>
     
-    <!--<color name="colorPrimary">#D52A43</color>
-    <color name="colorPrimaryDark">#D52A43</color>
-    <color name="colorAccent">#D52A43</color>
-    
-    <color name="edit_primary">#D52A43</color>
-    <color name="btn_primary">#D52A43</color>
-    <color name="text_primary">#D52A43</color>
-    
-    
-    &lt;!&ndash;    <color name="card_back">#95e1e1e1</color>&ndash;&gt;
-    <color name="card_back">#2B3744</color>
-    
-    
-    <color name="btnStart">#EE1D1D</color>
-    <color name="btnCenter">#F04F13</color>
-    <color name="btnEnd">#F2850D</color>
-    
-    
-    <color name="def_rate">#fff</color>
-    <color name="lightGrey">#bababa</color>
-    <color name="duskYellow">#ffab00</color>-->
+    <color name="background_light">#ffffff</color>
+    <color name="background_dark">#020A18</color>
+
 
 </resources>
