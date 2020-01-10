@@ -305,11 +305,15 @@ object CommonUtils {
         ).toInt()
     }
 
-    fun changeStatusBarColor(activity: AppCompatActivity, color:Int){
-        val window = activity.window
-        window.addFlags(WindowManager.LayoutParams.FLAG_DRAWS_SYSTEM_BAR_BACKGROUNDS)
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            window.statusBarColor = color
+    fun changeStatusBarColor(color: Int,activity: AppCompatActivity) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            var decor = activity.window.decorView
+            decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
+            activity.window.statusBarColor = color
+            activity.window.statusBarColor = color
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            activity.window.statusBarColor = color
         }
+
     }
 }

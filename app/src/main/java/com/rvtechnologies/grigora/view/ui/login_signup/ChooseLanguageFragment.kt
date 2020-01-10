@@ -28,6 +28,10 @@ class ChooseLanguageFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        CommonUtils.changeStatusBarColor(
+            ContextCompat.getColor(context!!, R.color.lightGrey),
+            activity as MainActivity
+        )
         chooseLanguageViewModel =
             ViewModelProviders.of(this).get(ChooseLanguageViewModel::class.java)
 

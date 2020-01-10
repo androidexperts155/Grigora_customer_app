@@ -6,6 +6,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -43,6 +44,7 @@ class LoginFragment : Fragment(), GoogleSignin {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+            CommonUtils.changeStatusBarColor(ContextCompat.getColor(context!!, R.color.lightGrey), activity as MainActivity)
         (activity as MainActivity).initGoogleSignin(this)
         gso =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)

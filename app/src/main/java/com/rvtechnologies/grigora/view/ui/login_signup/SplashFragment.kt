@@ -6,6 +6,7 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
@@ -22,6 +23,10 @@ class SplashFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        CommonUtils.changeStatusBarColor(
+            ContextCompat.getColor(context!!, R.color.lightGrey),
+            activity as MainActivity
+        )
         return inflater.inflate(R.layout.fragment_splash, container, false)
     }
 
@@ -55,7 +60,7 @@ class SplashFragment : Fragment() {
                             ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
                 } else {
                     view?.findNavController()
-                        ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+                        ?.navigate(R.id.action_splashFragment2_to_welcomeFragment)
                 }
 
 //                if (CommonUtils.getBooleanPrefValue(context, PrefConstants.IS_LANGUAGE_SELECTED)) {
@@ -64,7 +69,7 @@ class SplashFragment : Fragment() {
 //                } else
 //                    view?.findNavController()?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
 
-            }, 10000)
+            }, 2000)
 
         }
     }

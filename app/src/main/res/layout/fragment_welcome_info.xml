@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    tools:context=".view.ui.login_signup.WelcomeInfoFragment">
+    
+    <com.smarteist.autoimageslider.SliderView
+        android:id="@+id/imageSlider"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_350sdp"
+        android:layout_marginTop="@dimen/_60sdp"
+        app:sliderAnimationDuration="600"
+        app:sliderAutoCycleDirection="back_and_forth"
+        app:sliderAutoCycleEnabled="false"
+        app:sliderCircularHandlerEnabled="false"
+        app:sliderIndicatorAnimationDuration="600"
+        app:sliderIndicatorGravity="center_horizontal|bottom"
+        app:sliderIndicatorMargin="@dimen/_8sdp"
+        app:sliderIndicatorOrientation="horizontal"
+        app:sliderIndicatorPadding="@dimen/_3sdp"
+        app:sliderIndicatorRadius="@dimen/_1sdp"
+        app:sliderIndicatorSelectedColor="@color/colorPrimaryDark"
+        app:sliderIndicatorUnselectedColor="@color/textLightGrey"
+        app:sliderScrollTimeInSec="20"
+        app:sliderStartAutoCycle="false" />
+    
+    
+    <TextView
+        android:layout_width="wrap_content"
+        android:id="@+id/tv_skip"
+    
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:padding="@dimen/_8sdp"
+        android:text="Skip"
+        android:textColor="@color/textGrey"
+        android:textSize="@dimen/_12sdp" />
+    
+    <TextView
+        android:id="@+id/tv_next"
+    
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginRight="@dimen/_20sdp"
+        android:layout_marginBottom="@dimen/_20sdp"
+        android:padding="@dimen/_8sdp"
+        android:text="Next"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_12sdp" />
+
+
+</RelativeLayout>

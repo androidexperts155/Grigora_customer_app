@@ -21,163 +21,143 @@
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/white">
+        android:background="?attr/backgroundColor">
         
         <ImageView
             android:id="@+id/img"
-            android:layout_width="@dimen/_220sdp"
-            android:layout_height="@dimen/_220sdp"
-            android:scaleType="fitXY"
-            android:src="@drawable/login_bg" />
-        
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_130sdp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:layout_marginTop="60dp"
-            android:layout_marginRight="16dp">
+            android:src="@drawable/splash_bottom" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
             
-            <ImageView
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutUsername"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/img"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="16dp"
+                android:backgroundTint="@color/lightGrey"
+                android:textColorHint="?attr/textWhite"
                 
-                android:layout_width="@dimen/_70sdp"
-                android:layout_height="@dimen/_22sdp"
-                android:layout_alignParentBottom="true"
-                android:src="@drawable/fire_bg" />
+                >
+                
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textWhite"
+                    android:ems="10"
+                    android:hint="@string/email_phone_number"
+                    android:inputType="textEmailAddress"
+                    android:text="@={loginFragmentViewModel.email}"
+                    android:textColor="?attr/textWhite"
+                    android:textColorHint="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
             
+            </com.google.android.material.textfield.TextInputLayout>
+            
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/textInputLayoutPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:layout_below="@id/textInputLayoutUsername"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textColorHint="?attr/textWhite">
+                
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/editText2"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textWhite"
+                    android:ems="10"
+                    android:hint="@string/password"
+                    android:inputType="textPassword"
+                    android:text="@={loginFragmentViewModel.password}"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+            
+            
+            </com.google.android.material.textfield.TextInputLayout>
+            
+            <TextView
+                android:id="@+id/btnForgot"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textInputLayoutPassword"
+                android:layout_alignParentRight="true"
+                android:layout_gravity="right"
+                android:layout_marginRight="16dp"
+                android:layout_marginBottom="@dimen/_16sdp"
+                android:background="@drawable/underline_textview_back"
+                android:onClick="@{()-> loginFragment.toForgotPassword()}"
+                android:text="@string/forgot_password"
+                android:textAllCaps="false"
+                android:textColor="?attr/textGray" />
             
             <Button
-                android:id="@+id/button3"
+                android:id="@+id/btnLogin"
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnForgot"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_48sdp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="@dimen/_48sdp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
+                android:onClick="@{()-> loginFragmentViewModel.login()}"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/login"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
+            
+            <TextView
                 style="@style/title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/btnLogin"
                 android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
                 android:background="@android:color/transparent"
-                android:gravity="right|center_vertical"
+                android:clickable="true"
+                android:gravity="center"
                 android:onClick="@{()->loginFragment.toSignUp()}"
+                android:padding="@dimen/_8sdp"
                 android:text="@string/sign_up"
                 android:textAllCaps="false"
-                android:textColor="@color/textBlack"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-        </RelativeLayout>
-        
-        
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutUsername"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/img"
-            android:layout_marginStart="16dp"
-            android:layout_marginTop="@dimen/_32sdp"
-            android:layout_marginEnd="16dp"
-            
-            >
-            
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText"
-                style="@style/normalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/email_phone_number"
-                android:inputType="textEmailAddress"
-                android:text="@={loginFragmentViewModel.email}"
-                android:textColor="@color/textBlack"
-                android:textSize="@dimen/_12sdp"
-                app:layout_constraintBottom_toTopOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="parent" />
-        
-        </com.google.android.material.textfield.TextInputLayout>
-        
-        <com.google.android.material.textfield.TextInputLayout
-            android:id="@+id/textInputLayoutPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/textInputLayoutUsername"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp">
-            
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/editText2"
-                style="@style/normalText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/password"
-                android:inputType="textPassword"
-                android:text="@={loginFragmentViewModel.password}"
-                android:textColor="@color/textBlack"
-                android:textSize="@dimen/_12sdp" />
-        
-        
-        </com.google.android.material.textfield.TextInputLayout>
-        
-        <TextView
-            android:id="@+id/btnForgot"
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textInputLayoutPassword"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="16dp"
-            android:layout_marginBottom="@dimen/_24sdp"
-            android:background="@drawable/underline_textview_back"
-            android:onClick="@{()-> loginFragment.toForgotPassword()}"
-            android:text="@string/forgot_password"
-            android:textAllCaps="false"
-            android:textColor="@color/textGrey" />
-        
-        <Button
-            android:id="@+id/fb_login"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:background="@android:color/holo_blue_dark"
-            android:onClick="@{()->loginFragment.fbLogin()}"
-            android:text="FB"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-        
-        <Button
-            android:id="@+id/google_login"
-            android:layout_width="wrap_content"
-            
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:layout_toRightOf="@+id/fb_login"
-            android:background="@android:color/holo_blue_dark"
-            android:onClick="@{()->loginFragment.googleLogin()}"
-            android:text="GOOGLE"
-            android:textColor="@color/white"
-            android:visibility="gone" />
-        
-        
-        <Button
-            android:id="@+id/btnLogin"
-            style="@style/normalText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btnForgot"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_48sdp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="@dimen/_48sdp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_rounded"
-            android:elevation="1dp"
-            android:onClick="@{()-> loginFragmentViewModel.login()}"
-            android:paddingLeft="@dimen/_22sdp"
-            android:paddingRight="@dimen/_22sdp"
-            android:text="@string/login"
-            android:textAllCaps="true"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
     
-    
+        <ImageView
+            android:layout_width="@dimen/_155sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_alignParentLeft="true"
+        
+            android:layout_alignParentBottom="true"
+        
+            android:src="@drawable/splash_top" />
     </RelativeLayout>
 
 

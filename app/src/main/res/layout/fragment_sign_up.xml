@@ -23,46 +23,17 @@
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/white">
+            android:background="?attr/backgroundColor">
             
             
             <ImageView
                 android:id="@+id/img"
-                android:layout_width="@dimen/_220sdp"
-                android:layout_height="@dimen/_220sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/login_bg" />
-            
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_alignParentTop="true"
+                android:layout_width="@dimen/_110sdp"
+                
+                android:layout_height="@dimen/_130sdp"
                 android:layout_alignParentRight="true"
-                android:layout_marginTop="60dp"
-                android:layout_marginRight="16dp">
-                
-                <ImageView
-                    android:layout_width="@dimen/_70sdp"
-                    android:layout_height="@dimen/_22sdp"
-                    android:layout_alignParentBottom="true"
-                    android:src="@drawable/fire_bg" />
-                
-                
-                <Button
-                    android:id="@+id/txtToLogin"
-                    style="@style/title"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentTop="true"
-                    android:layout_centerHorizontal="true"
-                    android:background="@android:color/transparent"
-                    android:gravity="right|center_vertical"
-                    android:onClick="@{()-> signUpFragment.toLogin()}"
-                    android:text="@string/login"
-                    android:textAllCaps="false"
-                    android:textColor="@color/textBlack"
-                    android:textSize="@dimen/_12sdp" />
-            </RelativeLayout>
+                android:src="@drawable/splash_bottom" />
+            
             
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout5"
@@ -71,19 +42,23 @@
                 android:layout_below="@+id/img"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/_8sdp"
+                
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:textColorHint="?attr/textWhite">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText6"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textWhite"
                     android:ems="10"
+                    
                     android:hint="@string/name"
                     android:inputType="textPersonName"
                     android:text="@={signUpFragmentViewModel.name}"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -93,42 +68,54 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayout5"
+                
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp">
+                android:layout_marginBottom="8dp"
+                android:textColorHint="?attr/textWhite">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    
+                    android:backgroundTint="?attr/textWhite"
                     android:ems="10"
                     android:hint="@string/email"
                     android:inputType="textEmailAddress"
+                    
                     android:text="@={signUpFragmentViewModel.email}"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
+                    android:textColorHint="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
             </com.google.android.material.textfield.TextInputLayout>
             
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout"
                 android:layout_width="match_parent"
+                
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayout3"
                 android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp">
+                android:layout_marginEnd="16dp"
+                android:textColorHint="?attr/textWhite">
                 
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText3"
                     style="@style/normalText"
                     android:layout_width="match_parent"
+                    
                     android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textWhite"
                     android:ems="10"
                     android:hint="@string/phone_number"
+                    
                     android:inputType="phone"
                     android:text="@={signUpFragmentViewModel.phone}"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
+                    android:textColorHint="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
             
             </com.google.android.material.textfield.TextInputLayout>
@@ -141,21 +128,24 @@
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textInputLayout2"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
                 
-                android:layout_marginEnd="16dp">
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                
+                android:textColorHint="?attr/textWhite">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText4"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/edit_bottom_line_back"
+                    android:backgroundTint="?attr/textWhite"
                     android:ems="10"
                     android:hint="@string/confirm_password"
+                    
                     android:inputType="textPassword"
                     android:text="@={signUpFragmentViewModel.confirm_password}"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
             </com.google.android.material.textfield.TextInputLayout>
             
@@ -168,18 +158,21 @@
                 android:layout_below="@+id/textInputLayout"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp">
+                
+                android:layout_marginEnd="16dp"
+                android:textColorHint="?attr/textWhite">
                 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/editText2"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:backgroundTint="?attr/textWhite"
                     android:ems="10"
                     android:hint="@string/password"
                     android:inputType="textPassword"
                     android:text="@={signUpFragmentViewModel.password}"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/editText3" />
@@ -203,7 +196,7 @@
                     android:buttonTint="@color/colorPrimaryDark"
                     android:checked="true"
                     android:text="@string/ttext"
-                    android:textColor="@color/textBlack"
+                    android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_10sdp" />
                 
                 <TextView
@@ -239,6 +232,36 @@
                 android:textAllCaps="true"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/_12sdp" />
+            
+            <TextView
+                android:id="@+id/tv_login"
+                style="@style/title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/bt_signup"
+                
+                android:layout_centerHorizontal="true"
+                android:background="@android:color/transparent"
+                android:gravity="center"
+                android:onClick="@{()-> signUpFragment.toLogin()}"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/login"
+                android:textAllCaps="false"
+                android:textColor="?attr/textWhite"
+                
+                android:textSize="@dimen/_12sdp" />
+            
+            <ImageView
+                android:id="@+id/img_bottom"
+                android:layout_width="@dimen/_155sdp"
+                android:layout_height="@dimen/_130sdp"
+                android:layout_below="@+id/tv_login"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentBottom="true"
+                
+                android:layout_marginTop="4dp"
+                
+                android:src="@drawable/splash_top" />
         
         </RelativeLayout>
     </ScrollView>

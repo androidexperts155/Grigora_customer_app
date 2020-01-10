@@ -7,17 +7,17 @@
     tools:context=".view.ui.login_signup.SplashFragment">
     
     <ImageView
-        android:layout_width="@dimen/_160sdp"
-        android:layout_height="@dimen/_160sdp"
+        android:id="@+id/img"
+        android:layout_width="@dimen/_110sdp"
+        android:layout_height="@dimen/_130sdp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
-        android:scaleType="centerCrop"
         android:src="@drawable/splash_bottom" />
     
     <LinearLayout
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
         android:orientation="vertical">
         
         <ImageView
@@ -33,6 +33,7 @@
             android:layout_width="@dimen/_160sdp"
             android:layout_height="@dimen/_50sdp"
             android:layout_below="@id/imageView"
+            
             android:layout_centerInParent="true"
             android:layout_gravity="center"
             android:src="@drawable/logo_name" />
@@ -40,11 +41,12 @@
     </LinearLayout>
     
     <ImageView
-        android:layout_width="@dimen/_160sdp"
-        android:layout_height="@dimen/_160sdp"
+        android:layout_width="@dimen/_155sdp"
+        android:layout_height="@dimen/_130sdp"
         android:layout_alignParentLeft="true"
+        
         android:layout_alignParentBottom="true"
-        android:scaleType="centerCrop"
+        
         android:src="@drawable/splash_top" />
 </RelativeLayout>
 

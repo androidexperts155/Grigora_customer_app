@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -17,6 +18,7 @@ import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.SignUpFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_sign_up.*
 
@@ -25,6 +27,7 @@ class SignUpFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        CommonUtils.changeStatusBarColor(ContextCompat.getColor(context!!, R.color.lightGrey), activity as MainActivity)
         signUpViewModel = ViewModelProviders.of(this).get(SignUpFragmentViewModel::class.java)
         signUpViewModel?.signUpResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {

@@ -49,7 +49,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         printHashKey()
-
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             getWindow().setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -59,6 +58,9 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         GrigoraApp.getInstance().setCurrentActivity(this)
         updateLocale(false)
         setContentView(R.layout.activity_main)
+
+
+
         if (actionBar != null) {
             actionBar?.hide()
         }
@@ -99,6 +101,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             closeOrOpenDrawer()
         }
     }
+
 
     private fun setDrawer() {
         if (!CommonUtils.getPrefValue(

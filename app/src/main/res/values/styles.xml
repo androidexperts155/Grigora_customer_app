@@ -8,7 +8,7 @@
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
         <item name="backgroundColor">@color/background_light</item>
-
+    
     </style>
     
     <style name="AppTheme.Splash">
@@ -26,10 +26,11 @@
         <item name="backgroundColor">@color/background_light</item>
         <item name="lightGray">@color/lightGrey</item>
         <item name="textWhite">@color/textBlack</item>
-
-
-
+        <item name="textGray">@color/textGrey</item>
+    
+    
     </style>
+    
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -40,7 +41,9 @@
         <item name="backgroundColor">@color/background_dark</item>
         <item name="lightGray">@color/lightGrey</item>
         <item name="textWhite">@color/white</item>
-        
+        <item name="textGray">@color/lightGrey</item>
+
+
     </style>
     
     
@@ -58,7 +61,7 @@
     <style name="RatingBarToRate" parent="Widget.AppCompat.RatingBar">
         <item name="android:numStars">5</item>
         <item name="colorControlNormal">@color/def_rate</item>
-     
+        
         <item name="colorControlActivated">@color/duskYellow</item>
         <item name="android:stepSize">0.5</item>
     </style>

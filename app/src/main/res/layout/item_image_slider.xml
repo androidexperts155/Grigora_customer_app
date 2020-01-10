@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+    
+    
+    <ImageView
+        android:id="@+id/image_view"
+        android:layout_width="@dimen/_180sdp"
+        android:layout_height="@dimen/_180sdp"
+        android:layout_gravity="center"
+        android:src="@drawable/fav_restaurant" />
+    
+    <TextView
+        style="@style/normalText"
+        android:id="@+id/tv_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:padding="@dimen/_16sdp"
+        
+        android:text="Seamless Delivery"
+        android:textColor="@color/colorPrimaryDark"
+        android:textSize="@dimen/_14sdp" />
+    
+    <TextView
+        style="@style/normalText"
+        android:id="@+id/tv_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_40sdp"
+        android:layout_marginRight="@dimen/_40sdp"
+        android:gravity="center"
+        android:text="Track your order easily to your door step in real time"
+        android:textColor="@color/textGrey"
+        android:textSize="@dimen/_12sdp" />
+
+</LinearLayout>

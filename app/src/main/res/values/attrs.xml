@@ -3,4 +3,5 @@
     <attr name="backgroundColor" format="color" />
     <attr name="lightGray" format="color" />
     <attr name="textWhite" format="color" />
+    <attr name="textGray" format="color" />
 </resources>

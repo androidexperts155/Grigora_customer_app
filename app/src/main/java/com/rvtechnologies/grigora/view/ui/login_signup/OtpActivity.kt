@@ -46,7 +46,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
             )
         }
-        CommonUtils.changeStatusBarColor(this, ContextCompat.getColor(this, R.color.textBlack))
+        CommonUtils.changeStatusBarColor(ContextCompat.getColor(this, R.color.textBlack), this)
 
         setContentView(R.layout.activity_otp)
 

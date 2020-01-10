@@ -6,8 +6,10 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.SocialLoginViewModel
 import kotlinx.android.synthetic.main.activity_main.*
@@ -24,6 +26,10 @@ class SocialLoginFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        CommonUtils.changeStatusBarColor(
+            ContextCompat.getColor(context!!, R.color.lightGrey),
+            activity as MainActivity
+        )
         return inflater.inflate(R.layout.social_login_fragment, container, false)
     }
 
