@@ -36,7 +36,7 @@ object CommonUtils {
             Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()
     }
 
-    fun     savePrefs(context: Context?, key: String, value: String?) {
+    fun savePrefs(context: Context?, key: String, value: String?) {
         if (context != null && value != null) {
             val prefs = context.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
             val editor = prefs.edit()
@@ -289,13 +289,11 @@ object CommonUtils {
             file.mkdirs()
         }
         return file.absolutePath + "/" + System.currentTimeMillis() + ".jpg"
-
     }
 
     fun isLink(text: String): Boolean {
         return text.contains("http")
     }
-
 
     fun dip2pixel(context: Context, n: Float): Int {
         return TypedValue.applyDimension(
@@ -305,7 +303,7 @@ object CommonUtils {
         ).toInt()
     }
 
-    fun changeStatusBarColor(color: Int,activity: AppCompatActivity) {
+    fun changeStatusBarColor(color: Int, activity: AppCompatActivity) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             var decor = activity.window.decorView
             decor.systemUiVisibility = View.SYSTEM_UI_FLAG_LIGHT_STATUS_BAR;
@@ -314,6 +312,13 @@ object CommonUtils {
         } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             activity.window.statusBarColor = color
         }
+    }
 
+    fun isDarkMode(): Boolean {
+        return true
+    }
+
+    fun isFirst(): Boolean {
+        return false
     }
 }

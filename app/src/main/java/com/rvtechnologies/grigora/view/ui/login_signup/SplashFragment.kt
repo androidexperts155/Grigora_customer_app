@@ -15,6 +15,7 @@ import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_splash.*
 
 
 class SplashFragment : Fragment() {
@@ -28,6 +29,18 @@ class SplashFragment : Fragment() {
             activity as MainActivity
         )
         return inflater.inflate(R.layout.fragment_splash, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (CommonUtils.isDarkMode()) {
+            img_logo.setImageDrawable(
+                ContextCompat.getDrawable(
+                    context!!,
+                    R.drawable.logo_text_dark
+                )
+            )
+        }
     }
 
     override fun onResume() {
@@ -59,8 +72,12 @@ class SplashFragment : Fragment() {
                         view?.findNavController()
                             ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
                 } else {
-                    view?.findNavController()
-                        ?.navigate(R.id.action_splashFragment2_to_welcomeFragment)
+                    if (CommonUtils.isFirst())
+                        view?.findNavController()
+                            ?.navigate(R.id.action_splashFragment2_to_welcomeFragment)
+                    else
+                        view?.findNavController()
+                            ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
                 }
 
 //                if (CommonUtils.getBooleanPrefValue(context, PrefConstants.IS_LANGUAGE_SELECTED)) {
@@ -69,7 +86,7 @@ class SplashFragment : Fragment() {
 //                } else
 //                    view?.findNavController()?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
 
-            }, 2000)
+            }, 4000)
 
         }
     }

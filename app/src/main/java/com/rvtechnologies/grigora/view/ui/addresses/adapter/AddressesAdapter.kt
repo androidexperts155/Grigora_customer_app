@@ -18,6 +18,8 @@ class AddressesAdapter(
     val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<AddressesAdapter.MyView>() {
+
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         return MyView(
             LayoutInflater.from(parent.context).inflate(

@@ -78,21 +78,31 @@ class ChooseLanguageFragment : Fragment() {
         initView()
     }
 
-    fun initView() {
+    private fun initView() {
         var language = CommonUtils.getPrefValue(context, PrefConstants.LANGUAGE_SELECTED)
         if (language == AppConstants.FRENCH) {
             rel_french.setBackgroundResource(R.drawable.select_lang_round_grey)
-            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-
             rel_english.setBackgroundResource(R.drawable.select_lang_round_white)
-            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
+            if (CommonUtils.isDarkMode()) {
+                tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
         } else {
             rel_english.setBackgroundResource(R.drawable.select_lang_round_grey)
-            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-
             rel_french.setBackgroundResource(R.drawable.select_lang_round_white)
-            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+            if (CommonUtils.isDarkMode()) {
+                tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+            }
         }
     }
 
@@ -112,17 +122,31 @@ class ChooseLanguageFragment : Fragment() {
 
     fun setEnglish() {
         rel_english.setBackgroundResource(R.drawable.select_lang_round_grey)
-        tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
         rel_french.setBackgroundResource(R.drawable.select_lang_round_white)
-        tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+        if (CommonUtils.isDarkMode()) {
+            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        } else {
+            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+        }
         chooseLanguageViewModel?.langSelected?.value = AppConstants.ENGLISH
     }
 
     fun setFrench() {
-        rel_english.setBackgroundResource(R.drawable.select_lang_round_white)
-        tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
         rel_french.setBackgroundResource(R.drawable.select_lang_round_grey)
-        tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        rel_english.setBackgroundResource(R.drawable.select_lang_round_white)
+
+        if (CommonUtils.isDarkMode()) {
+            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        } else {
+            tv_french.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_english.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+        }
+
         chooseLanguageViewModel?.langSelected?.value = AppConstants.FRENCH
     }
 }

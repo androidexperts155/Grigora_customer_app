@@ -8,120 +8,74 @@
     android:orientation="vertical"
     tools:context=".view.ui.login_signup.OtpActivity">
     
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="25dp"
-        android:background="@color/textLightGrey" />
-    
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/rel_top"
-        android:layout_width="match_parent"
-        android:layout_height="48dp"
-        
-        android:background="@android:color/white"
-        android:elevation="1dp">
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-            
-            <ImageButton
-                android:id="@+id/img_back"
-                style="@style/title"
-                android:layout_width="@dimen/_24sdp"
-                android:layout_height="@dimen/_24sdp"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:background="@drawable/btn_transparent"
-                android:clickable="true"
-                app:srcCompat="@drawable/ic_close" />
-        
-        
-        </RelativeLayout>
-    </androidx.appcompat.widget.Toolbar>
-    
     
     <ImageView
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_150sdp"
+        
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_20sdp"
-        android:tint="@color/textBlack"
-        android:visibility="gone"
-        app:srcCompat="@drawable/ic_phone_white" />
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/img_otp" />
     
     <com.mukesh.OtpView
         android:id="@+id/otp_view"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:layout_marginTop="@dimen/_80sdp"
+        android:layout_marginTop="@dimen/_40sdp"
         android:inputType="number"
         android:itemBackground="@color/white"
         android:textColor="@android:color/black"
-        android:visibility="gone"
         app:itemCount="6"
-        app:lineColor="@color/colorPrimary"
+        app:lineColor="?attr/lightGray"
         app:viewType="rectangle" />
     
-    
-    <RelativeLayout
-        
+    <Button
+        android:id="@+id/buttonVerifyPhone"
+        style="@style/normalText"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical">
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_48sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_48sdp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded"
+        android:elevation="1dp"
+        android:paddingLeft="@dimen/_22sdp"
+        android:paddingRight="@dimen/_22sdp"
+        android:text="@string/continueTxt"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
         
-        <LinearLayout
-            android:id="@+id/phoneAuthFields"
-            android:layout_width="match_parent"
+        <TextView
+            style="@style/normalText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp">
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="2.0">
-                
-                <EditText
-                    android:id="@+id/fieldVerificationCode"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:hint="Verification Code"
-                    android:inputType="number" />
-            
-            </LinearLayout>
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="3.0">
-                
-                
-                <Button
-                    android:id="@+id/buttonVerifyPhone"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:text="Verify Phone" />
-                
-                <Button
-                    android:id="@+id/buttonResend"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.0"
-                    android:text="Resend" />
-            </LinearLayout>
+            android:text="@string/didnot_got"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
         
-        </LinearLayout>
-    
-    
-    </RelativeLayout>
-
+        <TextView
+            android:id="@+id/buttonResend"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:elevation="1dp"
+            android:padding="8dp"
+            android:text="@string/resend"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
 
 </LinearLayout>

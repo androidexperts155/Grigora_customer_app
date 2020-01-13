@@ -57,16 +57,11 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
         GrigoraApp.getInstance().setCurrentActivity(this)
         updateLocale(false)
+
+
+        setTheme()
         setContentView(R.layout.activity_main)
-
-
-
-        if (actionBar != null) {
-            actionBar?.hide()
-        }
-//        check for existing completed order and rate them
         rateOrder()
-
         setDrawer()
 
         nav_view.setNavigationItemSelectedListener { item ->
@@ -102,6 +97,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
+    fun setTheme() {
+        if (CommonUtils.isDarkMode())
+            setTheme(R.style.AppTheme_Dark)
+        else
+            setTheme(R.style.AppTheme_Light)
+    }
 
     private fun setDrawer() {
         if (!CommonUtils.getPrefValue(

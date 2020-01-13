@@ -27,6 +27,19 @@
         <item name="lightGray">@color/lightGrey</item>
         <item name="textWhite">@color/textBlack</item>
         <item name="textGray">@color/textGrey</item>
+        <item name="langSelected">@color/textBlack</item>
+        <item name="langDeselected">@color/white</item>
+        <item name="langBorder">@color/textBlack</item>
+        <item name="searchHint">@color/textGrey</item>
+        <item name="searchBg">@color/white</item>
+        <item name="searchBorder">@color/textGrey</item>
+        
+        <item name="filterChipSelected">@color/colorPrimaryDark</item>
+        <item name="filterChipSelectedTextColor">@color/white</item>
+        <item name="filterChipDeSelected">@color/background_light_grey</item>
+        <item name="filterChipDeSelectedTextColor">@color/textBlack</item>
+     
+        <item name="offer_bg_border">@android:color/transparent</item>
     
     
     </style>
@@ -42,8 +55,20 @@
         <item name="lightGray">@color/lightGrey</item>
         <item name="textWhite">@color/white</item>
         <item name="textGray">@color/lightGrey</item>
-
-
+        <item name="langSelected">@color/background_dark_light</item>
+        <item name="langDeselected">@android:color/transparent</item>
+        <item name="langBorder">@color/lightGrey</item>
+        <item name="searchHint">@color/lightGrey</item>
+        <item name="searchBg">@color/background_dark_light</item>
+        <item name="searchBorder">@android:color/transparent</item>
+        
+        <item name="filterChipSelected">@color/colorPrimaryDark</item>
+        <item name="filterChipSelectedTextColor">@color/white</item>
+        <item name="filterChipDeSelected">@color/background_dark_light</item>
+        <item name="filterChipDeSelectedTextColor">@color/white</item>
+        
+        <item name="offer_bg_border">@color/white</item>
+    
     </style>
     
     

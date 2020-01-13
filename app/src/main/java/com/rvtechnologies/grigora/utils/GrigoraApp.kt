@@ -129,7 +129,7 @@ class GrigoraApp : Application() {
         return Settings.Secure.getString(
             applicationContext.getContentResolver(),
             Settings.Secure.ANDROID_ID
-        );
+        )
 
     }
 

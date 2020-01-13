@@ -38,6 +38,12 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     override fun onCreate(savedInstanceState: Bundle?) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            getWindow().setFlags(
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+            )
+        }
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.setFlags(
@@ -226,7 +232,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     if (task.exception is FirebaseAuthInvalidCredentialsException) {
                         // The verification code entered was invalid
                         // [START_EXCLUDE silent]
-                        fieldVerificationCode.error = "Invalid code."
+                        otp_view.error = "Invalid code."
                         // [END_EXCLUDE]
                     }
                     // [START_EXCLUDE silent]
@@ -287,9 +293,9 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 // Set the verification text based on the credential
                 if (cred != null) {
                     if (cred.smsCode != null) {
-                        fieldVerificationCode.setText(cred.smsCode)
+                        otp_view.setText(cred.smsCode)
                     } else {
-                        fieldVerificationCode.setText("Instant Validation")
+                        otp_view.setText("Instant Validation")
                     }
                 }
             }
@@ -301,18 +307,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
         } // Np-op, handled by sign-in check
 
-        if (user == null) {
-            // Signed out
-            phoneAuthFields.visibility = View.VISIBLE
 
-        } else {
-            // Signed in
-//            phoneAuthFields.visibility = View.GONE
-
-
-            fieldVerificationCode.text = null
-
-        }
     }
 
     private fun validatePhoneNumber(): Boolean {
@@ -328,9 +323,9 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         when (view.id) {
 
             R.id.buttonVerifyPhone -> {
-                val code = fieldVerificationCode.text.toString()
+                val code = otp_view.text.toString()
                 if (TextUtils.isEmpty(code)) {
-                    fieldVerificationCode.error = "Cannot be empty."
+                    otp_view.error = "Cannot be empty."
                     return
                 }
 

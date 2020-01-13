@@ -306,6 +306,9 @@
     <string name="apt_number">Apt/Suite Number (optional)</string>
     <string name="loginn">Login</string>
     <string name="termsandconditions_social">By LOGIN or SIGNUP you will accept all Terms and Conditions and Privacy Policy of GRIGORA</string>
+    <string name="didnot_got">Did\'nt got OTP ?</string>
+    <string name="resend">Resend</string>
+    <string name="search_restaurants_and_cusines">Search for restaurants, cuisines...</string>
 
 
 </resources>

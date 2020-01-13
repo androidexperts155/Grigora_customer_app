@@ -40,7 +40,9 @@
     <color name="lightPrimary">#FDE8E7</color>
     
     <color name="background_light">#ffffff</color>
+    <color name="background_dark_light">#112037</color>
     <color name="background_dark">#020A18</color>
+    <color name="background_light_grey">#E0E1E1</color>
 
 
 </resources>

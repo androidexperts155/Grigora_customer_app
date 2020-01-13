@@ -4,4 +4,20 @@
     <attr name="lightGray" format="color" />
     <attr name="textWhite" format="color" />
     <attr name="textGray" format="color" />
+    <attr name="langSelected" format="color" />
+    <attr name="langDeselected" format="color" />
+    <attr name="langBorder" format="color" />
+    
+    <attr name="searchHint" format="color" />
+    <attr name="searchBg" format="color" />
+    <attr name="searchBorder" format="color" />
+    
+    <attr name="filterChipSelected" format="color" />
+    <attr name="filterChipSelectedTextColor" format="color" />
+    <attr name="filterChipDeSelected" format="color" />
+    <attr name="filterChipDeSelectedTextColor" format="color" />
+    
+    <attr name="offer_bg_border" format="color" />
+
+
 </resources>
