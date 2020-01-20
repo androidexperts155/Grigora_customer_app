@@ -59,7 +59,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
                 newDashboardModel.customizedData.removeAll(temp)
 
-                dashbordadapter = DashboardAdapter(newDashboardModel)
+                dashbordadapter = DashboardAdapter(newDashboardModel, this)
                 rc_dashboard.adapter = dashbordadapter
 
             } else {
@@ -102,5 +102,28 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
+        if (item is NewDashboardModel.Filter) {
+            applyFilter("filter_id", item.id.toString())
+        } else if (item is NewDashboardModel.Promo) {
+
+        } else if (item is NewDashboardModel.Cuisine) {
+
+        } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+//            if (newDashboardModel.customizedData[position - topSize].uiType.equals("1"))
+//                RESTAURANTS_HORIZONTAL
+//            else if (newDashboardModel.customizedData[position - topSize].uiType.equals("2"))
+//                CUISINES
+//            else
+//                TOP_BRANDS
+
+        } else if (item is NewDashboardModel.AllRestautants) {
+
+        }
+
+    }
+
+    fun applyFilter(key: String, value: String) {
+        map[key] = value
+        viewModel.getDashboardData(map)
     }
 }

@@ -543,6 +543,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     }
 
     fun backTitle(title: String) {
+        hideAll()
+
         top_bar.visibility = View.VISIBLE
         img_menu.visibility = View.GONE
         img_right.visibility = View.GONE

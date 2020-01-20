@@ -13,7 +13,8 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class CategoriesAdapter(
-    val list: ArrayList<NewDashboardModel.Cuisine>
+    val list: ArrayList<NewDashboardModel.Cuisine>,
+    iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<CategoriesAdapter.MyView>() {
 

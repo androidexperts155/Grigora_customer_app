@@ -1,6 +1,5 @@
 package com.rvtechnologies.grigora.view.ui.dashboard.adapter
 
-import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -9,16 +8,14 @@ import android.widget.LinearLayout
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.models.AddressModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import com.rvtechnologies.grigora.view.ui.addresses.adapter.AddressesAdapter
 
 class FilterAdapter(
-    val list: ArrayList<NewDashboardModel.Filter>
+    val list: ArrayList<NewDashboardModel.Filter>,
+   val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val RATING = 1
@@ -171,7 +168,10 @@ class FilterAdapter(
                 }
 
             }
+            holder.itemView.setOnClickListener { iRecyclerItemClick.onItemClick(list[position]) }
         }
+
+
     }
 
 }

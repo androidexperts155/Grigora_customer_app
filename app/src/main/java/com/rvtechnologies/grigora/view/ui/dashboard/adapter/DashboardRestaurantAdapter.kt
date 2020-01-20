@@ -1,6 +1,5 @@
 package com.rvtechnologies.grigora.view.ui.dashboard.adapter
 
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,11 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 
 class DashboardRestaurantAdapter(
-    val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,val minKiloMeter: String,
-    val baseDeliveryFee: String
+    val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
+    val minKiloMeter: String,
+    val baseDeliveryFee: String,
+    iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<DashboardRestaurantAdapter.MyView>() {
 

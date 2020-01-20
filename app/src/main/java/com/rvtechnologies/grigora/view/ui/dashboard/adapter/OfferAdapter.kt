@@ -4,17 +4,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
-import co.paystack.android.utils.Utils
-import com.facebook.shimmer.ShimmerFrameLayout
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class OfferAdapter(
-    val list: ArrayList<NewDashboardModel.Promo>
+    val list: ArrayList<NewDashboardModel.Promo>,
+    iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 

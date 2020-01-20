@@ -8,12 +8,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 
 class DashboardAllRestaurantAdapter(
     val list: ArrayList<NewDashboardModel.AllRestautants>,
     val minKiloMeter: String,
-    val baseDeliveryFee: String
+    val baseDeliveryFee: String,
+    val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<DashboardAllRestaurantAdapter.MyView>() {
 

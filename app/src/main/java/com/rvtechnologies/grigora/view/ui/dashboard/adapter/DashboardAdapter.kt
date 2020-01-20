@@ -9,8 +9,12 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
-class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
+class DashboardAdapter(
+    val newDashboardModel: NewDashboardModel,
+    val iRecyclerItemClick: IRecyclerItemClick
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     var FILTER = 1
     var OFFERS = 2
@@ -75,8 +79,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
                     false
                 )
             )
-        }
-        else if (viewType == TOP_BRANDS) {
+        } else if (viewType == TOP_BRANDS) {
             TopBrands(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.item_dashboard,
@@ -84,7 +87,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
                     false
                 )
             )
-        }else if (viewType == RESTAURANTS_HORIZONTAL) {
+        } else if (viewType == RESTAURANTS_HORIZONTAL) {
             RestaurantsHorizontal(
                 LayoutInflater.from(parent.context).inflate(
                     R.layout.item_dashboard,
@@ -117,7 +120,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
-                var adapter = getFilterAdapter()
+                var adapter = FilterAdapter(newDashboardModel.filters, iRecyclerItemClick)
                 holder.rc_data.layoutManager = layoutManager
                 holder.rc_data.adapter = adapter
             }
@@ -126,7 +129,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
 
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
-                holder.rc_data.adapter = getOfferAdapter()
+                holder.rc_data.adapter = OfferAdapter(newDashboardModel.promos, iRecyclerItemClick)
 
             }
             is Categories -> {
@@ -134,7 +137,8 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
 
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
-                holder.rc_data.adapter = getCategoriesAdapter()
+                holder.rc_data.adapter =
+                    CategoriesAdapter(newDashboardModel.cuisines, iRecyclerItemClick)
 
             }
             is Cuisines -> {
@@ -151,7 +155,8 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
 
                 holder.tv_title.text = customisedData.title
 
-                holder.rc_data.adapter = CuisineAdapter(customisedData.restaurants)
+                holder.rc_data.adapter =
+                    CuisineAdapter(customisedData.restaurants, iRecyclerItemClick)
 
 
             }
@@ -171,7 +176,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
 
                 holder.rc_data.adapter = TopBrandAdapter(
                     customisedData.restaurants, newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick
                 )
             }
             is RestaurantsHorizontal -> {
@@ -192,7 +197,7 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
                 holder.rc_data.adapter = DashboardRestaurantAdapter(
                     customisedData.restaurants,
                     newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick
                 )
             }
             is RestaurantsVertical -> {
@@ -207,11 +212,12 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
                 holder.rc_data.adapter = DashboardAllRestaurantAdapter(
                     newDashboardModel.allRestaurants,
                     newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick
                 )
             }
         }
     }
+
 
     inner class Filters(view: View) : RecyclerView.ViewHolder(view) {
         var rel_title: RelativeLayout = view.findViewById(R.id.rel_title)
@@ -256,21 +262,4 @@ class DashboardAdapter(val newDashboardModel: NewDashboardModel) :
         var tv_more: TextView = view.findViewById(R.id.tv_more)
         var rc_data: RecyclerView = view.findViewById(R.id.rc_data)
     }
-
-    private fun getFilterAdapter(): FilterAdapter {
-        return FilterAdapter(newDashboardModel.filters)
-
-    }
-
-    private fun getOfferAdapter(): OfferAdapter {
-
-        return OfferAdapter(newDashboardModel.promos)
-    }
-
-    private fun getCategoriesAdapter(): CategoriesAdapter {
-
-        return CategoriesAdapter(newDashboardModel.cuisines)
-    }
-
-
 }
