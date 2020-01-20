@@ -12,6 +12,7 @@ import android.util.Log
 import android.view.View
 import android.view.WindowManager
 import android.util.Base64
+import android.view.Window
 import android.widget.RelativeLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
@@ -49,17 +50,25 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         printHashKey()
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
+//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+//            getWindow().setFlags(
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
+//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
+//            )
+//        }
+
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        );
+
+
         GrigoraApp.getInstance().setCurrentActivity(this)
         updateLocale(false)
 
-
-        setTheme()
+        setTheme(CommonUtils.getBooleanPrefValue(this, PrefConstants.IS_DARK_MODE))
         setContentView(R.layout.activity_main)
         rateOrder()
         setDrawer()
@@ -95,10 +104,20 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         img_menu.setOnClickListener {
             closeOrOpenDrawer()
         }
+
+        sw_mode.setOnClickListener {
+            if (sw_mode.isChecked) {
+                switchUiMode(true)
+            } else {
+                switchUiMode(false)
+            }
+        }
+
+
     }
 
-    fun setTheme() {
-        if (CommonUtils.isDarkMode())
+    fun setTheme(isDark: Boolean) {
+        if (isDark)
             setTheme(R.style.AppTheme_Dark)
         else
             setTheme(R.style.AppTheme_Light)
@@ -517,4 +536,62 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun initGoogleSignin(googleSigni: GoogleSignin) {
         this.googleSignIn = googleSigni
     }
+
+    fun switchUiMode(selected: Boolean) {
+        CommonUtils.saveBooleanPrefs(this, PrefConstants.IS_DARK_MODE, selected)
+        recreate()
+    }
+
+    fun backTitle(title: String) {
+        top_bar.visibility = View.VISIBLE
+        img_menu.visibility = View.GONE
+        img_right.visibility = View.GONE
+        deliverLayout.visibility = View.GONE
+        img_back.visibility = View.VISIBLE
+
+        tv_title.visibility = View.VISIBLE
+        tv_title.text = title
+    }
+
+    fun menuAddress() {
+        top_bar.visibility = View.VISIBLE
+        img_menu.visibility = View.VISIBLE
+        deliverLayout.visibility = View.VISIBLE
+        img_back.visibility = View.GONE
+        img_right.visibility = View.GONE
+
+        tv_title.visibility = View.GONE
+
+    }
+
+    fun menuOnly() {
+        top_bar.visibility = View.VISIBLE
+        img_menu.visibility = View.VISIBLE
+        deliverLayout.visibility = View.GONE
+        img_back.visibility = View.GONE
+        img_right.visibility = View.GONE
+        tv_title.visibility = View.GONE
+    }
+
+    fun setRightIcon(icon: Int) {
+        img_right.visibility = View.VISIBLE
+        img_right.setImageResource(icon)
+    }
+
+    fun hideAll() {
+        top_bar.visibility = View.GONE
+        bottom_navigation.visibility = View.GONE
+        fab_cart.hide()
+    }
+
+    fun showBottomNavigation(index: Int) {
+        bottom_navigation.visibility = View.VISIBLE
+        bottom_navigation.selectedItemId = 0
+    }
+
+    fun showBottomMenu() {
+
+    }
+
+
 }

@@ -1,9 +1,10 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_notification_channel_id" translatable="false">212</string>
     
-    <string name="facebook_app_id">612856392875692</string>
-    <string name="fb_login_protocol_scheme">fb612856392875692</string>
-    
+    <string name="facebook_app_id" translatable="false">612856392875692</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb612856392875692</string>
+    <string name="twitter_consumer_key" translatable="false">arBGnENEuayLrERK5zdQU9E2V</string>
+    <string name="twitter_consumer_secret" translatable="false">NStIyaKHLuKBHmPaeoXXnxYDoaawf1vwq5UG1ZxtkJeFIsbOeS</string>
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
@@ -116,6 +117,7 @@
     <string name="deliver_to">Deliver to :</string>
     <string name="loading">Loading</string>
     <string name="error_location">Please select location</string>
+    <string name="error_location_type">Please select location type</string>
     
     <string name="login_required">Login Required</string>
     <string name="to_continue_you_need_to_be_logged_in">To Continue you need to be logged in.</string>
@@ -184,6 +186,7 @@
     <string name="credit_or_debit_card"> Credit or Debit Card</string>
     <string name="rating">Rating</string>
     <string name="all">All</string>
+    <string name="all_restaurants">All Restaurants</string>
     <string name="empty_bag">Empty Bag</string>
     <string name="place_order">Place Order</string>
     <string name="clear_cart">Clear Cart</string>
@@ -209,6 +212,7 @@
     <string name="successfull">Successfull</string>
     <string name="sendtoadmin">Your request is successfully sent to admin</string>
     <string name="ok">Ok</string>
+    <string name="min">min</string>
     <string name="please_select_type">Please select type</string>
     <string name="required">Required fields</string>
     <string name="sending_request">Sending Request</string>
@@ -261,6 +265,7 @@
     <string name="checkout">Checkout</string>
     <string name="deliver_to_you">DELIVER TO YOU</string>
     <string name="deliver_in">Delivery in approximately %s\ minutes</string>
+    <string name="delivery">delivery</string>
     <string name="apply_promocode">Apply Promocode</string>
     <string name="addnew">Add New</string>
     <string name="change_title">Change Location</string>
@@ -309,6 +314,16 @@
     <string name="didnot_got">Did\'nt got OTP ?</string>
     <string name="resend">Resend</string>
     <string name="search_restaurants_and_cusines">Search for restaurants, cuisines...</string>
+    <string name="seemore">More</string>
+    <string name="deliveringto">Delivering To</string>
+    
+    <string name="chipHome">Home</string>
+    <string name="chipWork">Work</string>
+    <string name="chipHotel">Hotel</string>
+    <string name="chipMore">More</string>
+    <string name="food">Food</string>
+    <string name="pickup">Pickup</string>
+    <string name="otpverification">OTP Verification</string>
 
 
 </resources>

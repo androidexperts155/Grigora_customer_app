@@ -79,12 +79,15 @@ class ApiRepo {
     }
 
     fun socialLogin(
+        name:String,
         email: String,
-        password: String,
+        phone:String,
+        loginType: String,
+        socialId: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
-        ApiClient.getClient().login(email, password, AppConstants.ROLE_CUSTOMER)
+        ApiClient.getClient().socialLogin(name, email, phone,loginType,socialId)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1141,6 +1144,31 @@ Cuisine repo
 
             })
     }
+
+    fun getDashboardData(map:HashMap<String,Any>,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .getDashboardData(body = map,token = map["token"].toString())
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
 
 }

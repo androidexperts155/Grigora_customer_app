@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/li_main"
+    android:layout_width="wrap_content"
+    android:layout_height="@dimen/_24sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:background="@drawable/chip_deselected_bg"
+    android:gravity="center"
+     android:orientation="horizontal">
+    
+    <TextView
+        android:id="@+id/tv_chip"
+        style="@style/mediumText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:paddingLeft="@dimen/_8sdp"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingRight="@dimen/_8sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:textColor="?attr/searchHint"
+        android:textSize="@dimen/_10sdp"
+        tools:text="Over 4.4" />
+</LinearLayout>

@@ -41,7 +41,7 @@ class WelcomeInfoFragment : Fragment() {
             SliderAdapter()
         imageSlider.setCurrentPageListener { index ->
             current = index
-            Log.e("INDEX",index.toString())
+            Log.e("INDEX", index.toString())
             if (index == 3)
                 tv_next.text = "Finish"
             else
@@ -68,9 +68,7 @@ class WelcomeInfoFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.GONE
+            (activity as MainActivity).hideAll()
             (activity as MainActivity).lockDrawer(true)
         }
     }

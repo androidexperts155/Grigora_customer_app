@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.content.Context
 import android.graphics.*
 import android.graphics.drawable.ColorDrawable
+import android.location.Location
 import android.media.ExifInterface
 import android.os.Build
 import android.os.Environment
@@ -16,19 +17,26 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
 import android.view.WindowManager
+import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
+import androidx.databinding.BindingAdapter
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
+import com.bumptech.glide.request.RequestOptions
+import com.github.siyamed.shapeimageview.CircularImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.loader_layout.view.*
 import retrofit2.Response
 import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
-
 
 object CommonUtils {
     fun showMessage(view: View?, msg: String) {
@@ -130,7 +138,6 @@ object CommonUtils {
     fun isValidEmail(email: String): Boolean {
         return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches())
     }
-
 
     fun convertDpToPixel(dp: Int, context: Context): Int {
         val resources = context.resources
@@ -315,10 +322,65 @@ object CommonUtils {
     }
 
     fun isDarkMode(): Boolean {
-        return true
+        return getBooleanPrefValue(
+            GrigoraApp.getInstance().activity?.baseContext,
+            PrefConstants.IS_DARK_MODE
+        )
     }
 
     fun isFirst(): Boolean {
-        return false
+        return true
+    }
+
+    fun loadImage(imageView: ImageView?, imageUrl: String?) {
+        if (imageView != null) {
+            val circularProgressDrawable = CircularProgressDrawable(imageView?.context!!)
+            circularProgressDrawable.strokeWidth = 5f
+            circularProgressDrawable.centerRadius = 30f
+            circularProgressDrawable.start()
+
+            Picasso.get()
+                .load(imageUrl).placeholder(
+                    circularProgressDrawable
+                )
+//                .resize(800,500)
+                .error(
+                    circularProgressDrawable
+                )
+                .into(imageView)
+
+//            Picasso.get()
+//                .load(imageUrl)
+//               .resize(800,500)
+//
+//                .into(imageView)
+
+
+//            Glide.with(imageView).load(imageUrl).apply(
+//                RequestOptions().override(
+//                    imageView.height,
+//                    500
+//                ).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(circularProgressDrawable).error(
+//                    circularProgressDrawable
+//                )
+//            ).into(imageView)
+        }
+    }
+
+    fun calculateDistance(
+        startLat: Double,
+        startLng: Double,
+        endLat: Double,
+        endLng: Double
+    ): Float {
+        var startLocation = Location("")
+        startLocation.latitude = startLat
+        startLocation.longitude = startLng
+
+        var endLocation = Location("")
+        endLocation.latitude = endLat
+        endLocation.longitude = endLng
+
+        return startLocation.distanceTo(endLocation)
     }
 }

@@ -16,6 +16,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessaging
 import com.google.gson.JsonElement
+import com.parse.twitter.ParseTwitterUtils
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.api.ApiClient
 import com.rvtechnologies.grigorahq.network.EventBroadcaster
@@ -29,6 +30,7 @@ class GrigoraApp : Application() {
 
     override fun onCreate() {
         super.onCreate()
+
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
 

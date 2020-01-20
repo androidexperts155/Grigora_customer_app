@@ -26,5 +26,5 @@ data class LocationTypeModel(
     @SerializedName("status")
     var status: String?,
     @SerializedName("updated_at")
-    var updatedAt: String?
+    var updatedAt: String?,var selected:Boolean=false
 ):Parcelable

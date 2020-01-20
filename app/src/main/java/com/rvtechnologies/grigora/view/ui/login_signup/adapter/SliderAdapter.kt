@@ -25,13 +25,17 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
         imagesList.add(R.drawable.fav_restaurant)
         imagesList.add(R.drawable.img_earn)
         imagesList.add(R.drawable.live_traking)
+        imagesList.add(R.drawable.img_reserve)
 
-        titleList.add("Advance Table Bookings")
+
+        titleList.add("Seamless Delivery")
+        titleList.add("Track your order easily to your door step in real time")
         titleList.add("Fast Delivery from Favorite Restaurants")
         titleList.add("Earn points, Get Free Delivery")
         titleList.add("Group Delivery")
 
 
+        descList.add("Track your order easily to your door step in real time")
         descList.add("Reserve tables &amp; make bookings at your favorite restaurant")
         descList.add("Explore the extensive selection of your favorite restaurants and cuisines")
         descList.add("Get points or discounts from previous deliveries")
@@ -55,7 +59,7 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
     }
 
     override fun getCount(): Int {
-        return 4
+        return 5
     }
 
     override fun onBindViewHolder(viewHolder: SliderAdapterVH?, position: Int) {

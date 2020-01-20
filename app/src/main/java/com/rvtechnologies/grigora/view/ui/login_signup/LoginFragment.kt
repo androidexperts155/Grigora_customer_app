@@ -35,10 +35,6 @@ import java.util.*
 
 
 class LoginFragment : Fragment(), GoogleSignin {
-    var gso: GoogleSignInOptions? = null
-    var intent: Intent? = null
-    var callbackManager: CallbackManager? = null
-    var fbLoginManager: LoginManager? = null
 
     private var loginViewModel: LoginFragmentViewModel? = null
 
@@ -46,12 +42,7 @@ class LoginFragment : Fragment(), GoogleSignin {
         super.onCreate(savedInstanceState)
             CommonUtils.changeStatusBarColor(ContextCompat.getColor(context!!, R.color.lightGrey), activity as MainActivity)
         (activity as MainActivity).initGoogleSignin(this)
-        gso =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestEmail().requestProfile().requestId()
-                .build()
 
-        intent = GoogleSignIn.getClient(activity!!, gso!!).signInIntent
         loginViewModel = ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
 
         loginViewModel?.loginResult?.observe(this, Observer { response ->
@@ -70,7 +61,6 @@ class LoginFragment : Fragment(), GoogleSignin {
                 CommonUtils.hideLoader()
             }
         })
-        callbackManager = CallbackManager.Factory.create()
 
     }
 
@@ -91,9 +81,7 @@ class LoginFragment : Fragment(), GoogleSignin {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.GONE
+            (activity as MainActivity).hideAll()
             (activity as MainActivity).lockDrawer(true)
         }
     }
@@ -124,32 +112,7 @@ class LoginFragment : Fragment(), GoogleSignin {
         activity?.onBackPressed()
     }
 
-    fun fbLogin() {
-        fbLoginManager = LoginManager.getInstance()
-        fbLoginManager?.logInWithReadPermissions(this, Arrays.asList("public_profile", "email"))
 
-        fbLoginManager?.registerCallback(callbackManager, object : FacebookCallback<LoginResult> {
-            override fun onSuccess(result: LoginResult?) {
-                Log.d("Facebook Token: ", result?.accessToken?.token)
-            }
-
-            override fun onCancel() {
-            }
-
-            override fun onError(error: FacebookException?) {
-                Log.d("Facebook Error : ", error?.message)
-            }
-        })
-    }
-
-    fun googleLogin() {
-        startActivityForResult(intent, 121)
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        callbackManager!!.onActivityResult(requestCode, resultCode, data)
-        super.onActivityResult(requestCode, resultCode, data)
-    }
 
     override fun signInResult(task: Task<GoogleSignInAccount>) {
         try {

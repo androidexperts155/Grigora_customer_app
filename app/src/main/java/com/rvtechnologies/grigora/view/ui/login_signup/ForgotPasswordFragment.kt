@@ -12,6 +12,7 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentForgotPasswordBinding
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.ForgotPasswordViewModel
 import kotlinx.android.synthetic.main.fragment_forgot_password.*
 
@@ -21,9 +22,10 @@ class ForgotPasswordFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        forgotPasswordViewModel=ViewModelProviders.of(this).get(ForgotPasswordViewModel::class.java)
+        forgotPasswordViewModel =
+            ViewModelProviders.of(this).get(ForgotPasswordViewModel::class.java)
 
-        forgotPasswordViewModel?.forgotPasswordResult?.observe(this, Observer {response->
+        forgotPasswordViewModel?.forgotPasswordResult?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 CommonUtils.showMessage(parentView, response.message!!)
             } else {
@@ -45,15 +47,22 @@ class ForgotPasswordFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val forgotPasswordBinding:FragmentForgotPasswordBinding=DataBindingUtil.inflate(inflater,R.layout.fragment_forgot_password, container, false)
+        val forgotPasswordBinding: FragmentForgotPasswordBinding =
+            DataBindingUtil.inflate(inflater, R.layout.fragment_forgot_password, container, false)
 
-        forgotPasswordBinding.forgotPassword=this
-        forgotPasswordBinding.forgotPasswordViewModel=forgotPasswordViewModel
+        forgotPasswordBinding.forgotPassword = this
+        forgotPasswordBinding.forgotPasswordViewModel = forgotPasswordViewModel
         return forgotPasswordBinding.root
     }
 
-    fun onBack(){
-        activity?.onBackPressed()
+
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).lockDrawer(true)
+        }
     }
+
 
 }

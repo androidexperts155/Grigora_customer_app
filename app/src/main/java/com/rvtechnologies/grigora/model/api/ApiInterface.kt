@@ -370,5 +370,12 @@ interface ApiInterface {
 
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.DASHBOARD_DATA)
+    fun getDashboardData(
+        @Header("Authorization") token: String,
+        @FieldMap body: HashMap<String, Any>
+    ): Call<JsonElement>
+
 
 }

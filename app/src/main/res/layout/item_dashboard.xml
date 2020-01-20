@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:id="@+id/rel_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_4sdp">
+        
+        <TextView
+            
+            android:id="@+id/tv_title"
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/tv_more"
+            android:capitalize="words"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:paddingLeft="@dimen/_4sdp"
+            android:text="White Napkin restaurants"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_15sdp" />
+        
+        <TextView
+            android:id="@+id/tv_more"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginTop="4dp"
+            android:drawableRight="@drawable/ic_forward"
+            android:drawablePadding="@dimen/_4sdp"
+            android:gravity="center"
+            android:text="@string/seemore"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_10sdp" />
+    </RelativeLayout>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_data"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:nestedScrollingEnabled="true"
+        android:orientation="horizontal"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+
+</LinearLayout>

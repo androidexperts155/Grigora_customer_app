@@ -34,15 +34,6 @@ fun normalImageUrl(imageView: ImageView?, imageUrl: String?) {
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
         circularProgressDrawable.start()
-//
-//        Glide.with(imageView).load(imageUrl).apply(
-//            RequestOptions().diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(
-//                circularProgressDrawable
-//            ).error(
-//                R.drawable.cuisine
-//            )
-//        ).into(imageView)
-//
 
         Picasso.get()
             .load(imageUrl).placeholder(

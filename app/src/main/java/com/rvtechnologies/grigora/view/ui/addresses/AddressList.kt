@@ -6,6 +6,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.lifecycle.Observer
@@ -71,7 +72,6 @@ class AddressList : Fragment(), IRecyclerItemClick {
         addressListFragmentBinding.addressListViewModel = viewModel
         addressListFragmentBinding.addressListfragment = this
         return addressListFragmentBinding.root
-
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -84,40 +84,17 @@ class AddressList : Fragment(), IRecyclerItemClick {
         super.onResume()
         viewModel.getAddresses()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).backTitle(getString(R.string.delivery_location))
+            (activity as MainActivity).setRightIcon(R.drawable.ic_add_black)
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).img_right.setOnClickListener{
+                addClicked()
+            }
+
         }
     }
 
-    fun back() {
-        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .popBackStack()
-    }
-
     fun addClicked() {
-        //            save in temp values before clearing so that if we press back at choose location, we can have previous location stored. This functionality is done because in select location fragment in onCreate user is aitomatically redirected to dashboard if there is location
-//        CommonUtils.savePrefs(
-//            this.context,
-//            PrefConstants.TEMP_LATITUDE,
-//            CommonUtils.getPrefValue(this.context, PrefConstants.LATITUDE)
-//        )
-//        CommonUtils.savePrefs(
-//            this.context,
-//            PrefConstants.TEMP_LONGITUDE,
-//            CommonUtils.getPrefValue(this.context, PrefConstants.LONGITUDE)
-//        )
-//        CommonUtils.savePrefs(
-//            this.context,
-//            PrefConstants.TEMP_ADDRESS,
-//            CommonUtils.getPrefValue(this.context, PrefConstants.ADDRESS)
-//        )
-//
-//        CommonUtils.savePrefs(this.context, PrefConstants.LATITUDE, "")
-//        CommonUtils.savePrefs(this.context, PrefConstants.LONGITUDE, "")
-//        CommonUtils.savePrefs(this.context, PrefConstants.ADDRESS, "")
-
         Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
             .navigate(R.id.action_addressListFragment_to_selectLocationFragment)
 
@@ -135,6 +112,6 @@ class AddressList : Fragment(), IRecyclerItemClick {
             .popBackStack(R.id.nav_graph_xml, true)
 
         Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .navigate(R.id.navigationRestaurants)
+            .navigate(R.id.dashBoardFragment)
     }
 }

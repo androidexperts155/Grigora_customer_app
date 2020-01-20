@@ -46,50 +46,103 @@ class AddressesAdapter(
         holder.tv_location.text = list[position].address
         holder.tv_apt_number.text = list[position].completeAddress
 
+        if (list[position].completeAddress.isNullOrEmpty()) {
+            holder.tv_apt_number.visibility = View.GONE
+        }
+
+        if (list[position].locationTypeName.isNullOrEmpty()) {
+            holder.tv_type.visibility = View.GONE
+        }
+
+
         if (CommonUtils.getPrefValue(
                 holder.itemView.context,
                 PrefConstants.ADDRESS_ID
             ).equals(list[position].id.toString())
         ) {
-            holder.tv_type.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.colorPrimaryDark
+            if (CommonUtils.isDarkMode()) {
+                holder.tv_type.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.colorPrimaryDark
+                    )
                 )
-            )
-            holder.tv_location.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.colorPrimaryDark
+                holder.tv_location.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.white
+                    )
                 )
-            )
-            holder.tv_apt_number.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.colorPrimary
+                holder.tv_apt_number.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.lightGrey
+                    )
                 )
-            )
+            } else {
+                holder.tv_type.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.colorPrimaryDark
+                    )
+                )
+                holder.tv_location.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.textBlack
+                    )
+                )
+                holder.tv_apt_number.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.text_hint_color
+                    )
+                )
+            }
+
+
             holder.img_check.visibility = View.VISIBLE
         } else {
             holder.img_check.visibility = View.GONE
-            holder.tv_type.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.textBlack
+            if (CommonUtils.isDarkMode()) {
+                holder.tv_type.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.white
+                    )
                 )
-            )
-            holder.tv_location.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.textBlack
+                holder.tv_location.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.white
+                    )
                 )
-            )
-            holder.tv_apt_number.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context,
-                    R.color.textGrey
+                holder.tv_apt_number.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.text_hint_color
+                    )
                 )
-            )
+            } else {
+                holder.tv_type.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.textBlack
+                    )
+                )
+                holder.tv_location.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.textBlack
+                    )
+                )
+                holder.tv_apt_number.setTextColor(
+                    ContextCompat.getColor(
+                        holder.itemView.context,
+                        R.color.text_hint_color
+                    )
+                )
+            }
         }
 
         holder.itemView.setOnClickListener {

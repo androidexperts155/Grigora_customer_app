@@ -29,9 +29,9 @@
     
     
     <TextView
-        android:layout_width="wrap_content"
         android:id="@+id/tv_skip"
-    
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentBottom="true"
@@ -44,7 +44,7 @@
     
     <TextView
         android:id="@+id/tv_next"
-    
+        style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

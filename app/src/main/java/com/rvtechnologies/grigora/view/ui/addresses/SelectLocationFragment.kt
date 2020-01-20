@@ -16,6 +16,8 @@ import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
@@ -39,28 +41,79 @@ import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.single.PermissionListener
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.SelectLocationFragmentBinding
-import com.rvtechnologies.grigora.utils.AddressUtils
-import com.rvtechnologies.grigora.utils.AppConstants
-import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.model.models.AddAddressModel
+import com.rvtechnologies.grigora.model.models.ChipModel
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.LocationTypeModel
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import com.rvtechnologies.grigora.view.ui.addresses.adapter.ChipAdapter
+import com.rvtechnologies.grigora.view_model.LocationTypeViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.select_location_fragment.*
 import java.net.URISyntaxException
 
 
-class SelectLocationFragment : Fragment(), OnMapReadyCallback {
+class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClick {
 
     companion object {
         fun newInstance() =
             SelectLocationFragment()
     }
 
+    private lateinit var viewModel: LocationTypeViewModel
+
     private lateinit var mMap: GoogleMap
 
     private var latitude = 0.0
     private var longitude = 0.0
     private var address = ""
+    private var selectedType = ""
+    private var chipList = ArrayList<LocationTypeModel>()
+    private lateinit var chipAdapter: ChipAdapter
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(LocationTypeViewModel::class.java)
+        viewModel.locationTypeData.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                chipList.clear()
+                chipList.addAll(response.data as Collection<LocationTypeModel>)
+                chipAdapter?.notifyDataSetChanged()
+            } else {
+                CommonUtils.showMessage(parentView, response.toString())
+            }
+        })
+        viewModel.addAddressResult.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                var data = response.data as AddAddressModel
+
+                CommonUtils.savePrefs(context, PrefConstants.LATITUDE, data.latitude)
+                CommonUtils.savePrefs(context, PrefConstants.LONGITUDE, data.longitude)
+                CommonUtils.savePrefs(context, PrefConstants.ADDRESS, data.address)
+                CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, data.completeAddress)
+                CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, data.id.toString())
+
+                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+                    .popBackStack(R.id.nav_graph_xml, true)
+
+                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+                    .navigate(R.id.dashBoardFragment)
+            } else {
+                CommonUtils.showMessage(parentView, response.toString())
+            }
+
+        })
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            if (isLoading) {
+                CommonUtils.showLoader(context!!, getString(R.string.loading))
+            } else {
+                CommonUtils.hideLoader()
+            }
+        })
+
+        viewModel.getLocationTypeList()
+    }
 
     override fun onMapReady(googleMap: GoogleMap) {
 
@@ -101,20 +154,15 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
             address = CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
         }
 
-//        if (latitude > 0.0 &&
-//            longitude > 0.0
-//        ) {
-//            view.findNavController()
-//                .navigate(R.id.action_selectLocationFragment_to_navigationRestaurants)
-//        }
+        chipAdapter = ChipAdapter(chipList, this)
+        rc_chip.adapter = chipAdapter
     }
 
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+
+            (activity as MainActivity).backTitle(getString(R.string.delivery_location))
             (activity as MainActivity).lockDrawer(true)
         }
     }
@@ -195,25 +243,8 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
                             ) {
                                 txtAddress.text = address
 
-//                                CommonUtils.savePrefs(
-//                                    context,
-//                                    PrefConstants.LATITUDE,
-//                                    latitude.toString()
-//                                )
-//                                CommonUtils.savePrefs(
-//                                    context,
-//                                    PrefConstants.LONGITUDE,
-//                                    longitude.toString()
-//                                )
-//                                CommonUtils.savePrefs(context, PrefConstants.ADDRESS, address)
                                 (activity as MainActivity).updateLocation()
 
-//            clear stack before proceeding further as whole new thread start here
-//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//                .popBackStack(R.id.nav_graph_xml, true)
-//
-//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//                .navigate(R.id.locationTypeFragment)
                             } else {
                                 CommonUtils.showMessage(
                                     parentView,
@@ -234,29 +265,18 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         if (latitude > 0.0 &&
             longitude > 0.0
         ) {
-
             (activity as MainActivity).updateLocation()
-
             var map = HashMap<String, String>()
             map.put(AppConstants.LATITUDE, latitude.toString())
             map.put(AppConstants.LONGITUDE, longitude.toString())
             map.put(AppConstants.ADDRESS, address)
             map.put(AppConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
 
-            val bundle = bundleOf(AppConstants.ADDRESS_DATA to map)
-
-            view?.findNavController()
-                ?.navigate(
-                    R.id.action_selectLocationFragment_to_locationTypeFragment,
-                    bundle
-                )
-
-//            clear stack before proceeding further as whole new thread start here
-//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//                .popBackStack(R.id.nav_graph_xml, true)
-//
-//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//                .navigate(R.id.locationTypeFragment)
+            map[AppConstants.TOKEN] = CommonUtils.getPrefValue(this.context, PrefConstants.TOKEN)
+            map[AppConstants.LOCATION_TYPE_ID] = selectedType
+            viewModel.addAddress(map)
+        } else if (selectedType.isNullOrEmpty()) {
+            CommonUtils.showMessage(parentView, getString(R.string.error_location_type))
         } else {
             CommonUtils.showMessage(parentView, getString(R.string.error_location))
         }
@@ -285,43 +305,6 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         }
     }
 
-    override fun onDestroy() {
-        super.onDestroy()
-
-//        restore old lat lng as user has aborted select location
-//        if (latitude == 0.0 &&
-//            longitude == 0.0
-//        ) {
-//            CommonUtils.savePrefs(
-//                activity,
-//                PrefConstants.LATITUDE,
-//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LATITUDE)
-//            )
-//            CommonUtils.savePrefs(
-//                activity,
-//                PrefConstants.LONGITUDE,
-//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_LONGITUDE)
-//            )
-//            CommonUtils.savePrefs(
-//                activity,
-//                PrefConstants.ADDRESS,
-//                CommonUtils.getPrefValue(activity, PrefConstants.TEMP_ADDRESS)
-//            )
-//
-//
-//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_ADDRESS, "")
-//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LONGITUDE, "")
-//            CommonUtils.savePrefs(activity, PrefConstants.TEMP_LATITUDE, "")
-//
-////            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-////                .popBackStack(R.id.nav_graph_xml, true)
-//
-//
-//            Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//                .navigate(R.id.action_selectLocationFragment_to_locationTypeFragment)
-//        }
-    }
-
     fun updateMap() {
         mMap.clear()
         val marker = MarkerOptions().position(LatLng(latitude, longitude))
@@ -335,6 +318,16 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback {
         mMap?.setMinZoomPreference(12f)
 
 
+    }
+
+    override fun onItemClick(item: Any) {
+        for (i in 0 until chipList.size) {
+            chipList[i].selected = i == item as Int
+        }
+        selectedType=chipList[item as Int].id.toString()
+
+
+        chipAdapter.notifyDataSetChanged()
     }
 
 

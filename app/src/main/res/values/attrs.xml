@@ -18,6 +18,12 @@
     <attr name="filterChipDeSelectedTextColor" format="color" />
     
     <attr name="offer_bg_border" format="color" />
+    <attr name="top_brand_border" format="color" />
+    
+    <attr name="chipDeSelected" format="color" />
+    <attr name="chipDeSelectedTextColor" format="color" />
+    
+    
 
 
 </resources>

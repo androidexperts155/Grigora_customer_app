@@ -62,7 +62,7 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
                     .popBackStack(R.id.nav_graph_xml, true)
 
                 Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                    .navigate(R.id.navigationRestaurants)
+                    .navigate(R.id.dashBoardFragment)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -109,7 +109,6 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
         }
     }
 
-
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
@@ -122,9 +121,7 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
 
     fun addAddress(id: String) {
         if (arguments != null) {
-            val map =
-                arguments?.get(AppConstants.ADDRESS_DATA) as HashMap<String, String>
-
+            val map =arguments?.get(AppConstants.ADDRESS_DATA) as HashMap<String, String>
             map[AppConstants.TOKEN] = CommonUtils.getPrefValue(this.context, PrefConstants.TOKEN)
             map[AppConstants.LOCATION_TYPE_ID] = id
             viewModel.addAddress(map)

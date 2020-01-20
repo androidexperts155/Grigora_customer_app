@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.facebook.shimmer.ShimmerFrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/shimmer_view"
+    android:layout_width="@dimen/_220sdp"
+    android:layout_height="@dimen/_120sdp"
+    android:layout_marginRight="@dimen/_10sdp"
+    android:background="@drawable/filter_deselected_bg"
+    android:minWidth="@dimen/_40sdp"
+    android:padding="1dp"
+    app:layout_constraintCircleRadius="@dimen/_8sdp"
+    app:shimmer_auto_start="false"
+    app:shimmer_direction="left_to_right"
+    app:shimmer_shape="linear">
+
+</com.facebook.shimmer.ShimmerFrameLayout>

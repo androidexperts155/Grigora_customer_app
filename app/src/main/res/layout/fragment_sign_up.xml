@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
     
     <data>
         
@@ -20,12 +21,14 @@
         android:fillViewport="true"
         android:overScrollMode="never">
         
+        
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/backgroundColor">
-            
-            
+    
+    
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="@dimen/_110sdp"
@@ -33,156 +36,166 @@
                 android:layout_height="@dimen/_130sdp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/splash_bottom" />
-            
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout5"
+            <LinearLayout
+                android:id="@+id/li_fields"
+                android:layout_below="@id/img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/img"
                 android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_8sdp"
-                
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
-                android:textColorHint="?attr/textWhite">
-                
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText6"
+                android:orientation="vertical">
+                <TextView
+                    android:layout_marginTop="@dimen/_8sdp"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/name"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+        
+                <EditText
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/textWhite"
-                    android:ems="10"
-                    
-                    android:hint="@string/name"
+                    android:background="@android:color/transparent"
                     android:inputType="textPersonName"
+                    tools:text="Amit"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
                     android:text="@={signUpFragmentViewModel.name}"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout3"
-                
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout5"
-                
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:layout_marginBottom="8dp"
-                android:textColorHint="?attr/textWhite">
-                
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText"
+        
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+        
+        
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/email"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+        
+                <EditText
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    
-                    android:backgroundTint="?attr/textWhite"
-                    android:ems="10"
-                    android:hint="@string/email"
+                    android:background="@android:color/transparent"
                     android:inputType="textEmailAddress"
-                    
+                    tools:text="Amit@gmail.com"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
                     android:text="@={signUpFragmentViewModel.email}"
                     android:textColor="?attr/textWhite"
-                    android:textColorHint="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                android:layout_width="match_parent"
-                
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout3"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:textColorHint="?attr/textWhite">
-                
-                
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText3"
-                    style="@style/normalText"
+        
+                <View
                     android:layout_width="match_parent"
-                    
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+        
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/textWhite"
-                    android:ems="10"
-                    android:hint="@string/phone_number"
-                    
+                    android:text="@string/phone_number"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+        
+                <EditText
                     android:inputType="phone"
                     android:text="@={signUpFragmentViewModel.phone}"
-                    android:textColor="?attr/textWhite"
-                    android:textColorHint="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
-            
-            </com.google.android.material.textfield.TextInputLayout>
-            
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout4"
-                
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout2"
-                android:layout_marginStart="16dp"
-                
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="16dp"
-                
-                android:textColorHint="?attr/textWhite">
-                
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText4"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/textWhite"
-                    android:ems="10"
-                    android:hint="@string/confirm_password"
-                    
-                    android:inputType="textPassword"
-                    android:text="@={signUpFragmentViewModel.confirm_password}"
-                    android:textColor="?attr/textWhite"
+                    android:background="@android:color/transparent"
+                     tools:text="7696379802"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
+                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-            </com.google.android.material.textfield.TextInputLayout>
-            
-            
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
-                
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="8dp"
-                
-                android:layout_marginEnd="16dp"
-                android:textColorHint="?attr/textWhite">
-                
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/editText2"
-                    style="@style/normalText"
+        
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+    
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:backgroundTint="?attr/textWhite"
-                    android:ems="10"
-                    android:hint="@string/password"
+                    android:text="@string/password"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+    
+                <EditText
                     android:inputType="textPassword"
                     android:text="@={signUpFragmentViewModel.password}"
+                    style="@style/normalText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    tools:text="Amit"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/editText3" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:textSize="@dimen/_12sdp" />
+    
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+    
+                <TextView
+                    android:layout_marginTop="@dimen/_10sdp"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/phone_number"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+    
+                <EditText
+                    android:inputType="textPassword"
+                    android:text="@={signUpFragmentViewModel.confirm_password}"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    tools:text="111111"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+    
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+    
+            </LinearLayout>
+    
+    
+    
+    
+            
+            
+          
             
             <LinearLayout
                 android:id="@+id/li_terms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/textInputLayout4"
+                android:layout_below="@+id/li_fields"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="16dp"
@@ -205,6 +218,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="4dp"
+                    style="@style/mediumText"
                     android:text="@string/termsandconditions"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_10sdp" />
@@ -213,7 +227,7 @@
             
             <Button
                 android:id="@+id/bt_signup"
-                style="@style/normalText"
+                style="@style/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/li_terms"
@@ -235,7 +249,7 @@
             
             <TextView
                 android:id="@+id/tv_login"
-                style="@style/title"
+                style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/bt_signup"

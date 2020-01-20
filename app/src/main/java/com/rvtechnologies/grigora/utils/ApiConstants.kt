@@ -60,6 +60,8 @@ object ApiConstants {
     const val ADD_MONEY = "wallet-in"
     const val GET_ALL_ADDRESSES = "get-user-addresses"
     const val ADD_ADDRESS = "add-user-location"
+    const val DASHBOARD_DATA = "customer-home-screen"
+
 
 
 }

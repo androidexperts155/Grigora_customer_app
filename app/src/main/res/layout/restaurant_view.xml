@@ -29,7 +29,7 @@
                 
                 <TextView
                     android:id="@+id/txtRestaurantName"
-                    style="@style/title"
+                    style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@{restaurantModel.nameToShow}"

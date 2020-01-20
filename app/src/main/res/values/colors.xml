@@ -30,12 +30,13 @@
     <color name="green">#4CAF50</color>
     
     <color name="grey_bg">#F7F7F7</color>
-    <color name="textGrey">#707070</color>
+    <color name="textGrey">#262626</color>
     <color name="textLightGrey">#C1C1C1</color>
     <color name="viewbg">#DFDEDE</color>
     <color name="textBlack">#262626</color>
     <color name="texftBlack">#EEECEC</color>
     <color name="white">#ffffff</color>
+    <color name="seprator">#f3f3f3</color>
     
     <color name="lightPrimary">#FDE8E7</color>
     
@@ -43,6 +44,9 @@
     <color name="background_dark_light">#112037</color>
     <color name="background_dark">#020A18</color>
     <color name="background_light_grey">#E0E1E1</color>
+    
+    <color name="text_hint_color">#aaa</color>
+    
 
 
 </resources>

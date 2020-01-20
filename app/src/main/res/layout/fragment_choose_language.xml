@@ -43,7 +43,7 @@
             android:paddingRight="@dimen/_24sdp">
             
             <TextView
-                style="@style/normalText"
+                style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/select_language"
@@ -70,6 +70,7 @@
                     android:src="@drawable/english" />
                 
                 <TextView
+                    style="@style/mediumText"
                     android:id="@+id/tv_english"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -102,6 +103,7 @@
                     android:src="@drawable/french_lan" />
                 
                 <TextView
+                    style="@style/mediumText"
                     android:id="@+id/tv_french"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -117,7 +119,7 @@
             
             <Button
                 android:id="@+id/button2"
-                style="@style/normalText"
+                style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"

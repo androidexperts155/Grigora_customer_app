@@ -17,8 +17,6 @@
             android:layout_gravity="left"
             android:elevation="1dp"
             app:cardCornerRadius="@dimen/_8sdp">
-            
-            
             <ImageView
                 android:id="@+id/imgRestaurant"
                 android:layout_width="match_parent"
@@ -31,7 +29,7 @@
         
         <TextView
             android:id="@+id/txtRestaurantName"
-            style="@style/title"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"

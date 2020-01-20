@@ -16,142 +16,164 @@
         android:layout_height="match_parent"
         tools:context=".view.ui.addresses.SelectLocationFragment">
         
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimaryDark" />
-        
-        <TextView
-            android:id="@+id/txtRestaurantName"
-            style="@style/title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
-            android:text="@string/delivery_location"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp" />
-        
-        <LinearLayout
-            android:id="@+id/li_up"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-            
-            <TextView
-                android:id="@+id/textView34"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_8sdp"
-                android:layout_marginTop="@dimen/_50sdp"
-                android:text="@string/area"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_10sdp"
-                android:textStyle="bold" />
-            
-            
-            <TextView
-                android:id="@+id/txtAddress"
-                style="@style/normalText"
-                android:maxLines="2"
-                android:ellipsize="end"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_16sdp"
-                android:background="@drawable/edit_bottom_line_back"
-                android:hint="@string/select_area"
-                android:onClick="@{()-> selectLocationView.selectArea()}"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white"
-                android:textSize="@dimen/_10sdp" />
-            
-            <TextView
-                android:id="@+id/textView36"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/txtRestaurantName"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/btn_transparent"
-                android:drawableStart="@drawable/ic_my_location"
-                android:drawablePadding="@dimen/_6sdp"
-                android:gravity="start|center_vertical"
-                android:onClick="@{()->selectLocationView.useCurrentLocation()}"
-                android:text="@string/use_my_current_location"
-                android:textAllCaps="false"
-                android:textColor="@color/white" />
-            
-            
-            <EditText
-                android:id="@+id/ed_apartment"
-                style="@style/normalText"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginTop="8dp"
-                android:layout_marginRight="@dimen/_16sdp"
-                android:background="@drawable/edit_bottom_line_back"
-                android:hint="@string/apt_number"
-                android:textColor="@color/white"
-                android:textColorHint="@color/white" />
-        
-        
-        </LinearLayout>
-        
-        <androidx.cardview.widget.CardView
-            android:layout_below="@+id/li_up"
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="8dp"
-            app:cardCornerRadius="8dp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/shadow"
-            android:orientation="vertical">
+            android:visibility="gone">
             
-            <RelativeLayout
+            <View
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
-                
+                android:layout_height="@dimen/_200sdp"
+                android:layout_alignParentTop="true"
+                android:background="@color/colorPrimaryDark" />
+            
+            <TextView
+                android:id="@+id/txtRestaurantName"
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="28dp"
+                android:text="@string/delivery_location"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_14sdp" />
         
+        
+        </RelativeLayout>
+        
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="visible">
+            
+            <fragment
+                android:id="@+id/map"
+                android:name="com.google.android.gms.maps.SupportMapFragment"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_marginEnd="0dp"
+                android:layout_marginBottom="0dp"
+                android:enabled="true" />
+            
+            <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                
+                android:layout_margin="@dimen/_16sdp"
+                android:elevation="1dp"
+                app:cardBackgroundColor="?attr/backgroundColor"
+                app:cardCornerRadius="@dimen/_4sdp"
+                app:cardElevation="1dp"
+                app:contentPaddingBottom="@dimen/_12sdp"
+                app:contentPaddingLeft="@dimen/_8sdp"
+                app:contentPaddingRight="@dimen/_8sdp"
+                app:contentPaddingTop="@dimen/_12sdp"
+                
+                >
+                
+                <LinearLayout
+                    android:id="@+id/li_up"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
                     
-                    <fragment
-                        android:id="@+id/map"
-                        android:name="com.google.android.gms.maps.SupportMapFragment"
+                    <TextView
+                        android:id="@+id/textView34"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:text="@string/area"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_10sdp" />
+                    
+                    <TextView
+                        android:id="@+id/txtAddress"
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginEnd="@dimen/_16sdp"
+                        android:background="@drawable/edit_bottom_line_back"
+                        android:ellipsize="end"
+                        android:hint="@string/select_area"
+                        android:maxLines="2"
+                        android:onClick="@{()-> selectLocationView.selectArea()}"
+                        android:textColor="?attr/textWhite"
+                        android:textColorHint="?attr/searchHint"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    <TextView
+                        android:id="@+id/textView36"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/txtRestaurantName"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="6dp"
+                        android:background="@drawable/btn_transparent"
+                        android:drawableStart="@drawable/ic_location"
+                        android:gravity="center"
+                        android:onClick="@{()->selectLocationView.useCurrentLocation()}"
+                        android:text="@string/use_my_current_location"
+                        android:textAllCaps="false"
+                        android:textColor="?attr/textWhite" />
+                    
+                    
+                    <EditText
+                        android:id="@+id/ed_apartment"
+                        style="@style/mediumText"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="6dp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:background="@drawable/edit_bottom_line_back"
+                        android:hint="@string/apt_number"
+                        android:textColor="?attr/textWhite"
+                        android:textColorHint="?attr/searchHint"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_chip"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:orientation="horizontal"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        tools:listitem="@layout/item_chip" />
+                    
+                    
+                    <ImageButton
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:layout_gravity="right"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_16sdp"
+                        android:background="@drawable/chip_selected_bg"
+                        android:onClick="@{()->selectLocationView.saveLocationContinue()}"
+                        android:padding="@dimen/_4sdp"
                         
-                        android:enabled="true" />
+                        android:tint="@color/white"
+                        app:srcCompat="@drawable/ic_next_black" />
                 
-                 
-                <Button
-                    android:id="@+id/button5"
-                    style="@style/normalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_centerHorizontal="true"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginEnd="16dp"
-                    android:layout_marginBottom="16dp"
-                    android:background="@drawable/btn_rounded"
-                    android:elevation="1dp"
-                    android:onClick="@{()->selectLocationView.saveLocationContinue()}"
-                    android:paddingLeft="@dimen/_22sdp"
-                    android:paddingRight="@dimen/_22sdp"
-                    android:text="@string/continueTxt"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12sdp" />
-            </RelativeLayout>
-        </androidx.cardview.widget.CardView>
+                </LinearLayout>
+            
+            
+            </androidx.cardview.widget.CardView>
+        </RelativeLayout>
     
     </RelativeLayout>
 </layout>

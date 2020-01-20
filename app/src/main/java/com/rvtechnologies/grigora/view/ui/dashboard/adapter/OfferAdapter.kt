@@ -4,24 +4,24 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import co.paystack.android.utils.Utils
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.models.AddressModel
+import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import com.rvtechnologies.grigora.utils.PrefConstants
 
 class OfferAdapter(
-    val list: ArrayList<String>,
-    val iRecyclerItemClick: IRecyclerItemClick
+    val list: ArrayList<NewDashboardModel.Promo>
 ) :
-    RecyclerView.Adapter<OfferAdapter.MyView>() {
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
-        return MyView(
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
+
+        return ImageContainer(
             LayoutInflater.from(parent.context).inflate(
                 R.layout.item_offer,
                 parent,
@@ -34,14 +34,20 @@ class OfferAdapter(
         return list.size
     }
 
-    inner class MyView(view: View) : RecyclerView.ViewHolder(view) {
-
-     }
-
-    override fun onBindViewHolder(holder: MyView, position: Int) {
-
-
-
+    inner class ImageContainer(view: View) : RecyclerView.ViewHolder(view) {
+        var img_data: ImageView = view.findViewById(R.id.img_data)
     }
 
+
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder as ImageContainer
+        CommonUtils.loadImage(holder.img_data, list[position].image)
+//        holder.img_data.setImageDrawable(
+//            ContextCompat.getDrawable(
+//                holder.img_data.context,
+//                R.drawable.restaurant
+//            )
+//        )
+    }
 }
+

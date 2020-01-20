@@ -89,6 +89,14 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    override fun onResume() {
+        super.onResume()
+        if (activity is MainActivity) {
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).lockDrawer(true)
+        }
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstants.OTP_CODE) {

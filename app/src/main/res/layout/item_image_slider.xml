@@ -14,8 +14,8 @@
         android:src="@drawable/fav_restaurant" />
     
     <TextView
-        style="@style/normalText"
         android:id="@+id/tv_title"
+        style="@style/titleText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -26,8 +26,8 @@
         android:textSize="@dimen/_14sdp" />
     
     <TextView
-        style="@style/normalText"
         android:id="@+id/tv_desc"
+        style="@style/mediumText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_40sdp"

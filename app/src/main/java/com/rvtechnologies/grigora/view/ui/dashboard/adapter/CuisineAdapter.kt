@@ -1,70 +1,51 @@
-
 package com.rvtechnologies.grigora.view.ui.dashboard.adapter
-/*
-import android.graphics.Color
-import android.graphics.Typeface
+
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.databinding.DataBindingUtil
-import androidx.databinding.ViewDataBinding
+import android.widget.ImageView
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
+import co.paystack.android.utils.Utils
+import com.facebook.shimmer.ShimmerFrameLayout
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.models.CuisineModel
+import com.rvtechnologies.grigora.model.models.NewDashboardModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import kotlinx.android.synthetic.main.category_item.view.*
+
+class CuisineAdapter(
+    val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>
+) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
 
-class CuisineAdapter(var cuisineList: ArrayList<CuisineModel>,var iRecyclerItemClick: IRecyclerItemClick) :
-    RecyclerView.Adapter<CuisineAdapter.ViewHolder>() {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
-
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        val cuisineModel = cuisineList[position]
-        if(cuisineModel.checked)
-        {
-            holder.itemView.txtCuisineName.setTextColor(Color.BLACK)
-            holder.itemView.txtCuisineName.setTypeface(null, Typeface.BOLD)
-            holder.itemView.txtCuisineName.scaleX=1.1f
-            holder.itemView.txtCuisineName.scaleY=1.1f
-        }
-        else{
-            holder.itemView.txtCuisineName.setTextColor(Color.DKGRAY)
-            holder.itemView.txtCuisineName.setTypeface(null, Typeface.NORMAL)
-            holder.itemView.txtCuisineName.scaleX=1f
-            holder.itemView.txtCuisineName.scaleY=1f
-        }
-
-        holder.bind(cuisineModel,iRecyclerItemClick)
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-        val inflater = LayoutInflater.from(parent.context)
-        val binding = DataBindingUtil.inflate<ViewDataBinding>(inflater, R.layout.category_item, parent,false)
-
-
-        return ViewHolder(binding)
+        return ImageContainer(
+            LayoutInflater.from(parent.context).inflate(
+                R.layout.item_top_cuisine,
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int {
-        return cuisineList.size
+        return list.size
     }
 
-    class ViewHolder(var binding: DataBindingUtil) :
-        RecyclerView.ViewHolder(binding.root) {
-
-        fun bind(
-            item: CuisineModel,
-            iRecyclerItemClick: IRecyclerItemClick
-        ) {
-            binding.cuisineModel = item
-
-            binding.executePendingBindings()
-            binding.root.setOnClickListener {
-                iRecyclerItemClick.onItemClick(item)
-            }
-        }
+    inner class ImageContainer(view: View) : RecyclerView.ViewHolder(view) {
+        var img_data: ImageView = view.findViewById(R.id.img_data)
+        var tv_data: TextView = view.findViewById(R.id.tv_data)
     }
 
 
+    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
+        holder as ImageContainer
+        CommonUtils.loadImage(holder.img_data, list[position].image)
+        holder.tv_data.text = list[position].name
 
-}*/
+    }
+}
+

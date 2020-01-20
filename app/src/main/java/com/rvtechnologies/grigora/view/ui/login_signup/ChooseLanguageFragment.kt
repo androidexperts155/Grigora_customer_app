@@ -47,7 +47,7 @@ class ChooseLanguageFragment : Fragment() {
                         ?.navigate(R.id.action_chooseLanguageFragment_to_selectLocationFragment)
                 else
                     view?.findNavController()
-                        ?.navigate(R.id.action_chooseLanguageFragment_to_loginfragment)
+                        ?.navigate(R.id.action_chooseLanguageFragment_to_socialLoginfragment)
             }
         })
 
@@ -108,12 +108,11 @@ class ChooseLanguageFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).deliverLayout.visibility = View.GONE
-        (activity as MainActivity).img_menu.visibility = View.GONE
-        (activity as MainActivity).img_back.visibility = View.VISIBLE
-        (activity as MainActivity).lockDrawer(true)
+        if (activity is MainActivity) {
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).lockDrawer(true)
+        }
     }
-
     companion object {
         @JvmStatic
         fun newInstance() =

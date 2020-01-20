@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    
+    <item
+        
+        android:id="@+id/dashBoardFragment"
+        android:icon="@drawable/ic_food"
+        android:title="@string/food" />
+    
+    <item
+        android:id="@+id/navigationMyAccount"
+        android:icon="@drawable/ic_take_away"
+        android:title="@string/pickup" />
+    
+    
+    <item
+        
+        android:id="@+id/navigationNearbyRestaurants"
+        android:icon="@drawable/ic_popular"
+        android:title="@string/popular" />
+    
+    <item
+        android:id="@+id/navigationCart"
+        android:icon="@drawable/ic_orders"
+        android:title="@string/orders" />
+    
+    <item
+        android:id="@+id/navigationMyAccounts"
+        android:icon="@drawable/ic_my_account"
+        android:title="@string/my_account" />
+    
+   
+</menu>
