@@ -15,7 +15,8 @@ class TopBrandAdapter(
     val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
     val minKiloMeter: String,
     val baseDeliveryFee: String,
-    iRecyclerItemClick: IRecyclerItemClick
+    val iRecyclerItemClick: IRecyclerItemClick,
+    val uiType: String
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -49,6 +50,11 @@ class TopBrandAdapter(
 
         holder.tv_delivery_time.text =
             list[position].preparing_time + " " + holder.tv_delivery_time.context.getString(R.string.min)
+
+        holder.itemView.setOnClickListener{
+            list[position].uiTpe=uiType
+            iRecyclerItemClick.onItemClick(list[position])
+        }
 
     }
 }

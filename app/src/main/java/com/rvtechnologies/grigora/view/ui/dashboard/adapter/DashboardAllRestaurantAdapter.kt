@@ -64,6 +64,10 @@ class DashboardAllRestaurantAdapter(
         holder.tv_delivery_charges.text =
             "₦" + (price.toInt()).toString() + " " + holder.tv_delivery_time.context.getString(R.string.delivery)
 
+
+        holder.itemView.setOnClickListener{
+             iRecyclerItemClick.onItemClick(list[position])
+        }
     }
 
 

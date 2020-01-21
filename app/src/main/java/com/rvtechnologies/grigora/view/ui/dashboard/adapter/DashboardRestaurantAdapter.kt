@@ -16,7 +16,8 @@ class DashboardRestaurantAdapter(
     val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
     val minKiloMeter: String,
     val baseDeliveryFee: String,
-    iRecyclerItemClick: IRecyclerItemClick
+  val iRecyclerItemClick: IRecyclerItemClick,
+  val uiType: String
 ) :
     RecyclerView.Adapter<DashboardRestaurantAdapter.MyView>() {
 
@@ -59,6 +60,12 @@ class DashboardRestaurantAdapter(
 
         var price = baseDeliveryFee.toFloat() + (distance * minKiloMeter.toFloat())
         holder.tv_delivery_charges.text = "₦"+(price.toInt()).toString()+" "+holder.tv_delivery_time.context.getString(R.string.delivery)
+
+
+        holder.itemView.setOnClickListener{
+            list[position].uiTpe=uiType
+            iRecyclerItemClick.onItemClick(list[position])
+        }
     }
 
 

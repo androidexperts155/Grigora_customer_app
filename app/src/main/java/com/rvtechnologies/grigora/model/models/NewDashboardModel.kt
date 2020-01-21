@@ -80,6 +80,7 @@ data class NewDashboardModel(
 
     ) : DashboardItemType {
         data class Restaurant(
+            var uiTpe:String,
             @SerializedName("preparing_time")
             var preparing_time: String = "",
             @SerializedName("address")

@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="loginFragmentViewModel"
+            type="com.rvtechnologies.grigora.view_model.LoginFragmentViewModel" />
+        
+        <variable
+            name="phoneLoginFragment"
+            type="com.rvtechnologies.grigora.view.ui.login_signup.PhoneLogin" />
+    
+    
+    </data>
+    
+    <RelativeLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor">
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+            
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/phone_number"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <EditText
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@android:color/transparent"
+                android:inputType="phone"
+                android:padding="@dimen/_4sdp"
+                android:singleLine="true"
+                android:text="@={loginFragmentViewModel.email}"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp"
+                tools:text="amit@gmail.com" />
+            
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@color/viewbg" />
+            
+            
+            <Button
+                
+                
+                android:id="@+id/btnLogin"
+                style="@style/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnForgot"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_48sdp"
+                android:clickable="true"
+                android:layout_marginTop="@dimen/_16sdp"
+          
+                android:layout_marginEnd="@dimen/_48sdp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
+                android:onClick="@{()->phoneLoginFragment.toOTP()}"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/login"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnLogin"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:gravity="center"
+                android:onClick="@{()->phoneLoginFragment.toLogin()}"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/login_with_password"
+                android:textAllCaps="false"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+    
+    
+    </RelativeLayout>
+
+</layout>

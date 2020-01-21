@@ -14,7 +14,7 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class CategoriesAdapter(
     val list: ArrayList<NewDashboardModel.Cuisine>,
-    iRecyclerItemClick: IRecyclerItemClick
+   val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<CategoriesAdapter.MyView>() {
 
@@ -67,6 +67,10 @@ class CategoriesAdapter(
                     )
                 )
             }
+        }
+
+        holder.itemView.setOnClickListener{
+             iRecyclerItemClick.onItemClick(list[position])
         }
 
     }

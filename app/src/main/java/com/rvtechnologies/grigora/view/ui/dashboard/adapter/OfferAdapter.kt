@@ -12,7 +12,7 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class OfferAdapter(
     val list: ArrayList<NewDashboardModel.Promo>,
-    iRecyclerItemClick: IRecyclerItemClick
+   val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -40,6 +40,9 @@ class OfferAdapter(
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         holder as ImageContainer
         CommonUtils.loadImage(holder.img_data, list[position].image)
+        holder.itemView.setOnClickListener{
+             iRecyclerItemClick.onItemClick(list[position])
+        }
 //        holder.img_data.setImageDrawable(
 //            ContextCompat.getDrawable(
 //                holder.img_data.context,

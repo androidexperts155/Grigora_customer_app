@@ -134,7 +134,6 @@ class DashboardAdapter(
             }
             is Categories -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
                 holder.rc_data.adapter =
@@ -143,9 +142,7 @@ class DashboardAdapter(
             }
             is Cuisines -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
-
                 holder.rc_data.layoutManager = layoutManager
-
                 var customisedData = newDashboardModel.customizedData[position - topSize]
                 holder.rel_title.visibility = View.VISIBLE
                 if (customisedData.showAll == "1")
@@ -156,7 +153,7 @@ class DashboardAdapter(
                 holder.tv_title.text = customisedData.title
 
                 holder.rc_data.adapter =
-                    CuisineAdapter(customisedData.restaurants, iRecyclerItemClick)
+                    CuisineAdapter(customisedData.restaurants, iRecyclerItemClick,customisedData.uiType)
 
 
             }
@@ -176,7 +173,7 @@ class DashboardAdapter(
 
                 holder.rc_data.adapter = TopBrandAdapter(
                     customisedData.restaurants, newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee, iRecyclerItemClick
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick,customisedData.uiType
                 )
             }
             is RestaurantsHorizontal -> {
@@ -197,7 +194,7 @@ class DashboardAdapter(
                 holder.rc_data.adapter = DashboardRestaurantAdapter(
                     customisedData.restaurants,
                     newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee, iRecyclerItemClick
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick,customisedData.uiType
                 )
             }
             is RestaurantsVertical -> {

@@ -18,7 +18,7 @@
             android:layout_height="@dimen/_200sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:scaleType="centerCrop"
-            android:src="@drawable/circle" />
+            android:src="@drawable/splash_bottom" />
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -97,12 +97,13 @@
         
         
         </LinearLayout>
+        
         <TextView
-            android:layout_gravity="center"
             android:id="@+id/tv_phone"
             style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:padding="@dimen/_8sdp"
             android:text="Continue with phone"
             android:textColor="?attr/textWhite"

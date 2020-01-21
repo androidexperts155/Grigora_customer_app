@@ -13,7 +13,8 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class CuisineAdapter(
     val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
-    iRecyclerItemClick: IRecyclerItemClick
+    var iRecyclerItemClick: IRecyclerItemClick,
+    val uiType: String
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -43,6 +44,11 @@ class CuisineAdapter(
         holder as ImageContainer
         CommonUtils.loadImage(holder.img_data, list[position].image)
         holder.tv_data.text = list[position].name
+
+        holder.itemView.setOnClickListener {
+            list[position].uiTpe = uiType
+            iRecyclerItemClick.onItemClick(list[position])
+        }
 
     }
 }

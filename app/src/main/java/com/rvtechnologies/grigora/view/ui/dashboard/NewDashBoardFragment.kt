@@ -104,10 +104,17 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
     override fun onItemClick(item: Any) {
         if (item is NewDashboardModel.Filter) {
-            applyFilter("filter_id", item.id.toString())
+            if (!item.selected)
+                applyFilter("filter_id", item.id.toString())
+            else
+                applyFilter("filter_id", "0")
         } else if (item is NewDashboardModel.Promo) {
 
         } else if (item is NewDashboardModel.Cuisine) {
+            if(!item.selected)
+            applyFilter("cuisine_id", item.id.toString())
+            else
+                applyFilter("cuisine_id", "0")
 
         } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 //            if (newDashboardModel.customizedData[position - topSize].uiType.equals("1"))
