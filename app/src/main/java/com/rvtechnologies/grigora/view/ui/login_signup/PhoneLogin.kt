@@ -80,6 +80,7 @@ class PhoneLogin : Fragment() {
 
     fun toOTP() {
         if (viewModel?.isValidPhone()!!) {
+
             var auth = FirebaseAuth.getInstance()
             if (auth.currentUser != null)
                 auth.signOut()
