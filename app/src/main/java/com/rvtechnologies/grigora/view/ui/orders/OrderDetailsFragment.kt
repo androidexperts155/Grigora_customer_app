@@ -15,7 +15,6 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
-import android.widget.LinearLayout
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -54,7 +53,6 @@ import kotlinx.android.synthetic.main.order_details_fragment.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.URISyntaxException
-import java.util.*
 
 class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFragment.DriverRate,
     OnCurveDrawnCallback {
@@ -71,7 +69,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     override fun onMapReady(googleMap: GoogleMap) {
         googleMap.setMapStyle(
             MapStyleOptions(
-                resources.getString(R.string.style_json)
+                resources.getString(R.string.light_mode_style)
             )
         )
 

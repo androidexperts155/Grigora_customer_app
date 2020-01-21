@@ -73,6 +73,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         // [START initialize_auth]
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
+        auth.currentUser != null
         // [END initialize_auth]
 
         // Initialize phone auth callbacks
@@ -99,6 +100,8 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
             }
 
             override fun onVerificationFailed(e: FirebaseException) {
+                CommonUtils.hideLoader()
+
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
@@ -109,6 +112,8 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     // [START_EXCLUDE]
+                    CommonUtils.showMessage(parentView, "Invalid phone number.")
+
                     Toast.makeText(
                         this@OtpActivity,
                         "Invalid phone number.",
@@ -117,16 +122,15 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
-                    Snackbar.make(
-                        findViewById(android.R.id.content), "Quota exceeded.",
-                        Snackbar.LENGTH_SHORT
-                    ).show()
+                    CommonUtils.showMessage(parentView, "Quota exceeded.")
+
                     // [END_EXCLUDE]
                 }
 
                 // Show a message and update the UI
                 // [START_EXCLUDE]
-                updateUI(STATE_VERIFY_FAILED)
+                CommonUtils.showMessage(parentView, e.message.toString())
+//                updateUI(STATE_VERIFY_FAILED)
                 // [END_EXCLUDE]
             }
 
@@ -160,7 +164,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         updateUI(currentUser)
 
         // [START_EXCLUDE]
-        if (verificationInProgress && validatePhoneNumber()) {
+        if (!verificationInProgress && validatePhoneNumber()) {
             startPhoneNumberVerification(intent.getStringExtra("phone"))
         }
         // [END_EXCLUDE]
@@ -218,6 +222,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     private fun signInWithPhoneAuthCredential(credential: PhoneAuthCredential) {
         auth.signInWithCredential(credential)
             .addOnCompleteListener(this) { task ->
+                CommonUtils.hideLoader()
                 if (task.isSuccessful) {
                     // Sign in success, update UI with the signed-in user's information
                     Log.d(TAG, "signInWithCredential:success")
@@ -268,41 +273,46 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     ) {
         when (uiState) {
             STATE_INITIALIZED -> {
-                // Initialized state, show only the phone number field and start button
+                CommonUtils.showLoader(this, "Sending OTP")
             }
             STATE_CODE_SENT -> {
-                // Code sent state, show the verification field, the
-
+                CommonUtils.hideLoader()
             }
             STATE_VERIFY_FAILED -> {
-                // Verification has failed, show all options
+                CommonUtils.hideLoader()
 
-                val intent = Intent()
-                intent.putExtra("verified", false)
-                setResult(AppConstants.OTP_CODE, intent)
-                finish() //finishing a
+//                val intent = Intent()
+//                intent.putExtra("verified", false)
+//                setResult(AppConstants.OTP_CODE, intent)
+//                finish() //finishing a
 
             }
             STATE_VERIFY_SUCCESS -> {
-                // Verification has succeeded, proceed to firebase sign in
+                CommonUtils.hideLoader()
 
-                val intent = Intent()
-                intent.putExtra("verified", true)
-                setResult(AppConstants.OTP_CODE, intent)
-                finish()
-                // Set the verification text based on the credential
-                if (cred != null) {
-                    if (cred.smsCode != null) {
-                        otp_view.setText(cred.smsCode)
-                    } else {
-                        otp_view.setText("Instant Validation")
-                    }
-                }
+                // Verification has succeeded, proceed to firebase sign in
+//                val intent = Intent()
+//                intent.putExtra("verified", true)
+//                setResult(AppConstants.OTP_CODE, intent)
+//                finish()
+//                // Set the verification text based on the credential
+//                if (cred != null) {
+//                    if (cred.smsCode != null) {
+//                        otp_view.setText(cred.smsCode)
+//                    } else {
+//                        otp_view.setText("Instant Validation")
+//                    }
+//                }
             }
             STATE_SIGNIN_FAILED -> {
             }
             // No-op, handled by sign-in check
             STATE_SIGNIN_SUCCESS -> {
+                CommonUtils.hideLoader()
+                val intent = Intent()
+                intent.putExtra("verified", true)
+                setResult(AppConstants.OTP_CODE, intent)
+                finish() //finishing a
             }
 
         } // Np-op, handled by sign-in check
@@ -324,6 +334,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
             R.id.buttonVerifyPhone -> {
                 val code = otp_view.text.toString()
+                CommonUtils.showLoader(this, "Verifying")
                 if (TextUtils.isEmpty(code)) {
                     otp_view.error = "Cannot be empty."
                     return

@@ -324,6 +324,7 @@
     <string name="food">Food</string>
     <string name="pickup">Pickup</string>
     <string name="otpverification">OTP Verification</string>
+    <string name="login_with_password">Login with password</string>
 
 
 </resources>

@@ -160,6 +160,10 @@ class SocialLoginFragment : Fragment() {
 
         }
 
+        tv_phone.setOnClickListener {
+                view?.findNavController()?.navigate(R.id.action_social_fragment_to_phone_login)
+        }
+
         tv_signup.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_social_fragment_to_signup)
 

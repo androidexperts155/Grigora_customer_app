@@ -12,20 +12,19 @@ import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.Navigation
-import androidx.navigation.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -42,14 +41,12 @@ import com.karumi.dexter.listener.single.PermissionListener
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.SelectLocationFragmentBinding
 import com.rvtechnologies.grigora.model.models.AddAddressModel
-import com.rvtechnologies.grigora.model.models.ChipModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.LocationTypeModel
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.addresses.adapter.ChipAdapter
 import com.rvtechnologies.grigora.view_model.LocationTypeViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.select_location_fragment.*
 import java.net.URISyntaxException
 
@@ -118,6 +115,20 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
     override fun onMapReady(googleMap: GoogleMap) {
 
         mMap = googleMap
+        if (CommonUtils.isDarkMode())
+            googleMap.setMapStyle(
+                MapStyleOptions(
+                    getResources()
+                        .getString(R.string.dark_mode_style)
+                )
+            )
+        else
+            googleMap.setMapStyle(
+                MapStyleOptions(
+                    getResources()
+                        .getString(R.string.light_mode_style)
+                )
+            )
 
         try {
             updateMap()
@@ -324,7 +335,7 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
         for (i in 0 until chipList.size) {
             chipList[i].selected = i == item as Int
         }
-        selectedType=chipList[item as Int].id.toString()
+        selectedType = chipList[item as Int].id.toString()
 
 
         chipAdapter.notifyDataSetChanged()

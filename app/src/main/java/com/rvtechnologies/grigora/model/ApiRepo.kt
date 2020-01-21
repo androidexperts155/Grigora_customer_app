@@ -78,16 +78,42 @@ class ApiRepo {
             })
     }
 
+
+    fun phoneLogin(
+        phone: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().phoneLogin(phone, "2")
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
+
     fun socialLogin(
-        name:String,
+        name: String,
         email: String,
-        phone:String,
+        phone: String,
         loginType: String,
         socialId: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
-        ApiClient.getClient().socialLogin(name, email, phone,loginType,socialId)
+        ApiClient.getClient().socialLogin(name, email, phone, loginType, socialId)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1145,11 +1171,12 @@ Cuisine repo
             })
     }
 
-    fun getDashboardData(map:HashMap<String,Any>,
+    fun getDashboardData(
+        map: HashMap<String, Any>,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
-            .getDashboardData(body = map,token = map["token"].toString())
+            .getDashboardData(body = map, token = map["token"].toString())
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1168,7 +1195,6 @@ Cuisine repo
 
             })
     }
-
 
 
 }

@@ -83,6 +83,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         super.onViewCreated(view, savedInstanceState)
 
         map["latitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
+        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         map["longitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
         map["filter_id"] = "0"
         map["cuisine_id"] = "0"

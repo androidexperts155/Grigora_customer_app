@@ -25,7 +25,7 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
         imagesList.add(R.drawable.fav_restaurant)
         imagesList.add(R.drawable.img_earn)
         imagesList.add(R.drawable.live_traking)
-        imagesList.add(R.drawable.img_reserve)
+        imagesList.add(R.drawable.img_group_delivery)
 
 
         titleList.add("Seamless Delivery")

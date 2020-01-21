@@ -6,6 +6,7 @@ object ApiConstants {
 
     const val CHANGE_LANGUAGE_URL = "change-language"
     const val LOGIN_URL = "login"
+    const val PHONE_LOGIN_URL = "phone-login"
     const val SIGNUP_URL = "signup"
     const val SOCIAL_LOGIN_URL = "social-login"
 

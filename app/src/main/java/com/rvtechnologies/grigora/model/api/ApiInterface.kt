@@ -24,6 +24,14 @@ interface ApiInterface {
         @Field("role") role: String
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.PHONE_LOGIN_URL)
+    fun phoneLogin(
+        @Field("phone") email: String,
+         @Field("role") role: String
+    ): Call<JsonElement>
+
+
     //login_type(1:instagram,2:twiter,3:facebook,4:google)
     @FormUrlEncoded
     @POST(ApiConstants.SOCIAL_LOGIN_URL)

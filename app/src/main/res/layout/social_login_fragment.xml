@@ -97,6 +97,16 @@
         
         
         </LinearLayout>
+        <TextView
+            android:layout_gravity="center"
+            android:id="@+id/tv_phone"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp"
+            android:text="Continue with phone"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
         
         <TextView
             style="@style/normalText"

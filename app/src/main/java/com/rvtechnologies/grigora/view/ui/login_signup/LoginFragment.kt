@@ -40,7 +40,10 @@ class LoginFragment : Fragment(), GoogleSignin {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-            CommonUtils.changeStatusBarColor(ContextCompat.getColor(context!!, R.color.lightGrey), activity as MainActivity)
+        CommonUtils.changeStatusBarColor(
+            ContextCompat.getColor(context!!, R.color.lightGrey),
+            activity as MainActivity
+        )
         (activity as MainActivity).initGoogleSignin(this)
 
         loginViewModel = ViewModelProviders.of(this).get(LoginFragmentViewModel::class.java)
@@ -111,7 +114,6 @@ class LoginFragment : Fragment(), GoogleSignin {
     fun back() {
         activity?.onBackPressed()
     }
-
 
 
     override fun signInResult(task: Task<GoogleSignInAccount>) {

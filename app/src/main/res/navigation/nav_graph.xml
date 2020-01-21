@@ -159,10 +159,7 @@
             android:id="@+id/action_chooseLanguageFragment_to_socialLoginfragment"
             app:destination="@id/socialLoginFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph.xml"
-            app:popUpToInclusive="true" />
+            app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
     <fragment
@@ -254,7 +251,7 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
-    
+        
         <action
             android:id="@+id/action_splashFragment2_to_dashboard"
             app:destination="@id/dashBoardFragment"
@@ -272,8 +269,8 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
-        
-        
+    
+    
     </fragment>
     <fragment
         android:id="@+id/locationTypeFragment"
@@ -486,6 +483,12 @@
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
     
+        <action
+            android:id="@+id/action_social_fragment_to_phone_login"
+            app:destination="@id/phoneLoginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
     
     </fragment>
     <fragment
@@ -507,6 +510,35 @@
         android:id="@+id/dashBoardFragment"
         android:name="com.rvtechnologies.grigora.view.ui.dashboard.NewDashBoardFragment"
         android:label="Home">
+    
+    </fragment>
+    
+    <fragment
+        android:id="@+id/phoneLoginFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.PhoneLogin"
+        android:label="Phone Login">
+        <action
+            android:id="@+id/action_phoneLogin_fragment_to_login"
+            app:destination="@id/loginFragment2"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_phoneLogin_fragment_to_addressListFragment"
+            app:destination="@id/addressListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+        
+        <action
+            android:id="@+id/action_phoneLogin_fragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    
     
     </fragment>
 </navigation>
