@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parentView"
     android:layout_width="match_parent"
@@ -8,64 +9,216 @@
     android:fillViewport="true"
     tools:context=".view.ui.login_signup.SocialLoginFragment">
     
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
         
-        <ImageView
+        <HorizontalScrollView
+            android:id="@+id/scrollview"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_marginTop="@dimen/_16sdp"
-            android:scaleType="centerCrop"
-            android:src="@drawable/splash_bottom" />
+            android:layout_height="wrap_content"
+            
+            android:layout_alignParentTop="true"
+            
+            android:layout_marginTop="@dimen/_40sdp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <ImageView
+                    
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c1" />
+                
+                <ImageView
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c2" />
+                
+                <ImageView
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c3" />
+                
+                <ImageView
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c4" />
+                
+                <ImageView
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c5" />
+                
+                
+                <ImageView
+                    android:layout_width="@dimen/_150sdp"
+                    android:layout_height="@dimen/_150sdp"
+                    android:layout_marginLeft="@dimen/_15sdp"
+                    android:src="@drawable/c6" />
+            </LinearLayout>
+        
+        </HorizontalScrollView>
         
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/li_login_signup"
             android:layout_marginLeft="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_40sdp"
             android:orientation="vertical">
             
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/img_facebook"
                 android:layout_width="match_parent"
                 
-                android:layout_height="@dimen/_45sdp"
-                android:clickable="true"
-                android:src="@drawable/img_facebook" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_25sdp"
+                android:background="@drawable/facebook_bg"
+                
+                android:padding="@dimen/_6sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_facebook" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loginwithfacebook"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
             
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/img_twitter"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
                 
-                android:clickable="true"
-                android:src="@drawable/img_twitter" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/twitter_bg"
+                
+                android:padding="@dimen/_6sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_twitter" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loginwithtwitter"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
             
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/img_google"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
                 
-                android:clickable="true"
-                android:src="@drawable/img_google" />
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/google_bg"
+                
+                android:padding="@dimen/_6sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_google_plus_logo" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loginwithgoogle"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
             
-            <ImageView
+            <RelativeLayout
                 android:id="@+id/img_instagram"
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_45sdp"
-                android:clickable="true"
-                android:src="@drawable/img_insta" />
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/insta_bg"
+                android:padding="@dimen/_6sdp"
+                
+                android:visibility="gone">
+                
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_instagram" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loginwithinstagram"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/img_phone"
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_6sdp"
+                android:background="@drawable/phone_bg"
+                
+                android:padding="@dimen/_6sdp">
+                
+                <ImageView
+                    android:layout_width="@dimen/_20sdp"
+                    android:layout_height="@dimen/_20sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    app:srcCompat="@drawable/ic_mobile_phone" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="@string/loginwithphone"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </RelativeLayout>
+        
         
         </LinearLayout>
         
         <LinearLayout
+            android:id="@+id/li_login_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_above="@+id/tv_bottom"
+            android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_25sdp"
+            android:layout_marginBottom="@dimen/_30sdp"
             android:orientation="horizontal">
             
             <TextView
@@ -99,26 +252,17 @@
         </LinearLayout>
         
         <TextView
-            android:id="@+id/tv_phone"
-            style="@style/mediumText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="@dimen/_8sdp"
-            android:text="Continue with phone"
-            android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_12sdp" />
-        
-        <TextView
+            android:id="@+id/tv_bottom"
             style="@style/normalText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:gravity="center"
             android:padding="@dimen/_20sdp"
             android:text="@string/termsandconditions_social"
             android:textColor="?attr/lightGray" />
     
-    </LinearLayout>
+    </RelativeLayout>
 
 
 </ScrollView>

@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/_140sdp"
+    android:layout_height="wrap_content"
+    android:layout_marginRight="@dimen/_12sdp"
+    android:background="@drawable/offer_bg"
+    android:orientation="vertical"
+    android:padding="1dp">
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="0dp"
+        app:cardBackgroundColor="@android:color/transparent"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="0dp">
+        
+        <ImageView
+            android:id="@+id/img_data"
+            android:layout_width="@dimen/_140sdp"
+            android:layout_height="@dimen/_80sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/restaurant" />
+        
+        <View
+            android:layout_width="@dimen/_10sdp"
+            android:layout_height="@dimen/_10sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/_6sdp"
+            android:background="@drawable/veg" />
+    </androidx.cardview.widget.CardView>
+    
+    <TextView
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:text="Grilled Veg Sandwich"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_10sdp" />
+    
+    <TextView
+        android:layout_marginTop="@dimen/_2sdp"
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:text="In exclusive combos"
+        android:textColor="?attr/searchHint"
+        android:textSize="@dimen/_10sdp" />
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_2sdp"
+    
+        android:layout_marginLeft="@dimen/_4sdp">
+        
+        <RatingBar
+            android:id="@+id/rating"
+            style="@style/RatingBar"
+            android:progressTint="@color/duskYellow"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+             android:rating="5" />
+        
+        <TextView
+            android:id="@+id/tv_rating"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_4sdp"
+            android:layout_toRightOf="@+id/rating"
+            android:text="5.0"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_10sdp" />
+    
+        <TextView
+            android:layout_marginLeft="@dimen/_4sdp"
+    
+            android:layout_below="@+id/tv_rating"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+    
+            android:layout_height="wrap_content"
+             android:text="₦ 50.09"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+    
+        <Button
+            android:layout_marginTop="@dimen/_8sdp"
+            android:id="@+id/bt_add"
+            android:layout_marginRight="@dimen/_4sdp"
+            android:layout_width="@dimen/_40sdp"
+            android:layout_height="@dimen/_20sdp"
+            android:layout_alignParentRight="true"
+            style="@style/normalText"
+            android:background="@drawable/btn_rounded_corners_more"
+            android:text="@string/add"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_8sdp"
+            />
+
+    </RelativeLayout>
+    
+    
+</LinearLayout>

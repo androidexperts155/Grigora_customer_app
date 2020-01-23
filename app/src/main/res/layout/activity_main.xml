@@ -55,6 +55,7 @@
                 android:layout_margin="8dp" />
             
             <Switch
+                android:visibility="visible"
                 android:id="@+id/sw_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -67,7 +68,7 @@
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_centerVertical="true"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/_6sdp"
                 android:padding="4dp"
                 app:srcCompat="@drawable/ic_menu" />
             
@@ -76,7 +77,7 @@
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_centerVertical="true"
-                android:layout_margin="8dp"
+                android:layout_margin="@dimen/_6sdp"
                 app:srcCompat="@drawable/ic_back_white_24dp" />
             
             <RelativeLayout
@@ -166,7 +167,6 @@
             android:layout_alignParentBottom="true"
             android:background="?attr/backgroundColor"
             app:itemIconTint="@color/bottom_navigation_states"
-            
             app:menu="@menu/bottom_navigation_menu" />
     
     </RelativeLayout>
@@ -246,6 +246,7 @@
             android:layout_marginTop="@dimen/_30sdp"
             android:background="@android:color/transparent"
             android:elevation="0dp"
+            app:itemIconTint="@color/bottom_navigation_states"
             app:elevation="0dp"
             app:menu="@menu/side_navigation_menu" />
         

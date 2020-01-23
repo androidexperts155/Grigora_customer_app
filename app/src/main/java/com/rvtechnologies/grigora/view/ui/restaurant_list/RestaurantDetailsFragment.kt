@@ -9,6 +9,7 @@ import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -158,56 +159,70 @@ class RestaurantDetailsFragment : Fragment(), OnItemClickListener, QuantityClick
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (arguments != null) {
-            val restaurant = arguments?.get(AppConstants.RESTAURANT_MODEL) as RestaurantModel
-            restaurant.avgRatingsString = restaurant.avgRatings.toString()
-            fragmentRestaurantsDetailsBinding.restaurantModel = restaurant
-            viewModel.id.value = restaurant.id
 
+        for (i in 0 until tab_top.tabCount) {
+            //noinspection ConstantConditions
+            var tv = layoutInflater?.inflate(R.layout.tab_textview, null) as TextView
+            tv.text = tab_top.getTabAt(i)?.text
 
-            val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-
-            if (token.isBlank())
-                fragmentRestaurantsDetailsBinding.tglLike.background =
-                    ContextCompat.getDrawable(context!!, R.drawable.ic_like_default)
-            else
-                fragmentRestaurantsDetailsBinding.tglLike.background =
-                    ContextCompat.getDrawable(context!!, R.drawable.like_button)
-
-
-
-            fragmentRestaurantsDetailsBinding.tglLike.setOnClickListener {
-                if (token.isBlank()) {
-                    showLoginAlert(activity as MainActivity)
-                } else {
-                    like(fragmentRestaurantsDetailsBinding.tglLike)
-                    var check = 1
-                    if (!fragmentRestaurantsDetailsBinding.tglLike.isChecked)
-                        check = 0
-                    viewModel.click(check)
-                }
+            if (tab_top.getTabAt(i)?.isSelected!!) {
+                tv.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            } else {
+                if (CommonUtils.isDarkMode())
+                    tv.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                else
+                    tv.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
             }
+            tab_top.getTabAt(i)?.setCustomView(tv)
         }
-        rvRestaurantItems.adapter = RestaurantItemAdapter(menuItemList, this, this)
-        rvRestaurantItems.isNestedScrollingEnabled = false
 
-        viewModel.getRestaurantsDetails(
-            CommonUtils.getPrefValue(
-                context,
-                PrefConstants.TOKEN
-            ), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.ID
-            )
-        )
+
+//        if (arguments != null) {
+//            val restaurant = arguments?.get(AppConstants.RESTAURANT_MODEL) as RestaurantModel
+//            restaurant.avgRatingsString = restaurant.avgRatings.toString()
+//            fragmentRestaurantsDetailsBinding.restaurantModel = restaurant
+//            viewModel.id.value = restaurant.id
+//
+//            val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
+//
+//            if (token.isBlank())
+//                fragmentRestaurantsDetailsBinding.tglLike.background =
+//                    ContextCompat.getDrawable(context!!, R.drawable.ic_like_default)
+//            else
+//                fragmentRestaurantsDetailsBinding.tglLike.background =
+//                    ContextCompat.getDrawable(context!!, R.drawable.like_button)
+//
+//
+//            fragmentRestaurantsDetailsBinding.tglLike.setOnClickListener {
+//                if (token.isBlank()) {
+//                    showLoginAlert(activity as MainActivity)
+//                } else {
+//                    like(fragmentRestaurantsDetailsBinding.tglLike)
+//                    var check = 1
+//                    if (!fragmentRestaurantsDetailsBinding.tglLike.isChecked)
+//                        check = 0
+//                    viewModel.click(check)
+//                }
+//            }
+//        }
+//        rvRestaurantItems.adapter = RestaurantItemAdapter(menuItemList, this, this)
+//        rvRestaurantItems.isNestedScrollingEnabled = false
+//
+//        viewModel.getRestaurantsDetails(
+//            CommonUtils.getPrefValue(
+//                context,
+//                PrefConstants.TOKEN
+//            ), CommonUtils.getPrefValue(
+//                context,
+//                PrefConstants.ID
+//            )
+//        )
     }
 
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
             (activity as MainActivity).lockDrawer(true)
         }
 

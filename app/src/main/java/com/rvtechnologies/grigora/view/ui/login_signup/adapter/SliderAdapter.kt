@@ -58,6 +58,7 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
         )
     }
 
+
     override fun getCount(): Int {
         return 5
     }

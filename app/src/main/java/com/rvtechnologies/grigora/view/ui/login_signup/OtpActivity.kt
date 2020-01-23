@@ -10,11 +10,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
-import com.google.android.gms.auth.api.phone.SmsRetriever
-import com.google.android.gms.auth.api.phone.SmsRetrieverClient
-import com.google.android.gms.tasks.Task
-import com.google.android.material.snackbar.Snackbar
-import com.google.firebase.FirebaseException
+ import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException

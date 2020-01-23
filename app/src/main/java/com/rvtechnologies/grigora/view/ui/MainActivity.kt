@@ -349,9 +349,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     fun lockDrawer(enabled: Boolean) {
         var lockMode = if (enabled) {
+            img_menu.isEnabled=false
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
-        } else
+        } else {
+            img_menu.isEnabled=true
             DrawerLayout.LOCK_MODE_UNLOCKED
+        }
 
         drawerLayout.setDrawerLockMode(lockMode);
 //        toggle.setDrawerIndicatorEnabled(enabled);

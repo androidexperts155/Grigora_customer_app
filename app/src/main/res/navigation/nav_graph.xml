@@ -150,10 +150,7 @@
             android:id="@+id/action_chooseLanguageFragment_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-            app:launchSingleTop="true"
-            app:popUpTo="@+id/nav_graph.xml"
-            app:popUpToInclusive="true" />
+            app:exitAnim="@anim/slide_out_left" />
         
         <action
             android:id="@+id/action_chooseLanguageFragment_to_socialLoginfragment"
@@ -482,7 +479,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
-    
+        
         <action
             android:id="@+id/action_social_fragment_to_phone_login"
             app:destination="@id/phoneLoginFragment"
@@ -510,6 +507,12 @@
         android:id="@+id/dashBoardFragment"
         android:name="com.rvtechnologies.grigora.view.ui.dashboard.NewDashBoardFragment"
         android:label="Home">
+        
+        <action
+            android:id="@+id/action_dashBoardFragment_fragment_to_restaurantDetails"
+            app:destination="@id/restaurantDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
     

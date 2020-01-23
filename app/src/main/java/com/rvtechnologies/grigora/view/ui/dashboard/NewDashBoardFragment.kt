@@ -3,23 +3,30 @@ package com.rvtechnologies.grigora.view.ui.dashboard
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
+import com.google.gson.Gson
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.*
-import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.dashboard.adapter.*
 import com.rvtechnologies.grigora.view_model.NewDashBoardViewModel
+import com.rvtechnologies.grigorahq.network.ConnectionNetwork
+import com.rvtechnologies.grigorahq.network.EventBroadcaster
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.new_dash_board_fragment.*
+import kotlinx.android.synthetic.main.profile_fragment.*
 
 class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
@@ -92,13 +99,16 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         viewModel.getDashboardData(map)
     }
 
+
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
             (activity as MainActivity).menuAddress()
             (activity as MainActivity).updateLocation()
             (activity as MainActivity).showBottomNavigation(0)
-            (activity as MainActivity).lockDrawer(false)
+//            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
+            (activity as MainActivity).img_menu.visibility = View.GONE
+            (activity as MainActivity).lockDrawer(true)
         }
     }
 
@@ -111,23 +121,46 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         } else if (item is NewDashboardModel.Promo) {
 
         } else if (item is NewDashboardModel.Cuisine) {
-            if(!item.selected)
-            applyFilter("cuisine_id", item.id.toString())
+            if (!item.selected)
+                applyFilter("cuisine_id", item.id.toString())
             else
                 applyFilter("cuisine_id", "0")
 
         } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+
+            when (item.uiTpe) {
+                "1" -> {
+//                    RESTAURANT
+                    val bundle = bundleOf(AppConstants.RESTAURANT_ID to item.id)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_dashBoardFragment_fragment_to_restaurantDetails,
+                            bundle
+                        )
+
+                }
+                "2" -> {
+                    //                    TOP BRAND
+
+
+                }
+                "3" -> {
+                    //                    CUISINE
+
+
+                }
+            }
+
+
 //            if (newDashboardModel.customizedData[position - topSize].uiType.equals("1"))
 //                RESTAURANTS_HORIZONTAL
 //            else if (newDashboardModel.customizedData[position - topSize].uiType.equals("2"))
 //                CUISINES
 //            else
 //                TOP_BRANDS
-
         } else if (item is NewDashboardModel.AllRestautants) {
 
         }
-
     }
 
     fun applyFilter(key: String, value: String) {

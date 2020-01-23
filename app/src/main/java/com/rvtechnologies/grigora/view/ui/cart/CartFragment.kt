@@ -159,7 +159,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                     )
 
-                    tv_restname.text = cartDataModel.restaurantName
+//                    tv_restname.text = cartDataModel.restaurantName
                     tv_total.text = cartDataModel.cartTotal
 
                     setPromo()

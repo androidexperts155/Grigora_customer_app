@@ -46,6 +46,14 @@
     <color name="background_light_grey">#E0E1E1</color>
     
     <color name="text_hint_color">#aaa</color>
+   
+    <color name="facebook">#344888</color>
+    <color name="twitter">#309DDA</color>
+    <color name="google">#D53E2D</color>
+    <color name="insta1">#B6009B</color>
+    <color name="insta2">#E6001E</color>
+    <color name="phone1">#F9495F</color>
+    <color name="phone2">#C70D2F</color>
     
 
 

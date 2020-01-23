@@ -113,7 +113,7 @@ dependencies {
     implementation 'com.github.mukeshsolanki:android-otpview-pinview:2.1.0'
 
     implementation 'com.github.parse-community:ParseTwitterUtils-Android:1.13.0'
-
+    implementation 'com.zhouyou:signseekbar:1.0.6'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

@@ -14,9 +14,8 @@
         android:layout_marginTop="@dimen/_4sdp">
         
         <TextView
-            
             android:id="@+id/tv_title"
-            style="@style/titleText"
+            style="@style/boldText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -48,7 +47,7 @@
         android:id="@+id/rc_data"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_6sdp"
         android:nestedScrollingEnabled="true"
         android:orientation="horizontal"
         android:overScrollMode="never"

@@ -38,6 +38,7 @@
             android:background="@drawable/shadow"
             android:orientation="vertical"
             android:padding="20dp">
+            
             <com.github.siyamed.shapeimageview.CircularImageView
                 android:id="@+id/profilePic"
                 android:layout_width="@dimen/_96sdp"
@@ -69,6 +70,7 @@
                 android:text="@={profileDetailsViewModel.name}"
                 app:layout_constraintBottom_toTopOf="@+id/editText2"
                 app:layout_constraintEnd_toEndOf="parent" />
+            
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/etEmail"
                 android:layout_width="match_parent"
@@ -116,11 +118,13 @@
                 style="@style/normalText"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone"/>
+                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone" />
         </LinearLayout>
     
     </RelativeLayout>
+    
     <data>
+        
         <variable
             name="profileDetailsViewModel"
             type="com.rvtechnologies.grigora.view_model.ProfileDetailsViewModel" />

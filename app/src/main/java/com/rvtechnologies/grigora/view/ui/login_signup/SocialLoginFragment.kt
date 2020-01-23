@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -160,14 +161,18 @@ class SocialLoginFragment : Fragment() {
 
         }
 
-        tv_phone.setOnClickListener {
-                view?.findNavController()?.navigate(R.id.action_social_fragment_to_phone_login)
+        img_phone.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_social_fragment_to_phone_login)
         }
 
         tv_signup.setOnClickListener {
             view?.findNavController()?.navigate(R.id.action_social_fragment_to_signup)
 
         }
+
+//        scrollview.postDelayed({
+//            scrollview.smoothScrollTo(0,20)
+//        }, 2000)
     }
 
     override fun onResume() {

@@ -14,7 +14,7 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class CategoriesAdapter(
     val list: ArrayList<NewDashboardModel.Cuisine>,
-   val iRecyclerItemClick: IRecyclerItemClick
+    val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<CategoriesAdapter.MyView>() {
 
@@ -47,7 +47,8 @@ class CategoriesAdapter(
                     R.color.colorPrimaryDark
                 )
             )
-            CommonUtils.loadImage(holder.img_data, list[position].background_icon)
+//            if (!list[position].background_icon.isNullOrEmpty())
+                CommonUtils.loadImage(holder.img_data, list[position].icon)
 
         } else {
             CommonUtils.loadImage(holder.img_data, list[position].icon)
@@ -69,12 +70,9 @@ class CategoriesAdapter(
             }
         }
 
-        holder.itemView.setOnClickListener{
-             iRecyclerItemClick.onItemClick(list[position])
+        holder.itemView.setOnClickListener {
+            iRecyclerItemClick.onItemClick(list[position])
         }
 
     }
-
-
 }
-

@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.fragment_welcome_info.*
  * A simple [Fragment] subclass.
  */
 class WelcomeInfoFragment : Fragment() {
-    var current = 0
+    //    var current = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -39,25 +39,29 @@ class WelcomeInfoFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         imageSlider.sliderAdapter =
             SliderAdapter()
+
+
+
         imageSlider.setCurrentPageListener { index ->
-            current = index
             Log.e("INDEX", index.toString())
-            if (index == 3)
-                tv_next.text = "Finish"
-            else
-                tv_next.text = "Next"
+
+//            current = index
+//            if (index == 3)
+//                tv_next.text = "Finish"
+//            else
+//                tv_next.text = "Next"
         }
 
 
-        tv_next.setOnClickListener {
-            if (tv_next.text.toString().equals("Finish")) {
-                view?.findNavController()
-                    ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
-            } else {
-                current++
-                imageSlider.currentPagePosition = current
-            }
-        }
+//        tv_next.setOnClickListener {
+//            if (tv_next.text.toString().equals("Finish")) {
+//                view?.findNavController()
+//                    ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
+//            } else {
+//                current++
+//                imageSlider.currentPagePosition = current
+//            }
+//        }
         tv_skip.setOnClickListener {
             view?.findNavController()
                 ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
