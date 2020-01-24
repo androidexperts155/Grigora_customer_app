@@ -45,9 +45,13 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
         viewModel.isLoading.observe(this, Observer { it ->
             if (it) {
+                li_not_delivering.visibility = View.GONE
+
                 shimmer_view.visibility = View.VISIBLE
                 li_data.visibility = View.GONE
             } else {
+                li_not_delivering.visibility = View.GONE
+
                 shimmer_view.visibility = View.GONE
                 li_data.visibility = View.VISIBLE
             }
@@ -57,20 +61,54 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             if (response is CommonResponseModel<*>) {
 
                 newDashboardModel = response.data as NewDashboardModel
-                var temp = ArrayList<NewDashboardModel.CustomizedData>()
-                for (i in newDashboardModel.customizedData) {
-                    if (i.restaurants.isEmpty()) {
-                        temp.add(i)
+                if (newDashboardModel.allRestaurants.size == 0) {
+                    li_data.visibility = View.GONE
+                    li_not_delivering.visibility = View.VISIBLE
+
+                    not_delivering.visibility = View.VISIBLE
+                    went_wrong.visibility = View.GONE
+                    tv_message.text = getString(R.string.not_delivering_message)
+
+                } else {
+                    li_data.visibility = View.VISIBLE
+                    li_not_delivering.visibility = View.GONE
+
+                    var temp = ArrayList<NewDashboardModel.CustomizedData>()
+
+                    if (newDashboardModel.is_cart != null) {
+                        (activity as MainActivity).showFab()
+                        (activity as MainActivity).tv_restname.text =
+                            newDashboardModel.is_cart.restaurantName
+                        (activity as MainActivity).tv_items.text =
+                            newDashboardModel.is_cart.quantity.toString() + " Items"
+
+                        ((activity) as MainActivity).fab_cart.setOnClickListener {
+                            view?.findNavController()
+                                ?.navigate(
+                                    R.id.action_dashBoardFragment_fragment_to_cart
+                                )
+                        }
                     }
+
+                    for (i in newDashboardModel.customizedData) {
+                        if (i.restaurants.isEmpty()) {
+                            temp.add(i)
+                        }
+                    }
+
+                    newDashboardModel.customizedData.removeAll(temp)
+
+                    dashbordadapter = DashboardAdapter(newDashboardModel, this)
+                    rc_dashboard.adapter = dashbordadapter
                 }
 
-                newDashboardModel.customizedData.removeAll(temp)
-
-                dashbordadapter = DashboardAdapter(newDashboardModel, this)
-                rc_dashboard.adapter = dashbordadapter
-
             } else {
-                CommonUtils.showMessage(parentView, response.toString())
+                li_data.visibility = View.GONE
+                not_delivering.visibility = View.GONE
+                li_not_delivering.visibility = View.VISIBLE
+                went_wrong.visibility = View.VISIBLE
+                tv_message.text = getString(R.string.oops_went_wrong)
+
             }
         })
     }
@@ -103,9 +141,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
+            (activity as MainActivity).hideAll()
             (activity as MainActivity).menuAddress()
             (activity as MainActivity).updateLocation()
             (activity as MainActivity).showBottomNavigation(0)
+
 //            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)

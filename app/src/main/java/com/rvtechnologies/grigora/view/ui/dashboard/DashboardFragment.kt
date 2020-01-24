@@ -235,6 +235,8 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
             (activity as MainActivity).img_menu.visibility = View.VISIBLE
             (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).updateLocation()
+
+
             (activity as MainActivity).lockDrawer(false)
 
         }

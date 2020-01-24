@@ -45,6 +45,8 @@
         
         <item name="chipDeSelected">@color/white</item>
         <item name="chipDeSelectedTextColor">@color/text_hint_color</item>
+        
+        <item name="viewbg">@color/viewbg</item>
     
     
     </style>
@@ -79,6 +81,7 @@
         
         <item name="chipDeSelected">@color/background_dark_light</item>
         <item name="chipDeSelectedTextColor">@color/lightGrey</item>
+        <item name="viewbg">@color/seprator</item>
     </style>
     
     

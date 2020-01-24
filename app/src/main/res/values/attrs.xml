@@ -23,6 +23,8 @@
     <attr name="chipDeSelected" format="color" />
     <attr name="chipDeSelectedTextColor" format="color" />
     
+    <attr name="viewbg" format="color" />
+    
     
 
 

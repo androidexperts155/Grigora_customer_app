@@ -13,22 +13,26 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        android:paddingLeft="@dimen/_10sdp"
+        
         android:paddingTop="@dimen/_4sdp"
-        android:paddingRight="@dimen/_10sdp"
+        
         android:visibility="visible">
         
         <include
-            android:visibility="gone"
             android:id="@+id/shimmer_view"
-            layout="@layout/dashboard_shimmer" />
+            layout="@layout/dashboard_shimmer"
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:visibility="gone" />
         
         <LinearLayout
             android:id="@+id/li_data"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:paddingLeft="@dimen/_10sdp"
+            android:paddingRight="@dimen/_10sdp"
+            android:visibility="gone">
             
             <LinearLayout
                 android:layout_width="match_parent"
@@ -63,6 +67,46 @@
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        </LinearLayout>
+        
+        <LinearLayout
+            android:id="@+id/li_not_delivering"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/not_delivering"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_180sdp"
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="not_delivering.json"
+                app:lottie_loop="true" />
+            
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/went_wrong"
+                android:layout_width="@dimen/_180sdp"
+                android:layout_height="@dimen/_180sdp"
+                
+                app:lottie_autoPlay="true"
+                app:lottie_fileName="went_wrong.json"
+                app:lottie_loop="true" />
+            
+            <TextView
+                android:id="@+id/tv_message"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginTop="@dimen/_10sdp"
+                android:layout_marginRight="@dimen/_12sdp"
+                android:gravity="center"
+                android:text="@string/not_delivering_message"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_14sdp" />
+        
         </LinearLayout>
     
     

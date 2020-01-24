@@ -9,8 +9,10 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class RestaurantModel(
+
     @SerializedName("address")
     var address: String?,
+
     @SerializedName("approved")
     var approved: String?,
     @SerializedName("average_rating")

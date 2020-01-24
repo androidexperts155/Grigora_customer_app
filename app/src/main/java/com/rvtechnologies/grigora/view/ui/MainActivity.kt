@@ -349,10 +349,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     fun lockDrawer(enabled: Boolean) {
         var lockMode = if (enabled) {
-            img_menu.isEnabled=false
+            img_menu.isEnabled = false
             DrawerLayout.LOCK_MODE_LOCKED_CLOSED
         } else {
-            img_menu.isEnabled=true
+            img_menu.isEnabled = true
             DrawerLayout.LOCK_MODE_UNLOCKED
         }
 
@@ -586,7 +586,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun hideAll() {
         top_bar.visibility = View.GONE
         bottom_navigation.visibility = View.GONE
-        fab_cart.hide()
+        fab_cart.visibility=View.GONE
+    }
+
+    fun showFab() {
+        fab_cart.visibility=View.VISIBLE
+        
     }
 
     fun showBottomNavigation(index: Int) {

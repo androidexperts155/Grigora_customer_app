@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+    
+    <RelativeLayout
+        android:id="@+id/rel_t"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp">
+        
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/boldText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_toLeftOf="@+id/tv_count"
+            android:capitalize="words"
+            android:ellipsize="end"
+            android:maxLines="1"
+            android:text="@string/previously_ordered_items"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_15sdp" />
+        
+        <TextView
+            android:id="@+id/tv_count"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:gravity="center"
+            android:text="4"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_15sdp" />
+    </RelativeLayout>
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rc_items"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:nestedScrollingEnabled="true"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:itemCount="2"
+        tools:listitem="@layout/menu_item_view" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="@color/viewbg" />
+
+</LinearLayout>
+

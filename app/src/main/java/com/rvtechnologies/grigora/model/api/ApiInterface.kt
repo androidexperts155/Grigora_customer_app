@@ -1,6 +1,5 @@
 package com.rvtechnologies.grigora.model.api
 
-import com.google.android.gms.common.internal.safeparcel.SafeParcelable
 import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.utils.ApiConstants
 import okhttp3.MultipartBody
@@ -28,7 +27,7 @@ interface ApiInterface {
     @POST(ApiConstants.PHONE_LOGIN_URL)
     fun phoneLogin(
         @Field("phone") email: String,
-         @Field("role") role: String
+        @Field("role") role: String
     ): Call<JsonElement>
 
 
@@ -138,11 +137,11 @@ interface ApiInterface {
     ): Call<JsonElement>
 
     @FormUrlEncoded
-    @POST(ApiConstants.GET_RESTAURANTS_ITEMS_LIST_URL)
+    @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
     fun getRestaurantDetails(
         @Header("Authorization") token: String,
-        @Field("user_id") user_id: String,
-        @Field("restaurant_id") restaurant_id: String
+        @Field("restaurant_id") restaurant_id: String,
+        @Field("price_range") price_range: String
     ): Call<JsonElement>
 
     @GET(ApiConstants.REMOVE_CART_URL)

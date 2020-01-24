@@ -50,6 +50,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private var mMap: GoogleMap? = null
     var placeClicked = false
     var discount: String = ""
+    var restId: String = ""
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
         mMap?.setMinZoomPreference(12f)
@@ -163,12 +164,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                     tv_total.text = cartDataModel.cartTotal
 
                     setPromo()
+                    restId = cartDataModel.restaurantId.toString()
                 } else {
                     empty?.visibility = VISIBLE
                     cartView?.visibility = GONE
                 }
-
-
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -290,10 +290,9 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.VISIBLE
-            (activity as MainActivity).img_back.visibility = View.GONE
-            (activity as MainActivity).lockDrawer(false)
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle("")
+            (activity as MainActivity).lockDrawer(true)
         }
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
@@ -315,6 +314,17 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         }
 
+
+    }
+
+    fun addMore() {
+//        navigate to restaurant detail
+        val bundle = bundleOf(AppConstants.RESTAURANT_ID to restId)
+
+        view?.findNavController()
+            ?.navigate(
+                R.id.action_navigationCart_to_restaurantDetail, bundle
+            )
 
     }
 
@@ -513,7 +523,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         alertDialog.show()
     }
 
-    override fun add(position: Int) {
+    override fun add(position: Int, position2: Int) {
         viewModel?.updateCartQty(
             viewModel?.token?.value!!,
             cartItemList.get(position).id!!,
@@ -522,7 +532,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         )
     }
 
-    override fun minus(position: Int) {
+    override fun minus(position: Int, position2: Int) {
         viewModel?.updateCartQty(
             viewModel?.token?.value!!,
             cartItemList.get(position).id!!,

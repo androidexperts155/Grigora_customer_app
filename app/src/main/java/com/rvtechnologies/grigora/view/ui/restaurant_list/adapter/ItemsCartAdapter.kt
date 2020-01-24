@@ -86,9 +86,9 @@ class ItemsCartAdapter(
         ) {
             binding.cartItem = item
             binding.executePendingBindings()
-//            binding.root.setOnClickListener {
-//                iRecyclerItemClick.onItemClick(item)
-//            }
+            binding.root.setOnClickListener {
+                iRecyclerItemClick.onItemClick(item)
+            }
         }
     }
 

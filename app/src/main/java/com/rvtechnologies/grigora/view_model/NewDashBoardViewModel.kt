@@ -8,12 +8,10 @@ import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
-import com.rvtechnologies.grigora.model.models.OrderItemModel
 
 class NewDashBoardViewModel : ViewModel() {
     var isLoading = MutableLiveData<Boolean>()
     var dashboardResult = MutableLiveData<Any>()
-
 
     fun getDashboardData(map: HashMap<String, Any>) {
         isLoading.value = true

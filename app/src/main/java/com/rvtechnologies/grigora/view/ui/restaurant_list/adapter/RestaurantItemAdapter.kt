@@ -8,52 +8,63 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.MenuItemViewBinding
-import com.rvtechnologies.grigora.model.models.MenuItemModel
+import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.utils.OnItemClickListener
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.menu_item_view.view.*
 
 
 class RestaurantItemAdapter(
-    var menuItemList: ArrayList<MenuItemModel>,
-    var listener: OnItemClickListener, val quantityClicks: QuantityClicks
+    var menuItemList: ArrayList<RestaurantDetailModel.AllData.Item>,
+    var listener: OnItemClickListener, val quantityClicks: QuantityClicks, val pos: Int
 ) : RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val resModel = menuItemList[position]
-        if (resModel.item_count_in_cart!! > 0) {
+        resModel.index = pos
+
+        if (resModel.cart_quantity.toInt() > 0) {
             holder.itemView.li_add.visibility = View.VISIBLE
             holder.itemView.bt_add.visibility = View.GONE
-            holder.itemView.tv_quantity.text = resModel.item_count_in_cart!!.toString()
+            holder.itemView.tv_quantity.text = resModel.cart_quantity
         } else {
             holder.itemView.li_add.visibility = View.GONE
             holder.itemView.bt_add.visibility = View.VISIBLE
         }
 
-        holder.itemView.tv_add.setOnClickListener {
-            quantityClicks.add(position)
+        holder.itemView.tv_price.text="₦ "+resModel.price.toString()
+        holder.itemView.rating.rating=resModel.avgRatings.toFloat()
+        holder.itemView.tv_plus.setOnClickListener {
+            quantityClicks.add(pos, position)
         }
 
         holder.itemView.tv_minus.setOnClickListener {
-            quantityClicks.minus(position)
+            quantityClicks.minus(pos, position)
         }
 
         holder.itemView.bt_add.setOnClickListener {
-            quantityClicks.add(position)
+            quantityClicks.add(pos, position)
         }
-
 
         holder.bind(resModel, listener)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, p1: Int): ViewHolder {
+
+        var layout = 0
+        if (pos == -1) {
+            layout = R.layout.item_popular_dish
+        } else {
+            layout = R.layout.menu_item_view
+        }
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
-            R.layout.menu_item_view,
+            layout,
             parent,
             false
         )
+
         return ViewHolder(binding as MenuItemViewBinding)
     }
 
@@ -67,10 +78,10 @@ class RestaurantItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: MenuItemModel,
+            item: RestaurantDetailModel.AllData.Item,
             listener: OnItemClickListener
         ) {
-            binding.menuItemModel = item
+            binding.itemDetail = item
             binding.executePendingBindings()
             binding.root.setOnClickListener {
                 listener.onItemClick(item)

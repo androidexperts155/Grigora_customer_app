@@ -218,6 +218,7 @@
     <string name="required">Required fields</string>
     <string name="sending_request">Sending Request</string>
     <string name="went_wrong">Something went wrong</string>
+    <string name="oops_went_wrong">Oops. Something went wrong</string>
     <string name="internetnotavailable">Internet not available</string>
     
     
@@ -339,6 +340,11 @@
     <string name="contains_egg">Contains Egg</string>
     <string name="popular_dishes">Popular Dishes</string>
     <string name="previously_ordered_items">Previously Ordered Items</string>
+    <string name="add_more_item">Add More Items</string>
+    <string name="people_also_ordered">People also ordered</string>
+    <string name="book_a_table">Book a Table</string>
+    <string name="not_delivering_message">We are not delivering at this location right now.</string>
+    <string name="viewcart">View Cart</string>
 
 
 </resources>

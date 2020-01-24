@@ -115,6 +115,12 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
+        <action
+            android:id="@+id/action_navigationCart_to_restaurantDetail"
+            app:destination="@id/restaurantDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
     
     </fragment>
     
@@ -511,6 +517,12 @@
         <action
             android:id="@+id/action_dashBoardFragment_fragment_to_restaurantDetails"
             app:destination="@id/restaurantDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_dashBoardFragment_fragment_to_cart"
+            app:destination="@id/navigationCart"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     

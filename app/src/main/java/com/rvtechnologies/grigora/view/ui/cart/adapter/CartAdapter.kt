@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.cart.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
@@ -46,7 +47,10 @@ class CartAdapter(
             }
             choicesString = choicesString.removeSuffix(",")
             choicesString = "$choicesString)"
+
         }
+        if (choicesString == "")
+            holder.itemView.textView15.visibility = View.GONE
 
         cartModel.total = ((price) * cartModel.quantity?.toDouble()!!).toString()
 
@@ -54,13 +58,13 @@ class CartAdapter(
 
 
         holder.itemView.tv_plus.setOnClickListener {
-            quantityClicks.add(position)
+            quantityClicks.add(position, 0)
             cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) + 1).toString()
             notifyDataSetChanged()
         }
 
         holder.itemView.tv_minus.setOnClickListener {
-            quantityClicks.minus(position)
+            quantityClicks.minus(position, 0)
             cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
             notifyDataSetChanged()
         }

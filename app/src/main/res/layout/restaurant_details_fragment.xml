@@ -18,13 +18,16 @@
             android:layout_marginTop="@dimen/_8sdp"
             android:elevation="1dp">
             
-            <ImageView
+            <ImageButton
                 android:id="@+id/img_back"
                 android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
+                android:layout_height="match_parent"
                 android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:layout_margin="@dimen/_6sdp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                android:onClick="@{()->restaurantDetailsView.back()}"
                 app:srcCompat="@drawable/ic_back_white_24dp" />
             
             <com.google.android.material.tabs.TabLayout
@@ -57,461 +60,391 @@
                     style="@style/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/group_delivery" />
+                    android:text="@string/book_a_table" />
             </com.google.android.material.tabs.TabLayout>
             
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:layout_alignParentBottom="true"
-                android:background="@color/viewbg" />
+                android:background="?attr/viewbg" />
         
         
         </RelativeLayout>
         
-        <LinearLayout
-            android:id="@+id/li_main"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/top_bar"
-            android:orientation="vertical">
             
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_8sdp">
-                
-                <TextView
-                    android:id="@+id/txtRestaurantName"
-                    style="@style/boldText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_toLeftOf="@+id/li_rating_review"
-                    android:text="Restaurant Name"
-                    android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_14sdp" />
-                
-                <TextView
-                    android:id="@+id/textView31"
-                    style="@style/titleText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/txtRestaurantName"
-                    android:layout_alignParentLeft="true"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:layout_marginRight="@dimen/_4sdp"
-                    
-                    android:layout_toLeftOf="@+id/li_rating_review"
-                    android:ellipsize="end"
-                    android:gravity="left"
-                    android:maxLines="2"
-                    android:text="North Indian, Chinese, Fast Food"
-                    android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_11sdp" />
-                
-                <LinearLayout
-                    
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textView31"
-                    android:layout_alignParentLeft="true"
-                    android:gravity="center_vertical"
-                    android:orientation="horizontal">
-                    
-                    <com.airbnb.lottie.LottieAnimationView
-                        android:id="@+id/stopwatch"
-                        android:layout_width="@dimen/_20sdp"
-                        android:layout_height="@dimen/_20sdp"
-                        android:layout_below="@+id/textView31"
-                        app:lottie_autoPlay="true"
-                        app:lottie_fileName="stopwatch.json"
-                        app:lottie_loop="false" />
-                    
-                    <TextView
-                        android:id="@+id/tv_deliver"
-                        style="@style/normalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_2sdp"
-                        android:ellipsize="end"
-                        android:gravity="left"
-                        android:maxLines="2"
-                        android:text="Deliver in 36 Minutes"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_10sdp" />
-                </LinearLayout>
-                
-                <LinearLayout
-                    android:id="@+id/li_rating_review"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:orientation="horizontal"
-                    android:weightSum="2">
-                    
-                    <LinearLayout
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/rating_bg"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:paddingBottom="@dimen/_4sdp">
-                        
-                        <TextView
-                            style="@style/normalText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="5.0"
-                            android:textColor="@color/white"
-                            android:textSize="@dimen/_8sdp" />
-                        
-                        <ImageView
-                            android:layout_width="@dimen/_10sdp"
-                            android:layout_height="@dimen/_10sdp"
-                            android:tint="@color/white"
-                            app:srcCompat="@drawable/ic_star_24dp" />
-                    
-                    </LinearLayout>
-                    
-                    <LinearLayout
-                        android:layout_width="@dimen/_50sdp"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/review_bg"
-                        android:gravity="center"
-                        android:orientation="vertical"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:paddingBottom="@dimen/_4sdp">
-                        
-                        <TextView
-                            style="@style/normalText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="500"
-                            android:textColor="@color/textBlack"
-                            android:textSize="@dimen/_8sdp" />
-                        
-                        <TextView
-                            style="@style/normalText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="@string/REVIEWS"
-                            android:textColor="@color/textBlack"
-                            android:textSize="@dimen/_7sdp" />
-                    
-                    </LinearLayout>
-                
-                
-                </LinearLayout>
-                
-                <TextView
-                    android:id="@+id/tv_tt"
-                    style="@style/normalText"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/li_rating_review"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_2sdp"
-                    android:gravity="right"
-                    android:text="@string/open_or_close_time"
-                    android:textColor="?attr/searchHint"
-                    android:textSize="@dimen/_10sdp" />
-                
-                <TextView
-                    
-                    style="@style/normalText"
-                    android:layout_width="@dimen/_100sdp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/tv_tt"
-                    android:layout_alignParentRight="true"
-                    android:gravity="right"
-                    android:text="9am to 10pm"
-                    android:textColor="?attr/searchHint"
-                    android:textSize="@dimen/_10sdp" />
-            
-            
-            </RelativeLayout>
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewbg" />
-            
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp">
-                
-                <RadioGroup
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:orientation="horizontal">
-                    
-                    <RadioButton
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_8sdp"
-                        android:buttonTint="@color/green"
-                        android:checked="true"
-                        android:text="@string/veg"
-                        android:textColor="?attr/textWhite" />
-                    
-                    
-                    <RadioButton
-                        style="@style/mediumText"
-                        
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_4sdp"
-                        android:buttonTint="@color/green"
-                        android:text="@string/nonveg"
-                        android:textColor="?attr/textWhite" />
-                    
-                    
-                    <RadioButton
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_4sdp"
-                        android:buttonTint="@color/green"
-                        android:text="@string/contains_egg"
-                        android:textColor="?attr/textWhite" />
-                
-                </RadioGroup>
-                
-                <ImageView
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:background="@drawable/chip_selected_bg"
-                    
-                    android:backgroundTint="@color/viewbg"
-                    android:padding="@dimen/_6sdp"
-                    app:srcCompat="@drawable/ic_search" />
-            
-            </RelativeLayout>
+            android:layout_height="match_parent"
+            android:layout_below="@id/top_bar">
             
             <LinearLayout
+                android:id="@+id/li_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-                
                 android:orientation="vertical">
                 
                 <RelativeLayout
-                    android:id="@+id/rel_"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp">
+                    android:layout_margin="@dimen/_8sdp">
                     
                     <TextView
-                        android:id="@+id/tv_title"
+                        android:id="@+id/tv_restaurantname"
                         style="@style/boldText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
-                        android:layout_toLeftOf="@+id/tv_more"
-                        android:capitalize="words"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/popular_dishes"
+                        android:layout_alignParentTop="true"
+                        android:layout_toLeftOf="@+id/li_rating_review"
+                        android:text="Restaurant Name"
                         android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_15sdp" />
+                        android:textSize="@dimen/_14sdp" />
                     
                     <TextView
-                        android:id="@+id/tv_more"
-                        style="@style/mediumText"
+                        android:id="@+id/tv_cuisines"
+                        style="@style/titleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:text="4"
-                        android:textColor="?attr/searchHint"
-                        android:textSize="@dimen/_15sdp" />
-                </RelativeLayout>
-                
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rc_data"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:nestedScrollingEnabled="true"
-                    android:orientation="horizontal"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/item_popular_dish" />
-                
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/viewbg" />
-            
-            </LinearLayout>
-    
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_10sdp"
-        
-                android:orientation="vertical">
-        
-                <RelativeLayout
-                    android:id="@+id/rel_t"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginRight="@dimen/_8sdp">
-            
-                    <TextView
-                         style="@style/boldText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_restaurantname"
                         android:layout_alignParentLeft="true"
-                        android:layout_toLeftOf="@+id/tv_popuular_count"
-                        android:capitalize="words"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:layout_marginRight="@dimen/_4sdp"
+                        
+                        android:layout_toLeftOf="@+id/li_rating_review"
                         android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/previously_ordered_items"
+                        android:gravity="left"
+                        android:maxLines="2"
+                        android:text="North Indian, Chinese, Fast Food"
                         android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_15sdp" />
-            
-                    <TextView
-                        android:id="@+id/tv_popuular_count"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:gravity="center"
-                        android:text="4"
-                        android:textColor="?attr/searchHint"
-                        android:textSize="@dimen/_15sdp" />
-                </RelativeLayout>
-        
-                <androidx.recyclerview.widget.RecyclerView
-                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:nestedScrollingEnabled="true"
-                    android:orientation="vertical"
-                    android:overScrollMode="never"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                    tools:itemCount="5"
-                    tools:listitem="@layout/menu_item_view" />
-        
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/viewbg" />
-    
-            </LinearLayout>
-
-
-        </LinearLayout>
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/li_main"
-            android:visibility="visible">
-            
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-                
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
-                    
+                        android:textSize="@dimen/_11sdp" />
                     
                     <LinearLayout
                         
-                        android:id="@+id/li_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:gravity="center"
+                        android:layout_below="@+id/tv_cuisines"
+                        android:layout_alignParentLeft="true"
+                        android:gravity="center_vertical"
                         android:orientation="horizontal">
                         
-                        <RatingBar
-                            
-                            android:id="@+id/ratingBar"
-                            style="@style/RatingBar"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginRight="8dp"
-                            android:progressTint="@color/duskYellow"
-                            android:rating="@{restaurantModel.avgRatings}"
-                            app:layout_constraintEnd_toStartOf="@+id/txtRating"
-                            app:layout_constraintTop_toTopOf="parent" />
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:id="@+id/stopwatch"
+                            android:layout_width="@dimen/_20sdp"
+                            android:layout_height="@dimen/_20sdp"
+                            android:layout_below="@+id/tv_cuisines"
+                            app:lottie_autoPlay="true"
+                            app:lottie_fileName="stopwatch.json"
+                            app:lottie_loop="false" />
                         
                         <TextView
-                            android:id="@+id/txtRating"
+                            android:id="@+id/tv_deliver"
                             style="@style/normalText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginEnd="8dp"
-                            android:gravity="center"
-                            android:text="@{restaurantModel.avgRatingsString}"
-                            android:textColor="@color/colorPrimaryDark"
-                            
-                            
-                            tools:text="0.0" />
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:maxLines="2"
+                            android:text="Deliver in 36 Minutes"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
+                    
+                    <LinearLayout
+                        android:id="@+id/li_rating_review"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        
+                        <LinearLayout
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/rating_bg"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp">
+                            
+                            <TextView
+                                android:id="@+id/tv_rating"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="5.0"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/_8sdp" />
+                            
+                            <ImageView
+                                android:layout_width="@dimen/_10sdp"
+                                android:layout_height="@dimen/_10sdp"
+                                android:tint="@color/white"
+                                app:srcCompat="@drawable/ic_star_24dp" />
+                        
+                        </LinearLayout>
+                        
+                        <LinearLayout
+                            android:layout_width="@dimen/_50sdp"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/review_bg"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingBottom="@dimen/_4sdp">
+                            
+                            <TextView
+                                android:id="@+id/tv_reviews"
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="500"
+                                android:textColor="@color/textBlack"
+                                android:textSize="@dimen/_8sdp" />
+                            
+                            <TextView
+                                style="@style/normalText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/REVIEWS"
+                                android:textColor="@color/textBlack"
+                                android:textSize="@dimen/_7sdp" />
+                        
+                        </LinearLayout>
+                    
+                    
+                    </LinearLayout>
+                    
+                    <TextView
+                        android:id="@+id/tv_tt"
+                        style="@style/normalText"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/li_rating_review"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_2sdp"
+                        android:gravity="right"
+                        android:text="@string/open_or_close_time"
+                        android:textColor="?attr/searchHint"
+                        android:textSize="@dimen/_10sdp" />
+                    
+                    <TextView
+                        android:id="@+id/tv_time"
+                        style="@style/normalText"
+                        android:layout_width="@dimen/_100sdp"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_tt"
+                        android:layout_alignParentRight="true"
+                        android:gravity="right"
+                        android:text="9am to 10pm"
+                        android:textColor="?attr/searchHint"
+                        android:textSize="@dimen/_10sdp" />
+                
                 
                 </RelativeLayout>
                 
-                <TextView
-                    android:id="@+id/txtRatings"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:background="@drawable/btn_transparent"
-                    android:drawableEnd="@drawable/ic_arrow_right"
-                    android:gravity="center_vertical"
-                    android:onClick="@{()->restaurantDetailsView.toReviews()}"
-                    android:text="@string/reviews"
-                    android:textColor="@color/text_primary"
-                    android:textSize="@dimen/_12sdp"
-                    android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/ratingBar" />
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="?attr/viewbg" />
                 
-                <androidx.recyclerview.widget.RecyclerView
-                    android:id="@+id/rvRestaurantItems"
+                <RelativeLayout
+                    android:layout_width="wrap_content"
+                    
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp">
+                    
+                    <RadioGroup
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:orientation="horizontal">
+                        
+                        <RadioButton
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_8sdp"
+                            android:buttonTint="@color/green"
+                            android:text="@string/veg"
+                            android:textColor="?attr/textWhite" />
+                        
+                        
+                        <RadioButton
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:buttonTint="@color/green"
+                            android:text="@string/nonveg"
+                            android:textColor="?attr/textWhite" />
+                        
+                        
+                        <RadioButton
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:buttonTint="@color/green"
+                            android:text="@string/contains_egg"
+                            android:textColor="?attr/textWhite" />
+                    
+                    </RadioGroup>
+                    
+                    <ImageView
+                        android:layout_width="@dimen/_28sdp"
+                        android:layout_height="@dimen/_28sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:background="@drawable/chip_selected_bg"
+                        
+                        android:backgroundTint="@color/viewbg"
+                        android:padding="@dimen/_6sdp"
+                        app:srcCompat="@drawable/ic_search" />
+                
+                </RelativeLayout>
+                
+                <LinearLayout
+                    android:id="@+id/li_popular"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="8dp"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    
+                    android:orientation="vertical">
+                    
+                    <RelativeLayout
+                        android:id="@+id/rel_"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_8sdp">
+                        
+                        <TextView
+                            android:id="@+id/tv_title"
+                            style="@style/boldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/tv_popular_count"
+                            android:capitalize="words"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/popular_dishes"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_15sdp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_popular_count"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_15sdp" />
+                    </RelativeLayout>
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_popular"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:nestedScrollingEnabled="true"
+                        android:orientation="horizontal"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_popular_dish" />
+                    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
+                
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:id="@+id/li_previous"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
+                    
+                    android:orientation="vertical">
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginRight="@dimen/_8sdp">
+                        
+                        <TextView
+                            style="@style/boldText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_toLeftOf="@+id/tv_more_pre"
+                            android:capitalize="words"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/previously_ordered_items"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_15sdp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_more_pre"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:gravity="center"
+                            android:text="4"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_15sdp" />
+                    </RelativeLayout>
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rc_previous"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:nestedScrollingEnabled="true"
+                        android:orientation="vertical"
+                        android:overScrollMode="never"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="2"
+                        tools:listitem="@layout/menu_item_view" />
+                    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
+                
+                </LinearLayout>
+                
+                
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rc_items"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:layout_weight="1"
                     android:orientation="vertical"
                     app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     tools:itemCount="5"
-                    tools:listitem="@layout/menu_item_view" />
-            
-            
+                    tools:listitem="@layout/item_restaurant_details_meals" />
             </LinearLayout>
-        </RelativeLayout>
+        </androidx.core.widget.NestedScrollView>
+    
     
     </RelativeLayout>
     
@@ -520,7 +453,6 @@
         <variable
             name="restaurantDetailsView"
             type="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailsFragment" />
-        
         
         <variable
             name="restauranDetailsViewModel"

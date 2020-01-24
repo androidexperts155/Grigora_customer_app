@@ -607,11 +607,11 @@ Cuisine repo
 
     fun getRestaurantsDetails(
         token: String,
-        user_id: String,
-        restaurant_id: String,
+        restId: String,
+        price: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantDetails(token, user_id, restaurant_id)
+        ApiClient.getClient().getRestaurantDetails(token, restId, price)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,

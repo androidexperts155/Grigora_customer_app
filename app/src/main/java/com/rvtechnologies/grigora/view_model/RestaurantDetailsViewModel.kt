@@ -6,35 +6,34 @@ import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.model.ApiRepo
+import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
-import com.rvtechnologies.grigora.model.models.ItemChoicesModel
-import com.rvtechnologies.grigora.model.models.MenuItemModel
 
 class RestaurantDetailsViewModel : ViewModel() {
 
     var id: MutableLiveData<String> = MutableLiveData()
     var token: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    var restaurantItemList: MutableLiveData<Any> = MutableLiveData()
+    var restaurantDetail: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
 
-    fun getRestaurantsDetails(token: String, uid: String) {
+    fun getRestaurantsDetails(token: String, restId: String,price:String) {
         isLoading.value = true
         ApiRepo.getInstance()
             .getRestaurantsDetails(
                 token,
-                uid, id.value.toString().trim()
+                restId, price
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
                     val type =
-                        object : TypeToken<CommonResponseModel<ArrayList<MenuItemModel>>>() {}.type
-                    restaurantItemList.value = Gson().fromJson(result as JsonElement, type)
+                        object : TypeToken<CommonResponseModel<RestaurantDetailModel>>() {}.type
+                    restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
 
                 } else {
-                    restaurantItemList.value = result
+                    restaurantDetail.value = result
                 }
             }
     }

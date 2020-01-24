@@ -85,6 +85,7 @@ class LoginFragment : Fragment(), GoogleSignin {
         super.onResume()
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
         }
     }
