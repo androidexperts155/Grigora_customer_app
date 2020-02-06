@@ -38,7 +38,9 @@ import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
+import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
+import com.rvtechnologies.grigora.view.ui.restaurant_list.TimeBottomSheetDialog
 import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
@@ -74,9 +76,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(deliveryLocation))
     }
 
-    override fun onItemClick(item: Any) {
-
-    }
 
     companion object {
         fun newInstance() = CartFragment()
@@ -165,6 +164,13 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                     setPromo()
                     restId = cartDataModel.restaurantId.toString()
+
+
+                    if (!cartDataModel.add_more_items.isNullOrEmpty()) {
+
+                    }
+
+
                 } else {
                     empty?.visibility = VISIBLE
                     cartView?.visibility = GONE
@@ -329,39 +335,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     fun showPaymentOptionsDialog() {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !(activity as MainActivity).isDestroyed && alertDialog == null) {
-            val inflater = (activity as MainActivity).layoutInflater
-            val dialogView = inflater.inflate(R.layout.dialog_payment_options, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-
-            dialogView.li_cancel.setOnClickListener {
-                alertDialog?.dismiss()
-            }
-
-            dialogView.li_pod.setOnClickListener {
-                viewModel?.paymentMode?.value = "1"
-                alertDialog?.dismiss()
-            }
-
-            dialogView.li_paystack.setOnClickListener {
-                viewModel?.paymentMode?.value = "2"
-
-                alertDialog?.dismiss()
-            }
-
-            dialogView.li_wallet.setOnClickListener {
-                viewModel?.paymentMode?.value = "3"
-
-                alertDialog?.dismiss()
-            }
-            alertDialog = dialogBuilder?.create()
-
-            alertDialog?.show()
-        }
+        var optionsDialog = PaymentOptionsDialog(this)
+        optionsDialog.show(this.childFragmentManager, "")
     }
 
     private fun showLoginAlert(activity: MainActivity?) {
@@ -589,5 +564,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     }
 
+    override fun onItemClick(item: Any) {
+        if (item is Int) {
+            if (item != 0) {
+                viewModel?.paymentMode?.value = item.toString()
+            }
+        }
+    }
 
 }

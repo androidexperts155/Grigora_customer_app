@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/_20sdp"
+    android:background="@drawable/selectable_item_background"
     android:orientation="vertical">
     
     <androidx.recyclerview.widget.RecyclerView
@@ -18,8 +19,7 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        >
+        android:orientation="horizontal">
         
         <TextView
             android:id="@+id/tv_name"
@@ -30,7 +30,7 @@
             android:layout_toLeftOf="@+id/tv_delivery_time"
             android:paddingRight="@dimen/_4sdp"
             android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_13sdp"
             tools:text="Dedicated Dining" />
         
         <TextView
@@ -40,10 +40,10 @@
             
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_marginTop="@dimen/_2sdp"
             android:gravity="right|bottom"
             android:text="36 min"
-            android:layout_marginTop="@dimen/_2sdp"
-    
+            
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp" />
     
@@ -55,7 +55,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         android:weightSum="2">
-    
+        
         <TextView
             android:id="@+id/tv_rating"
             style="@style/mediumText"

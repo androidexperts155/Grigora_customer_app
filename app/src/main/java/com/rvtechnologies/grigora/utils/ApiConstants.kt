@@ -34,11 +34,9 @@ object ApiConstants {
     const val REMOVE_CART_URL = "remove-cart"
     const val CART_ITEMS_URL = "cart-item-list"
 
-
     const val PAY_STACK = "pay-stack"
     const val VIEW_CART_URL = "view-cart"
     const val PLACE_ORDER_URL = "place-order"
-
 
     const val LOCATION_TYPES_URL = "location-types"
     const val GET_CURRENT_ORDERS_URL = "customer-ongoing-order"
@@ -62,7 +60,5 @@ object ApiConstants {
     const val GET_ALL_ADDRESSES = "get-user-addresses"
     const val ADD_ADDRESS = "add-user-location"
     const val DASHBOARD_DATA = "customer-home-screen"
-
-
-
+    const val BOOK_TABLE = "book-table"
 }

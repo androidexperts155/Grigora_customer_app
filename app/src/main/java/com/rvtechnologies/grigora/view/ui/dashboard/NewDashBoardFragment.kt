@@ -1,32 +1,34 @@
 package com.rvtechnologies.grigora.view.ui.dashboard
 
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.os.Handler
-import android.provider.Settings
-import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.google.gson.Gson
-
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.models.*
-import com.rvtechnologies.grigora.utils.*
+import com.rvtechnologies.grigora.model.FilteredPrice
+import com.rvtechnologies.grigora.model.PriceFilterModel
+import com.rvtechnologies.grigora.model.SelectedRating
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.NewDashboardModel
+import com.rvtechnologies.grigora.utils.AppConstants
+import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.dashboard.adapter.*
+import com.rvtechnologies.grigora.view.ui.dashboard.adapter.DashboardAdapter
 import com.rvtechnologies.grigora.view_model.NewDashBoardViewModel
-import com.rvtechnologies.grigorahq.network.ConnectionNetwork
-import com.rvtechnologies.grigorahq.network.EventBroadcaster
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.new_dash_board_fragment.*
-import kotlinx.android.synthetic.main.profile_fragment.*
+import java.util.*
+import kotlin.collections.ArrayList
+import kotlin.collections.HashMap
+
 
 class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
@@ -75,27 +77,13 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
                     var temp = ArrayList<NewDashboardModel.CustomizedData>()
 
-                    if (newDashboardModel.is_cart != null) {
-                        (activity as MainActivity).showFab()
-                        (activity as MainActivity).tv_restname.text =
-                            newDashboardModel.is_cart.restaurantName
-                        (activity as MainActivity).tv_items.text =
-                            newDashboardModel.is_cart.quantity.toString() + " Items"
-
-                        ((activity) as MainActivity).fab_cart.setOnClickListener {
-                            view?.findNavController()
-                                ?.navigate(
-                                    R.id.action_dashBoardFragment_fragment_to_cart
-                                )
-                        }
-                    }
-
+                    handleCart()
                     for (i in newDashboardModel.customizedData) {
                         if (i.restaurants.isEmpty()) {
                             temp.add(i)
                         }
                     }
-
+                    saveWallet()
                     newDashboardModel.customizedData.removeAll(temp)
 
                     dashbordadapter = DashboardAdapter(newDashboardModel, this)
@@ -112,6 +100,28 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             }
         })
     }
+
+    private fun handleCart() {
+        if (newDashboardModel.is_cart != null) {
+            (activity as MainActivity).showFab()
+            (activity as MainActivity).tv_restname.text =
+                newDashboardModel.is_cart!!.restaurantName
+            (activity as MainActivity).tv_items.text =
+                newDashboardModel.is_cart!!.quantity.toString() + " Items"
+
+            ((activity) as MainActivity).fab_cart.setOnClickListener {
+                view?.findNavController()
+                    ?.navigate(
+                        R.id.action_dashBoardFragment_fragment_to_cart
+                    )
+            }
+        }
+    }
+
+    private fun saveWallet() {
+        CommonUtils.savePrefs(context, PrefConstants.WALLET, newDashboardModel.wallet)
+    }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -137,7 +147,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         viewModel.getDashboardData(map)
     }
 
-
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
@@ -145,7 +154,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).menuAddress()
             (activity as MainActivity).updateLocation()
             (activity as MainActivity).showBottomNavigation(0)
-
 //            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
@@ -154,27 +162,68 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
     override fun onItemClick(item: Any) {
         if (item is NewDashboardModel.Filter) {
-            if (!item.selected)
-                applyFilter("filter_id", item.id.toString())
-            else
-                applyFilter("filter_id", "0")
+            if (item.selectionType == "1") {
+//                if(item.arrowClicked){
+//                    var ratingDialog = RatingBarDialog(this, 0F, item)
+//                    ratingDialog.show(this.childFragmentManager, "")
+//                }
+//                else
+//                {
+//                    var ratingDialog = RatingBarDialog(this, 0F, item)
+//                    ratingDialog.show(this.childFragmentManager, "")
+//                }
+            } else if (item.selectionType == "2") {
+                var list = ArrayList<PriceFilterModel>()
+                if (item.multiSelected == null)
+                    item.multiSelected = ""
+
+                list.add(PriceFilterModel(item.multiSelected.contains("1"), "₦", "1"))
+                list.add(PriceFilterModel(item.multiSelected.contains("2"), "₦₦", "2"))
+                list.add(PriceFilterModel(item.multiSelected.contains("3"), "₦₦₦", "3"))
+                list.add(PriceFilterModel(item.multiSelected.contains("4"), "₦₦₦₦", "4"))
+
+                var filteredPrice = FilteredPrice(list)
+
+                if (item.arrowClicked || item.multiSelected.isNullOrEmpty()) {
+                    var priceDialog = PriceDialog(this, filteredPrice)
+                    priceDialog.show(this.childFragmentManager, "")
+                } else {
+                    applyPriceFilter(item.multiSelected, !item.selected)
+                }
+
+
+            } else {
+//                if (!item.selected)
+                applyFilter(item.id.toString())
+//                else
+//                    applyFilter("filter_id", "0")
+            }
         } else if (item is NewDashboardModel.Promo) {
 
         } else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
-                applyFilter("cuisine_id", item.id.toString())
+                applyCuisineFilter("cuisine_id", item.id.toString())
             else
-                applyFilter("cuisine_id", "0")
+                applyCuisineFilter("cuisine_id", "0")
 
         } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 
             when (item.uiTpe) {
                 "1" -> {
 //                    RESTAURANT
-                    val bundle = bundleOf(AppConstants.RESTAURANT_ID to item.id)
+                    val bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to item.id,
+                        AppConstants.RESTAURANT_PICKUP to item.pickup,
+                        AppConstants.RESTAURANT_BOOKING to item.table_booking,
+                        AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                        AppConstants.RESTAURANT_CLOSING_TIME to item.closingTime,
+                        AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
+                        AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime
+
+                    )
                     view?.findNavController()
                         ?.navigate(
-                            R.id.action_dashBoardFragment_fragment_to_restaurantDetails,
+                            R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
                             bundle
                         )
 
@@ -199,12 +248,107 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //            else
 //                TOP_BRANDS
         } else if (item is NewDashboardModel.AllRestautants) {
+            val bundle = bundleOf(
+                AppConstants.RESTAURANT_ID to item.id,
+                AppConstants.RESTAURANT_PICKUP to item.pickup,
+                AppConstants.RESTAURANT_BOOKING to item.table_booking,
+                AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                AppConstants.RESTAURANT_CLOSING_TIME to item.closingTime,
+                AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
+                AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime
 
+            )
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
+                    bundle
+                )
+        } else if (item is SelectedRating) {
+            if (item.applyRating) {
+                if (item.oldRating != item.newRating) {
+//                    if (!item.filter.selected)
+//                        applyFilter("filter_id", item.filter.id.toString())
+//                    else
+//                        applyFilter("filter_id", "0")
+                }
+            }
+        } else if (item is FilteredPrice) {
+            if (item.list.size > 0) {
+
+                var name = ""
+
+                for (d in item.list) {
+                    name = if (name == "") {
+                        d.value
+                    } else {
+                        name + ",${d.value}"
+                    }
+                }
+
+                applyPriceFilter(name, true)
+
+            } else {
+                CommonUtils.showMessage(parentView, getString(R.string.no_range_selected))
+            }
         }
     }
 
-    fun applyFilter(key: String, value: String) {
-        map[key] = value
+    private fun applyFilter(value: String) {
+        val result: MutableList<List<String>> =
+            Arrays.asList(map["filter_id"].toString().split(","))
+
+        var list = ArrayList<String>(result[0])
+        if (list.contains(value))
+            (list).remove(value)
+        else
+            (list).add(value)
+
+
+        if (list.size == 0) {
+            list.add("0")
+        } else
+            if (list.contains("0"))
+                list.remove("0")
+
+
+
+        map["filter_id"] = list.joinToString(",")
         viewModel.getDashboardData(map)
     }
+
+    private fun applyPriceFilter(filter: String, select: Boolean) {
+        map["price_range"] = filter
+
+
+        val result: MutableList<List<String>> =
+            Arrays.asList(map["filter_id"].toString().split(","))
+
+        var list = ArrayList<String>(result[0])
+        if (select) {
+            if (!list.contains("4"))
+                list.add("4")
+        } else
+            (list).remove("4")
+
+
+        if (list.size == 0) {
+            list.add("0")
+        } else
+            if (list.contains("0"))
+                list.remove("0")
+
+
+
+        map["filter_id"] = list.joinToString(",")
+        viewModel.getDashboardData(map)
+//        applyFilter("4")
+    }
+
+    private fun applyCuisineFilter(key: String, value: String) {
+        map[key] = value
+        viewModel.getDashboardData(map)
+
+    }
+
+
 }

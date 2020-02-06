@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ui.restaurant_list.RestaurantDetailParent">
+    
+    <LinearLayout
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical">
+        
+        <RelativeLayout
+            android:id="@+id/top_bar"
+            
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_40sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:elevation="1dp">
+            
+            <ImageButton
+                android:id="@+id/img_back"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="match_parent"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/_6sdp"
+                android:background="@android:color/transparent"
+                android:clickable="true"
+                app:srcCompat="@drawable/ic_back_white_24dp" />
+            
+            <com.google.android.material.tabs.TabLayout
+                android:id="@+id/tab_top"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_25sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                app:tabIndicatorColor="@color/colorPrimaryDark"
+                app:tabIndicatorFullWidth="false"
+                app:tabIndicatorHeight="1dp"
+                app:tabMode="scrollable"
+                app:tabRippleColor="@color/grey_bg"
+                app:tabTextColor="?attr/textWhite">
+                
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_del"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/Delivery" />
+                
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_pick"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pickup" />
+                
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_book"
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/book_a_table" />
+            </com.google.android.material.tabs.TabLayout>
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="?attr/viewbg" />
+        
+        
+        </RelativeLayout>
+        
+        <com.rvtechnologies.grigora.utils.NonSwipeableViewPager
+            android:id="@+id/vp_fragments"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    
+    
+    </LinearLayout>
+
+</FrameLayout>

@@ -208,7 +208,8 @@ interface ApiInterface {
         @Field("delivery_address") delivery_address: String,
         @Field("delivery_lat") delivery_lat: String,
         @Field("delivery_long") delivery_long: String,
-        @Field("reference") reference: String
+        @Field("reference") reference: String,
+        @Field("order_type") order_type: String
     ): Call<JsonElement>
 
     @FormUrlEncoded
@@ -334,7 +335,7 @@ interface ApiInterface {
     @POST
     fun postData(
         @Url url: String,
-        @HeaderMap authenticator: HashMap<String, Any?>,
+        @HeaderMap authenticator: HashMap<String, Any>,
         @FieldMap body: HashMap<String, Any?>
     ): Call<JsonElement>
 

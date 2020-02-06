@@ -47,7 +47,7 @@
     <string name="detail">Détails</string>
     <string name="profile">Profil</string>
     <string name="order_history">Historique des Ordres</string>
-    <string name="payment_method">Mode de paiement</string>
+    <string name="payment_method">Sélectionnez le mode de paiement</string>
     <string name="delivery_address">Adresse de livraison</string>
     <string name="logout">Se déconnecter</string>
     <string name="rate_now">Évaluer maintenant</string>
@@ -76,7 +76,7 @@
     <string name="search">Chercher</string>
     <string name="continuetxt">Continuez</string>
     <string name="choose_your_preferred_language">Choisissez votre langue préférée</string>
-     <string name="home">Accueil</string>
+    <string name="home">Accueil</string>
     <string name="nearby">Proche</string>
     <string name="bag">Chariot</string>
     <string name="my_account">Mon compte</string>
@@ -88,7 +88,7 @@
     <string name="paypal">Pay Pal</string>
     <string name="add_card">Ajouter une carte</string>
     
-    <string name="credit_or_debit_card">Carte de crédit ou de débit</string>
+    <string name="credit_or_debit_card">Carte de crédit / débit</string>
     <string name="rating">Évaluation</string>
     <string name="all">Tout</string>
     <string name="empty_bag">Sac vide</string>
@@ -132,7 +132,7 @@
     <string name="french">Française</string>
     <string name="select_type">Sélectionner le genre</string>
     <string name="no_promo_selected">Aucune promo sélectionnée</string>
-    <string name="wallet">Argent Grigora</string>
+    <string name="wallet">Mon portefeuille(₦ %s\)</string>
     
     
     <string name="sendmoney">Envoyer de l\'argent</string>

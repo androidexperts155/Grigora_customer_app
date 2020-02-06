@@ -114,7 +114,7 @@
     <string name="continueTxt">Continue</string>
     <string name="area">Area</string>
     <string name="loading_getting_location">Getting Location</string>
-    <string name="deliver_to">Deliver to :</string>
+    <string name="deliver_to">Deliver to : </string>
     <string name="loading">Loading</string>
     <string name="error_location">Please select location</string>
     <string name="error_location_type">Please select location type</string>
@@ -138,7 +138,7 @@
     <string name="detail">Details</string>
     <string name="profile">Profile</string>
     <string name="order_history">Order History</string>
-    <string name="payment_method">Payment Method</string>
+    <string name="payment_method">Select Payment Method</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="logout">Logout</string>
     <string name="rate_now">Rate Now</string>
@@ -184,7 +184,7 @@
     <string name="pay_now">Debit/Credit card</string>
     <string name="add_card">Add Card</string>
     <string name="paypal">Pay Pal</string>
-    <string name="credit_or_debit_card"> Credit or Debit Card</string>
+    <string name="credit_or_debit_card">Credit/Debit Card</string>
     <string name="rating">Rating</string>
     <string name="all">All</string>
     <string name="all_restaurants">All Restaurants</string>
@@ -199,7 +199,7 @@
     <string name="subtotal">Subtotal :</string>
     <string name="total">Total :</string>
     <string name="delivery_fee">Delivery fee :</string>
-    <string name="add">Add +</string>
+    <string name="add">Add</string>
     <string name="offers">Offers</string>
     <string name="order_id">Order id</string>
     <string name="description">Description</string>
@@ -231,7 +231,7 @@
     <string name="promotion">Promotion :</string>
     <string name="rate_first">Rate first</string>
     <string name="no_promo_selected">No promo selected</string>
-    <string name="wallet">Grigora money</string>
+    <string name="wallet">My Wallet (₦ %s\)</string>
     <string name="sendmoney">Send Money</string>
     <string name="history">History</string>
     <string name="addmoney">Add Money</string>
@@ -276,8 +276,7 @@
     <string name="remove">Remove</string>
     <string name="promo_applied">Promocode applied</string>
     <string name="your_order_details">YOUR ORDER DETAILS</string>
-    <string name="payondelivery">Pay on delivery</string>
-    <string name="paystack">PayStack</string>
+    <string name="payondelivery">Pay Via POS on delivery</string>
     <string name="order_hash">ORDER#</string>
     
     
@@ -295,7 +294,7 @@
     <string name="out_for_delivey">Out for delivery</string>
     <string name="ready_to_diapatch">Ready to dispatch</string>
     <string name="items">ITEMS</string>
-    <string name="orderedon">ORDERED ON</string>
+    <string name="orderedon">Ordered on :</string>
     <string name="total2">TOTAL</string>
     <string name="status2">STATUS</string>
     <string name="almostready">Order almost ready</string>
@@ -345,6 +344,28 @@
     <string name="book_a_table">Book a Table</string>
     <string name="not_delivering_message">We are not delivering at this location right now.</string>
     <string name="viewcart">View Cart</string>
+    <string name="and_over">and over</string>
+    <string name="viewresults">View Results</string>
+    <string name="menuprice">Menu Price</string>
+    <string name="how_many_people">How many People?</string>
+    <string name="pick_a_date">Pick a Date</string>
+    <string name="book_now">Book Now</string>
+    <string name="set_your_time">Set Your Time</string>
+    <string name="ma_seates_message">Cannot book more seates</string>
+    <string name="no_range_selected">No Range Selected</string>
+    <string name="sethour">Set Hour</string>
+    <string name="setminute">Set Minute</string>
+    <string name="error_select_opening_time">Please select opening time</string>
+    <string name="error_select_closing_time">Please select closing time</string>
+    <string name="error_select_date">Please select Date</string>
+    <string name="error_seat">No seat selected</string>
+    <string name="account_credits">Account Credits</string>
+    <string name="get_free_deliveries">Get Free Deliveries</string>
+    <string name="grigora_card">Grigora Card</string>
+    <string name="support">Support</string>
+    <string name="refer_and_earn">Refer and Earn</string>
+    <string name="table_booking">Table Booking</string>
+    <string name="group_orders">Group Orders</string>
 
 
 </resources>

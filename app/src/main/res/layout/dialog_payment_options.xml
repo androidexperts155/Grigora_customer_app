@@ -1,150 +1,183 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/white"
-    android:orientation="vertical"
-    
-    app:layout_behavior="android.support.design.widget.BottomSheetBehavior">
-    
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
     
     <LinearLayout
-        android:id="@+id/li_pod"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8sdp"
-        android:weightSum="2">
+        android:background="@drawable/rating_filter_bg"
+        android:orientation="vertical">
         
-        <LinearLayout
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_grey_back"
-            android:padding="@dimen/_4sdp">
+            
+            android:paddingLeft="@dimen/_12sdp"
+            android:paddingTop="@dimen/_18sdp"
+            android:paddingRight="@dimen/_12sdp"
+            android:paddingBottom="@dimen/_12sdp">
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/payment_method"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
             
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:scaleType="fitXY"
-                android:src="@drawable/coins" />
+                
+                android:id="@+id/img_cancel"
+                android:layout_width="@dimen/_16sdp"
+                android:layout_height="@dimen/_16sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/selectable_item_background"
+                android:clickable="true"
+                android:padding="@dimen/_4sdp"
+                app:srcCompat="@drawable/ic_close" />
+        </RelativeLayout>
+        
+        <View
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
+        
+        
+        <LinearLayout
+            android:id="@+id/li_pod"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/selectable_item_background"
+            android:clickable="true"
+            android:orientation="horizontal">
+            
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_payment" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <TextView
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@string/payondelivery"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="?attr/viewbg" />
+            </LinearLayout>
         
         </LinearLayout>
         
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:text="@string/payondelivery"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/_12sdp" />
-    
-    
-    </LinearLayout>
-    
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/quantum_grey" />
-    
-    <LinearLayout
-        android:id="@+id/li_paystack"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8sdp"
-        android:weightSum="2">
         
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/li_paystack"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_grey_back"
-            android:padding="@dimen/_4sdp">
+            android:background="@drawable/selectable_item_background"
+            android:clickable="true"
+            android:orientation="horizontal">
             
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                app:srcCompat="@drawable/ic_card" />
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_credit_card" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <TextView
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    
+                    android:text="@string/credit_or_debit_card"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="?attr/viewbg" />
+            
+            
+            </LinearLayout>
         
         </LinearLayout>
         
-        <TextView
-            android:layout_width="wrap_content"
-            
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:text="@string/paystack"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/_12sdp" />
-    
-    
-    </LinearLayout>
-    
-    <View
-        android:layout_width="wrap_content"
-        android:layout_height="1dp"
-        android:background="@color/quantum_grey" />
-    
-    <LinearLayout
-        android:id="@+id/li_wallet"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8sdp"
-        android:weightSum="2">
         
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:id="@+id/li_wallet"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@drawable/btn_grey_back"
-            android:padding="@dimen/_4sdp">
+            android:background="@drawable/selectable_item_background"
+            android:clickable="true"
+            android:orientation="horizontal">
             
             <ImageView
-                android:layout_width="@dimen/_30sdp"
-                android:layout_height="@dimen/_30sdp"
-                android:src="@drawable/logo" />
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_12sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_wallet" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                
+                <TextView
+                    android:id="@+id/tv_wallet"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:paddingTop="@dimen/_10sdp"
+                    android:paddingBottom="@dimen/_10sdp"
+                    android:text="@string/wallet"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <View
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_1sdp"
+                    android:background="?attr/viewbg" />
+            
+            
+            </LinearLayout>
         
         </LinearLayout>
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:text="@string/wallet"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/_12sdp" />
-    
-    
     </LinearLayout>
-    
-    <LinearLayout
-        android:id="@+id/li_cancel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:gravity="center"
-        android:orientation="horizontal"
-        android:padding="@dimen/_8sdp"
-        android:weightSum="2">
-        
-        
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
-            android:layout_marginLeft="@dimen/_8sdp"
-            android:text="@string/places_cancel"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/_14sdp" />
-    
-    
-    </LinearLayout>
-
-
 </LinearLayout>

@@ -1,15 +1,28 @@
 package com.rvtechnologies.grigora.model
 
 
+import android.annotation.SuppressLint
+import android.os.Parcelable
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.model.models.MenuItemModel
+import kotlinx.android.parcel.Parcelize
 
+@SuppressLint("ParcelCreator")
+@Parcelize
 data class RestaurantDetailModel(
     @SerializedName("all_data")
-    var allData: List<AllData> = listOf(),
+    var allData: ArrayList<AllData> = ArrayList(),
     @SerializedName("popluar_items")
-    var popluarItems: ArrayList<AllData.Item> = ArrayList(),
+    var popluarItems: ArrayList<MenuItemModel> = ArrayList(),
     @SerializedName("previous_ordered_items")
-    var previousOrderedItems: ArrayList<AllData.Item> = ArrayList(),
+    var previousOrderedItems: ArrayList<MenuItemModel> = ArrayList(),
+
+    @SerializedName("table_booking")
+    var table_booking: String = "",
+
+    @SerializedName("no_of_seats")
+    var no_of_seats: String = "",
 
     @SerializedName("restaurant_name")
     var restaurant_name: String = "",
@@ -23,7 +36,6 @@ data class RestaurantDetailModel(
 
     @SerializedName("estimated_preparing_time")
     var estimated_preparing_time: String = "",
-
 
 
     @SerializedName("cuisines")
@@ -47,14 +59,24 @@ data class RestaurantDetailModel(
     @SerializedName("closing_time")
     var closing_time: String = ""
 
-) {
+) : Parcelable {
+    @SuppressLint("ParcelCreator")
+    @Parcelize
     data class AllData(
         @SerializedName("items")
-        var items: ArrayList<Item> = ArrayList(),
+        var items: ArrayList<MenuItemModel> = ArrayList(),
         @SerializedName("name")
         var name: String = ""
-    ) {
+    ) : Parcelable {
+       /* @SuppressLint("ParcelCreator")
+        @Parcelize
         data class Item(
+
+            @SerializedName("restaurant_offer")
+            @Expose
+            var restaurant_offer: Int?,
+            var offPercentage: String?,
+            var nameToShow: String?,
             var index: Int,
             @SerializedName("item_count_in_cart")
             var cart_quantity: String = "",
@@ -81,15 +103,28 @@ data class RestaurantDetailModel(
             @SerializedName("in_offer")
             var inOffer: String = "",
             @SerializedName("item_categories")
-            var itemCategories: List<Any> = listOf(),
+            var itemCategories: List<ItemCategories> = listOf(),
             @SerializedName("name")
             var name: String = "",
             @SerializedName("offer_price")
             var offerPrice: Int = 0,
             @SerializedName("price")
-            var price: Int = 0,
+            var price: String= "",
+
             @SerializedName("pure_veg")
             var pureVeg: String = "",
+
+            @SerializedName("total_rating")
+            @Expose
+            var total_rating: Int?,
+
+            @SerializedName("item_count_in_cart")
+            @Expose
+            var item_count_in_cart: Int?,
+
+            @SerializedName("favourite")
+            @Expose
+            var favourite: Boolean,
             @SerializedName("restaurant_id")
             var restaurantId: Int = 0,
             @SerializedName("restaurant_name")
@@ -100,8 +135,50 @@ data class RestaurantDetailModel(
             var totalRating: String = "",
             @SerializedName("updated_at")
             var updatedAt: String = ""
-        )
+        ) : Parcelable {
+            @SuppressLint("ParcelCreator")
+            @Parcelize
+                data class ItemCategories(
+                @SerializedName("created_at")
+                var createdAt: String = "",
+                @SerializedName("french_name")
+                var frenchName: String = "",
+                @SerializedName("id")
+                var id: Int = 0,
+                @SerializedName("item_id")
+                var itemId: Int = 0,
+                @SerializedName("item_sub_category")
+                var itemSubCategory: List<ItemSubCategory> = listOf(),
+                @SerializedName("name")
+                var name: String = "",
+                @SerializedName("selection")
+                var selection: String = "",
+                @SerializedName("status")
+                var status: String = "",
+                @SerializedName("updated_at")
+                var updatedAt: String = ""
+            ) : Parcelable {
+                @SuppressLint("ParcelCreator")
+                @Parcelize
+                data class ItemSubCategory(
+                    @SerializedName("add_on_price")
+                    var addOnPrice: String = "",
+                    @SerializedName("created_at")
+                    var createdAt: String = "",
+                    @SerializedName("french_name")
+                    var frenchName: String = "",
+                    @SerializedName("id")
+                    var id: Int = 0,
+                    @SerializedName("item_cat_id")
+                    var itemCatId: Int = 0,
+                    @SerializedName("name")
+                    var name: String = "",
+                    @SerializedName("status")
+                    var status: String = "",
+                    @SerializedName("updated_at")
+                    var updatedAt: String = ""
+                ) : Parcelable
+            }
+        }*/
     }
-
-
 }

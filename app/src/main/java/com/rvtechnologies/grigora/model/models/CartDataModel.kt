@@ -18,11 +18,10 @@ data class CartDataModel(
     @SerializedName("estimated_delivery_time")
     var estimated_delivery_time: String?,
 
+    @SerializedName("add_more_items")
+    var add_more_items: ArrayList<AddMoreItems?>?,
 
 
-
-    @SerializedName("cart_details")
-    var cartDetails: ArrayList<CartDetail?>?,
     @SerializedName("created_at")
     var createdAt: String?,
     @SerializedName("delivery_fee")
@@ -34,18 +33,21 @@ data class CartDataModel(
     @SerializedName("restaurant_id")
     var restaurantId: String?,
     @SerializedName("restaurant_image")
-    var restaurantImage: String?="",
+    var restaurantImage: String? = "",
     @SerializedName("restaurant_name")
     var restaurantName: String?,
     @SerializedName("total_price")
     var totalPrice: String?,
     @SerializedName("updated_at")
-
     var updatedAt: String?,
     @SerializedName("user_id")
     var userId: String?,
+
+    @SerializedName("cart_details")
+    var cartDetails: ArrayList<CartDetail?>?,
+
     var cartTotal: String?,
     var cartSubTotal: String?,
     var beforePromo: Double?,
     var afterPromo: Double?
-):Parcelable
+) : Parcelable

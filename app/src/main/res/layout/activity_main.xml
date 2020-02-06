@@ -55,6 +55,7 @@
                 android:layout_margin="8dp" />
             
             <Switch
+                
                 android:id="@+id/sw_mode"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,9 +149,10 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"
             app:navGraph="@navigation/nav_graph" />
         
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/fab_cart"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/_220sdp"
+            android:minWidth="@dimen/_180sdp"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_navigation"
             android:layout_centerHorizontal="true"
@@ -160,25 +162,28 @@
             android:gravity="center"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/_15sdp"
+            android:paddingTop="@dimen/_8sdp"
             android:paddingRight="@dimen/_15sdp"
-            android:paddingTop="@dimen/_10sdp"
-            android:paddingBottom="@dimen/_10sdp"
+            android:paddingBottom="@dimen/_8sdp"
             app:elevation="1dp">
             
             <ImageView
                 android:layout_width="@dimen/_20sdp"
                 android:layout_height="@dimen/_20sdp"
-                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 app:srcCompat="@drawable/ic_cart" />
             
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
                 android:gravity="center"
                 android:orientation="vertical">
                 
                 <TextView
-                    style="@style/normalText"
+                    style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/viewcart"
@@ -188,26 +193,29 @@
                     android:textSize="@dimen/_8sdp" />
                 
                 <TextView
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
                     android:id="@+id/tv_restname"
+                    style="@style/titleText"
+                    tools:text="Aroma Express Bar"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                     android:textColor="@color/white"
+                    android:textColor="@color/white"
                     android:textSize="@dimen/_10sdp" />
             
             </LinearLayout>
             
             <TextView
+                android:id="@+id/tv_items"
+                tools:text="7 Items"
                 style="@style/titleText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/_8sdp"
-                android:id="@+id/tv_items"
-                  android:textColor="@color/white"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:textColor="@color/white"
                 android:textSize="@dimen/_10sdp" />
         
         
-        </LinearLayout>
+        </RelativeLayout>
         
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"

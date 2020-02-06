@@ -804,6 +804,33 @@ Cuisine repo
     }
 
 
+    fun postData(
+        url:String,
+        headers:HashMap<String, Any>,
+        body: HashMap<String, Any?>,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().postData(url,headers,body)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
     fun placeOrder(
         token: String,
         cart_id: String,
@@ -835,7 +862,7 @@ Cuisine repo
             delivery_address = delivery_address,
             delivery_lat = delivery_lat,
             delivery_long = delivery_long,
-            delivery_note = delivery_note
+            delivery_note = delivery_note,order_type = "1"
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

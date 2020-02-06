@@ -59,19 +59,18 @@
             app:destination="@id/menuItemDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
         <action
             android:id="@+id/action_restaurantDetailsFragment_to_reviewsFragment"
             app:destination="@id/reviewsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-        
         <action
             android:id="@+id/action_restaurantDetailsFragment_to_loginFragment"
             app:destination="@id/loginFragment2"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     </fragment>
-    
     <fragment
         android:id="@+id/menuItemDetailsFragment"
         android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.MenuItemDetailsFragment"
@@ -114,7 +113,7 @@
             app:destination="@id/selectLocationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_navigationCart_to_restaurantDetail"
             app:destination="@id/restaurantDetailsFragment"
@@ -123,9 +122,8 @@
     
     
     </fragment>
-    
-    
     <fragment
+        
         android:id="@+id/ordersFragment"
         android:name="com.rvtechnologies.grigora.view.ui.orders.OrdersParentFragment"
         android:label="fragment_orders"
@@ -306,7 +304,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
-        
         <action
             android:id="@+id/action_loginFragment2_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
@@ -515,11 +512,11 @@
         android:label="Home">
         
         <action
-            android:id="@+id/action_dashBoardFragment_fragment_to_restaurantDetails"
-            app:destination="@id/restaurantDetailsFragment"
+            android:id="@+id/action_dashBoardFragment_fragment_to_restaurantDetailsParent"
+            app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_dashBoardFragment_fragment_to_cart"
             app:destination="@id/navigationCart"
@@ -527,7 +524,6 @@
             app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
-    
     <fragment
         android:id="@+id/phoneLoginFragment"
         android:name="com.rvtechnologies.grigora.view.ui.login_signup.PhoneLogin"
@@ -556,4 +552,23 @@
     
     
     </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailParent"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailParent"
+        android:label="RestaurantDetailParent">
+        <action
+            android:id="@+id/action_restaurantDetailParent_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+    <fragment
+        android:id="@+id/tableBookingFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.TableBookingFragment"
+        android:label="RestaurantDetailParent">
+    
+    
+    </fragment>
+
 </navigation>

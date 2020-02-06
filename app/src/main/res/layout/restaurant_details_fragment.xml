@@ -12,11 +12,12 @@
         
         <RelativeLayout
             android:id="@+id/top_bar"
-            
             android:layout_width="match_parent"
+            
             android:layout_height="@dimen/_40sdp"
             android:layout_marginTop="@dimen/_8sdp"
-            android:elevation="1dp">
+            android:elevation="1dp"
+            android:visibility="gone">
             
             <ImageButton
                 android:id="@+id/img_back"
@@ -135,7 +136,7 @@
                             android:layout_below="@+id/tv_cuisines"
                             app:lottie_autoPlay="true"
                             app:lottie_fileName="stopwatch.json"
-                            app:lottie_loop="false" />
+                            app:lottie_loop="true" />
                         
                         <TextView
                             android:id="@+id/tv_deliver"
@@ -251,11 +252,12 @@
                 
                 <RelativeLayout
                     android:layout_width="wrap_content"
-                    
-                    android:layout_height="wrap_content"
+                    android:layout_height="?actionBarSize"
                     android:layout_marginTop="@dimen/_8sdp">
                     
                     <RadioGroup
+                        
+                        android:id="@+id/rg_veg_nonveg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
@@ -263,6 +265,7 @@
                         android:orientation="horizontal">
                         
                         <RadioButton
+                            android:id="@+id/rd_veg"
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -273,37 +276,35 @@
                         
                         
                         <RadioButton
+                            android:id="@+id/rd_nonveg"
+                            
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_4sdp"
-                            android:buttonTint="@color/green"
+                            android:buttonTint="@color/colorPrimaryDark"
                             android:text="@string/nonveg"
                             android:textColor="?attr/textWhite" />
                         
                         
                         <RadioButton
+                            android:id="@+id/rd_containsegg"
+                            
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="@dimen/_4sdp"
-                            android:buttonTint="@color/green"
+                            android:buttonTint="@color/duskYellow"
                             android:text="@string/contains_egg"
                             android:textColor="?attr/textWhite" />
                     
                     </RadioGroup>
                     
-                    <ImageView
-                        android:layout_width="@dimen/_28sdp"
-                        android:layout_height="@dimen/_28sdp"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/_8sdp"
-                        android:background="@drawable/chip_selected_bg"
-                        
-                        android:backgroundTint="@color/viewbg"
-                        android:padding="@dimen/_6sdp"
-                        app:srcCompat="@drawable/ic_search" />
+                    <com.rvtechnologies.grigora.utils.SearchView
+                        android:id="@+id/search_view"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true" />
                 
                 </RelativeLayout>
                 
@@ -343,7 +344,6 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
                             android:gravity="center"
-                            android:text="4"
                             android:textColor="?attr/searchHint"
                             android:textSize="@dimen/_15sdp" />
                     </RelativeLayout>
@@ -389,7 +389,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
-                            android:layout_toLeftOf="@+id/tv_more_pre"
+                            android:layout_toLeftOf="@+id/tv_pre_count"
                             android:capitalize="words"
                             android:ellipsize="end"
                             android:maxLines="1"
@@ -398,7 +398,7 @@
                             android:textSize="@dimen/_15sdp" />
                         
                         <TextView
-                            android:id="@+id/tv_more_pre"
+                            android:id="@+id/tv_pre_count"
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

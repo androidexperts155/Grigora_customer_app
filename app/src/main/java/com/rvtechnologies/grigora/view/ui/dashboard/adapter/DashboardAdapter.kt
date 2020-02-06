@@ -153,7 +153,11 @@ class DashboardAdapter(
                 holder.tv_title.text = customisedData.title
 
                 holder.rc_data.adapter =
-                    CuisineAdapter(customisedData.restaurants, iRecyclerItemClick,customisedData.uiType)
+                    CuisineAdapter(
+                        customisedData.restaurants,
+                        iRecyclerItemClick,
+                        customisedData.uiType
+                    )
 
 
             }
@@ -173,7 +177,7 @@ class DashboardAdapter(
 
                 holder.rc_data.adapter = TopBrandAdapter(
                     customisedData.restaurants, newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee, iRecyclerItemClick,customisedData.uiType
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick, customisedData.uiType
                 )
             }
             is RestaurantsHorizontal -> {
@@ -194,7 +198,7 @@ class DashboardAdapter(
                 holder.rc_data.adapter = DashboardRestaurantAdapter(
                     customisedData.restaurants,
                     newDashboardModel.min_kilo_meter,
-                    newDashboardModel.base_delivery_fee, iRecyclerItemClick,customisedData.uiType
+                    newDashboardModel.base_delivery_fee, iRecyclerItemClick, customisedData.uiType
                 )
             }
             is RestaurantsVertical -> {

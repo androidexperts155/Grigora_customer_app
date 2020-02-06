@@ -174,7 +174,7 @@ activity!!.onBackPressed()
     private fun setSettingsApi() {
         var data = HashMap<String, Any?>()
 
-        var headerMAp = HashMap<String, Any?>()
+        var headerMAp = HashMap<String, Any>()
         headerMAp.put("Authorization", CommonUtils.getPrefValue(activity!!, PrefConstants.TOKEN))
         data.put("order_id", ed_order_id.text.toString())
         data.put("sender_type", "2")

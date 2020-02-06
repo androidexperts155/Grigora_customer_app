@@ -7,7 +7,7 @@
         
         <variable
             name="itemDetail"
-            type="com.rvtechnologies.grigora.model.RestaurantDetailModel.AllData.Item" />
+            type="com.rvtechnologies.grigora.model.models.MenuItemModel" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,31 +16,31 @@
         android:layout_marginBottom="@dimen/_8sdp">
         
         
-        <androidx.cardview.widget.CardView
+        <RelativeLayout
             android:id="@+id/imageView2"
             android:layout_width="@dimen/_80sdp"
             android:layout_height="@dimen/_60sdp"
-            android:elevation="0dp"
-            app:cardBackgroundColor="@android:color/transparent"
-            app:cardCornerRadius="@dimen/_8sdp"
+            android:background="@color/transparent"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.0">
             
-            <ImageView
+            
+            <com.github.siyamed.shapeimageview.RoundedImageView
                 android:id="@+id/itemImage"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:scaleType="centerCrop"
-                
                 android:src="@drawable/restaurant"
                 app:image_url="@{itemDetail.image}"
-                
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintVertical_bias="0.0" />
+                app:layout_constraintVertical_bias="0.0"
+                app:siBorderWidth="0dp"
+                app:siRadius="@dimen/_8sdp" />
             
             <View
+                
                 android:layout_width="@dimen/_10sdp"
                 android:layout_height="@dimen/_10sdp"
                 android:layout_alignParentTop="true"
@@ -49,7 +49,7 @@
                 android:layout_margin="@dimen/_6sdp"
                 android:background="@drawable/veg" />
         
-        </androidx.cardview.widget.CardView>
+        </RelativeLayout>
         
         <LinearLayout
             android:id="@+id/rel_detail"
@@ -62,24 +62,24 @@
             app:layout_constraintTop_toTopOf="parent">
             
             <TextView
-                android:text="@{itemDetail.restaurantName}"
-    
                 android:id="@+id/tv_name"
+                
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_4sdp"
-                 android:textColor="?attr/textWhite"
+                android:text="@{itemDetail.name}"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_10sdp" />
             
             <TextView
                 style="@style/normalText"
-                android:text="@{itemDetail.cuisineName}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_2sdp"
-                 android:textColor="?attr/searchHint"
+                android:text="@{itemDetail.cuisineName}"
+                android:textColor="?attr/searchHint"
                 android:textSize="@dimen/_10sdp" />
             
             <RelativeLayout
@@ -91,12 +91,11 @@
                 
                 <RatingBar
                     android:id="@+id/rating"
-                    android:progressBackgroundTint="?attr/viewbg"
                     style="@style/RatingBar"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:progressTint="@color/duskYellow"
-                     />
+                    android:progressBackgroundTint="?attr/searchHint"
+                    android:progressTint="@color/duskYellow" />
                 
                 <TextView
                     android:id="@+id/tv_rating"
@@ -105,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/_4sdp"
                     android:layout_toRightOf="@+id/rating"
-                    android:text="@{itemDetail.avgRatings}"
+                    android:text="@{String.valueOf(itemDetail.avgRatings)}"
                     android:textColor="?attr/searchHint"
                     android:textSize="@dimen/_10sdp" />
                 
@@ -173,8 +172,7 @@
                     android:gravity="center"
                     android:paddingLeft="@dimen/_2sdp"
                     android:paddingRight="@dimen/_2sdp"
-                    android:text="@{itemDetail.cart_quantity}"
-                    android:textColor="@color/colorPrimaryDark"
+                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_8sdp"
                     tools:text="0" />
                 
@@ -197,16 +195,16 @@
         
         
         <TextView
-            android:gravity="center"
             android:id="@+id/bt_add"
             style="@style/normalText"
-            
             android:layout_width="@dimen/_40sdp"
+            
             android:layout_height="@dimen/_20sdp"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:layout_marginTop="16dp"
             android:background="@drawable/btn_rounded_corners_more"
+            android:gravity="center"
             android:text="@string/add"
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_8sdp"

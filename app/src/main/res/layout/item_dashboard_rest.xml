@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="@dimen/_180sdp"
+    android:layout_width="@dimen/_190sdp"
     android:layout_height="wrap_content"
-    android:layout_marginRight="@dimen/_10sdp"
-    android:orientation="vertical">
+    android:background="@drawable/selectable_item_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:padding="@dimen/_5sdp">
     
     <androidx.cardview.widget.CardView
         android:layout_width="@dimen/_180sdp"
@@ -40,7 +42,7 @@
             android:layout_toLeftOf="@+id/tv_delivery_time"
             android:paddingRight="@dimen/_4sdp"
             android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_12sdp"
+            android:textSize="@dimen/_13sdp"
             tools:text="Dedicated Dining" />
         
         <TextView

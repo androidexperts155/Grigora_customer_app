@@ -1,6 +1,5 @@
 package com.rvtechnologies.grigora.view.ui.profile
 
-import android.content.Intent
 import android.os.Bundle
 import android.provider.Settings
 import android.util.Log
@@ -48,7 +47,6 @@ class ProfileFragment : Fragment(), EventBroadcaster {
         }
     }
 
-
     companion object {
         fun newInstance() = ProfileFragment()
     }
@@ -72,11 +70,12 @@ class ProfileFragment : Fragment(), EventBroadcaster {
         GrigoraApp.getInstance()!!.registerListener(this)
 
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.VISIBLE
-            (activity as MainActivity).img_back.visibility = View.GONE
-            (activity as MainActivity).lockDrawer(false)
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle(getString(R.string.my_account))
+            (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).showBottomNavigation(4)
         }
+
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         if (token.isBlank()) {
             showLoginAlert(activity as MainActivity?)
@@ -90,6 +89,17 @@ class ProfileFragment : Fragment(), EventBroadcaster {
 
     fun getName(): String {
         return CommonUtils.getPrefValue(context, PrefConstants.NAME)
+    }
+
+    fun getAddress(): String {
+        return CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
+    }
+
+    fun getWallet(): String {
+        return "₦ ${CommonUtils.getPrefValue(
+            context!!,
+            PrefConstants.WALLET
+        )}"
     }
 
 
@@ -163,7 +173,7 @@ class ProfileFragment : Fragment(), EventBroadcaster {
     private fun setLogoutApi() {
         var data = HashMap<String, Any?>()
 
-        var headerMAp = HashMap<String, Any?>()
+        var headerMAp = HashMap<String, Any>()
         headerMAp.put("Authorization", CommonUtils.getPrefValue(activity!!, PrefConstants.TOKEN))
         data.put("device_id", device_id())
         ConnectionNetwork.postFormData(

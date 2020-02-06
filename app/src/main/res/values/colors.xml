@@ -30,7 +30,7 @@
     <color name="green">#4CAF50</color>
     
     <color name="grey_bg">#F7F7F7</color>
-    <color name="textGrey">#262626</color>
+    <color name="textGrey">#737373</color>
     <color name="textLightGrey">#C1C1C1</color>
     <color name="viewbg">#DFDEDE</color>
     <color name="textBlack">#262626</color>
@@ -42,11 +42,12 @@
     
     <color name="background_light">#ffffff</color>
     <color name="background_dark_light">#112037</color>
+    <color name="transparent">#00000000</color>
     <color name="background_dark">#020A18</color>
     <color name="background_light_grey">#E0E1E1</color>
     
     <color name="text_hint_color">#aaa</color>
-   
+    
     <color name="facebook">#344888</color>
     <color name="twitter">#309DDA</color>
     <color name="google">#D53E2D</color>
@@ -54,7 +55,11 @@
     <color name="insta2">#E6001E</color>
     <color name="phone1">#F9495F</color>
     <color name="phone2">#C70D2F</color>
+   
+    <color name="ripple">#aae1e1e1</color>
     
+    <color name="viewbg_light">#EBF0F0</color>
+    <color name="viewbg_dark">#1e1e1e</color>
 
 
 </resources>

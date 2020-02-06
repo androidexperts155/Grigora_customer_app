@@ -10,6 +10,7 @@ import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
 
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderPagerAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -33,8 +34,6 @@ class OrdersParentFragment : Fragment() {
 
         tv_current.setOnClickListener {
             tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-
             tv_current.setBackgroundResource(
                 R.drawable.left_round_dark
             )
@@ -42,19 +41,27 @@ class OrdersParentFragment : Fragment() {
                 R.drawable.right_round_light
             )
 
+            if (CommonUtils.isDarkMode())
+                tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            else
+                tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+
             vpOrders.currentItem = 0
         }
 
         tv_past.setOnClickListener {
-            tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
             tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-
-            tv_current.setBackgroundResource(
-                R.drawable.left_round_light
-            )
             tv_past.setBackgroundResource(
                 R.drawable.right_round_dark
             )
+            tv_current.setBackgroundResource(
+                R.drawable.left_round_light
+            )
+            if (CommonUtils.isDarkMode())
+                tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            else
+                tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+
             vpOrders.currentItem = 1
         }
 
@@ -84,10 +91,16 @@ class OrdersParentFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle(getString(R.string.orders))
+            (activity as MainActivity).showBottomNavigation(3)
+//            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
             (activity as MainActivity).lockDrawer(true)
+
+
+
+
         }
 
     }

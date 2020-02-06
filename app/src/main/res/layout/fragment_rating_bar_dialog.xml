@@ -1,29 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
     android:orientation="vertical"
-    android:background="?attr/backgroundColor"
     tools:context=".view.ui.dashboard.RatingBarDialog">
     
-   
-    <com.zhouyou.view.seekbar.SignSeekBar
-        android:id="@+id/seek_bar"
+    
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="16dp"
-        app:ssb_section_text_position="bottom_sides"
-        app:ssb_show_progress_in_float="false"
-        app:ssb_show_section_mark="false"
-        app:ssb_show_section_text="true"
-        app:ssb_show_sign="true"
-        app:ssb_show_thumb_text="false"
-        app:ssb_sign_arrow_height="5dp"
-        app:ssb_sign_arrow_width="10dp"
-        app:ssb_sign_border_color="@color/colorPrimaryDark"
-        app:ssb_sign_border_size="1dp"
-        app:ssb_sign_color="@color/textBlack"
-        app:ssb_sign_show_border="true"/>
+        android:layout_height="wrap_content"
+        
+        android:background="@drawable/rating_filter_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+        
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/rating"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_14sdp" />
+            
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_alignParentRight="true"
+                
+                android:padding="@dimen/_2sdp"
+                app:srcCompat="@drawable/ic_close" />
+        
+        
+        </RelativeLayout>
+        
+        
+        <TextView
+            android:id="@+id/tv_rating"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:drawableRight="@drawable/ic_star_24dp"
+            android:drawableTint="?attr/textWhite"
+            android:text="4.5"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        <TextView
+            android:id="@+id/tv_over"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableTint="?attr/textWhite"
+            android:text="@string/and_over"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+        
+        
+        <com.warkiz.widget.IndicatorSeekBar
+            android:id="@+id/rating_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_18sdp"
+            android:layout_marginRight="@dimen/_24sdp"
+            android:hapticFeedbackEnabled="true"
+            app:isb_indicator_color="@color/colorPrimaryDark"
+            app:isb_indicator_text_color="@color/white"
+            app:isb_max="5"
+            app:isb_min="3"
+            app:isb_only_thumb_draggable="false"
+            app:isb_progress="4"
+            app:isb_progress_value_float="true"
+            app:isb_seek_smoothly="true"
+            app:isb_show_indicator="rounded_rectangle"
+            app:isb_show_thumb_text="false"
+            app:isb_show_tick_marks_type="oval"
+            app:isb_show_tick_texts="true"
+            app:isb_thumb_color="@color/colorPrimaryDark"
+            app:isb_thumb_size="@dimen/_15sdp"
+            
+            app:isb_tick_marks_drawable="@drawable/red_round"
+            app:isb_tick_marks_size="13dp"
+            app:isb_tick_texts_color="?attr/textWhite"
+            app:isb_tick_texts_size="15sp"
+            app:isb_ticks_count="5"
+            
+            app:isb_track_background_color="?attr/textWhite"
+            app:isb_track_background_size="@dimen/_1sdp"
+            app:isb_track_progress_color="@color/colorPrimaryDark"
+            app:isb_track_progress_size="@dimen/_2sdp" />
+        
+        
+        <Button
+            android:id="@+id/bt_view"
+            
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_24sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1dp"
+            android:hapticFeedbackEnabled="true"
+            android:paddingLeft="@dimen/_28sdp"
+            android:paddingRight="@dimen/_28sdp"
+            android:text="@string/viewresults"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
 
 </LinearLayout>

@@ -7,7 +7,7 @@
         
         <variable
             name="itemDetail"
-            type="com.rvtechnologies.grigora.model.RestaurantDetailModel.AllData.Item" />
+            type="com.rvtechnologies.grigora.model.models.MenuItemModel" />
     </data>
     
     <LinearLayout
@@ -52,7 +52,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_6sdp"
             android:layout_marginTop="@dimen/_4sdp"
-            android:text="@{itemDetail.restaurantName}"
+            android:text="@{itemDetail.name}"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_10sdp" />
         
@@ -87,7 +87,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/_6sdp"
                 android:layout_toRightOf="@+id/rating"
-                android:text="@{itemDetail.avgRatings}"
+                android:text="@{String.valueOf(itemDetail.avgRatings)}"
                 android:textColor="?attr/searchHint"
                 android:textSize="@dimen/_10sdp" />
             
@@ -157,7 +157,7 @@
                         android:gravity="center"
                         android:paddingLeft="@dimen/_2sdp"
                         android:paddingRight="@dimen/_2sdp"
-                        android:text="@{itemDetail.cart_quantity}"
+                        android:text="@{itemDetail.item_count_in_cart}"
                         android:textColor="@color/colorPrimaryDark"
                         android:textSize="@dimen/_8sdp"
                         tools:text="0" />

@@ -3,227 +3,268 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
-    <LinearLayout
-        
-        android:id="@+id/list_item"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="6dp"
         android:layout_marginTop="@dimen/_6sdp"
         android:layout_marginEnd="6dp"
         android:layout_marginBottom="3dp"
-        android:background="@drawable/shadow"
-        android:elevation="@dimen/_1sdp"
-        android:orientation="vertical"
-        android:padding="@dimen/_8sdp">
-        
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-            
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card"
-                android:layout_width="@dimen/_80sdp"
-                android:layout_height="@dimen/_80sdp"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                app:cardCornerRadius="8dp"
-                app:cardElevation="1dp">
-                
-                <ImageView
-                    android:id="@+id/resImage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:scaleType="centerCrop"
-                    app:image_url="@{orderModel.restaurantImage}"
-                    
-                    app:srcCompat="@drawable/restaurant" />
-            
-            
-            </androidx.cardview.widget.CardView>
-            
-            <TextView
-                android:id="@+id/textView42"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_toRightOf="@+id/card"
-                android:text="@{orderModel.idToShow}"
-                android:textColor="@color/textBlack"
-                android:textSize="@dimen/_10sdp"
-                tools:text="orderid" />
-            
-            
-            <TextView
-                android:id="@+id/resName"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/textView42"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_toRightOf="@+id/card"
-                android:gravity="center"
-                android:text="@{orderModel.restaurantName}"
-                android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
-                android:textColor="@color/textBlack"
-                android:textSize="@dimen/_12sdp"
-                tools:text="Restaurant name" />
-            
-            <TextView
-                android:id="@+id/deliveryAddress"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/resName"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="4dp"
-                android:layout_marginEnd="8dp"
-                android:layout_toRightOf="@+id/card"
-                android:text="@{orderModel.deliveryAddress}"
-                android:textColor="@color/textGrey"
-                android:textSize="@dimen/_10sdp"
-                tools:text="Address will be here" />
-        
-        </RelativeLayout>
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/grey_bg" />
-        
-        <TextView
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/items"
-            android:textColor="@color/textGrey"
-            android:textSize="@dimen/_10sdp" />
-        
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rvOrderItem"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:itemCount="5"
-            tools:listitem="@layout/order_menu_item" />
-        
-        
-        <TextView
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/orderedon"
-            android:textColor="@color/textGrey"
-            android:textSize="@dimen/_10sdp" />
-        
-        <TextView
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="4dp"
-            android:text="@{orderModel.createdAt}"
-            android:textColor="@color/textBlack"
-            android:textSize="@dimen/_10sdp"
-            tools:text="2019-12-18 04:29:56" />
-        
-        <TextView
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@string/total2"
-            android:textColor="@color/textGrey"
-            android:textSize="@dimen/_10sdp" />
-        
-        <TextView
-            android:id="@+id/textView40"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            
-            android:layout_marginTop="4dp"
-            android:text="@{orderModel.finalPrice}"
-            android:textColor="@color/text_primary"
-            android:textSize="@dimen/_12sdp"
-            tools:text="0.0" />
-        
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:layout_marginTop="8dp"
-            android:background="@color/grey_bg" />
+        android:elevation="1dp"
+        app:cardBackgroundColor="?attr/backgroundColor"
+        app:cardCornerRadius="@dimen/_8sdp">
         
         <LinearLayout
-            android:layout_width="wrap_content"
+            
+            android:id="@+id/list_item"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="@dimen/_6sdp">
+            
+            
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/resImage"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_110sdp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/restaurant"
+                app:image_url="@{orderModel.restaurantImage}"
+                app:siRadius="@dimen/_8sdp" />
+            
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                
+                <TextView
+                    android:id="@+id/textView42"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_toRightOf="@+id/card"
+                    android:text="@{orderModel.idToShow}"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_8sdp"
+                    tools:text="#12jsj43" />
+                
+                
+                <TextView
+                    android:id="@+id/resName"
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center"
+                    android:text="@{orderModel.restaurantName}"
+                    android:textAppearance="@style/TextAppearance.AppCompat.SearchResult.Subtitle"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_14sdp"
+                    tools:text="Restaurant name" />
+                
+                <TextView
+                    android:id="@+id/tv_ad"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resName"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@string/deliver_to"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_10sdp" />
+                
+                <TextView
+                    android:id="@+id/deliveryAddress"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/resName"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_toRightOf="@+id/tv_ad"
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{orderModel.deliveryAddress}"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="Address will be here" />
+            
+            </RelativeLayout>
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:background="?attr/viewbg" />
             
             <TextView
+                android:id="@+id/tv_items"
                 style="@style/normalText"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="@string/status2"
-                android:textColor="@color/textGrey"
-                android:textSize="@dimen/_10sdp" />
-            
-            <TextView
-                android:id="@+id/txtStatus"
-                style="@style/normalText"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:maxLines="2"
-                android:text="@{orderModel.status.toString()}"
-                android:textColor="@color/textBlack"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_10sdp"
-                android:visibility="visible" />
+                tools:text="1,2323,545453," />
+            
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOrderItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:visibility="gone"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="5"
+                tools:listitem="@layout/order_menu_item" />
+            
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp">
+                
+                
+                <TextView
+                    android:id="@+id/t"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:text="@string/orderedon"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="visible" />
+                
+                <TextView
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_2sdp"
+                    android:layout_toRightOf="@+id/t"
+                    android:text="@{orderModel.createdAt}"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_10sdp"
+                    android:visibility="visible"
+                    tools:text="2019-12-18 04:29:56" />
+            
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <RelativeLayout
+                    android:id="@+id/rl"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp">
+                    
+                    <TextView
+                        android:id="@+id/tv_t"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="@string/total"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_10sdp" />
+                    
+                    <TextView
+                        android:id="@+id/textView40"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:layout_toRightOf="@+id/tv_t"
+                        android:text="@{orderModel.finalPrice}"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="0.0" />
+                </RelativeLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/rl"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:orientation="horizontal">
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:text="@string/status"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_10sdp" />
+                    
+                    <TextView
+                        android:id="@+id/txtStatus"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_2sdp"
+                        android:maxLines="2"
+                        android:text="@{orderModel.status.toString()}"
+                        android:textColor="?attr/searchHint"
+                        android:textSize="@dimen/_10sdp"
+                        android:visibility="visible"
+                        tools:text="Waiting for confirmation" />
+                </LinearLayout>
+                
+                <Button
+                    android:id="@+id/btnDetails"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_rounded"
+                    android:text="@string/track"
+                    android:textAllCaps="false"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone" />
+                
+                <Button
+                    android:id="@+id/btnRate"
+                    android:foreground="@drawable/selectable_item_background"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_gravity="right"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_rounded"
+                    android:text="@string/rate_now"
+                    android:textAllCaps="false"
+                    android:textColor="@android:color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    
+                    />
+            
+            </RelativeLayout>
+        
+        
         </LinearLayout>
-        
-        <Button
-            android:id="@+id/btnDetails"
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="right"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_rounded"
-            android:text="@string/track"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone" />
-        
-        <Button
-            android:id="@+id/btnRate"
-            style="@style/normalText"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/_30sdp"
-            android:layout_gravity="right"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:layout_marginBottom="8dp"
-            android:background="@drawable/btn_rounded"
-            android:text="@string/rate_now"
-            android:textAllCaps="false"
-            android:textColor="@android:color/white"
-            android:textSize="@dimen/_10sdp"
-            android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView40" />
+    </androidx.cardview.widget.CardView>
     
-    </LinearLayout>
     <data>
         
         <variable

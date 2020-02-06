@@ -159,11 +159,10 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle(viewModel.menuItem.value!!.restaurantName)
             (activity as MainActivity).lockDrawer(true)
-
+            (activity as MainActivity).showBottomNavigation(0)
         }
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 

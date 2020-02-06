@@ -21,8 +21,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@{itemCategory.name}"
-            android:textColor="@color/textBlack"
-            android:textSize="@dimen/_14sdp"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_13sdp"
             tools:text="Category Name" />
         
         <androidx.recyclerview.widget.RecyclerView

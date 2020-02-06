@@ -176,7 +176,7 @@ class ConnectionNetwork {
 
         fun postFormData(
             url: String,
-            header: HashMap<String, Any?>,
+            header: HashMap<String, Any>,
             fields: HashMap<String, Any?>,
             loader_msg: String,
             context: Context, viewGroup: ViewGroup, key: Int
@@ -194,7 +194,6 @@ class ConnectionNetwork {
                             GrigoraApp.getInstance()?.updateData(key, t.message)
                             hideLoader()
                             showSnack(false, context, viewGroup, context.getString(R.string.internetnotavailable))
-
                         }
 
                         override fun onResponse(

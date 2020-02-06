@@ -19,12 +19,15 @@ data class NewDashboardModel(
     @SerializedName("min_kilo_meter")
     var min_kilo_meter: String = "",
     @SerializedName("is_cart")
-    var is_cart: IsCart,
+    var is_cart: IsCart?,
 
     @SerializedName("filters")
     var filters: ArrayList<Filter> = ArrayList(),
     @SerializedName("promos")
     var promos: ArrayList<Promo> = ArrayList()
+    ,
+    @SerializedName("wallet")
+    var wallet: String = ""
 ) : DashboardItemType {
     data class Cuisine(
         @SerializedName("background_icon")
@@ -82,7 +85,12 @@ data class NewDashboardModel(
 
     ) : DashboardItemType {
         data class Restaurant(
-            var uiTpe:String,
+            @SerializedName("table_booking")
+            var table_booking: String = "",
+
+            @SerializedName("no_of_seats")
+            var no_of_seats: String = "",
+            var uiTpe: String,
             @SerializedName("preparing_time")
             var preparing_time: String = "",
             @SerializedName("address")
@@ -169,8 +177,14 @@ data class NewDashboardModel(
     }
 
     data class Filter(
+        var arrowClicked: Boolean,
         @SerializedName("created_at")
         var createdAt: Any = Any(),
+
+        @SerializedName("multi_selected")
+        var multiSelected: String = "",
+
+
         @SerializedName("id")
         var id: Int = 0,
         @SerializedName("name")
@@ -219,6 +233,13 @@ data class NewDashboardModel(
         var address: String = "",
         @SerializedName("preparing_time")
         var preparing_time: String = "",
+
+        @SerializedName("table_booking")
+        var table_booking: String = "",
+
+        @SerializedName("no_of_seats")
+        var no_of_seats: String = "",
+
 
         @SerializedName("average_rating")
         var averageRating: String = "",

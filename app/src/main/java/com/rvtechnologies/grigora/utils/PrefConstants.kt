@@ -27,4 +27,5 @@ object PrefConstants {
     val LANGUAGE_SELECTED = "language_selected"
     val IS_NOTIFICATIONS_ON = "is_notifications_on"
     val ORDER_TO_RATE = "order_to_rate"
+    val WALLET = "wallet"
 }

@@ -7,6 +7,8 @@
     android:layout_height="@dimen/_30sdp"
     android:layout_marginRight="@dimen/_10sdp"
     android:background="@drawable/filter_selected_bg"
+    android:foreground="@drawable/selectable_item_background"
+    android:clickable="true"
     android:gravity="center"
     android:orientation="horizontal"
     android:paddingLeft="@dimen/_10sdp"
@@ -15,12 +17,12 @@
     android:paddingBottom="@dimen/_6sdp">
     
     <TextView
-        android:textSize="@dimen/_12sdp"
-        style="@style/mediumText"
         android:id="@+id/tv_filter_name"
+        style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="?attr/filterChipSelectedTextColor"
+        android:textSize="@dimen/_12sdp"
         tools:text="Over 4.4" />
     
     <View
@@ -34,9 +36,9 @@
         android:background="?attr/filterChipSelectedTextColor" />
     
     <ImageView
-        android:id="@+id/img_down"
-        android:layout_width="@dimen/_18sdp"
-        android:layout_height="@dimen/_18sdp"
+        android:id="@+id/img_arrow"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
         android:rotation="270"
         android:tint="?attr/filterChipSelectedTextColor"
         app:srcCompat="@drawable/ic_back_black_24dp" />

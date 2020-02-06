@@ -80,7 +80,13 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                 Navigation.findNavController(this, R.id.main_nav_fragment)
             )
 
+        }
 
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+             onNavDestinationSelected(
+                item,
+                Navigation.findNavController(this, R.id.main_nav_fragment)
+            )
         }
         img_back.setOnClickListener {
             onBackPressed()
@@ -564,9 +570,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         deliverLayout.visibility = View.VISIBLE
         img_back.visibility = View.GONE
         img_right.visibility = View.GONE
-
         tv_title.visibility = View.GONE
-
     }
 
     fun menuOnly() {
@@ -586,12 +590,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun hideAll() {
         top_bar.visibility = View.GONE
         bottom_navigation.visibility = View.GONE
-        fab_cart.visibility=View.GONE
+        fab_cart.visibility = View.GONE
     }
 
     fun showFab() {
-        fab_cart.visibility=View.VISIBLE
-        
+        fab_cart.visibility = View.VISIBLE
+
     }
 
     fun showBottomNavigation(index: Int) {

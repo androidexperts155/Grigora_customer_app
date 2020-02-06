@@ -24,18 +24,9 @@ data class MenuItemModel(
     var item_count_in_cart: Int?,
 
 
-    @SerializedName("approx_prep_time")
-    @Expose
-    var approx_prep_time: Int?,
-
-
     @SerializedName("restaurant_id")
     @Expose
     var restaurantId: Int?,
-
-    @SerializedName("avg_ratings")
-    @Expose
-    var avg_ratings: Float?,
 
 
     @SerializedName("category_id")
@@ -46,11 +37,6 @@ data class MenuItemModel(
     @SerializedName("name")
     @Expose
     var name: String?,
-
-
-    @SerializedName("restaurant_name")
-    @Expose
-    var restaurant_name: String?,
 
 
     @SerializedName("favourite")
@@ -101,7 +87,24 @@ data class MenuItemModel(
     @SerializedName("item_categories")
     @Expose
     var itemCategories: List<ItemCategory>?,
+    @SerializedName("cuisine_name")
+    var cuisineName: String = "",
+    var nameToShow: String?,
+    var index: Int,
 
-    var nameToShow: String?
+
+
+    @SerializedName("approx_prep_time")
+    var approxPrepTime: String = "",
+    @SerializedName("avg_ratings")
+    var avgRatings: Float = 0F,
+
+    @SerializedName("cuisine_id")
+    var cuisineId: Int = 0,
+    @SerializedName("restaurant_name")
+    var restaurantName: String = ""
+
+
+
 
 ) : Parcelable

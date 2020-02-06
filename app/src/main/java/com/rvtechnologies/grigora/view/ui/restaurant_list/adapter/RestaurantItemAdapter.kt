@@ -9,13 +9,14 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.MenuItemViewBinding
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
+import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.OnItemClickListener
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.menu_item_view.view.*
 
 
 class RestaurantItemAdapter(
-    var menuItemList: ArrayList<RestaurantDetailModel.AllData.Item>,
+    var menuItemList: ArrayList<MenuItemModel>,
     var listener: OnItemClickListener, val quantityClicks: QuantityClicks, val pos: Int
 ) : RecyclerView.Adapter<RestaurantItemAdapter.ViewHolder>() {
 
@@ -23,10 +24,10 @@ class RestaurantItemAdapter(
         val resModel = menuItemList[position]
         resModel.index = pos
 
-        if (resModel.cart_quantity.toInt() > 0) {
+        if (resModel.item_count_in_cart!! > 0) {
             holder.itemView.li_add.visibility = View.VISIBLE
             holder.itemView.bt_add.visibility = View.GONE
-            holder.itemView.tv_quantity.text = resModel.cart_quantity
+            holder.itemView.tv_quantity.text = resModel.item_count_in_cart!!.toString()
         } else {
             holder.itemView.li_add.visibility = View.GONE
             holder.itemView.bt_add.visibility = View.VISIBLE
@@ -78,7 +79,7 @@ class RestaurantItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: RestaurantDetailModel.AllData.Item,
+            item: MenuItemModel,
             listener: OnItemClickListener
         ) {
             binding.itemDetail = item

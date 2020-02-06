@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        
+        android:background="@drawable/rating_filter_bg"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+        
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:text="@string/menuprice"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_14sdp" />
+            
+            <ImageView
+                android:id="@+id/img_close"
+                android:layout_width="@dimen/_22sdp"
+                android:layout_height="@dimen/_22sdp"
+                android:layout_alignParentRight="true"
+                
+                android:padding="@dimen/_2sdp"
+                app:srcCompat="@drawable/ic_close" />
+                
+        </RelativeLayout>
+        
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:layout_width="wrap_content"
+            android:id="@+id/rc_items"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            tools:itemCount="4"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            
+            tools:listitem="@layout/price_item_filter"
+            
+            android:layout_marginTop="@dimen/_18sdp"
+            android:orientation="horizontal" />
+        
+        
+        <Button
+            android:id="@+id/bt_view"
+            
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_24sdp"
+            android:layout_marginTop="@dimen/_24sdp"
+            android:layout_marginEnd="@dimen/_24sdp"
+            android:layout_marginBottom="@dimen/_24sdp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1dp"
+            android:hapticFeedbackEnabled="true"
+            android:paddingLeft="@dimen/_28sdp"
+            android:paddingRight="@dimen/_28sdp"
+            android:text="@string/viewresults"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_14sdp" />
+    </LinearLayout>
+
+</LinearLayout>

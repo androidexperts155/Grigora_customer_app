@@ -9,6 +9,14 @@ object AppConstants {
 
     const val CUISINE_MODEL="cuisine_model"
     const val RESTAURANT_ID="restaurant_id"
+    const val RESTAURANT_SEATES="seats"
+
+    const val RESTAURANT_ALWAYS_OPEN="always_open"
+    const val RESTAURANT_OPENING_TIME="opening_time"
+    const val RESTAURANT_CLOSING_TIME="closing_time"
+
+    const val RESTAURANT_BOOKING="booking"
+    const val RESTAURANT_PICKUP="pickup"
     const val RESTAURANT_MODEL="restaurant_model"
     const val IS_DRIVER="isdriver"
     const val MENU_ITEM_MODEL="menu_item_model"

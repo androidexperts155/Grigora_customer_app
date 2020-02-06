@@ -22,7 +22,7 @@ class OrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderModel = orderList[position]
-        orderModel.finalPrice = ""
+//        orderModel.finalPrice = ""
         orderModel.finalPrice = "₦ " + (orderModel.finalPrice)
         val status = when (orderModel.orderStatus) {
             0 -> holder.itemView.context.getString(R.string.waiting_for_confirmation)
@@ -72,7 +72,19 @@ class OrderAdapter(
         if (orderModel.orderDetails.isNotEmpty())
             holder.binding.rvOrderItem.adapter =
                 OrderMenuItemAdapter(orderModel.orderDetails)
-        holder.bind(orderModel, iRecyclerItemClick)
+        var nam = ""
+        for (item in orderModel.orderDetails) {
+            if(nam==""){
+                nam=item.itemName + " x " + item.quantity
+            }
+            else
+                nam=nam+", "+item.itemName + " x " + item.quantity
+        }
+
+        holder.binding.tvItems.text =nam
+
+
+            holder.bind(orderModel, iRecyclerItemClick)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

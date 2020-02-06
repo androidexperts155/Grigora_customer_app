@@ -65,7 +65,6 @@ class CartNdOfferViewModel : ViewModel() {
     var responsePlaceOrder = MutableLiveData<Any>()
     var offersListRes: MutableLiveData<Any> = MutableLiveData()
 
-
     fun viewCart(token: String, lat: String, lng: String) {
         isLoading.value = true
         ApiRepo.getInstance()

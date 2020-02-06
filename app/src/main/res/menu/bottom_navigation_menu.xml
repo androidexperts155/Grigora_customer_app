@@ -8,11 +8,9 @@
         android:title="@string/food" />
     
     <item
-        android:id="@+id/navigationMyAccount"
+        android:id="@+id/navigationPickup"
         android:icon="@drawable/ic_take_away"
         android:title="@string/pickup" />
-    
-    
     <item
         
         android:id="@+id/navigationNearbyRestaurants"
@@ -20,7 +18,7 @@
         android:title="@string/popular" />
     
     <item
-        android:id="@+id/navigationCart"
+        android:id="@+id/ordersFragment"
         android:icon="@drawable/ic_orders"
         android:title="@string/orders" />
     

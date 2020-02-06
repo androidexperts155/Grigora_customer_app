@@ -37,8 +37,33 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.ParseException
+import java.text.SimpleDateFormat
+import java.util.*
 
 object CommonUtils {
+
+    fun getFormattedTimeOrDate(data: Any, patternFrom: String, patternTo: String): String {
+        var d: Date? = null
+        val sdf = SimpleDateFormat(patternFrom)
+
+        if(data is String){
+            try {
+                d = sdf.parse(data)
+            } catch (ex: ParseException) {
+                Log.e("exp", "" + ex.message)
+            }
+        }
+        else
+        {
+            data as Date
+            d=data
+        }
+
+        sdf.applyPattern(patternTo)
+        return "" + sdf.format(d)
+    }
+
     fun showMessage(view: View?, msg: String) {
         if (view != null)
             Snackbar.make(view, msg, Snackbar.LENGTH_SHORT).show()

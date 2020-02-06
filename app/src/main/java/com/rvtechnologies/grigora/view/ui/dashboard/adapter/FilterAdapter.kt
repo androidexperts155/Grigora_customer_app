@@ -15,7 +15,7 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class FilterAdapter(
     val list: ArrayList<NewDashboardModel.Filter>,
-   val iRecyclerItemClick: IRecyclerItemClick
+    val iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
     val RATING = 1
@@ -23,16 +23,16 @@ class FilterAdapter(
 
 
     override fun getItemViewType(position: Int): Int {
-        if (list[position].selectionType == "2")
-            return RATING
+        return if (list[position].selectionType == "2" || list[position].selectionType == "1")
+            RATING
         else
-            return NORMAL
+            NORMAL
     }
 
 
     inner class RatingView(view: View) : RecyclerView.ViewHolder(view) {
         var tv_filter_name: TextView = view.findViewById(R.id.tv_filter_name)
-        var img_down: ImageView = view.findViewById(R.id.img_down)
+        var img_arrow: ImageView = view.findViewById(R.id.img_arrow)
         var view: View = view.findViewById(R.id.view)
         var li_main: LinearLayout = view.findViewById(R.id.li_main)
     }
@@ -68,8 +68,6 @@ class FilterAdapter(
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         if (holder is RatingView) {
-            holder.tv_filter_name.text = list[position].name
-
             if (list[position].selected) {
                 holder.li_main.setBackgroundResource(R.drawable.filter_selected_bg)
 
@@ -79,7 +77,7 @@ class FilterAdapter(
                         R.color.white
                     )
                 )
-                holder.img_down.setColorFilter(
+                holder.img_arrow.setColorFilter(
                     ContextCompat.getColor(
                         holder.itemView.context,
                         R.color.white
@@ -92,6 +90,7 @@ class FilterAdapter(
                         R.color.white
                     )
                 )
+
             } else {
                 holder.li_main.setBackgroundResource(R.drawable.filter_deselected_bg)
                 if (CommonUtils.isDarkMode()) {
@@ -101,7 +100,7 @@ class FilterAdapter(
                             R.color.white
                         )
                     )
-                    holder.img_down.setColorFilter(
+                    holder.img_arrow.setColorFilter(
                         ContextCompat.getColor(
                             holder.itemView.context,
                             R.color.white
@@ -121,7 +120,7 @@ class FilterAdapter(
                             R.color.textBlack
                         )
                     )
-                    holder.img_down.setColorFilter(
+                    holder.img_arrow.setColorFilter(
                         ContextCompat.getColor(
                             holder.itemView.context,
                             R.color.textBlack
@@ -136,6 +135,53 @@ class FilterAdapter(
                     )
 //                    set white
                 }
+            }
+
+
+            if (list[position].selectionType == "2") {
+                if (!list[position].multiSelected.isNullOrEmpty()) {
+                    var name = ""
+                    if (list[position].multiSelected.contains("1")) {
+                        name = "₦"
+                    }
+
+                    if (list[position].multiSelected.contains("2")) {
+                        if (name != "")
+                            name += ",₦₦"
+                        else
+                            name += "₦₦"
+                    }
+
+                    if (list[position].multiSelected.contains("3")) {
+                        if (name != "")
+                            name += ",₦₦₦"
+                        else
+                            name += "₦₦₦"
+                    }
+
+                    if (list[position].multiSelected.contains("4")) {
+                        if (name != "")
+                            name += ",₦₦₦₦"
+                        else
+                            name += "₦₦₦₦"
+                    }
+                    holder.tv_filter_name.text = name
+                } else
+                    holder.tv_filter_name.text = list[position].name
+
+            } else {
+                holder.tv_filter_name.text = list[position].name
+
+            }
+
+
+            holder.img_arrow.setOnClickListener {
+                list[position].arrowClicked = true
+                iRecyclerItemClick.onItemClick(list[position])
+            }
+            holder.itemView.setOnClickListener {
+                list[position].arrowClicked = false
+                iRecyclerItemClick.onItemClick(list[position])
             }
         } else {
             holder as NormalView
