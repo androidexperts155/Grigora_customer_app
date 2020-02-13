@@ -3,6 +3,7 @@ package com.rvtechnologies.grigora.view.ui.orders.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
@@ -27,7 +28,7 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
     }
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
-        holder.tv_name.text = list[position].quantity.toString() + "x " + list[position].itemName
+        holder.tv_name.text = list[position].itemName + " x " + list[position].quantity.toString()
         holder.tv_price.text = "₦ " + list[position].price
         var choices = ""
         if (list[position].itemChoices.size > 0) {
@@ -39,6 +40,32 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
         if (!choices.isNullOrEmpty())
             choices.replaceFirst(",", "")
 
+//        R.id.rd_veg -> {
+//            filter = "1"
+//        }
+//        R.id.rd_nonveg -> {
+//            filter = "0"
+//        }
+//        R.id.rd_containsegg -> {
+//            filter = "2"
+//        }
+
+        if (choices.isNullOrEmpty())
+            holder.tv_choices.visibility = View.GONE
+
+
+        when (list[position].pureVeg) {
+            "1" -> {
+                holder.img_type.setImageResource(R.drawable.veg)
+            }
+            "2" -> {
+                holder.img_type.setImageResource(R.drawable.containes_egg)
+            }
+            "0" -> {
+                holder.img_type.setImageResource(R.drawable.non_veg)
+            }
+        }
+
         holder.tv_choices.text = choices
     }
 
@@ -47,6 +74,7 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
         var tv_name: TextView = view.findViewById(R.id.tv_name)
         var tv_choices: TextView = view.findViewById(R.id.tv_choices)
         var tv_price: TextView = view.findViewById(R.id.tv_price)
+        var img_type: ImageView = view.findViewById(R.id.img_type)
 
     }
 

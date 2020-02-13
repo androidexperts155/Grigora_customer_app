@@ -7,17 +7,46 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.view.ui.restaurant_list.GroupOrderFragment
 import com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailsFragment
 import com.rvtechnologies.grigora.view.ui.restaurant_list.TableBookingFragment
 
 class RestaurantPagerAdapter(
     fragmentManager: FragmentManager,
     var activity: Activity,
-    var arguments: Bundle?,val iRecyclerItemClick: IRecyclerItemClick
+    var arguments: Bundle?, val iRecyclerItemClick: IRecyclerItemClick
 ) : FragmentStatePagerAdapter(fragmentManager) {
     override fun getItem(position: Int): Fragment {
+
+        if (count == 3) {
+            return if (position == 0) {
+                RestaurantDetailsFragment(
+                    arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                    iRecyclerItemClick
+                )
+            } else if (position == 1) {
+                TableBookingFragment(arguments)
+            } else {
+                GroupOrderFragment()
+            }
+        } else {
+            return if (position == 0) {
+                RestaurantDetailsFragment(
+                    arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                    iRecyclerItemClick
+                )
+            } else {
+                GroupOrderFragment()
+            }
+
+        }
+
+
         return if (position == 0) {
-            RestaurantDetailsFragment(arguments?.get(AppConstants.RESTAURANT_ID).toString(),iRecyclerItemClick)
+            RestaurantDetailsFragment(
+                arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                iRecyclerItemClick
+            )
         } else {
             TableBookingFragment(arguments)
         }
@@ -25,10 +54,10 @@ class RestaurantPagerAdapter(
     }
 
     override fun getCount(): Int {
-       if( arguments?.get(AppConstants.RESTAURANT_BOOKING).toString().equals("0")){
-           return  1
-       }else
-        return 2
+        return if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString().equals("0")) {
+            2
+        } else
+            3
     }
 
 

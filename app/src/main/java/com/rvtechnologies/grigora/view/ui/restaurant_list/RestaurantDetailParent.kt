@@ -30,18 +30,17 @@ class RestaurantDetailParent : Fragment() ,IRecyclerItemClick{
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
-            tab_top.removeTabAt(2)
-        }
-        if (arguments?.get(AppConstants.RESTAURANT_PICKUP).toString() == "0") {
             tab_top.removeTabAt(1)
         }
+//        if (arguments?.get(AppConstants.RESTAURANT_PICKUP).toString() == "0") {
+//            tab_top.removeTabAt(1)
+//        }
 
         img_back.setOnClickListener {
             view?.findNavController()?.popBackStack()
         }
 
         for (i in 0 until tab_top.tabCount) {
-
 
             //noinspection ConstantConditions
             var tv = layoutInflater.inflate(R.layout.tab_textview, null) as TextView
@@ -79,10 +78,13 @@ class RestaurantDetailParent : Fragment() ,IRecyclerItemClick{
                 view as TextView
                 view.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
 
-                if (p0!!.text.toString().equals(getString(R.string.book_a_table))) {
-                    vp_fragments.currentItem = 1
-                } else {
+                if (p0!!.text.toString().equals(getString(R.string.order))) {
                     vp_fragments.currentItem = 0
+                } else if (p0!!.text.toString().equals(getString(R.string.book_a_table))){
+                    vp_fragments.currentItem = 1
+                }
+                else if (p0!!.text.toString().equals(getString(R.string.group_order))){
+                    vp_fragments.currentItem = 2
                 }
             }
         })

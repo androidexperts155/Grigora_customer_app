@@ -114,6 +114,10 @@ dependencies {
 
     implementation 'com.github.parse-community:ParseTwitterUtils-Android:1.13.0'
     implementation 'com.github.warkiz.widget:indicatorseekbar:2.1.2'
+    implementation 'io.branch.sdk.android:library:4.3.2'
+    implementation 'com.google.firebase:firebase-appindexing:19.1.0' // App indexing
+    implementation 'com.google.android.gms:play-services-ads:16+' // GAID matching
+    implementation 'com.facebook.android:facebook-share:[5,6)'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

@@ -19,7 +19,7 @@ data class CartDataModel(
     var estimated_delivery_time: String?,
 
     @SerializedName("add_more_items")
-    var add_more_items: ArrayList<AddMoreItems?>?,
+    var add_more_items: ArrayList<MenuItemModel>,
 
 
     @SerializedName("created_at")
@@ -42,6 +42,12 @@ data class CartDataModel(
     var updatedAt: String?,
     @SerializedName("user_id")
     var userId: String?,
+
+
+
+
+
+
 
     @SerializedName("cart_details")
     var cartDetails: ArrayList<CartDetail?>?,

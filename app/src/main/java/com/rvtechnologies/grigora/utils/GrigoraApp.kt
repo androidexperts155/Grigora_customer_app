@@ -20,6 +20,7 @@ import com.parse.twitter.ParseTwitterUtils
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.api.ApiClient
 import com.rvtechnologies.grigorahq.network.EventBroadcaster
+import io.branch.referral.Branch
 import io.fabric.sdk.android.Fabric
 import retrofit2.Call
 import retrofit2.Callback
@@ -33,6 +34,13 @@ class GrigoraApp : Application() {
 
         FacebookSdk.sdkInitialize(getApplicationContext());
         AppEventsLogger.activateApp(this);
+
+        // Branch logging for debugging
+        Branch.enableDebugMode()
+
+        // Branch object initialization
+        Branch.getAutoInstance(this)
+
 
         PaystackSdk.initialize(applicationContext)
         FirebaseMessaging.getInstance().isAutoInitEnabled = true

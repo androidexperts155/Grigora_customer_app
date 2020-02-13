@@ -48,13 +48,14 @@ import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderItemAdapter
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view_model.OrderDetailsViewModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.order_details_fragment.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.URISyntaxException
+import kotlin.random.Random
 
 class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFragment.DriverRate,
+    IRecyclerItemClick,
     OnCurveDrawnCallback {
     private var stop = false
     private lateinit var mMap: GoogleMap
@@ -64,14 +65,22 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     private var receiver: BroadcastReceiver? = null
     private lateinit var curveManager: CurveManager
     lateinit var sheetBehavior: BottomSheetBehavior<View>
-
-
+    var oldStatus = 0
     override fun onMapReady(googleMap: GoogleMap) {
-        googleMap.setMapStyle(
-            MapStyleOptions(
-                resources.getString(R.string.light_mode_style)
+        if (CommonUtils.isDarkMode())
+            googleMap.setMapStyle(
+                MapStyleOptions(
+                    getResources()
+                        .getString(R.string.dark_mode_style)
+                )
             )
-        )
+        else
+            googleMap.setMapStyle(
+                MapStyleOptions(
+                    getResources()
+                        .getString(R.string.light_mode_style)
+                )
+            )
 
         mMap = googleMap
 //        mMap.setMapStyle(MapS)
@@ -100,6 +109,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     }
 
+    var isGroupOrder = false
+    var isPickUp = false
+
     companion object {
         fun newInstance() = OrderDetailsFragment()
     }
@@ -113,10 +125,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 val data = Gson().fromJson(args[0].toString(), OrderStatusModel::class.java)
                 if (data.orderStatus == 2 || data.orderStatus == 8 || data.orderStatus == 3 || data.orderStatus == 7) {
                     tv_est_delivery.text =
-                        getString(R.string.preparation_time) + "   " + getDurationString(data?.dishRemainingTime!!)
+                        getDurationString(data?.dishRemainingTime!!)
+//                        getString(R.string.preparation_time) + "   " + getDurationString(data?.dishRemainingTime!!)
                 } else if (data.orderStatus == 4 || data.orderStatus == 5) {
                     tv_est_delivery.text =
-                        getString(R.string.estimated_arrival) + "   " + getDurationString(data?.driverTime!!)
+                        getDurationString(data?.driverTime!!)
+//                        getString(R.string.estimated_arrival) + "   " + getDurationString(data?.driverTime!!)
                 }
 //                val data =  args[0] as JSONObject
 //                Log.e("data",data.toString())
@@ -139,12 +153,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         }
     }
 
-    fun getDurationString(seconds: Int): String {
+    private fun getDurationString(seconds: Int): String {
 
         var hours = seconds / 3600
         var minutes = (seconds % 3600) / 60
 
-        return twoDigitString(hours) + " : " + twoDigitString(minutes)
+//        return twoDigitString(hours) + " : " + twoDigitString(minutes)
+        return twoDigitString(minutes)
     }
 
     fun twoDigitString(number: Int): String {
@@ -232,7 +247,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-
         viewModel = ViewModelProviders.of(this).get(OrderDetailsViewModel::class.java)
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         if (arguments != null) {
@@ -243,26 +257,68 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         viewModel.orderItemRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 orderItemModel = response.data as OrderItemModel
-                tv_order_id.text = getString(R.string.order_hash).plus(orderItemModel?.id)
-                tv_rest_name.text =
-                    orderItemModel?.restaurantName
+
+                if (orderItemModel!!.groupOrder.equals("1")) {
+                    isGroupOrder = true
+                }
+
+                if (orderItemModel!!.orderType == "0") {
+                    isPickUp = false
+                }
+
+                tv_order_id.text = "#".plus(orderItemModel?.id)
+                tv_rest_name.text = orderItemModel?.restaurantName
+                tv_rest_desc.text = orderItemModel?.restaurant_cusines
+
+                val circularProgressDrawable = CircularProgressDrawable(context!!)
+                circularProgressDrawable.strokeWidth = 5f
+                circularProgressDrawable.centerRadius = 30f
+                circularProgressDrawable.start()
+
+                Picasso.get()
+                    .load(orderItemModel?.restaurantImage).placeholder(
+                        circularProgressDrawable
+                    )
+                    .error(
+                        circularProgressDrawable
+                    )
+                    .into(img_rest)
+
                 if (!orderItemModel?.driverImage.isNullOrEmpty()) {
                     val circularProgressDrawable = CircularProgressDrawable(context!!)
                     circularProgressDrawable.strokeWidth = 5f
                     circularProgressDrawable.centerRadius = 30f
                     circularProgressDrawable.start()
 
-                    Picasso.get()
-                        .load(orderItemModel?.driverImage).placeholder(
-                            circularProgressDrawable
-                        )
-                        .error(
-                            circularProgressDrawable
-                        )
-                        .into(img_driver)
+
+                    if (isPickUp) {
+                        Picasso.get()
+                            .load(orderItemModel?.restaurantImage).placeholder(
+                                circularProgressDrawable
+                            )
+                            .error(
+                                circularProgressDrawable
+                            )
+                            .into(img_driver)
+
+
+                        li_driver.visibility = View.VISIBLE
+                        tv_driver_name.text = getString(R.string.call_rest)
+                    } else {
+                        Picasso.get()
+                            .load(orderItemModel?.driverImage).placeholder(
+                                circularProgressDrawable
+                            )
+                            .error(
+                                circularProgressDrawable
+                            )
+                            .into(img_driver)
+                    }
+
                 }
 
-                if (!orderItemModel?.driverName.isNullOrEmpty()) {
+                if (!orderItemModel?.driverName.isNullOrEmpty() && !isPickUp) {
+                    li_driver.visibility = View.VISIBLE
                     tv_driver_name.text = orderItemModel?.driverName
                 }
 
@@ -333,6 +389,11 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             }
         })
 
+        viewModel.completePickupOrderRes.observe(this, Observer {
+            var congDialog = CongDialog(this)
+            congDialog.isCancelable = false
+            congDialog.show(childFragmentManager, "")
+        })
 
     }
 
@@ -360,96 +421,172 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     }
 
     private fun updateStatus(orderStatus: Int?) {
-        var checkIcon = ContextCompat.getDrawable(context!!, R.drawable.ic_checked)
-        var roundIcon = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape)
-        var roundIconGrey = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape_grey)
+//        var roundIconActivated = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape)
+//        var roundIconGrey = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape_grey)
 
-        bt_cancel.visibility = INVISIBLE
+        if (orderStatus != oldStatus) {
+            oldStatus = orderStatus!!
+            bt_cancel.visibility = GONE
+            when (orderStatus) {
+                0 -> {
+                    //    0 -> "Waiting for confirmation"
+//                img_1.setImageDrawable(roundIconActivated)
+//                img_2.setImageDrawable(roundIconGrey)
+//                img_3.setImageDrawable(roundIconGrey)
+                    img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
 
 
-        when (orderStatus) {
-            0 -> {
-                //    0 -> "Waiting for confirmation"
-                img_1.setImageDrawable(roundIconGrey)
-                img_2.setImageDrawable(roundIconGrey)
-                img_3.setImageDrawable(roundIconGrey)
-                img_4.setImageDrawable(roundIconGrey)
+                    img_check1.visibility = GONE
+                    img_check2.visibility = GONE
+                    img_check3.visibility = GONE
 
-//                img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//                img_2.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//                img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//                img_4.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
 
-                bt_cancel.visibility = VISIBLE
-                tv_1.text = getString(R.string.waiting_for_confirmation)
-                tv_2.text = getString(R.string.being_prepared)
-                tv_3.text = getString(R.string.out_for_delivey)
-                tv_4.text = getString(R.string.delivered)
-            }
-            2, 3 -> {
+//                img_4.setImageDrawable(roundIconGrey)
+
+
+                    bt_cancel.visibility = VISIBLE
+//                tv_1.text = getString(R.string.waiting_for_confirmation)
+//                tv_2.text = getString(R.string.being_prepared)
+//                tv_3.text = getString(R.string.out_for_delivey)
+//                tv_4.text = getString(R.string.delivered)
+                }
+                2, 3 -> {
 //    2 -> "Order Accepted and being prepared"
+//                img_1.setImageDrawable(roundIconActivated)
+//                img_2.setImageDrawable(roundIconGrey)
+//                img_3.setImageDrawable(roundIconGrey)
 
-                img_1.setImageDrawable(checkIcon)
-                img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-                img_2.setImageDrawable(roundIcon)
-                img_3.setImageDrawable(roundIconGrey)
-                img_4.setImageDrawable(roundIconGrey)
-                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+                    img_check1.visibility = VISIBLE
+                    img_check2.visibility = GONE
+                    img_check3.visibility = GONE
+                    img_check1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
 
-                tv_1.text = getString(R.string.order_accepted)
-                tv_2.text = getString(R.string.being_prepared)
-                tv_3.text = getString(R.string.out_for_delivey)
-                tv_4.text = getString(R.string.delivered)
-            }
+                    var randomTime = Random.nextInt(4)
+                    Handler().postDelayed(object : Runnable {
+                        override fun run() {
+//                        img_2.setImageDrawable(roundIconActivated)
+                            img_2.startAnimation(
+                                AnimationUtils.loadAnimation(
+                                    context,
+                                    R.anim.bounce
+                                )
+                            )
+//                        li_dash1_de.visibility = GONE
+//                        li_dash1_ac.visibility = VISIBLE
+//
+//                        li_dash2_de.visibility = VISIBLE
+//                        li_dash2_ac.visibility = GONE
 
-            8 -> {
-                //    0 -> "Waiting for confirmation"
+                        }
+                    }, (randomTime * 1000).toLong())
+
+
+//                img_1.setImageDrawable(checkIcon)
+//                img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//                img_2.setImageDrawable(roundIconActivated)
+//                img_3.setImageDrawable(roundIconGrey)
+//                img_4.setImageDrawable(roundIconGrey)
+//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//
+//                tv_1.text = getString(R.string.order_accepted)
+//                tv_2.text = getString(R.string.being_prepared)
+//                tv_3.text = getString(R.string.out_for_delivey)
+//                tv_4.text = getString(R.string.delivered)
+                }
+
+                8 -> {
+                    //    0 -> "Waiting for confirmation"
 //    8 -> "Rejected by Restaurant"
-
 //                TODO rejected
 //                confirmingOrder.text = "Order confirmed"
 //                txtPreparing.text = "Preparing Order"
 //                waitingDone.visibility = VISIBLE
-            }
+                }
 
 
-            7 -> {
+                7 -> {
 
 //    7 -> "Order ready to dispatch"
-                img_1.setImageDrawable(checkIcon)
-                img_2.setImageDrawable(checkIcon)
-                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-                img_2.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//                img_1.setImageDrawable(roundIconActivated)
+//                img_2.setImageDrawable(roundIconActivated)
+//                img_3.setImageDrawable(roundIconActivated)
+                    img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
 
-                img_3.setImageDrawable(roundIcon)
-                img_4.setImageDrawable(roundIconGrey)
-                tv_1.text = getString(R.string.order_accepted)
-                tv_2.text = getString(R.string.order_prepared)
-                tv_3.text = getString(R.string.ready_to_diapatch)
-                tv_4.text = getString(R.string.delivered)
-            }
+                    img_check1.visibility = VISIBLE
+                    img_check2.visibility = VISIBLE
+                    img_check3.visibility = GONE
 
-            4 -> {
+
+                    if (isPickUp) {
+                        li_complete.visibility = VISIBLE
+                    }
+
+
+//                li_dash1_de.visibility = GONE
+//                li_dash1_ac.visibility = VISIBLE
+//
+//                li_dash2_de.visibility = GONE
+//                li_dash2_ac.visibility = VISIBLE
+
+
+//                img_1.setImageDrawable(checkIcon)
+//                img_2.setImageDrawable(checkIcon)
+//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//                img_2.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//
+//                img_3.setImageDrawable(roundIconActivated)
+//                img_4.setImageDrawable(roundIconGrey)
+//                tv_1.text = getString(R.string.order_accepted)
+//                tv_2.text = getString(R.string.order_prepared)
+//                tv_3.text = getString(R.string.ready_to_diapatch)
+//                tv_4.text = getString(R.string.delivered)
+                }
+
+                4 -> {
 
 //    4 -> "Order picked up by driver,order is now its way to you"
-                img_call.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
 
-                img_1.setImageDrawable(checkIcon)
-                img_2.setImageDrawable(checkIcon)
-                img_3.setImageDrawable(checkIcon)
-                img_4.setImageDrawable(roundIcon)
-                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-                view3.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//                img_1.setImageDrawable(roundIconActivated)
+//                img_2.setImageDrawable(roundIconActivated)
+//                img_3.setImageDrawable(roundIconActivated)
 
-                img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+                    if (isPickUp) {
+                        tv_last.visibility = View.GONE
+                    } else {
+                        img_call.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
+                        img_check1.visibility = VISIBLE
+                        img_check2.visibility = VISIBLE
+                        img_check3.visibility = VISIBLE
+                        img_check3.startAnimation(
+                            AnimationUtils.loadAnimation(
+                                context,
+                                R.anim.bounce
+                            )
+                        )
+                    }
+//                li_dash1_de.visibility = GONE
+//                li_dash1_ac.visibility = VISIBLE
+//
+//                li_dash2_de.visibility = GONE
+//                li_dash2_ac.visibility = VISIBLE
 
-                img_4.setImageDrawable(roundIcon)
-                tv_1.text = getString(R.string.order_accepted)
-                tv_2.text = getString(R.string.order_prepared)
-                tv_3.text = getString(R.string.out_for_delivey)
-                tv_4.text = getString(R.string.delivered)
+
+//                img_1.setImageDrawable(checkIcon)
+//                img_2.setImageDrawable(checkIcon)
+//                img_3.setImageDrawable(checkIcon)
+//                img_4.setImageDrawable(roundIconActivated)
+//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//                view3.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
+//
+//                img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//
+//                img_4.setImageDrawable(roundIconActivated)
+//                tv_1.text = getString(R.string.order_accepted)
+//                tv_2.text = getString(R.string.order_prepared)
+//                tv_3.text = getString(R.string.out_for_delivey)
+//                tv_4.text = getString(R.string.delivered)
 
 //                confirmingOrder.text = "Order confirmed"
 //                txtPreparing.text = "Order Prepared"
@@ -457,24 +594,24 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 //                waitingDone.visibility = VISIBLE
 //                preparingDone.visibility = VISIBLE
 //                outForDeliveryDone.visibility = VISIBLE
-            }
-            5 -> {
+                }
+                5 -> {
 
 //    5 -> "Order completed Delivered by " + orderModel.driverName
 
-                img_1.setImageDrawable(checkIcon)
-                img_2.setImageDrawable(checkIcon)
-                img_3.setImageDrawable(checkIcon)
-                img_4.setImageDrawable(checkIcon)
-                img_4.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//                img_1.setImageDrawable(checkIcon)
+//                img_2.setImageDrawable(checkIcon)
+//                img_3.setImageDrawable(checkIcon)
+//                img_4.setImageDrawable(checkIcon)
+//                img_4.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//
+//                tv_1.text = getString(R.string.order_accepted)
+//                tv_2.text = getString(R.string.order_prepared)
+//                tv_3.text = getString(R.string.out_for_delivey)
+//                tv_4.text = getString(R.string.delivered)
 
-                tv_1.text = getString(R.string.order_accepted)
-                tv_2.text = getString(R.string.order_prepared)
-                tv_3.text = getString(R.string.out_for_delivey)
-                tv_4.text = getString(R.string.delivered)
 
-
-                rateDriverAndSaveOrder()
+                    rateDriverAndSaveOrder()
 
 
 //                val bundle =
@@ -484,9 +621,10 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 //                    )
 //                view?.findNavController()
 //                    ?.navigate(R.id.action_orderDetailsFragment_to_rateDriverFragment, bundle)
-            }
+                }
 
-            else -> getString(R.string.waiting_for_confirmation)
+                else -> getString(R.string.waiting_for_confirmation)
+            }
         }
     }
 
@@ -554,46 +692,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         curveManager.drawCurveAsync(curveOptions)
     }
 
-    private fun fixMapScrolling() {
-        transparentImage.setOnTouchListener { v, event ->
-            when (event.action) {
-                MotionEvent.ACTION_DOWN -> {
-                    // Disallow ScrollView to intercept touch events.
-                    parentView.requestDisallowInterceptTouchEvent(true)
-                    // Disable touch on transparent view
-                    false
-                }
-                MotionEvent.ACTION_UP -> {
-                    // Allow ScrollView to intercept touch events.
-                    parentView.requestDisallowInterceptTouchEvent(true)
-                    true
-                }
-                MotionEvent.ACTION_MOVE -> {
-                    parentView.requestDisallowInterceptTouchEvent(true)
-                    false
-                }
-                else -> {
-                    true
-                }
-            }
-        }
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         return inflater.inflate(R.layout.order_details_fragment, container, false)
-//        binding = DataBindingUtil.inflate(
-//            inflater,
-//            R.layout.order_details_fragment,
-//            container,
-//            false
-//        ) as OrderDetailsFragmentBinding
-//        binding?.orderViewModel = viewModel
-//        return binding?.root
-
-        fixMapScrolling()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -607,12 +711,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
         bt_cancel.setOnClickListener { viewModel.cancelOrder() }
 
-        rel_card.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
 
         sheetBehavior = BottomSheetBehavior.from(li_bottomsheet)
         var displayMetrics = DisplayMetrics()
         (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
         sheetBehavior.peekHeight = (displayMetrics.heightPixels - (displayMetrics.heightPixels / 3))
+
         sheetBehavior.setBottomSheetCallback(object : BottomSheetBehavior.BottomSheetCallback() {
             override fun onStateChanged(bottomSheet: View, newState: Int) {
                 when (newState) {
@@ -660,6 +764,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
             }
         })
+
+
+        li_complete.setOnClickListener {
+            viewModel.completeOrder()
+        }
+
     }
 
     override fun onResume() {
@@ -672,9 +782,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         }
         activity!!.registerReceiver(receiver, IntentFilter("com.rvtechnologies.grigora"))
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle(getString(R.string.order))
             (activity as MainActivity).lockDrawer(true)
         }
         stop = false
@@ -714,5 +823,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     }
 
     override fun onCurveDrawn(curve: Curve?) {
+    }
+
+    override fun onItemClick(item: Any) {
+        if (item is Int) {
+                view?.findNavController()
+                    ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+        }
     }
 }

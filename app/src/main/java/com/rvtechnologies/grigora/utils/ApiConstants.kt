@@ -51,6 +51,7 @@ object ApiConstants {
     const val RESTAURANT_REVIEW_URL = "restaurant-reviews"
     const val UPDATE_FIREABSE_TOKEN = "update-user-token"
     const val CANCEL_ORDER = "cancel-order"
+    const val COMPLETE_PICKUP_ORDER = "complete-pickup-order"
     const val LOGOUT = "logout"
     const val CONTACT_US = "contact-us"
     const val SEARCH_USER = "search-customer"
@@ -61,4 +62,7 @@ object ApiConstants {
     const val ADD_ADDRESS = "add-user-location"
     const val DASHBOARD_DATA = "customer-home-screen"
     const val BOOK_TABLE = "book-table"
+    const val QUIZ_QUESTION = "quiz-question"
+    const val QUIZ_ANSWER = "check-quiz-answer"
+    const val NOTIFICATIONS_LIST = "notification-list"
 }

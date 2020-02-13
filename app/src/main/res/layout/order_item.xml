@@ -3,20 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="6dp"
-        android:layout_marginTop="@dimen/_6sdp"
-        android:layout_marginEnd="6dp"
-        android:layout_marginBottom="3dp"
-        android:elevation="1dp"
-        app:cardBackgroundColor="?attr/backgroundColor"
-        app:cardCornerRadius="@dimen/_8sdp">
+ 
         
         <LinearLayout
-            
+            android:background="@drawable/round_white_with_border"
             android:id="@+id/list_item"
+            android:layout_marginStart="6dp"
+            android:layout_marginTop="@dimen/_6sdp"
+            android:layout_marginEnd="6dp"
+            android:layout_marginBottom="3dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
@@ -191,7 +186,10 @@
                 
                 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_toLeftOf="@+id/rel_b"
+                    android:id="@+id/li_o"
+                    android:paddingRight="@dimen/_4sdp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@id/rl"
                     android:layout_marginTop="@dimen/_4sdp"
@@ -220,23 +218,30 @@
                         tools:text="Waiting for confirmation" />
                 </LinearLayout>
                 
+                
+                <RelativeLayout
+                    android:layout_marginTop="8dp"
+                    android:id="@+id/rel_b"
+                    android:layout_marginEnd="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:layout_alignParentRight="true"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
                 <Button
                     android:id="@+id/btnDetails"
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_alignParentRight="true"
                     android:layout_gravity="right"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
+                    
                     android:background="@drawable/btn_rounded"
                     android:text="@string/track"
                     android:textAllCaps="false"
                     android:foreground="@drawable/selectable_item_background"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_12sdp"
-                    android:visibility="gone" />
+                    android:visibility="visible" />
+                
                 
                 <Button
                     android:id="@+id/btnRate"
@@ -244,27 +249,21 @@
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    android:layout_alignParentRight="true"
                     android:layout_gravity="right"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginBottom="8dp"
                     android:background="@drawable/btn_rounded"
                     android:text="@string/rate_now"
                     android:textAllCaps="false"
                     android:textColor="@android:color/white"
                     android:textSize="@dimen/_12sdp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="parent"
                     
                     />
-            
+                </RelativeLayout>
             </RelativeLayout>
         
         
         </LinearLayout>
-    </androidx.cardview.widget.CardView>
-    
+     
     <data>
         
         <variable

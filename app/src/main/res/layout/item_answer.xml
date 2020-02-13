@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/li_main"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:background="@drawable/answer_de_selected">
+    
+    <RelativeLayout
+        android:id="@+id/rel_sel"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/_8sdp">
+        
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:gravity="center_vertical"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_11sdp"
+            tools:text="The Science Museum" />
+        
+        <ImageView
+            android:id="@+id/img_check"
+            android:layout_width="@dimen/_16sdp"
+            android:layout_height="@dimen/_16sdp"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:background="@drawable/round_grey_bg"
+            android:backgroundTint="@color/green"
+            android:padding="@dimen/_2sdp"
+            app:srcCompat="@drawable/ic_check_" />
+    </RelativeLayout>
+</LinearLayout>

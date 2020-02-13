@@ -50,14 +50,7 @@
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/Delivery" />
-                
-                <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_pick"
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/pickup" />
+                    android:text="@string/order" />
                 
                 <com.google.android.material.tabs.TabItem
                     android:id="@+id/tab_book"
@@ -65,6 +58,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/book_a_table" />
+                
+                
+                <com.google.android.material.tabs.TabItem
+                    android:id="@+id/tab_pick"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/group_order" />
+            
+            
             </com.google.android.material.tabs.TabLayout>
             
             <View

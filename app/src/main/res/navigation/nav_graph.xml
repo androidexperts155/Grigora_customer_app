@@ -46,6 +46,12 @@
             app:destination="@id/walletFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_refer_and_earn"
+            app:destination="@id/referAndEarn"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     
     
     </fragment>
@@ -115,8 +121,8 @@
             app:exitAnim="@anim/slide_out_left" />
         
         <action
-            android:id="@+id/action_navigationCart_to_restaurantDetail"
-            app:destination="@id/restaurantDetailsFragment"
+            android:id="@+id/action_navigationCart_to_restaurantDetailParent"
+            app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
@@ -343,6 +349,17 @@
             app:destination="@id/rateDriverFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_orderDetailsFragment_to_dashboard"
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+        
+        
         <action
             android:id="@+id/action_orderDetailsnavigationRestaurantsFragment_to_navigationCart"
             app:destination="@id/navigationCart"
@@ -507,6 +524,7 @@
     
     </fragment>
     <fragment
+        
         android:id="@+id/dashBoardFragment"
         android:name="com.rvtechnologies.grigora.view.ui.dashboard.NewDashBoardFragment"
         android:label="Home">
@@ -570,5 +588,21 @@
     
     
     </fragment>
-
+    
+    <fragment
+        android:id="@+id/quizFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.quiz.QuizFragment"
+        android:label="QuizFragment">
+    
+    </fragment>
+    
+    <fragment
+        android:id="@+id/notifications"
+        android:name="com.rvtechnologies.grigora.view.ui.notifications.NotificationsFragment"
+        android:label="NotificationsFragment" />
+    
+    <fragment
+        android:id="@+id/referAndEarn"
+        android:name="com.rvtechnologies.grigora.view.ui.refer_and_earn.ReferAndEarn"
+        android:label="Refer And Earn" />
 </navigation>

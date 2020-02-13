@@ -96,6 +96,7 @@ class OrdersParentFragment : Fragment() {
             (activity as MainActivity).backTitle(getString(R.string.orders))
             (activity as MainActivity).showBottomNavigation(3)
 //            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
+            (activity as MainActivity).img_back.visibility=View.GONE
             (activity as MainActivity).lockDrawer(true)
 
 

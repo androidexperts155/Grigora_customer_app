@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/selectable_item_background"
+    android:clickable="true"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_8sdp">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+        
+        <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/img_data"
+            android:layout_width="@dimen/_50sdp"
+            android:layout_height="@dimen/_50sdp"
+            android:layout_marginLeft="@dimen/_10sdp"
+            android:layout_marginRight="@dimen/_10sdp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/restaurant"
+            app:siRadius="@dimen/_8sdp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            
+            android:orientation="vertical">
+            
+            <TextView
+                android:id="@+id/tv_name"
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp"
+                tools:text="Bakery Kings accepted your order." />
+            
+            <TextView
+                android:id="@+id/tv_time"
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_10sdp"
+                android:textColor="?attr/textGray"
+                android:textSize="@dimen/_10sdp"
+                tools:text="0 min ago" />
+        
+        </LinearLayout>
+    </LinearLayout>
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginLeft="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_10sdp"
+        android:background="?attr/viewbg" />
+
+</LinearLayout>

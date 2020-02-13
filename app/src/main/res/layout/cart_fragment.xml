@@ -190,13 +190,17 @@
                         android:textSize="@dimen/_12sdp" />
                     
                     
-                    <View
+                   <LinearLayout
+                       android:id="@+id/li_also_ordered"
+                       android:orientation="vertical"
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"><View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:background="?attr/viewbg" />
                     
                     <TextView
-                        android:visibility="gone"
+                        android:visibility="visible"
                         style="@style/titleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -214,11 +218,11 @@
                         android:orientation="horizontal"
                         android:overScrollMode="never"
                         android:padding="@dimen/_8sdp"
-                        android:visibility="gone"
+                        android:visibility="visible"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
                         tools:listitem="@layout/item_popular_dish" />
-                    
+                   </LinearLayout>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

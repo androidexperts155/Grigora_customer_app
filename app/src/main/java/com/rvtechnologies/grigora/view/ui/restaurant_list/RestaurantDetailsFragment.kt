@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
@@ -201,6 +202,36 @@ class RestaurantDetailsFragment(
 
         filterVegNonVeg()
         initSearchView()
+        manageSwitch()
+    }
+
+    fun manageSwitch() {
+        tv_delivery.setOnClickListener {
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+
+            tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+
+        }
+
+        tv_pickup.setOnClickListener {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
+
+            tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+
+            if (CommonUtils.isDarkMode()) {
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+        }
+
     }
 
     private fun filterVegNonVeg() {
@@ -301,60 +332,173 @@ class RestaurantDetailsFragment(
     }
 
     override fun add(position: Int, position2: Int) {
-        if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
+//     position=   -2 previous ordered, -1 popular
+
+        if (position == -1) {
+            if (popularList[position2].itemCategories?.size!! > 0) {
 //                have add ons
-            if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! > 0) {
+                if (popularList[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                showItems(filteredMealsAndCuisinesList[position].items[position2])
-            } else {
+                    showItems(popularList[position2])
+                } else {
 //                show item details screen
-                val bundle =
-                    bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position])
-                iRecyclerItemClick.onItemClick(bundle)
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
+//                don't have add ons, simply add
+                popularList[position2].item_count_in_cart =
+                    (popularList[position2].item_count_in_cart!! + 1)
+
+                viewModel.addItemToCart(
+                    popularList[position2].restaurantId.toString()!!,
+                    popularList[position2].id.toString(),
+                    popularList[position2].price.toString(),
+                    "1"
+                )
+
+                rc_popular.adapter?.notifyDataSetChanged()
+            }
+        } else if (position == -2) {
+            if (previousList[position2].itemCategories?.size!! > 0) {
+//                have add ons
+                if (previousList[position2].item_count_in_cart!! > 0) {
+//                already have added before, call api and get what is added
+                    showItems(previousList[position2])
+                } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
+//                don't have add ons, simply add
+                previousList[position2].item_count_in_cart =
+                    (previousList[position2].item_count_in_cart!! + 1)
+
+                viewModel.addItemToCart(
+                    previousList[position2].restaurantId.toString()!!,
+                    previousList[position2].id.toString(),
+                    previousList[position2].price.toString(),
+                    "1"
+                )
+
+                rc_previous.adapter?.notifyDataSetChanged()
             }
         } else {
+            if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
+//                have add ons
+                if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! > 0) {
+//                already have added before, call api and get what is added
+                    showItems(filteredMealsAndCuisinesList[position].items[position2])
+                } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
 //                don't have add ons, simply add
-            filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
-                (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
+                filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
+                    (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
 
-            viewModel.addItemToCart(
-                filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
-                filteredMealsAndCuisinesList[position].items[position2].id.toString(),
-                filteredMealsAndCuisinesList[position].items[position2].price.toString(),
-                "1"
-            )
+                viewModel.addItemToCart(
+                    filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
+                    filteredMealsAndCuisinesList[position].items[position2].id.toString(),
+                    filteredMealsAndCuisinesList[position].items[position2].price.toString(),
+                    "1"
+                )
 
-            rc_items.adapter?.notifyDataSetChanged()
+                rc_items.adapter?.notifyDataSetChanged()
+            }
         }
     }
 
     override fun minus(position: Int, position2: Int) {
+//     position=   -2 previous ordered, -1 popular
 
-        if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
+        if (position == -1) {
+            if (popularList[position2].itemCategories?.size!! > 0) {
 //                have add ons
-            if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!!.toInt() > 0) {
+                if (popularList[position2].item_count_in_cart!!.toInt() > 0) {
 //                already have added before, call api and get what is added
-                showItems(filteredMealsAndCuisinesList[position].items[position2])
-            } else {
+                    showItems(popularList[position2])
+                } else {
 //                show item details screen
-                val bundle =
-                    bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position])
-                iRecyclerItemClick.onItemClick(bundle)
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
+//                don't have add ons, simply add
+                popularList[position2].item_count_in_cart =
+                    (popularList[position2].item_count_in_cart!! - 1)
+
+
+                viewModel.addItemToCart(
+                    popularList[position2].restaurantId.toString()!!,
+                    popularList[position2].id.toString(),
+                    popularList[position2].price.toString(),
+                    "-1"
+                )
+
+                rc_popular.adapter?.notifyDataSetChanged()
+            }
+        } else if (position == -2) {
+            if (previousList[position2].itemCategories?.size!! > 0) {
+//                have add ons
+                if (previousList[position2].item_count_in_cart!!.toInt() > 0) {
+//                already have added before, call api and get what is added
+                    showItems(previousList[position2])
+                } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
+//                don't have add ons, simply add
+                previousList[position2].item_count_in_cart =
+                    (previousList[position2].item_count_in_cart!! - 1)
+
+
+                viewModel.addItemToCart(
+                    previousList[position2].restaurantId.toString()!!,
+                    previousList[position2].id.toString(),
+                    previousList[position2].price.toString(),
+                    "-1"
+                )
+
+                rc_previous.adapter?.notifyDataSetChanged()
             }
         } else {
+            if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
+//                have add ons
+                if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!!.toInt() > 0) {
+//                already have added before, call api and get what is added
+                    showItems(filteredMealsAndCuisinesList[position].items[position2])
+                } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
 //                don't have add ons, simply add
-            filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
-                (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! - 1)
+                filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
+                    (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! - 1)
 
 
-            viewModel.addItemToCart(
-                filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
-                filteredMealsAndCuisinesList[position].items[position2].id.toString(),
-                filteredMealsAndCuisinesList[position].items[position2].price.toString(),
-                "-1"
-            )
+                viewModel.addItemToCart(
+                    filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
+                    filteredMealsAndCuisinesList[position].items[position2].id.toString(),
+                    filteredMealsAndCuisinesList[position].items[position2].price.toString(),
+                    "-1"
+                )
 
-            rc_items.adapter?.notifyDataSetChanged()
+                rc_items.adapter?.notifyDataSetChanged()
+            }
         }
     }
 

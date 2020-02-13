@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context=".view.ui.refer_and_earn.ReferAndEarn">
+    
+    <data>
+        
+        <variable
+            name="referAndEarnView"
+            type="com.rvtechnologies.grigora.view.ui.refer_and_earn.ReferAndEarn" />
+        
+        <variable
+            name="referAndEarnViewViewModel"
+            type="com.rvtechnologies.grigora.view_model.ReferAndEarnViewModel" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:id="@+id/parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:orientation="vertical">
+            
+            
+            <ImageView
+                android:layout_width="@dimen/_170sdp"
+                android:layout_height="@dimen/_170sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="@dimen/_16sdp"
+                android:src="@drawable/refer_and_earn" />
+            
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:text="@string/share_code"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_16sdp" />
+            
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/_14sdp"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:layout_marginRight="@dimen/_14sdp"
+                android:orientation="horizontal"
+                android:weightSum="1">
+                
+                <TextView
+                    android:id="@+id/tv_link"
+                    style="@style/normalText"
+                    
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0.7"
+                    android:background="@drawable/left_rounded"
+                    android:gravity="start"
+                    android:paddingLeft="@dimen/_12sdp"
+                    android:paddingTop="@dimen/_8sdp"
+                    android:paddingBottom="@dimen/_8sdp"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="https://drd.sh/Eshhal" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="0.3"
+                    android:background="@color/colorPrimaryDark"
+                    android:clickable="true"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:gravity="center"
+                    android:onClick="@{()->referAndEarnView.copyCode()}"
+                     android:text="@string/copy"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            
+            
+            </LinearLayout>
+            
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:text="@string/or"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_22sdp"
+                android:gravity="center"
+                android:orientation="horizontal">
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/sharewith"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_11sdp" />
+                
+                <ImageButton
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:background="@drawable/selectable_item_background"
+                    android:onClick="@{()->referAndEarnView.fbClick()}"
+                    android:src="@drawable/img_fb" />
+                
+                <ImageButton
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:visibility="gone"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:background="@drawable/selectable_item_background"
+                    android:onClick="@{()->referAndEarnView.instaClick()}"
+                    android:src="@drawable/img_insta" />
+                
+                <ImageButton
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:background="@drawable/selectable_item_background"
+                    android:onClick="@{()->referAndEarnView.twitterClick()}"
+                    android:src="@drawable/img_twitter" />
+                
+                <ImageButton
+                    android:layout_width="@dimen/_40sdp"
+                    android:layout_height="@dimen/_40sdp"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:background="@drawable/selectable_item_background"
+                    android:onClick="@{()->referAndEarnView.googleClick()}"
+                    android:src="@drawable/img_google" />
+            
+            </LinearLayout>
+        </LinearLayout>
+    
+    </LinearLayout>
+</layout>

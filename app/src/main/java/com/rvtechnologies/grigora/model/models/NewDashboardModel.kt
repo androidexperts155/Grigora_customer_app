@@ -16,6 +16,9 @@ data class NewDashboardModel(
     @SerializedName("base_delivery_fee")
     var base_delivery_fee: String = "",
 
+    @SerializedName("notifications")
+    var notifications: Boolean = false,
+
     @SerializedName("min_kilo_meter")
     var min_kilo_meter: String = "",
     @SerializedName("is_cart")

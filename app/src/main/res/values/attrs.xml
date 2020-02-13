@@ -26,6 +26,11 @@
     <attr name="viewbg" format="color" />
     
     
+    <attr name="answer_selected" format="color" />
+    <attr name="answer_de_selected" format="color" />
+    
+    
+    
 
 
 </resources>

@@ -56,6 +56,9 @@
         <item name="chipDeSelectedTextColor">@color/text_hint_color</item>
         
         <item name="viewbg">@color/viewbg_light</item>
+      
+        <item name="answer_selected">@color/white</item>
+        <item name="answer_de_selected">@color/viewbg_light</item>
     
     
     </style>
@@ -91,6 +94,10 @@
         <item name="chipDeSelected">@color/background_dark_light</item>
         <item name="chipDeSelectedTextColor">@color/lightGrey</item>
         <item name="viewbg">@color/viewbg_dark</item>
+    
+        <item name="answer_selected">@color/background_dark_light</item>
+        <item name="answer_de_selected">@color/background_dark_light</item>
+
     </style>
     
     

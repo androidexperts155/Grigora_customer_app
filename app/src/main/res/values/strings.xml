@@ -285,12 +285,12 @@
     <string name="order_prepared">Order prepared</string>
     <string name="order_accepted">Order Accepted</string>
     <string name="assigned">Driver assigned</string>
-    <string name="picked">Order picked</string>
+    <string name="picked">Order has been picked and on the way to you</string>
     <string name="delivered">Order delivered</string>
     <string name="delivered_by">Order delivered by</string>
     <string name="rejected_by_customer">Order rejected by Customer</string>
     <string name="rejected_by_restaurant">Order rejected by Restaurant</string>
-    <string name="being_prepared">Order is being prepared</string>
+    <string name="being_prepared">Your Order is being prepared</string>
     <string name="out_for_delivey">Out for delivery</string>
     <string name="ready_to_diapatch">Ready to dispatch</string>
     <string name="items">ITEMS</string>
@@ -366,6 +366,30 @@
     <string name="refer_and_earn">Refer and Earn</string>
     <string name="table_booking">Table Booking</string>
     <string name="group_orders">Group Orders</string>
+    <string name="question">Question :-</string>
+    <string name="quiz_of_the_day">Quiz of the Day</string>
+    <string name="please_select_an_answer">Please select an Answer</string>
+    <string name="done">Done</string>
+    <string name="order">Order</string>
+    <string name="request_sent">Order request has been sent</string>
+    <string name="on_the_way">Your Order is on the way</string>
+    <string name="ready_to_dispatch">Ready to dispatch</string>
+    <string name="order_cancel">Order Cancel</string>
+    <string name="notifications_center">Notifications Center</string>
+    <string name="today">Today</string>
+    <string name="yesterday">Yesterday</string>
+    <string name="earliar">Earlier</string>
+    <string name="share_code">Share your invite code</string>
+    <string name="copy">Copy Code</string>
+    <string name="sharewith">Share with:</string>
+    <string name="link_copied">Link copied</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="bill_details">Bill Details</string>
+    <string name="call_rest">Call Restaurant</string>
+    <string name="complete_order">Complete Order</string>
+    <string name="enjoymeal">Enjoy your meal.</string>
+    <string name="donotforgettorate">Don\'t forget to Rate Food</string>
+    <string name="group_order">Group Order</string>
 
 
 </resources>

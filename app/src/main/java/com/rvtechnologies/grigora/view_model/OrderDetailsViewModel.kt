@@ -16,6 +16,7 @@ class OrderDetailsViewModel : ViewModel() {
     var token = MutableLiveData<String>()
     var orderId = MutableLiveData<String>()
     var cancelOrderRes = MutableLiveData<Any>()
+    var completePickupOrderRes = MutableLiveData<Any>()
     var ratingResult = MutableLiveData<Any>()
     var orderItemModel = MutableLiveData<OrderItemModel>()
 
@@ -69,6 +70,23 @@ class OrderDetailsViewModel : ViewModel() {
                     ratingResult.value = Gson().fromJson(result as JsonElement, type)
                 } else {
                     ratingResult.value = result
+                }
+            }
+    }
+
+    fun completeOrder() {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .completePickupOrder(
+                token = token.value.toString(),
+                orderId = orderId.value.toString().trim()
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<OrderItemModel>>() {}.type
+                    completePickupOrderRes.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    completePickupOrderRes.value = result
                 }
             }
     }

@@ -93,9 +93,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 sendBroadcast(intent)
             }
 
-        } catch (e: Exception) {
 
+        } catch (e: Exception) {
+            print(e.message)
         }
+
         if (CommonUtils.getBooleanPrefValue(this.baseContext, PrefConstants.IS_NOTIFICATIONS_ON)) {
 
             var largeIcon: Bitmap? = null

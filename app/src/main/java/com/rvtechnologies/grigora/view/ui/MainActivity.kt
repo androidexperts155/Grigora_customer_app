@@ -35,7 +35,10 @@ import com.rvtechnologies.grigora.view.ui.login_signup.GoogleSignin
 import com.rvtechnologies.grigora.view.ui.rating.MealsRatingDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
 import kotlinx.android.synthetic.main.activity_main.*
+import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
@@ -46,6 +49,32 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     lateinit var content: RelativeLayout
     lateinit var mainLayoutShadow: RelativeLayout
     var googleSignIn: GoogleSignin? = null
+
+    object branchListener : Branch.BranchReferralInitListener {
+        override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
+            if (error == null) {
+                Log.i("BRANCH SDK", referringParams.toString())
+                // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
+                // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
+            } else {
+                Log.e("BRANCH SDK", error.message)
+            }
+        }
+    }
+
+
+    override fun onNewIntent(intent: Intent) {
+        super.onNewIntent(intent)
+        this.intent = intent
+        // Branch reinit (in case Activity is already in foreground when Branch link is clicked)
+        Branch.getInstance().reInitSession(this, branchListener)
+    }
+
+    override fun onStart() {
+        super.onStart()
+        // Branch init
+        Branch.getInstance().initSession(branchListener, this.intent.data, this)
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +112,18 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
+
+
+//            Navigation.findNavController(this, R.id.main_nav_fragment).popBackStack(item.itemId,true)
+
+
+
+
              onNavDestinationSelected(
                 item,
                 Navigation.findNavController(this, R.id.main_nav_fragment)
             )
+
         }
         img_back.setOnClickListener {
             onBackPressed()
@@ -589,6 +626,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     fun hideAll() {
         top_bar.visibility = View.GONE
+        img_right.visibility = View.GONE
         bottom_navigation.visibility = View.GONE
         fab_cart.visibility = View.GONE
     }

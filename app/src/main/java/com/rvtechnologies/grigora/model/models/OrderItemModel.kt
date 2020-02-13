@@ -3,6 +3,7 @@ package com.rvtechnologies.grigora.model.models
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
@@ -13,6 +14,16 @@ data class OrderItemModel(
     var appFee: Int = 0,
     @SerializedName("created_at")
     var createdAt: String = "",
+
+
+
+    @SerializedName("order_type")
+    var orderType: String = "",
+
+    @SerializedName("group_order")
+    var groupOrder: String = "",
+
+
     @SerializedName("delivery_address")
     var deliveryAddress: String = "",
     @SerializedName("delivery_fee")
@@ -43,6 +54,11 @@ data class OrderItemModel(
     var endLong: Double = 0.0,
     @SerializedName("final_price")
     var finalPrice: String = "",
+
+    @SerializedName("restaurant_cusines")
+    var restaurant_cusines: String = "",
+
+
     @SerializedName("id")
     var id: Int = 0,
     @SerializedName("is_schedule")
@@ -131,6 +147,11 @@ data class OrderItemModel(
         var createdAt: String = "",
         @SerializedName("id")
         var id: Int = 0,
+
+        @SerializedName("veg")
+        @Expose
+        var pureVeg: String?,
+
         @SerializedName("item_choices")
         var itemChoices: ArrayList<ItemChoice> = ArrayList(),
         @SerializedName("item_french_name")

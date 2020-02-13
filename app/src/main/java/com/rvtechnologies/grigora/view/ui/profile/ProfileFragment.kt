@@ -73,6 +73,7 @@ class ProfileFragment : Fragment(), EventBroadcaster {
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(getString(R.string.my_account))
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).showBottomNavigation(4)
         }
 
@@ -137,6 +138,10 @@ class ProfileFragment : Fragment(), EventBroadcaster {
 
     fun toOrders() {
         view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_ordersFragment)
+    }
+
+    fun toRefer() {
+        view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_refer_and_earn)
     }
 
     fun toSettings() {

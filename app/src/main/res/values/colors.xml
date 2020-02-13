@@ -60,6 +60,8 @@
     
     <color name="viewbg_light">#EBF0F0</color>
     <color name="viewbg_dark">#1e1e1e</color>
-
+    <color name="order_round">#EE171B</color>
+    
+    <color name="colorPrimaryAlpha">#20F2484A</color>
 
 </resources>

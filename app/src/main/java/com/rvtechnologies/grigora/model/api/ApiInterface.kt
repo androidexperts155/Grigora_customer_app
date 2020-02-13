@@ -346,6 +346,13 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
+    @GET(ApiConstants.COMPLETE_PICKUP_ORDER + "/{id}")
+    fun completePickupOrder(
+
+        @Path("id") id: String,
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
     @FormUrlEncoded
     @POST(ApiConstants.SEARCH_USER)
     fun searchUser(
@@ -386,4 +393,21 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
+    @GET(ApiConstants.QUIZ_QUESTION)
+    fun getQuizQuestion(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.QUIZ_ANSWER)
+    fun submitAnswer(
+        @Header("Authorization") token: String,
+        @Field("question_id") question_id: String,
+        @Field("answer") answer: String
+    ): Call<JsonElement>
+
+    @GET(ApiConstants.NOTIFICATIONS_LIST)
+    fun getNotifications(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
 }

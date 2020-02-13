@@ -9,6 +9,8 @@ import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.Navigation
+import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.FilteredPrice
@@ -76,6 +78,10 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     li_not_delivering.visibility = View.GONE
 
                     var temp = ArrayList<NewDashboardModel.CustomizedData>()
+                    if(newDashboardModel.notifications)
+                        (activity as MainActivity).setRightIcon(R.drawable.ic_have_notification)
+                    else
+                        (activity as MainActivity).setRightIcon(R.drawable.ic_no_notification)
 
                     handleCart()
                     for (i in newDashboardModel.customizedData) {
@@ -88,6 +94,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
                     dashbordadapter = DashboardAdapter(newDashboardModel, this)
                     rc_dashboard.adapter = dashbordadapter
+
                 }
 
             } else {
@@ -154,7 +161,12 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).menuAddress()
             (activity as MainActivity).updateLocation()
             (activity as MainActivity).showBottomNavigation(0)
-//            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
+
+
+            (activity as MainActivity).img_right.setOnClickListener {
+                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+                    .navigate(R.id.notifications)
+            }
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
         }
