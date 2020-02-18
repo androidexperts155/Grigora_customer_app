@@ -264,6 +264,7 @@
     <string name="quick_order">Quick Order</string>
     <string name="popular">Popular</string>
     <string name="wallet_drawer">Grigora Money : ₦</string>
+    <string name="grigora_money">Grigora Money</string>
     <string name="checkout">Checkout</string>
     <string name="deliver_to_you">DELIVER TO YOU</string>
     <string name="deliver_in">Delivery in approximately %s\ minutes</string>
@@ -282,7 +283,7 @@
     
     <string name="waiting_for_confirmation">Waiting for confirmation</string>
     <string name="order_schduled">Order scheduled</string>
-    <string name="order_prepared">Order prepared</string>
+    <string name="order_prepared">Food prepared</string>
     <string name="order_accepted">Order Accepted</string>
     <string name="assigned">Driver assigned</string>
     <string name="picked">Order has been picked and on the way to you</string>
@@ -390,6 +391,29 @@
     <string name="enjoymeal">Enjoy your meal.</string>
     <string name="donotforgettorate">Don\'t forget to Rate Food</string>
     <string name="group_order">Group Order</string>
+    <string name="trending">Trending</string>
+    <string name="Quiz">Quiz</string>
+    <string name="new_quiz_available">New Quiz Available</string>
+    <string name="share_order">Share your order with friends</string>
+    <string name="desc1">The easiest way to order food for friends group by following three easy steps</string>
+    <string name="desc2">1. Set a person limit and start a group order</string>
+    <string name="desc3">2. Invite others to add their favorite order</string>
+    <string name="desc4">3. Get food delivered together</string>
+    <string name="group_order_limit">Group order limit</string>
+    <string name="per_person_limit">Per person limit</string>
+    <string name="none">None</string>
+    <string name="others">Others</string>
+    <string name="start_group_order">Start Group Order</string>
+    <string name="want_to_learn_more">Want to learn more</string>
+    <string name="convient_way_to_order_food">The most convinient way to order food for group</string>
+    <string name="follow_steps">Follow these 3 simple steps</string>
+    <string name="start_group_order1">1. Start Group Order</string>
+    <string name="choose_rest">Choose a restaurant from our huge selection and set a spending limit</string>
+    <string name="share_group_order">2. Share the Group Order Link</string>
+    <string name="easily_add">Everyone can easily add their favorite items to the same order</string>
+    <string name="enjoy_meal">3. Enjoy your meal together</string>
+    <string name="enjoy_desc">Checkout and delivery is simple, so you can focus on enjoying meal</string>
+    <string name="please_input_number">Please input Amount</string>
 
 
 </resources>

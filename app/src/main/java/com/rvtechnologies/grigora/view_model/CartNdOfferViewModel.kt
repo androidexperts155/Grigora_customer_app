@@ -88,7 +88,7 @@ class CartNdOfferViewModel : ViewModel() {
             }
     }
 
-    fun placeOrderNow() {
+    fun placeOrderNow(cartType:String) {
         val cartData = cartData.value
         isLoading.value = true
         ApiRepo.getInstance()
@@ -106,7 +106,8 @@ class CartNdOfferViewModel : ViewModel() {
                 delivery_address = deliveryAddress.value.toString(),
                 delivery_lat = deliveryLat.value.toString(),
                 delivery_long = deliveryLong.value.toString(),
-                delivery_note = deliveryNote.value.toString()
+                delivery_note = deliveryNote.value.toString(),
+                carttype= cartType
 
             ) { success, result ->
                 isLoading.value = false

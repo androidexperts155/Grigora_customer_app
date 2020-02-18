@@ -169,6 +169,15 @@ interface ApiInterface {
 
 
     @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_ORDER_TYPE)
+    fun changeOrderType(
+        @Header("Authorization") token: String,
+        @Field("cart_type") cart_type: String,
+        @Field("cart_id") cart_id: String
+
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
     @POST(ApiConstants.UPDATE_CART_QTY)
     fun updateCartQty(
         @Header("Authorization") token: String,
@@ -240,6 +249,8 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
+
+
     @FormUrlEncoded
     @POST(ApiConstants.ADD_RATING_REVIEW_URL)
     fun rateDriver(
@@ -249,6 +260,15 @@ interface ApiInterface {
         @Field("review") review: String,
         @Field("receiver_type") receiver_type: String,
         @Field("order_id") orderId: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.LOGOUT)
+    fun logout(
+        @Header("Authorization") token: String,
+        @Field("device_id") device_id: String
+
     ): Call<JsonElement>
 
     @FormUrlEncoded
@@ -404,6 +424,15 @@ interface ApiInterface {
         @Header("Authorization") token: String,
         @Field("question_id") question_id: String,
         @Field("answer") answer: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.PICKUP_RESTAURANTS)
+    fun getPickupRestaurants(
+        @Header("Authorization") token: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") logitude: String
     ): Call<JsonElement>
 
     @GET(ApiConstants.NOTIFICATIONS_LIST)

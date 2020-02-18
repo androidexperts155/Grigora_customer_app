@@ -5,6 +5,7 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
+import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
@@ -16,10 +17,11 @@ class RestaurantDetailsViewModel : ViewModel() {
     var token: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var restaurantDetail: MutableLiveData<Any> = MutableLiveData()
+    var addCartRes: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
 
-    fun getRestaurantsDetails(token: String, restId: String,price:String) {
+    fun getRestaurantsDetails(token: String, restId: String, price: String) {
         isLoading.value = true
         ApiRepo.getInstance()
             .getRestaurantsDetails(
@@ -102,13 +104,27 @@ class RestaurantDetailsViewModel : ViewModel() {
                 ) { success, result ->
                     isLoading.value = false
                     if (success) {
-                        Gson().fromJson(
-                            result as JsonElement,
-                            CommonResponseModel::class.java
-                        )
+                        val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
+                        addCartRes.value = Gson().fromJson(result as JsonElement, type)
                     }
                 }
         }
+    }
+
+    fun updateType(cartId: String, type: String, token: String) {
+        ApiRepo.getInstance()
+            .changeOrderType(
+                token = token,
+                cart_id = cartId,
+                cart_type = type
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
+                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                }
+            }
+
     }
 
 

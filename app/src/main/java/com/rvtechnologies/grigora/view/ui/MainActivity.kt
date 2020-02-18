@@ -99,6 +99,15 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
         setTheme(CommonUtils.getBooleanPrefValue(this, PrefConstants.IS_DARK_MODE))
         setContentView(R.layout.activity_main)
+
+
+        if (intent.hasExtra("from"))
+            if (intent.getStringExtra("type") == "1")
+                Navigation.findNavController(
+                    this,
+                    R.id.main_nav_fragment
+                ).navigate(R.id.quizFragment)
+
         rateOrder()
         setDrawer()
 
@@ -114,12 +123,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
 
 
-//            Navigation.findNavController(this, R.id.main_nav_fragment).popBackStack(item.itemId,true)
+            //            Navigation.findNavController(this, R.id.main_nav_fragment).popBackStack(item.itemId,true)
 
 
-
-
-             onNavDestinationSelected(
+            onNavDestinationSelected(
                 item,
                 Navigation.findNavController(this, R.id.main_nav_fragment)
             )
@@ -638,7 +645,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     fun showBottomNavigation(index: Int) {
         bottom_navigation.visibility = View.VISIBLE
-        bottom_navigation.selectedItemId = 0
+        bottom_navigation.selectedItemId = index
     }
 
     fun showBottomMenu() {

@@ -64,9 +64,9 @@ class ReferAndEarn : Fragment() {
 
         val buo = BranchUniversalObject()
             .setCanonicalIdentifier("content/12345")
-            .setTitle("My Content Title")
-            .setContentDescription("My Content Description")
-            .setContentImageUrl("https://lorempixel.com/400/400")
+            .setTitle("Please install Grigora")
+            .setContentDescription("This is food delivery app")
+            .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
             .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setContentMetadata(ContentMetadata().addCustomMetadata("key1", "value1"))

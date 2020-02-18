@@ -1,6 +1,8 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
+    var min_kilo_meter=""
+    var base_delivery_fee=""
     const val ROLE_CUSTOMER="2"
 
     const val ENGLISH="1"
@@ -12,6 +14,7 @@ object AppConstants {
     const val RESTAURANT_SEATES="seats"
 
     const val RESTAURANT_ALWAYS_OPEN="always_open"
+    const val FROM_PICKUP="from_pickup"
     const val RESTAURANT_OPENING_TIME="opening_time"
     const val RESTAURANT_CLOSING_TIME="closing_time"
 

@@ -15,6 +15,9 @@ data class CartDataModel(
     @SerializedName("estimated_preparing_time")
     var estimated_preparing_time: String?,
 
+    @SerializedName("cart_type")
+    var cart_type: String?,
+
     @SerializedName("estimated_delivery_time")
     var estimated_delivery_time: String?,
 

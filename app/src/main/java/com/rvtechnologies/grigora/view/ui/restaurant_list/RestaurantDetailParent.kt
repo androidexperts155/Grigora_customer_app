@@ -29,12 +29,17 @@ class RestaurantDetailParent : Fragment() ,IRecyclerItemClick{
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
-            tab_top.removeTabAt(1)
+
+        if((arguments?.containsKey(AppConstants.FROM_PICKUP)!!) && arguments?.get(AppConstants.FROM_PICKUP) as Boolean){
+            tab_top.visibility=View.GONE
+        }else{
+
+            if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
+                tab_top.removeTabAt(1)
+            }
+
+
         }
-//        if (arguments?.get(AppConstants.RESTAURANT_PICKUP).toString() == "0") {
-//            tab_top.removeTabAt(1)
-//        }
 
         img_back.setOnClickListener {
             view?.findNavController()?.popBackStack()

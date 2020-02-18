@@ -60,7 +60,7 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
 
     private lateinit var viewModel: LocationTypeViewModel
 
-    private lateinit var mMap: GoogleMap
+        private lateinit var mMap: GoogleMap
 
     private var latitude = 0.0
     private var longitude = 0.0

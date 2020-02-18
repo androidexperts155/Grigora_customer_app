@@ -21,6 +21,9 @@ data class RestaurantDetailModel(
     @SerializedName("table_booking")
     var table_booking: String = "",
 
+    @SerializedName("cart_id")
+    var cart_id: String = "",
+
     @SerializedName("no_of_seats")
     var no_of_seats: String = "",
 

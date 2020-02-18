@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class DashboardAdapter(
@@ -210,6 +211,10 @@ class DashboardAdapter(
                 holder.tv_more.visibility = View.GONE
 
                 holder.tv_title.text = holder.tv_title.context.getString(R.string.all_restaurants)
+
+                AppConstants.base_delivery_fee=newDashboardModel.base_delivery_fee
+                AppConstants.min_kilo_meter=newDashboardModel.min_kilo_meter
+
                 holder.rc_data.adapter = DashboardAllRestaurantAdapter(
                     newDashboardModel.allRestaurants,
                     newDashboardModel.min_kilo_meter,

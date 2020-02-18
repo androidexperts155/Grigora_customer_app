@@ -38,7 +38,7 @@ import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
 import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
- import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
+import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.cart_fragment.*
@@ -49,6 +49,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     var placeClicked = false
     var discount: String = ""
     var restId: String = ""
+    var cart_type = "1"
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
         mMap?.setMinZoomPreference(12f)
@@ -100,6 +101,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     val cartDataModel = response.data as CartDataModel
+                    cart_type = cartDataModel.cart_type.toString()
                     restId = cartDataModel.restaurantId.toString()
                     var cartSubTotal = 0.0
                     for (cartDetail in cartDataModel.cartDetails!!) {
@@ -139,8 +141,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                         empty?.visibility = VISIBLE
                         cartView?.visibility = GONE
                     }
-
-
 
                     viewModel?.cartData?.value?.afterPromo = String.format(
                         "%.2f",
@@ -410,7 +410,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 "3"
             )
         ) {
-            viewModel!!.placeOrderNow()
+            viewModel!!.placeOrderNow(cart_type)
         } else {
             startActivityForResult(
                 Intent(
@@ -447,7 +447,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (result != null) {
                 viewModel?.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
-                viewModel?.placeOrderNow()
+                viewModel?.placeOrderNow(cart_type)
             }
         } else if (resultCode == RESULT_CANCELED) {
             // the user canceled
@@ -489,11 +489,9 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     override fun add(position: Int, position2: Int) {
         if (position == -1) {
-            if(addMoreList[position2].itemCategories?.size!!>0){
+            if (addMoreList[position2].itemCategories?.size!! > 0) {
 
-            }
-            else
-            {
+            } else {
 
             }
         } else {

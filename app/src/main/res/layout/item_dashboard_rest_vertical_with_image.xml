@@ -37,17 +37,13 @@
             android:id="@+id/tv_delivery_time"
             style="@style/normalText"
             android:layout_width="wrap_content"
-            
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginTop="@dimen/_2sdp"
             android:gravity="right|bottom"
             android:text="36 min"
-            
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp" />
-    
-    
     </RelativeLayout>
     
     <RelativeLayout
@@ -59,9 +55,7 @@
         <TextView
             android:id="@+id/tv_rating"
             style="@style/mediumText"
-            
             android:layout_width="wrap_content"
-            
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:drawableRight="@drawable/ic_star_24dp"
@@ -70,7 +64,6 @@
             android:text="Ratings 5.0"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_12sdp" />
-        
         
         <TextView
             android:id="@+id/tv_delivery_charges"
@@ -83,9 +76,6 @@
             android:text="5.99 delivery"
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp" />
-    
-    
     </RelativeLayout>
-
-
+    
 </LinearLayout>

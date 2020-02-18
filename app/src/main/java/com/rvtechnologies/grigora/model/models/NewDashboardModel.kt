@@ -232,6 +232,7 @@ data class NewDashboardModel(
     ) : DashboardItemType
 
     data class AllRestautants(
+        var markerId:String,
         @SerializedName("address")
         var address: String = "",
         @SerializedName("preparing_time")

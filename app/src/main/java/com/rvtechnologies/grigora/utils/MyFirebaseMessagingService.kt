@@ -22,6 +22,7 @@ import com.rvtechnologies.grigora.model.NotificationDataModel
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
 import com.rvtechnologies.grigora.utils.AppConstants.ORDER_ID
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import java.util.*
 
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
@@ -31,7 +32,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val NOTIFICATION_CHANNEL_ID = "10001"
     }
 
-
 //    override fun onNewToken(s: String?) {
 //        super.onNewToken(s)
 //        Log.d(TAG, "onNewToken: " + s!!)
@@ -40,7 +40,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     override fun onNewToken(p0: String) {
         Log.d(TAG, "onNewToken: " + p0)
     }
-
 
 //    Bundle[
 //    {
@@ -70,7 +69,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
     internal fun showNotificationMessage(remoteMessage: RemoteMessage) {
-
         try {
             var notificationType =
                 Gson().fromJson(remoteMessage.data.get("data"), NotificationDataModel::class.java)
@@ -88,7 +86,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 intent.action = "com.rvtechnologies.grigora"
                 intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
                 intent.putExtra(ORDER_ID, notificationType.orderId)
-
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
                 sendBroadcast(intent)
             }
@@ -99,13 +96,11 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
 
         if (CommonUtils.getBooleanPrefValue(this.baseContext, PrefConstants.IS_NOTIFICATIONS_ON)) {
-
             var largeIcon: Bitmap? = null
             if (resources != null)
                 largeIcon = BitmapFactory.decodeResource(resources, R.drawable.logo)
 
             val icon = R.drawable.logo
-
             val name: String
             val message: String?
 
@@ -190,6 +185,57 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             e.printStackTrace()
         }
 
+    }
+
+
+    fun showNoti() {
+        val notiId = Date().time.toInt()
+        var notiChannel = "1"
+        val intent = Intent(this, MainActivity::class.java)
+        notiChannel = "4"
+        intent.putExtra("from", "notification")
+        intent.putExtra("type", "1")
+//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+
+        val pendingIntent =
+            PendingIntent.getActivity(
+                this,
+                System.currentTimeMillis().toInt(),
+                intent,
+                PendingIntent.FLAG_ONE_SHOT
+            )
+
+        val builder: NotificationCompat.Builder
+        builder = NotificationCompat.Builder(applicationContext, notiChannel)
+        builder.setAutoCancel(true)
+
+        builder.setSmallIcon(R.drawable.logo)
+            .setContentTitle(getString(R.string.Quiz))
+            .setSound(null)
+            .setContentText(getString(R.string.new_quiz_available)).setContentIntent(pendingIntent)
+
+        builder.setStyle(NotificationCompat.BigTextStyle())
+        val mNotificationManager =
+            this.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
+            val notificationChannel =
+                NotificationChannel(
+                    "131",
+                    "NOTIFICATION_CHANNEL_NAME",
+                    NotificationManager.IMPORTANCE_HIGH
+                )
+            notificationChannel.enableLights(true)
+            notificationChannel.lightColor = Color.RED
+
+            notificationChannel.setShowBadge(true)
+
+            assert(mNotificationManager != null)
+            builder.setChannelId("131")
+            mNotificationManager.createNotificationChannel(notificationChannel)
+            mNotificationManager.notify(notiId, builder.build())
+        } else
+            mNotificationManager.notify(notiId, builder.build())
     }
 
 

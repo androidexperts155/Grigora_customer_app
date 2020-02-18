@@ -18,6 +18,7 @@ import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailsFragmentBinding
+import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
@@ -52,6 +53,7 @@ class RestaurantDetailsFragment(
     private var filteredMealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
     private val popularList = ArrayList<MenuItemModel>()
     private val previousList = ArrayList<MenuItemModel>()
+    private var cartId = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,12 +61,16 @@ class RestaurantDetailsFragment(
 
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
-        viewModel.restaurantDetail.observe(this, Observer { response ->
+            viewModel.restaurantDetail.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 mealsAndCuisinesList.clear()
                 filteredMealsAndCuisinesList.clear()
                 if (response.status!!) {
                     var data = response.data as RestaurantDetailModel
+                    if (!data.cart_id.isNullOrEmpty()) {
+                        cartId = data.cart_id
+                    }
+
                     if (data.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
                     } else {
@@ -166,6 +172,12 @@ class RestaurantDetailsFragment(
             }
         })
 
+        viewModel.addCartRes.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                var data = response.data as AddCartModel
+                cartId = data.cartId.toString()
+            }
+        })
 
     }
 
@@ -203,9 +215,13 @@ class RestaurantDetailsFragment(
         filterVegNonVeg()
         initSearchView()
         manageSwitch()
+
+//        if(arguments?.get(AppConstants.FROM_PICKUP) as Boolean){
+//            tv_pickup.callOnClick()
+//        }
     }
 
-    fun manageSwitch() {
+    private fun manageSwitch() {
         tv_delivery.setOnClickListener {
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
@@ -217,7 +233,13 @@ class RestaurantDetailsFragment(
             } else
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
-
+            if (!cartId.isNullOrEmpty()) {
+                viewModel.updateType(
+                    cartId,
+                    "1",
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+                )
+            }
         }
 
         tv_pickup.setOnClickListener {
@@ -230,6 +252,14 @@ class RestaurantDetailsFragment(
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             } else
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+            if (!cartId.isNullOrEmpty()) {
+                viewModel.updateType(
+                    cartId,
+                    "2",
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+                )
+            }
         }
 
     }
@@ -588,5 +618,3 @@ class RestaurantDetailsFragment(
         })
     }
 }
-
-

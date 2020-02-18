@@ -9,19 +9,20 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileFragmentBinding
-import com.rvtechnologies.grigora.model.ContactUsModel
 import com.rvtechnologies.grigora.model.models.LogoutModel
 import com.rvtechnologies.grigora.utils.ApiConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.CommonUtils.delPrefValue
 import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.login_signup.LoginFragment
+import com.rvtechnologies.grigora.view_model.ProfileViewModel
+import com.rvtechnologies.grigora.view_model.SettingViewModel
 import com.rvtechnologies.grigorahq.network.ConnectionNetwork
 import com.rvtechnologies.grigorahq.network.EventBroadcaster
 import kotlinx.android.synthetic.main.activity_main.*
@@ -29,26 +30,22 @@ import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 
-class ProfileFragment : Fragment(), EventBroadcaster {
-    override fun broadcast(code: Int, data: Any?) {
-        if (code == 800) {
-            var pojo = Gson().fromJson(data.toString(), LogoutModel::class.java)
-            if (pojo.status == 1) {
-                CommonUtils.savePrefs(context, PrefConstants.TOKEN, "")
-                (activity as MainActivity).nav_view.setCheckedItem(R.id.navigationRestaurants)
-            } else {
-                ConnectionNetwork.showSnack(
-                    false,
-                    activity!!,
-                    parent_layout_contact,
-                    getString(R.string.went_wrong)
-                )
-            }
-        }
-    }
+class ProfileFragment : Fragment() {
+    private lateinit var viewModel: ProfileViewModel
+
 
     companion object {
         fun newInstance() = ProfileFragment()
+    }
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
+
+        viewModel.logoutRes.observe(this, Observer {
+            CommonUtils.delPrefValue(context!!)
+            view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_socialLogin)
+        })
     }
 
     override fun onCreateView(
@@ -67,8 +64,6 @@ class ProfileFragment : Fragment(), EventBroadcaster {
 
     override fun onResume() {
         super.onResume()
-        GrigoraApp.getInstance()!!.registerListener(this)
-
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(getString(R.string.my_account))
@@ -103,7 +98,6 @@ class ProfileFragment : Fragment(), EventBroadcaster {
         )}"
     }
 
-
     private fun showLoginAlert(activity: MainActivity?) {
         var alertDialog: AlertDialog? = null
 
@@ -134,7 +128,6 @@ class ProfileFragment : Fragment(), EventBroadcaster {
                 R.id.action_navigationMyAccounts_to_loginFragment2
             )
     }
-
 
     fun toOrders() {
         view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_ordersFragment)
@@ -169,27 +162,7 @@ class ProfileFragment : Fragment(), EventBroadcaster {
     }
 
     fun logout() {
-        setLogoutApi()
-
-//        CommonUtils.savePrefs(context,PrefConstants.TOKEN,"")
-//        (activity as MainActivity).nav_view.selectedItemId=R.id.navigationRestaurants
-    }
-
-    private fun setLogoutApi() {
-        var data = HashMap<String, Any?>()
-
-        var headerMAp = HashMap<String, Any>()
-        headerMAp.put("Authorization", CommonUtils.getPrefValue(activity!!, PrefConstants.TOKEN))
-        data.put("device_id", device_id())
-        ConnectionNetwork.postFormData(
-            ApiConstants.LOGOUT,
-            headerMAp,
-            data,
-            "",
-            activity!!,
-            sv_parent,
-            800
-        )
+        viewModel.logout(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN), device_id())
     }
 
     fun device_id(): String {
@@ -207,10 +180,8 @@ class ProfileFragment : Fragment(), EventBroadcaster {
 
     }
 
-
     override fun onPause() {
         super.onPause()
-        GrigoraApp.getInstance()!!.deRegisterListener(this)
 
     }
 }

@@ -65,7 +65,7 @@
                 android:layout_gravity="center_vertical"
                 android:layout_marginLeft="@dimen/_12sdp"
                 android:layout_marginRight="@dimen/_8sdp"
-                app:srcCompat="@drawable/ic_payment" />
+                app:srcCompat="@drawable/ic_paypal" />
             
             <LinearLayout
                 android:layout_width="match_parent"
@@ -79,7 +79,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="@string/payondelivery"
+                    android:text="@string/paypal"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
                 

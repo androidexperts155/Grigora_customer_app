@@ -21,7 +21,7 @@ data class MenuItemModel(
 
     @SerializedName("item_count_in_cart")
     @Expose
-    var item_count_in_cart: Int?,
+    var item_count_in_cart: Int,
 
 
     @SerializedName("restaurant_id")

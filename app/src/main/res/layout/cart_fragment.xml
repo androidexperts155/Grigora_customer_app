@@ -39,11 +39,10 @@
             </LinearLayout>
             
             
-            <androidx.core.widget.NestedScrollView
+            <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
-                android:overScrollMode="never"
                 android:paddingLeft="@dimen/_10sdp"
                 android:paddingTop="@dimen/_4sdp">
                 
@@ -190,39 +189,42 @@
                         android:textSize="@dimen/_12sdp" />
                     
                     
-                   <LinearLayout
-                       android:id="@+id/li_also_ordered"
-                       android:orientation="vertical"
-                       android:layout_width="match_parent"
-                       android:layout_height="wrap_content"><View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:background="?attr/viewbg" />
-                    
-                    <TextView
-                        android:visibility="visible"
-                        style="@style/titleText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:clickable="true"
-                        android:padding="@dimen/_8sdp"
-                        android:text="@string/people_also_ordered"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_12sdp" />
-                    
-                    
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/rv_people_also_ordered"
+                    <LinearLayout
+                        android:id="@+id/li_also_ordered"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:orientation="horizontal"
-                        android:overScrollMode="never"
-                        android:padding="@dimen/_8sdp"
-                        android:visibility="visible"
-                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-                        tools:itemCount="3"
-                        tools:listitem="@layout/item_popular_dish" />
-                   </LinearLayout>
+                        android:orientation="vertical">
+                        
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="1dp"
+                            android:background="?attr/viewbg" />
+                        
+                        <TextView
+                            style="@style/titleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:clickable="true"
+                            android:padding="@dimen/_8sdp"
+                            android:text="@string/people_also_ordered"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_12sdp"
+                            android:visibility="visible" />
+                        
+                        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rv_people_also_ordered"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:overScrollMode="never"
+                            android:padding="@dimen/_8sdp"
+                            android:visibility="visible"
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            tools:itemCount="3"
+                            tools:listitem="@layout/item_popular_dish" />
+                    </LinearLayout>
+                    
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -306,7 +308,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_detail"
-                            android:text="Cash on Delivery"
+                            android:text="@string/grigora_money"
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_12sdp" />
                         
@@ -567,7 +569,7 @@
                         android:textSize="@dimen/_14sdp" />
                 </LinearLayout>
             
-            </androidx.core.widget.NestedScrollView>
+            </ScrollView>
         </LinearLayout>
     
     

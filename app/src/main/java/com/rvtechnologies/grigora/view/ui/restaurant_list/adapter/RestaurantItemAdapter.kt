@@ -24,10 +24,10 @@ class RestaurantItemAdapter(
         val resModel = menuItemList[position]
         resModel.index = pos
 
-        if (resModel.item_count_in_cart!! > 0) {
+        if (resModel.item_count_in_cart > 0) {
             holder.itemView.li_add.visibility = View.VISIBLE
             holder.itemView.bt_add.visibility = View.GONE
-            holder.itemView.tv_quantity.text = resModel.item_count_in_cart!!.toString()
+            holder.itemView.tv_quantity.text = resModel.item_count_in_cart.toString()
         } else {
             holder.itemView.li_add.visibility = View.GONE
             holder.itemView.bt_add.visibility = View.VISIBLE

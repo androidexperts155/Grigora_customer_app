@@ -59,13 +59,11 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     OnCurveDrawnCallback {
     private var stop = false
     private lateinit var mMap: GoogleMap
-    //    private var binding: OrderDetailsFragmentBinding? = null
     private var orderItemModel: OrderItemModel? = null
-    private var preLatlng: LatLng? = null
     private var receiver: BroadcastReceiver? = null
     private lateinit var curveManager: CurveManager
     lateinit var sheetBehavior: BottomSheetBehavior<View>
-    var oldStatus = 0
+    var oldStatus = -1
     override fun onMapReady(googleMap: GoogleMap) {
         if (CommonUtils.isDarkMode())
             googleMap.setMapStyle(
@@ -262,13 +260,19 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     isGroupOrder = true
                 }
 
-                if (orderItemModel!!.orderType == "0") {
-                    isPickUp = false
+                isPickUp = orderItemModel!!.orderType != "1"
+
+                if (isPickUp) {
+                    li_last.visibility = View.GONE
                 }
 
                 tv_order_id.text = "#".plus(orderItemModel?.id)
                 tv_rest_name.text = orderItemModel?.restaurantName
-                tv_rest_desc.text = orderItemModel?.restaurant_cusines
+
+                if (isPickUp)
+                    tv_rest_desc.text = orderItemModel?.deliveryAddress
+                else
+                    tv_rest_desc.text = orderItemModel?.restaurant_cusines
 
                 val circularProgressDrawable = CircularProgressDrawable(context!!)
                 circularProgressDrawable.strokeWidth = 5f
@@ -284,43 +288,48 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     )
                     .into(img_rest)
 
-                if (!orderItemModel?.driverImage.isNullOrEmpty()) {
+
+
+
+                if (isPickUp) {
+                    li_driver.visibility = View.VISIBLE
                     val circularProgressDrawable = CircularProgressDrawable(context!!)
                     circularProgressDrawable.strokeWidth = 5f
                     circularProgressDrawable.centerRadius = 30f
                     circularProgressDrawable.start()
 
-
-                    if (isPickUp) {
-                        Picasso.get()
-                            .load(orderItemModel?.restaurantImage).placeholder(
-                                circularProgressDrawable
-                            )
-                            .error(
-                                circularProgressDrawable
-                            )
-                            .into(img_driver)
+                    Picasso.get()
+                        .load(orderItemModel?.restaurantImage).placeholder(
+                            circularProgressDrawable
+                        )
+                        .error(
+                            circularProgressDrawable
+                        )
+                        .into(img_driver)
 
 
-                        li_driver.visibility = View.VISIBLE
-                        tv_driver_name.text = getString(R.string.call_rest)
-                    } else {
-                        Picasso.get()
-                            .load(orderItemModel?.driverImage).placeholder(
-                                circularProgressDrawable
-                            )
-                            .error(
-                                circularProgressDrawable
-                            )
-                            .into(img_driver)
-                    }
-
-                }
-
-                if (!orderItemModel?.driverName.isNullOrEmpty() && !isPickUp) {
+                    li_driver.visibility = View.VISIBLE
+                    tv_driver_name.text = getString(R.string.call_rest)
+                } else if (!orderItemModel?.driverName.isNullOrEmpty() && !isPickUp) {
                     li_driver.visibility = View.VISIBLE
                     tv_driver_name.text = orderItemModel?.driverName
+
+
+                    val circularProgressDrawable = CircularProgressDrawable(context!!)
+                    circularProgressDrawable.strokeWidth = 5f
+                    circularProgressDrawable.centerRadius = 30f
+                    circularProgressDrawable.start()
+
+                    Picasso.get()
+                        .load(orderItemModel?.driverImage).placeholder(
+                            circularProgressDrawable
+                        )
+                        .error(
+                            circularProgressDrawable
+                        )
+                        .into(img_driver)
                 }
+
 
 //                tv_est_delivery.text =
 //                    getString(R.string.preparation_time) + "   " + getDurationString(orderItemModel!!.timeRemaining.toInt())
@@ -421,207 +430,103 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     }
 
     private fun updateStatus(orderStatus: Int?) {
-//        var roundIconActivated = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape)
-//        var roundIconGrey = ContextCompat.getDrawable(context!!, R.drawable.ic_circular_shape_grey)
+        var deActivatedColor = 0
+        var activatedColor = 0
+        deActivatedColor = ContextCompat.getColor(context!!, R.color.textGrey)
+        activatedColor = if (CommonUtils.isDarkMode()) {
+            ContextCompat.getColor(context!!, R.color.white)
+        } else {
+            ContextCompat.getColor(context!!, R.color.textBlack)
+        }
 
         if (orderStatus != oldStatus) {
             oldStatus = orderStatus!!
             bt_cancel.visibility = GONE
             when (orderStatus) {
                 0 -> {
-                    //    0 -> "Waiting for confirmation"
-//                img_1.setImageDrawable(roundIconActivated)
-//                img_2.setImageDrawable(roundIconGrey)
-//                img_3.setImageDrawable(roundIconGrey)
-                    img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-
-
-                    img_check1.visibility = GONE
-                    img_check2.visibility = GONE
-                    img_check3.visibility = GONE
-
-
-//                img_4.setImageDrawable(roundIconGrey)
-
-
+//    0 -> "Waiting for confirmation"
                     bt_cancel.visibility = VISIBLE
-//                tv_1.text = getString(R.string.waiting_for_confirmation)
-//                tv_2.text = getString(R.string.being_prepared)
-//                tv_3.text = getString(R.string.out_for_delivey)
-//                tv_4.text = getString(R.string.delivered)
+
+                    tv_2.setTextColor(deActivatedColor)
+                    tv_3.setTextColor(deActivatedColor)
+                    tv_4.setTextColor(deActivatedColor)
+                    tv_5.setTextColor(deActivatedColor)
+                    tv_6.setTextColor(deActivatedColor)
+
+                    img_2.setImageResource(R.drawable.ic_tick_mark_grey)
+                    img_3.setImageResource(R.drawable.ic_cooking_grey)
+                    img_4.setImageResource(R.drawable.ic_cooking_time_grey)
+                    img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
+                    img_6.setImageResource(R.drawable.ic_motorcycle_grey)
                 }
                 2, 3 -> {
-//    2 -> "Order Accepted and being prepared"
-//                img_1.setImageDrawable(roundIconActivated)
-//                img_2.setImageDrawable(roundIconGrey)
-//                img_3.setImageDrawable(roundIconGrey)
+                    //    2 -> "Order Accepted and being prepared"
+                    //    3 -> "Driver assigned"
 
-                    img_check1.visibility = VISIBLE
-                    img_check2.visibility = GONE
-                    img_check3.visibility = GONE
-                    img_check1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+                    tv_2.setTextColor(activatedColor)
+                    tv_3.setTextColor(activatedColor)
+                    tv_4.setTextColor(deActivatedColor)
+                    tv_5.setTextColor(deActivatedColor)
+                    tv_6.setTextColor(deActivatedColor)
 
-                    var randomTime = Random.nextInt(4)
-                    Handler().postDelayed(object : Runnable {
-                        override fun run() {
-//                        img_2.setImageDrawable(roundIconActivated)
-                            img_2.startAnimation(
-                                AnimationUtils.loadAnimation(
-                                    context,
-                                    R.anim.bounce
-                                )
-                            )
-//                        li_dash1_de.visibility = GONE
-//                        li_dash1_ac.visibility = VISIBLE
-//
-//                        li_dash2_de.visibility = VISIBLE
-//                        li_dash2_ac.visibility = GONE
+                    img_2.setImageResource(R.drawable.ic_tick_mark)
+                    img_3.setImageResource(R.drawable.ic_cooking)
+                    img_4.setImageResource(R.drawable.ic_cooking_time_grey)
+                    img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
+                    img_6.setImageResource(R.drawable.ic_motorcycle_grey)
 
-                        }
-                    }, (randomTime * 1000).toLong())
-
-
-//                img_1.setImageDrawable(checkIcon)
-//                img_1.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//                img_2.setImageDrawable(roundIconActivated)
-//                img_3.setImageDrawable(roundIconGrey)
-//                img_4.setImageDrawable(roundIconGrey)
-//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//
-//                tv_1.text = getString(R.string.order_accepted)
-//                tv_2.text = getString(R.string.being_prepared)
-//                tv_3.text = getString(R.string.out_for_delivey)
-//                tv_4.text = getString(R.string.delivered)
                 }
+                4 -> {
+                    //    4 -> "Order picked up by driver,order is now its way to you"
+                    tv_2.setTextColor(activatedColor)
+                    tv_3.setTextColor(activatedColor)
+                    tv_4.setTextColor(activatedColor)
+                    tv_5.setTextColor(activatedColor)
+                    tv_6.setTextColor(activatedColor)
 
-                8 -> {
-                    //    0 -> "Waiting for confirmation"
-//    8 -> "Rejected by Restaurant"
-//                TODO rejected
-//                confirmingOrder.text = "Order confirmed"
-//                txtPreparing.text = "Preparing Order"
-//                waitingDone.visibility = VISIBLE
+                    img_2.setImageResource(R.drawable.ic_tick_mark)
+                    img_3.setImageResource(R.drawable.ic_cooking)
+                    img_4.setImageResource(R.drawable.ic_cooking_time)
+                    img_5.setImageResource(R.drawable.ic_shopping_bag)
+                    img_6.setImageResource(R.drawable.ic_motorcycle)
+
+
                 }
+                5 -> {
+//    5 -> "Order completed Delivered by " + orderModel.driverName
 
+                    rateDriverAndSaveOrder()
 
+                }
+                6 -> {
+                    //    6 -> "Rejected by Restaurant"
+
+                }
                 7 -> {
 
-//    7 -> "Order ready to dispatch"
-//                img_1.setImageDrawable(roundIconActivated)
-//                img_2.setImageDrawable(roundIconActivated)
-//                img_3.setImageDrawable(roundIconActivated)
-                    img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
+//    7 -> "Order almost ready"
+                    tv_2.setTextColor(activatedColor)
+                    tv_3.setTextColor(activatedColor)
+                    tv_4.setTextColor(activatedColor)
+                    tv_5.setTextColor(activatedColor)
+                    tv_6.setTextColor(deActivatedColor)
 
-                    img_check1.visibility = VISIBLE
-                    img_check2.visibility = VISIBLE
-                    img_check3.visibility = GONE
-
+                    img_2.setImageResource(R.drawable.ic_tick_mark)
+                    img_3.setImageResource(R.drawable.ic_cooking)
+                    img_4.setImageResource(R.drawable.ic_cooking_time)
+                    img_5.setImageResource(R.drawable.ic_shopping_bag)
+                    img_6.setImageResource(R.drawable.ic_motorcycle_grey)
 
                     if (isPickUp) {
                         li_complete.visibility = VISIBLE
                     }
 
+                }
+                8 -> {
+//    8 -> "Order cancelled by use"
 
-//                li_dash1_de.visibility = GONE
-//                li_dash1_ac.visibility = VISIBLE
-//
-//                li_dash2_de.visibility = GONE
-//                li_dash2_ac.visibility = VISIBLE
-
-
-//                img_1.setImageDrawable(checkIcon)
-//                img_2.setImageDrawable(checkIcon)
-//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//                img_2.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//
-//                img_3.setImageDrawable(roundIconActivated)
-//                img_4.setImageDrawable(roundIconGrey)
-//                tv_1.text = getString(R.string.order_accepted)
-//                tv_2.text = getString(R.string.order_prepared)
-//                tv_3.text = getString(R.string.ready_to_diapatch)
-//                tv_4.text = getString(R.string.delivered)
                 }
 
-                4 -> {
-
-//    4 -> "Order picked up by driver,order is now its way to you"
-
-//                img_1.setImageDrawable(roundIconActivated)
-//                img_2.setImageDrawable(roundIconActivated)
-//                img_3.setImageDrawable(roundIconActivated)
-
-                    if (isPickUp) {
-                        tv_last.visibility = View.GONE
-                    } else {
-                        img_call.startAnimation(AnimationUtils.loadAnimation(context, R.anim.shake))
-                        img_check1.visibility = VISIBLE
-                        img_check2.visibility = VISIBLE
-                        img_check3.visibility = VISIBLE
-                        img_check3.startAnimation(
-                            AnimationUtils.loadAnimation(
-                                context,
-                                R.anim.bounce
-                            )
-                        )
-                    }
-//                li_dash1_de.visibility = GONE
-//                li_dash1_ac.visibility = VISIBLE
-//
-//                li_dash2_de.visibility = GONE
-//                li_dash2_ac.visibility = VISIBLE
-
-
-//                img_1.setImageDrawable(checkIcon)
-//                img_2.setImageDrawable(checkIcon)
-//                img_3.setImageDrawable(checkIcon)
-//                img_4.setImageDrawable(roundIconActivated)
-//                view1.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//                view2.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//                view3.setBackgroundColor(ContextCompat.getColor(context!!, R.color.green))
-//
-//                img_3.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//
-//                img_4.setImageDrawable(roundIconActivated)
-//                tv_1.text = getString(R.string.order_accepted)
-//                tv_2.text = getString(R.string.order_prepared)
-//                tv_3.text = getString(R.string.out_for_delivey)
-//                tv_4.text = getString(R.string.delivered)
-
-//                confirmingOrder.text = "Order confirmed"
-//                txtPreparing.text = "Order Prepared"
-//                tv_3.text = "Out for delivery"
-//                waitingDone.visibility = VISIBLE
-//                preparingDone.visibility = VISIBLE
-//                outForDeliveryDone.visibility = VISIBLE
-                }
-                5 -> {
-
-//    5 -> "Order completed Delivered by " + orderModel.driverName
-
-//                img_1.setImageDrawable(checkIcon)
-//                img_2.setImageDrawable(checkIcon)
-//                img_3.setImageDrawable(checkIcon)
-//                img_4.setImageDrawable(checkIcon)
-//                img_4.startAnimation(AnimationUtils.loadAnimation(context, R.anim.bounce))
-//
-//                tv_1.text = getString(R.string.order_accepted)
-//                tv_2.text = getString(R.string.order_prepared)
-//                tv_3.text = getString(R.string.out_for_delivey)
-//                tv_4.text = getString(R.string.delivered)
-
-
-                    rateDriverAndSaveOrder()
-
-
-//                val bundle =
-//                    bundleOf(
-//                        AppConstants.ORDER_ITEM_MODEL to viewModel.orderItemRes.value,
-//                        AppConstants.IS_DRIVER to true
-//                    )
-//                view?.findNavController()
-//                    ?.navigate(R.id.action_orderDetailsFragment_to_rateDriverFragment, bundle)
-                }
 
                 else -> getString(R.string.waiting_for_confirmation)
             }
@@ -827,8 +732,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     override fun onItemClick(item: Any) {
         if (item is Int) {
-                view?.findNavController()
-                    ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+            view?.findNavController()
+                ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
         }
     }
 }

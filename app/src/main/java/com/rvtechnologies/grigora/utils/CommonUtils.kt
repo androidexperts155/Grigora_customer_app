@@ -43,21 +43,21 @@ import java.util.*
 
 object CommonUtils {
 
+
+
     fun getFormattedTimeOrDate(data: Any, patternFrom: String, patternTo: String): String {
         var d: Date? = null
         val sdf = SimpleDateFormat(patternFrom)
 
-        if(data is String){
+        if (data is String) {
             try {
                 d = sdf.parse(data)
             } catch (ex: ParseException) {
                 Log.e("exp", "" + ex.message)
             }
-        }
-        else
-        {
+        } else {
             data as Date
-            d=data
+            d = data
         }
 
         sdf.applyPattern(patternTo)
@@ -106,6 +106,8 @@ object CommonUtils {
         editor.commit()
         return true
     }
+
+
 
     private var progressBarDialog: Dialog? = null
 

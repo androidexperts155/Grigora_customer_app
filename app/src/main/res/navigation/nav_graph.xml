@@ -14,8 +14,19 @@
             app:destination="@id/ordersFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_socialLogin"
+            app:destination="@id/socialLoginFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="false"
             app:popUpToInclusive="true" />
+        
+        
+        
         <action
             android:id="@+id/action_navigationMyAccounts_to_profileDetailsFragment"
             app:destination="@id/profileDetailsFragment"
@@ -605,4 +616,17 @@
         android:id="@+id/referAndEarn"
         android:name="com.rvtechnologies.grigora.view.ui.refer_and_earn.ReferAndEarn"
         android:label="Refer And Earn" />
+    
+    <fragment
+        android:id="@+id/pickupRestaurants"
+        android:name="com.rvtechnologies.grigora.view.ui.pickup_restaurants.PickupRestaurants"
+        android:label="Pick up Restaurants" >
+        <action
+            android:id="@+id/action_pickupRestaurants_to_rest_parent"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+             />
+        
+    </fragment>
 </navigation>

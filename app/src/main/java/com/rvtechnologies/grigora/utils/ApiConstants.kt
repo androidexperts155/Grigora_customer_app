@@ -30,6 +30,7 @@ object ApiConstants {
     const val PROFILE_DETAILS_URL = "get-userinfo"
 
     const val ADD_ITEM_URL = "add-cart"
+    const val CHANGE_ORDER_TYPE = "change-ordertype"
     const val UPDATE_CART_QTY = "update-cart-item-quantity"
     const val REMOVE_CART_URL = "remove-cart"
     const val CART_ITEMS_URL = "cart-item-list"
@@ -65,4 +66,5 @@ object ApiConstants {
     const val QUIZ_QUESTION = "quiz-question"
     const val QUIZ_ANSWER = "check-quiz-answer"
     const val NOTIFICATIONS_LIST = "notification-list"
+    const val PICKUP_RESTAURANTS= "pickup-restaurants"
 }

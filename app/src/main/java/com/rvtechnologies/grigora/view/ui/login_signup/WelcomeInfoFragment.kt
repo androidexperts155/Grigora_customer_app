@@ -12,6 +12,7 @@ import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.login_signup.adapter.SliderAdapter
 import kotlinx.android.synthetic.main.activity_main.*
@@ -37,6 +38,9 @@ class WelcomeInfoFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        CommonUtils.saveBooleanPrefs(context!!, PrefConstants.IS_NOTIFICATIONS_ON, true)
+
+
         imageSlider.sliderAdapter =
             SliderAdapter()
 
