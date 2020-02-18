@@ -78,7 +78,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     li_not_delivering.visibility = View.GONE
 
                     var temp = ArrayList<NewDashboardModel.CustomizedData>()
-                    if(newDashboardModel.notifications)
+                    if (newDashboardModel.notifications)
                         (activity as MainActivity).setRightIcon(R.drawable.ic_have_notification)
                     else
                         (activity as MainActivity).setRightIcon(R.drawable.ic_no_notification)
@@ -268,7 +268,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 AppConstants.RESTAURANT_CLOSING_TIME to item.closingTime,
                 AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
                 AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime
-
             )
             view?.findNavController()
                 ?.navigate(

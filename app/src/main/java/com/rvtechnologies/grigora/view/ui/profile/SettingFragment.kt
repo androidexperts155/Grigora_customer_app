@@ -52,14 +52,34 @@ class SettingFragment : Fragment() {
             this.context!!,
             PrefConstants.IS_NOTIFICATIONS_ON
         )
+
+        sw_darkmode.isChecked = CommonUtils.getBooleanPrefValue(
+            this.context!!,
+            PrefConstants.IS_DARK_MODE
+        )
+
         sw_notifications.setOnClickListener {
             CommonUtils.saveBooleanPrefs(
                 this.context!!,
                 PrefConstants.IS_NOTIFICATIONS_ON,
                 sw_notifications.isChecked
             )
-
         }
+
+        sw_darkmode.setOnClickListener {
+            if (sw_darkmode.isChecked) {
+                switchUiMode(true)
+            } else {
+                switchUiMode(false)
+            }
+        }
+
+
+    }
+
+    private fun switchUiMode(selected: Boolean) {
+        CommonUtils.saveBooleanPrefs(context!!, PrefConstants.IS_DARK_MODE, selected)
+        (activity as MainActivity).recreate()
     }
 
     fun toChangeLanguage() {
@@ -73,11 +93,10 @@ class SettingFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle(getString(R.string.settings))
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).showBottomNavigation(4)
         }
     }
 }
