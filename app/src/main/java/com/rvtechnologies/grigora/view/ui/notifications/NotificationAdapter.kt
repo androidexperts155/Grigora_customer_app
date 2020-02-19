@@ -1,5 +1,6 @@
 package com.rvtechnologies.grigora.view.ui.notifications
 
+import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -15,12 +16,20 @@ import com.rvtechnologies.grigora.view.ui.TimeAgo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.order_details_fragment.*
 import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class NotificationAdapter(val list: ArrayList<Notification>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val TITLE = 1
     val BODY = 2
+
+    private var yesterday = Calendar.getInstance()
+
+    init {
+        yesterday.add(Calendar.DAY_OF_MONTH, -1)
+    }
 
 
     override fun getItemViewType(position: Int): Int {
@@ -77,10 +86,45 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
                     )
                     .into(holder.img_data)
 
+            val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss",
+                    holder.img_data.context!!.resources.configuration.locales[0]
+                )
+            } else
+                SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm:ss",
+                    holder.img_data.context!!.resources.configuration.locale
+                )
 
-            var format = SimpleDateFormat("yyyy-MM-dd HH:mm")
-            holder.tv_time.text =
-                TimeAgo.getTimeAgo(format.parse((list[position] as NotificationsModel).createdAt).time)
+            utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
+
+            var utcDate = utcFormatter.parse((list[position] as NotificationsModel).createdAt)
+
+
+            var format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm",
+                    holder.img_data.context!!.resources.configuration.locales[0]
+                )
+            } else
+                SimpleDateFormat(
+                    "yyyy-MM-dd HH:mm",
+                    holder.img_data.context!!.resources.configuration.locale
+                )
+
+            format.timeZone = TimeZone.getDefault()
+
+
+            if (!(list[position] as NotificationsModel).timeToShow.isNullOrBlank()) {
+                holder.tv_time.text = holder.tv_time.context.getString(R.string.yesterday)
+            } else {
+
+                holder.tv_time.text =
+                    TimeAgo.getTimeAgo(format.parse(format.format(utcDate)).time)
+            }
+
+
 
             holder.tv_name.text = (list[position] as NotificationsModel).notification
         }

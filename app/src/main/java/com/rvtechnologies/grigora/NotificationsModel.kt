@@ -24,5 +24,6 @@ data class NotificationsModel(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("user_id")
-    var userId: Int = 0
+    var userId: Int = 0,
+    var timeToShow:String=""
 ):Notification

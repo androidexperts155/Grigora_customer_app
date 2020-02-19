@@ -25,7 +25,10 @@ object AppConstants {
     const val MENU_ITEM_MODEL="menu_item_model"
     const val ORDER_ITEM_MODEL="order_item_model"
     const val ORDER_ID="order_id"
-    const val NOTIFICATION_TYPE="type"
+    const val MESSAGE="message"
+    const val TYPE="type"
+
+    const val NOTIFICATION_TYPE="notification_type"
     const val REVIEW_FOOD="1"
     const val REVIEW_RESTAURANT="2"
     const val REVIEW_DRIVER="3"

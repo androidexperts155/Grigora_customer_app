@@ -447,7 +447,6 @@ class RestaurantDetailsFragment(
 
     override fun minus(position: Int, position2: Int) {
 //     position=   -2 previous ordered, -1 popular
-
         if (position == -1) {
             if (popularList[position2].itemCategories?.size!! > 0) {
 //                have add ons
@@ -464,14 +463,6 @@ class RestaurantDetailsFragment(
 //                don't have add ons, simply add
                 popularList[position2].item_count_in_cart =
                     (popularList[position2].item_count_in_cart!! - 1)
-
-
-                viewModel.addItemToCart(
-                    popularList[position2].restaurantId.toString()!!,
-                    popularList[position2].id.toString(),
-                    popularList[position2].price.toString(),
-                    "-1"
-                )
 
                 rc_popular.adapter?.notifyDataSetChanged()
             }
@@ -519,7 +510,6 @@ class RestaurantDetailsFragment(
                 filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
                     (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! - 1)
 
-
                 viewModel.addItemToCart(
                     filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
                     filteredMealsAndCuisinesList[position].items[position2].id.toString(),
@@ -527,6 +517,12 @@ class RestaurantDetailsFragment(
                     "-1"
                 )
 
+                viewModel.updateCartQty(
+                    viewModel.token.value!!,
+                    filteredMealsAndCuisinesList[position].items[position2].id.toString(),
+                    filteredMealsAndCuisinesList[position]?.items[position2]?.itemCart?.get(0)!!.cart_id.toString(),
+                    "-1"
+                )
                 rc_items.adapter?.notifyDataSetChanged()
             }
         }

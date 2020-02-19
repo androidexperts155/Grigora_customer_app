@@ -44,14 +44,14 @@
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 android:paddingLeft="@dimen/_10sdp"
-                android:paddingTop="@dimen/_4sdp">
+                android:paddingTop="@dimen/_4sdp"
+                android:paddingRight="@dimen/_10sdp">
                 
                 <LinearLayout
                     android:id="@+id/cartView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical">
-                    
                     
                     <TextView
                         style="@style/mediumText"
@@ -71,6 +71,56 @@
                         android:textSize="@dimen/_11sdp"
                         tools:text="Delivery in 50-60 min" />
                     
+                    <RelativeLayout
+                        android:layout_marginTop="@dimen/_8sdp"
+    
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="?attr/langSelected"
+                        android:padding="@dimen/_10sdp">
+                        
+                        <TextView
+                            android:id="@+id/tv_group_order_title"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_12sdp"
+                            tools:text="Group order by Vikas" />
+                        
+                        <TextView
+                            android:id="@+id/tv_order_limit"
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_group_order_title"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_10sdp"
+                            tools:text="Group order by Vikas" />
+                        
+                        
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            style="@style/normalText"
+                            android:background="@drawable/btn_rounded_cornersextra"
+                            android:backgroundTint="@color/white"
+                            android:drawableLeft="@drawable/ic_g2"
+                            android:drawableTint="?attr/textWhite"
+                            android:paddingLeft="@dimen/_8sdp"
+                            android:paddingTop="@dimen/_4sdp"
+                            android:paddingRight="@dimen/_8sdp"
+                            android:paddingBottom="@dimen/_4sdp"
+                            android:text="@string/invite"
+                            android:drawablePadding="@dimen/_4sdp"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_12sdp" />
+                    
+                    
+                    </RelativeLayout>
+                    
+                    
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
@@ -78,6 +128,7 @@
                         android:background="?attr/viewbg" />
                     
                     <RelativeLayout
+                        android:id="@+id/rel_group_invite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_8sdp">
@@ -91,6 +142,7 @@
                         
                         <TextView
                             android:id="@+id/textView22"
+                            android:drawablePadding="@dimen/_4sdp"
                             style="@style/normalText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"

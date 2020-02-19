@@ -46,7 +46,7 @@ class DashboardAllRestaurantAdapter(
         holder.tv_name.text = detail.name
 
         if (detail.items.isNotEmpty()) {
-            holder.rc_images.adapter = ImagesAdapter(detail.items)
+            holder.rc_images.adapter = ImagesAdapter(detail,iRecyclerItemClick)
             holder.rc_images.setOnClickListener {
                 iRecyclerItemClick.onItemClick(list[position])
             }
@@ -67,7 +67,9 @@ class DashboardAllRestaurantAdapter(
         holder.tv_delivery_charges.text =
             "₦" + (price.toInt()).toString() + " " + holder.tv_delivery_time.context.getString(R.string.delivery)
 
-
+        holder.rc_images.setOnClickListener {
+            iRecyclerItemClick.onItemClick(list[position])
+        }
         holder.itemView.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
         }

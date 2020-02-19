@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:animateLayoutChanges="true"
     tools:context=".view.ui.pickup_restaurants.PickupRestaurants">
     
     <fragment
@@ -101,8 +102,8 @@
             </RelativeLayout>
             
             <ImageView
-                android:layout_width="@dimen/_24sdp"
                 android:id="@+id/img_next"
+                android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_gravity="right"
                 android:layout_margin="@dimen/_4sdp"
@@ -115,4 +116,64 @@
         
         </LinearLayout>
     </androidx.cardview.widget.CardView>
+    
+    
+    <androidx.cardview.widget.CardView
+        android:id="@+id/card_search"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clickable="true"
+        android:foreground="@drawable/selectable_item_background"
+        android:paddingLeft="@dimen/_12sdp"
+        android:paddingTop="@dimen/_8sdp"
+        android:paddingRight="@dimen/_12sdp"
+        android:paddingBottom="@dimen/_8sdp"
+        app:cardBackgroundColor="@color/white"
+        app:cardCornerRadius="@dimen/_16sdp">
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginLeft="@dimen/_12sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_12sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            
+            android:gravity="center"
+            android:text="@string/search_in_area"
+            android:textColor="@color/colorPrimary"
+            android:textSize="@dimen/_12sdp" />
+    
+    </androidx.cardview.widget.CardView>
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_list"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/card_search"
+        
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_22sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:backgroundTint="?attr/backgroundColor"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_list_text" />
+    
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/bt_cursor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/bt_list"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:backgroundTint="?attr/backgroundColor"
+        android:clickable="true"
+        app:srcCompat="@drawable/ic_cursor" />
+
 </RelativeLayout>

@@ -18,10 +18,12 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.model.PickupRestaurantsModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.dashboard.adapter.ImagesAdapter
@@ -30,7 +32,11 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.pickup_restaurants_fragment.*
 
 
-class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener {
+class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClickListener,
+    IRecyclerItemClick {
+    override fun onItemClick(item: Any) {
+    }
+
     var allRestaurants = ArrayList<NewDashboardModel.AllRestautants>()
     private lateinit var mMap: GoogleMap
     lateinit var data: NewDashboardModel.AllRestautants
@@ -55,14 +61,18 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             })
 
         viewModel.restaurantsResponse.observe(this, Observer {
+            var model = (it as CommonResponseModel<*>).data as PickupRestaurantsModel
+
+
             var temp = ArrayList<NewDashboardModel.AllRestautants>()
-            temp.addAll((it as CommonResponseModel<*>).data as ArrayList<NewDashboardModel.AllRestautants>)
+            temp.addAll(model.mainInfo)
+            allRestaurants.clear()
             for (data in temp) {
                 if (data.items != null && data.items.size > 0) {
                     allRestaurants.add(data)
                 }
             }
-
+            mMap.clear()
             updateMap()
 
 
@@ -114,15 +124,43 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
 
         }
+
+        card_search.setOnClickListener {
+            viewModel.getRestaurants(
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+                CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
+            )
+        }
+        bt_cursor.setOnClickListener {
+            var latitude = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE).toDouble()
+            var longitude = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE).toDouble()
+
+            mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+            mMap?.setMinZoomPreference(15f)
+
+            val coordinate =
+                LatLng(
+                    latitude,
+                    longitude
+                )
+
+            val location = CameraUpdateFactory.newLatLngZoom(
+                coordinate, 15f
+            )
+            mMap.animateCamera(location)
+
+        }
     }
 
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
         (activity as MainActivity).lockDrawer(true)
-        (activity as MainActivity).showBottomNavigation(1)
         (activity as MainActivity).backTitle(getString(R.string.pickup))
+        (activity as MainActivity).showBottomNavigation(1)
         (activity as MainActivity).img_back.visibility = View.GONE
+
     }
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -144,26 +182,41 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 )
             )
 
-        var latitude = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE).toDouble()
-        var longitude = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE).toDouble()
 
-        mMap.clear()
-
-        val marker = MarkerOptions().position(LatLng(latitude, longitude))
-            .icon(bitmapDescriptorFromVector(R.drawable.ic_home_run)).title("Home")
-
-        mMap.addMarker(marker)
-
-        if (marker == null) {
-            return
-        }
-
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
-        mMap?.setMinZoomPreference(12f)
     }
 
     private fun updateMap() {
-        if (::mMap.isInitialized)
+        if (::mMap.isInitialized) {
+            var latitude = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE).toDouble()
+            var longitude = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE).toDouble()
+
+            mMap.clear()
+
+            val marker = MarkerOptions().position(LatLng(latitude, longitude))
+                .icon(bitmapDescriptorFromVector(R.drawable.ic_home_run)).title("Home")
+
+
+            val coordinate =
+                LatLng(
+                    latitude,
+                    longitude
+                )
+
+            val location = CameraUpdateFactory.newLatLngZoom(
+                coordinate, 15f
+            )
+            mMap.addMarker(marker)
+            mMap.animateCamera(location)
+
+
+            if (marker == null) {
+                return
+            }
+
+//            mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
+//            mMap?.setMinZoomPreference(15f)
+
+
             for (i in 0 until allRestaurants.size) {
                 var latitude =
                     allRestaurants[i].latitude.toDouble()
@@ -179,6 +232,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 allRestaurants[i].markerId = m.id
 
             }
+        }
 
 
     }
@@ -213,7 +267,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 tv_name.text = detail.name
 
                 if (detail.items.isNotEmpty()) {
-                    rc_images.adapter = ImagesAdapter(detail.items)
+                    rc_images.adapter = ImagesAdapter(detail, this)
                     rc_images.setOnClickListener {
                         //                        iRecyclerItemClick.onItemClick(list[position])
                     }

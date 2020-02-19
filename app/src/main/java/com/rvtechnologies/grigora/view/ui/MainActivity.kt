@@ -155,13 +155,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             closeOrOpenDrawer()
         }
 
-        sw_mode.setOnClickListener {
-            if (sw_mode.isChecked) {
-                switchUiMode(true)
-            } else {
-                switchUiMode(false)
-            }
-        }
+
 
 
     }

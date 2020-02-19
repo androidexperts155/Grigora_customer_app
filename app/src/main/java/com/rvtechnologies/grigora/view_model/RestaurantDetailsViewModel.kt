@@ -12,14 +12,12 @@ import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 
 class RestaurantDetailsViewModel : ViewModel() {
-
     var id: MutableLiveData<String> = MutableLiveData()
     var token: MutableLiveData<String> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var restaurantDetail: MutableLiveData<Any> = MutableLiveData()
     var addCartRes: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
-
 
     fun getRestaurantsDetails(token: String, restId: String, price: String) {
         isLoading.value = true
@@ -89,7 +87,6 @@ class RestaurantDetailsViewModel : ViewModel() {
             }
     }
 
-
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
         if (token.value.toString().isNotBlank()) {
             isLoading.value = true
@@ -126,6 +123,4 @@ class RestaurantDetailsViewModel : ViewModel() {
             }
 
     }
-
-
 }

@@ -87,6 +87,12 @@ data class MenuItemModel(
     @SerializedName("item_categories")
     @Expose
     var itemCategories: List<ItemCategory>?,
+
+    @SerializedName("item_cart")
+    @Expose
+    var itemCart: List<ItemCart>?,
+
+
     @SerializedName("cuisine_name")
     var cuisineName: String = "",
     var nameToShow: String?,
@@ -107,4 +113,18 @@ data class MenuItemModel(
 
 
 
-) : Parcelable
+) : Parcelable{
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class ItemCart(
+        val cart_id: Int,
+        val created_at: String,
+        val id: Int,
+
+        val item_id: Int,
+        val price: String,
+        val quantity: Int,
+        val updated_at: String,
+        val user_id: Int
+    ):Parcelable
+}

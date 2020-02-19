@@ -89,7 +89,15 @@ class NotificationsFragment : Fragment() {
                                     tempList.add(NotificationTitleModel(getString(R.string.yesterday)))
                                     yesterdayAdded = true
                                 }
-
+                                if (format.parse(data.createdAt).compareTo(
+                                        format.parse(
+                                            format.format(
+                                                yesterday.time
+                                            )
+                                        )
+                                    ) == 0){
+                                    data.timeToShow=context!!.getString(R.string.yesterday)
+                                }
 
                                 if (format.parse(data.createdAt).compareTo(
                                         format.parse(
@@ -110,12 +118,6 @@ class NotificationsFragment : Fragment() {
                                 }
                                 tempList.add(data)
                             }
-
-
-
-
-
-
 
                             adapterList.addAll(tempList)
                             tempList.clear()

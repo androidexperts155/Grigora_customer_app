@@ -347,7 +347,6 @@
     <string name="viewcart">View Cart</string>
     <string name="and_over">and over</string>
     <string name="viewresults">View Results</string>
-    <string name="invite_your_group">Invite Your Group</string>
     <string name="menuprice">Menu Price</string>
     <string name="how_many_people">How many People?</string>
     <string name="pick_a_date">Pick a Date</string>
@@ -415,9 +414,12 @@
     <string name="enjoy_meal">3. Enjoy your meal together</string>
     <string name="enjoy_desc">Checkout and delivery is simple, so you can focus on enjoying meal</string>
     <string name="please_input_number">Please input Amount</string>
+    <string name="invite">Invite</string>
+    <string name="ready_group_order">Your Group Order is now ready!</string>
+    <string name="invite_others">Invite others to add their favorite items. Large orders may take longer to prepare</string>
+    <string name="invite_your_group">Invite Your Group</string>
+    <string name="search_in_area">Search in Area</string>
     <string name="dark_mode">Dark Mode</string>
-    <string name="ready_group_order">Your Group Order is \n now ready!</string>
-    <string name="invite_others">Invite others to add their favorite items. \n Large order may take loger to prepare.</string>
 
 
 </resources>

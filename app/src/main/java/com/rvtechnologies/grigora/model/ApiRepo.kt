@@ -768,7 +768,6 @@ Cuisine repo
                 override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
                     onResult(false, t?.message)
                 }
-
             })
     }
 
@@ -778,7 +777,6 @@ Cuisine repo
         cartItemId: String,
         quantity: String,
         cart_id: String,
-
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().updateCartQty(
@@ -806,7 +804,6 @@ Cuisine repo
             })
     }
 
-
     fun viewCart(
         token: String,
         latitude: String,
@@ -832,7 +829,6 @@ Cuisine repo
 
             })
     }
-
 
     fun postData(
         url: String,

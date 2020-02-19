@@ -41,8 +41,10 @@ import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.model.models.OrderStatusModel
 import com.rvtechnologies.grigora.utils.*
+import com.rvtechnologies.grigora.utils.AppConstants.MESSAGE
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
 import com.rvtechnologies.grigora.utils.AppConstants.ORDER_ID
+import com.rvtechnologies.grigora.utils.AppConstants.TYPE
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderItemAdapter
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
@@ -58,12 +60,16 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     IRecyclerItemClick,
     OnCurveDrawnCallback {
     private var stop = false
+    private var type = 0
+    private var message = ""
     private lateinit var mMap: GoogleMap
     private var orderItemModel: OrderItemModel? = null
     private var receiver: BroadcastReceiver? = null
     private lateinit var curveManager: CurveManager
     lateinit var sheetBehavior: BottomSheetBehavior<View>
     var oldStatus = -1
+
+
     override fun onMapReady(googleMap: GoogleMap) {
         if (CommonUtils.isDarkMode())
             googleMap.setMapStyle(
@@ -500,7 +506,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 }
                 6 -> {
                     //    6 -> "Rejected by Restaurant"
-
+                    var deniedFragment = OrderDeniedFragment(type, message, this)
+                    deniedFragment.show(childFragmentManager, "")
                 }
                 7 -> {
 
@@ -681,8 +688,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         super.onResume()
         receiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
-                if (p1!!.getStringExtra(ORDER_ID).equals(viewModel.orderId.value))
+                if (p1!!.getStringExtra(ORDER_ID).equals(viewModel.orderId.value)) {
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 6) {
+                        type = p1!!.getStringExtra(TYPE).toInt()
+                        message = p1!!.getStringExtra(MESSAGE)
+                    }
                     updateStatus(p1!!.getStringExtra(NOTIFICATION_TYPE).toInt())
+                }
             }
         }
         activity!!.registerReceiver(receiver, IntentFilter("com.rvtechnologies.grigora"))
@@ -734,6 +746,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         if (item is Int) {
             view?.findNavController()
                 ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+        } else if (item is String) {
+            if (item == "1") {
+                view?.findNavController()
+                    ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+            } else if (item == "2") {
+
+            }
         }
     }
 }

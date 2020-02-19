@@ -112,7 +112,9 @@
             android:id="@+id/action_navigationCart_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph.xml"
+             app:exitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_navigationCart_to_offerFragment"
             app:destination="@id/offerFragment"

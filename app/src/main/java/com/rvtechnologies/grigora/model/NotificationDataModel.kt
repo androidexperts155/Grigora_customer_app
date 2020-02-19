@@ -17,5 +17,10 @@ data class NotificationDataModel(
     @SerializedName("restaurant_long")
     var restaurantLong: String = "",
     @SerializedName("restaurant_name")
-    var restaurantName: String = ""
-)
+    var restaurantName: String = "",
+    @SerializedName("type")
+    var type: String = "",
+    var message: String = ""
+
+
+    )

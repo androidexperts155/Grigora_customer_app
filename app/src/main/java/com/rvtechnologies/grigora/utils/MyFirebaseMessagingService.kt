@@ -19,8 +19,10 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.NotificationDataModel
+import com.rvtechnologies.grigora.utils.AppConstants.MESSAGE
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
 import com.rvtechnologies.grigora.utils.AppConstants.ORDER_ID
+import com.rvtechnologies.grigora.utils.AppConstants.TYPE
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import java.util.*
 
@@ -62,8 +64,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //                BroadcastConstants.noti_past,
 //                remoteMessage.data.get("body")
 //            )
-
-
         }
     }
 
@@ -78,6 +78,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 notificationType.notificationType.toInt() == 2 ||
                 notificationType.notificationType.toInt() == 8 ||
                 notificationType.notificationType.toInt() == 3 ||
+                notificationType.notificationType.toInt() == 6 ||
                 notificationType.notificationType.toInt() == 4 ||
                 notificationType.notificationType.toInt() == 5 ||
                 notificationType.notificationType.toInt() == 7
@@ -86,8 +87,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 intent.action = "com.rvtechnologies.grigora"
                 intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
                 intent.putExtra(ORDER_ID, notificationType.orderId)
+                intent.putExtra(TYPE, notificationType.type)
+                intent.putExtra(MESSAGE, remoteMessage.data["body"]!!)
                 intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
                 sendBroadcast(intent)
+
+                if (notificationType.notificationType.toInt() == 6) {
+                    notificationType.message = remoteMessage.data["body"]!!
+                }
             }
 
 
