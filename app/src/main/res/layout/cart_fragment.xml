@@ -72,10 +72,10 @@
                         tools:text="Delivery in 50-60 min" />
                     
                     <RelativeLayout
-                        android:layout_marginTop="@dimen/_8sdp"
-    
                         android:layout_width="match_parent"
+                        
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:background="?attr/langSelected"
                         android:padding="@dimen/_10sdp">
                         
@@ -100,21 +100,22 @@
                         
                         
                         <TextView
+                            style="@style/normalText"
+                            android:onClick="@{()->cartFragment.createLink()}"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            style="@style/normalText"
                             android:background="@drawable/btn_rounded_cornersextra"
                             android:backgroundTint="@color/white"
                             android:drawableLeft="@drawable/ic_g2"
-                            android:drawableTint="?attr/textWhite"
+                            android:drawablePadding="@dimen/_4sdp"
+                            android:drawableTint="@color/textBlack"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingTop="@dimen/_4sdp"
                             android:paddingRight="@dimen/_8sdp"
                             android:paddingBottom="@dimen/_4sdp"
                             android:text="@string/invite"
-                            android:drawablePadding="@dimen/_4sdp"
-                            android:textColor="?attr/textWhite"
+                            android:textColor="@color/textBlack"
                             android:textSize="@dimen/_12sdp" />
                     
                     
@@ -142,7 +143,6 @@
                         
                         <TextView
                             android:id="@+id/textView22"
-                            android:drawablePadding="@dimen/_4sdp"
                             style="@style/normalText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -151,6 +151,7 @@
                             android:layout_toStartOf="@+id/tv_change"
                             android:layout_toLeftOf="@+id/tv_change"
                             android:layout_toEndOf="@+id/map"
+                            android:drawablePadding="@dimen/_4sdp"
                             android:ellipsize="end"
                             android:maxLines="2"
                             android:text="@{cartViewModel.deliveryAddress}"
@@ -605,7 +606,7 @@
                         android:id="@+id/button5"
                         style="@style/titleText"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_35sdp"
                         android:layout_gravity="center_horizontal"
                         android:layout_marginStart="@dimen/_24sdp"
                         android:layout_marginTop="8dp"

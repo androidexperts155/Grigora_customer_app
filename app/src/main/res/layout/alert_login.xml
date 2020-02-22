@@ -35,7 +35,7 @@
         <Button
             android:id="@+id/btnLogin"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_16sdp"
             android:background="@drawable/btn_primary_back"
             android:text="@string/login_signup_now"
@@ -45,7 +45,7 @@
         <Button
             android:id="@+id/btnLater"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_6sdp"
             android:background="@null"
             android:text="@string/later"

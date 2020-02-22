@@ -232,9 +232,16 @@ data class NewDashboardModel(
     ) : DashboardItemType
 
     data class AllRestautants(
+        var reviewToShow:String,
+        var closeToShow:String,
+        var distance:String,
         var markerId:String,
         @SerializedName("address")
         var address: String = "",
+
+        @SerializedName("reviews")
+        var reviews: Int = 0,
+
         @SerializedName("preparing_time")
         var preparing_time: String = "",
 
@@ -246,7 +253,7 @@ data class NewDashboardModel(
 
 
         @SerializedName("average_rating")
-        var averageRating: String = "",
+        var averageRating: Float = 0F,
         @SerializedName("busy_status")
         var busyStatus: String = "",
         @SerializedName("closing_time")

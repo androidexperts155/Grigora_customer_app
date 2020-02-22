@@ -52,7 +52,7 @@ class DashboardAllRestaurantAdapter(
             }
         }
 
-        holder.tv_rating.text = detail.averageRating
+        holder.tv_rating.text = detail.averageRating.toString()
         holder.tv_delivery_time.text =
             detail.preparing_time + " " + holder.tv_delivery_time.context.getString(R.string.min)
 

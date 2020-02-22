@@ -48,7 +48,7 @@
         android:id="@+id/buttonVerifyPhone"
         style="@style/titleText"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/_48sdp"
         android:layout_marginTop="@dimen/_24sdp"

@@ -4,6 +4,7 @@ import android.app.Activity
 import android.app.Activity.RESULT_CANCELED
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -39,9 +40,19 @@ import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
+import io.branch.referral.SharingHelper
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
+import io.branch.referral.util.ShareSheetStyle
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.cart_fragment.*
+import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
+import java.util.*
+import kotlin.collections.ArrayList
 
 class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
     OnItemClickListener {
@@ -571,6 +582,54 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 viewModel?.paymentMode?.value = item.toString()
             }
         }
+    }
+
+    fun createLink(){
+        val buo = BranchUniversalObject()
+            .setCanonicalIdentifier("content/12345")
+            .setTitle("Grigoa Group Order")
+            .setContentDescription("You are invited from Amit to order from this restaurant")
+            .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
+            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+            .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+            .setContentMetadata(ContentMetadata().addCustomMetadata("orderId", "123"))
+
+        val lp = LinkProperties()
+            .setChannel("facebook")
+            .setFeature("sharing")
+            .setCampaign("content 123 launch")
+            .setStage("new user")
+            .addControlParameter("custom_random", Calendar.getInstance().timeInMillis.toString())
+
+        buo.generateShortUrl(context!!, lp
+        ) { url, error ->
+            if (error == null) {
+                tv_link.text = url
+            } else {
+            }
+        }
+
+        val ss = ShareSheetStyle(activity as MainActivity, "Check this out!", "This stuff is awesome: ")
+            .setCopyUrlStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
+            .setMoreOptionStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_search), "Show more")
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FLICKR)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.PINTEREST)
+            .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+            .setAsFullWidthStyle(true)
+            .setSharingTitle("Share With")
+
+        buo.showShareSheet(activity as MainActivity, lp, ss, object : Branch.BranchLinkShareListener {
+            override fun onShareLinkDialogLaunched() {}
+            override fun onShareLinkDialogDismissed() {}
+            override fun onLinkShareResponse(sharedLink: String?, sharedChannel: String?, error: BranchError?) {}
+            override fun onChannelSelected(channelName: String) {}
+        })
     }
 
 }

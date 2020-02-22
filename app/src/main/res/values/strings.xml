@@ -420,6 +420,15 @@
     <string name="invite_your_group">Invite Your Group</string>
     <string name="search_in_area">Search in Area</string>
     <string name="dark_mode">Dark Mode</string>
+    <string name="ratingg">Ratings:</string>
+    <string name="closes">Closes</string>
+    <string name="places">Places</string>
+    <string name="order_canceled">Order Cancelled!</string>
+    <string name="open_24_hours">Open 24 hours</string>
+    <string name="search_here">Search Here</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="cuisines">Cuisines</string>
+    <string name="km">KM</string>
 
 
 </resources>

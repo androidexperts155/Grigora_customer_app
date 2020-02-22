@@ -148,4 +148,9 @@ class ChooseLanguageFragment : Fragment() {
 
         chooseLanguageViewModel?.langSelected?.value = AppConstants.FRENCH
     }
+
+
+    override fun onDestroy() {
+        super.onDestroy()
+    }
 }

@@ -66,11 +66,11 @@ class DashboardFragment : Fragment(), IRecyclerItemClick, OnItemClickListener {
                 )
         }
         if (item is HashMap<*, *>) {
-            viewModel.click(
-                item["check"] as Int,
-                item["itemId"] as Int,
-                CommonUtils.getPrefValue(activity!!, PrefConstants.TOKEN)
-            )
+//            viewModel.click(
+//                item["check"] as Int,
+//                item["itemId"] as Int,
+//                CommonUtils.getPrefValue(activity!!, PrefConstants.TOKEN)
+//            )
         }
 
     }

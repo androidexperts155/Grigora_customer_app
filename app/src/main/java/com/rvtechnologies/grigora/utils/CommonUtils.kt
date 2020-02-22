@@ -408,6 +408,6 @@ object CommonUtils {
         endLocation.latitude = endLat
         endLocation.longitude = endLng
 
-        return startLocation.distanceTo(endLocation)
+        return startLocation.distanceTo(endLocation)/1000
     }
 }

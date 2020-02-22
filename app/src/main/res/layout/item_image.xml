@@ -17,6 +17,7 @@
         
         <ImageView
             android:id="@+id/img_data"
+            android:src="@drawable/restaurant"
             android:layout_width="@dimen/_150sdp"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerCrop" />

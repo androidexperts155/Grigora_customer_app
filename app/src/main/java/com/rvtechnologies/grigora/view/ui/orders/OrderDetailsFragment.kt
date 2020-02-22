@@ -410,6 +410,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             congDialog.show(childFragmentManager, "")
         })
 
+
+        viewModel.changeDeliveryToPickup.observe(this, Observer { res ->
+            if (res is CommonResponseModel<*> && type==4) {
+                if (res.status!!) {
+                    viewModel.getOrderDetails()
+                }
+            }
+
+        })
     }
 
 //    0 -> "Waiting for confirmation"
@@ -748,10 +757,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
         } else if (item is String) {
             if (item == "1") {
+                if (type == 4) {
+                    viewModel.changeDeliveryToPickup("2")
+                }
                 view?.findNavController()
                     ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
-            } else if (item == "2") {
 
+
+            } else if (item == "2") {
+                viewModel.changeDeliveryToPickup("1")
             }
         }
     }

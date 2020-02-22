@@ -3,124 +3,136 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
-   
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="?attr/light_bg"
+        android:clickable="true"
+        android:foreground="@drawable/selectable_item_background"
+        android:orientation="vertical"
+        android:padding="@dimen/_6sdp">
         
-        <androidx.constraintlayout.widget.ConstraintLayout
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rc_images"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_image" />
+        
+        
+        <TextView
+            android:id="@+id/txtRestaurantName"
+            style="@style/mediumText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/_6sdp"
-             android:elevation="1dp"
-            android:orientation="vertical">
-            
+            android:layout_marginTop="@dimen/_8sdp"
+            android:text="@{restaurantModel.name}"
+            android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_14sdp"
+            tools:text="Restaurant name" />
+        
+        <TextView
+            android:id="@+id/txtAddress"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:ellipsize="end"
+            android:maxLines="2"
+            android:text="@{restaurantModel.address}"
+            android:textColor="?attr/textGray"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Address" />
+        
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp">
             
             <LinearLayout
-                android:id="@+id/constraintLayout"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:orientation="vertical"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toEndOf="@+id/imgRestaurant"
-                app:layout_constraintTop_toTopOf="parent">
+                android:layout_alignParentLeft="true"
+                
+                android:orientation="horizontal">
                 
                 <TextView
-                    android:id="@+id/txtRestaurantName"
-                    style="@style/mediumText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="@{restaurantModel.nameToShow}"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Subhead"
-                    android:textColor="@color/textBlack"
-                    android:textSize="@dimen/_12sdp"
-                    tools:text="Restaurant name" />
-                
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp">
-                    
-                    <RatingBar
-                        android:id="@+id/ratingBar"
-                        style="@style/RatingBar"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:progressTint="@color/duskYellow"
-                        android:rating="@{restaurantModel.avgRatings}" />
-                    
-                    <TextView
-                        android:id="@+id/txtRating"
-                        style="@style/normalText"
-                        android:layout_marginLeft="4dp"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="@{restaurantModel.avgRatingsString}"
-                        android:textColor="@color/textLightGrey"
-                        android:textSize="@dimen/_10sdp"
-                        tools:text="0.0" />
-                
-                </LinearLayout>
-                
-                <TextView
-                    android:id="@+id/txtAddress"
                     style="@style/normalText"
-                    android:layout_width="match_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="4dp"
-                    android:ellipsize="end"
-                    android:maxLines="2"
-                    android:text="@{restaurantModel.addressToShow}"
-                    android:textColor="@color/textLightGrey"
+                    android:text="@string/ratingg"
+                    android:textColor="?attr/textGray"
+                    android:textSize="@dimen/_10sdp" />
+                
+                <TextView
+                    android:id="@+id/txtRating"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:text="@{String.valueOf(restaurantModel.averageRating)}"
+                    android:textColor="?attr/textGray"
                     android:textSize="@dimen/_10sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txtRestaurantName"
-                    tools:text="Address" />
+                    tools:text="0.0" />
+                
+                <RatingBar
+                    android:id="@+id/ratingBar"
+                    style="@style/RatingBar"
+                    android:layout_width="wrap_content"
+                    
+                    android:progressBackgroundTint="?attr/textGray"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:progressTint="@color/colorPrimaryDark"
+                    android:rating="@{restaurantModel.averageRating}" />
+                
+                
+                <TextView
+                    android:id="@+id/tv_reviews"
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="6dp"
+                    android:text="@{String.valueOf(restaurantModel.reviews)}"
+                    android:textColor="?attr/textGray"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="(450 Reviews)" />
             
             
             </LinearLayout>
             
-            <com.github.siyamed.shapeimageview.RoundedImageView
-                android:id="@+id/imgRestaurant"
-                android:layout_width="@dimen/_75sdp"
-                android:layout_height="@dimen/_60sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="8dp"
-                android:layout_marginBottom="8dp"
-                android:elevation="1dp"
-                android:scaleType="centerCrop"
-                android:src="@drawable/restaurant"
-                app:image_url="@{restaurantModel.image}"
-                app:layout_constraintBottom_toBottomOf="@+id/view"
-                app:layout_constraintDimensionRatio="w,1:1"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:siRadius="@dimen/_6sdp" />
-            
-            <View
-                android:id="@+id/view"
-                android:layout_marginLeft="@dimen/_16sdp"
-                android:layout_marginTop="4dp"
-                android:layout_marginRight="@dimen/_16sdp"
-                android:background="@color/viewbg"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                android:layout_width="match_parent"
-                
-                android:layout_height="0.5dp"/>
-            
-        </androidx.constraintlayout.widget.ConstraintLayout>
+            <TextView
+                android:id="@+id/tv_close_time"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dp"
+                android:text="@{restaurantModel.closeToShow}"
+                android:textColor="?attr/textGray"
+                android:textSize="@dimen/_10sdp"
+                tools:text="Closes: 10:00 PM" />
+        
+        
+        </RelativeLayout>
     
-     
+    </LinearLayout>
+    
+    
     <data>
         
         <variable
             name="restaurantModel"
-            type="com.rvtechnologies.grigora.model.models.RestaurantModel" />
+            type="com.rvtechnologies.grigora.model.models.NewDashboardModel.AllRestautants" />
     </data>
 
 </layout>

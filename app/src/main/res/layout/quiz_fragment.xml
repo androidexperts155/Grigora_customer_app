@@ -83,7 +83,7 @@
             android:id="@+id/bt_submit"
             style="@style/titleText"
             android:layout_width="@dimen/_150sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_alignParentBottom="true"
             android:layout_gravity="center_horizontal"
             android:layout_marginStart="@dimen/_24sdp"

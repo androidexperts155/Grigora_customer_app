@@ -8,24 +8,70 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.Observer
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.GroupOrderFragmentBinding
+import com.rvtechnologies.grigora.model.CreateGroupOrderModel
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.GroupOrderViewModel
+import io.branch.indexing.BranchUniversalObject
+import io.branch.referral.Branch
+import io.branch.referral.BranchError
+import io.branch.referral.SharingHelper
+import io.branch.referral.util.ContentMetadata
+import io.branch.referral.util.LinkProperties
+import io.branch.referral.util.ShareSheetStyle
 import kotlinx.android.synthetic.main.group_order_fragment.*
+import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
+import java.util.*
 
-class GroupOrderFragment : Fragment(), IRecyclerItemClick {
+class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItemClick) : Fragment(), IRecyclerItemClick {
 
     private lateinit var groupOrderFragmentBinding: GroupOrderFragmentBinding
-    var selected_amount = ""
-
-    companion object {
-        fun newInstance() = GroupOrderFragment()
-    }
+    var selected_amount = "0"
 
     private lateinit var viewModel: GroupOrderViewModel
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        viewModel = ViewModelProviders.of(this).get(GroupOrderViewModel::class.java)
+
+        viewModel.isLoading.observe(this,
+            Observer { response ->
+                if (response) {
+                    CommonUtils.showLoader(activity!!, getString(R.string.loading))
+                } else {
+                    CommonUtils.hideLoader()
+                }
+            })
+
+
+        viewModel.createGroupOrderRes.observe(this, Observer { res ->
+            if (res is CommonResponseModel<*>) {
+               if (res.status!!) {
+                    var data = res.data as CreateGroupOrderModel
+                    generateLink(data)
+
+
+                }
+            }
+        })
+        viewModel.updateCartLink.observe(this, Observer { res ->
+            if (res is CommonResponseModel<*>) {
+                if (res.status!!) {
+                    var data = res.data as CreateGroupOrderModel
+                    iRecyclerItemClick.onItemClick(data.id.toString())
+                 }
+            }
+        })
+
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,10 +89,6 @@ class GroupOrderFragment : Fragment(), IRecyclerItemClick {
 
     }
 
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(GroupOrderViewModel::class.java)
-    }
 
     fun none() {
         selected_amount = ""
@@ -214,6 +256,93 @@ class GroupOrderFragment : Fragment(), IRecyclerItemClick {
 
         var otherAmount = OtherAmount(this)
         otherAmount.show(this.childFragmentManager, "")
+    }
+
+    fun startOrder() {
+        viewModel.createGroupOrder(
+            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+            selected_amount,
+            args?.get(AppConstants.RESTAURANT_ID).toString()
+        )
+    }
+
+    private fun generateLink(data: CreateGroupOrderModel) {
+        val buo = BranchUniversalObject()
+            .setCanonicalIdentifier("content/12345")
+            .setTitle("Grigoa Group Order")
+            .setContentDescription(
+                "You are invited from ${CommonUtils.getPrefValue(
+                    context!!,
+                    PrefConstants.NAME
+                )} to order from this ${data.restaurant_name}"
+            )
+            .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
+            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+            .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
+            .setContentMetadata(
+                ContentMetadata().addCustomMetadata(AppConstants.CART_ID, data.id.toString())
+            )
+
+        val lp = LinkProperties()
+            .setChannel("facebook")
+            .setFeature("sharing")
+            .setCampaign("content 123 launch")
+            .setStage("new user")
+            .addControlParameter("custom_random", Calendar.getInstance().timeInMillis.toString())
+
+        buo.generateShortUrl(
+            context!!, lp
+        ) { url, error ->
+            if (error == null) {
+                 viewModel.  saveCartLink(
+                   token =  CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    link = url, cartId =  data.id.toString()
+                )
+            }
+        }
+
+//        val ss =
+//            ShareSheetStyle(activity as MainActivity, "Check this out!", "This stuff is awesome: ")
+//                .setCopyUrlStyle(
+//                    ContextCompat.getDrawable(
+//                        context!!,
+//                        android.R.drawable.ic_menu_send
+//                    ), "Copy", "Added to clipboard"
+//                )
+//                .setMoreOptionStyle(
+//                    ContextCompat.getDrawable(
+//                        context!!,
+//                        android.R.drawable.ic_menu_search
+//                    ), "Show more"
+//                )
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.FLICKR)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.PINTEREST)
+//                .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
+//                .setAsFullWidthStyle(true)
+//                .setSharingTitle("Share With")
+//
+//        buo.showShareSheet(
+//            activity as MainActivity,
+//            lp,
+//            ss,
+//            object : Branch.BranchLinkShareListener {
+//                override fun onShareLinkDialogLaunched() {}
+//                override fun onShareLinkDialogDismissed() {}
+//                override fun onLinkShareResponse(
+//                    sharedLink: String?,
+//                    sharedChannel: String?,
+//                    error: BranchError?
+//                ) {
+//                }
+//
+//                override fun onChannelSelected(channelName: String) {}
+//            })
     }
 
     override fun onItemClick(item: Any) {

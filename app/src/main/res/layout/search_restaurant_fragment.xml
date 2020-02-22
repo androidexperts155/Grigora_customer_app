@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:id="@+id/parentView"
+        android:orientation="vertical">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
+        
+        <EditText
+            android:id="@+id/ed_search"
+            style="@style/mediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="?attr/viewbg"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/_6sdp"
+            android:hint="@string/search_here"
+            android:padding="@dimen/_12sdp"
+            android:textColor="?attr/textWhite"
+            android:textColorHint="?attr/searchHint"
+            android:textSize="@dimen/_12sdp" />
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            
+            <TextView
+                android:id="@+id/tv_all"
+                style="@style/mediumText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:background="@drawable/chip_selected_bg"
+                android:clickable="true"
+                android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
+                android:onClick="@{()->searchRestaurantView.all()}"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/all"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_11sdp" />
+            
+            <TextView
+                android:id="@+id/tv_restaurants"
+                style="@style/mediumText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:background="@drawable/chip_deselected_bg"
+                android:clickable="true"
+                android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
+                android:onClick="@{()->searchRestaurantView.restaurants()}"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/restaurants"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_11sdp" />
+            
+            <TextView
+                android:id="@+id/tv_cuisines"
+                style="@style/mediumText"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_4sdp"
+                android:layout_weight="1"
+                android:background="@drawable/chip_deselected_bg"
+                android:clickable="true"
+                android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
+                android:onClick="@{()->searchRestaurantView.cuisines()}"
+                android:padding="@dimen/_6sdp"
+                android:text="@string/cuisines"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_11sdp" />
+        
+        </LinearLayout>
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rec_search"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_8sdp"
+            android:orientation="vertical"
+            android:overScrollMode="never"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_rest_search" />
+    
+    </LinearLayout>
+    
+    <data>
+        
+        <variable
+            name="searchRestaurantView"
+            type="com.rvtechnologies.grigora.view.ui.search.SearchRestaurantFragment" />
+        
+        <variable
+            name="searchRestaurantViewModel"
+            type="com.rvtechnologies.grigora.view_model.SearchRestaurantViewModel" />
+    
+    </data>
+
+</layout>

@@ -16,7 +16,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
-    
+        
         <action
             android:id="@+id/action_navigationMyAccounts_to_socialLogin"
             app:destination="@id/socialLoginFragment"
@@ -24,7 +24,6 @@
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="false"
             app:popUpToInclusive="true" />
-        
         
         
         <action
@@ -112,9 +111,9 @@
             android:id="@+id/action_navigationCart_to_orderDetailsFragment"
             app:destination="@id/orderDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
-            app:popUpTo="@id/nav_graph.xml"
-             app:exitAnim="@anim/slide_out_left" />
+            app:popUpTo="@id/nav_graph.xml" />
         <action
             android:id="@+id/action_navigationCart_to_offerFragment"
             app:destination="@id/offerFragment"
@@ -179,7 +178,9 @@
             android:id="@+id/action_chooseLanguageFragment_to_socialLoginfragment"
             app:destination="@id/socialLoginFragment"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left" />
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     
     </fragment>
     <fragment
@@ -236,8 +237,8 @@
         android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantsListFragment"
         android:label="RestaurantsListFragment">
         <action
-            android:id="@+id/action_restaurantsListFragment_to_restaurantDetailsFragment"
-            app:destination="@id/restaurantDetailsFragment"
+            android:id="@+id/action_restaurantsListFragment_to_restaurantDetailsParentFragment"
+            app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     </fragment>
@@ -553,6 +554,12 @@
             app:destination="@id/navigationCart"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_dashBoardFragment_fragment_to_searchRestaurant"
+            app:destination="@id/searchRestaurants"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
     <fragment
@@ -592,6 +599,14 @@
             app:destination="@id/menuItemDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_restaurantDetailParent_to_self"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
     
     </fragment>
     <fragment
@@ -622,13 +637,28 @@
     <fragment
         android:id="@+id/pickupRestaurants"
         android:name="com.rvtechnologies.grigora.view.ui.pickup_restaurants.PickupRestaurants"
-        android:label="Pick up Restaurants" >
+        android:label="Pick up Restaurants">
         <action
             android:id="@+id/action_pickupRestaurants_to_rest_parent"
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
-            app:exitAnim="@anim/slide_out_left"
-             />
-        
+            app:exitAnim="@anim/slide_out_left" />
+    
     </fragment>
+    
+    
+    <fragment
+        android:id="@+id/searchRestaurants"
+        android:name="com.rvtechnologies.grigora.view.ui.search.SearchRestaurantFragment"
+        android:label="Search Restaurants">
+        
+        <action
+            android:id="@+id/searchRestaurants_to_restaurant_detail"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+
+
 </navigation>

@@ -525,14 +525,13 @@ Cuisine repo
     }
 
     fun getPopularRestaurants(
-        id: String,
+        token: String,
         lat: String,
         lng: String,
 
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-//        ApiClient.getClient().getPopularRestaurants(token, id,lat, lng)
-        ApiClient.getClient().getPopularRestaurants(id = id, lat = lat, lng = lng)
+        ApiClient.getClient().getPopularRestaurants(token = token, lat = lat, lng = lng)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -550,6 +549,41 @@ Cuisine repo
                 }
             })
     }
+
+
+    fun searchRestaurants(
+        token: String,
+        latitude: String,
+        longitude: String,
+        search: String,
+        filter_id: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().searchRestaurants(
+            token = token,
+            latitude = latitude,
+            longitude = longitude,
+            search = search,
+            filter_id = filter_id
+        )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
 
     fun getRestaurantsByCuisine(
         token: String,
@@ -1389,6 +1423,100 @@ Cuisine repo
     ) {
         ApiClient.getClient()
             .getNotifications(token = token)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun changeDeliveryToPickup(
+        token: String,
+        order_id: String,
+        status: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .changeDeliveryToPickup(token = token, order_id = order_id, status = status)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun createGroupOrder(
+        token: String,
+        restaurant_id: String,
+        max_per_person: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .createGroupOrder(
+                token = token,
+                restaurant_id = restaurant_id,
+                max_per_person = max_per_person
+
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun saveCartLink(
+        token: String,
+        cart_id: String,
+        share_link: String,
+
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .saveCartLink(
+                token = token,
+                cart_id = cart_id,
+                share_link = share_link
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,

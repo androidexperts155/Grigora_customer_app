@@ -1,0 +1,202 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:elevation="@dimen/_1sdp"
+        android:orientation="vertical"
+        app:cardBackgroundColor="?attr/chipDeSelected">
+        
+        <LinearLayout
+            android:padding="@dimen/_6sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal"
+            android:weightSum="3">
+            
+            <com.github.siyamed.shapeimageview.RoundedImageView
+                android:id="@+id/img"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/_80sdp"
+                android:layout_weight="0.8"
+                
+                android:scaleType="centerCrop"
+                android:src="@drawable/restaurant"
+                app:siRadius="@dimen/_8sdp" />
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_weight="1.4"
+                
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+                
+                <TextView
+                    android:id="@+id/tv_name"
+                    
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:maxLines="1"
+                    android:text="@{restaurantModel.name}"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Restaurant Name" />
+                
+                <TextView
+                    android:id="@+id/tv_address"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    
+                    android:ellipsize="end"
+                    android:maxLines="2"
+                    android:text="@{restaurantModel.address}"
+                    android:textColor="?attr/textGray"
+                    android:textSize="@dimen/_11sdp"
+                    tools:text="Restaurant Address" />
+                
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        android:tint="@color/colorPrimaryDark"
+                        app:srcCompat="@drawable/ic_star_24dp" />
+                    
+                    <TextView
+                        style="@style/normalText"
+                        
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:text="@{String.valueOf(restaurantModel.averageRating)}"
+                        android:textColor="?attr/textGray"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="4.3" />
+                    
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        
+                        android:text="@{String.valueOf(restaurantModel.reviews)}"
+                        android:textColor="?attr/textGray"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="(500 Reviews)" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+                    
+                    <ImageView
+                        android:layout_width="@dimen/_12sdp"
+                        android:layout_height="@dimen/_12sdp"
+                        app:srcCompat="@drawable/ic_pin" />
+                    
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_4sdp"
+                        android:text="@{restaurantModel.distance}"
+                        
+                        android:textColor="?attr/textGray"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="1.2 KM" />
+                </LinearLayout>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.8"
+                android:orientation="vertical">
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    
+                    <ImageView
+                        android:id="@+id/img_1"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/restaurant" />
+                    
+                    <ImageView
+                        android:id="@+id/img_2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/restaurant" />
+                
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_40sdp"
+                    android:orientation="horizontal"
+                    android:weightSum="2">
+                    
+                    <ImageView
+                        android:id="@+id/img_3"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:scaleType="centerCrop"
+                        android:src="@drawable/restaurant" />
+                    
+                    <RelativeLayout
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1">
+                        
+                        <ImageView
+                            android:id="@+id/img_4"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            
+                            android:scaleType="centerCrop"
+                            android:src="@drawable/restaurant" />
+                    
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    
+    </androidx.cardview.widget.CardView>
+    
+    <data>
+        
+        <variable
+            name="restaurantModel"
+            type="com.rvtechnologies.grigora.model.models.NewDashboardModel.AllRestautants" />
+    </data>
+
+
+</layout>

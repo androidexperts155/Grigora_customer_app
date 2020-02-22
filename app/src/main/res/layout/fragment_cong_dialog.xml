@@ -34,8 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_centerHorizontal="true"
+            android:layout_marginTop="@dimen/_4sdp"
             android:text="@string/donotforgettorate"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_10sdp" />
@@ -56,7 +56,7 @@
             
             style="@style/titleText"
             android:layout_width="@dimen/_120sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:layout_below="@id/tv_rate"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center_horizontal"

@@ -42,6 +42,8 @@ data class RestaurantModel(
 
     var nameToShow: String?,
     var addressToShow: String?,
+    var reviewToShow: String?,
+    var closeToShow: String?,
 
     @SerializedName("id")
     var id: String?,

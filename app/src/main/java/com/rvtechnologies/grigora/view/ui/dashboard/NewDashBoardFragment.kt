@@ -152,6 +152,13 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         map["user_id"] = CommonUtils.getPrefValue(context!!, PrefConstants.ID)
 
         viewModel.getDashboardData(map)
+
+        li_search.setOnClickListener {
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_dashBoardFragment_fragment_to_searchRestaurant
+                )
+        }
     }
 
     override fun onResume() {

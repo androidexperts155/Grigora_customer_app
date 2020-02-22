@@ -36,6 +36,7 @@
             android:visibility="visible">
             
             <LinearLayout
+                android:id="@+id/li_search"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/grey_border_with_ripple"

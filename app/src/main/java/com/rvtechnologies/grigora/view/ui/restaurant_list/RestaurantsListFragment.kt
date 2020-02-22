@@ -1,18 +1,12 @@
 package com.rvtechnologies.grigora.view.ui.restaurant_list
 
 
-import android.content.Context
-import android.os.Build
 import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import android.view.Gravity
+
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
-import android.widget.*
-import androidx.appcompat.widget.ListPopupWindow
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
@@ -21,98 +15,28 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentRestaurantsListBinding
+import com.rvtechnologies.grigora.model.PickupRestaurantsModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.model.models.RestaurantModel
-import com.rvtechnologies.grigora.utils.AppConstants
-import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.OnItemClickListener
-import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantAdapter
 import com.rvtechnologies.grigora.view_model.RestaurantsListFragmentViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_restaurants_list.*
 
-class RestaurantsListFragment : Fragment(), OnItemClickListener {
-    override fun onItemClick(item: Any) {
-        if (item is RestaurantModel) {
-            val bundle = bundleOf(AppConstants.RESTAURANT_MODEL to item)
-            view?.findNavController()
-                ?.navigate(R.id.action_restaurantsListFragment_to_restaurantDetailsFragment, bundle)
-        }
-    }
+class RestaurantsListFragment : Fragment(), IRecyclerItemClick {
 
-    fun filterClicked() {
-        val layoutInflater =
-            context!!.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
-        val popupView: View
-        if (layoutInflater == null) {
-            return
-        }
-        popupView = layoutInflater.inflate(R.layout.dialog_filter, null)
-        val popupWindow = PopupWindow(context)
-        popupWindow.contentView = popupView
-        popupWindow.width = CommonUtils.dip2pixel(context!!, 200f)
-        popupWindow.height = ListPopupWindow.WRAP_CONTENT
-        popupWindow.setBackgroundDrawable(context!!.resources.getDrawable(android.R.color.transparent))
-        popupWindow.isOutsideTouchable = true
-        popupWindow.isFocusable = true
-
-        popupWindow.setOnDismissListener { view_overlay.visibility = View.GONE }
-
-        when {
-            viewModel?.sort?.value.equals("1") -> {
-                popupView.findViewById<RadioButton>(R.id.rd_nearby).visibility = VISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_ratings).visibility = INVISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_all).visibility = INVISIBLE
-            }
-            viewModel?.sort?.value.equals("2") -> {
-                popupView.findViewById<RadioButton>(R.id.rd_nearby).visibility = INVISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_ratings).visibility = VISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_all).visibility = INVISIBLE
-            }
-            viewModel?.sort?.value.equals("3") -> {
-                popupView.findViewById<RadioButton>(R.id.rd_nearby).visibility = INVISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_ratings).visibility = INVISIBLE
-                popupView.findViewById<RadioButton>(R.id.rd_all).visibility = VISIBLE
-            }
-        }
-        popupView.findViewById<RelativeLayout>(R.id.rel_nearby).setOnClickListener {
-            sort("1")
-            popupWindow.dismiss()
-        }
-
-        popupView.findViewById<RelativeLayout>(R.id.rel_ratings).setOnClickListener {
-            sort("2")
-            popupWindow.dismiss()
-        }
-        popupView.findViewById<RelativeLayout>(R.id.rel_all).setOnClickListener {
-            sort("3")
-            popupWindow.dismiss()
-        }
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            popupWindow.showAsDropDown(
-                img_filter,
-                img_filter.getRight() - popupWindow.width - img_filter.getWidth() / 2,
-                0,
-                Gravity.CENTER or Gravity.TOP
-            )
-        } else {
-            popupWindow.showAsDropDown(
-                img_filter,
-                img_filter.getRight() - popupWindow.width - img_filter.getWidth() / 2,
-                0
-            )
-        }
-
-        view_overlay.visibility = VISIBLE
+    companion object {
+        @JvmStatic
+        fun newInstance() =
+            RestaurantsListFragment()
     }
 
     private var viewModel: RestaurantsListFragmentViewModel? = null
-    private val restaurantList = ArrayList<RestaurantModel>()
+    private val restaurantList = ArrayList<NewDashboardModel.AllRestautants>()
     private var fragmentRestaurantsListBinding: FragmentRestaurantsListBinding? = null
-    private var searchText: String = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -125,12 +49,18 @@ class RestaurantsListFragment : Fragment(), OnItemClickListener {
         viewModel?.restaurantListRes?.observe(this,
             Observer { response ->
                 restaurantList.clear()
+
                 if (response is CommonResponseModel<*>) {
+
                     if (response.status!!) {
-                        restaurantList.addAll(response.data as Collection<RestaurantModel>)
+                        var model =
+                            response.data as PickupRestaurantsModel
+
+                        restaurantList.addAll(model.mainInfo)
+                        tv_count.text="${restaurantList.size} ${getString(R.string.places)}"
+                        rc_addresses.adapter= RestaurantAdapter(restaurantList,this)
                         rc_addresses.adapter?.notifyDataSetChanged()
-                        noRestaurant.visibility = if (restaurantList.isEmpty()) VISIBLE else GONE
-                    }
+                     }
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
@@ -143,9 +73,6 @@ class RestaurantsListFragment : Fragment(), OnItemClickListener {
                     CommonUtils.hideLoader()
                 }
             })
-
-        viewModel?.getRestaurants("", "0");
-
 
     }
 
@@ -162,70 +89,37 @@ class RestaurantsListFragment : Fragment(), OnItemClickListener {
         return fragmentRestaurantsListBinding?.root
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-        rc_addresses.adapter = RestaurantAdapter(restaurantList, this)
-
-        rc_addresses.isNestedScrollingEnabled = false
-
-        etSearch.addTextChangedListener(object : TextWatcher {
-            override fun afterTextChanged(text: Editable?) {
-                if (text?.isNotBlank()!!)
-                    searchText = text.toString()
-                if (CommonUtils.getPrefValue(activity, PrefConstants.ID).isNullOrEmpty()) {
-                    viewModel?.getRestaurants(searchText, "0")
-                } else {
-                    viewModel?.getRestaurants(
-                        searchText,
-                        CommonUtils.getPrefValue(activity, PrefConstants.ID)
-                    )
-                }
-            }
-
-            override fun beforeTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-            override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-            }
-
-        })
-
-        img_filter.setOnClickListener {
-            filterClicked()
-        }
-    }
-
-
-    fun sort(id: String) {
-        viewModel?.sort?.value = id
-
-        fragmentRestaurantsListBinding?.restaurantListViewModel = viewModel
-        if (CommonUtils.getPrefValue(activity, PrefConstants.ID).isNullOrEmpty()) {
-            viewModel?.getRestaurants(searchText, "0")
-        } else {
-            viewModel?.getRestaurants(
-                searchText,
-                CommonUtils.getPrefValue(activity, PrefConstants.ID)
-            )
-
-        }
-    }
 
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
+            (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).backTitle(getString(R.string.popular))
+            (activity as MainActivity).showBottomNavigation(2)
             (activity as MainActivity).img_back.visibility = View.GONE
-            (activity as MainActivity).lockDrawer(false)
+        }
+        viewModel?.getRestaurants(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
+
+    }
+
+    override fun onItemClick(item: Any) {
+        if (item is NewDashboardModel.AllRestautants) {
+            val bundle = bundleOf(
+                AppConstants.RESTAURANT_ID to item.id,
+                AppConstants.RESTAURANT_PICKUP to item.pickup,
+                AppConstants.RESTAURANT_BOOKING to item.table_booking,
+                AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                AppConstants.RESTAURANT_CLOSING_TIME to item.closingTime,
+                AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
+                AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime,
+                AppConstants.FROM_PICKUP to false
+
+            )
+
+            view?.findNavController()
+                ?.navigate(R.id.action_restaurantsListFragment_to_restaurantDetailsParentFragment, bundle)
         }
     }
 
-
-    companion object {
-        @JvmStatic
-        fun newInstance() =
-            RestaurantsListFragment()
-    }
 }

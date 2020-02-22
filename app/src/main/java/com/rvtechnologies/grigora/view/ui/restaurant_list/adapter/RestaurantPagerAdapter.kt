@@ -16,27 +16,34 @@ class RestaurantPagerAdapter(
     var activity: Activity,
     var arguments: Bundle?, val iRecyclerItemClick: IRecyclerItemClick
 ) : FragmentStatePagerAdapter(fragmentManager) {
+
     override fun getItem(position: Int): Fragment {
 
         if (count == 3) {
             return if (position == 0) {
                 RestaurantDetailsFragment(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                    arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
                     iRecyclerItemClick
                 )
             } else if (position == 1) {
                 TableBookingFragment(arguments)
             } else {
-                GroupOrderFragment()
+                GroupOrderFragment(
+                    arguments, iRecyclerItemClick
+                )
             }
         } else {
             return if (position == 0) {
                 RestaurantDetailsFragment(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                    arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
                     iRecyclerItemClick
                 )
             } else {
-                GroupOrderFragment()
+                GroupOrderFragment(
+                    arguments, iRecyclerItemClick
+                )
             }
 
         }
@@ -45,6 +52,7 @@ class RestaurantPagerAdapter(
         return if (position == 0) {
             RestaurantDetailsFragment(
                 arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
                 iRecyclerItemClick
             )
         } else {
@@ -59,6 +67,4 @@ class RestaurantPagerAdapter(
         } else
             3
     }
-
-
 }

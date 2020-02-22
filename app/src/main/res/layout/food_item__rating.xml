@@ -46,7 +46,7 @@
         <Button
             android:id="@+id/button"
             android:layout_width="@dimen/_200sdp"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/_35sdp"
             android:text="Rate now"
             android:layout_marginTop="10dp"
             android:layout_gravity="center_horizontal"

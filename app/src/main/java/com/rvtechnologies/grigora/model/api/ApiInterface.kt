@@ -112,10 +112,20 @@ interface ApiInterface {
     @FormUrlEncoded
     @POST(ApiConstants.GET_POPULAR_RESTAURANT_URL)
     fun getPopularRestaurants(
-//        @Header("Authorization") token: String,
-        @Field("user_id") id: String,
+        @Header("Authorization") token: String,
         @Field("lat") lat: String,
         @Field("long") lng: String
+
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SEARCH_RESTAURANTS)
+    fun searchRestaurants(
+        @Header("Authorization") token: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("search") search: String,
+        @Field("filter_id") filter_id: String
 
     ): Call<JsonElement>
 
@@ -247,8 +257,6 @@ interface ApiInterface {
     fun getProfileData(
         @Header("Authorization") token: String
     ): Call<JsonElement>
-
-
 
 
     @FormUrlEncoded
@@ -439,4 +447,31 @@ interface ApiInterface {
     fun getNotifications(
         @Header("Authorization") token: String
     ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_DELIVERY_TO_PICKUP)
+    fun changeDeliveryToPickup(
+        @Header("Authorization") token: String,
+        @Field("order_id") order_id: String,
+        @Field("status") status: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CREATE_GROUP_CART)
+    fun createGroupOrder(
+        @Header("Authorization") token: String,
+
+        @Field("max_per_person") max_per_person: String,
+        @Field("restaurant_id") restaurant_id: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SAVE_CART_LINK)
+    fun saveCartLink(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String,
+        @Field("share_link") share_link: String
+    ): Call<JsonElement>
+
 }

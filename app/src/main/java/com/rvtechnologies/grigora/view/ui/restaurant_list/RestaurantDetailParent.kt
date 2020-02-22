@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
 import com.google.android.material.tabs.TabLayout
 
@@ -33,10 +34,14 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
         if ((arguments?.containsKey(AppConstants.FROM_PICKUP)!!) && arguments?.get(AppConstants.FROM_PICKUP) as Boolean) {
             tab_top.visibility = View.GONE
         } else {
-
             if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
                 tab_top.removeTabAt(1)
             }
+        }
+
+
+        if((arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!)){
+            tab_top.visibility = View.GONE
         }
 
         img_back.setOnClickListener {
@@ -104,6 +109,15 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                 ?.navigate(
                     R.id.action_restaurantDetailParent_to_menuItemDetailsFragment,
                     item
+                )
+        } else if (item is String) {
+            var arg = arguments
+            arg?.putBoolean(AppConstants.IS_FOR_GROUP_ORDER, true)
+            arg?.putString(AppConstants.CART_ID, item)
+
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_restaurantDetailParent_to_self, arg
                 )
         }
     }

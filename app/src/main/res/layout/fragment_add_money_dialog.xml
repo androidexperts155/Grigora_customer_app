@@ -62,7 +62,7 @@
     <Button
         android:id="@+id/bt_op1"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginTop="16dp"
         android:background="@color/btn_primary"
         
@@ -76,7 +76,7 @@
     <Button
         android:id="@+id/bt_op3"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         
         android:background="@color/btn_primary"
         android:text="@string/op3"
@@ -89,7 +89,7 @@
     <Button
         android:id="@+id/bt_op2"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:background="@color/btn_primary"
         
         android:text="@string/op2"
@@ -105,7 +105,7 @@
     <Button
         android:id="@+id/bt_pay"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="16dp"
         android:layout_marginEnd="16dp"
@@ -121,7 +121,7 @@
     <Button
         android:id="@+id/bt_cancel"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="@dimen/_35sdp"
         
         android:background="@android:color/transparent"
         android:text="@string/places_cancel"

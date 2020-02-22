@@ -48,9 +48,8 @@
                 <action android:name="android.intent.action.VIEW" />
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
-                <data android:scheme="https" android:host="d6y23.app.link" />
-                <!-- example-alternate domain is required for App Links when the Journeys/Web SDK and Deepviews are used inside your website.  -->
-                <data android:scheme="https" android:host="d6y23-alternate.app.link" />
+                <data android:scheme="https" android:host="d6y23.test-app.link" android:pathPrefix="/d6y23" />
+                 <data android:scheme="https" android:host="d6y23-alternate.test-app.link" />
             </intent-filter>
             <nav-graph android:value="@navigation/nav_graph" />
         
@@ -124,8 +123,8 @@
     
         <!-- Branch init -->
         <meta-data android:name="io.branch.sdk.BranchKey" android:value="key_live_peLRF1zGyYDG24Ooz2p2lnhkFwdNOAgd" />
-        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="secret_live_8W4qnI0qebMG2bOlIs147Q25G5B2SxCj" />
-        <meta-data android:name="io.branch.sdk.TestMode" android:value="false" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
+        <meta-data android:name="io.branch.sdk.BranchKey.test" android:value="key_test_miQNs5wTC9CK4XOeu7Bt6nbetsnMMEmy" />
+        <meta-data android:name="io.branch.sdk.TestMode" android:value="true" />     <!-- Set to true to use Branch_Test_Key (useful when simulating installs and/or switching between debug and production flavors) -->
         
     </application>
     <uses-feature

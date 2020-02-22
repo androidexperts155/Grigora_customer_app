@@ -37,7 +37,7 @@
                     <Button
                         android:id="@+id/button4"
                         android:layout_width="0dp"
-                        android:layout_height="wrap_content"
+                        android:layout_height="@dimen/_35sdp"
                         android:background="@drawable/btn_primary_back"
                          android:text="@string/submit"
                         android:textColor="@android:color/white"

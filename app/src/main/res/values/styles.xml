@@ -60,7 +60,7 @@
         <item name="answer_selected">@color/white</item>
         <item name="answer_de_selected">@color/viewbg_light</item>
     
-    
+        <item name="light_bg">#f8f8f8</item>
     </style>
     
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
@@ -97,6 +97,7 @@
     
         <item name="answer_selected">@color/background_dark_light</item>
         <item name="answer_de_selected">@color/background_dark_light</item>
+        <item name="light_bg">@color/background_dark_light</item>
 
     </style>
     

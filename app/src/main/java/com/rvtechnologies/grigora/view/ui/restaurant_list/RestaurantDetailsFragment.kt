@@ -37,6 +37,7 @@ import kotlin.collections.ArrayList
 
 class RestaurantDetailsFragment(
     var restaurantId: String,
+    var isFromGroupCreate:Boolean,
     val iRecyclerItemClick: IRecyclerItemClick
 ) : Fragment(), OnItemClickListener,
     QuantityClicks,
@@ -61,7 +62,7 @@ class RestaurantDetailsFragment(
 
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
-            viewModel.restaurantDetail.observe(this, Observer { response ->
+        viewModel.restaurantDetail.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 mealsAndCuisinesList.clear()
                 filteredMealsAndCuisinesList.clear()
@@ -88,7 +89,7 @@ class RestaurantDetailsFragment(
                     }
 
                     if (data.full_time.equals("1")) {
-                        tv_tt.text = "Open 24 hours"
+                        tv_tt.text = getString(R.string.open_24_hours)
                         tv_time.visibility = View.GONE
                     } else
                         tv_time.text = CommonUtils.getFormattedTimeOrDate(
@@ -200,7 +201,6 @@ class RestaurantDetailsFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-
         //      -1 states that it is popular
         rc_popular.adapter = RestaurantItemAdapter(popularList, this, this, -1)
         rc_popular.isNestedScrollingEnabled = false
@@ -215,6 +215,7 @@ class RestaurantDetailsFragment(
         filterVegNonVeg()
         initSearchView()
         manageSwitch()
+
 
 //        if(arguments?.get(AppConstants.FROM_PICKUP) as Boolean){
 //            tv_pickup.callOnClick()

@@ -60,23 +60,23 @@ class DashboardViewModel : ViewModel() {
 
     //    fun getPopularRestaurants(token: String, id: String) {
     fun getPopularRestaurants(id: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
-            .getPopularRestaurants(
-                lat = lat.value.toString().trim(),
-                lng = lng.value.toString().trim(),
-                id = id
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type = object :
-                        TypeToken<CommonResponseModel<ArrayList<RestaurantModel>>>() {}.type
-                    restaurantListRes.value = Gson().fromJson(result as JsonElement, type)
-
-                } else {
-                    restaurantListRes.value = result
-                }
-            }
+//        isLoading.value = true
+//        ApiRepo.getInstance()
+//            .getPopularRestaurants(
+//
+//                lat = lat.value.toString().trim(),
+//                lng = lng.value.toString().trim()
+//            ) { success, result ->
+//                isLoading.value = false
+//                if (success) {
+//                    val type = object :
+//                        TypeToken<CommonResponseModel<ArrayList<RestaurantModel>>>() {}.type
+//                    restaurantListRes.value = Gson().fromJson(result as JsonElement, type)
+//
+//                } else {
+//                    restaurantListRes.value = result
+//                }
+//            }
     }
 
 
@@ -104,24 +104,5 @@ class DashboardViewModel : ViewModel() {
         }
     }
 
-    fun click(isChecked: Int,id:Int,token:String) {
-
-//        ApiRepo.getInstance()
-//            .likeOrUnlike(
-//                token = token,
-//                restaurantId = restaurantId.value.toString(),
-//                status = isChecked.toString()
-//
-//            ) { success, result ->
-//                if (success) {
-////                    val type =
-////                        object : TypeToken<CommonResponseModel<RateOrderModel>>() {}.type
-////                    rateResult.value = Gson().fromJson(result as JsonElement, type)
-//
-//                } else {
-////                    rateResult.value = result
-//                }
-//            }
-    }
 
 }

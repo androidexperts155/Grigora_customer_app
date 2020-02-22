@@ -16,6 +16,7 @@ object ApiConstants {
     const val GET_CUISINE_URL = "get-cuisine"
     const val GET_RESTAURANTS_URL = "restaurant-list"
     const val GET_POPULAR_RESTAURANT_URL = "popular-restaurants"
+    const val SEARCH_RESTAURANTS = "search"
     const val GET_RESTAURANTS_BY_CUISINE_URL = "get-restaurant-by-cuisine"
 
     const val GET_RESTAURANTS_BY_SEARCH_URL = "search"
@@ -66,5 +67,8 @@ object ApiConstants {
     const val QUIZ_QUESTION = "quiz-question"
     const val QUIZ_ANSWER = "check-quiz-answer"
     const val NOTIFICATIONS_LIST = "notification-list"
-    const val PICKUP_RESTAURANTS= "pickup-restaurants"
+    const val PICKUP_RESTAURANTS = "pickup-restaurants"
+    const val CHANGE_DELIVERY_TO_PICKUP = "change-delievry-to-pickup"
+    const val CREATE_GROUP_CART = "create-group-cart"
+    const val SAVE_CART_LINK = "save-cart-link"
 }

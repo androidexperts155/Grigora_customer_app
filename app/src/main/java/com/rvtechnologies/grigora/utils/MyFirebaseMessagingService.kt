@@ -67,7 +67,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         }
     }
 
-
     internal fun showNotificationMessage(remoteMessage: RemoteMessage) {
         try {
             var notificationType =
@@ -194,7 +193,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     }
 
-
     fun showNoti() {
         val notiId = Date().time.toInt()
         var notiChannel = "1"
@@ -244,6 +242,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         } else
             mNotificationManager.notify(notiId, builder.build())
     }
-
-
 }

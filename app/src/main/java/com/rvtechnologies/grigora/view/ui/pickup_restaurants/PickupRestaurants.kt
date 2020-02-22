@@ -273,7 +273,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                     }
                 }
 
-                tv_rating.text = detail.averageRating
+                tv_rating.text = detail.averageRating.toString()
                 tv_delivery_time.text =
                     detail.preparing_time + " " + tv_delivery_time.context.getString(R.string.min)
 

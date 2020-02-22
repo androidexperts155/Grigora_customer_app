@@ -1,6 +1,8 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
+    val IS_FOR_GROUP_ORDER="is_for_group_order"
+    val CART_ID="cart_id"
     var min_kilo_meter=""
     var base_delivery_fee=""
     const val ROLE_CUSTOMER="2"
