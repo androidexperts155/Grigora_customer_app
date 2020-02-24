@@ -43,7 +43,7 @@
             app:exitAnim="@anim/slide_out_left" />
         <action
             android:id="@+id/action_navigationMyAccounts_to_contactFragment"
-            app:destination="@id/contactFragment"
+            app:destination="@id/contactUs"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
         <action
@@ -548,6 +548,12 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_dashBoardFragment_fragment_to_commonViewAll"
+            app:destination="@id/commonViewAll"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         
         <action
             android:id="@+id/action_dashBoardFragment_fragment_to_cart"
@@ -601,8 +607,8 @@
             app:exitAnim="@anim/slide_out_left" />
         
         <action
-            android:id="@+id/action_restaurantDetailParent_to_self"
-            app:destination="@id/restaurantDetailParent"
+            android:id="@+id/action_restaurantDetailParent_to_restaurantDetailGroup"
+            app:destination="@id/restaurantDetailGroup"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
@@ -657,6 +663,49 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+    <fragment
+        android:id="@+id/restaurantDetailGroup"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailGroup"
+        android:label="restaurant Detail">
+        
+        <action
+            android:id="@+id/action_restaurantDetailGroup_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+    
+    <fragment
+        android:id="@+id/contactUs"
+        android:name="com.rvtechnologies.grigora.view.ui.contact_us.ContactUs"
+        android:label="Contact us">
+        <action
+            android:id="@+id/action_contactUs_to_all_faq"
+            app:destination="@id/faqAll"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+    
+    <fragment
+        android:id="@+id/faqAll"
+        android:name="com.rvtechnologies.grigora.view.ui.contact_us.AllFaq"
+        android:label="All Faq">
+    
+    
+    </fragment>
+  <fragment
+        android:id="@+id/commonViewAll"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.CommonViewAll"
+        android:label="View All">
+      <action
+          android:id="@+id/action_commonViewAll_to_restaurantDetailsParentFragment"
+          app:destination="@id/restaurantDetailParent"
+          app:enterAnim="@anim/slide_in_right"
+          app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
 

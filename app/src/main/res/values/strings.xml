@@ -429,6 +429,26 @@
     <string name="restaurants">Restaurants</string>
     <string name="cuisines">Cuisines</string>
     <string name="km">KM</string>
+    <string name="group_order_by">Group Order By</string>
+    <string name="help_al">24x7 Help</string>
+    <string name="choose_help_category">Choose  a category you need help \n from us</string>
+    <string name="issue_order">Issue Related to Order</string>
+    <string name="get_help_order_info">Get help on your previous order from us</string>
+    <string name="gora_pouch">GORA pouch</string>
+    <string name="gora_pouch_info">Funds, points and redeem card in pouch</string>
+    <string name="fraud_issue">Fraud issue</string>
+    <string name="fraud_issue_info">Illegals tranactions, misuse of funds from wallet</string>
+    <string name="others_info">Directly contact with our experts</string>
+    <string name="faq">FAQ\'s</string>
+    <string name="view_all_faq">View all FAQ\'s</string>
+    <string name="live_chat_with_rep">Live Chat with representative</string>
+    <string name="phone">Phone</string>
+    <string name="help_title">Our 24x7, 365 days help for you</string>
+    <string name="your_favourite">Your Favorites</string>
+    <string name="new_in_grigora">New In Grigora</string>
+    <string name="order_again">Order Again</string>
+    <string name="top_cuisine">Top Cusines</string>
+    <string name="near_by">Near You</string>
 
 
-</resources>
+</resources><!--₦-->

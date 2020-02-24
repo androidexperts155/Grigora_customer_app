@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/_16sdp"
+    android:orientation="vertical">
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="match_parent"
+        android:id="@+id/tv_question"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:gravity="start"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp"
+        tools:text="This is Faq Question" />
+    
+    
+    <TextView
+        style="@style/mediumText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:id="@+id/tv_answer"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:gravity="start"
+        android:textColor="?attr/textGray"
+        android:textSize="@dimen/_12sdp"
+        tools:text="This is Faq Answer" />
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:background="?attr/viewbg" />
+</LinearLayout>

@@ -1,6 +1,9 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
+    var FILTER_ID="filter_id"
+    var CUISINE_ID="cuisine_id"
+    var  SHARE_LINK:String="share_link"
     val IS_FOR_GROUP_ORDER="is_for_group_order"
     val CART_ID="cart_id"
     var min_kilo_meter=""

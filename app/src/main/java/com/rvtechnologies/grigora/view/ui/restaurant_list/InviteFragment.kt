@@ -10,40 +10,41 @@ import androidx.fragment.app.DialogFragment
 import androidx.fragment.app.Fragment
 import com.rvtechnologies.grigora.BuildConfig
 import com.rvtechnologies.grigora.R
+
 import kotlinx.android.synthetic.main.fragment_invite.*
 
 
 /**
  * A simple [Fragment] subclass.
  */
-class InviteFragment : DialogFragment() {
-
+class InviteFragment( var link: String) :
+    DialogFragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_invite, container, false)
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
         img_close.setOnClickListener { dismiss() }
 
-        bt_invite.setOnClickListener {
+        bt_invite.setOnClickListener {            dismiss()
+
             val sendIntent = Intent()
             sendIntent.action = Intent.ACTION_SEND
             sendIntent.putExtra(
                 Intent.EXTRA_TEXT,
-                "Hey check out my app at: https://play.google.com/store/apps/details?id=" + BuildConfig.APPLICATION_ID
+                link
             )
             sendIntent.type = "text/plain"
             startActivity(sendIntent)
+
         }
 
-        dismiss()
+
     }
 
 }

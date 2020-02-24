@@ -17,6 +17,7 @@ import android.widget.RelativeLayout
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
@@ -53,9 +54,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     object branchListener : Branch.BranchReferralInitListener {
         override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
             if (error == null) {
-                Log.i("BRANCH SDK", referringParams.toString())
-                // Retrieve deeplink keys from 'referringParams' and evaluate the values to determine where to route the user
-                // Check '+clicked_branch_link' before deciding whether to use your Branch routing logic
+                referringParams?.get(AppConstants.CART_ID).toString()
+                referringParams?.get(AppConstants.RESTAURANT_ID).toString()
+
+
             } else {
                 Log.e("BRANCH SDK", error.message)
             }
@@ -67,26 +69,56 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         super.onNewIntent(intent)
         this.intent = intent
         // Branch reinit (in case Activity is already in foreground when Branch link is clicked)
-        Branch.getInstance().reInitSession(this, branchListener)
+        Branch.getInstance().reInitSession(this, object : Branch.BranchReferralInitListener {
+            override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
+                if (error == null) {
+                    referringParams?.get(AppConstants.CART_ID).toString()
+
+
+                    val bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID).toString(),
+                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID).toString(),
+                        AppConstants.FROM_PICKUP to false
+                    )
+
+
+
+                    Navigation.findNavController(this@MainActivity, R.id.main_nav_fragment)
+                        .navigate(R.id.restaurantDetailGroup, bundle)
+
+                } else {
+                    Log.e("BRANCH SDK", error.message)
+                }
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
         // Branch init
-        Branch.getInstance().initSession(branchListener, this.intent.data, this)
+        Branch.getInstance().initSession(object : Branch.BranchReferralInitListener {
+            override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
+                if (error == null) {
+                    referringParams?.get(AppConstants.CART_ID).toString()
+
+                    val bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID).toString(),
+                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID).toString(),
+                        AppConstants.FROM_PICKUP to false
+                    )
+                    Navigation.findNavController(this@MainActivity, R.id.main_nav_fragment)
+                        .navigate(R.id.restaurantDetailGroup, bundle)
+
+                } else {
+                    Log.e("BRANCH SDK", error.message)
+                }
+            }
+        }, this.intent.data, this)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         printHashKey()
-//        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-//            getWindow().setFlags(
-//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-//                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-//            )
-//        }
-
-
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -154,8 +186,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         img_menu.setOnClickListener {
             closeOrOpenDrawer()
         }
-
-
 
 
     }

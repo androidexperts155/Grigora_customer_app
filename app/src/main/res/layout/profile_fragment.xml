@@ -308,7 +308,7 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/selectable_item_background"
                         android:clickable="true"
-                        
+                        android:onClick="@{()->profileFragment.toContactUs()}"
                         android:gravity="center_vertical"
                         android:orientation="horizontal"
                         android:paddingTop="@dimen/_20sdp"

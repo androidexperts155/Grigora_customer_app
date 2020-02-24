@@ -16,6 +16,7 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.FilteredPrice
 import com.rvtechnologies.grigora.model.PriceFilterModel
 import com.rvtechnologies.grigora.model.SelectedRating
+import com.rvtechnologies.grigora.model.ViewMore
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.AppConstants
@@ -180,17 +181,18 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
-        if (item is NewDashboardModel.Filter) {
+        if (item is ViewMore) {
+            val bundle = bundleOf(
+                AppConstants.FILTER_ID to item.data.toString()
+            )
+
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_dashBoardFragment_fragment_to_commonViewAll, bundle
+                )
+        } else if (item is NewDashboardModel.Filter) {
             if (item.selectionType == "1") {
-//                if(item.arrowClicked){
-//                    var ratingDialog = RatingBarDialog(this, 0F, item)
-//                    ratingDialog.show(this.childFragmentManager, "")
-//                }
-//                else
-//                {
-//                    var ratingDialog = RatingBarDialog(this, 0F, item)
-//                    ratingDialog.show(this.childFragmentManager, "")
-//                }
+
             } else if (item.selectionType == "2") {
                 var list = ArrayList<PriceFilterModel>()
                 if (item.multiSelected == null)
@@ -219,13 +221,16 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             }
         } else if (item is NewDashboardModel.Promo) {
 
-        } else if (item is NewDashboardModel.Cuisine) {
+        }
+        else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
                 applyCuisineFilter("cuisine_id", item.id.toString())
             else
                 applyCuisineFilter("cuisine_id", "0")
 
-        } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+        }
+
+        else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 
             when (item.uiTpe) {
                 "1" -> {
@@ -248,14 +253,36 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
                 }
                 "2" -> {
-                    //                    TOP BRAND
+                    //                    CUISINE
+                    val bundle = bundleOf(
+                        AppConstants.FILTER_ID to "121",AppConstants.CUISINE_ID to item.id.toString()
+                    )
+
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_dashBoardFragment_fragment_to_commonViewAll, bundle
+                        )
 
 
                 }
                 "3" -> {
-                    //                    CUISINE
+                    //                    TOP BRAND
 
+                    val bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to item.id,
+                        AppConstants.RESTAURANT_PICKUP to item.pickup,
+                        AppConstants.RESTAURANT_BOOKING to item.table_booking,
+                        AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                        AppConstants.RESTAURANT_CLOSING_TIME to item.closingTime,
+                        AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
+                        AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime
 
+                    )
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
+                            bundle
+                        )
                 }
             }
 
@@ -266,7 +293,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                CUISINES
 //            else
 //                TOP_BRANDS
-        } else if (item is NewDashboardModel.AllRestautants) {
+        }
+        else if (item is NewDashboardModel.AllRestautants) {
             val bundle = bundleOf(
                 AppConstants.RESTAURANT_ID to item.id,
                 AppConstants.RESTAURANT_PICKUP to item.pickup,
@@ -281,7 +309,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
                     bundle
                 )
-        } else if (item is SelectedRating) {
+        }
+        else if (item is SelectedRating) {
             if (item.applyRating) {
                 if (item.oldRating != item.newRating) {
 //                    if (!item.filter.selected)
@@ -290,7 +319,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                        applyFilter("filter_id", "0")
                 }
             }
-        } else if (item is FilteredPrice) {
+        }
+        else if (item is FilteredPrice) {
             if (item.list.size > 0) {
 
                 var name = ""

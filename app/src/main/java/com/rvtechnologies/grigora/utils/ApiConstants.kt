@@ -31,6 +31,7 @@ object ApiConstants {
     const val PROFILE_DETAILS_URL = "get-userinfo"
 
     const val ADD_ITEM_URL = "add-cart"
+    const val ADD_GROUP_ITEM_CART= "add-in-group-cart"
     const val CHANGE_ORDER_TYPE = "change-ordertype"
     const val UPDATE_CART_QTY = "update-cart-item-quantity"
     const val REMOVE_CART_URL = "remove-cart"
@@ -71,4 +72,7 @@ object ApiConstants {
     const val CHANGE_DELIVERY_TO_PICKUP = "change-delievry-to-pickup"
     const val CREATE_GROUP_CART = "create-group-cart"
     const val SAVE_CART_LINK = "save-cart-link"
+    const val ADD_IN_GROUP_CART = "add-in-group-cart"
+    const val SHOW_ALL_FILTER_DATA = "show-all-filter-data"
+    const val FAQ = "faqs"
 }

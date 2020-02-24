@@ -130,10 +130,14 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
-    @GET(ApiConstants.GET_RESTAURANTS_BY_CUISINE_URL + "/{id}")
+
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_RESTAURANTS_BY_CUISINE_URL)
     fun getRestaurantsByCuisine(
         @Header("Authorization") token: String,
-        @Path("id") id: String
+        @Field("id") id: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String
     ): Call<JsonElement>
 
 
@@ -154,6 +158,15 @@ interface ApiInterface {
         @Field("price_range") price_range: String
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
+    fun getRestaurantDetailsCart(
+        @Header("Authorization") token: String,
+        @Field("restaurant_id") restaurant_id: String,
+        @Field("price_range") price_range: String,
+        @Field("cart_id") cart_id: String
+    ): Call<JsonElement>
+
     @GET(ApiConstants.REMOVE_CART_URL)
     fun removeCart(
         @Header("Authorization") token: String
@@ -170,6 +183,18 @@ interface ApiInterface {
     @POST(ApiConstants.ADD_ITEM_URL)
     fun addItemToCart(
         @Header("Authorization") token: String,
+        @Field("restaurant_id") restaurantId: String,
+        @Field("item_id") itemId: String,
+        @Field("quantity") quantity: String,
+        @Field("price") price: String,
+        @Field("item_choices") item_choices: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.ADD_IN_GROUP_CART)
+    fun addItemToGroupCart(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cartId: String,
         @Field("restaurant_id") restaurantId: String,
         @Field("item_id") itemId: String,
         @Field("quantity") quantity: String,
@@ -473,5 +498,29 @@ interface ApiInterface {
         @Field("cart_id") cart_id: String,
         @Field("share_link") share_link: String
     ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.ADD_IN_GROUP_CART)
+    fun addInGroupCart(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String,
+        @Field("share_link") share_link: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SHOW_ALL_FILTER_DATA)
+    fun showFilterData(
+        @Header("Authorization") token: String,
+        @Field("filter_type") filter_type: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String
+    ): Call<JsonElement>
+
+
+    @GET(ApiConstants.FAQ)
+    fun getFaq(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
 
 }

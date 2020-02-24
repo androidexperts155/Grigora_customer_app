@@ -30,18 +30,20 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-        if ((arguments?.containsKey(AppConstants.FROM_PICKUP)!!) && arguments?.get(AppConstants.FROM_PICKUP) as Boolean) {
+        if ((arguments?.containsKey(AppConstants.CART_ID)!!)) {
+            tab_top.visibility = View.GONE
+        }
+        if ((arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!)) {
+            tab_top.visibility = View.GONE
+        } else if ((arguments?.containsKey(AppConstants.FROM_PICKUP)!!) && arguments?.get(
+                AppConstants.FROM_PICKUP
+            ) as Boolean
+        ) {
             tab_top.visibility = View.GONE
         } else {
             if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
                 tab_top.removeTabAt(1)
             }
-        }
-
-
-        if((arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!)){
-            tab_top.visibility = View.GONE
         }
 
         img_back.setOnClickListener {
@@ -96,6 +98,12 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
             }
         })
 
+
+        var cartId = if (arguments?.containsKey(AppConstants.CART_ID)!!) {
+            arguments?.getString(AppConstants.CART_ID)!!
+
+        } else
+            ""
         vp_fragments.adapter = RestaurantPagerAdapter(
             childFragmentManager,
             (activity as MainActivity),
@@ -117,8 +125,12 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
 
             view?.findNavController()
                 ?.navigate(
-                    R.id.action_restaurantDetailParent_to_self, arg
+                    R.id.action_restaurantDetailParent_to_restaurantDetailGroup, arg
                 )
+        } else if (item is Int) {
+            if (item == 1) {
+                tab_top.visibility = View.GONE
+            }
         }
     }
 }

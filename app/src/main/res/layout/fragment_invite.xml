@@ -4,15 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/transparent"
+    android:background="@color/transparent"
     android:orientation="vertical">
     
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        
-        android:background="@drawable/rating_filter_bg"
+        android:background="@drawable/round_white"
         android:orientation="vertical"
         android:padding="@dimen/_16sdp">
         
@@ -33,25 +32,25 @@
         
         <TextView
             style="@style/normalText"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_4sdp"
             android:gravity="center"
             android:text="@string/ready_group_order"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/_14sdp" />
-    
+            android:textSize="@dimen/_12sdp" />
+        
         <TextView
             style="@style/normalText"
-            android:layout_marginTop="@dimen/_4sdp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_4sdp"
             android:gravity="center"
             android:text="@string/invite_others"
             android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_11sdp" />
+            android:textSize="@dimen/_10sdp" />
         
         
         <Button
@@ -61,9 +60,7 @@
             android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
             android:layout_gravity="center_horizontal"
-            android:layout_marginStart="@dimen/_24sdp"
             android:layout_marginTop="@dimen/_24sdp"
-            android:layout_marginEnd="@dimen/_24sdp"
             android:layout_marginBottom="@dimen/_24sdp"
             android:background="@drawable/btn_rounded"
             android:elevation="1dp"
@@ -73,7 +70,7 @@
             android:text="@string/invite_your_group"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp" />
+            android:textSize="@dimen/_13sdp" />
     </LinearLayout>
 
 </LinearLayout>

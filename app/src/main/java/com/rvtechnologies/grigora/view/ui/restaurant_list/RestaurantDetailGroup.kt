@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.restaurant_list
 
 import android.app.AlertDialog
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.Editable
@@ -11,12 +12,12 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.databinding.RestaurantDetailGroupFragmentBinding
 import com.rvtechnologies.grigora.databinding.RestaurantDetailsFragmentBinding
 import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
@@ -28,34 +29,38 @@ import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantDetailAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantItemAdapter
-import com.rvtechnologies.grigora.view_model.RestaurantDetailsViewModel
+import com.rvtechnologies.grigora.view_model.RestaurantDetailGroupViewModel
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
-import kotlinx.android.synthetic.main.restaurant_details_fragment.*
-import kotlinx.android.synthetic.main.restaurant_details_fragment.parentView
-import kotlin.collections.ArrayList
+import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
 
-class RestaurantDetailsFragment(
-    var restaurantId: String,
-     val iRecyclerItemClick: IRecyclerItemClick
-) : Fragment(), OnItemClickListener,
-    QuantityClicks,
+class RestaurantDetailGroup : Fragment(), QuantityClicks,
     QuantityClicksDialog,
-    IRecyclerItemClick {
+    IRecyclerItemClick, OnItemClickListener {
+
     private val cartItemList = ArrayList<CartDetail>()
     lateinit var menuItemModel: MenuItemModel
-    private lateinit var fragmentRestaurantsDetailsBinding: RestaurantDetailsFragmentBinding
-
-    private lateinit var viewModel: RestaurantDetailsViewModel
+    private lateinit var fragmentRestaurantsDetailsBinding: RestaurantDetailGroupFragmentBinding
+    private lateinit var viewModel: RestaurantDetailGroupViewModel
     private var mealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
     private var filteredMealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
     private val popularList = ArrayList<MenuItemModel>()
     private val previousList = ArrayList<MenuItemModel>()
+    private var restaurantId = ""
     private var cartId = ""
+    lateinit var restaurantDetailModel: RestaurantDetailModel
+
+    companion object {
+        fun newInstance() = RestaurantDetailGroup()
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(RestaurantDetailsViewModel::class.java)
+        restaurantId = arguments?.get(AppConstants.RESTAURANT_ID).toString()
+        cartId = arguments?.get(AppConstants.CART_ID).toString()
+
+        viewModel = ViewModelProviders.of(this).get(RestaurantDetailGroupViewModel::class.java)
+
 
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
@@ -64,48 +69,53 @@ class RestaurantDetailsFragment(
                 mealsAndCuisinesList.clear()
                 filteredMealsAndCuisinesList.clear()
                 if (response.status!!) {
-                    var data = response.data as RestaurantDetailModel
-                    if (!data.cart_id.isNullOrEmpty()) {
-                        cartId = data.cart_id
+                    restaurantDetailModel = response.data as RestaurantDetailModel
+
+                    handleGroup(restaurantDetailModel)
+
+                    if (!restaurantDetailModel.cart_id.isNullOrEmpty()) {
+                        cartId = restaurantDetailModel.cart_id
                     }
 
-                    if (data.popluarItems.size == 0) {
+                    if (restaurantDetailModel.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
                     } else {
-                        popularList.addAll(data.popluarItems)
+                        popularList.addAll(restaurantDetailModel.popluarItems)
                         rc_popular.adapter!!.notifyDataSetChanged()
-                        tv_popular_count.text = data.popluarItems.size.toString()
+                        tv_popular_count.text = restaurantDetailModel.popluarItems.size.toString()
                     }
 
-                    if (data.previousOrderedItems.size == 0) {
+                    if (restaurantDetailModel.previousOrderedItems.size == 0) {
                         li_previous.visibility = View.GONE
                     } else {
-                        previousList.addAll(data.previousOrderedItems)
-                        tv_pre_count.text = data.previousOrderedItems.size.toString()
+                        previousList.addAll(restaurantDetailModel.previousOrderedItems)
+                        tv_pre_count.text =
+                            restaurantDetailModel.previousOrderedItems.size.toString()
                         rc_previous.adapter!!.notifyDataSetChanged()
                     }
 
-                    if (data.full_time.equals("1")) {
+                    if (restaurantDetailModel.full_time.equals("1")) {
                         tv_tt.text = getString(R.string.open_24_hours)
                         tv_time.visibility = View.GONE
                     } else
                         tv_time.text = CommonUtils.getFormattedTimeOrDate(
-                            data.opening_time,
+                            restaurantDetailModel.opening_time,
                             "HH:mm:ss",
                             "hh:mm aa"
                         ) + " to " + CommonUtils.getFormattedTimeOrDate(
-                            data.closing_time,
+                            restaurantDetailModel.closing_time,
                             "HH:mm:ss",
                             "hh:mm aa"
                         )
 
-                    tv_rating.text = data.total_rating
-                    tv_reviews.text = data.total_review
-                    tv_restaurantname.text = data.restaurant_name
-                    tv_cuisines.text = data.cuisines
-                    tv_deliver.text = "Delivers in " + data.estimated_preparing_time + " min"
+                    tv_rating.text = restaurantDetailModel.total_rating
+                    tv_reviews.text = restaurantDetailModel.total_review
+                    tv_restaurantname.text = restaurantDetailModel.restaurant_name
+                    tv_cuisines.text = restaurantDetailModel.cuisines
+                    tv_deliver.text =
+                        "Delivers in " + restaurantDetailModel.estimated_preparing_time + " min"
 
-                    mealsAndCuisinesList.addAll((data.allData))
+                    mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
                     filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
                     rc_items?.adapter?.notifyDataSetChanged()
                 } else {
@@ -145,24 +155,28 @@ class RestaurantDetailsFragment(
                 dialogView.rvOrderItems.adapter =
                     ItemsCartAdapter(
                         cartItemList,
-                        this@RestaurantDetailsFragment, this
+                        this@RestaurantDetailGroup, this
                     )
                 dialogView.bt_add_new.setOnClickListener {
                     alertDialog?.dismiss()
                     val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to menuItemModel)
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
 
                 dialogView.img_close.setOnClickListener {
                     alertDialog?.dismiss()
-                    viewModel.getRestaurantsDetails(
+
+                    viewModel.getRestaurantsDetailsCart(
                         CommonUtils.getPrefValue(
                             context,
                             PrefConstants.TOKEN
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.ID
-                        ), ""
+                        ),
+                        restaurantId,
+                        "", cartId
                     )
                 }
                 alertDialog = dialogBuilder?.create()
@@ -177,7 +191,9 @@ class RestaurantDetailsFragment(
             }
         })
 
+
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -186,7 +202,7 @@ class RestaurantDetailsFragment(
         fragmentRestaurantsDetailsBinding =
             DataBindingUtil.inflate(
                 inflater,
-                R.layout.restaurant_details_fragment,
+                R.layout.restaurant_detail_group_fragment,
                 container,
                 false
             )
@@ -194,6 +210,7 @@ class RestaurantDetailsFragment(
         fragmentRestaurantsDetailsBinding.restauranDetailsViewModel = viewModel
         return fragmentRestaurantsDetailsBinding.root
     }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -217,6 +234,38 @@ class RestaurantDetailsFragment(
 //        if(arguments?.get(AppConstants.FROM_PICKUP) as Boolean){
 //            tv_pickup.callOnClick()
 //        }
+    }
+
+
+    private fun handleGroup(data: RestaurantDetailModel) {
+        if (arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!) {
+            if (data?.cart != null) {
+                var inviteFragment = InviteFragment(data.cart?.share_link!!)
+                inviteFragment.show(childFragmentManager, "")
+            }
+        }
+
+        if (data?.cart != null) {
+
+            rel_invite.visibility = View.VISIBLE
+
+            if (data?.cart!!.user_id.toString() == CommonUtils.getPrefValue(
+                    context!!,
+                    PrefConstants.ID
+                )
+            ) {
+                tv_group_order_title.text =
+                    "${getString(R.string.group_order_by)} ${data?.cart!!.name}"
+                tv_order_limit.text =
+                    "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
+            } else {
+                tv_group_order_title.text =
+                    "${data?.cart!!.name}'s ${getString(R.string.group_order)}"
+                tv_order_limit.text =
+                    "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
+            }
+
+        }
     }
 
     private fun manageSwitch() {
@@ -309,15 +358,16 @@ class RestaurantDetailsFragment(
         super.onResume()
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
+            (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
         }
-        viewModel.getRestaurantsDetails(
+        viewModel.getRestaurantsDetailsCart(
             CommonUtils.getPrefValue(
                 context,
                 PrefConstants.TOKEN
             ),
             restaurantId,
-            ""
+            "", cartId
         )
     }
 
@@ -372,7 +422,11 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -398,7 +452,11 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -424,7 +482,11 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -455,7 +517,12 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -474,7 +541,11 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -501,7 +572,11 @@ class RestaurantDetailsFragment(
 //                show item details screen
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
-                    iRecyclerItemClick.onItemClick(bundle)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                            bundle
+                        )
                 }
             } else {
 //                don't have add ons, simply add
@@ -556,7 +631,12 @@ class RestaurantDetailsFragment(
             menuItemModel = item
             if (item.itemCategories!!.isNotEmpty()) {
                 val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
-                iRecyclerItemClick.onItemClick(bundle)
+
+                view?.findNavController()
+                    ?.navigate(
+                        R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                        bundle
+                    )
             }
         }
     }
@@ -611,4 +691,17 @@ class RestaurantDetailsFragment(
             }
         })
     }
+
+    fun invite(){
+
+        val sendIntent = Intent()
+        sendIntent.action = Intent.ACTION_SEND
+        sendIntent.putExtra(
+            Intent.EXTRA_TEXT,
+            restaurantDetailModel.cart?.share_link
+        )
+        sendIntent.type = "text/plain"
+        startActivity(sendIntent)
+    }
+
 }

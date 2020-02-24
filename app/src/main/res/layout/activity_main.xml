@@ -112,16 +112,16 @@
                     android:textSize="@dimen/_12sdp"
                     tools:text="Address" />
             
-            
             </RelativeLayout>
             
             
             <TextView
                 android:id="@+id/tv_title"
-                android:layout_toRightOf="@+id/img_back"
                 style="@style/titleText"
                 android:gravity="center"
-                android:layout_toLeftOf="@id/img_right"
+                android:layout_marginLeft="@dimen/_35sdp"
+                android:layout_marginRight="@dimen/_35sdp"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"

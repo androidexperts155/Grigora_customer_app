@@ -18,8 +18,12 @@ data class RestaurantDetailModel(
     @SerializedName("previous_ordered_items")
     var previousOrderedItems: ArrayList<MenuItemModel> = ArrayList(),
 
+    @SerializedName("cart")
+    var cart: Cart?,
+
     @SerializedName("table_booking")
     var table_booking: String = "",
+
 
     @SerializedName("cart_id")
     var cart_id: String = "",
@@ -63,6 +67,39 @@ data class RestaurantDetailModel(
     var closing_time: String = ""
 
 ) : Parcelable {
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Cart(
+        @SerializedName("cart_type")
+        val cart_type: String,
+        @SerializedName("created_at")
+        val created_at: String,
+        @SerializedName("group_order")
+        val group_order: String,
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("max_per_person")
+        val max_per_person: Int,
+        @SerializedName("quantity")
+        val quantity: Int,
+        @SerializedName("restaurant_id")
+        val restaurant_id: Int,
+        @SerializedName("share_link")
+        val share_link: String,
+        @SerializedName("status")
+        val status: String,
+        @SerializedName("total_price")
+        val total_price: String,
+        @SerializedName("updated_at")
+        val updated_at: String,
+        @SerializedName("user_id")
+        val user_id: Int,
+        @SerializedName("user_name")
+        val name: String
+    ) : Parcelable
+
+
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class AllData(

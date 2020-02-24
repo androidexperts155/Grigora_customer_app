@@ -280,7 +280,7 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
             .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setContentMetadata(
-                ContentMetadata().addCustomMetadata(AppConstants.CART_ID, data.id.toString())
+                ContentMetadata().addCustomMetadata(AppConstants.CART_ID, data.id.toString()).addCustomMetadata(AppConstants.RESTAURANT_ID,data.restaurant_id.toString())
             )
 
         val lp = LinkProperties()

@@ -23,7 +23,6 @@ class RestaurantPagerAdapter(
             return if (position == 0) {
                 RestaurantDetailsFragment(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
-                    arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
                     iRecyclerItemClick
                 )
             } else if (position == 1) {
@@ -37,7 +36,6 @@ class RestaurantPagerAdapter(
             return if (position == 0) {
                 RestaurantDetailsFragment(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
-                    arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
                     iRecyclerItemClick
                 )
             } else {
@@ -45,15 +43,12 @@ class RestaurantPagerAdapter(
                     arguments, iRecyclerItemClick
                 )
             }
-
         }
-
 
         return if (position == 0) {
             RestaurantDetailsFragment(
-                arguments?.get(AppConstants.RESTAURANT_ID).toString(),
-                arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!,
-                iRecyclerItemClick
+                 arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                 iRecyclerItemClick
             )
         } else {
             TableBookingFragment(arguments)
@@ -62,7 +57,7 @@ class RestaurantPagerAdapter(
     }
 
     override fun getCount(): Int {
-        return if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString().equals("0")) {
+        return if (arguments?.get(AppConstants.RESTAURANT_BOOKING).toString() == "0") {
             2
         } else
             3

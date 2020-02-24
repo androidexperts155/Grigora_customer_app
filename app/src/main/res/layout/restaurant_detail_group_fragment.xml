@@ -245,6 +245,57 @@
                 
                 </RelativeLayout>
                 
+                <RelativeLayout
+                    android:visibility="visible"
+                    android:id="@+id/rel_invite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:background="?attr/langSelected"
+                    android:padding="@dimen/_10sdp">
+                    
+                    <TextView
+                        android:id="@+id/tv_group_order_title"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="Group order by Vikas" />
+                    
+                    <TextView
+                        android:id="@+id/tv_order_limit"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_group_order_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="Group order by Vikas" />
+                    
+                    
+                    <TextView
+                        android:onClick="@{()->restaurantDetailsView.invite()}"
+                        android:layout_centerVertical="true"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/btn_rounded_cornersextra"
+                        android:backgroundTint="@color/white"
+                        android:drawableLeft="@drawable/ic_g2"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:drawableTint="@color/textBlack"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:text="@string/invite"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/_12sdp" />
+                
+                
+                </RelativeLayout>
                 
                 
                 <View
@@ -486,11 +537,11 @@
         
         <variable
             name="restaurantDetailsView"
-            type="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailsFragment" />
+            type="com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailGroup" />
         
         <variable
             name="restauranDetailsViewModel"
-            type="com.rvtechnologies.grigora.view_model.RestaurantDetailsViewModel" />
+            type="com.rvtechnologies.grigora.view_model.RestaurantDetailGroupViewModel" />
         
         <variable
             name="restaurantModel"
