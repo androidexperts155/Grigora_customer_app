@@ -61,6 +61,10 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         viewModel = ViewModelProviders.of(this).get(MenuItemDetailsViewModel::class.java)
         if (arguments != null) {
             var menuItem = arguments?.get(AppConstants.MENU_ITEM_MODEL) as MenuItemModel
+            if (menuItem.isForGroupCart) {
+                viewModel.cartId.value = menuItem.cartId
+            }
+
             menuItem.offPercentage = menuItem.restaurant_offer.toString().plus("%")
 
             viewModel.menuItem.value = menuItem

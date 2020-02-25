@@ -28,6 +28,7 @@ class InviteFragment( var link: String) :
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
         img_close.setOnClickListener { dismiss() }
 

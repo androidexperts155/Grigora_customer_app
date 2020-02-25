@@ -1,26 +1,18 @@
-package com.rvtechnologies.grigora.view.ui.cart
+package com.rvtechnologies.grigora.view.ui.groupCart
 
 import android.app.Activity
-import android.app.Activity.RESULT_CANCELED
 import android.content.Intent
+import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
-import android.util.Log
+import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
-import android.view.View.GONE
-import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
-import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -28,39 +20,42 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetDialog
+
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.CartFragmentBinding
+import com.rvtechnologies.grigora.databinding.GroupCartFragmentBinding
+import com.rvtechnologies.grigora.model.GroupCartModel
 import com.rvtechnologies.grigora.model.models.*
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
-import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
-import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
-import io.branch.indexing.BranchUniversalObject
-import io.branch.referral.Branch
-import io.branch.referral.BranchError
-import io.branch.referral.SharingHelper
-import io.branch.referral.util.ContentMetadata
-import io.branch.referral.util.LinkProperties
-import io.branch.referral.util.ShareSheetStyle
+
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
-import kotlinx.android.synthetic.main.cart_fragment.*
-import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
+import kotlinx.android.synthetic.main.group_cart_fragment.*
+import kotlinx.android.synthetic.main.group_cart_fragment.parentView
+import kotlinx.android.synthetic.main.group_cart_fragment.tv_group_order_title
+import kotlinx.android.synthetic.main.group_cart_fragment.tv_order_limit
+import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
+class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
     OnItemClickListener {
+
     private var mMap: GoogleMap? = null
     var placeClicked = false
     var discount: String = ""
     var restId: String = ""
     var cart_type = "1"
+
+    private lateinit var viewModel: GroupCartViewModel
+    private var cartFragmentBinding: GroupCartFragmentBinding? = null
+    private val cartItemList = ArrayList<GroupCartType>()
+    private val addMoreList = ArrayList<MenuItemModel>()
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
         mMap?.setMinZoomPreference(12f)
@@ -84,21 +79,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(deliveryLocation))
     }
 
-
-    private var viewModel: CartNdOfferViewModel? = null
-    private var cartFragmentBinding: CartFragmentBinding? = null
-    private val cartItemList = ArrayList<CartDetail>()
-    private val addMoreList = ArrayList<MenuItemModel>()
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
-
-//        if (viewModel == null)
-//            viewModel = activity?.run {
-//                ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
-//            } ?: throw Exception("Invalid Activity")
-
+        viewModel = ViewModelProviders.of(this).get(GroupCartViewModel::class.java)
+        viewModel.cartId.value = arguments?.getString(AppConstants.CART_ID)!!.toString()
         viewModel?.token?.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         viewModel?.deliveryAddress?.value = CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
         viewModel?.deliveryLat?.value = CommonUtils.getPrefValue(context, PrefConstants.LATITUDE)
@@ -108,46 +92,57 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         viewModel?.responseCart?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    val cartDataModel = response.data as CartDataModel
+                    val cartDataModel = response.data as GroupCartModel
                     cart_type = cartDataModel.cart_type.toString()
-                    restId = cartDataModel.restaurantId.toString()
+                    restId = cartDataModel.restaurant_id.toString()
                     var cartSubTotal = 0.0
-                    for (cartDetail in cartDataModel.cartDetails!!) {
-                        var price = cartDetail?.price?.toDouble()!!
+                    for (cartDetail in cartDataModel.cart_details!!) {
+                        for (innerDetail in cartDetail.cart) {
+                            var price = innerDetail?.price?.toDouble()!!
 
-                        var addOnPrice = 0.0
+                            var addOnPrice = 0.0
 
-                        if (cartDetail.item_choices != null && cartDetail.item_choices?.isNotEmpty()!!) {
+                            if (innerDetail.item_choices != null && innerDetail.item_choices?.isNotEmpty()!!) {
 
-                            for (item in cartDetail.item_choices!!) {
-                                for (innerItem in item.itemSubCategory!!) {
-                                    addOnPrice += innerItem?.addOnPrice!!
+                                for (item in innerDetail.item_choices!!) {
+                                    for (innerItem in item.itemSubCategory!!) {
+                                        addOnPrice += innerItem?.addOnPrice!!.toDouble()
+                                    }
                                 }
                             }
+                            cartSubTotal += ((price + addOnPrice) * innerDetail?.quantity!!.toDouble())
                         }
-                        cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail?.quantity!!))
                     }
 
-                    var cartTotal = cartSubTotal + cartDataModel.deliveryFee?.toDouble()!!
+                    var cartTotal = cartSubTotal + cartDataModel.delivery_fee?.toDouble()!!
 
                     cartDataModel.cartSubTotal = cartSubTotal.toString()
                     cartDataModel.cartTotal = cartTotal.toString()
                     if (cartDataModel.add_more_items?.size != 0) {
                         addMoreList.addAll(cartDataModel.add_more_items)
                     }
-                    viewModel?.cartData?.value = response.data as CartDataModel
 
                     cartFragmentBinding?.cartViewModel = viewModel
 
-                    if ((response.data as CartDataModel).cartDetails != null && (response.data as CartDataModel).cartDetails!!.isNotEmpty()) {
+                    if ((response.data as GroupCartModel).cart_details != null && (response.data as GroupCartModel).cart_details!!.isNotEmpty()) {
                         cartItemList.clear()
-                        cartItemList.addAll((response.data as CartDataModel).cartDetails as Collection<CartDetail>)
+                        viewModel.cartData.value = cartDataModel
+
+                        var list = ArrayList<GroupCartType>()
+
+                        for (item in cartDataModel.cart_details) {
+                            list.add(item)
+                            for (data in item.cart) {
+                                list.add(data)
+                            }
+                        }
+                        cartItemList.addAll(list)
                         rvOrderItems?.adapter?.notifyDataSetChanged()
-                        empty?.visibility = GONE
-                        cartView?.visibility = VISIBLE
+                        empty?.visibility = View.GONE
+                        cartView?.visibility = View.VISIBLE
                     } else {
-                        empty?.visibility = VISIBLE
-                        cartView?.visibility = GONE
+                        empty?.visibility = View.VISIBLE
+                        cartView?.visibility = View.GONE
                     }
 
                     viewModel?.cartData?.value?.afterPromo = String.format(
@@ -170,17 +165,32 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 //                    tv_restname.text = cartDataModel.restaurantName
                     tv_total.text = cartDataModel.cartTotal
 
-                    setPromo()
-
-
                     if (!cartDataModel.add_more_items.isNullOrEmpty()) {
 
                     }
 
 
+                    if (cartDataModel?.user_id.toString() == CommonUtils.getPrefValue(
+                            context!!,
+                            PrefConstants.ID
+                        )
+                    ) {
+                        tv_group_order_title.text =
+                            "${getString(R.string.group_order_by)} ${cartDataModel?.cart_details[0].name}"
+                        tv_order_limit.text =
+                            "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
+                    } else {
+                        tv_group_order_title.text =
+                            "${cartDataModel?.cart_details[0].name}'s ${getString(R.string.group_order)}"
+                        tv_order_limit.text =
+                            "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
+                    }
+
+                    setPromo()
+
                 } else {
-                    empty?.visibility = VISIBLE
-                    cartView?.visibility = GONE
+                    empty?.visibility = View.VISIBLE
+                    cartView?.visibility = View.GONE
                 }
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -190,7 +200,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         viewModel?.responseClearCart?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    viewModel?.viewCart(
+                    viewModel?.viewGroupCart(
                         CommonUtils.getPrefValue(
                             context,
                             PrefConstants.TOKEN
@@ -222,7 +232,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                                     R.id.action_navigationCart_to_orderDetailsFragment,
                                     bundle
                                 )
-                            viewModel?.viewCart(
+                            viewModel?.viewGroupCart(
                                 CommonUtils.getPrefValue(
                                     context,
                                     PrefConstants.TOKEN
@@ -262,8 +272,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 //                        .clientToken(response.data.toString())
 //                    startActivityForResult(dropInRequest.getIntent(context), 100)
                 } else {
-                    empty.visibility = VISIBLE
-                    cartView.visibility = GONE
+                    empty.visibility = View.VISIBLE
+                    cartView.visibility = View.GONE
                 }
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -271,6 +281,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         })
 
         viewModel?.reference?.value = ""
+
     }
 
     override fun onCreateView(
@@ -278,7 +289,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         savedInstanceState: Bundle?
     ): View? {
         cartFragmentBinding =
-            DataBindingUtil.inflate(inflater, R.layout.cart_fragment, container, false)
+            DataBindingUtil.inflate(inflater, R.layout.group_cart_fragment, container, false)
         cartFragmentBinding?.cartViewModel = viewModel
         cartFragmentBinding?.cartFragment = this
         return cartFragmentBinding?.root
@@ -293,10 +304,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
 
         if (cartItemList.size == 0 && viewModel?.cartData?.value != null) {
-            cartItemList.addAll((viewModel?.cartData?.value?.cartDetails as Collection<CartDetail>))
+            cartItemList.addAll((viewModel?.cartData?.value?.cart_details as Collection<CartDetail>))
             rvOrderItems?.adapter?.notifyDataSetChanged()
-            empty?.visibility = GONE
-            cartView?.visibility = VISIBLE
+            empty?.visibility = View.GONE
+            cartView?.visibility = View.VISIBLE
         }
 
         rv_people_also_ordered.adapter = AlsoOrderedCartAdapter(addMoreList, this, this, -1)
@@ -313,12 +324,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         if (token.isBlank()) {
-            empty?.visibility = VISIBLE
-            cartView?.visibility = GONE
+            empty?.visibility = View.VISIBLE
+            cartView?.visibility = View.GONE
             showLoginAlert(activity as MainActivity?)
         } else {
-            rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
-            viewModel?.viewCart(
+            rvOrderItems.adapter = GroupCartAdapter(cartItemList, this, this)
+            viewModel?.viewGroupCart(
                 CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
                     context,
                     PrefConstants.LATITUDE
@@ -391,7 +402,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 "%.2f",
                 (viewModel?.cartData?.value?.cartSubTotal?.toDouble()!! * viewModel?.offerModel?.value!!.percentage!!.toDouble()!! / 100)
             )
-            viewModel?.cartData?.value?.totalPrice = String.format(
+            viewModel?.cartData?.value?.total_price = String.format(
                 "%.2f",
                 (viewModel?.cartData?.value?.cartTotal?.toDouble()!! - discount.toDouble())
             )
@@ -406,7 +417,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             ).toDouble()
 
             tv_promotion.text = discount
-            tv_total.text = viewModel?.cartData?.value?.totalPrice
+            tv_total.text = viewModel?.cartData?.value?.total_price
         } else {
             CommonUtils.showMessage(view, getString(R.string.no_promo_selected))
         }
@@ -457,7 +468,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 cartFragmentBinding?.cartViewModel = viewModel
                 viewModel?.placeOrderNow(cart_type)
             }
-        } else if (resultCode == RESULT_CANCELED) {
+        } else if (resultCode == Activity.RESULT_CANCELED) {
             // the user canceled
         } else {
             // handle errors here, an exception may be available in
@@ -496,33 +507,33 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     override fun add(position: Int, position2: Int) {
-        if (position == -1) {
-            if (addMoreList[position2].itemCategories?.size!! > 0) {
-
-            } else {
-
-            }
-        } else {
-            viewModel?.updateCartQty(
-                viewModel?.token?.value!!,
-                cartItemList.get(position).id!!,
-                cartItemList.get(position).cartId!!,
-                "1"
-            )
-        }
+//        if (position == -1) {
+//            if (addMoreList[position2].itemCategories?.size!! > 0) {
+//
+//            } else {
+//
+//            }
+//        } else {
+//            viewModel?.updateCartQty(
+//                viewModel?.token?.value!!,
+//                cartItemList.get(position).id!!,
+//                cartItemList.get(position).cartId!!,
+//                "1"
+//            )
+//        }
     }
 
     override fun minus(position: Int, position2: Int) {
-        if (position == -1) {
-
-        } else {
-            viewModel?.updateCartQty(
-                viewModel?.token?.value!!,
-                cartItemList.get(position).id!!,
-                cartItemList.get(position).cartId!!,
-                "-1"
-            )
-        }
+//        if (position == -1) {
+//
+//        } else {
+//            viewModel?.updateCartQty(
+//                viewModel?.token?.value!!,
+//                cartItemList.get(position).id!!,
+//                cartItemList.get(position).cartId!!,
+//                "-1"
+//            )
+//        }
     }
 
     private fun setPromo() {
@@ -531,8 +542,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         tv_dis.text = viewModel?.offerModel?.value!!.code
         tv_promo.text = getString(R.string.promo_applied)
         tv_promo.setTextColor(ContextCompat.getColor(context!!, R.color.green))
-        img_arrow.visibility = GONE
-        tv_remove.visibility = VISIBLE
+        img_arrow.visibility = View.GONE
+        tv_remove.visibility = View.VISIBLE
 
         applyPromo()
     }
@@ -542,13 +553,13 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         tv_dis.text = getString(R.string.apply_promocode)
         tv_promo.text = getString(R.string.no_promo_selected)
         tv_promo.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
-        img_arrow.visibility = VISIBLE
-        tv_remove.visibility = GONE
+        img_arrow.visibility = View.VISIBLE
+        tv_remove.visibility = View.GONE
 
         if (viewModel?.offerModel?.value != null) {
             discount = "0"
 
-            viewModel?.cartData?.value?.totalPrice = String.format(
+            viewModel?.cartData?.value?.total_price = String.format(
                 "%.2f",
                 (viewModel?.cartData?.value?.cartTotal?.toDouble()!! - discount.toDouble())
             )
@@ -563,13 +574,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             ).toDouble()
 
             tv_promotion.text = discount
-            tv_total.text = viewModel?.cartData?.value?.totalPrice
+            tv_total.text = viewModel?.cartData?.value?.total_price
         } else {
             CommonUtils.showMessage(view, getString(R.string.no_promo_selected))
         }
-
-
-//        applyPromo()
 
     }
 
@@ -581,52 +589,5 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
     }
 
-    fun createLink(){
-        val buo = BranchUniversalObject()
-            .setCanonicalIdentifier("content/12345")
-            .setTitle("Grigoa Group Order")
-            .setContentDescription("You are invited from Amit to order from this restaurant")
-            .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
-            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-            .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-            .setContentMetadata(ContentMetadata().addCustomMetadata("orderId", "123"))
-
-        val lp = LinkProperties()
-            .setChannel("facebook")
-            .setFeature("sharing")
-            .setCampaign("content 123 launch")
-            .setStage("new user")
-            .addControlParameter("custom_random", Calendar.getInstance().timeInMillis.toString())
-
-        buo.generateShortUrl(context!!, lp
-        ) { url, error ->
-            if (error == null) {
-                tv_link.text = url
-            } else {
-            }
-        }
-
-        val ss = ShareSheetStyle(activity as MainActivity, "Check this out!", "This stuff is awesome: ")
-            .setCopyUrlStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-            .setMoreOptionStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_search), "Show more")
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FLICKR)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.PINTEREST)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
-            .setAsFullWidthStyle(true)
-            .setSharingTitle("Share With")
-
-        buo.showShareSheet(activity as MainActivity, lp, ss, object : Branch.BranchLinkShareListener {
-            override fun onShareLinkDialogLaunched() {}
-            override fun onShareLinkDialogDismissed() {}
-            override fun onLinkShareResponse(sharedLink: String?, sharedChannel: String?, error: BranchError?) {}
-            override fun onChannelSelected(channelName: String) {}
-        })
-    }
 
 }

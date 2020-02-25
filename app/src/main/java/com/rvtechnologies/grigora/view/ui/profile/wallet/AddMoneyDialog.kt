@@ -31,6 +31,7 @@ class AddMoneyDialog(val iRecyclerItemClick: IRecyclerItemClick) : BottomSheetDi
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
         bt_cancel.setOnClickListener {
             cancel()

@@ -548,7 +548,7 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_dashBoardFragment_fragment_to_commonViewAll"
             app:destination="@id/commonViewAll"
@@ -564,6 +564,12 @@
         <action
             android:id="@+id/action_dashBoardFragment_fragment_to_searchRestaurant"
             app:destination="@id/searchRestaurants"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_dashBoardFragment_fragment_to_groupCartFragment"
+            app:destination="@id/groupCartFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
@@ -622,24 +628,20 @@
     
     
     </fragment>
-    
     <fragment
         android:id="@+id/quizFragment"
         android:name="com.rvtechnologies.grigora.view.ui.quiz.QuizFragment"
         android:label="QuizFragment">
     
     </fragment>
-    
     <fragment
         android:id="@+id/notifications"
         android:name="com.rvtechnologies.grigora.view.ui.notifications.NotificationsFragment"
         android:label="NotificationsFragment" />
-    
     <fragment
         android:id="@+id/referAndEarn"
         android:name="com.rvtechnologies.grigora.view.ui.refer_and_earn.ReferAndEarn"
         android:label="Refer And Earn" />
-    
     <fragment
         android:id="@+id/pickupRestaurants"
         android:name="com.rvtechnologies.grigora.view.ui.pickup_restaurants.PickupRestaurants"
@@ -651,8 +653,6 @@
             app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
-    
-    
     <fragment
         android:id="@+id/searchRestaurants"
         android:name="com.rvtechnologies.grigora.view.ui.search.SearchRestaurantFragment"
@@ -676,8 +676,22 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
-    </fragment>
     
+        <action
+            android:id="@+id/action_restaurantDetailGroup_to_GroupCart"
+            app:destination="@id/groupCartFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_restaurantDetailGroup_to_dashboardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+    </fragment>
     <fragment
         android:id="@+id/contactUs"
         android:name="com.rvtechnologies.grigora.view.ui.contact_us.ContactUs"
@@ -689,7 +703,6 @@
             app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
-    
     <fragment
         android:id="@+id/faqAll"
         android:name="com.rvtechnologies.grigora.view.ui.contact_us.AllFaq"
@@ -697,17 +710,27 @@
     
     
     </fragment>
-  <fragment
+    <fragment
         android:id="@+id/commonViewAll"
         android:name="com.rvtechnologies.grigora.view.ui.restaurant_list.CommonViewAll"
         android:label="View All">
-      <action
-          android:id="@+id/action_commonViewAll_to_restaurantDetailsParentFragment"
-          app:destination="@id/restaurantDetailParent"
-          app:enterAnim="@anim/slide_in_right"
-          app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_commonViewAll_to_restaurantDetailsParentFragment"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     
     </fragment>
-
+    <fragment
+        android:id="@+id/groupCartFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.groupCart.GroupCartFragment"
+        android:label="View All">
+        <action
+            android:id="@+id/action_commonViewAll_to_groupCartFragment"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
 
 </navigation>

@@ -38,7 +38,7 @@ object ApiConstants {
     const val CART_ITEMS_URL = "cart-item-list"
 
     const val PAY_STACK = "pay-stack"
-    const val VIEW_CART_URL = "view-cart"
+    const val VIEW_CART_URL = "view-group-cart"
     const val PLACE_ORDER_URL = "place-order"
 
     const val LOCATION_TYPES_URL = "location-types"

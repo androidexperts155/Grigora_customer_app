@@ -592,7 +592,7 @@ Cuisine repo
         longitude: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantsByCuisine(token, filter_type,latitude,longitude)
+        ApiClient.getClient().getRestaurantsByCuisine(token, filter_type, latitude, longitude)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -931,6 +931,40 @@ Cuisine repo
 
             })
     }
+
+
+    fun viewGroupCart(
+        token: String,
+        latitude: String,
+        logitude: String,
+        cartId: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().viewGroupCart(
+            token = token,
+            latitude = latitude,
+            logitude = logitude,
+            cart_id = cartId
+        )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun postData(
         url: String,

@@ -37,6 +37,7 @@ class TimeBottomSheetDialog(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
 
 

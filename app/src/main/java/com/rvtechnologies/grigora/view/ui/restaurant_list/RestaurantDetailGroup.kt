@@ -18,7 +18,6 @@ import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailGroupFragmentBinding
-import com.rvtechnologies.grigora.databinding.RestaurantDetailsFragmentBinding
 import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
@@ -26,6 +25,7 @@ import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import com.rvtechnologies.grigora.view.ui.groupCart.GroupOrderAlreadyPlaced
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantDetailAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantItemAdapter
@@ -72,10 +72,8 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     restaurantDetailModel = response.data as RestaurantDetailModel
 
                     handleGroup(restaurantDetailModel)
+                    tv_restname.text = restaurantDetailModel.restaurant_name
 
-                    if (!restaurantDetailModel.cart_id.isNullOrEmpty()) {
-                        cartId = restaurantDetailModel.cart_id
-                    }
 
                     if (restaurantDetailModel.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
@@ -191,6 +189,14 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             }
         })
 
+        /*  viewModel.getRestaurantsDetailsCart(
+              CommonUtils.getPrefValue(
+                  context,
+                  PrefConstants.TOKEN
+              ),
+              restaurantId,
+              "", cartId
+          )*/
 
     }
 
@@ -210,7 +216,6 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         fragmentRestaurantsDetailsBinding.restauranDetailsViewModel = viewModel
         return fragmentRestaurantsDetailsBinding.root
     }
-
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -236,8 +241,17 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 //        }
     }
 
-
     private fun handleGroup(data: RestaurantDetailModel) {
+
+
+        viewModel.cartId.value = data.cart?.id.toString()
+        if (data.cart!=null && data.cart?.quantity!! > 0) {
+            fab_cart.visibility = View.VISIBLE
+        } else {
+            var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
+            groupOrderAlreadyPlaced.show(childFragmentManager, "")
+        }
+
         if (arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!) {
             if (data?.cart != null) {
                 var inviteFragment = InviteFragment(data.cart?.share_link!!)
@@ -358,7 +372,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         super.onResume()
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
-            (activity as MainActivity).backTitle("")
+            (activity as MainActivity).backTitle(getString(R.string.group_order))
             (activity as MainActivity).lockDrawer(true)
         }
         viewModel.getRestaurantsDetailsCart(
@@ -369,6 +383,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             restaurantId,
             "", cartId
         )
+
     }
 
     fun back() {
@@ -420,6 +435,10 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(popularList[position2])
                 } else {
 //                show item details screen
+                    popularList[position2].isForGroupCart = true
+                    popularList[position2].cartId = viewModel.cartId.value.toString()
+
+
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
                     view?.findNavController()
@@ -450,6 +469,8 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(previousList[position2])
                 } else {
 //                show item details screen
+                    previousList[position2].isForGroupCart = true
+                    previousList[position2].cartId = viewModel.cartId.value.toString()
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
                     view?.findNavController()
@@ -480,6 +501,9 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(filteredMealsAndCuisinesList[position].items[position2])
                 } else {
 //                show item details screen
+                    filteredMealsAndCuisinesList[position].items[position2].isForGroupCart = true
+                    filteredMealsAndCuisinesList[position].items[position2].cartId =
+                        viewModel.cartId.value.toString()
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
                     view?.findNavController()
@@ -515,6 +539,10 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(popularList[position2])
                 } else {
 //                show item details screen
+
+                    popularList[position2].isForGroupCart = true
+                    popularList[position2].cartId = viewModel.cartId.value.toString()
+
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
 
@@ -539,6 +567,8 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(previousList[position2])
                 } else {
 //                show item details screen
+                    previousList[position2].isForGroupCart = true
+                    previousList[position2].cartId = viewModel.cartId.value.toString()
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
                     view?.findNavController()
@@ -570,6 +600,9 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     showItems(filteredMealsAndCuisinesList[position].items[position2])
                 } else {
 //                show item details screen
+                    filteredMealsAndCuisinesList[position].items[position2].isForGroupCart = true
+                    filteredMealsAndCuisinesList[position].items[position2].cartId =
+                        viewModel.cartId.value.toString()
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
                     view?.findNavController()
@@ -603,6 +636,9 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 
     fun showItems(model: MenuItemModel) {
         menuItemModel = model
+        menuItemModel.isForGroupCart = true
+        menuItemModel.cartId = viewModel.cartId.value.toString()
+
         viewModel.getCartItems(viewModel.token.value!!, model.id.toString())
     }
 
@@ -629,8 +665,14 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
     override fun onItemClick(item: Any) {
         if (item is MenuItemModel) {
             menuItemModel = item
+            menuItemModel.isForGroupCart = true
+            menuItemModel.cartId = viewModel.cartId.value.toString()
+
             if (item.itemCategories!!.isNotEmpty()) {
+                item.isForGroupCart = true
+                item.cartId = viewModel.cartId.value.toString()
                 val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
+
 
                 view?.findNavController()
                     ?.navigate(
@@ -638,6 +680,11 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                         bundle
                     )
             }
+        } else if (item is Int) {
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_restaurantDetailGroup_to_dashboardFragment
+                )
         }
     }
 
@@ -692,7 +739,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         })
     }
 
-    fun invite(){
+    fun invite() {
 
         val sendIntent = Intent()
         sendIntent.action = Intent.ACTION_SEND
@@ -702,6 +749,14 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         )
         sendIntent.type = "text/plain"
         startActivity(sendIntent)
+    }
+
+    fun showcart() {
+        val bundle = bundleOf(AppConstants.CART_ID to viewModel.cartId.value.toString())
+        view?.findNavController()
+            ?.navigate(
+                R.id.action_restaurantDetailGroup_to_GroupCart, bundle
+            )
     }
 
 }

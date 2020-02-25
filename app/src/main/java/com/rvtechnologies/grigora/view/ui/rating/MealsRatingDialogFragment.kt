@@ -27,6 +27,7 @@ class MealsRatingDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
         bt_rate_now.setOnClickListener {
             mealsRate.onMealRateSubmit(mealsToRate)

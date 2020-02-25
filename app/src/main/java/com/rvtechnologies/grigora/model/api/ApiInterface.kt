@@ -235,6 +235,15 @@ interface ApiInterface {
         @Field("logitude") logitude: String
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.VIEW_CART_URL)
+    fun viewGroupCart(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") logitude: String
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.PLACE_ORDER_URL)

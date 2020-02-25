@@ -7,6 +7,7 @@
     <RelativeLayout
         android:id="@+id/parentView"
         android:layout_width="match_parent"
+        android:animateLayoutChanges="true"
         android:layout_height="match_parent"
         android:background="?attr/backgroundColor">
         
@@ -84,7 +85,61 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-                
+    
+                <RelativeLayout
+                    
+                    android:id="@+id/rel_invite"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:background="?attr/langSelected"
+                    android:padding="@dimen/_10sdp"
+                    android:visibility="gone">
+        
+                    <TextView
+                        android:id="@+id/tv_group_order_title"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="Group order by Vikas" />
+        
+                    <TextView
+                        android:id="@+id/tv_order_limit"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_group_order_title"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="Group order by Vikas" />
+        
+        
+                    <TextView
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/btn_rounded_cornersextra"
+                        android:backgroundTint="@color/white"
+                        android:drawableLeft="@drawable/ic_g2"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:drawableTint="@color/textBlack"
+                        android:onClick="@{()->restaurantDetailsView.invite()}"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_4sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:text="@string/invite"
+                        android:textColor="@color/textBlack"
+                        android:textSize="@dimen/_12sdp" />
+    
+    
+                </RelativeLayout>
+    
+    
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -245,57 +300,6 @@
                 
                 </RelativeLayout>
                 
-                <RelativeLayout
-                    android:visibility="visible"
-                    android:id="@+id/rel_invite"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:background="?attr/langSelected"
-                    android:padding="@dimen/_10sdp">
-                    
-                    <TextView
-                        android:id="@+id/tv_group_order_title"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_12sdp"
-                        tools:text="Group order by Vikas" />
-                    
-                    <TextView
-                        android:id="@+id/tv_order_limit"
-                        style="@style/normalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/tv_group_order_title"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_10sdp"
-                        tools:text="Group order by Vikas" />
-                    
-                    
-                    <TextView
-                        android:onClick="@{()->restaurantDetailsView.invite()}"
-                        android:layout_centerVertical="true"
-                        style="@style/normalText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:background="@drawable/btn_rounded_cornersextra"
-                        android:backgroundTint="@color/white"
-                        android:drawableLeft="@drawable/ic_g2"
-                        android:drawablePadding="@dimen/_4sdp"
-                        android:drawableTint="@color/textBlack"
-                        android:paddingLeft="@dimen/_8sdp"
-                        android:paddingTop="@dimen/_4sdp"
-                        android:paddingRight="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_4sdp"
-                        android:text="@string/invite"
-                        android:textColor="@color/textBlack"
-                        android:textSize="@dimen/_12sdp" />
-                
-                
-                </RelativeLayout>
                 
                 
                 <View
@@ -529,6 +533,67 @@
                     tools:listitem="@layout/item_restaurant_details_meals" />
             </LinearLayout>
         </androidx.core.widget.NestedScrollView>
+        
+        <LinearLayout
+            android:id="@+id/fab_cart"
+            android:visibility="gone"
+            android:onClick="@{()->restaurantDetailsView.showcart()}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/bottom_navigation"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_margin="@dimen/_8sdp"
+            android:background="@drawable/btn_rounded_cart"
+            android:elevation="1dp"
+            android:gravity="center"
+            android:minWidth="@dimen/_180sdp"
+            android:orientation="horizontal"
+            android:paddingLeft="@dimen/_15sdp"
+            android:paddingTop="@dimen/_8sdp"
+            android:paddingRight="@dimen/_15sdp"
+            android:paddingBottom="@dimen/_8sdp"
+            app:elevation="1dp">
+            
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="@dimen/_8sdp"
+                app:srcCompat="@drawable/ic_cart" />
+            
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_centerVertical="true"
+                android:gravity="center"
+                android:orientation="vertical">
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/viewcart"
+                    android:textAllCaps="true"
+                    
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_8sdp" />
+                
+                <TextView
+                    android:id="@+id/tv_restname"
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="Aroma Express Bar" />
+            
+            </LinearLayout>
+        
+        
+        </LinearLayout>
     
     
     </RelativeLayout>

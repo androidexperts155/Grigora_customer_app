@@ -10,6 +10,13 @@ import kotlinx.android.parcel.Parcelize
 @SuppressLint("ParcelCreator")
 @Parcelize
 data class MenuItemModel(
+
+    var cartId:String="",
+    var isForGroupCart:Boolean=false,
+
+
+
+
     @SerializedName("id")
     @Expose
     var id: Int?,

@@ -47,9 +47,7 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
             if (historyRes is WalletHistoryModel) {
                 historyList.clear()
                 wallet.text = "₦ " + historyRes.wallet
-                historyList.addAll(historyRes.data)
-                rec_history?.adapter?.notifyDataSetChanged()
-            } else {
+              } else {
                 CommonUtils.showMessage(parentView, historyRes.toString())
             }
         })
@@ -90,7 +88,6 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rec_history.adapter = HistoryAdapter(historyList)
 
     }
 
@@ -100,9 +97,7 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
 
         if (activity is MainActivity) {
 
-            (activity as MainActivity).deliverLayout.visibility = View.GONE
-            (activity as MainActivity).img_menu.visibility = View.GONE
-            (activity as MainActivity).img_back.visibility = View.VISIBLE
+            (activity as MainActivity).hideAll()
             (activity as MainActivity).lockDrawer(true)
         }
     }

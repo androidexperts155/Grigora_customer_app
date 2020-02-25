@@ -40,6 +40,8 @@ class SendMoneyConfirmation(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
+
         val sendMoneyConfirmationBinding = DataBindingUtil.inflate(
             inflater,
             R.layout.send_money_confirmation_fragment,

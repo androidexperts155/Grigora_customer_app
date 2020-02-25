@@ -34,7 +34,6 @@ import kotlin.collections.HashMap
 
 
 class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
-
     private lateinit var viewModel: NewDashBoardViewModel
     var map = HashMap<String, Any>()
     lateinit var newDashboardModel: NewDashboardModel
@@ -130,7 +129,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         CommonUtils.savePrefs(context, PrefConstants.WALLET, newDashboardModel.wallet)
     }
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -221,16 +219,13 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             }
         } else if (item is NewDashboardModel.Promo) {
 
-        }
-        else if (item is NewDashboardModel.Cuisine) {
+        } else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
                 applyCuisineFilter("cuisine_id", item.id.toString())
             else
                 applyCuisineFilter("cuisine_id", "0")
 
-        }
-
-        else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+        } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 
             when (item.uiTpe) {
                 "1" -> {
@@ -255,7 +250,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 "2" -> {
                     //                    CUISINE
                     val bundle = bundleOf(
-                        AppConstants.FILTER_ID to "121",AppConstants.CUISINE_ID to item.id.toString()
+                        AppConstants.FILTER_ID to "121",
+                        AppConstants.CUISINE_ID to item.id.toString()
                     )
 
                     view?.findNavController()
@@ -293,8 +289,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                CUISINES
 //            else
 //                TOP_BRANDS
-        }
-        else if (item is NewDashboardModel.AllRestautants) {
+        } else if (item is NewDashboardModel.AllRestautants) {
             val bundle = bundleOf(
                 AppConstants.RESTAURANT_ID to item.id,
                 AppConstants.RESTAURANT_PICKUP to item.pickup,
@@ -309,8 +304,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
                     bundle
                 )
-        }
-        else if (item is SelectedRating) {
+        } else if (item is SelectedRating) {
             if (item.applyRating) {
                 if (item.oldRating != item.newRating) {
 //                    if (!item.filter.selected)
@@ -319,8 +313,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                        applyFilter("filter_id", "0")
                 }
             }
-        }
-        else if (item is FilteredPrice) {
+        } else if (item is FilteredPrice) {
             if (item.list.size > 0) {
 
                 var name = ""
@@ -397,6 +390,4 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         viewModel.getDashboardData(map)
 
     }
-
-
 }

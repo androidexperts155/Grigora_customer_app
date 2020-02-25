@@ -449,6 +449,15 @@
     <string name="order_again">Order Again</string>
     <string name="top_cuisine">Top Cusines</string>
     <string name="near_by">Near You</string>
+    <string name="current_balance">Current Balance</string>
+    <string name="current_points">Current Points</string>
+    <string name="ngn_to_naira">NGN - Naira</string>
+    <string name="pts_to_points">Pts - Points</string>
+    <string name="services">Services</string>
+    <string name="add_funds_via_card">Add Funds via Cards</string>
+    <string name="redeem_via_grigora_card">Redeem via Grigora Card</string>
+    <string name="transfer_points_to_wallet">Transfer points to Wallets</string>
+    <string name="order_already_placed">This order is already Placed</string>
 
 
 </resources><!--₦-->

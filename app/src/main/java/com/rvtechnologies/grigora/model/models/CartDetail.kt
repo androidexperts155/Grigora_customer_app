@@ -4,6 +4,7 @@ package com.rvtechnologies.grigora.model.models
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.view.ui.groupCart.GroupCartType
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -34,4 +35,4 @@ data class CartDetail(
     var choicesString: String,
     var total: String?
 
-):Parcelable
+):Parcelable,GroupCartType
