@@ -7,7 +7,6 @@
     android:orientation="vertical">
     
     <RelativeLayout
-        android:id="@+id/rel_t"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/_8sdp"

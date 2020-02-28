@@ -1,6 +1,13 @@
 package com.rvtechnologies.grigora.view.ui
 
+import android.animation.Animator
 import android.content.Context
+import android.util.AttributeSet
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewAnimationUtils
+import android.widget.EditText
+import android.widget.FrameLayout
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
@@ -9,7 +16,6 @@ import android.graphics.drawable.GradientDrawable
 import android.os.Build
 import android.os.Bundle
 import android.util.Log
-import android.view.View
 import android.view.WindowManager
 import android.util.Base64
 import android.view.Window
@@ -39,6 +45,7 @@ import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.custom_search_view.view.*
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -48,7 +55,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     MealsRatingDialogFragment.MealsRate,
     RestaurantRatingDialogFragment.RestaurantRate {
     lateinit var content: RelativeLayout
-    lateinit var mainLayoutShadow: RelativeLayout
     var googleSignIn: GoogleSignin? = null
 
     object branchListener : Branch.BranchReferralInitListener {
@@ -123,7 +129,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
             WindowManager.LayoutParams.FLAG_FULLSCREEN
-        );
+        )
 
 
         GrigoraApp.getInstance().setCurrentActivity(this)
@@ -141,16 +147,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                 ).navigate(R.id.quizFragment)
 
         rateOrder()
-        setDrawer()
-
-        nav_view.setNavigationItemSelectedListener { item ->
-            closeOrOpenDrawer()
-            onNavDestinationSelected(
-                item,
-                Navigation.findNavController(this, R.id.main_nav_fragment)
-            )
-
-        }
 
         bottom_navigation.setOnNavigationItemSelectedListener { item ->
 
@@ -164,9 +160,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             )
 
         }
-        img_back.setOnClickListener {
-            onBackPressed()
-        }
+
 
         deliverLayout.setOnClickListener {
             //            Navigation.findNavController(this, R.id.main_nav_fragment)
@@ -180,8 +174,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         Log.e("id:: ", CommonUtils.getPrefValue(this, PrefConstants.ID))
         Log.e("language:: ", GrigoraApp.getInstance().getCurrentLanguage())
         content = findViewById(R.id.content)
-        mainLayoutShadow = findViewById(R.id.content2)
-        drawerSlide()
 
         img_menu.setOnClickListener {
             closeOrOpenDrawer()
@@ -197,176 +189,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             setTheme(R.style.AppTheme_Light)
     }
 
-    private fun setDrawer() {
-        if (!CommonUtils.getPrefValue(
-                this,
-                PrefConstants.TOKEN
-            ).isBlank()
-        ) {
-            linearLayoutLogout.visibility = View.VISIBLE
-            tv_username.text = CommonUtils.getPrefValue(
-                this,
-                PrefConstants.PREF_NAME
-            )
-
-            if (!CommonUtils.getPrefValue(
-                    this,
-                    PrefConstants.IMAGE
-                ).isBlank()
-            )
-                Glide.with(this).load(
-                    CommonUtils.getPrefValue(
-                        this,
-                        PrefConstants.IMAGE
-                    )
-                ).apply(
-                    RequestOptions().override(
-                        300,
-                        200
-                    ).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.logo).error(
-                        R.drawable.logo
-                    )
-                ).into(img_user)
-        } else {
-            linearLayoutLogout.visibility = View.GONE
-            Glide.with(this).load(
-                R.drawable.logo
-            ).apply(
-                RequestOptions().override(
-                    300,
-                    200
-                ).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.logo).error(
-                    R.drawable.logo
-                )
-            ).into(img_user)
-        }
-    }
-
-    fun drawerSlide() {
-        var scaleFactor = 4f
-        var cornerRadiusFactorTop = 55f
-        var cornerRadiusFactorBottom = 100f
-        drawerLayout.setScrimColor(Color.TRANSPARENT);
-        val actionBarDrawerToggle =
-            object : ActionBarDrawerToggle(this, drawerLayout, R.string.add, R.string.track) {
-                override fun onDrawerSlide(drawerView: View, slideOffset: Float) {
-                    super.onDrawerSlide(drawerView, slideOffset)
-                    val slideX = drawerView.width * slideOffset
-
-                    content.translationX = slideX
-
-                    content.scaleX = 1 - (slideOffset / scaleFactor)
-                    content.scaleY = 1 - (slideOffset / scaleFactor)
-
-
-                    var scaleFactor2 = 19f
-                    val slideX2 = drawerView.width + 20 * slideOffset
-
-                    content2.translationX = slideX2
-
-                    content2.scaleX = 1 - (slideOffset / scaleFactor2)
-                    content2.scaleY = 1 - (slideOffset / scaleFactor2 * 6)
-
-
-                    val mainLayoutBackground = GradientDrawable()
-                    mainLayoutBackground.setColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.white
-                        )
-                    )
-                    mainLayoutBackground.setCornerRadii(
-                        floatArrayOf(
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset
-                        )
-                    )
-                    content.background = mainLayoutBackground
-
-
-                    val shadow = GradientDrawable()
-                    shadow.setColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorPrimaryDark
-                        )
-                    )
-                    shadow.setCornerRadii(
-                        floatArrayOf(
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset
-                        )
-                    )
-
-                    mainLayoutShadow.background = shadow
-                    mainLayoutShadow.elevation = 16f
-                    content.elevation = 16f
-
-
-                    val toolBarGradeint = GradientDrawable()
-                    toolBarGradeint.setColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            R.color.colorAccent
-                        )
-                    )
-
-                    toolBarGradeint.setCornerRadii(
-
-                        floatArrayOf(
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset,
-                            cornerRadiusFactorTop * slideOffset
-
-                        )
-                    )
-//                    appBar.background = toolBarGradeint
-
-
-                    val bottomBarGradient = GradientDrawable()
-                    bottomBarGradient.setColor(
-                        ContextCompat.getColor(
-                            this@MainActivity,
-                            android.R.color.white
-                        )
-                    )
-                    bottomBarGradient.setCornerRadii(
-                        floatArrayOf(
-                            0f,
-                            0f,
-                            0f,
-                            0f,
-                            0f,
-                            0f,
-                            cornerRadiusFactorBottom * slideOffset,
-                            cornerRadiusFactorBottom * slideOffset
-                        )
-                    )
-
-//                    bottomLayout.background = bottomBarGradient
-
-                }
-            }
-
-        drawerLayout.addDrawerListener(actionBarDrawerToggle)
-    }
 
     fun updateLocale(shouldRecreate: Boolean) {
         val languageToLoad: String
@@ -630,6 +452,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
         tv_title.visibility = View.VISIBLE
         tv_title.text = title
+        img_back.setOnClickListener {
+            onBackPressed()
+        }
+
     }
 
     fun menuAddress() {
@@ -662,11 +488,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         fab_cart.visibility = View.GONE
     }
 
-    fun showFab() {
-        fab_cart.visibility = View.VISIBLE
-
-    }
-
     fun showBottomNavigation(index: Int) {
         bottom_navigation.visibility = View.VISIBLE
         bottom_navigation.selectedItemId = index
@@ -676,5 +497,45 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     }
 
+    fun updateCartButton() {
+        if (!AppConstants.CART_RESTAURANT.isNullOrEmpty() && AppConstants.CART_COUNT > 0) {
+
+            if (fab_cart.visibility != View.VISIBLE) {
+                var x = drawerLayout.right
+                var y = drawerLayout.bottom
+
+                var endRadius =
+                    Math.hypot(drawerLayout.width.toDouble(), drawerLayout.height.toDouble())
+                        .toFloat()
+
+                var anim =
+                    ViewAnimationUtils.createCircularReveal(
+                        fab_cart,
+                        (drawerLayout.right + drawerLayout.left) / 2,
+                        (drawerLayout.top + drawerLayout.bottom) / 2,
+                        0F,
+                        endRadius
+                    )
+                fab_cart.visibility = View.VISIBLE
+                anim.duration = 800
+                anim.start()
+            }
+
+
+
+            tv_restname.text = AppConstants.CART_RESTAURANT
+            tv_items.text = AppConstants.CART_COUNT.toString() + " " + getString(R.string.items)
+
+            fab_cart.setOnClickListener {
+                Navigation.findNavController(this, R.id.main_nav_fragment)
+                    .navigate(R.id.navigationCart)
+            }
+        } else {
+            fab_cart.visibility = View.GONE
+        }
+    }
+
 
 }
+
+

@@ -21,9 +21,8 @@ class SendMoneyViewModel : ViewModel() {
 
         ApiRepo.getInstance()
             .transferMoney(
-                email = email,
+                walletId = email,
                 token = token.value.toString(),
-                reason = reason,
                 amount = amount
             ) { success, result ->
                 isLoading.value = false

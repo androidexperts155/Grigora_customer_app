@@ -69,24 +69,6 @@ class RestaurantDetailsViewModel : ViewModel() {
             }
     }
 
-    fun click(isChecked: Int) {
-        ApiRepo.getInstance()
-            .likeOrUnlike(
-                token = token.value!!,
-                restaurantId = id.value.toString(),
-                status = isChecked.toString()
-            ) { success, result ->
-                if (success) {
-//                    val type =
-//                        object : TypeToken<CommonResponseModel<RateOrderModel>>() {}.type
-//                    rateResult.value = Gson().fromJson(result as JsonElement, type)
-
-                } else {
-//                    rateResult.value = result
-                }
-            }
-    }
-
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
         if (token.value.toString().isNotBlank()) {
             isLoading.value = true

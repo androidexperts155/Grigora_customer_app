@@ -13,9 +13,7 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import kotlinx.android.synthetic.main.fragment_group_order_already_placed.*
 
-/**
- * A simple [Fragment] subclass.
- */
+
 class GroupOrderAlreadyPlaced(var iRecyclerItemClick: IRecyclerItemClick) : DialogFragment() {
 
 
@@ -36,8 +34,8 @@ class GroupOrderAlreadyPlaced(var iRecyclerItemClick: IRecyclerItemClick) : Dial
         dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
         bt_submit.setOnClickListener {
+            dismiss()
             iRecyclerItemClick.onItemClick(1)
-
         }
     }
 

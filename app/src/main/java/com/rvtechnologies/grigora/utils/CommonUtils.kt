@@ -20,6 +20,7 @@ import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
+import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -31,7 +32,7 @@ import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.loader_layout.view.*
+import me.everything.android.ui.overscroll.OverScrollDecoratorHelper
 import retrofit2.Response
 import java.io.File
 import java.io.FileNotFoundException
@@ -42,7 +43,6 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object CommonUtils {
-
 
 
     fun getFormattedTimeOrDate(data: Any, patternFrom: String, patternTo: String): String {
@@ -106,7 +106,6 @@ object CommonUtils {
         editor.commit()
         return true
     }
-
 
 
     private var progressBarDialog: Dialog? = null
@@ -394,6 +393,11 @@ object CommonUtils {
         }
     }
 
+    fun setOverScroll(recyclerView: RecyclerView, mode: Int) {
+        OverScrollDecoratorHelper.setUpOverScroll(recyclerView, mode)
+    }
+
+
     fun calculateDistance(
         startLat: Double,
         startLng: Double,
@@ -408,6 +412,6 @@ object CommonUtils {
         endLocation.latitude = endLat
         endLocation.longitude = endLng
 
-        return startLocation.distanceTo(endLocation)/1000
+        return startLocation.distanceTo(endLocation) / 1000
     }
 }

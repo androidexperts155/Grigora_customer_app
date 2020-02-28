@@ -52,14 +52,35 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     
-                    <TextView
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:text="@string/deliver_to_you"
-                        android:textColor="?attr/searchHint"
-                        android:textSize="@dimen/_10sdp" />
+                        android:layout_marginTop="@dimen/_8sdp">
+                        
+                        <TextView
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/deliver_to_you"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        
+                        <TextView
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            
+                            android:padding="@dimen/_4sdp"
+                            android:clickable="true"
+                            android:onClick="@{()->cartFragment.scheduleOrder()}"
+                            android:text="@string/schedule_order"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_10sdp" />
+                    </RelativeLayout>
                     
                     <TextView
                         android:id="@+id/tv_estimated"

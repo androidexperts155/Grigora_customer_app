@@ -20,9 +20,13 @@ data class RestaurantDetailModel(
 
     @SerializedName("cart")
     var cart: Cart?,
+    @SerializedName("normal_cart")
+    var normal_cart: NormalCart?,
 
     @SerializedName("table_booking")
     var table_booking: String = "",
+    @SerializedName("total_cart_item")
+    var total_cart_item: String = "",
 
 
     @SerializedName("cart_id")
@@ -67,6 +71,27 @@ data class RestaurantDetailModel(
     var closing_time: String = ""
 
 ) : Parcelable {
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class NormalCart(
+        val cart_type: String,
+        val created_at: String,
+        val group_order: String,
+        val id: Int,
+        val max_per_person: String,
+        val quantity: Int,
+        val restaurant_id: Int,
+        val restaurant_name: String,
+        val share_link: String,
+        val status: String,
+        val total_price: String,
+        val updated_at: String,
+        val user_id: Int
+    ): Parcelable
+
+
+
+
 
     @SuppressLint("ParcelCreator")
     @Parcelize

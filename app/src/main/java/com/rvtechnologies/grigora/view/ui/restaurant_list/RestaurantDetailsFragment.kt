@@ -11,7 +11,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
-import androidx.core.widget.addTextChangedListener
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -29,7 +28,6 @@ import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapt
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantDetailAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantItemAdapter
 import com.rvtechnologies.grigora.view_model.RestaurantDetailsViewModel
-import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.restaurant_details_fragment.*
 import kotlinx.android.synthetic.main.restaurant_details_fragment.parentView
@@ -37,7 +35,7 @@ import kotlin.collections.ArrayList
 
 class RestaurantDetailsFragment(
     var restaurantId: String,
-     val iRecyclerItemClick: IRecyclerItemClick
+    val iRecyclerItemClick: IRecyclerItemClick
 ) : Fragment(), OnItemClickListener,
     QuantityClicks,
     QuantityClicksDialog,
@@ -45,13 +43,15 @@ class RestaurantDetailsFragment(
     private val cartItemList = ArrayList<CartDetail>()
     lateinit var menuItemModel: MenuItemModel
     private lateinit var fragmentRestaurantsDetailsBinding: RestaurantDetailsFragmentBinding
-
     private lateinit var viewModel: RestaurantDetailsViewModel
     private var mealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
     private var filteredMealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
     private val popularList = ArrayList<MenuItemModel>()
     private val previousList = ArrayList<MenuItemModel>()
     private var cartId = ""
+    var count = 0
+    lateinit var restaurantDetailModel: RestaurantDetailModel
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,50 +64,54 @@ class RestaurantDetailsFragment(
                 mealsAndCuisinesList.clear()
                 filteredMealsAndCuisinesList.clear()
                 if (response.status!!) {
-                    var data = response.data as RestaurantDetailModel
-                    if (!data.cart_id.isNullOrEmpty()) {
-                        cartId = data.cart_id
+                    restaurantDetailModel = response.data as RestaurantDetailModel
+                    if (!restaurantDetailModel.cart_id.isNullOrEmpty()) {
+                        cartId = restaurantDetailModel.cart_id
                     }
 
-                    if (data.popluarItems.size == 0) {
+                    if (restaurantDetailModel.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
                     } else {
-                        popularList.addAll(data.popluarItems)
+                        popularList.addAll(restaurantDetailModel.popluarItems)
                         rc_popular.adapter!!.notifyDataSetChanged()
-                        tv_popular_count.text = data.popluarItems.size.toString()
+                        tv_popular_count.text = restaurantDetailModel.popluarItems.size.toString()
                     }
 
-                    if (data.previousOrderedItems.size == 0) {
+                    if (restaurantDetailModel.previousOrderedItems.size == 0) {
                         li_previous.visibility = View.GONE
                     } else {
-                        previousList.addAll(data.previousOrderedItems)
-                        tv_pre_count.text = data.previousOrderedItems.size.toString()
+                        previousList.addAll(restaurantDetailModel.previousOrderedItems)
+                        tv_pre_count.text =
+                            restaurantDetailModel.previousOrderedItems.size.toString()
                         rc_previous.adapter!!.notifyDataSetChanged()
                     }
 
-                    if (data.full_time.equals("1")) {
+                    if (restaurantDetailModel.full_time.equals("1")) {
                         tv_tt.text = getString(R.string.open_24_hours)
                         tv_time.visibility = View.GONE
                     } else
                         tv_time.text = CommonUtils.getFormattedTimeOrDate(
-                            data.opening_time,
+                            restaurantDetailModel.opening_time,
                             "HH:mm:ss",
                             "hh:mm aa"
                         ) + " to " + CommonUtils.getFormattedTimeOrDate(
-                            data.closing_time,
+                            restaurantDetailModel.closing_time,
                             "HH:mm:ss",
                             "hh:mm aa"
                         )
 
-                    tv_rating.text = data.total_rating
-                    tv_reviews.text = data.total_review
-                    tv_restaurantname.text = data.restaurant_name
-                    tv_cuisines.text = data.cuisines
-                    tv_deliver.text = "Delivers in " + data.estimated_preparing_time + " min"
+                    tv_rating.text = restaurantDetailModel.total_rating
+                    tv_reviews.text = restaurantDetailModel.total_review
+                    tv_restaurantname.text = restaurantDetailModel.restaurant_name
+                    tv_cuisines.text = restaurantDetailModel.cuisines
+                    tv_deliver.text =
+                        "Delivers in " + restaurantDetailModel.estimated_preparing_time + " min"
 
-                    mealsAndCuisinesList.addAll((data.allData))
+                    mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
                     filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
                     rc_items?.adapter?.notifyDataSetChanged()
+
+                    updateCartButton()
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
@@ -155,14 +159,14 @@ class RestaurantDetailsFragment(
 
                 dialogView.img_close.setOnClickListener {
                     alertDialog?.dismiss()
+
                     viewModel.getRestaurantsDetails(
                         CommonUtils.getPrefValue(
                             context,
                             PrefConstants.TOKEN
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.ID
-                        ), ""
+                        ),
+                        restaurantId,
+                        ""
                     )
                 }
                 alertDialog = dialogBuilder?.create()
@@ -174,6 +178,9 @@ class RestaurantDetailsFragment(
             if (response is CommonResponseModel<*>) {
                 var data = response.data as AddCartModel
                 cartId = data.cartId.toString()
+                if (data.quantity > 0)
+                    AppConstants.CART_COUNT = data.quantity
+                (activity as MainActivity).updateCartButton()
             }
         })
 
@@ -319,44 +326,11 @@ class RestaurantDetailsFragment(
             restaurantId,
             ""
         )
+        updateCartButton()
     }
 
     fun back() {
         view?.findNavController()?.popBackStack()
-    }
-
-    fun like(view: View) {
-        CommonUtils.doBounceAnimation(view)
-    }
-
-    fun toReviews() {
-        val bundle = bundleOf(AppConstants.RESTAURANT_ID to viewModel.id.value)
-        view?.findNavController()
-            ?.navigate(R.id.action_restaurantDetailsFragment_to_reviewsFragment, bundle)
-    }
-
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.action_restaurantDetailsFragment_to_loginFragment
-                    )
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-            }
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
-        }
     }
 
     override fun add(position: Int, position2: Int) {
@@ -561,7 +535,7 @@ class RestaurantDetailsFragment(
         }
     }
 
-    fun initSearchView() {
+    private fun initSearchView() {
         search_view.search_input_text.addTextChangedListener(object : TextWatcher {
             override fun afterTextChanged(p0: Editable?) {
             }
@@ -610,5 +584,13 @@ class RestaurantDetailsFragment(
                 }
             }
         })
+    }
+
+    private fun updateCartButton() {
+        if (::restaurantDetailModel.isInitialized && restaurantDetailModel.normal_cart!=null) {
+            AppConstants.CART_RESTAURANT = restaurantDetailModel.normal_cart!!.restaurant_name
+            AppConstants.CART_COUNT = restaurantDetailModel.normal_cart!!.quantity
+            (activity as MainActivity).updateCartButton()
+        }
     }
 }

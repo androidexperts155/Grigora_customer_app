@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.profile.wallet.adapter
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -12,7 +13,7 @@ import com.rvtechnologies.grigora.model.WalletHistoryModel
 import kotlinx.android.synthetic.main.wallet_history_item.view.*
 
 class HistoryAdapter(
-    var historyList: ArrayList<WalletHistoryModel.Data>
+    var historyList: ArrayList<WalletHistoryModel.History>
 ) :
     RecyclerView.Adapter<HistoryAdapter.ViewHolder>() {
 
@@ -24,6 +25,7 @@ class HistoryAdapter(
         when (historyModel.type) {
             "3" -> {
                 holder.itemView.tv_amount.text = "+ ₦ ${historyModel.amount}"
+
                 holder.itemView.tv_amount.setTextColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
@@ -31,23 +33,16 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.quantum_grey
-                    )
-                )
+                holder.itemView.tv_username.text =
+                    holder.itemView.context!!.getString(R.string.money_added)
 
-                holder.itemView.tv_email.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.quantum_grey
-                    )
-                )
+
+                holder.itemView.tv_email.visibility = View.GONE
             }
 
             "4" -> {
                 holder.itemView.tv_amount.text = "- ₦ ${historyModel.amount}"
+
                 holder.itemView.tv_amount.setTextColor(
                     ContextCompat.getColor(
                         holder.itemView.context,
@@ -55,19 +50,14 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.white
-                    )
-                )
+                holder.itemView.tv_username.text =
+                    holder.itemView.context!!.getString(R.string.money_deducted)
 
-                holder.itemView.tv_email.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.white
-                    )
-                )
+                holder.itemView.tv_email.visibility = View.GONE
+
+
+
+
             }
 
             "5" -> {
@@ -79,19 +69,8 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.white
-                    )
-                )
-
-                holder.itemView.tv_email.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.white
-                    )
-                )
+                holder.itemView.tv_username.text=historyList[position].otherUserName
+                holder.itemView.tv_email.text=historyList[position].otherUserEmail
             }
 
             "6" -> {
@@ -103,19 +82,12 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.quantum_grey
-                    )
-                )
+                holder.itemView.tv_username.text=historyList[position].otherUserName
+                holder.itemView.tv_email.text=historyList[position].otherUserEmail
 
-                holder.itemView.tv_email.setTextColor(
-                    ContextCompat.getColor(
-                        holder.itemView.context,
-                        R.color.quantum_grey
-                    )
-                )
+
+
+
             }
 
         }
@@ -145,7 +117,7 @@ class HistoryAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: WalletHistoryModel.Data
+            item: WalletHistoryModel.History
         ) {
             binding.historyModel = item
             binding.executePendingBindings()

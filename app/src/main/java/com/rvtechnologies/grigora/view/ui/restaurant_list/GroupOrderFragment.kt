@@ -31,7 +31,8 @@ import kotlinx.android.synthetic.main.group_order_fragment.*
 import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
 import java.util.*
 
-class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItemClick) : Fragment(), IRecyclerItemClick {
+class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerItemClick) :
+    Fragment(), IRecyclerItemClick {
 
     private lateinit var groupOrderFragmentBinding: GroupOrderFragmentBinding
     var selected_amount = "0"
@@ -54,7 +55,7 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
 
         viewModel.createGroupOrderRes.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
-               if (res.status!!) {
+                if (res.status!!) {
                     var data = res.data as CreateGroupOrderModel
                     generateLink(data)
 
@@ -67,7 +68,7 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
                 if (res.status!!) {
                     var data = res.data as CreateGroupOrderModel
                     iRecyclerItemClick.onItemClick(data.id.toString())
-                 }
+                }
             }
         })
 
@@ -88,6 +89,7 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
         return groupOrderFragmentBinding.root
 
     }
+
 
 
     fun none() {
@@ -280,7 +282,10 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
             .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
             .setContentMetadata(
-                ContentMetadata().addCustomMetadata(AppConstants.CART_ID, data.id.toString()).addCustomMetadata(AppConstants.RESTAURANT_ID,data.restaurant_id.toString())
+                ContentMetadata().addCustomMetadata(
+                    AppConstants.CART_ID,
+                    data.id.toString()
+                ).addCustomMetadata(AppConstants.RESTAURANT_ID, data.restaurant_id.toString())
             )
 
         val lp = LinkProperties()
@@ -294,9 +299,9 @@ class GroupOrderFragment(val args: Bundle?,val iRecyclerItemClick: IRecyclerItem
             context!!, lp
         ) { url, error ->
             if (error == null) {
-                 viewModel.  saveCartLink(
-                   token =  CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                    link = url, cartId =  data.id.toString()
+                viewModel.saveCartLink(
+                    token = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    link = url, cartId = data.id.toString()
                 )
             }
         }

@@ -52,7 +52,7 @@ class MenuItemDetailsViewModel : ViewModel() {
     }
 
     fun addItemToCart() {
-        if (cartId.value.toString().isNullOrEmpty()) {
+        if (!cartId.value.toString().isNullOrEmpty()) {
             if (token.value.toString().isNotBlank()) {
                 val choices = ArrayList<ItemChoicesModel>()
                 try {
@@ -133,7 +133,7 @@ class MenuItemDetailsViewModel : ViewModel() {
             addItemToGroupCart()
     }
 
-    fun addItemToGroupCart() {
+    private fun addItemToGroupCart() {
 
         if (token.value.toString().isNotBlank()) {
             val choices = ArrayList<ItemChoicesModel>()

@@ -80,18 +80,13 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         viewModel.response.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 CommonUtils.showMessage(parentView, response.message!!)
-            } else {
-                if (response.toString() == "Unauthorized") {
-                    if (activity is MainActivity)
-                        showLoginAlert(activity as MainActivity)
-                    else {
-                        CommonUtils.showMessage(parentView, response.toString())
-                        back()
-                    }
-                } else
-                    CommonUtils.showMessage(parentView, response.toString())
+                view?.findNavController()?.popBackStack()
 
+            } else {
+                CommonUtils.showMessage(parentView, response.toString())
             }
+
+
         })
         viewModel.itemCategories.observe(this, Observer { itemCategoriesListRes ->
             itemCategoriesList.clear()
@@ -112,34 +107,6 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         })
     }
 
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                toLogin()
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-            }
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
-        }
-    }
-
-    private fun toLogin() {
-        view?.findNavController()
-            ?.navigate(
-                R.id.action_menuItemDetailsFragment_to_loginFragment22
-            )
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -155,9 +122,7 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCategoryItems()
-//        if (viewModel.menuItem.value?.inOffer == 1) {
-//            txtNormalPrice.paintFlags = txtNormalPrice.paintFlags or Paint.STRIKE_THRU_TEXT_FLAG
-//        }
+
     }
 
     override fun onResume() {

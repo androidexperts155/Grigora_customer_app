@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    
+    android:clickable="true"
+    android:foreground="?attr/selectableItemBackground"
+    android:orientation="vertical"
+    android:paddingTop="@dimen/_12sdp">
+    
+    <RelativeLayout
+        
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_4sdp"
+        android:layout_marginRight="@dimen/_4sdp"
+        android:padding="@dimen/_4sdp">
+        
+        <TextView
+            android:id="@+id/tv_rest_name"
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_14sdp"
+            tools:text="Ihop" />
+        
+        <TextView
+            android:id="@+id/tv_money"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:textColor="?attr/textGray"
+            android:textSize="@dimen/_12sdp"
+            tools:text="₦0.00" />
+    </RelativeLayout>
+    
+    <TextView
+        android:id="@+id/tv_last"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_4sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_10sdp"
+        tools:text="3 Items . 2 participants" />
+    
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="?attr/viewbg" />
+
+</LinearLayout>

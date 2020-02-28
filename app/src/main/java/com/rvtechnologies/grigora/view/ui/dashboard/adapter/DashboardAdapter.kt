@@ -11,7 +11,9 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.ViewMore
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.AppConstants
+import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import kotlinx.android.synthetic.main.new_dash_board_fragment.*
 
 class DashboardAdapter(
     val newDashboardModel: NewDashboardModel,
@@ -125,6 +127,8 @@ class DashboardAdapter(
                 var adapter = FilterAdapter(newDashboardModel.filters, iRecyclerItemClick)
                 holder.rc_data.layoutManager = layoutManager
                 holder.rc_data.adapter = adapter
+                CommonUtils.setOverScroll(holder.rc_data,1)
+
             }
             is Offers -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -132,7 +136,7 @@ class DashboardAdapter(
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
                 holder.rc_data.adapter = OfferAdapter(newDashboardModel.promos, iRecyclerItemClick)
-
+                CommonUtils.setOverScroll(holder.rc_data,1)
             }
             is Categories -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -140,6 +144,7 @@ class DashboardAdapter(
                 holder.rel_title.visibility = View.GONE
                 holder.rc_data.adapter =
                     CategoriesAdapter(newDashboardModel.cuisines, iRecyclerItemClick)
+                CommonUtils.setOverScroll(holder.rc_data,1)
 
             }
             is Cuisines -> {
@@ -160,7 +165,7 @@ class DashboardAdapter(
                         iRecyclerItemClick,
                         customisedData.uiType
                     )
-
+                CommonUtils.setOverScroll(holder.rc_data,1)
 
             }
             is TopBrands -> {
@@ -181,6 +186,7 @@ class DashboardAdapter(
                     customisedData.restaurants, newDashboardModel.min_kilo_meter,
                     newDashboardModel.base_delivery_fee, iRecyclerItemClick, customisedData.uiType
                 )
+                CommonUtils.setOverScroll(holder.rc_data,1)
             }
             is RestaurantsHorizontal -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -206,6 +212,7 @@ class DashboardAdapter(
                 holder.tv_more.setOnClickListener {
                     iRecyclerItemClick.onItemClick(ViewMore(customisedData.id))
                 }
+                CommonUtils.setOverScroll(holder.rc_data,1)
             }
             is RestaurantsVertical -> {
                 layoutManager.orientation = LinearLayoutManager.VERTICAL

@@ -130,6 +130,8 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
                 PrefConstants.ADDRESS
             )
         )
+        (activity as MainActivity).updateCartButton()
+
     }
 
 

@@ -7,8 +7,8 @@
     <RelativeLayout
         android:id="@+id/parentView"
         android:layout_width="match_parent"
-        android:animateLayoutChanges="true"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="?attr/backgroundColor">
         
         <RelativeLayout
@@ -76,16 +76,16 @@
         
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
-            
             android:layout_height="match_parent"
-            android:layout_below="@id/top_bar">
+            android:layout_below="@id/top_bar"
+            android:paddingBottom="@dimen/_40sdp">
             
             <LinearLayout
                 android:id="@+id/li_main"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
-    
+                
                 <RelativeLayout
                     
                     android:id="@+id/rel_invite"
@@ -95,7 +95,7 @@
                     android:background="?attr/langSelected"
                     android:padding="@dimen/_10sdp"
                     android:visibility="gone">
-        
+                    
                     <TextView
                         android:id="@+id/tv_group_order_title"
                         style="@style/mediumText"
@@ -104,7 +104,7 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_12sdp"
                         tools:text="Group order by Vikas" />
-        
+                    
                     <TextView
                         android:id="@+id/tv_order_limit"
                         style="@style/normalText"
@@ -114,8 +114,8 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
                         tools:text="Group order by Vikas" />
-        
-        
+                    
+                    
                     <TextView
                         style="@style/normalText"
                         android:layout_width="wrap_content"
@@ -135,11 +135,11 @@
                         android:text="@string/invite"
                         android:textColor="@color/textBlack"
                         android:textSize="@dimen/_12sdp" />
-    
-    
+                
+                
                 </RelativeLayout>
-    
-    
+                
+                
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -299,7 +299,6 @@
                 
                 
                 </RelativeLayout>
-                
                 
                 
                 <View
@@ -536,8 +535,6 @@
         
         <LinearLayout
             android:id="@+id/fab_cart"
-            android:visibility="gone"
-            android:onClick="@{()->restaurantDetailsView.showcart()}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_navigation"
@@ -548,11 +545,13 @@
             android:elevation="1dp"
             android:gravity="center"
             android:minWidth="@dimen/_180sdp"
+            android:onClick="@{()->restaurantDetailsView.showcart()}"
             android:orientation="horizontal"
             android:paddingLeft="@dimen/_15sdp"
             android:paddingTop="@dimen/_8sdp"
             android:paddingRight="@dimen/_15sdp"
             android:paddingBottom="@dimen/_8sdp"
+            android:visibility="visible"
             app:elevation="1dp">
             
             <ImageView

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
     tools:context=".view.ui.PaymentActivity">
     
     <ScrollView
@@ -18,17 +19,20 @@
             <com.braintreepayments.cardform.view.CardForm
                 android:id="@+id/card_form"
                 android:layout_width="match_parent"
+                
                 android:layout_height="match_parent" />
             
             <Button
                 android:id="@+id/btn_add"
+                style="@style/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_marginTop="24dp"
-                android:background="@drawable/btn_primary_back"
-                
+                android:background="@color/colorPrimaryDark"
                 android:text="@string/add"
-                android:textColor="@android:color/white" />
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_14sdp" />
         
         </LinearLayout>
     </ScrollView>

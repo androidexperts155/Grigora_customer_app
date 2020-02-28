@@ -17,7 +17,6 @@
         android:src="@drawable/food" />
     
     <TextView
-        android:id="@+id/textView4"
         style="@style/normalText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

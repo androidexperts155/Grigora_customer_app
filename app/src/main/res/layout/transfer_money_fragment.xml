@@ -1,0 +1,410 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="walletView"
+            type="com.rvtechnologies.grigora.view.ui.profile.wallet.TransferMoney" />
+        
+        <variable
+            name="walletViewModel"
+            type="com.rvtechnologies.grigora.view_model.TransferMoneyViewModel" />
+    </data>
+    
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        
+        <LinearLayout
+            android:id="@+id/parentView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="?attr/backgroundColor"
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_16sdp">
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="240dp"
+                android:background="@drawable/wallet_bg">
+                
+                <ImageView
+                    android:clickable="true"
+                    android:onClick="@{()->walletView.back()}"
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_back_white_24dp" />
+                
+                <TextView
+                    android:id="@+id/tv_title"
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/back"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:text="@string/gora_pouch"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_18sdp" />
+                
+                
+                <LinearLayout
+                    android:id="@+id/li_balance"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+                    
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:text="@string/current_balance"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <TextView
+                        android:id="@+id/wallet"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp"
+                        tools:text="24,000₦" />
+                </LinearLayout>
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tv_title"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+                    
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:text="@string/current_points"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <TextView
+                        android:id="@+id/tv_points"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp"
+                        tools:text="24,000₦" />
+                </LinearLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/li_balance"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+                    
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:text="@string/wallet_id"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <TextView
+                        android:id="@+id/tv_wallet_id"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp"
+                        tools:text="123456789" />
+                </LinearLayout>
+                
+                <ImageView
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@id/li_balance"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:src="@drawable/logo_text_dark" />
+            
+            
+            </RelativeLayout>
+            
+            <LinearLayout
+                android:id="@+id/li_transfer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:elevation="@dimen/_1sdp"
+                    app:cardBackgroundColor="?attr/chipDeSelected">
+                    
+                    <EditText
+                        android:id="@+id/ed_wallet_id"
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@color/transparent"
+                        android:drawableLeft="@drawable/ic_wallet"
+                        android:drawablePadding="@dimen/_12sdp"
+                        android:hint="@string/enter_wallet_id"
+                        android:imeActionLabel="@string/next"
+                        android:inputType="text"
+                        android:paddingLeft="@dimen/_8sdp"
+                        android:paddingTop="@dimen/_12sdp"
+                        android:paddingRight="@dimen/_12sdp"
+                        android:paddingBottom="@dimen/_12sdp"
+                        android:textColor="?attr/textWhite"
+                        android:textColorHint="?attr/searchHint"
+                        android:textSize="@dimen/_12sdp" />
+                </androidx.cardview.widget.CardView>
+                
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:elevation="@dimen/_1sdp"
+                    app:cardBackgroundColor="?attr/chipDeSelected">
+                    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+                        
+                        <ImageView
+                            android:id="@+id/img_1"
+                            android:layout_width="@dimen/_14sdp"
+                            android:layout_height="@dimen/_14sdp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_8sdp"
+                            android:layout_marginRight="@dimen/_8sdp"
+                            android:tint="?attr/textWhite"
+                            app:srcCompat="@drawable/ic_naira" />
+                        
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="@dimen/_35sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_toRightOf="@+id/img_1"
+                            android:background="?attr/viewbg" />
+                        
+                        <EditText
+                            
+                            android:id="@+id/ed_amount"
+                            style="@style/mediumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_toLeftOf="@+id/bt_transfer"
+                            android:layout_toRightOf="@+id/img_1"
+                            android:background="@color/transparent"
+                            android:hint="@string/enter_amount"
+                            android:inputType="numberDecimal"
+                            android:padding="@dimen/_12sdp"
+                            android:textColor="?attr/textWhite"
+                            android:textColorHint="?attr/searchHint"
+                            android:textSize="@dimen/_12sdp" />
+                        
+                        
+                        <ImageView
+                            android:id="@+id/bt_transfer"
+                            android:layout_width="@dimen/_28sdp"
+                            android:layout_height="@dimen/_28sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_gravity="right"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginRight="@dimen/_16sdp"
+                            android:background="@drawable/chip_selected_bg"
+                            android:clickable="true"
+                            android:onClick="@{()->walletView.transfer()}"
+                            android:padding="@dimen/_8sdp"
+                            
+                            android:tint="@color/white"
+                            app:srcCompat="@drawable/ic_transfer" />
+                    </RelativeLayout>
+                </androidx.cardview.widget.CardView>
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:padding="@dimen/_16sdp"
+                    android:text="@string/transactions"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <LinearLayout
+                        android:id="@+id/li_transactions"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+                        
+                        <com.google.android.material.tabs.TabLayout
+                            android:id="@+id/tab_top"
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_25sdp"
+                            android:layout_marginLeft="@dimen/_16sdp"
+                            android:layout_marginRight="@dimen/_16sdp"
+                            app:tabIndicatorColor="@color/colorPrimaryDark"
+                            app:tabIndicatorFullWidth="true"
+                            app:tabIndicatorHeight="1dp"
+                            app:tabMode="fixed"
+                            app:tabRippleColor="@color/grey_bg"
+                            app:tabTextColor="?attr/textWhite">
+                            
+                            <com.google.android.material.tabs.TabItem
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/all" />
+                            
+                            <com.google.android.material.tabs.TabItem
+                                style="@style/titleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/transfered" />
+                            
+                            
+                            <com.google.android.material.tabs.TabItem
+                                
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/received" />
+                        
+                        
+                        </com.google.android.material.tabs.TabLayout>
+                        
+                        <androidx.recyclerview.widget.RecyclerView
+                            android:id="@+id/rc_history"
+                            android:layout_width="match_parent"
+                            android:visibility="visible"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:orientation="vertical"
+                            android:overScrollMode="never"
+                            
+                            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                            
+                            tools:itemCount="4"
+                            tools:listitem="@layout/wallet_history_item" />
+                        
+                        <com.rvtechnologies.grigora.utils.NonSwipeableViewPager
+                            android:id="@+id/vp_fragments"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" />
+                    </LinearLayout>
+                    
+                    <LinearLayout
+                        android:id="@+id/not_found"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:orientation="vertical">
+                        
+                        <com.airbnb.lottie.LottieAnimationView
+                            android:layout_width="@dimen/_80sdp"
+                            android:layout_height="@dimen/_80sdp"
+                            android:visibility="gone"
+                            app:lottie_autoPlay="true"
+                            app:lottie_fileName="no_history_found.json"
+                            app:lottie_loop="true" />
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/_8sdp"
+                            android:text="@string/no_transactions_found"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_10sdp" />
+                    
+                    
+                    </LinearLayout>
+                
+                </RelativeLayout>
+            
+            
+            </LinearLayout>
+        
+        </LinearLayout>
+    
+    </ScrollView>
+
+
+</layout>
+
+

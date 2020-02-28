@@ -101,6 +101,7 @@ class LocationTypeFragment : Fragment(), IRecyclerItemClick {
                 this
             )
         rvLocationType.adapter = adapter
+        CommonUtils.setOverScroll(rvLocationType,0)
 
         if (arguments != null) {
             val map =

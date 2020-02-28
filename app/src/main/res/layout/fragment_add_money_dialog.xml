@@ -1,49 +1,44 @@
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
+
+<LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@android:color/black"
+    android:background="@drawable/rating_filter_bg"
+    
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+
+    
+    
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
-    android:padding="@dimen/_8sdp">
+    android:padding="@dimen/_16sdp">
+    
+    <ImageView
+        android:id="@+id/bt_cancel"
+        android:layout_width="@dimen/_22sdp"
+        android:layout_height="@dimen/_22sdp"
+        android:padding="@dimen/_2sdp"
+        android:tint="@color/colorPrimaryDark"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_close" />
     
     <TextView
-        android:id="@+id/textView49"
+        android:id="@+id/textView2"
+        style="@style/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/add_amount"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-    
-    <EditText
-        android:id="@+id/ed_money"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="8dp"
-        android:background="@drawable/wallet_history_round"
-        android:backgroundTint="@color/text_primary"
-        android:drawableLeft="@drawable/ic_naira"
-        android:drawablePadding="4dp"
-        android:ems="10"
-        android:gravity="left"
-        android:inputType="number"
-        android:paddingLeft="@dimen/_16sdp"
-        android:paddingTop="@dimen/_8sdp"
-        android:paddingRight="@dimen/_16sdp"
-        android:paddingBottom="@dimen/_8sdp"
-        android:textColor="@color/white"
-        android:textColorHint="@color/white"
-        android:textSize="@dimen/_16sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
+        android:layout_marginStart="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:text="@string/add_funds_"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_13sdp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/bt_cancel" />
+    
     
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline_vertical_in_center"
@@ -61,75 +56,163 @@
     
     <Button
         android:id="@+id/bt_op1"
-        android:layout_width="wrap_content"
+        style="@style/mediumText"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_35sdp"
-        android:layout_marginTop="16dp"
-        android:background="@color/btn_primary"
-        
+        android:layout_marginTop="@dimen/_16sdp"
+        android:background="@drawable/chip_selected_bg"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/op1"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_in_center"
-        app:layout_constraintTop_toBottomOf="@+id/ed_money" />
+        app:layout_constraintTop_toBottomOf="@+id/textView2" />
     
     <Button
         android:id="@+id/bt_op3"
-        android:layout_width="wrap_content"
+        style="@style/mediumText"
+        android:layout_width="@dimen/_80sdp"
         android:layout_height="@dimen/_35sdp"
         
-        android:background="@color/btn_primary"
+        android:background="@drawable/chip_selected_bg"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/op3"
         android:textAllCaps="false"
         android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_in_center1"
         app:layout_constraintTop_toTopOf="@+id/bt_op2" />
     
     <Button
         android:id="@+id/bt_op2"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35sdp"
-        android:background="@color/btn_primary"
+        style="@style/mediumText"
+        android:layout_width="@dimen/_80sdp"
         
+        android:layout_height="@dimen/_35sdp"
+        android:background="@drawable/chip_selected_bg"
+        android:backgroundTint="@color/colorPrimaryDark"
         android:text="@string/op2"
         android:textAllCaps="false"
         
         android:textColor="@color/white"
-        android:textSize="@dimen/_14sdp"
+        android:textSize="@dimen/_12sdp"
         app:layout_constraintEnd_toStartOf="@+id/guideline_vertical_in_center1"
         app:layout_constraintHorizontal_bias="0.458"
         app:layout_constraintStart_toStartOf="@+id/guideline_vertical_in_center"
         app:layout_constraintTop_toTopOf="@+id/bt_op1" />
     
+    
+    <LinearLayout
+        android:id="@+id/li_ed"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:background="@drawable/btn_rounded"
+        android:backgroundTint="?attr/viewbg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/bt_op1">
+        
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/nigerian_naira"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="?attr/textGray" />
+        
+        <EditText
+            android:id="@+id/ed_naira"
+            style="@style/mediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:hint="0.00"
+            android:inputType="numberDecimal"
+            android:padding="@dimen/_8sdp"
+            android:textColor="?attr/textWhite"
+            android:textColorHint="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+    
+    
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginTop="@dimen/_16sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        android:background="@drawable/btn_rounded"
+        android:backgroundTint="?attr/viewbg"
+        android:gravity="center"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/li_ed">
+        
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/points"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        <View
+            android:layout_width="@dimen/_1sdp"
+            android:layout_height="match_parent"
+            android:background="?attr/textGray" />
+        
+        <TextView
+            android:id="@+id/tv_points"
+            style="@style/mediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/transparent"
+            android:gravity="center"
+            android:hint="0.00"
+            android:padding="@dimen/_8sdp"
+            android:textColor="?attr/textWhite"
+            android:textColorHint="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+    
+    
     <Button
         android:id="@+id/bt_pay"
-        android:layout_width="0dp"
+        style="@style/titleText"
+        android:layout_width="@dimen/_180sdp"
         android:layout_height="@dimen/_35sdp"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
-        android:background="#D71158"
-        android:text="@string/pay"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginBottom="@dimen/_16sdp"
+        android:background="@drawable/chip_selected_bg"
+        android:backgroundTint="@color/colorPrimaryDark"
+        android:text="@string/add"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="@dimen/_14sdp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/bt_op2" />
-    
-    <Button
-        android:id="@+id/bt_cancel"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35sdp"
-        
-        android:background="@android:color/transparent"
-        android:text="@string/places_cancel"
-        android:textAllCaps="false"
-        android:textColor="#D71158"
-        android:textSize="@dimen/_14sdp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/linearLayout2" />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
-
+</LinearLayout>

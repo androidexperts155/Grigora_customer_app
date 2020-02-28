@@ -4,10 +4,13 @@ import android.app.Activity
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -16,14 +19,14 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.WalletFragmentBinding
 import com.rvtechnologies.grigora.model.AddMoneyModel
 import com.rvtechnologies.grigora.model.WalletHistoryModel
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.PaymentActivity
-import com.rvtechnologies.grigora.view.ui.profile.wallet.adapter.HistoryAdapter
 import com.rvtechnologies.grigora.view_model.WalletViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.wallet_fragment.*
 
 class WalletFragment : Fragment(), IRecyclerItemClick {
@@ -32,8 +35,8 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
             WalletFragment()
     }
 
+    lateinit var historyModel: WalletHistoryModel
     var amount = ""
-    var historyList = ArrayList<WalletHistoryModel.Data>()
 
     private lateinit var viewModel: WalletViewModel
 
@@ -44,10 +47,16 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
         viewModel.historyResponse.observe(this, Observer { historyRes ->
-            if (historyRes is WalletHistoryModel) {
-                historyList.clear()
-                wallet.text = "₦ " + historyRes.wallet
-              } else {
+            if (historyRes is CommonResponseModel<*>) {
+                historyModel = historyRes.data as WalletHistoryModel
+                wallet.text = "₦ " + historyModel.wallet
+                tv_points.text =
+                    "₦ " + ((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()).toString()
+                tv_to_naira.text =
+                    getString(R.string.ngn_to_how_naira, historyModel.naira_to_points)
+                tv_wallet_id.text = historyModel.wallet_id
+
+            } else {
                 CommonUtils.showMessage(parentView, historyRes.toString())
             }
         })
@@ -88,7 +97,22 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        back.setOnClickListener { view?.findNavController().popBackStack() }
+        ed_naira.addTextChangedListener(object : TextWatcher {
+            override fun afterTextChanged(s: Editable?) {
+                if (!s?.trim().toString().isNullOrEmpty()) {
+                    tv_pts.text =
+                        (s?.trim().toString().toDouble() * (historyModel.naira_to_points).toDouble()).toString()
+                } else
+                    tv_pts.text = "0"
+            }
 
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+        })
     }
 
     override fun onResume() {
@@ -102,9 +126,10 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
         }
     }
 
-    fun sendMoney() {
+    fun transferMoney() {
+        var bundle = bundleOf(AppConstants.IS_FOR_HISTORY to false)
         view?.findNavController()
-            ?.navigate(R.id.action_walletFragment_to_sendMoneyFragment)
+            ?.navigate(R.id.action_walletFragment_to_sendMoneyFragment, bundle)
     }
 
     fun backPress() {
@@ -112,8 +137,14 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
     }
 
     fun add() {
-        var addMoneyDialog = AddMoneyDialog(this)
+        var addMoneyDialog = AddMoneyDialog(this,historyModel.naira_to_points)
         addMoneyDialog.show(this.childFragmentManager, "")
+    }
+
+    fun seeAllTransactions(){
+        var bundle = bundleOf(AppConstants.IS_FOR_HISTORY to true)
+        view?.findNavController()
+            ?.navigate(R.id.action_walletFragment_to_sendMoneyFragment, bundle)
     }
 
     override fun onItemClick(item: Any) {

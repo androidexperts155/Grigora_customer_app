@@ -107,9 +107,11 @@
                                     android:gravity="bottom"
                                     android:text="12"
                                     android:textColor="?attr/textWhite"
-                                    android:textSize="@dimen/_16sdp" />
+                                    android:textSize="@dimen/_16sdp"
+                                    android:visibility="gone" />
                                 
                                 <TextView
+                                    android:id="@+id/tv_mins"
                                     style="@style/mediumText"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -118,7 +120,8 @@
                                     android:layout_marginBottom="@dimen/_1sdp"
                                     android:text="mins"
                                     android:textColor="?attr/textGray"
-                                    android:textSize="@dimen/_12sdp" />
+                                    android:textSize="@dimen/_12sdp"
+                                    android:visibility="gone" />
                             </LinearLayout>
                             
                             <LinearLayout
@@ -171,8 +174,8 @@
                             android:layout_width="wrap_content"
                             
                             android:layout_height="@dimen/_35sdp"
-                            
                             android:layout_marginTop="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
                             android:background="@drawable/shadow28"
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -201,8 +204,9 @@
                             android:layout_width="wrap_content"
                             
                             android:layout_height="@dimen/_35sdp"
-                            
                             android:layout_marginTop="@dimen/_8sdp"
+                            
+                            android:layout_marginBottom="@dimen/_4sdp"
                             android:background="@drawable/shadow28_gradient"
                             android:gravity="center"
                             android:orientation="horizontal"
@@ -320,7 +324,7 @@
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="@dimen/_8sdp"
-                             app:srcCompat="@drawable/ic_cooking_grey" />
+                            app:srcCompat="@drawable/ic_cooking_grey" />
                         
                         <TextView
                             android:id="@+id/tv_3"
@@ -418,7 +422,7 @@
                             android:layout_height="@dimen/_20sdp"
                             android:layout_gravity="center_vertical"
                             android:layout_marginRight="@dimen/_8sdp"
-                             app:srcCompat="@drawable/ic_motorcycle_grey" />
+                            app:srcCompat="@drawable/ic_motorcycle_grey" />
                         
                         <TextView
                             android:id="@+id/tv_6"

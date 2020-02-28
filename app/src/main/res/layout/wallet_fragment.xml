@@ -24,51 +24,43 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="?attr/viewbg"
-            android:orientation="vertical">
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_1sdp"
-                android:background="?attr/viewbg" />
+            android:orientation="vertical"
+            android:paddingBottom="@dimen/_16sdp">
             
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/_160sdp"
+                android:layout_height="240dp"
                 android:background="@drawable/wallet_bg">
+                
+                <ImageView
+                    android:id="@+id/back"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:tint="@color/white"
+                    app:srcCompat="@drawable/ic_back_white_24dp" />
                 
                 <TextView
                     android:id="@+id/tv_title"
                     style="@style/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_back"
+                    android:layout_below="@+id/back"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
                     android:text="@string/gora_pouch"
                     android:textColor="@color/white"
                     android:textSize="@dimen/_18sdp" />
                 
-                <TextView
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/img_back"
-                    android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_12sdp"
-                    android:layout_marginRight="@dimen/_8sdp"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10sdp"
-                    tools:text="Wallet id: ABC123456" />
-                
                 
                 <LinearLayout
+                    android:id="@+id/li_balance"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_alignParentLeft="true"
                     android:layout_marginLeft="@dimen/_8sdp"
-                    android:layout_marginTop="@dimen/_12sdp"
                     android:gravity="start"
                     android:orientation="vertical">
                     
@@ -105,7 +97,6 @@
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tv_title"
                     android:layout_alignParentRight="true"
-                    android:layout_marginTop="@dimen/_12sdp"
                     android:layout_marginRight="@dimen/_8sdp"
                     android:gravity="start"
                     android:orientation="vertical">
@@ -125,6 +116,7 @@
                     
                     
                     <TextView
+                        android:id="@+id/tv_points"
                         style="@style/titleText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -137,16 +129,56 @@
                         tools:text="24,000₦" />
                 </LinearLayout>
                 
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/li_balance"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:gravity="start"
+                    android:orientation="vertical">
+                    
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_12sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:text="@string/wallet_id"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <TextView
+                        android:id="@+id/tv_wallet_id"
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_13sdp"
+                        tools:text="123456789" />
+                </LinearLayout>
+                
                 <ImageView
-                    android:id="@+id/img_back"
-                    android:layout_width="@dimen/_28sdp"
-                    android:layout_height="@dimen/_28sdp"
-                    android:layout_margin="@dimen/_6sdp"
-                    android:tint="@color/white"
-                    app:srcCompat="@drawable/ic_back_white_24dp" />
+                    android:layout_width="@dimen/_50sdp"
+                    android:layout_height="@dimen/_50sdp"
+                    android:layout_below="@id/li_balance"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:src="@drawable/logo_text_dark" />
+            
             
             </RelativeLayout>
-            
             
             <LinearLayout
                 android:layout_width="match_parent"
@@ -184,25 +216,31 @@
                 </LinearLayout>
                 
                 <TextView
+                    android:id="@+id/tv_to_naira"
                     style="@style/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="@string/ngn_to_naira"
+                    android:text="@string/ngn_to_how_naira"
                     android:textColor="?attr/textGray"
-                    android:textSize="@dimen/_10sdp"
-                    tools:text="1 NGN = 1 pts" />
+                    android:textSize="@dimen/_10sdp" />
                 
-                <TextView
+                <EditText
+                    android:id="@+id/ed_naira"
                     style="@style/mediumText"
-                    android:layout_width="wrap_content"
+                    
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="500.00"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:background="@color/transparent"
+                    android:inputType="numberDecimal"
+                    android:padding="@dimen/_8sdp"
+                    android:text="0"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_14sdp" />
                 
@@ -243,13 +281,16 @@
                 
                 
                 <TextView
+                    android:id="@+id/tv_pts"
                     style="@style/mediumText"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
-                    android:text="500.00"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:padding="@dimen/_8sdp"
+                    android:text="0"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_14sdp" />
                 
@@ -263,7 +304,6 @@
                     android:background="?attr/viewbg" />
             
             </LinearLayout>
-            
             
             <TextView
                 style="@style/titleText"
@@ -293,7 +333,9 @@
                         
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_80sdp"
+                        android:clickable="true"
                         android:elevation="@dimen/_1sdp"
+                        android:onClick="@{()->walletView.add()}"
                         app:cardBackgroundColor="?attr/answer_selected"
                         app:cardCornerRadius="@dimen/_4sdp"
                         app:cardElevation="@dimen/_1sdp">
@@ -361,7 +403,10 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_80sdp"
+                        android:clickable="true"
                         android:elevation="@dimen/_1sdp"
+                        android:foreground="@drawable/selectable_item_background"
+                        android:onClick="@{()->walletView.transferMoney()}"
                         app:cardBackgroundColor="?attr/answer_selected"
                         app:cardCornerRadius="@dimen/_4sdp"
                         app:cardElevation="@dimen/_1sdp">
@@ -387,7 +432,26 @@
             
             
             </LinearLayout>
-        
+            
+            <Button
+                android:id="@+id/bt_add_new"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_rounded"
+                android:onClick="@{()->walletView.seeAllTransactions()}"
+                android:elevation="1dp"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/see_all_transactions"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
         
         </LinearLayout>
     

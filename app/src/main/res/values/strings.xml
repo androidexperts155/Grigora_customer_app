@@ -3,13 +3,10 @@
     
     <string name="facebook_app_id" translatable="false">612856392875692</string>
     <string name="fb_login_protocol_scheme" translatable="false">fb612856392875692</string>
-    <string name="twitter_consumer_key" translatable="false">arBGnENEuayLrERK5zdQU9E2V</string>
-    <string name="twitter_consumer_secret" translatable="false">NStIyaKHLuKBHmPaeoXXnxYDoaawf1vwq5UG1ZxtkJeFIsbOeS</string>
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
     <string name="login">Sign in</string>
-    <string name="please_login_to_your_account">Please login to your account</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
     <string name="email_phone_number">Email/Phone number</string>
@@ -104,12 +101,8 @@
     "On the layout level, design your app layout to minimize opportunities for interference. "
     "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
     "when a user tries to pick up one of cards.\n\n"
-    <string name="code">Code : </string>
-    <string name="welcome_to_grigora">WELCOME TO GRIGORA</string>
     <string name="delivery_location">Delivery Location</string>
-    <string name="city">City</string>
     <string name="use_my_current_location">Use my current location</string>
-    <string name="select_city">Select City</string>
     <string name="select_area">Select Area</string>
     <string name="continueTxt">Continue</string>
     <string name="area">Area</string>
@@ -127,17 +120,10 @@
     <string name="food_not_found">Food not found</string>
     <string name="current_orders">Current Orders</string>
     <string name="past_orders">Past Orders</string>
-    <string name="choices">Choices :</string>
-    <string name="placed_on">Placed On :</string>
-    <string name="order_items">Order Items :</string>
     <string name="status">Status :</string>
-    <string name="estimated_arrival">Estimated arrival </string>
-    <string name="preparation_time">Preparation Time</string>
     <string name="track">Track</string>
     <string name="add_delivery_note">Add delivery note</string>
-    <string name="detail">Details</string>
     <string name="profile">Profile</string>
-    <string name="order_history">Order History</string>
     <string name="payment_method">Select Payment Method</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="logout">Logout</string>
@@ -149,9 +135,7 @@
     <string name="name">Name</string>
     <string name="phone_number">Phone Number</string>
     <string name="confirm_password">Confirm Password</string>
-    <string name="by_clicking_on_signup_you_agree"><![CDATA[By Clicking on Signup you agree to our terms & Conditions]]></string>
     <string name="save">Save</string>
-    <string name="permission_denial_message">Please approve permissions</string>
     <string name="settings">Settings</string>
     <string name="about_us">About Us</string>
     <string name="contact_us">Contact us</string>
@@ -164,25 +148,16 @@
     
     <string name="reviews">Reviews</string>
     <string name="REVIEWS">REVIEWS</string>
-    <string name="menu">Menu</string>
-    <string name="search">Search</string>
     <string name="continuetxt">Continue</string>
-    <string name="choose_your_preferred_language">Choose your Preferred language</string>
     <string name="french">French</string>
     <string name="english">English</string>
     <string name="home">Home</string>
     <string name="nearby">Nearby</string>
     <string name="bag">Cart</string>
     <string name="my_account">My Account</string>
-    <string name="sorry_no_restaurant_available">Sorry! No Restaurant available</string>
     <string name="orders">Orders</string>
-    <string name="order_details">Order Details</string>
-    
-    <string name="pos">Pay through POS on delivery</string>
     
     
-    <string name="pay_now">Debit/Credit card</string>
-    <string name="add_card">Add Card</string>
     <string name="paypal">Pay Pal</string>
     <string name="credit_or_debit_card">Credit/Debit Card</string>
     <string name="rating">Rating</string>
@@ -190,11 +165,8 @@
     <string name="all_restaurants">All Restaurants</string>
     <string name="empty_bag">Empty Bag</string>
     <string name="place_order">Place Order</string>
-    <string name="clear_cart">Clear Cart</string>
     <string name="setting_up">Setting up</string>
-    <string name="language">Language</string>
     <string name="apply">Apply</string>
-    <string name="enter_promocode">Enter promocode</string>
     <string name="payment_mode">Payment Details</string>
     <string name="subtotal">Subtotal :</string>
     <string name="total">Total :</string>
@@ -229,28 +201,18 @@
     <string name="our_value_proposition">OUR VALUE PROPOSITION</string>
     <string name="our_value_detail">The business model will be operating on, Location Tracking, mobile application, ease of payment, wide range of services and our excellent customer service culture will definitely count as a competitive advantage for Grigora Limited. So also we have a team that can go all the way to give our clients value for their money; a team that are trained and equipped to pay attention to details and deliver services on time and safely</string>
     <string name="promotion">Promotion :</string>
-    <string name="rate_first">Rate first</string>
     <string name="no_promo_selected">No promo selected</string>
     <string name="wallet">My Wallet (₦ %s\)</string>
-    <string name="sendmoney">Send Money</string>
-    <string name="history">History</string>
-    <string name="addmoney">Add Money</string>
-    <string name="transfer">Transfer Money</string>
-    <string name="last">Last</string>
-    <string name="transactions">Transactions</string>
-    <string name="enteramount">Enter amount to send</string>
-    <string name="emptywallet">0.0 ₦</string>
     <string name="transfr">Transfer</string>
     <string name="are_you_sure">Are you sure?</string>
     
-    <string name="forwhat">What\'s this for?</string>
     <string name="confirmation_message">Transfer ₦ %s\ to %s\ for %s?</string>
     <string name="confirmation_message1">Transfer ₦ %s\ to %s\?</string>
     <string name="enter_amount">Enter amount</string>
     <string name="pay">Pay</string>
-    <string name="op1">100 ₦</string>
-    <string name="op2">200 ₦</string>
-    <string name="op3">500 ₦</string>
+    <string name="op1">₦100</string>
+    <string name="op2">₦200</string>
+    <string name="op3">₦500</string>
     <string name="add_amount">Add Amount</string>
     <string name="ratings">of 5 ratings</string>
     <string name="notdelivering">Sorry, we are not delivering to your address yet. We will be there soon.</string>
@@ -259,13 +221,11 @@
     
     <!--    new designs-->
     <string name="choose_categories">Choose Categories</string>
-    <string name="of_ratings">%s\ of 5 ratings</string>
     
     <string name="quick_order">Quick Order</string>
     <string name="popular">Popular</string>
     <string name="wallet_drawer">Grigora Money : ₦</string>
     <string name="grigora_money">Grigora Money</string>
-    <string name="checkout">Checkout</string>
     <string name="deliver_to_you">DELIVER TO YOU</string>
     <string name="deliver_in">Delivery in approximately %s\ minutes</string>
     <string name="delivery">delivery</string>
@@ -276,8 +236,6 @@
     <string name="change_desc">You may loose cart data after changing location</string>
     <string name="remove">Remove</string>
     <string name="promo_applied">Promocode applied</string>
-    <string name="your_order_details">YOUR ORDER DETAILS</string>
-    <string name="payondelivery">Pay Via POS on delivery</string>
     <string name="order_hash">ORDER#</string>
     
     
@@ -285,24 +243,15 @@
     <string name="order_schduled">Order scheduled</string>
     <string name="order_prepared">Food prepared</string>
     <string name="order_accepted">Order Accepted</string>
-    <string name="assigned">Driver assigned</string>
     <string name="picked">Order has been picked and on the way to you</string>
-    <string name="delivered">Order delivered</string>
     <string name="delivered_by">Order delivered by</string>
-    <string name="rejected_by_customer">Order rejected by Customer</string>
     <string name="rejected_by_restaurant">Order rejected by Restaurant</string>
     <string name="being_prepared">Your Order is being prepared</string>
-    <string name="out_for_delivey">Out for delivery</string>
-    <string name="ready_to_diapatch">Ready to dispatch</string>
-    <string name="items">ITEMS</string>
     <string name="orderedon">Ordered on :</string>
-    <string name="total2">TOTAL</string>
-    <string name="status2">STATUS</string>
     <string name="almostready">Order almost ready</string>
     <string name="driver_assigned">Driver Assigned</string>
     
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="food_delivery_message">How was food delivery?</string>
     <string name="no_thanks">No Thanks</string>
     <string name="food_message">How did you like the food?</string>
@@ -320,10 +269,6 @@
     <string name="seemore">More</string>
     <string name="deliveringto">Delivering To</string>
     
-    <string name="chipHome">Home</string>
-    <string name="chipWork">Work</string>
-    <string name="chipHotel">Hotel</string>
-    <string name="chipMore">More</string>
     <string name="food">Food</string>
     <string name="pickup">Pickup</string>
     <string name="otpverification">OTP Verification</string>
@@ -333,7 +278,6 @@
     <string name="loginwithgoogle">Login with Google</string>
     <string name="loginwithinstagram">Login with Instagram</string>
     <string name="loginwithphone">Login with Phone</string>
-    <string name="group_delivery">Group Delivery</string>
     <string name="open_or_close_time">Open or Close time</string>
     <string name="veg">Veg</string>
     <string name="nonveg">Non Veg</string>
@@ -356,7 +300,6 @@
     <string name="no_range_selected">No Range Selected</string>
     <string name="sethour">Set Hour</string>
     <string name="setminute">Set Minute</string>
-    <string name="error_select_opening_time">Please select opening time</string>
     <string name="error_select_closing_time">Please select closing time</string>
     <string name="error_select_date">Please select Date</string>
     <string name="error_seat">No seat selected</string>
@@ -458,6 +401,34 @@
     <string name="redeem_via_grigora_card">Redeem via Grigora Card</string>
     <string name="transfer_points_to_wallet">Transfer points to Wallets</string>
     <string name="order_already_placed">This order is already Placed</string>
+    <string name="wallet_id">Wallet Id</string>
+    <string name="see_all_transactions">See all Transactions</string>
+    <string name="items">Items</string>
+    <string name="enter_wallet_id">Enter Wallet Id</string>
+    <string name="transactions">Transactions</string>
+    <string name="transfered">Transferred</string>
+    <string name="received">Received</string>
+    <string name="participants">Participants</string>
+    
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="transfer_successfull">Transfer Successfull</string>
+    <string name="transfer_successfull_desc">Your funds(points) transferred \n was successfuly done</string>
+    <string name="ngn_to_how_naira">1 NGN = %s\ pts</string>
+    <string name="next">Next</string>
+    <string name="no_transactions_found">No tranactions found</string>
+    <string name="invalid_wallet_id">Invalid Wallet Id</string>
+    <string name="please_enter_amount">Please Enter Amount</string>
+    <string name="money_added">Money Added</string>
+    <string name="money_deducted">Money Deducted</string>
+    <string name="add_funds_">Add funds to Gora Pouch</string>
+    <string name="nigerian_naira">Nigerian Naira</string>
+    <string name="points">Points</string>
+    <string name="schedule_order">Schedule Order</string>
+    <string name="schedule_your_order">Schedule Your Order</string>
+    <string name="place_order_for">Place order for</string>
+    <string name="tomorrow">Tomorrow</string>
+    <string name="select_time">Select Time</string>
 
 
 </resources><!--₦-->

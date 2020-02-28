@@ -12,13 +12,12 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.CartItemBinding
 import com.rvtechnologies.grigora.model.Cart
 import com.rvtechnologies.grigora.model.models.CartDetail
-import com.rvtechnologies.grigora.utils.AppConstants
-import com.rvtechnologies.grigora.utils.GrigoraApp
-import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.cart_item.view.*
 
 class GroupCartAdapter(
+    val creatorId: String,
     var cartItemList: ArrayList<GroupCartType>,
     var iRecyclerItemClick: IRecyclerItemClick, val quantityClicks: QuantityClicks
 ) :
@@ -77,6 +76,18 @@ class GroupCartAdapter(
                 cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
                 notifyDataSetChanged()
             }
+
+            if (cartModel.user_id.equals(
+                    CommonUtils.getPrefValue(
+                        holder.itemView.context!!,
+                        PrefConstants.ID
+                    )
+                )
+            )
+                holder.itemView.linearLayout.visibility = View.VISIBLE
+            else
+                holder.itemView.linearLayout.visibility = View.GONE
+
 
             holder.bind(cartModel, iRecyclerItemClick)
         } else {

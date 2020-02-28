@@ -6,6 +6,7 @@ import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.Color
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
@@ -274,6 +275,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
                 tv_order_id.text = "#".plus(orderItemModel?.id)
                 tv_rest_name.text = orderItemModel?.restaurantName
+                if (orderItemModel?.preparingTime != null) {
+                    updateTimer(orderItemModel?.preparingTime?.toInt()!!)
+                } else {
+                    tv_est_delivery.visibility = View.GONE
+                    tv_mins.visibility = View.GONE
+                }
 
                 if (isPickUp)
                     tv_rest_desc.text = orderItemModel?.deliveryAddress
@@ -412,7 +419,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
 
         viewModel.changeDeliveryToPickup.observe(this, Observer { res ->
-            if (res is CommonResponseModel<*> && type==4) {
+            if (res is CommonResponseModel<*> && type == 4) {
                 if (res.status!!) {
                     viewModel.getOrderDetails()
                 }
@@ -441,7 +448,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         mRecoverySocket?.off(Socket.EVENT_ERROR, onError)
         mRecoverySocket?.off(viewModel.orderId.value!!, onOrderId)
 
-        stop = true;
+        stop = true
     }
 
     private fun updateStatus(orderStatus: Int?) {
@@ -483,15 +490,33 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     tv_4.setTextColor(deActivatedColor)
                     tv_5.setTextColor(deActivatedColor)
                     tv_6.setTextColor(deActivatedColor)
-
                     img_2.setImageResource(R.drawable.ic_tick_mark)
-                    img_3.setImageResource(R.drawable.ic_cooking)
+                    if (orderStatus == 3)
+                        img_3.setImageResource(R.drawable.ic_cooking)
+                    else
+                        img_3.setImageResource(R.drawable.ic_cooking_grey)
+
                     img_4.setImageResource(R.drawable.ic_cooking_time_grey)
                     img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
                     img_6.setImageResource(R.drawable.ic_motorcycle_grey)
 
+
+                    var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
+
+                    if (orderStatus == 2)
+                        img_2.startAnimation(anim)
+
+                    var random = Random.nextLong(5000)
+
+                    if (orderStatus == 3)
+                        Handler()
+                            .postDelayed({
+                                img_3.startAnimation(anim)
+                            }, random)
+
                 }
                 4 -> {
+
                     //    4 -> "Order picked up by driver,order is now its way to you"
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
@@ -504,6 +529,10 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     img_4.setImageResource(R.drawable.ic_cooking_time)
                     img_5.setImageResource(R.drawable.ic_shopping_bag)
                     img_6.setImageResource(R.drawable.ic_motorcycle)
+
+                    var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
+
+                    img_6.startAnimation(anim)
 
 
                 }
@@ -536,6 +565,18 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     if (isPickUp) {
                         li_complete.visibility = VISIBLE
                     }
+
+                    var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
+
+                    img_4.startAnimation(anim)
+
+                    var random = Random.nextLong(10000)
+
+                    Handler()
+                        .postDelayed({
+                            img_5.startAnimation(anim)
+                        }, random)
+
 
                 }
                 8 -> {
@@ -769,4 +810,24 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             }
         }
     }
+
+    private fun updateTimer(minutes: Int) {
+        tv_est_delivery.visibility = VISIBLE
+        tv_mins.visibility = VISIBLE
+        tv_est_delivery.text = minutes.toString()
+        object : CountDownTimer((minutes * 60000).toLong(), 1000) {
+            override fun onFinish() {
+
+            }
+
+            override fun onTick(millisUntilFinished: Long) {
+                tv_est_delivery.text = (millisUntilFinished / 60000).toString()
+            }
+
+        }
+
+
+    }
+
+
 }

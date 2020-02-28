@@ -1309,14 +1309,13 @@ Cuisine repo
 
     fun transferMoney(
         token: String,
-        email: String,
+        walletId: String,
         amount: String,
-        reason: String,
 
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
-            .transferMoney(token = token, email = email, amount = amount, reason = reason)
+            .transferMoney(token = token, walletId = walletId, amount = amount)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1609,6 +1608,34 @@ Cuisine repo
                 token = token,
                 restaurant_id = restaurant_id,
                 max_per_person = max_per_person
+
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun getGroupOrders(
+        token: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .getAllGroupOrders(
+                token = token
 
             )
             .enqueue(object : Callback<JsonElement> {

@@ -1,11 +1,13 @@
 package com.rvtechnologies.grigora.view.ui.login_signup
 
 import android.content.Intent
+import android.content.res.Configuration
 import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.util.Log
 import android.view.View
+import android.view.Window
 import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
@@ -20,7 +22,10 @@ import com.google.firebase.auth.PhoneAuthProvider
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.GrigoraApp
+import com.rvtechnologies.grigora.utils.PrefConstants
 import kotlinx.android.synthetic.main.activity_otp.*
+import java.util.*
 import java.util.concurrent.TimeUnit
 
 
@@ -34,13 +39,17 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
     private lateinit var callbacks: PhoneAuthProvider.OnVerificationStateChangedCallbacks
     override fun onCreate(savedInstanceState: Bundle?) {
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
-            getWindow().setFlags(
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
-                WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS
-            )
-        }
-        super.onCreate(savedInstanceState)
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        window.setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+
+        updateLocale(false)
+
+        setTheme(CommonUtils.getBooleanPrefValue(this, PrefConstants.IS_DARK_MODE))
+         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -171,6 +180,40 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         super.onSaveInstanceState(outState)
         outState.putBoolean(KEY_VERIFY_IN_PROGRESS, verificationInProgress)
     }
+
+    fun setTheme(isDark: Boolean) {
+        if (isDark)
+            setTheme(R.style.AppTheme_Dark)
+        else
+            setTheme(R.style.AppTheme_Light)
+    }
+
+    fun updateLocale(shouldRecreate: Boolean) {
+        val languageToLoad: String
+        languageToLoad = if (CommonUtils.getBooleanPrefValue(
+                this,
+                PrefConstants.IS_LANGUAGE_SELECTED
+            ) && GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
+        ) {
+            "fr"
+        } else
+            "en"
+
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+
+        config.setLocale(locale)
+        resources?.updateConfiguration(
+            config,
+            resources?.displayMetrics
+        )
+        if (shouldRecreate)
+            recreate()
+
+
+    }
+
 
     override fun onRestoreInstanceState(savedInstanceState: Bundle) {
         super.onRestoreInstanceState(savedInstanceState)

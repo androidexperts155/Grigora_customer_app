@@ -84,7 +84,6 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
 
     override fun onResume() {
         super.onResume()
-
         (activity as MainActivity).hideAll()
         (activity as MainActivity).lockDrawer(true)
 
@@ -96,6 +95,10 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
             "5" -> (activity as MainActivity).backTitle(getString(R.string.near_by))
             "121" -> (activity as MainActivity).backTitle(getString(R.string.top_cuisine))
         }
+
+
+        (activity as MainActivity).updateCartButton()
+
     }
 
     override fun onItemClick(item: Any) {

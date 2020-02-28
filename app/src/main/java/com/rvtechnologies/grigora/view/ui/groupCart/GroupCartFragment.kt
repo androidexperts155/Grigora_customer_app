@@ -7,6 +7,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
@@ -137,6 +139,13 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             }
                         }
                         cartItemList.addAll(list)
+                        rvOrderItems.adapter = GroupCartAdapter(
+                            cartDataModel.user_id.toString(),
+                            cartItemList,
+                            this,
+                            this
+                        )
+
                         rvOrderItems?.adapter?.notifyDataSetChanged()
                         empty?.visibility = View.GONE
                         cartView?.visibility = View.VISIBLE
@@ -175,11 +184,19 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             PrefConstants.ID
                         )
                     ) {
+                        tv_change.visibility= VISIBLE
+                        tv_change_payment.visibility= VISIBLE
+                        offers.visibility= VISIBLE
+                        button5.visibility = VISIBLE
                         tv_group_order_title.text =
                             "${getString(R.string.group_order_by)} ${cartDataModel?.cart_details[0].name}"
                         tv_order_limit.text =
                             "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
                     } else {
+                        tv_change.visibility= GONE
+                        tv_change_payment.visibility= GONE
+                        offers.visibility= GONE
+                        button5.visibility = GONE
                         tv_group_order_title.text =
                             "${cartDataModel?.cart_details[0].name}'s ${getString(R.string.group_order)}"
                         tv_order_limit.text =
@@ -229,7 +246,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                                 bundleOf(AppConstants.ORDER_ID to (response.data as PlaceOrderModel).orderDetails?.orderId)
                             view?.findNavController()
                                 ?.navigate(
-                                    R.id.action_navigationCart_to_orderDetailsFragment,
+                                    R.id.action_groupCartFragment_to_orderDetailsFragment,
                                     bundle
                                 )
                             viewModel?.viewGroupCart(
@@ -323,34 +340,35 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         }
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-        if (token.isBlank()) {
-            empty?.visibility = View.VISIBLE
-            cartView?.visibility = View.GONE
-            showLoginAlert(activity as MainActivity?)
-        } else {
-            rvOrderItems.adapter = GroupCartAdapter(cartItemList, this, this)
-            viewModel?.viewGroupCart(
-                CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                    context,
-                    PrefConstants.LATITUDE
-                ), CommonUtils.getPrefValue(
-                    context,
-                    PrefConstants.LONGITUDE
-                )
+
+        viewModel?.viewGroupCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
             )
-
-        }
-
-
+        )
     }
 
     fun addMore() {
 //        navigate to restaurant detail
-        val bundle = bundleOf(AppConstants.RESTAURANT_ID to restId)
+
+        val bundle = bundleOf(
+            AppConstants.RESTAURANT_ID to restId,
+            AppConstants.RESTAURANT_PICKUP to "0",
+            AppConstants.RESTAURANT_BOOKING to "0",
+            AppConstants.RESTAURANT_SEATES to "0",
+            AppConstants.RESTAURANT_CLOSING_TIME to "0",
+            AppConstants.RESTAURANT_OPENING_TIME to "0",
+            AppConstants.RESTAURANT_ALWAYS_OPEN to "0",
+            AppConstants.FROM_PICKUP to false
+        )
 
         view?.findNavController()
             ?.navigate(
-                R.id.action_navigationCart_to_restaurantDetailParent, bundle
+                R.id.action_groupCartFragment_to_restaurantDetailParent, bundle
             )
 
     }
@@ -360,39 +378,18 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         optionsDialog.show(this.childFragmentManager, "")
     }
 
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                toLogin()
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-                activity.nav_view.setCheckedItem(R.id.navigationRestaurants)
-            }
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
-        }
-    }
 
     private fun toLogin() {
         view?.findNavController()
             ?.navigate(
-                R.id.action_navigationCart_to_loginFragment2
+                R.id.action_groupCartFragment_to_loginFragment2
             )
     }
 
     fun showOffers() {
         view?.findNavController()
             ?.navigate(
-                R.id.action_navigationCart_to_offerFragment
+                R.id.action_groupCartFragment_to_offerFragment
             )
     }
 
@@ -491,7 +488,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
 
             view?.findNavController()
                 ?.navigate(
-                    R.id.action_navigationCart_to_selectLocationFragment
+                    R.id.action_groupCartFragment_to_selectLocationFragment
                 )
         }
 

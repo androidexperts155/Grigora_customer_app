@@ -109,19 +109,10 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     }
 
     private fun handleCart() {
-        if (newDashboardModel.is_cart != null) {
-            (activity as MainActivity).showFab()
-            (activity as MainActivity).tv_restname.text =
-                newDashboardModel.is_cart!!.restaurantName
-            (activity as MainActivity).tv_items.text =
-                newDashboardModel.is_cart!!.quantity.toString() + " Items"
-
-            ((activity) as MainActivity).fab_cart.setOnClickListener {
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.action_dashBoardFragment_fragment_to_cart
-                    )
-            }
+        if (::newDashboardModel.isInitialized && newDashboardModel.is_cart != null) {
+            AppConstants.CART_RESTAURANT = newDashboardModel.is_cart!!.restaurantName
+            AppConstants.CART_COUNT = newDashboardModel.is_cart!!.quantity
+            (activity as MainActivity).updateCartButton()
         }
     }
 
@@ -176,6 +167,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
         }
+        handleCart()
+
     }
 
     override fun onItemClick(item: Any) {
@@ -217,15 +210,18 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                else
 //                    applyFilter("filter_id", "0")
             }
-        } else if (item is NewDashboardModel.Promo) {
+        }
+        else if (item is NewDashboardModel.Promo) {
 
-        } else if (item is NewDashboardModel.Cuisine) {
+        }
+        else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
                 applyCuisineFilter("cuisine_id", item.id.toString())
             else
                 applyCuisineFilter("cuisine_id", "0")
 
-        } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+        }
+        else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 
             when (item.uiTpe) {
                 "1" -> {
@@ -289,7 +285,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                CUISINES
 //            else
 //                TOP_BRANDS
-        } else if (item is NewDashboardModel.AllRestautants) {
+        }
+        else if (item is NewDashboardModel.AllRestautants) {
             val bundle = bundleOf(
                 AppConstants.RESTAURANT_ID to item.id,
                 AppConstants.RESTAURANT_PICKUP to item.pickup,
@@ -304,7 +301,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
                     bundle
                 )
-        } else if (item is SelectedRating) {
+        }
+        else if (item is SelectedRating) {
             if (item.applyRating) {
                 if (item.oldRating != item.newRating) {
 //                    if (!item.filter.selected)

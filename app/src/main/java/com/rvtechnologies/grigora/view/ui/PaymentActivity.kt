@@ -2,8 +2,11 @@ package com.rvtechnologies.grigora.view.ui
 
 import android.app.Activity
 import android.content.Intent
+import android.content.res.Configuration
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Window
+import android.view.WindowManager
 import android.widget.Toast
 import co.paystack.android.Paystack
 import co.paystack.android.PaystackSdk
@@ -13,12 +16,31 @@ import co.paystack.android.model.Charge
 import com.braintreepayments.cardform.view.CardForm
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.ApiRepo
+import com.rvtechnologies.grigora.utils.AppConstants
+import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.GrigoraApp
+import com.rvtechnologies.grigora.utils.PrefConstants
 import kotlinx.android.synthetic.main.activity_payment.*
+import java.util.*
 
 class PaymentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        requestWindowFeature(Window.FEATURE_NO_TITLE)
+        getWindow().setFlags(
+            WindowManager.LayoutParams.FLAG_FULLSCREEN,
+            WindowManager.LayoutParams.FLAG_FULLSCREEN
+        )
+
+
+        GrigoraApp.getInstance().setCurrentActivity(this)
+        updateLocale(false)
+
+        setTheme(CommonUtils.getBooleanPrefValue(this, PrefConstants.IS_DARK_MODE))
+
+
         setContentView(R.layout.activity_payment)
         card_form.cardRequired(true)
             .expirationRequired(true)
@@ -142,5 +164,36 @@ class PaymentActivity : AppCompatActivity() {
 
     }
 
+    fun setTheme(isDark: Boolean) {
+        if (isDark)
+            setTheme(R.style.AppTheme_Dark)
+        else
+            setTheme(R.style.AppTheme_Light)
+    }
 
+    fun updateLocale(shouldRecreate: Boolean) {
+        val languageToLoad: String
+        languageToLoad = if (CommonUtils.getBooleanPrefValue(
+                this,
+                PrefConstants.IS_LANGUAGE_SELECTED
+            ) && GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
+        ) {
+            "fr"
+        } else
+            "en"
+
+        val locale = Locale(languageToLoad)
+        Locale.setDefault(locale)
+        val config = Configuration()
+
+        config.setLocale(locale)
+        resources?.updateConfiguration(
+            config,
+            resources?.displayMetrics
+        )
+        if (shouldRecreate)
+            recreate()
+
+
+    }
 }

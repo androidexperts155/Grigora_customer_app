@@ -4,8 +4,8 @@ package com.rvtechnologies.grigora.model
 import com.google.gson.annotations.SerializedName
 
 data class AddCartModel(
-    @SerializedName("app_fee")
-    var appFee: Int = 0,
+        @SerializedName("app_fee")
+        var appFee: Int = 0,
     @SerializedName("cart_details")
     var cartDetails: List<CartDetail> = listOf(),
     @SerializedName("cart_id")

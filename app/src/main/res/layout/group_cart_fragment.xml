@@ -367,6 +367,7 @@
                         
                         <TextView
                             style="@style/normalText"
+                            android:id="@+id/tv_change_payment"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -388,6 +389,7 @@
                         android:background="?attr/viewbg" />
                     
                     <RelativeLayout
+                        android:id="@+id/offers"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_30sdp"
                         android:layout_marginStart="16dp"

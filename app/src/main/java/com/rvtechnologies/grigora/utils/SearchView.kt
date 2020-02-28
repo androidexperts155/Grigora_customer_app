@@ -29,6 +29,7 @@ class SearchView(
     private fun openSearch() {
         search_input_text.setText("")
         search_open_view.visibility = View.VISIBLE
+
         val circularReveal = ViewAnimationUtils.createCircularReveal(
             search_open_view,
             (open_search_button.right + open_search_button.left) / 2,

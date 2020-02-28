@@ -57,10 +57,10 @@ class RestaurantsListFragment : Fragment(), IRecyclerItemClick {
                             response.data as PickupRestaurantsModel
 
                         restaurantList.addAll(model.mainInfo)
-                        tv_count.text="${restaurantList.size} ${getString(R.string.places)}"
-                        rc_addresses.adapter= RestaurantAdapter(restaurantList,this)
+                        tv_count.text = "${restaurantList.size} ${getString(R.string.places)}"
+                        rc_addresses.adapter = RestaurantAdapter(restaurantList, this)
                         rc_addresses.adapter?.notifyDataSetChanged()
-                     }
+                    }
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
@@ -89,7 +89,6 @@ class RestaurantsListFragment : Fragment(), IRecyclerItemClick {
         return fragmentRestaurantsListBinding?.root
     }
 
-
     override fun onResume() {
         super.onResume()
         if (activity is MainActivity) {
@@ -99,8 +98,9 @@ class RestaurantsListFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).showBottomNavigation(2)
             (activity as MainActivity).img_back.visibility = View.GONE
         }
-        viewModel?.getRestaurants(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
+        viewModel?.getRestaurants(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
 
+        (activity as MainActivity).updateCartButton()
     }
 
     override fun onItemClick(item: Any) {
@@ -114,12 +114,13 @@ class RestaurantsListFragment : Fragment(), IRecyclerItemClick {
                 AppConstants.RESTAURANT_OPENING_TIME to item.openingTime,
                 AppConstants.RESTAURANT_ALWAYS_OPEN to item.fullTime,
                 AppConstants.FROM_PICKUP to false
-
             )
 
             view?.findNavController()
-                ?.navigate(R.id.action_restaurantsListFragment_to_restaurantDetailsParentFragment, bundle)
+                ?.navigate(
+                    R.id.action_restaurantsListFragment_to_restaurantDetailsParentFragment,
+                    bundle
+                )
         }
     }
-
 }

@@ -63,7 +63,9 @@
         
         </activity>
         
-        <activity android:name="com.rvtechnologies.grigora.view.ui.PaymentActivity" />
+        <activity android:name="com.rvtechnologies.grigora.view.ui.PaymentActivity"
+            android:theme="@style/AppTheme.Light"
+            />
         
         <receiver android:name=".utils.NotificationBroadcastReceiver">
             <intent-filter>

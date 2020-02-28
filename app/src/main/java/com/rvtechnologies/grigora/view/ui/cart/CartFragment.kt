@@ -311,31 +311,32 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             (activity as MainActivity).lockDrawer(true)
         }
 
-        val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-        if (token.isBlank()) {
-            empty?.visibility = VISIBLE
-            cartView?.visibility = GONE
-            showLoginAlert(activity as MainActivity?)
-        } else {
-            rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
-            viewModel?.viewCart(
-                CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                    context,
-                    PrefConstants.LATITUDE
-                ), CommonUtils.getPrefValue(
-                    context,
-                    PrefConstants.LONGITUDE
-                )
+        rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
+        viewModel?.viewCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
             )
-
-        }
+        )
 
 
     }
 
     fun addMore() {
 //        navigate to restaurant detail
-        val bundle = bundleOf(AppConstants.RESTAURANT_ID to restId)
+        val bundle = bundleOf(
+            AppConstants.RESTAURANT_ID to restId,
+            AppConstants.RESTAURANT_PICKUP to "0",
+            AppConstants.RESTAURANT_BOOKING to "0",
+            AppConstants.RESTAURANT_SEATES to "0",
+            AppConstants.RESTAURANT_CLOSING_TIME to "0",
+            AppConstants.RESTAURANT_OPENING_TIME to "0",
+            AppConstants.RESTAURANT_ALWAYS_OPEN to "0",
+            AppConstants.FROM_PICKUP to false
+        )
 
         view?.findNavController()
             ?.navigate(
@@ -349,27 +350,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         optionsDialog.show(this.childFragmentManager, "")
     }
 
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                toLogin()
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-                activity.nav_view.setCheckedItem(R.id.navigationRestaurants)
-            }
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
-        }
-    }
 
     private fun toLogin() {
         view?.findNavController()
@@ -581,52 +561,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
     }
 
-    fun createLink(){
-        val buo = BranchUniversalObject()
-            .setCanonicalIdentifier("content/12345")
-            .setTitle("Grigoa Group Order")
-            .setContentDescription("You are invited from Amit to order from this restaurant")
-            .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
-            .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-            .setLocalIndexMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)
-            .setContentMetadata(ContentMetadata().addCustomMetadata("orderId", "123"))
-
-        val lp = LinkProperties()
-            .setChannel("facebook")
-            .setFeature("sharing")
-            .setCampaign("content 123 launch")
-            .setStage("new user")
-            .addControlParameter("custom_random", Calendar.getInstance().timeInMillis.toString())
-
-        buo.generateShortUrl(context!!, lp
-        ) { url, error ->
-            if (error == null) {
-                tv_link.text = url
-            } else {
-            }
-        }
-
-        val ss = ShareSheetStyle(activity as MainActivity, "Check this out!", "This stuff is awesome: ")
-            .setCopyUrlStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_send), "Copy", "Added to clipboard")
-            .setMoreOptionStyle(ContextCompat.getDrawable(context!!,android.R.drawable.ic_menu_search), "Show more")
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.EMAIL)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.MESSAGE)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.HANGOUT)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.WHATS_APP)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FACEBOOK_MESSENGER)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.FLICKR)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.PINTEREST)
-            .addPreferredSharingOption(SharingHelper.SHARE_WITH.TWITTER)
-            .setAsFullWidthStyle(true)
-            .setSharingTitle("Share With")
-
-        buo.showShareSheet(activity as MainActivity, lp, ss, object : Branch.BranchLinkShareListener {
-            override fun onShareLinkDialogLaunched() {}
-            override fun onShareLinkDialogDismissed() {}
-            override fun onLinkShareResponse(sharedLink: String?, sharedChannel: String?, error: BranchError?) {}
-            override fun onChannelSelected(channelName: String) {}
-        })
+    fun scheduleOrder() {
+        view?.findNavController()
+            ?.navigate(
+                R.id.action_navigationCart_to_scheduleOrder
+            )
     }
 
 }

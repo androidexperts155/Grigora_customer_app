@@ -130,7 +130,6 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
-
     @FormUrlEncoded
     @POST(ApiConstants.GET_RESTAURANTS_BY_CUISINE_URL)
     fun getRestaurantsByCuisine(
@@ -236,7 +235,7 @@ interface ApiInterface {
     ): Call<JsonElement>
 
     @FormUrlEncoded
-    @POST(ApiConstants.VIEW_CART_URL)
+    @POST(ApiConstants.VIEW_GROUP_CART_URL)
     fun viewGroupCart(
         @Header("Authorization") token: String,
         @Field("cart_id") cart_id: String,
@@ -427,9 +426,8 @@ interface ApiInterface {
     @POST(ApiConstants.TRANSFER_MONEY)
     fun transferMoney(
         @Header("Authorization") token: String,
-        @Field("email") email: String,
-        @Field("amount") amount: String,
-        @Field("reason") reason: String
+        @Field("username") walletId: String,
+        @Field("amount") amount: String
 
     ): Call<JsonElement>
 
@@ -500,6 +498,11 @@ interface ApiInterface {
         @Field("restaurant_id") restaurant_id: String
     ): Call<JsonElement>
 
+    @GET(ApiConstants.GET_GROUP_ORDERS)
+    fun getAllGroupOrders(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
     @FormUrlEncoded
     @POST(ApiConstants.SAVE_CART_LINK)
     fun saveCartLink(
@@ -533,3 +536,5 @@ interface ApiInterface {
 
 
 }
+
+//   fSgph9c6OcQ:APA91bHI1DGyEOIWtpJEaHshDJ_2xSD2eT1UJmZVaGMr3eNTDS71DTKOyg9nPiiCvWJCR99Hw-TrDaY-Fi1m39jLc7W2mA0OOtUQpG2R4sdHyAgq5Y111_j_2IhBh1yFdPSO-rOiRL0j

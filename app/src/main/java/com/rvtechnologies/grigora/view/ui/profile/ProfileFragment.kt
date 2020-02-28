@@ -72,10 +72,7 @@ class ProfileFragment : Fragment() {
             (activity as MainActivity).showBottomNavigation(4)
         }
 
-        val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-        if (token.isBlank()) {
-            showLoginAlert(activity as MainActivity?)
-        }
+
 
     }
 
@@ -98,29 +95,6 @@ class ProfileFragment : Fragment() {
         )}"
     }
 
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                toLogin()
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-                activity.nav_view.setCheckedItem(R.id.navigationRestaurants)
-            }
-
-            alertDialog = dialogBuilder?.create()
-
-            alertDialog?.show()
-        }
-    }
 
     private fun toLogin() {
         view?.findNavController()
@@ -149,6 +123,11 @@ class ProfileFragment : Fragment() {
     fun toAboutUs() {
         view?.findNavController()
             ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment)
+    }
+
+    fun toGroupOrders() {
+        view?.findNavController()
+            ?.navigate(R.id.action_navigationMyAccounts_to_groupOrdersFragment)
     }
 
     fun toContactUs() {

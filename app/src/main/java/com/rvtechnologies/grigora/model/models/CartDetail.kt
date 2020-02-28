@@ -28,6 +28,11 @@ data class CartDetail(
     var quantity: String?,
     @SerializedName("updated_at")
     var updatedAt: String?,
+
+    @SerializedName("user_id")
+    var user_id: String?,
+
+
     @SerializedName("item_choices")
     var item_choices: ArrayList<ItemChoice>?,
     @Transient

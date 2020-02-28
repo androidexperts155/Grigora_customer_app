@@ -30,9 +30,13 @@ import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapt
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantDetailAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantItemAdapter
 import com.rvtechnologies.grigora.view_model.RestaurantDetailGroupViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
+import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.fab_cart
+import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.img_back
+import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.tv_restname
 
 class RestaurantDetailGroup : Fragment(), QuantityClicks,
     QuantityClicksDialog,
@@ -242,12 +246,10 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
     }
 
     private fun handleGroup(data: RestaurantDetailModel) {
-
-
         viewModel.cartId.value = data.cart?.id.toString()
-        if (data.cart!=null && data.cart?.quantity!! > 0) {
+        if (data.cart != null && data.cart?.quantity!! > 0) {
             fab_cart.visibility = View.VISIBLE
-        } else {
+        } else if(data.cart_id.isNullOrEmpty()) {
             var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
             groupOrderAlreadyPlaced.show(childFragmentManager, "")
         }
@@ -272,13 +274,12 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     "${getString(R.string.group_order_by)} ${data?.cart!!.name}"
                 tv_order_limit.text =
                     "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
-            } else {
+            } else   {
                 tv_group_order_title.text =
                     "${data?.cart!!.name}'s ${getString(R.string.group_order)}"
                 tv_order_limit.text =
                     "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
             }
-
         }
     }
 
@@ -374,6 +375,13 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(getString(R.string.group_order))
             (activity as MainActivity).lockDrawer(true)
+
+            img_back.setOnClickListener {
+                view?.findNavController()
+                    ?.navigate(
+                        R.id.action_restaurantDetailGroup_to_dashboardFragment
+                    )
+            }
         }
         viewModel.getRestaurantsDetailsCart(
             CommonUtils.getPrefValue(

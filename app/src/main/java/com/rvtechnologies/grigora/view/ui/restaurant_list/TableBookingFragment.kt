@@ -19,6 +19,7 @@ import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.DateAdapter
 import com.rvtechnologies.grigora.view_model.TableBookingViewModel
 import kotlinx.android.synthetic.main.table_booking_fragment.*

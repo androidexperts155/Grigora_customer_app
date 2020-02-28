@@ -7,7 +7,7 @@
         
         <variable
             name="historyModel"
-            type="com.rvtechnologies.grigora.model.WalletHistoryModel.Data" />
+            type="com.rvtechnologies.grigora.model.WalletHistoryModel.History" />
     </data>
     
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -16,7 +16,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:background="@drawable/wallet_history_round"
+        
         android:elevation="1dp"
         android:orientation="vertical"
         android:padding="@dimen/_6sdp">
@@ -35,14 +35,14 @@
         
         <TextView
             android:id="@+id/tv_username"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="8dp"
-            android:text="@{historyModel.otherUserName}"
-            android:textColor="@color/quantum_grey"
+             android:textColor="?attr/textWhite"
             
-            android:textSize="@dimen/_14sdp"
+            android:textSize="@dimen/_12sdp"
             app:layout_constraintEnd_toStartOf="@+id/tv_amount"
             app:layout_constraintHorizontal_bias="0.0"
             app:layout_constraintStart_toEndOf="@+id/imageView11"
@@ -51,12 +51,12 @@
         
         <TextView
             android:id="@+id/tv_email"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:text="@{historyModel.otherUserEmail}"
-            android:textColor="@color/quantum_grey"
-            android:textSize="@dimen/_14sdp"
+            android:layout_marginTop="@dimen/_4sdp"
+             android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_11sdp"
             app:layout_constraintStart_toStartOf="@+id/tv_username"
             app:layout_constraintTop_toBottomOf="@+id/tv_username"
             tools:text="amit@gmail.com" />
@@ -65,10 +65,13 @@
             android:id="@+id/tv_amount"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textColor="@android:color/white"
+            android:textColor="?attr/textWhite"
             android:textSize="@dimen/_14sdp"
             app:layout_constraintBottom_toBottomOf="@+id/tv_email"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/tv_username" />
+            app:layout_constraintTop_toTopOf="@+id/tv_username"
+            tools:text="1234" />
+        
+        
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

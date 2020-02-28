@@ -10,6 +10,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.navigation.findNavController
+import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
 import com.rvtechnologies.grigora.R
@@ -88,12 +89,16 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                 view as TextView
                 view.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
 
-                if (p0!!.text.toString().equals(getString(R.string.order))) {
-                    vp_fragments.currentItem = 0
-                } else if (p0!!.text.toString().equals(getString(R.string.book_a_table))) {
-                    vp_fragments.currentItem = 1
-                } else if (p0!!.text.toString().equals(getString(R.string.group_order))) {
-                    vp_fragments.currentItem = 2
+                when {
+                    p0!!.text.toString().equals(getString(R.string.order)) -> {
+                        vp_fragments.currentItem = 0
+                    }
+                    p0!!.text.toString().equals(getString(R.string.book_a_table)) -> {
+                        vp_fragments.currentItem = 1
+                    }
+                    p0!!.text.toString().equals(getString(R.string.group_order)) -> {
+                        vp_fragments.currentItem = 2
+                    }
                 }
             }
         })
@@ -109,6 +114,28 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
             (activity as MainActivity),
             arguments, this
         )
+        vp_fragments.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
+            override fun onPageScrollStateChanged(state: Int) {
+
+
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+            }
+
+            override fun onPageSelected(position: Int) {
+                if (position == 0) {
+                    (activity as MainActivity).updateCartButton()
+                } else {
+                    (activity as MainActivity).hideAll()
+                }
+            }
+
+        })
     }
 
     override fun onItemClick(item: Any) {

@@ -38,7 +38,9 @@ object ApiConstants {
     const val CART_ITEMS_URL = "cart-item-list"
 
     const val PAY_STACK = "pay-stack"
-    const val VIEW_CART_URL = "view-group-cart"
+    const val VIEW_GROUP_CART_URL = "view-group-cart"
+    const val VIEW_CART_URL = "view-cart"
+
     const val PLACE_ORDER_URL = "place-order"
 
     const val LOCATION_TYPES_URL = "location-types"
@@ -71,6 +73,7 @@ object ApiConstants {
     const val PICKUP_RESTAURANTS = "pickup-restaurants"
     const val CHANGE_DELIVERY_TO_PICKUP = "change-delievry-to-pickup"
     const val CREATE_GROUP_CART = "create-group-cart"
+    const val GET_GROUP_ORDERS = "get-group-carts"
     const val SAVE_CART_LINK = "save-cart-link"
     const val ADD_IN_GROUP_CART = "add-in-group-cart"
     const val SHOW_ALL_FILTER_DATA = "show-all-filter-data"

@@ -27,8 +27,10 @@ class WalletViewModel : ViewModel() {
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-                    historyResponse.value =
-                        Gson().fromJson(result as JsonElement, WalletHistoryModel::class.java)
+                    val type = object :
+                        TypeToken<CommonResponseModel<WalletHistoryModel>>() {}.type
+                    historyResponse.value = Gson().fromJson(result as JsonElement, type)
+
                 } else {
                     historyResponse.value = result
                 }

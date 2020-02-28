@@ -4,16 +4,17 @@ package com.rvtechnologies.grigora.model
 import com.google.gson.annotations.SerializedName
 
 data class WalletHistoryModel(
-    @SerializedName("data")
-    var `data`: List<Data> = listOf(),
-    @SerializedName("message")
-    var message: String = "",
-    @SerializedName("status")
-    var status: Boolean = false,
     @SerializedName("wallet")
-    var wallet: String = ""
+    var wallet: String = "",
+    @SerializedName("wallet_id")
+    var wallet_id: String = "",
+    @SerializedName("naira_to_points")
+    var naira_to_points: String = "",
+    @SerializedName("history")
+    var history: ArrayList<History>
+
 ) {
-    data class Data(
+    data class History(
         @SerializedName("amount")
         var amount: String = "",
         @SerializedName("created_at")

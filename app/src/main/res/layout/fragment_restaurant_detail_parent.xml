@@ -46,14 +46,12 @@
                 app:tabTextColor="?attr/textWhite">
                 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_del"
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/order" />
                 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_book"
                     style="@style/titleText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,7 +59,6 @@
                 
                 
                 <com.google.android.material.tabs.TabItem
-                    android:id="@+id/tab_pick"
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
