@@ -18,8 +18,11 @@ data class WalletHistoryModel(
         @SerializedName("amount")
         var amount: String = "",
         @SerializedName("created_at")
-
         var createdAt: String = "",
+
+        var utcTime: String = "",
+
+
         @SerializedName("id")
         var id: Int = 0,
 
@@ -48,8 +51,15 @@ data class WalletHistoryModel(
         var userEmail: String = "",
         @SerializedName("user_id")
         var userId: Int = 0,
+
+
         @SerializedName("user_image")
         var userImage: String = "",
+
+        @SerializedName("other_user_wallet_id")
+        var other_user_wallet_id: String = "",
+
+
         @SerializedName("user_name")
         var userName: String = ""
     )

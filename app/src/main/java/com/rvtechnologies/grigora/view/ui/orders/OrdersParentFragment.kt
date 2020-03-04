@@ -38,13 +38,19 @@ class OrdersParentFragment : Fragment() {
                 R.drawable.left_round_dark
             )
             tv_past.setBackgroundResource(
+                R.drawable.middle_light
+            )
+            tv_upcoming_orders.setBackgroundResource(
                 R.drawable.right_round_light
             )
 
-            if (CommonUtils.isDarkMode())
+            if (CommonUtils.isDarkMode()) {
                 tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            else
+                tv_upcoming_orders.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
                 tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+                tv_upcoming_orders.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+            }
 
             vpOrders.currentItem = 0
         }
@@ -52,17 +58,48 @@ class OrdersParentFragment : Fragment() {
         tv_past.setOnClickListener {
             tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             tv_past.setBackgroundResource(
-                R.drawable.right_round_dark
+                R.drawable.middle_dark
             )
             tv_current.setBackgroundResource(
                 R.drawable.left_round_light
             )
-            if (CommonUtils.isDarkMode())
+            tv_upcoming_orders.setBackgroundResource(
+                R.drawable.right_round_light
+            )
+            if (CommonUtils.isDarkMode()) {
                 tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            else
+                tv_upcoming_orders.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            }
+            else {
                 tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+                tv_upcoming_orders.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+            }
 
             vpOrders.currentItem = 1
+        }
+
+        tv_upcoming_orders.setOnClickListener {
+            tv_upcoming_orders.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_upcoming_orders.setBackgroundResource(
+                R.drawable.right_round_dark
+            )
+
+            tv_current.setBackgroundResource(
+                R.drawable.left_round_light
+            )
+            tv_past.setBackgroundResource(
+                R.drawable.middle_light
+            )
+            if (CommonUtils.isDarkMode()) {
+                tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            }
+            else {
+                tv_current.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+                tv_past.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
+            }
+
+            vpOrders.currentItem = 2
         }
 
 
@@ -80,8 +117,11 @@ class OrdersParentFragment : Fragment() {
             override fun onPageSelected(position: Int) {
                 if (position == 0)
                     tv_current.callOnClick()
-                else
+                else if(position==1)
                     tv_past.callOnClick()
+                else if(position==2)
+                    tv_upcoming_orders.callOnClick()
+
             }
 
         })
@@ -96,10 +136,8 @@ class OrdersParentFragment : Fragment() {
             (activity as MainActivity).backTitle(getString(R.string.orders))
             (activity as MainActivity).showBottomNavigation(3)
 //            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
-            (activity as MainActivity).img_back.visibility=View.GONE
+            (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
-
-
 
 
         }

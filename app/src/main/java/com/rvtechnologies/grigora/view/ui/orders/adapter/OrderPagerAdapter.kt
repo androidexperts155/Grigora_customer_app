@@ -11,13 +11,12 @@ import com.rvtechnologies.grigora.view.ui.orders.OrderFragment
 class OrderPagerAdapter(fragmentManager: FragmentManager,var activity: Activity) : FragmentStatePagerAdapter(fragmentManager) {
 
     override fun getCount(): Int {
-        return 2
+        return 3
     }
     override fun getItem(position: Int): Fragment {
-        return OrderFragment.newInstance(position==0)
+        return OrderFragment.newInstance(position)
     }
     override fun getPageTitle(position: Int): CharSequence? {
-
-        return if(position==0) activity.getString(R.string.current_orders) else activity.getString(R.string.past_orders)
+        return if(position==0) activity.getString(R.string.current_orders) else if(position==1)activity.getString(R.string.past_orders) else activity.getString(R.string.upcoming_orders)
     }
 }

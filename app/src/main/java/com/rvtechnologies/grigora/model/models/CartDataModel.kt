@@ -46,6 +46,16 @@ data class CartDataModel(
     @SerializedName("user_id")
     var userId: String?,
 
+    @SerializedName("closingTime")
+    var closingTime: String?,
+
+    @SerializedName("openingTime")
+    var openingTime: String?,
+
+    @SerializedName("fullTime")
+    var fullTime: String?,
+
+
 
 
 

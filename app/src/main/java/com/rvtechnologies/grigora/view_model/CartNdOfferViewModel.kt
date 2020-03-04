@@ -63,6 +63,7 @@ class CartNdOfferViewModel : ViewModel() {
     }
 
     var responsePlaceOrder = MutableLiveData<Any>()
+    var responseScheduleOrder = MutableLiveData<Any>()
     var offersListRes: MutableLiveData<Any> = MutableLiveData()
 
     fun viewCart(token: String, lat: String, lng: String) {
@@ -88,7 +89,7 @@ class CartNdOfferViewModel : ViewModel() {
             }
     }
 
-    fun placeOrderNow(cartType:String) {
+    fun placeOrderNow(cartType: String) {
         val cartData = cartData.value
         isLoading.value = true
         ApiRepo.getInstance()
@@ -107,7 +108,7 @@ class CartNdOfferViewModel : ViewModel() {
                 delivery_lat = deliveryLat.value.toString(),
                 delivery_long = deliveryLong.value.toString(),
                 delivery_note = deliveryNote.value.toString(),
-                carttype= cartType
+                carttype = cartType
 
             ) { success, result ->
                 isLoading.value = false
@@ -123,6 +124,43 @@ class CartNdOfferViewModel : ViewModel() {
                 }
             }
     }
+
+    fun scheduleOrderNow(cartType: String, time: String, note: String) {
+        val cartData = cartData.value
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .scheduleOrder(
+                token = token.value.toString(),
+                cart_id = cartData?.id.toString(),
+                promo_id = promoId.value.toString(),
+                app_fee = cartData?.appFee.toString(),
+                delivery_fee = cartData?.deliveryFee.toString(),
+                price_before_promo = cartData?.beforePromo.toString(),
+                price_after_promo = cartData?.afterPromo.toString(),
+                final_price = cartData?.cartTotal.toString(),
+                payment_method = paymentMode.value.toString(),
+                schedule_time = time,
+                delivery_address = deliveryAddress.value.toString(),
+                delivery_lat = deliveryLat.value.toString(),
+                delivery_long = deliveryLong.value.toString(),
+                delivery_note = note,
+                carttype = cartType
+
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<PlaceOrderModel>>() {}.type
+                    responseScheduleOrder.value =
+                        Gson().fromJson(
+                            result as JsonElement, type
+                        )
+
+                } else {
+                    responseScheduleOrder.value = result
+                }
+            }
+    }
+
 
     fun isFrench(): Boolean {
         return GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
@@ -150,7 +188,7 @@ class CartNdOfferViewModel : ViewModel() {
         isLoading.value = true
         ApiRepo.getInstance()
             .clearCart(
-                token.value.toString()
+                token.value.toString(), cartData.value?.id.toString()
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

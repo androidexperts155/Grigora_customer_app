@@ -76,6 +76,12 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
+    @GET(ApiConstants.GET_UPCOMING_ORDERS_URL)
+    fun getUpcomingOrders(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+
     @GET(ApiConstants.GET_ALL_ADDRESSES)
     fun getAllAddresses(
         @Header("Authorization") token: String
@@ -166,9 +172,11 @@ interface ApiInterface {
         @Field("cart_id") cart_id: String
     ): Call<JsonElement>
 
-    @GET(ApiConstants.REMOVE_CART_URL)
+    @FormUrlEncoded
+    @POST(ApiConstants.REMOVE_CART_URL)
     fun removeCart(
-        @Header("Authorization") token: String
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String
     ): Call<JsonElement>
 
     @GET(ApiConstants.CART_ITEMS_URL + "/{id}")
@@ -263,6 +271,29 @@ interface ApiInterface {
         @Field("reference") reference: String,
         @Field("order_type") order_type: String
     ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SCHEDULE_ORDER_URL)
+    fun scheduleOrder(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String,
+        @Field("promo_id") promo_id: String,
+        @Field("app_fee") app_fee: String,
+        @Field("delivery_fee") delivery_fee: String,
+        @Field("price_before_promo") price_before_promo: String,
+        @Field("price_after_promo") price_after_promo: String,
+        @Field("final_price") final_price: String,
+        @Field("payment_method") payment_method: String,
+        @Field("delivery_note") delivery_note: String,
+        @Field("delivery_address") delivery_address: String,
+        @Field("delivery_lat") delivery_lat: String,
+        @Field("delivery_long") delivery_long: String,
+        @Field("schedule_time") schedule_time: String,
+        @Field("order_type") order_type: String
+    ): Call<JsonElement>
+
+
 
     @FormUrlEncoded
     @POST(ApiConstants.PAY_STACK)

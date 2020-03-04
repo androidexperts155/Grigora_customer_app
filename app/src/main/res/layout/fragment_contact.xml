@@ -214,7 +214,7 @@
             app:layout_constraintTop_toTopOf="@+id/tv_call" />
         
         <TextView
-            android:id="@+id/tv_email"
+            android:id="@+id/tv_wallet"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/_1sdp"

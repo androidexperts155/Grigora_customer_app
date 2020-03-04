@@ -414,4 +414,27 @@ object CommonUtils {
 
         return startLocation.distanceTo(endLocation) / 1000
     }
+
+    fun getUtcDate(context: Context, date: String): Date {
+        val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss",
+                context.resources.configuration.locales[0]
+            )
+        } else
+            SimpleDateFormat(
+                "yyyy-MM-dd HH:mm:ss",
+                context.resources.configuration.locale
+            )
+
+        utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
+
+        return utcFormatter.parse(date)
+    }
+
+    fun localToUtc(context: Context, normalDate: String, format: String): String {
+        var sdf = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        return sdf.format(sdf.parse(normalDate))
+    }
 }

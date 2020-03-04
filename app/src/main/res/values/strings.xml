@@ -429,6 +429,20 @@
     <string name="place_order_for">Place order for</string>
     <string name="tomorrow">Tomorrow</string>
     <string name="select_time">Select Time</string>
+    <string name="breakfast">Breakfast</string>
+    <string name="lunch">Lunch</string>
+    <string name="dinner">Dinner</string>
+    <string name="breakfast_timing">07:00AM - 10:00AM</string>
+    <string name="lunch_timing">12:00PM - 03:00PM</string>
+    <string name="dinner_timing">08:00PM - 11:00PM</string>
+    <string name="set_time">Set Time</string>
+    <string name="address_deliver">Address to Deliver</string>
+    <string name="add_note">Add a note</string>
+    <string name="note_hint">You can add your note here...</string>
+    <string name="schedule_request_sent">Request Sent</string>
+    <string name="schedule_request_sent_info">You will be notified once restaurant \n confirmed your Order</string>
+    <string name="upcoming_orders">Upcoming Orders</string>
+    <string name="reorder">Re-Order</string>
 
 
 </resources><!--₦-->

@@ -144,14 +144,21 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_navigationCart_to_scheduleOrder"
             app:destination="@id/scheduleOrder"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
-    
+        
+        <action
+            android:id="@+id/action_navigationCart_to_dashboardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         
@@ -721,6 +728,15 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_groupCartFragment_to_dashboardFragment"
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
     
     </fragment>
     
@@ -747,6 +763,14 @@
         android:id="@+id/scheduleOrder"
         android:name="com.rvtechnologies.grigora.view.ui.cart.ScheduleOrder"
         android:label="Schedule Order">
+        
+        
+        <action
+            android:id="@+id/action_scheduleOrder_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
     
     </fragment>
 

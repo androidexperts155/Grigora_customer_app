@@ -86,20 +86,7 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
                     )
                     .into(holder.img_data)
 
-            val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-                SimpleDateFormat(
-                    "yyyy-MM-dd HH:mm:ss",
-                    holder.img_data.context!!.resources.configuration.locales[0]
-                )
-            } else
-                SimpleDateFormat(
-                    "yyyy-MM-dd HH:mm:ss",
-                    holder.img_data.context!!.resources.configuration.locale
-                )
-
-            utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
-
-            var utcDate = utcFormatter.parse((list[position] as NotificationsModel).createdAt)
+           var utcDate=CommonUtils.getUtcDate(holder.img_data.context!!,(list[position] as NotificationsModel).createdAt)
 
 
             var format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -116,7 +103,7 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
             format.timeZone = TimeZone.getDefault()
 
 
-            if (!(list[position] as NotificationsModel).timeToShow.isNullOrBlank()) {
+            if (!(list[position] as NotificationsModel).timeToShow.isBlank()) {
                 holder.tv_time.text = holder.tv_time.context.getString(R.string.yesterday)
             } else {
 

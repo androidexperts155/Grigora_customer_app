@@ -33,12 +33,12 @@
                 android:background="@drawable/wallet_bg">
                 
                 <ImageView
-                    android:clickable="true"
-                    android:onClick="@{()->walletView.back()}"
                     android:id="@+id/back"
                     android:layout_width="@dimen/_28sdp"
                     android:layout_height="@dimen/_28sdp"
                     android:layout_margin="@dimen/_6sdp"
+                    android:clickable="true"
+                    android:onClick="@{()->walletView.back()}"
                     android:tint="@color/white"
                     app:srcCompat="@drawable/ic_back_white_24dp" />
                 
@@ -292,15 +292,37 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
                 
-                <TextView
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:padding="@dimen/_16sdp"
-                    android:text="@string/transactions"
-                    android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:padding="@dimen/_16sdp"
+                        android:text="@string/transactions"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp" />
+                    
+                    
+                    <Spinner
+                        android:id="@+id/spinner"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:background="@drawable/btn_rounded"
+                        android:backgroundTint="@color/colorPrimaryDark"
+                        android:elevation="1dp"
+                        android:gravity="center"
+                        android:spinnerMode="dropdown" />
+                
+                </RelativeLayout>
                 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -351,11 +373,11 @@
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rc_history"
                             android:layout_width="match_parent"
-                            android:visibility="visible"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:orientation="vertical"
                             android:overScrollMode="never"
+                            android:visibility="visible"
                             
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             

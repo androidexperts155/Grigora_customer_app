@@ -40,6 +40,7 @@ import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
+import com.rvtechnologies.grigora.view_model.CartSharedViewModel
 import io.branch.indexing.BranchUniversalObject
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
@@ -61,6 +62,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     var discount: String = ""
     var restId: String = ""
     var cart_type = "1"
+    lateinit var cartDataModel: CartDataModel
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
         mMap?.setMinZoomPreference(12f)
@@ -86,6 +88,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
 
     private var viewModel: CartNdOfferViewModel? = null
+    lateinit var cartSharedViewModel: CartSharedViewModel
+
     private var cartFragmentBinding: CartFragmentBinding? = null
     private val cartItemList = ArrayList<CartDetail>()
     private val addMoreList = ArrayList<MenuItemModel>()
@@ -93,7 +97,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
-
+        cartSharedViewModel =
+            activity!!.let { ViewModelProviders.of(it).get(CartSharedViewModel::class.java) }
 //        if (viewModel == null)
 //            viewModel = activity?.run {
 //                ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
@@ -103,12 +108,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         viewModel?.deliveryAddress?.value = CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
         viewModel?.deliveryLat?.value = CommonUtils.getPrefValue(context, PrefConstants.LATITUDE)
         viewModel?.deliveryLong?.value = CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE)
-        viewModel?.paymentMode?.value = "1"
+        viewModel?.paymentMode?.value = "3"
 
         viewModel?.responseCart?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    val cartDataModel = response.data as CartDataModel
+                    cartDataModel = response.data as CartDataModel
                     cart_type = cartDataModel.cart_type.toString()
                     restId = cartDataModel.restaurantId.toString()
                     var cartSubTotal = 0.0
@@ -190,19 +195,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         viewModel?.responseClearCart?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    viewModel?.viewCart(
-                        CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.TOKEN
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.LATITUDE
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.LONGITUDE
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_navigationCart_to_dashboardFragment
                         )
-                    )
-                } else {
                 }
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -219,7 +215,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                                 bundleOf(AppConstants.ORDER_ID to (response.data as PlaceOrderModel).orderDetails?.orderId)
                             view?.findNavController()
                                 ?.navigate(
-                                    R.id.action_navigationCart_to_orderDetailsFragment,
+                                    R.id.action_navigationCart_to_dashboardFragment,
                                     bundle
                                 )
                             viewModel?.viewCart(
@@ -239,6 +235,20 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
+        })
+
+        viewModel?.responseScheduleOrder?.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                CommonUtils.showMessage(parentView, response.message!!)
+                if (response.status!!) {
+                    if (response.data is PlaceOrderModel) {
+                        var scheduleSuccess = ScheduleSuccess(this)
+                        scheduleSuccess.show(childFragmentManager, "")
+                    }
+                }
+            } else {
+                CommonUtils.showMessage(parentView, response.toString())
+            }
         })
 
         viewModel?.offerModel?.observe(this, Observer { offerModel ->
@@ -271,6 +281,9 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         })
 
         viewModel?.reference?.value = ""
+        handleScheduleViewModel()
+
+
     }
 
     override fun onCreateView(
@@ -309,6 +322,13 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
+
+            (activity as MainActivity).img_right.visibility=View.VISIBLE
+            (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
+            (activity as MainActivity).img_right.setOnClickListener {
+                viewModel?.clearCart()
+            }
+
         }
 
         rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
@@ -349,7 +369,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         var optionsDialog = PaymentOptionsDialog(this)
         optionsDialog.show(this.childFragmentManager, "")
     }
-
 
     private fun toLogin() {
         view?.findNavController()
@@ -398,7 +417,20 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 "3"
             )
         ) {
-            viewModel!!.placeOrderNow(cart_type)
+            if (!cartSharedViewModel.isScheduledOrder.value!!) {
+                viewModel!!.placeOrderNow(cart_type)
+            } else {
+                var time = CommonUtils.localToUtc(
+                    context!!,
+                    cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
+                    "yyyy-MM-dd HH:mm:ss"
+                )
+                viewModel?.scheduleOrderNow(
+                    cart_type,
+                    time,
+                    cartSharedViewModel.scheduleNote.value!!
+                )
+            }
         } else {
             startActivityForResult(
                 Intent(
@@ -435,7 +467,23 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (result != null) {
                 viewModel?.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
-                viewModel?.placeOrderNow(cart_type)
+                if (!cartSharedViewModel.isScheduledOrder.value!!)
+                    viewModel?.placeOrderNow(cart_type)
+                else {
+
+                    var time = CommonUtils.localToUtc(
+                        context!!,
+                        cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
+                        "yyyy-MM-dd HH:mm:ss"
+                    )
+
+
+                    viewModel?.scheduleOrderNow(
+                        cart_type,
+                        time,
+                        cartSharedViewModel.scheduleNote.value!!
+                    )
+                }
             }
         } else if (resultCode == RESULT_CANCELED) {
             // the user canceled
@@ -558,14 +606,35 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (item != 0) {
                 viewModel?.paymentMode?.value = item.toString()
             }
+        } else if (item is String) {
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_navigationCart_to_dashboardFragment
+                )
         }
     }
 
     fun scheduleOrder() {
+
+        var bundle = bundleOf(
+            AppConstants.RESTAURANT_OPENING_TIME to cartDataModel.openingTime,
+            AppConstants.RESTAURANT_CLOSING_TIME to cartDataModel.closingTime,
+            AppConstants.RESTAURANT_ALWAYS_OPEN to cartDataModel.fullTime
+        )
+
         view?.findNavController()
             ?.navigate(
                 R.id.action_navigationCart_to_scheduleOrder
+                , bundle
             )
     }
 
+    private fun handleScheduleViewModel() {
+        cartSharedViewModel.isScheduledOrder.value = false
+        cartSharedViewModel.isScheduledOrder.observe(this, Observer { it ->
+            if (it) {
+                button5.text = getString(R.string.schedule_order)
+            }
+        })
+    }
 }

@@ -8,7 +8,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.AdapterView
 import androidx.appcompat.app.AlertDialog
 import com.google.gson.Gson
 
@@ -19,7 +18,6 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.profile.adapter.ConatctTypeAdapter
 import com.rvtechnologies.grigorahq.network.ConnectionNetwork
 import com.rvtechnologies.grigorahq.network.EventBroadcaster
  import kotlinx.android.synthetic.main.activity_main.*
@@ -66,10 +64,10 @@ class ContactFragment : Fragment(),EventBroadcaster {
             setCallingToCustomer(tv_phno.text.toString())
         }
         tv_mail.setOnClickListener {
-            setMail(tv_email.text.toString())
+            setMail(tv_wallet.text.toString())
         }
-        tv_email.setOnClickListener {
-            setMail(tv_email.text.toString())
+        tv_wallet.setOnClickListener {
+            setMail(tv_wallet.text.toString())
         }
         btn_submit.setOnClickListener {
             if (select_type.equals("0")) {

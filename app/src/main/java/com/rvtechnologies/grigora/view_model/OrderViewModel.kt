@@ -50,6 +50,24 @@ class OrderViewModel : ViewModel() {
             }
     }
 
+    fun getUpcomingOrders(token: String) {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .getUpcomingOrders(
+                token
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type =
+                        object : TypeToken<CommonResponseModel<ArrayList<OrderItemModel>>>() {}.type
+                    orderListRes.value = Gson().fromJson(result as JsonElement, type)
+
+                } else {
+                    orderListRes.value = result
+                }
+            }
+    }
+
     fun rateDriver(token: String, orderId: String, driverId: String, rating: String) {
         isLoading.value = true
 

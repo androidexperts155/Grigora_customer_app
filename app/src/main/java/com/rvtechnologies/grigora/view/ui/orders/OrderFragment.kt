@@ -12,12 +12,9 @@ import androidx.appcompat.app.AlertDialog
 import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
-import com.google.gson.JsonObject
 
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
-import com.rvtechnologies.grigora.model.models.OrderDetails
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -37,13 +34,13 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
     MealsRatingDialogFragment.MealsRate,
     RestaurantRatingDialogFragment.RestaurantRate {
 
-    private var isCurrent: Boolean = false
+    private var currentIndex: Int = 0
 
     companion object {
-        val ARG_IS_CURRENT = "arg_is_current"
-        fun newInstance(isCurrent: Boolean) = OrderFragment().apply {
+        val ARG_CURRENT = "arg_is_current"
+        fun newInstance(current: Int) = OrderFragment().apply {
             arguments = Bundle().apply {
-                putBoolean(ARG_IS_CURRENT, isCurrent)
+                putInt(ARG_CURRENT, current)
             }
         }
     }
@@ -51,7 +48,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
-            isCurrent = it.getBoolean(ARG_IS_CURRENT)
+            currentIndex = it.getInt(ARG_CURRENT)
         }
 
         viewModel = ViewModelProviders.of(this).get(OrderViewModel::class.java)
@@ -91,16 +88,19 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
         if (token.isBlank()) {
             showLoginAlert(activity as MainActivity?)
         } else {
-            if (isCurrent) {
+            if (currentIndex == 0) {
                 viewModel.getCurrentOrder(token)
-            } else {
+            } else if (currentIndex == 1) {
                 viewModel.getPastOrder(token)
+            } else {
+                viewModel.getUpcomingOrders(token)
             }
-            rvOrders.adapter = OrderAdapter(orderList, this, isCurrent)
+
+            rvOrders.adapter = OrderAdapter(orderList, this, currentIndex)
         }
     }
 
-    fun showLoginAlert(activity: MainActivity?) {
+    private fun showLoginAlert(activity: MainActivity?) {
         var alertDialog: AlertDialog? = null
 
         val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
@@ -132,38 +132,48 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
     override fun onItemClick(item: Any) {
         if (item is OrderItemModel) {
-            if (isCurrent) {
-                val bundle = bundleOf(AppConstants.ORDER_ID to item.orderDetails[0].orderId)
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.action_ordersFragment_to_orderDetailsFragment2,
-                        bundle
-                    )
-            } else {
+            when (currentIndex) {
+                0 -> {
+                    val bundle = bundleOf(AppConstants.ORDER_ID to item.orderDetails[0].orderId)
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_ordersFragment_to_orderDetailsFragment2,
+                            bundle
+                        )
+                }
+                1 -> {
+                    if (item.is_driver_rated == "0") {
+                        var rateDriverDialog = RateDriverDialogFragment(item, this)
+                        rateDriverDialog.isCancelable = false
+                        rateDriverDialog.show(this.childFragmentManager, "")
+                    } else if (item.is_restaurant_rated == "0") {
+                        var restaurantRatingDialogFragment =
+                            RestaurantRatingDialogFragment(item, this)
+                        restaurantRatingDialogFragment.isCancelable = false
+                        restaurantRatingDialogFragment.show(this.childFragmentManager, "")
+                    } else {
+                        var mealsToRate = ArrayList<OrderItemModel.OrderDetail>()
+                        for (meal in item.orderDetails) {
+                            if (meal.is_item_rated == "0") {
+                                mealsToRate.add(meal)
+                            }
+                        }
 
-                if (item.is_driver_rated == "0") {
-                    var rateDriverDialog = RateDriverDialogFragment(item, this)
-                    rateDriverDialog.isCancelable = false
-                    rateDriverDialog.show(this.childFragmentManager, "")
-                } else if (item.is_restaurant_rated == "0") {
-                    var restaurantRatingDialogFragment = RestaurantRatingDialogFragment(item, this)
-                    restaurantRatingDialogFragment.isCancelable = false
-                    restaurantRatingDialogFragment.show(this.childFragmentManager, "")
-                } else {
-                    var mealsToRate = ArrayList<OrderItemModel.OrderDetail>()
-                    for (meal in item.orderDetails) {
-                        if (meal.is_item_rated == "0") {
-                            mealsToRate.add(meal)
+                        if (mealsToRate.size > 0) {
+                            var mealsRatingDialogFragment =
+                                MealsRatingDialogFragment(mealsToRate, this)
+                            mealsRatingDialogFragment.isCancelable = false
+                            mealsRatingDialogFragment.show(this.childFragmentManager, "")
                         }
                     }
+                }
+                2 -> {
+//                    TODO: handle click of upcoming orders
 
-                    if (mealsToRate.size > 0) {
-                        var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
-                        mealsRatingDialogFragment.isCancelable = false
-                        mealsRatingDialogFragment.show(this.childFragmentManager, "")
-                    }
                 }
             }
+
+
         }
     }
 
@@ -245,6 +255,5 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
     override fun onMealRateCancel() {
 
     }
-
-
 }
+

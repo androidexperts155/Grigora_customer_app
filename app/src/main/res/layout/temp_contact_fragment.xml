@@ -156,7 +156,7 @@
                         android:textSize="@dimen/_12sdp"/>
     
                     <TextView
-                        android:id="@+id/tv_email"
+                        android:id="@+id/tv_wallet"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="0.1dp"

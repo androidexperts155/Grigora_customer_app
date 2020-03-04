@@ -82,7 +82,7 @@ class DayAdapter(var list: ArrayList<DayModel>, var iRecyclerItemClick: IRecycle
             holder.li_main.setBackgroundResource(R.drawable.date_de_selected)
         }
 
-        holder.li_main.setOnClickListener { iRecyclerItemClick.onItemClick(position) }
+        holder.li_main.setOnClickListener { iRecyclerItemClick.onItemClick(position.toString()) }
     }
 
     inner class DayView(var view: View) : RecyclerView.ViewHolder(view) {

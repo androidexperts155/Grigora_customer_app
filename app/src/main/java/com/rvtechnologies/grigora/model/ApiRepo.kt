@@ -333,6 +333,30 @@ Cuisine repo
             })
     }
 
+    fun getUpcomingOrders(
+        token: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().getUpcomingOrders(token)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
 
     fun rateDriver(
         token: String,
@@ -716,16 +740,15 @@ Cuisine repo
                 override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
                     onResult(false, t?.message)
                 }
-
             })
     }
 
-
     fun clearCart(
         token: String,
+        cartId: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().removeCart(token)
+        ApiClient.getClient().removeCart(token,cartId)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1022,6 +1045,59 @@ Cuisine repo
             final_price = final_price,
             payment_method = payment_method,
             reference = reference,
+            delivery_address = delivery_address,
+            delivery_lat = delivery_lat,
+            delivery_long = delivery_long,
+            delivery_note = delivery_note, order_type = carttype
+        )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun scheduleOrder(
+        token: String,
+        cart_id: String,
+        promo_id: String,
+        app_fee: String,
+        delivery_fee: String,
+        price_before_promo: String,
+        price_after_promo: String,
+        final_price: String,
+        payment_method: String,
+        schedule_time: String,
+        delivery_address: String,
+        delivery_lat: String,
+        delivery_long: String,
+        delivery_note: String,
+        carttype: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().scheduleOrder(
+            token = token,
+            cart_id = cart_id,
+            promo_id = promo_id,
+            app_fee = app_fee,
+            delivery_fee = delivery_fee,
+            price_before_promo = price_before_promo,
+            price_after_promo = price_after_promo,
+            final_price = final_price,
+            payment_method = payment_method,
+            schedule_time = schedule_time,
             delivery_address = delivery_address,
             delivery_lat = delivery_lat,
             delivery_long = delivery_long,

@@ -1,5 +1,6 @@
 package com.rvtechnologies.grigora.view.ui.profile.wallet
 
+import android.os.Build
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.Gravity
@@ -7,6 +8,8 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.AdapterView
+import android.widget.ArrayAdapter
 import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
@@ -28,11 +31,15 @@ import com.rvtechnologies.grigora.view_model.TransferMoneyViewModel
 import kotlinx.android.synthetic.main.transfer_money_fragment.*
 import kotlinx.android.synthetic.main.transfer_money_fragment.parentView
 import kotlinx.android.synthetic.main.transfer_money_fragment.wallet
+import java.text.SimpleDateFormat
+import java.util.*
+import kotlin.collections.ArrayList
 
 class TransferMoney : Fragment(), IRecyclerItemClick {
     private lateinit var viewModel: TransferMoneyViewModel
     lateinit var historyModel: WalletHistoryModel
-    var amount = ""
+    var timeFilter = 0
+    var tabFilter = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,12 +50,11 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         viewModel.historyResponse.observe(this, Observer { historyRes ->
             if (historyRes is CommonResponseModel<*>) {
                 historyModel = historyRes.data as WalletHistoryModel
+
                 wallet.text = "₦ " + historyModel.wallet
                 tv_points.text =
                     "₦ " + ((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()).toString()
                 tv_wallet_id.text = historyModel.wallet_id
-
-
                 handleHistory()
 
             } else {
@@ -122,6 +128,32 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
 
         }
 
+
+        var arr = arrayOf(
+            getString(R.string.all),
+            getString(R.string.today),
+            getString(R.string.yesterday),
+            getString(R.string.earliar)
+        )
+
+        spinner.adapter =
+            ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, arr)
+
+
+        spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onNothingSelected(parent: AdapterView<*>?) {
+            }
+
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
+                getFilteredList(tabFilter, position)
+
+            }
+        }
     }
 
     override fun onResume() {
@@ -129,7 +161,6 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         viewModel.getHistory()
 
         if (activity is MainActivity) {
-
             (activity as MainActivity).hideAll()
             (activity as MainActivity).lockDrawer(true)
         }
@@ -153,6 +184,7 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         tab_top.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
             override fun onTabReselected(p0: TabLayout.Tab?) {
 
+
             }
 
             override fun onTabUnselected(p0: TabLayout.Tab?) {
@@ -164,8 +196,6 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
                     view.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                 else
                     view.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-
-
             }
 
             override fun onTabSelected(p0: TabLayout.Tab?) {
@@ -175,28 +205,14 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
 
                 when {
                     p0!!.text.toString().equals(getString(R.string.all)) -> {
-                        rc_history.adapter = HistoryAdapter(historyModel.history)
+                        getFilteredList(0,timeFilter)
                     }
                     p0!!.text.toString().equals(getString(R.string.transfered)) -> {
-                        var tempHistory = ArrayList<WalletHistoryModel.History>()
-                        for (item in historyModel.history) {
-                            if (item.type == "5") {
-                                tempHistory.add(item)
-                            }
-                        }
-
-                        rc_history.adapter = HistoryAdapter(tempHistory)
-
+                        getFilteredList(5, timeFilter)
                     }
                     p0!!.text.toString().equals(getString(R.string.received)) -> {
-                        var tempHistory = ArrayList<WalletHistoryModel.History>()
-                        for (item in historyModel.history) {
-                            if (item.type == "6") {
-                                tempHistory.add(item)
-                            }
-                        }
+                        getFilteredList(6, timeFilter)
 
-                        rc_history.adapter = HistoryAdapter(tempHistory)
                     }
                 }
             }
@@ -230,6 +246,111 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         view?.findNavController()!!.popBackStack()
     }
 
+    fun getFilteredList(tabFilter: Int, timeFilter: Int) {
+        if (::historyModel.isInitialized) {
 
+
+            this.tabFilter = tabFilter
+            this.timeFilter = timeFilter
+            var list = ArrayList<WalletHistoryModel.History>()
+
+            var format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                SimpleDateFormat(
+                    "yyyy-MM-dd",
+                    context!!.resources.configuration.locales[0]
+                )
+            } else
+                SimpleDateFormat(
+                    "yyyy-MM-dd",
+                    resources.configuration.locale
+                )
+            format.timeZone = TimeZone.getDefault()
+
+
+            var yesterday = Calendar.getInstance()
+            yesterday.add(Calendar.DAY_OF_MONTH, -1)
+
+
+            for (i in 0 until historyModel.history.size) {
+                var utcDate = CommonUtils.getUtcDate(context!!, historyModel.history[i].createdAt)
+                when (timeFilter) {
+                    0 -> {
+//                    no filter for time, check for type
+                        if (tabFilter != 5 && tabFilter != 6) {
+                            list.add(historyModel.history[i])
+                        } else if (historyModel.history[i].type == tabFilter.toString()) {
+                            list.add(historyModel.history[i])
+                        }
+                    }
+                    1 -> {
+//                    today filter selected
+
+                        if (format.parse(format.format(utcDate)).compareTo(
+                                format.parse(
+                                    format.format(
+                                        Date()
+                                    )
+                                )
+                            ) == 0
+                        ) {
+                            if (tabFilter != 5 && tabFilter != 6) {
+                                list.add(historyModel.history[i])
+                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+                                list.add(historyModel.history[i])
+                            }
+                        }
+                    }
+                    2 -> {
+                        //                    yesterday filter selected
+
+                        if (format.parse(format.format(utcDate)).compareTo(
+                                format.parse(
+                                    format.format(
+                                        yesterday.time
+                                    )
+                                )
+                            ) == 0
+                        ) {
+                            if (tabFilter != 5 && tabFilter != 6) {
+                                list.add(historyModel.history[i])
+                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+                                list.add(historyModel.history[i])
+                            }
+                        }
+                    }
+                    3 -> {
+                        //                    earliar filter selected
+
+                        if (format.parse(format.format(utcDate)).compareTo(
+                                format.parse(
+                                    format.format(
+                                        yesterday.time
+                                    )
+                                )
+                            ) != 0 && format.parse(format.format(utcDate)).compareTo(
+                                format.parse(
+                                    format.format(
+                                        Date()
+                                    )
+                                )
+                            ) != 0
+                        ) {
+                            if (tabFilter != 5 && tabFilter != 6) {
+                                list.add(historyModel.history[i])
+                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+                                list.add(historyModel.history[i])
+                            }
+                        }
+
+
+                    }
+                }
+
+                rc_history.adapter = HistoryAdapter(list)
+            }
+        }
+
+
+    }
 }
 

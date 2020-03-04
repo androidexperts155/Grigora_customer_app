@@ -10,13 +10,12 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.OrderItemBinding
 import com.rvtechnologies.grigora.model.models.OrderItemModel
-import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class OrderAdapter(
     var orderList: ArrayList<OrderItemModel>,
     var iRecyclerItemClick: IRecyclerItemClick,
-    var isCurrent: Boolean
+    var currentIndex: Int
 ) :
     RecyclerView.Adapter<OrderAdapter.ViewHolder>() {
 
@@ -64,27 +63,39 @@ class OrderAdapter(
         orderModel.idToShow =
             holder.itemView.context.getString(R.string.order_hash).plus(orderModel.id)
 
-        holder.binding.btnDetails.visibility = if (isCurrent) VISIBLE else GONE
+        holder.binding.btnDetails.visibility = GONE
+        holder.binding.liPast.visibility = GONE
 
-        holder.binding.btnRate.visibility =
-            if (!isCurrent && !orderModel.is_rated && (orderModel.orderStatus != 6 && orderModel.orderStatus != 8)) VISIBLE else GONE
+        when (currentIndex) {
+            0 -> {
+                holder.binding.btnDetails.visibility = VISIBLE
+            }
+            1 -> {
+                holder.binding.liPast.visibility =
+                    if (!orderModel.is_rated && (orderModel.orderStatus != 6 && orderModel.orderStatus != 8)) VISIBLE else GONE
+
+            }
+            2 -> {
+
+            }
+        }
+
 
         if (orderModel.orderDetails.isNotEmpty())
             holder.binding.rvOrderItem.adapter =
                 OrderMenuItemAdapter(orderModel.orderDetails)
         var nam = ""
         for (item in orderModel.orderDetails) {
-            if(nam==""){
-                nam=item.itemName + " x " + item.quantity
-            }
-            else
-                nam=nam+", "+item.itemName + " x " + item.quantity
+            if (nam == "") {
+                nam = item.itemName + " x " + item.quantity
+            } else
+                nam = nam + ", " + item.itemName + " x " + item.quantity
         }
 
-        holder.binding.tvItems.text =nam
+        holder.binding.tvItems.text = nam
 
 
-            holder.bind(orderModel, iRecyclerItemClick)
+        holder.bind(orderModel, iRecyclerItemClick)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {

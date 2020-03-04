@@ -521,8 +521,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                 anim.start()
             }
 
-
-
             tv_restname.text = AppConstants.CART_RESTAURANT
             tv_items.text = AppConstants.CART_COUNT.toString() + " " + getString(R.string.items)
 

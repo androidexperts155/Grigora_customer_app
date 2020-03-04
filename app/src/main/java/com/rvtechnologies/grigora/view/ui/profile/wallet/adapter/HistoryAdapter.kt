@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.WalletHistoryItemBinding
 import com.rvtechnologies.grigora.model.WalletHistoryModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 import kotlinx.android.synthetic.main.wallet_history_item.view.*
 
 class HistoryAdapter(
@@ -19,8 +20,9 @@ class HistoryAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val historyModel = historyList[position]
-
 //        3=>add in grigora wallet,4=>deduct from grigora wallet,5:send money,6:receive money
+
+        holder.itemView.tv_time.text=CommonUtils.getFormattedTimeOrDate(CommonUtils.getUtcDate(holder.binding.root.context,historyModel.createdAt),"yyyy-MM-dd HH:mm","dd MMM,yyyy HH:mm")
 
         when (historyModel.type) {
             "3" -> {
@@ -37,7 +39,7 @@ class HistoryAdapter(
                     holder.itemView.context!!.getString(R.string.money_added)
 
 
-                holder.itemView.tv_email.visibility = View.GONE
+                holder.itemView.tv_wallet.visibility = View.GONE
             }
 
             "4" -> {
@@ -53,9 +55,7 @@ class HistoryAdapter(
                 holder.itemView.tv_username.text =
                     holder.itemView.context!!.getString(R.string.money_deducted)
 
-                holder.itemView.tv_email.visibility = View.GONE
-
-
+                holder.itemView.tv_wallet.visibility = View.GONE
 
 
             }
@@ -69,8 +69,8 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.text=historyList[position].otherUserName
-                holder.itemView.tv_email.text=historyList[position].otherUserEmail
+                holder.itemView.tv_username.text = historyList[position].otherUserName
+                holder.itemView.tv_wallet.text = historyList[position].other_user_wallet_id
             }
 
             "6" -> {
@@ -82,17 +82,11 @@ class HistoryAdapter(
                     )
                 )
 
-                holder.itemView.tv_username.text=historyList[position].otherUserName
-                holder.itemView.tv_email.text=historyList[position].otherUserEmail
-
-
-
-
+                holder.itemView.tv_username.text = historyList[position].otherUserName
+                holder.itemView.tv_wallet.text = historyList[position].other_user_wallet_id
             }
 
         }
-
-
 
         holder.bind(historyModel)
     }
@@ -124,6 +118,8 @@ class HistoryAdapter(
 
         }
     }
+
+
 
 
 }

@@ -23,6 +23,8 @@ import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.LoginFragmentViewModel
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.fragment_login.parentView
+import kotlinx.android.synthetic.main.phone_login_fragment.*
 
 class PhoneLogin : Fragment() {
 
@@ -74,6 +76,10 @@ class PhoneLogin : Fragment() {
         return loginFragmentBinding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+    }
+
     fun toLogin() {
         view?.findNavController()?.navigate(R.id.action_phoneLogin_fragment_to_login)
     }
@@ -88,7 +94,7 @@ class PhoneLogin : Fragment() {
             startActivityForResult(
                 Intent(context, OtpActivity::class.java).putExtra(
                     "phone",
-                    viewModel?.email?.value
+                    ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
                 ), AppConstants.OTP_CODE
             )
 

@@ -2,21 +2,21 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
+    
     <data>
         
         <variable
             name="scheduleView"
             type="com.rvtechnologies.grigora.view.ui.cart.ScheduleOrder" />
-        
-        <variable
-            name="scheduleOrderViewModel"
-            type="com.rvtechnologies.grigora.view_model.ScheduleOrderViewModel" />
+    
+    
     </data>
     
     <ScrollView
         android:layout_width="match_parent"
-        
+        android:paddingBottom="@dimen/_16sdp"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="?attr/backgroundColor"
         android:fillViewport="true">
         
@@ -38,9 +38,8 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/_8sdp"
                 android:text="@string/place_order_for"
-                android:textColorHint="?attr/textWhite"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-            
             
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rc_days"
@@ -53,7 +52,6 @@
                 tools:itemCount="5"
                 tools:listitem="@layout/item_day" />
             
-            
             <TextView
                 style="@style/titleText"
                 android:layout_width="wrap_content"
@@ -61,10 +59,338 @@
                 android:layout_marginTop="@dimen/_8sdp"
                 android:padding="@dimen/_8sdp"
                 android:text="@string/select_time"
-                android:textColorHint="?attr/textWhite"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_8sdp"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    
+                    android:foreground="@drawable/selectable_item_background"
+                    android:gravity="center"
+                    android:onClick="@{()->scheduleView.breakfast()}"
+                    
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:id="@+id/tv_breakfast"
+                        style="@style/mediumText"
+                        
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/food_time_de_selected"
+                        android:drawableTop="@drawable/ic_breakfast_de_selected"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/breakfast"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    <TextView
+                        android:id="@+id/tv_breakfast_time"
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="@string/breakfast_timing"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_9sdp" />
+                
+                </LinearLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:gravity="center"
+                    android:onClick="@{()->scheduleView.lunch()}"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:id="@+id/tv_lunch"
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/food_time_de_selected"
+                        android:drawableTop="@drawable/ic_lunch_de_selected"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/lunch"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    <TextView
+                        android:id="@+id/tv_lunch_time"
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="@string/lunch_timing"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_9sdp" />
+                
+                </LinearLayout>
+                
+                
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_weight="1"
+                    android:clickable="true"
+                    
+                    android:foreground="@drawable/selectable_item_background"
+                    android:gravity="center"
+                    android:onClick="@{()->scheduleView.dinner()}"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:id="@+id/tv_dinner"
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:background="@drawable/food_time_de_selected"
+                        android:drawableTop="@drawable/ic_dinner_de_selected"
+                        android:drawablePadding="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:padding="@dimen/_8sdp"
+                        android:text="@string/dinner"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    <TextView
+                        android:id="@+id/tv_dinner_time"
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:minLines="2"
+                        android:text="@string/dinner_timing"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_9sdp" />
+                
+                
+                </LinearLayout>
+            
+            
+            </LinearLayout>
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="@dimen/_8sdp">
+                
+                
+                <TextView
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    
+                    android:text="@string/set_time"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/_28sdp"
+                    android:clickable="true"
+                    android:onClick="@{()->scheduleView.chooseTime()}"
+                    android:orientation="horizontal">
+    
+                    <TextView
+                        android:id="@+id/tv_hours"
+                        style="@style/mediumText"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:background="@drawable/time"
+                        android:gravity="center"
         
-        
+                        android:text="00"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="00" />
+                    
+                    <TextView
+                        style="@style/titleText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:text=":"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_20sdp" />
+    
+    
+                    <TextView
+                        android:id="@+id/tv_minutes"
+                        style="@style/mediumText"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:background="@drawable/time"
+                        android:gravity="center"
+                        android:text="00"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="88" />
+    
+    
+                    <TextView
+                        android:id="@+id/tv_am_pm"
+                        style="@style/mediumText"
+                        android:layout_width="@dimen/_35sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:background="@drawable/time"
+                        android:gravity="center"
+                        android:text="AM"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="AM" />
+                
+                </LinearLayout>
+            </LinearLayout>
+            
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp">
+                
+                <TextView
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:text="@string/address_deliver"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:clickable="true"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:gravity="center"
+                    android:onClick="@{()->scheduleView.changeAddress()}"
+                    android:padding="@dimen/_8sdp"
+                    android:text="@string/change"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_12sdp" />
+            
+            </RelativeLayout>
+            
+            <TextView
+                android:id="@+id/tv_address"
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:ellipsize="end"
+                android:maxLines="2"
+                android:textColor="?attr/textWhite"
+                tools:text="@tools:sample/lorem/random" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_1sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="?attr/viewbg" />
+            
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/add_note"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+    
+            <EditText
+                android:id="@+id/ed_note"
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/time"
+                android:gravity="top"
+                android:hint="@string/note_hint"
+                android:maxLines="4"
+                android:minLines="3"
+                android:padding="@dimen/_8sdp"
+                android:textColor="?attr/textWhite" />
+            
+            
+            <Button
+                style="@style/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_below="@+id/btnForgot"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="@dimen/_48sdp"
+                android:background="@drawable/btn_rounded"
+                
+                android:clickable="true"
+                android:elevation="1dp"
+                android:onClick="@{()->scheduleView.schedule()}"
+                android:paddingLeft="@dimen/_22sdp"
+                
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/done"
+                android:textAllCaps="false"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
         </LinearLayout>
     </ScrollView>
+    
 </layout>

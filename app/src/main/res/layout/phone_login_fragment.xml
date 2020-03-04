@@ -49,44 +49,69 @@
             <ImageView
                 
                 android:layout_width="@dimen/_120sdp"
-                android:layout_gravity="center"
                 android:layout_height="@dimen/_120sdp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_8sdp"
                 android:src="@drawable/logo_text_light" />
             
-            <TextView
-                style="@style/mediumText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:layout_marginEnd="16dp"
-                android:text="@string/phone_number"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
             
-            <EditText
-                style="@style/normalText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@android:color/transparent"
-                android:inputType="phone"
-                android:padding="@dimen/_4sdp"
-                android:singleLine="true"
-                android:text="@={loginFragmentViewModel.email}"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp"
-                tools:text="amit@gmail.com" />
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+                
+                <com.hbb20.CountryCodePicker
+                    app:ccp_showFlag="true"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="true"
+                     android:id="@+id/ccp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:theme="@style/AppTheme.Light" />
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_marginEnd="16dp"
+                        android:text="@string/phone_number"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp" />
+                    
+                    <EditText
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@android:color/transparent"
+                        android:inputType="phone"
+                        android:padding="@dimen/_4sdp"
+                        android:singleLine="true"
+                        android:text="@={loginFragmentViewModel.email}"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="7696379802" />
+                    
+                    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginEnd="16dp"
+                        android:background="@color/viewbg" />
+                </LinearLayout>
             
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="@color/viewbg" />
+            </LinearLayout>
             
             
             <Button
@@ -97,6 +122,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_below="@+id/btnForgot"
+                
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/_48sdp"

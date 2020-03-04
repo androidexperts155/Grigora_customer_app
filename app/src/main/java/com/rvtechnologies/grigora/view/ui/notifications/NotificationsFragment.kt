@@ -55,8 +55,11 @@ class NotificationsFragment : Fragment() {
                             var todayAdded = false
                             var yesterdayAdded = false
                             var otherdayAdded = false
+
                             var tempList = ArrayList<Notification>()
                             var adapterList = ArrayList<Notification>()
+
+
                             var yesterday = Calendar.getInstance()
                             yesterday.add(Calendar.DAY_OF_MONTH, -1)
 

@@ -99,7 +99,7 @@ class GroupCartViewModel : ViewModel() {
                 cart_id = cartData?.id.toString(),
                 promo_id = promoId.value.toString(),
                 app_fee = cartData?.app_fee.toString(),
-                delivery_fee = cartData?.delivery_fee   .toString(),
+                delivery_fee = cartData?.delivery_fee.toString(),
                 price_before_promo = cartData?.beforePromo.toString(),
                 price_after_promo = cartData?.afterPromo.toString(),
                 final_price = cartData?.cartTotal.toString(),
@@ -125,6 +125,7 @@ class GroupCartViewModel : ViewModel() {
                 }
             }
     }
+
 
     fun isFrench(): Boolean {
         return GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
@@ -152,7 +153,7 @@ class GroupCartViewModel : ViewModel() {
         isLoading.value = true
         ApiRepo.getInstance()
             .clearCart(
-                token.value.toString()
+                token.value.toString(), cartData.value?.id.toString()
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

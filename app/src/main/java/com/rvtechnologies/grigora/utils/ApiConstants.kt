@@ -42,10 +42,12 @@ object ApiConstants {
     const val VIEW_CART_URL = "view-cart"
 
     const val PLACE_ORDER_URL = "place-order"
+    const val SCHEDULE_ORDER_URL = "schedule-order"
 
     const val LOCATION_TYPES_URL = "location-types"
     const val GET_CURRENT_ORDERS_URL = "customer-ongoing-order"
     const val GET_PAST_ORDERS_URL = "customer-past-order"
+    const val GET_UPCOMING_ORDERS_URL = "customer-upcoming-order"
     const val ADD_RATING_REVIEW_URL = "add-rating-review"
     const val ADD_RATING_REVIEW_URL_MEALS = "add-items-rating"
     const val LIKE_UNLIKE_URL = "favourite"

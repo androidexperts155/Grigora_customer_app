@@ -168,7 +168,6 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                     tv_estimated.text = getString(
                         R.string.deliver_in,
                         (cartDataModel.estimated_delivery_time!!.toInt() + cartDataModel.estimated_preparing_time!!.toInt()).toString()
-
                     )
 
 //                    tv_restname.text = cartDataModel.restaurantName
@@ -184,18 +183,18 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             PrefConstants.ID
                         )
                     ) {
-                        tv_change.visibility= VISIBLE
-                        tv_change_payment.visibility= VISIBLE
-                        offers.visibility= VISIBLE
+                        tv_change.visibility = VISIBLE
+                        tv_change_payment.visibility = VISIBLE
+                        offers.visibility = VISIBLE
                         button5.visibility = VISIBLE
                         tv_group_order_title.text =
                             "${getString(R.string.group_order_by)} ${cartDataModel?.cart_details[0].name}"
                         tv_order_limit.text =
                             "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
                     } else {
-                        tv_change.visibility= GONE
-                        tv_change_payment.visibility= GONE
-                        offers.visibility= GONE
+                        tv_change.visibility = GONE
+                        tv_change_payment.visibility = GONE
+                        offers.visibility = GONE
                         button5.visibility = GONE
                         tv_group_order_title.text =
                             "${cartDataModel?.cart_details[0].name}'s ${getString(R.string.group_order)}"
@@ -217,18 +216,10 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         viewModel?.responseClearCart?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    viewModel?.viewGroupCart(
-                        CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.TOKEN
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.LATITUDE
-                        ), CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.LONGITUDE
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_groupCartFragment_to_dashboardFragment
                         )
-                    )
                 } else {
                 }
             } else {
@@ -337,6 +328,12 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).img_right.visibility = View.VISIBLE
+            (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
+            (activity as MainActivity).img_right.setOnClickListener {
+                viewModel.clearCart()
+            }
+
         }
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
