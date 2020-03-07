@@ -162,6 +162,7 @@
         android:layout_marginRight="@dimen/_16sdp"
         android:backgroundTint="?attr/backgroundColor"
         android:clickable="true"
+        android:visibility="invisible"
         app:srcCompat="@drawable/ic_list_text" />
     
     <com.google.android.material.floatingactionbutton.FloatingActionButton

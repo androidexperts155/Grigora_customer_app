@@ -13,7 +13,7 @@
         android:title="@string/pickup" />
     <item
         
-        android:id="@+id/navigationNearbyRestaurants"
+        android:id="@+id/navigationTrendingMeals"
         android:icon="@drawable/ic_popular"
         android:title="@string/trending" />
     

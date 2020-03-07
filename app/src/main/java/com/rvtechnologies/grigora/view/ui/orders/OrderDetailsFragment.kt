@@ -779,8 +779,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         rateDriverDialog.show(this.childFragmentManager, "")
     }
 
-    override fun onDriverRateSubmit(rating: Float, orderItemModel: OrderItemModel) {
-        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString())
+    override fun onDriverRateSubmit(rating: Float, goodReview: String,
+                                    badReview: String, orderItemModel: OrderItemModel) {
+        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(),goodReview,badReview)
         orderItemModel.is_driver_rated = "1"
         CommonUtils.savePrefs(context, PrefConstants.ORDER_TO_RATE, Gson().toJson(orderItemModel))
     }
@@ -817,16 +818,12 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         tv_est_delivery.text = minutes.toString()
         object : CountDownTimer((minutes * 60000).toLong(), 1000) {
             override fun onFinish() {
-
             }
 
             override fun onTick(millisUntilFinished: Long) {
                 tv_est_delivery.text = (millisUntilFinished / 60000).toString()
             }
-
         }
-
-
     }
 
 

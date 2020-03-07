@@ -71,9 +71,10 @@ class OrderAdapter(
                 holder.binding.btnDetails.visibility = VISIBLE
             }
             1 -> {
-                holder.binding.liPast.visibility =
-                    if (!orderModel.is_rated && (orderModel.orderStatus != 6 && orderModel.orderStatus != 8)) VISIBLE else GONE
+                holder.binding.liPast.visibility = VISIBLE
 
+                holder.binding.btnRate.visibility =
+                    if (!orderModel.is_rated && (orderModel.orderStatus != 6 && orderModel.orderStatus != 8)) VISIBLE else GONE
             }
             2 -> {
 
@@ -122,10 +123,14 @@ class OrderAdapter(
                 iRecyclerItemClick.onItemClick(item)
             }
             binding.btnRate.setOnClickListener {
+                item.isReorder = false
+                iRecyclerItemClick.onItemClick(item)
+            }
+
+            binding.btnReorder.setOnClickListener {
+                item.isReorder = true
                 iRecyclerItemClick.onItemClick(item)
             }
         }
     }
-
-
 }

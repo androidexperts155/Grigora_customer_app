@@ -79,5 +79,7 @@ object ApiConstants {
     const val SAVE_CART_LINK = "save-cart-link"
     const val ADD_IN_GROUP_CART = "add-in-group-cart"
     const val SHOW_ALL_FILTER_DATA = "show-all-filter-data"
+    const val RE_ORDER = "re-order"
     const val FAQ = "faqs"
+    const val TRENDING_MEALS = "trending-items"
 }

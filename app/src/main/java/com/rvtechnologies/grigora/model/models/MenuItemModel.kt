@@ -14,9 +14,6 @@ data class MenuItemModel(
     var cartId:String="",
     var isForGroupCart:Boolean=false,
 
-
-
-
     @SerializedName("id")
     @Expose
     var id: Int?,

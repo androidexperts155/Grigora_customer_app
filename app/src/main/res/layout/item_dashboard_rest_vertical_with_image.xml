@@ -77,6 +77,20 @@
             android:text="5.99 delivery"
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp" />
+        
+        <TextView
+            android:id="@+id/tv_closed"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="right"
+            android:text="@string/closed"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            android:visibility="gone" />
     </RelativeLayout>
-    
+
+
 </LinearLayout>

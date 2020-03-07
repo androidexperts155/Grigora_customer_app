@@ -39,6 +39,7 @@ class DashboardAllRestaurantAdapter(
         var tv_delivery_time: TextView = view.findViewById(R.id.tv_delivery_time)
         var tv_rating: TextView = view.findViewById(R.id.tv_rating)
         var tv_delivery_charges: TextView = view.findViewById(R.id.tv_delivery_charges)
+        var tv_closed: TextView = view.findViewById(R.id.tv_closed)
     }
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
@@ -46,7 +47,7 @@ class DashboardAllRestaurantAdapter(
         holder.tv_name.text = detail.name
 
         if (detail.items.isNotEmpty()) {
-            holder.rc_images.adapter = ImagesAdapter(detail,iRecyclerItemClick)
+            holder.rc_images.adapter = ImagesAdapter(detail, iRecyclerItemClick)
             holder.rc_images.setOnClickListener {
                 iRecyclerItemClick.onItemClick(list[position])
             }
@@ -73,6 +74,31 @@ class DashboardAllRestaurantAdapter(
         holder.itemView.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
         }
+
+        holder.tv_closed.visibility = View.GONE
+        holder.tv_delivery_charges.visibility = View.VISIBLE
+
+//        not always opened
+        if (detail.fullTime == "0") {
+            if (!CommonUtils.isRestaurantOpen(detail.openingTime, detail.closingTime)) {
+                holder.tv_closed.visibility = View.VISIBLE
+                holder.tv_delivery_charges.visibility = View.GONE
+                holder.tv_closed.text = holder.tv_closed.context!!.getString(R.string.closed)
+            }
+        }
+
+        if ((CommonUtils.isRestaurantOpen(
+                detail.openingTime,
+                detail.closingTime
+            ) || detail.fullTime == "1") && detail.busyStatus == "1"
+        ) {
+
+            holder.tv_closed.visibility = View.VISIBLE
+            holder.tv_delivery_charges.visibility = View.GONE
+            holder.tv_closed.text = holder.tv_closed.context!!.getString(R.string.busy)
+
+        }
+
     }
 
 

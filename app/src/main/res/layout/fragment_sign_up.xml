@@ -159,7 +159,7 @@
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/phone_number"
+                    android:text="@string/confirm_password"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
     

@@ -11,6 +11,7 @@ import com.rvtechnologies.grigora.model.models.OrderItemModel
 
 class OrderViewModel : ViewModel() {
 
+    var reOrderRes: MutableLiveData<Any> = MutableLiveData()
     var orderListRes: MutableLiveData<Any> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -28,6 +29,25 @@ class OrderViewModel : ViewModel() {
 
                 } else {
                     orderListRes.value = result
+                }
+            }
+    }
+
+    fun reOrder(token: String, orderId: String) {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .reOrder(
+                token,
+                orderId
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type =
+                        object : TypeToken<CommonResponseModel<*>>() {}.type
+                    reOrderRes.value = Gson().fromJson(result as JsonElement, type)
+
+                } else {
+                    reOrderRes.value = result
                 }
             }
     }
@@ -68,24 +88,40 @@ class OrderViewModel : ViewModel() {
             }
     }
 
-    fun rateDriver(token: String, orderId: String, driverId: String, rating: String) {
+    fun rateDriver(
+        token: String, orderId: String, driverId: String, rating: String, goodReview: String,
+        badReview: String
+    ) {
         isLoading.value = true
 
         ApiRepo.getInstance()
             .rateDriver(
                 token = token,
-                orderId = orderId, receiverId = driverId, rating = rating, review = ""
+                orderId = orderId,
+                receiverId = driverId,
+                rating = rating,
+                review = "",
+                goodReview = goodReview,
+                badReview = badReview
             ) { success, result ->
                 isLoading.value = false
             }
     }
 
-    fun rateRestaurant(token: String, orderId: String, restaurantId: String, rating: String) {
+    fun rateRestaurant(
+        token: String, orderId: String, restaurantId: String, rating: String, goodReview: String,
+        badReview: String
+    ) {
         isLoading.value = true
         ApiRepo.getInstance()
             .rateRestaurant(
                 token = token,
-                orderId = orderId, receiverId = restaurantId, rating = rating, review = ""
+                orderId = orderId,
+                receiverId = restaurantId,
+                rating = rating,
+                review = badReview,
+                goodReview = goodReview,
+                badReview = ""
             ) { success, result ->
                 isLoading.value = false
             }

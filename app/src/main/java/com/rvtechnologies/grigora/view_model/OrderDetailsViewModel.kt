@@ -57,13 +57,14 @@ class OrderDetailsViewModel : ViewModel() {
             }
     }
 
-    fun rateDriver(driverId: String, rating: String) {
+    fun rateDriver(driverId: String, rating: String, goodReview: String,
+                   badReview: String) {
         isLoading.value = true
 
         ApiRepo.getInstance()
             .rateDriver(
                 token = token.value.toString(),
-                orderId = orderId.value!!, receiverId = driverId, rating = rating, review = ""
+                orderId = orderId.value!!, receiverId = driverId, rating = rating, review = "",goodReview = goodReview,badReview = badReview
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

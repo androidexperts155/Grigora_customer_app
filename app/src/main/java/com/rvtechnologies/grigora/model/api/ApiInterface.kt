@@ -294,7 +294,6 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
-
     @FormUrlEncoded
     @POST(ApiConstants.PAY_STACK)
     fun getPayStack(
@@ -331,7 +330,9 @@ interface ApiInterface {
         @Field("rating") rating: String,
         @Field("review") review: String,
         @Field("receiver_type") receiver_type: String,
-        @Field("order_id") orderId: String
+        @Field("order_id") orderId: String,
+        @Field("bad_review") badReview: String,
+        @Field("good_review") goodReview: String
     ): Call<JsonElement>
 
 
@@ -351,8 +352,10 @@ interface ApiInterface {
         @Field("rating") rating: String,
         @Field("review") review: String,
         @Field("receiver_type") receiver_type: String,
-        @Field("order_id") orderId: String
-    ): Call<JsonElement>
+        @Field("order_id") orderId: String,
+        @Field("good_review") goodReview: String,
+        @Field("bad_review") badReview: String
+     ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.ADD_RATING_REVIEW_URL_MEALS)
@@ -559,12 +562,27 @@ interface ApiInterface {
         @Field("longitude") longitude: String
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.RE_ORDER)
+    fun reOrder(
+        @Header("Authorization") token: String,
+        @Field("order_id") order_id: String
+    ): Call<JsonElement>
+
 
     @GET(ApiConstants.FAQ)
     fun getFaq(
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
+
+    @FormUrlEncoded
+    @POST(ApiConstants.TRENDING_MEALS)
+    fun trendingMeals(
+        @Header("Authorization") token: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String
+    ): Call<JsonElement>
 
 }
 

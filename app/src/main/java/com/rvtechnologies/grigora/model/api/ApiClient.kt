@@ -2,17 +2,20 @@ package com.rvtechnologies.grigora.model.api
 
 import com.google.gson.GsonBuilder
 import com.rvtechnologies.grigora.utils.ApiConstants
-import com.rvtechnologies.grigora.utils.CommonUtils
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
-import okhttp3.Response
+import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
-import java.io.IOException
 import java.util.concurrent.TimeUnit
+
 
 object ApiClient {
     fun getClient(): ApiInterface {
+        val logging = HttpLoggingInterceptor()
+// set your desired log level
+// set your desired log level
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
 
         val okHttpClient = OkHttpClient.Builder()
             .readTimeout(60, TimeUnit.SECONDS)
@@ -24,7 +27,7 @@ object ApiClient {
                     .method(original.method(), original.body())
                     .build()
                 chain.proceed(request)
-            }
+            }.addInterceptor(logging)
             .build()
 
         val gson = GsonBuilder()

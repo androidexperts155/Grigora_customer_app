@@ -105,7 +105,7 @@ data class NewDashboardModel(
             @SerializedName("busy_status")
             var busyStatus: String = "",
             @SerializedName("closing_time")
-            var closingTime: Any = Any(),
+            var closingTime: String ="",
             @SerializedName("created_at")
             var createdAt: String = "",
             @SerializedName("device_token")
@@ -123,7 +123,7 @@ data class NewDashboardModel(
             @SerializedName("french_name")
             var frenchName: String = "",
             @SerializedName("full_time")
-            var fullTime: Any = Any(),
+            var fullTime: String = "",
             @SerializedName("google_id")
             var googleId: Any = Any(),
             @SerializedName("id")
@@ -147,7 +147,7 @@ data class NewDashboardModel(
             @SerializedName("offer")
             var offer: Int = 0,
             @SerializedName("opening_time")
-            var openingTime: Any = Any(),
+            var openingTime: String ="",
             @SerializedName("otp")
             var otp: Any = Any(),
             @SerializedName("otp_expire_time")

@@ -118,6 +118,8 @@ data class OrderItemModel(
     @SerializedName("is_restaurant_rated")
     var is_restaurant_rated: String = "",
 
+     var isReorder: Boolean= false,
+
 
     @SerializedName("updated_at")
     var updatedAt: String = "",
@@ -171,7 +173,8 @@ data class OrderItemModel(
         @SerializedName("updated_at")
         var updatedAt: String = "",
         var orderItem: String,
-        var rating: Float=0.0F
+        var rating: Float=0.0F,
+        var review: String=""
 
     ) : Parcelable {
         @SuppressLint("ParcelCreator")

@@ -370,6 +370,9 @@
                     <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_80sdp"
+                        android:onClick="@{()->walletView.buyOrRedeem()}"
+                        android:clickable="true"
+                         android:foreground="@drawable/selectable_item_background"
                         android:elevation="@dimen/_1sdp"
                         app:cardBackgroundColor="?attr/answer_selected"
                         app:cardCornerRadius="@dimen/_4sdp"

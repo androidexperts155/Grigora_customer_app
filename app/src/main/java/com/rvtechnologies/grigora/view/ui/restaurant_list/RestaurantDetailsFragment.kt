@@ -52,7 +52,6 @@ class RestaurantDetailsFragment(
     var count = 0
     lateinit var restaurantDetailModel: RestaurantDetailModel
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(RestaurantDetailsViewModel::class.java)
@@ -86,15 +85,15 @@ class RestaurantDetailsFragment(
                         rc_previous.adapter!!.notifyDataSetChanged()
                     }
 
-                    if (restaurantDetailModel.full_time.equals("1")) {
+                    if (restaurantDetailModel.full_time == "1") {
                         tv_tt.text = getString(R.string.open_24_hours)
                         tv_time.visibility = View.GONE
                     } else
-                        tv_time.text = CommonUtils.getFormattedTimeOrDate(
+                        tv_time.text = CommonUtils.getFormattedUtc(
                             restaurantDetailModel.opening_time,
                             "HH:mm:ss",
                             "hh:mm aa"
-                        ) + " to " + CommonUtils.getFormattedTimeOrDate(
+                        ) + " to " + CommonUtils.getFormattedUtc(
                             restaurantDetailModel.closing_time,
                             "HH:mm:ss",
                             "hh:mm aa"

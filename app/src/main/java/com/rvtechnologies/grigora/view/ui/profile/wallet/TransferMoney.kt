@@ -272,7 +272,7 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
 
 
             for (i in 0 until historyModel.history.size) {
-                var utcDate = CommonUtils.getUtcDate(context!!, historyModel.history[i].createdAt)
+                var utcDate = CommonUtils.getUtcDate(context!!, historyModel.history[i].createdAt,"yyyy-MM-dd HH:mm:ss")
                 when (timeFilter) {
                     0 -> {
 //                    no filter for time, check for type

@@ -16,8 +16,8 @@ class DashboardRestaurantAdapter(
     val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
     val minKiloMeter: String,
     val baseDeliveryFee: String,
-  val iRecyclerItemClick: IRecyclerItemClick,
-  val uiType: String
+    val iRecyclerItemClick: IRecyclerItemClick,
+    val uiType: String
 ) :
     RecyclerView.Adapter<DashboardRestaurantAdapter.MyView>() {
 
@@ -41,6 +41,7 @@ class DashboardRestaurantAdapter(
         var tv_delivery_time: TextView = view.findViewById(R.id.tv_delivery_time)
         var tv_rating: TextView = view.findViewById(R.id.tv_rating)
         var tv_delivery_charges: TextView = view.findViewById(R.id.tv_delivery_charges)
+        var tv_closed: TextView = view.findViewById(R.id.tv_closed)
     }
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
@@ -49,7 +50,8 @@ class DashboardRestaurantAdapter(
         holder.tv_name.text = detail.name
 
         holder.tv_rating.text = detail.averageRating.toString()
-        holder.tv_delivery_time.text = detail.preparing_time+" "+holder.tv_delivery_time.context.getString(R.string.min)
+        holder.tv_delivery_time.text =
+            detail.preparing_time + " " + holder.tv_delivery_time.context.getString(R.string.min)
 
         var distance = CommonUtils.calculateDistance(
             detail.latitude.toDouble(),
@@ -59,12 +61,37 @@ class DashboardRestaurantAdapter(
         )
 
         var price = baseDeliveryFee.toFloat() + (distance * minKiloMeter.toFloat())
-        holder.tv_delivery_charges.text = "₦"+(price.toInt()).toString()+" "+holder.tv_delivery_time.context.getString(R.string.delivery)
+        holder.tv_delivery_charges.text =
+            "₦" + (price.toInt()).toString() + " " + holder.tv_delivery_time.context.getString(R.string.delivery)
 
 
-        holder.itemView.setOnClickListener{
-            list[position].uiTpe=uiType
+        holder.itemView.setOnClickListener {
+            list[position].uiTpe = uiType
             iRecyclerItemClick.onItemClick(list[position])
+        }
+
+        holder.tv_closed.visibility = View.GONE
+        holder.tv_delivery_charges.visibility = View.VISIBLE
+
+        if (detail.fullTime == "0") {
+            if (!CommonUtils.isRestaurantOpen(
+                    detail.openingTime,
+                    detail.closingTime
+                )
+            ) {
+                holder.tv_closed.visibility = View.VISIBLE
+                holder.tv_delivery_charges.visibility = View.GONE
+                holder.tv_closed.text = holder.tv_closed.context!!.getString(R.string.closed)
+            }
+        }
+        if ((CommonUtils.isRestaurantOpen(
+                detail.openingTime,
+                detail.closingTime
+            ) || detail.fullTime == "1") && detail.busyStatus == "1"
+        ) {
+            holder.tv_closed.visibility = View.VISIBLE
+            holder.tv_delivery_charges.visibility = View.GONE
+            holder.tv_closed.text = holder.tv_closed.context!!.getString(R.string.busy)
         }
     }
 

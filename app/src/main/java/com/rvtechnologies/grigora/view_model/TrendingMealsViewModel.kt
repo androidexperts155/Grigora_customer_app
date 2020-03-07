@@ -7,52 +7,39 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.ApiRepo
-import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.MenuItemModel
+import com.rvtechnologies.grigora.model.models.TrendingMealsModel
 
-class RestaurantDetailsViewModel : ViewModel() {
-    var id: MutableLiveData<String> = MutableLiveData()
-    var token: MutableLiveData<String> = MutableLiveData()
+class TrendingMealsViewModel : ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    var restaurantDetail: MutableLiveData<Any> = MutableLiveData()
+    var token: MutableLiveData<String> = MutableLiveData()
+    var latitude: MutableLiveData<String> = MutableLiveData()
+    var longitude: MutableLiveData<String> = MutableLiveData()
+    var trendingResponse: MutableLiveData<Any> = MutableLiveData()
     var addCartRes: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
-    fun getRestaurantsDetails(token: String, restId: String, price: String) {
+    fun trendingMeals() {
         isLoading.value = true
+
         ApiRepo.getInstance()
-            .getRestaurantsDetails(
-                token,
-                restId, price
+            .trendingMeals(
+                token = token.value.toString(),
+                longitude = longitude.value.toString(),
+                latitude = latitude.value.toString()
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-                    val type =
-                        object : TypeToken<CommonResponseModel<RestaurantDetailModel>>() {}.type
-                    restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
-
+                    val type = object :
+                        TypeToken<CommonResponseModel<TrendingMealsModel>>() {}.type
+                    trendingResponse.value = Gson().fromJson(result as JsonElement, type)
                 } else {
-                    restaurantDetail.value = result
+                    trendingResponse.value = result
                 }
             }
     }
-
-
-
-    fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
-            .updateCartQty(
-                token,
-                itemId, quantity, cartId
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                }
-            }
-    }
-
 
     fun getCartItems(token: String, itemId: String) {
         isLoading.value = true
@@ -92,19 +79,17 @@ class RestaurantDetailsViewModel : ViewModel() {
         }
     }
 
-    fun updateType(cartId: String, type: String, token: String) {
+    fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
+        isLoading.value = true
         ApiRepo.getInstance()
-            .changeOrderType(
-                token = token,
-                cart_id = cartId,
-                cart_type = type
+            .updateCartQty(
+                token,
+                itemId, quantity, cartId
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-                    val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
-                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
                 }
             }
-
     }
+
 }

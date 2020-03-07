@@ -259,13 +259,13 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addAddress(
-            map[AppConstants.TOKEN]!!,
-            map[AppConstants.ADDRESS]!!,
-            map[AppConstants.LATITUDE]!!,
-            map[AppConstants.LONGITUDE]!!,
-            map[AppConstants.LOCATION_TYPE_ID]!!,
-            map[AppConstants.COMPLETE_ADDRESS]!!
-        )
+                map[AppConstants.TOKEN]!!,
+                map[AppConstants.ADDRESS]!!,
+                map[AppConstants.LATITUDE]!!,
+                map[AppConstants.LONGITUDE]!!,
+                map[AppConstants.LOCATION_TYPE_ID]!!,
+                map[AppConstants.COMPLETE_ADDRESS]!!
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -364,17 +364,21 @@ Cuisine repo
         rating: String,
         review: String,
         orderId: String,
+        goodReview: String,
+        badReview: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
         ApiClient.getClient().rateDriver(
-            token = token,
-            receiverId = receiverId,
-            orderId = orderId,
-            rating = rating,
-            receiver_type = "3",
-            review = review
-        )
+                token = token,
+                receiverId = receiverId,
+                orderId = orderId,
+                rating = rating,
+                receiver_type = "3",
+                review = review,
+                goodReview = goodReview,
+                badReview = badReview
+             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -399,17 +403,19 @@ Cuisine repo
         rating: String,
         review: String,
         orderId: String,
-        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+        goodReview: String,
+        badReview: String,
+         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
         ApiClient.getClient().rateRestaurant(
-            token = token,
-            receiverId = receiverId,
-            orderId = orderId,
-            rating = rating,
-            receiver_type = "2",
-            review = review
-        )
+                token = token,
+                receiverId = receiverId,
+                orderId = orderId,
+                rating = rating,
+                receiver_type = "2",
+                review = review,goodReview = goodReview,badReview = badReview
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -435,10 +441,10 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().rateMeals(
-            token = token,
-            rating = rating,
-            orderId = orderId
-        )
+                token = token,
+                rating = rating,
+                orderId = orderId
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -467,10 +473,10 @@ Cuisine repo
     ) {
 
         ApiClient.getClient().likeOrUnlike(
-            token = token,
-            restaurant_id = restaurantId,
-            status = status
-        )
+                token = token,
+                restaurant_id = restaurantId,
+                status = status
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -584,12 +590,12 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().searchRestaurants(
-            token = token,
-            latitude = latitude,
-            longitude = longitude,
-            search = search,
-            filter_id = filter_id
-        )
+                token = token,
+                latitude = latitude,
+                longitude = longitude,
+                search = search,
+                filter_id = filter_id
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -748,7 +754,7 @@ Cuisine repo
         cartId: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().removeCart(token,cartId)
+        ApiClient.getClient().removeCart(token, cartId)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -802,13 +808,13 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addItemToCart(
-            token = token,
-            restaurantId = restaurantId,
-            itemId = itemId,
-            price = price,
-            quantity = quantity,
-            item_choices = itemChoices
-        )
+                token = token,
+                restaurantId = restaurantId,
+                itemId = itemId,
+                price = price,
+                quantity = quantity,
+                item_choices = itemChoices
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -840,14 +846,14 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addItemToGroupCart(
-            token = token,
-            cartId = cartId,
-            restaurantId = restaurantId,
-            itemId = itemId,
-            price = price,
-            quantity = quantity,
-            item_choices = itemChoices
-        )
+                token = token,
+                cartId = cartId,
+                restaurantId = restaurantId,
+                itemId = itemId,
+                price = price,
+                quantity = quantity,
+                item_choices = itemChoices
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -874,10 +880,10 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().changeOrderType(
-            token = token,
-            cart_id = cart_id,
-            cart_type = cart_type
-        )
+                token = token,
+                cart_id = cart_id,
+                cart_type = cart_type
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -905,11 +911,11 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().updateCartQty(
-            token = token,
-            cartItemId = cartItemId,
-            cartId = cart_id,
-            quantity = quantity
-        )
+                token = token,
+                cartItemId = cartItemId,
+                cartId = cart_id,
+                quantity = quantity
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -964,11 +970,11 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().viewGroupCart(
-            token = token,
-            latitude = latitude,
-            logitude = logitude,
-            cart_id = cartId
-        )
+                token = token,
+                latitude = latitude,
+                logitude = logitude,
+                cart_id = cartId
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1035,21 +1041,21 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().placeOrder(
-            token = token,
-            cart_id = cart_id,
-            promo_id = promo_id,
-            app_fee = app_fee,
-            delivery_fee = delivery_fee,
-            price_before_promo = price_before_promo,
-            price_after_promo = price_after_promo,
-            final_price = final_price,
-            payment_method = payment_method,
-            reference = reference,
-            delivery_address = delivery_address,
-            delivery_lat = delivery_lat,
-            delivery_long = delivery_long,
-            delivery_note = delivery_note, order_type = carttype
-        )
+                token = token,
+                cart_id = cart_id,
+                promo_id = promo_id,
+                app_fee = app_fee,
+                delivery_fee = delivery_fee,
+                price_before_promo = price_before_promo,
+                price_after_promo = price_after_promo,
+                final_price = final_price,
+                payment_method = payment_method,
+                reference = reference,
+                delivery_address = delivery_address,
+                delivery_lat = delivery_lat,
+                delivery_long = delivery_long,
+                delivery_note = delivery_note, order_type = carttype
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1088,21 +1094,21 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().scheduleOrder(
-            token = token,
-            cart_id = cart_id,
-            promo_id = promo_id,
-            app_fee = app_fee,
-            delivery_fee = delivery_fee,
-            price_before_promo = price_before_promo,
-            price_after_promo = price_after_promo,
-            final_price = final_price,
-            payment_method = payment_method,
-            schedule_time = schedule_time,
-            delivery_address = delivery_address,
-            delivery_lat = delivery_lat,
-            delivery_long = delivery_long,
-            delivery_note = delivery_note, order_type = carttype
-        )
+                token = token,
+                cart_id = cart_id,
+                promo_id = promo_id,
+                app_fee = app_fee,
+                delivery_fee = delivery_fee,
+                price_before_promo = price_before_promo,
+                price_after_promo = price_after_promo,
+                final_price = final_price,
+                payment_method = payment_method,
+                schedule_time = schedule_time,
+                delivery_address = delivery_address,
+                delivery_lat = delivery_lat,
+                delivery_long = delivery_long,
+                delivery_note = delivery_note, order_type = carttype
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1778,6 +1784,67 @@ Cuisine repo
             .showFilterData(
                 token = token,
                 filter_type = filter_type,
+                latitude = latitude,
+                longitude = longitude
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun reOrder(
+        token: String,
+        order_id: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .reOrder(
+                token = token,
+                order_id = order_id
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun trendingMeals(
+        token: String,
+        latitude: String,
+        longitude: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .trendingMeals(
+                token = token,
                 latitude = latitude,
                 longitude = longitude
             )

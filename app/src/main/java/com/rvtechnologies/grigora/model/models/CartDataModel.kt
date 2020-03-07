@@ -51,9 +51,10 @@ data class CartDataModel(
 
     @SerializedName("openingTime")
     var openingTime: String?,
-
+    @SerializedName("busy_status")
+    var busyStatus: String = "",
     @SerializedName("fullTime")
-    var fullTime: String?,
+    var fullTime: String="",
 
 
 

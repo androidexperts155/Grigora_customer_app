@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_notification_channel_id" translatable="false">212</string>
     
-    <string name="facebook_app_id" translatable="false">612856392875692</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb612856392875692</string>
+    <string name="facebook_app_id" translatable="false">2538212279779515</string>
+    <string name="fb_login_protocol_scheme" translatable="false">fb2538212279779515</string>
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
@@ -254,7 +254,7 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="food_delivery_message">How was food delivery?</string>
     <string name="no_thanks">No Thanks</string>
-    <string name="food_message">How did you like the food?</string>
+    <string name="food_message">How was your experience with %s\</string>
     <string name="meals_message">Tell us how you\'d rate these items?</string>
     <string name="ttext">I have read and agree to the</string>
     <string name="termsandconditions"> Terms &amp; conditions </string>
@@ -398,7 +398,7 @@
     <string name="pts_to_points">Pts - Points</string>
     <string name="services">Services</string>
     <string name="add_funds_via_card">Add Funds via Cards</string>
-    <string name="redeem_via_grigora_card">Redeem via Grigora Card</string>
+    <string name="redeem_via_grigora_card">Buy/Redeem via Grigora Card</string>
     <string name="transfer_points_to_wallet">Transfer points to Wallets</string>
     <string name="order_already_placed">This order is already Placed</string>
     <string name="wallet_id">Wallet Id</string>
@@ -443,6 +443,35 @@
     <string name="schedule_request_sent_info">You will be notified once restaurant \n confirmed your Order</string>
     <string name="upcoming_orders">Upcoming Orders</string>
     <string name="reorder">Re-Order</string>
+    <string name="closed">Currently Closed</string>
+    <string name="busy">Not accepting</string>
+    <string name="rest_unav">Restaurant Unavailable</string>
+    <string name="rest_unav_info">You can opt to schedule\n order to get later</string>
+    <string name="schedule_">Schedule?</string>
+    <string name="schedule">Schedule</string>
+    <string name="rate_driver">Rate %s\</string>
+    <string name="late_delivery">Late Delivery</string>
+    <string name="bad_attitude">Bad Attitude</string>
+    <string name="rude_beh">Rude Behaviour</string>
+    <string name="unprofessional">Unprofessional</string>
+    <string name="issue_driver">Had an issue with Driver</string>
+    <string name="compliment_driver">Give a compliment</string>
+    <string name="excelent">Excellent Service</string>
+    <string name="in_time">Delivered in time</string>
+    <string name="friendly">Friendly</string>
+    <string name="like_rest">What did you liked about us?</string>
+    <string name="time">Time</string>
+    <string name="taste">Taste</string>
+    <string name="price">Price</string>
+    <string name="leave_a_comment">"Leave a Comment "</string>
+    <string name="write_your_feedback_here">Write your feedback here</string>
+    <string name="credit_will_apply">Your credit will be automatically applied to \n  your next order</string>
+    <string name="redeem_gift_card">Redeem Gift Card</string>
+    <string name="redeem">Redeem</string>
+    <string name="enter_gift_card">Enter gift card coupon</string>
+    <string name="buy_gift_card">Buy Gift Card</string>
+    <string name="give_gift">Give the gift of food delivery</string>
+    <string name="buy">Buy</string>
 
 
 </resources><!--₦-->

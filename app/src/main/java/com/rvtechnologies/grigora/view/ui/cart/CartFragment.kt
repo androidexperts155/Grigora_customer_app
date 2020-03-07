@@ -58,6 +58,7 @@ import kotlin.collections.ArrayList
 class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
     OnItemClickListener {
     private var mMap: GoogleMap? = null
+    var dialogShown = false
     var placeClicked = false
     var discount: String = ""
     var restId: String = ""
@@ -86,7 +87,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         mMap?.moveCamera(CameraUpdateFactory.newLatLng(deliveryLocation))
     }
 
-
     private var viewModel: CartNdOfferViewModel? = null
     lateinit var cartSharedViewModel: CartSharedViewModel
 
@@ -114,6 +114,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
+                    handleTime()
                     cart_type = cartDataModel.cart_type.toString()
                     restId = cartDataModel.restaurantId.toString()
                     var cartSubTotal = 0.0
@@ -165,24 +166,18 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                         (viewModel?.cartData?.value?.cartSubTotal?.toDouble()!!)
                     ).toDouble()
 
-
                     tv_estimated.text = getString(
                         R.string.deliver_in,
                         (cartDataModel.estimated_delivery_time!!.toInt() + cartDataModel.estimated_preparing_time!!.toInt()).toString()
 
                     )
-
 //                    tv_restname.text = cartDataModel.restaurantName
                     tv_total.text = cartDataModel.cartTotal
 
                     setPromo()
-
-
                     if (!cartDataModel.add_more_items.isNullOrEmpty()) {
 
                     }
-
-
                 } else {
                     empty?.visibility = VISIBLE
                     cartView?.visibility = GONE
@@ -215,7 +210,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                                 bundleOf(AppConstants.ORDER_ID to (response.data as PlaceOrderModel).orderDetails?.orderId)
                             view?.findNavController()
                                 ?.navigate(
-                                    R.id.action_navigationCart_to_dashboardFragment,
+                                    R.id.action_navigationCart_to_orderDetailsFragment,
                                     bundle
                                 )
                             viewModel?.viewCart(
@@ -323,7 +318,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
 
-            (activity as MainActivity).img_right.visibility=View.VISIBLE
+            (activity as MainActivity).img_right.visibility = View.VISIBLE
             (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
             (activity as MainActivity).img_right.setOnClickListener {
                 viewModel?.clearCart()
@@ -421,7 +416,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 viewModel!!.placeOrderNow(cart_type)
             } else {
                 var time = CommonUtils.localToUtc(
-                    context!!,
                     cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
                     "yyyy-MM-dd HH:mm:ss"
                 )
@@ -472,7 +466,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 else {
 
                     var time = CommonUtils.localToUtc(
-                        context!!,
                         cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
                         "yyyy-MM-dd HH:mm:ss"
                     )
@@ -611,6 +604,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 ?.navigate(
                     R.id.action_navigationCart_to_dashboardFragment
                 )
+        } else if (item is Boolean) {
+            if (item) {
+                scheduleOrder()
+            } else {
+                view?.findNavController()?.popBackStack()
+            }
         }
     }
 
@@ -636,5 +635,31 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 button5.text = getString(R.string.schedule_order)
             }
         })
+    }
+
+    private fun handleTime() {
+        if ( cartDataModel.fullTime == "0" ) {
+            if (!CommonUtils.isRestaurantOpen(
+                    cartDataModel.openingTime!!,
+                    cartDataModel.closingTime!!
+                ) && !dialogShown
+            ) {
+                dialogShown = true
+
+                var scheduleOrderAlert = ScheduleAlert(this)
+                scheduleOrderAlert.show(childFragmentManager, "")
+            }
+        }
+        if (((CommonUtils.isRestaurantOpen(
+                cartDataModel.openingTime!!,
+                cartDataModel.closingTime!!
+            ) || cartDataModel.fullTime == "1") && cartDataModel.busyStatus == "1"
+                    ) &&
+            !dialogShown
+        ) {
+            dialogShown = true
+            var scheduleOrderAlert = ScheduleAlert(this)
+            scheduleOrderAlert.show(childFragmentManager, "")
+        }
     }
 }

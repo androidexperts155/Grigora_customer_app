@@ -22,7 +22,13 @@ class HistoryAdapter(
         val historyModel = historyList[position]
 //        3=>add in grigora wallet,4=>deduct from grigora wallet,5:send money,6:receive money
 
-        holder.itemView.tv_time.text=CommonUtils.getFormattedTimeOrDate(CommonUtils.getUtcDate(holder.binding.root.context,historyModel.createdAt),"yyyy-MM-dd HH:mm","dd MMM,yyyy HH:mm")
+        holder.itemView.tv_time.text = CommonUtils.getFormattedTimeOrDate(
+            CommonUtils.getUtcDate(
+                holder.binding.root.context,
+                historyModel.createdAt,
+                "yyyy-MM-dd HH:mm:ss"
+            ), "yyyy-MM-dd HH:mm", "dd MMM,yyyy HH:mm"
+        )
 
         when (historyModel.type) {
             "3" -> {
@@ -118,8 +124,6 @@ class HistoryAdapter(
 
         }
     }
-
-
 
 
 }

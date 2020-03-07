@@ -146,6 +146,10 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
         view?.findNavController()
             ?.navigate(R.id.action_walletFragment_to_sendMoneyFragment, bundle)
     }
+    fun buyOrRedeem(){
+        view?.findNavController()
+            ?.navigate(R.id.action_walletFragment_to_buyOrRedeem)
+    }
 
     override fun onItemClick(item: Any) {
 

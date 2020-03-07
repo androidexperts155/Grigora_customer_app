@@ -22,7 +22,7 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderAdapter
-import com.rvtechnologies.grigora.view.ui.rating.MealsRatingDialogFragment
+import com.rvtechnologies.grigora.view.ui.rating.MealsDataDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
 import com.rvtechnologies.grigora.view_model.OrderViewModel
@@ -31,7 +31,7 @@ import kotlinx.android.synthetic.main.order_fragment.*
 import org.json.JSONObject
 
 class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.DriverRate,
-    MealsRatingDialogFragment.MealsRate,
+    MealsDataDialogFragment.MealsRate,
     RestaurantRatingDialogFragment.RestaurantRate {
 
     private var currentIndex: Int = 0
@@ -62,6 +62,18 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
                 CommonUtils.showMessage(parentView, orderListResponse.toString())
             }
             error.visibility = if (orderList.isEmpty()) VISIBLE else GONE
+        })
+        viewModel.reOrderRes.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                if (response.status!!) {
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_ordersFragment_to_cartFragment
+                        )
+                } else
+                    CommonUtils.showMessage(parentView, response.message!!)
+            } else
+                CommonUtils.showMessage(parentView, response.toString())
         })
 
         viewModel.isLoading.observe(this, Observer { isLoading ->
@@ -142,7 +154,12 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
                         )
                 }
                 1 -> {
-                    if (item.is_driver_rated == "0") {
+                    if (item.isReorder) {
+                        viewModel.reOrder(
+                            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                            item.id.toString()
+                        )
+                    } else if (item.is_driver_rated == "0") {
                         var rateDriverDialog = RateDriverDialogFragment(item, this)
                         rateDriverDialog.isCancelable = false
                         rateDriverDialog.show(this.childFragmentManager, "")
@@ -161,7 +178,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
                         if (mealsToRate.size > 0) {
                             var mealsRatingDialogFragment =
-                                MealsRatingDialogFragment(mealsToRate, this)
+                                MealsDataDialogFragment(mealsToRate, this)
                             mealsRatingDialogFragment.isCancelable = false
                             mealsRatingDialogFragment.show(this.childFragmentManager, "")
                         }
@@ -177,12 +194,15 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
         }
     }
 
-    override fun onDriverRateSubmit(rating: Float, orderItemModel: OrderItemModel) {
+    override fun onDriverRateSubmit(
+        rating: Float, goodReview: String,
+        badReview: String, orderItemModel: OrderItemModel
+    ) {
         viewModel.rateDriver(
             token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            driverId = orderItemModel.driverId
+            driverId = orderItemModel.driverId, goodReview = goodReview, badReview = badReview
         )
 
         if (orderItemModel.is_restaurant_rated == "0") {
@@ -203,12 +223,17 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
         }
     }
 
-    override fun onrestaurantRateSubmit(rating: Float, orderItemModel: OrderItemModel) {
+    override fun onrestaurantRateSubmit(
+        rating: Float, goodReview: String,
+        badReview: String, orderItemModel: OrderItemModel
+    ) {
         viewModel.rateRestaurant(
             token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            restaurantId = orderItemModel.restaurantId.toString()
+            restaurantId = orderItemModel.restaurantId.toString(),
+            goodReview = goodReview,
+            badReview = badReview
         )
 
         var mealsToRate = ArrayList<OrderItemModel.OrderDetail>()
@@ -218,7 +243,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
 
         if (mealsToRate.size > 0) {
-            var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
+            var mealsRatingDialogFragment = MealsDataDialogFragment(mealsToRate, this)
             mealsRatingDialogFragment.isCancelable = false
             mealsRatingDialogFragment.show(this.childFragmentManager, "")
         }
@@ -232,17 +257,21 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
 
         if (mealsToRate.size > 0) {
-            var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
+            var mealsRatingDialogFragment = MealsDataDialogFragment(mealsToRate, this)
             mealsRatingDialogFragment.isCancelable = false
             mealsRatingDialogFragment.show(this.childFragmentManager, "")
         }
     }
 
     override fun onMealRateSubmit(ratedMeals: ArrayList<OrderItemModel.OrderDetail>) {
-        var map = HashMap<String, String>()
+        var map = HashMap<String, HashMap<String, String>>()
 
         for (meal in ratedMeals) {
-            map.put(meal.itemId.toString(), meal.rating.toString())
+            var m = HashMap<String,String>()
+            m.put("rating", meal.rating.toString())
+            m.put("review", meal.review)
+
+            map.put(meal.itemId.toString(), m)
         }
 
         viewModel.rateMeals(

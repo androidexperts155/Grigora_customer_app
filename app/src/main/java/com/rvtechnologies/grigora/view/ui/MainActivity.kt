@@ -1,37 +1,24 @@
 package com.rvtechnologies.grigora.view.ui
 
-import android.animation.Animator
 import android.content.Context
-import android.util.AttributeSet
-import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewAnimationUtils
-import android.widget.EditText
-import android.widget.FrameLayout
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.content.res.Configuration
-import android.graphics.Color
-import android.graphics.drawable.GradientDrawable
-import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.view.WindowManager
 import android.util.Base64
 import android.view.Window
 import android.widget.RelativeLayout
-import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
 import androidx.drawerlayout.widget.DrawerLayout
 import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.navigation.ui.NavigationUI.onNavDestinationSelected
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
@@ -39,36 +26,22 @@ import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.login_signup.GoogleSignin
-import com.rvtechnologies.grigora.view.ui.rating.MealsRatingDialogFragment
+import com.rvtechnologies.grigora.view.ui.rating.MealsDataDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.custom_search_view.view.*
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
 import java.util.*
 
 class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
-    MealsRatingDialogFragment.MealsRate,
+    MealsDataDialogFragment.MealsRate,
     RestaurantRatingDialogFragment.RestaurantRate {
     lateinit var content: RelativeLayout
     var googleSignIn: GoogleSignin? = null
-
-    object branchListener : Branch.BranchReferralInitListener {
-        override fun onInitFinished(referringParams: JSONObject?, error: BranchError?) {
-            if (error == null) {
-                referringParams?.get(AppConstants.CART_ID).toString()
-                referringParams?.get(AppConstants.RESTAURANT_ID).toString()
-
-
-            } else {
-                Log.e("BRANCH SDK", error.message)
-            }
-        }
-    }
 
 
     override fun onNewIntent(intent: Intent) {
@@ -82,8 +55,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
 
                     val bundle = bundleOf(
-                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID).toString(),
-                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID).toString(),
+                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID)
+                            .toString(),
+                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID)
+                            .toString(),
                         AppConstants.FROM_PICKUP to false
                     )
 
@@ -108,8 +83,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                     referringParams?.get(AppConstants.CART_ID).toString()
 
                     val bundle = bundleOf(
-                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID).toString(),
-                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID).toString(),
+                        AppConstants.RESTAURANT_ID to referringParams?.get(AppConstants.RESTAURANT_ID)
+                            .toString(),
+                        AppConstants.CART_ID to referringParams?.get(AppConstants.CART_ID)
+                            .toString(),
                         AppConstants.FROM_PICKUP to false
                     )
                     Navigation.findNavController(this@MainActivity, R.id.main_nav_fragment)
@@ -188,7 +165,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         else
             setTheme(R.style.AppTheme_Light)
     }
-
 
     fun updateLocale(shouldRecreate: Boolean) {
         val languageToLoad: String
@@ -284,7 +260,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                 }
 
                 if (mealsToRate.size > 0) {
-                    var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
+                    var mealsRatingDialogFragment = MealsDataDialogFragment(mealsToRate, this)
                     mealsRatingDialogFragment.isCancelable = false
                     mealsRatingDialogFragment.show(this.supportFragmentManager, "")
                 }
@@ -292,14 +268,17 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
-    override fun onDriverRateSubmit(rating: Float, orderItemModel: OrderItemModel) {
+    override fun onDriverRateSubmit(
+        rating: Float, goodReview: String,
+        badReview: String, orderItemModel: OrderItemModel
+    ) {
 
 
         rateDriver(
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            driverId = orderItemModel.driverId
+            driverId = orderItemModel.driverId,goodReview = goodReview,badReview = badReview
         )
 
         if (orderItemModel.is_restaurant_rated == "0") {
@@ -320,12 +299,13 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
-    override fun onrestaurantRateSubmit(rating: Float, orderItemModel: OrderItemModel) {
+    override fun onrestaurantRateSubmit(rating: Float, goodReview: String,
+                                        badReview: String, orderItemModel: OrderItemModel) {
         rateRestaurant(
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            restaurantId = orderItemModel.restaurantId.toString()
+            restaurantId = orderItemModel.restaurantId.toString(),goodReview = goodReview,badReview = badReview
         )
 
         var mealsToRate = ArrayList<OrderItemModel.OrderDetail>()
@@ -335,7 +315,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
 
         if (mealsToRate.size > 0) {
-            var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
+            var mealsRatingDialogFragment = MealsDataDialogFragment(mealsToRate, this)
             mealsRatingDialogFragment.isCancelable = false
             mealsRatingDialogFragment.show(this.supportFragmentManager, "")
         }
@@ -350,19 +330,22 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
 
         if (mealsToRate.size > 0) {
-            var mealsRatingDialogFragment = MealsRatingDialogFragment(mealsToRate, this)
+            var mealsRatingDialogFragment = MealsDataDialogFragment(mealsToRate, this)
             mealsRatingDialogFragment.isCancelable = false
             mealsRatingDialogFragment.show(this.supportFragmentManager, "")
         }
     }
 
     override fun onMealRateSubmit(ratedMeals: ArrayList<OrderItemModel.OrderDetail>) {
-        var map = HashMap<String, String>()
+        var map = HashMap<String, HashMap<String, String>>()
 
         for (meal in ratedMeals) {
-            map.put(meal.itemId.toString(), meal.rating.toString())
-        }
+            var m = HashMap<String,String>()
+            m.put("rating", meal.rating.toString())
+            m.put("review", meal.review)
 
+            map.put(meal.itemId.toString(), m)
+        }
         rateMeals(
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             orderId = ratedMeals[0].orderId.toString(),
@@ -374,24 +357,26 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     }
 
-    fun rateDriver(token: String, orderId: String, driverId: String, rating: String) {
+    fun rateDriver(token: String, orderId: String, driverId: String, rating: String, goodReview: String,
+                   badReview: String) {
 //        isLoading.value = true
 
         ApiRepo.getInstance()
             .rateDriver(
                 token = token,
-                orderId = orderId, receiverId = driverId, rating = rating, review = ""
+                orderId = orderId, receiverId = driverId, rating = rating, review = "",goodReview = goodReview,badReview = badReview
             ) { success, result ->
                 //                isLoading.value = false
             }
     }
 
-    fun rateRestaurant(token: String, orderId: String, restaurantId: String, rating: String) {
+    fun rateRestaurant(token: String, orderId: String, restaurantId: String, rating: String, goodReview: String,
+                       badReview: String) {
 //        isLoading.value = true
         ApiRepo.getInstance()
             .rateRestaurant(
                 token = token,
-                orderId = orderId, receiverId = restaurantId, rating = rating, review = ""
+                orderId = orderId, receiverId = restaurantId, rating = rating, review = badReview,goodReview = goodReview,badReview = ""
             ) { success, result ->
                 //                isLoading.value = false
             }
@@ -417,19 +402,19 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     }
 
     private fun printHashKey() {
-//        try {
-//            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
-//            for (signature in info.signatures) {
-//                val md = MessageDigest.getInstance("SHA")
-//                md.update(signature.toByteArray())
-//                val hashKey = String(Base64.encode(md.digest(), 0))
-//                Log.e("vvv", "printHashKey() Hash Key: $hashKey")
-//            }
-//        } catch (e: NoSuchAlgorithmException) {
-//            Log.e("vvv", "printHashKey()", e)
-//        } catch (e: Exception) {
-//            Log.e("vvv", "printHashKey()", e)
-//        }
+        try {
+            val info = packageManager.getPackageInfo(packageName, PackageManager.GET_SIGNATURES)
+            for (signature in info.signatures) {
+                val md = MessageDigest.getInstance("SHA")
+                md.update(signature.toByteArray())
+                val hashKey = String(Base64.encode(md.digest(), 0))
+                Log.e("vvv", "printHashKey() Hash Key: $hashKey")
+            }
+        } catch (e: NoSuchAlgorithmException) {
+            Log.e("vvv", "printHashKey()", e)
+        } catch (e: Exception) {
+            Log.e("vvv", "printHashKey()", e)
+        }
     }
 
     fun initGoogleSignin(googleSigni: GoogleSignin) {

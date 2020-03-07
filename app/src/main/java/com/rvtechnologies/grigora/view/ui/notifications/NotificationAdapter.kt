@@ -86,7 +86,7 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
                     )
                     .into(holder.img_data)
 
-           var utcDate=CommonUtils.getUtcDate(holder.img_data.context!!,(list[position] as NotificationsModel).createdAt)
+           var utcDate=CommonUtils.getUtcDate(holder.img_data.context!!,(list[position] as NotificationsModel).createdAt,"yyyy-MM-dd HH:mm:ss")
 
 
             var format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {

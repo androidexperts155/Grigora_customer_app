@@ -183,6 +183,12 @@
             app:destination="@id/rateDriverFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_ordersFragment_to_cartFragment"
+            app:destination="@id/navigationCart"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"/>
     </fragment>
     <fragment
         android:id="@+id/chooseLanguageFragment"
@@ -430,6 +436,12 @@
         <action
             android:id="@+id/action_walletFragment_to_sendMoneyFragment"
             app:destination="@id/transferMoney"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_walletFragment_to_buyOrRedeem"
+            app:destination="@id/buyOrRedeem"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     </fragment>
@@ -763,16 +775,31 @@
         android:id="@+id/scheduleOrder"
         android:name="com.rvtechnologies.grigora.view.ui.cart.ScheduleOrder"
         android:label="Schedule Order">
-        
-        
         <action
             android:id="@+id/action_scheduleOrder_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
-    
     </fragment>
+    
+    <fragment
+        android:id="@+id/buyOrRedeem"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.BuyOrRedeem"
+        android:label="Buy Or Redeem">
+    </fragment>
+    
+    <fragment
+        android:id="@+id/navigationTrendingMeals"
+        android:name="com.rvtechnologies.grigora.view.ui.trending_meals.TrendingMealsFragment"
+        android:label="Trending Meals">
+    
+        <action
+            android:id="@+id/action_trendingMeals_to_menuItemDetailsFragment"
+            app:destination="@id/menuItemDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
 
-
+        
+    </fragment>
+    
 </navigation>

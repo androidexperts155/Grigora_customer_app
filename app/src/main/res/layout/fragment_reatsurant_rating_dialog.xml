@@ -3,28 +3,41 @@
     android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/shadow"
+    android:background="@drawable/round_white"
     android:orientation="vertical"
     android:padding="@dimen/_16sdp">
     
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center"
+        android:layout_marginBottom="@dimen/_8sdp"
+        android:text="@string/rate_driver"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
     
-    <ImageView
-        android:id="@+id/imageView14"
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/img_rest"
         android:layout_width="@dimen/_100sdp"
         android:layout_height="@dimen/_100sdp"
         android:layout_gravity="center_horizontal"
         android:scaleType="centerInside"
-        android:src="@drawable/food" />
+        android:src="@drawable/driver" />
     
     <TextView
-        style="@style/normalText"
+        style="@style/mediumText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
+        
+        
         android:layout_marginTop="8dp"
         android:gravity="center_horizontal"
         android:text="@string/food_message"
-        android:textColor="@color/text_primary"
+        android:textColor="?attr/textWhite"
         android:textSize="@dimen/_12sdp" />
     
     <RatingBar
@@ -34,7 +47,106 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="8dp"
+        android:progressBackgroundTint="@color/colorPrimaryAlpha"
         android:progressTint="@color/duskYellow" />
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/like_rest"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
+    
+    <HorizontalScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:gravity="start"
+            android:orientation="horizontal">
+            
+            <TextView
+                android:id="@+id/c1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/chip_deselected_bg"
+                android:gravity="center"
+                android:minWidth="@dimen/_60sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/taste"
+                android:textColor="?attr/textWhite" />
+            
+            <TextView
+                android:id="@+id/c2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/chip_deselected_bg"
+                android:gravity="center"
+                android:minWidth="@dimen/_60sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/time"
+                android:textColor="?attr/textWhite" />
+            
+            <TextView
+                android:id="@+id/c3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/chip_deselected_bg"
+                android:gravity="center"
+                android:minWidth="@dimen/_60sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/price"
+                android:textColor="?attr/textWhite" />
+            
+            <TextView
+                android:id="@+id/c4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:background="@drawable/chip_deselected_bg"
+                android:gravity="center"
+                android:minWidth="@dimen/_60sdp"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/services"
+                android:textColor="?attr/textWhite" />
+        
+        </LinearLayout>
+    
+    </HorizontalScrollView>
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_10sdp"
+        android:text="@string/leave_a_comment"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
+    
+    <EditText
+        android:id="@+id/ed_review"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/chip_deselected_bg"
+        android:gravity="top"
+        android:hint="@string/write_your_feedback_here"
+        android:maxLines="3"
+         android:minLines="4"
+        android:padding="@dimen/_8sdp"
+        android:textColor="?attr/textWhite"
+        android:textColorHint="?attr/searchHint" />
+    
     
     <Button
         android:id="@+id/bt_rate_now"
@@ -42,7 +154,7 @@
         android:layout_width="@dimen/_120sdp"
         android:layout_height="@dimen/_35sdp"
         android:layout_gravity="center_horizontal"
-        android:layout_marginTop="8dp"
+        android:layout_marginTop="@dimen/_12sdp"
         android:background="@drawable/btn_rounded"
         android:text="@string/rate_now"
         android:textColor="@color/white"

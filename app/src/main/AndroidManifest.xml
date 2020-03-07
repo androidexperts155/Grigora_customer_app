@@ -14,7 +14,7 @@
         android:theme="@style/AppTheme.Light"
         android:usesCleartextTraffic="true">
     
-        <provider android:authorities="com.facebook.app.FacebookContentProvider{612856392875692}"
+        <provider android:authorities="com.facebook.app.FacebookContentProvider{2538212279779515}"
             android:name="com.facebook.FacebookContentProvider"
             android:exported="true"/>
         

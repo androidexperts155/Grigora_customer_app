@@ -3,30 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
     
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
         android:orientation="vertical"
         tools:context=".view.ui.profile.ProfileDetailsFragment">
         
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
         
-        <TextView
-            android:id="@+id/txtRestaurantName"
-            style="@style/mediumText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
-            android:text="@string/profile"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp" />
         
         <LinearLayout
             android:layout_width="match_parent"
@@ -43,10 +32,10 @@
                 android:id="@+id/profilePic"
                 android:layout_width="@dimen/_96sdp"
                 android:layout_height="0dp"
+                android:layout_gravity="center"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="15dp"
                 android:layout_marginEnd="8dp"
-                android:layout_gravity="center"
                 android:onClick="@{()->profileDetailsView.chooseProfilePic()}"
                 android:src="@drawable/user_placeholder"
                 app:image_url_person="@{profileDetailsViewModel.image}"
@@ -57,71 +46,125 @@
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintVertical_bias="0.10" />
             
-            <com.google.android.material.textfield.TextInputEditText
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:text="@string/name"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <EditText
                 android:id="@+id/etName"
+                style="@style/normalText"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:ems="10"
-                android:hint="@string/name"
-                style="@style/normalText"
-                android:layout_marginTop="30dp"
-                android:paddingLeft="10dp"
-                android:inputType="textEmailAddress"
+                android:background="@android:color/transparent"
+                android:inputType="textPersonName"
+                android:padding="@dimen/_4sdp"
+                android:singleLine="true"
                 android:text="@={profileDetailsViewModel.name}"
-                app:layout_constraintBottom_toTopOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp"
+                tools:text="Amit" />
             
-            <com.google.android.material.textfield.TextInputEditText
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewbg" />
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/email"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <EditText
                 android:id="@+id/etEmail"
+                style="@style/normalText"
+                
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
                 android:editable="false"
-                android:ems="10"
-                android:layout_marginTop="20dp"
                 android:enabled="false"
-                android:paddingLeft="10dp"
-                style="@style/normalText"
-                android:hint="@string/email"
                 android:inputType="textEmailAddress"
+                android:padding="@dimen/_4sdp"
+                
+                android:singleLine="true"
+                
                 android:text="@={profileDetailsViewModel.email}"
-                app:layout_constraintBottom_toTopOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp"
+                tools:text="Amit" />
             
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/etPhone"
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewbg" />
+            
+            <TextView
+                style="@style/mediumText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:editable="false"
-                android:ems="10"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:text="@string/phone"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <EditText
+                android:id="@+id/etPhone"
                 style="@style/normalText"
-                android:paddingLeft="10dp"
+                
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:editable="false"
                 android:enabled="false"
-                android:hint="@string/phone_number"
-                android:layout_marginTop="20dp"
                 android:inputType="phone"
+                android:padding="@dimen/_4sdp"
+                
+                android:singleLine="true"
+                
                 android:text="@={profileDetailsViewModel.phone}"
-                app:layout_constraintBottom_toTopOf="@+id/editText2"
-                app:layout_constraintEnd_toEndOf="parent" />
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewbg" />
+            
             
             <Button
                 android:id="@+id/btnSave"
+                style="@style/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
-                android:layout_marginStart="16dp"
-                android:layout_marginTop="30dp"
-                android:layout_marginEnd="16dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_48sdp"
+                android:layout_marginTop="@dimen/_24sdp"
+                android:layout_marginEnd="@dimen/_48sdp"
+                android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
                 android:onClick="@{()-> profileDetailsViewModel.saveProfile()}"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
                 android:text="@string/save"
-                android:textColor="@android:color/white"
-                android:visibility="visible"
-                style="@style/normalText"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayoutPhone" />
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+        
         </LinearLayout>
     
-    </RelativeLayout>
+    </LinearLayout>
     
     <data>
         

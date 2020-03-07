@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.WindowManager
 import androidx.fragment.app.DialogFragment
 
 import com.rvtechnologies.grigora.R
@@ -12,10 +13,10 @@ import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.view.ui.rating.adapter.MealsAdapter
 import kotlinx.android.synthetic.main.fragment_meals_rating_dialog.*
 
-class MealsRatingDialogFragment(
+class MealsDataDialogFragment(
     val mealsToRate: ArrayList<OrderItemModel.OrderDetail>,
     val mealsRate: MealsRate
-) : DialogFragment(), MealsAdapter.RatingChanged {
+) : DialogFragment(), MealsAdapter.DataChanged {
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -27,7 +28,7 @@ class MealsRatingDialogFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
+        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         bt_rate_now.setOnClickListener {
             mealsRate.onMealRateSubmit(mealsToRate)
@@ -48,6 +49,18 @@ class MealsRatingDialogFragment(
 
     override fun ratingChanged(position: Int, rating: Float) {
         mealsToRate[position].rating = rating
+    }
+
+    override fun reviewChanged(position: Int, review: String) {
+        mealsToRate[position].review = review
+    }
+
+    override fun onResume() {
+        super.onResume()
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = 800
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 }
 

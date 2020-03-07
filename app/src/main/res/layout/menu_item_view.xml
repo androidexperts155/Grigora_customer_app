@@ -206,7 +206,7 @@
             android:background="@drawable/btn_rounded_corners_more"
             android:gravity="center"
             android:text="@string/add"
-            android:textColor="?attr/searchHint"
+            android:textColor="?attr/colorPrimaryDark"
             android:textSize="@dimen/_8sdp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="1.0"

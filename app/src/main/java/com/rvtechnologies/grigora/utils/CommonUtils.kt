@@ -43,12 +43,9 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 object CommonUtils {
-
-
     fun getFormattedTimeOrDate(data: Any, patternFrom: String, patternTo: String): String {
         var d: Date? = null
         val sdf = SimpleDateFormat(patternFrom)
-
         if (data is String) {
             try {
                 d = sdf.parse(data)
@@ -397,7 +394,6 @@ object CommonUtils {
         OverScrollDecoratorHelper.setUpOverScroll(recyclerView, mode)
     }
 
-
     fun calculateDistance(
         startLat: Double,
         startLng: Double,
@@ -415,26 +411,55 @@ object CommonUtils {
         return startLocation.distanceTo(endLocation) / 1000
     }
 
-    fun getUtcDate(context: Context, date: String): Date {
+    fun getUtcDate(context: Context, date: String, format: String): Date {
         val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss",
+                format,
                 context.resources.configuration.locales[0]
             )
         } else
             SimpleDateFormat(
-                "yyyy-MM-dd HH:mm:ss",
+                format,
                 context.resources.configuration.locale
             )
-
         utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
-
         return utcFormatter.parse(date)
     }
 
-    fun localToUtc(context: Context, normalDate: String, format: String): String {
+    fun localToUtc(normalDate: String, format: String): String {
         var sdf = SimpleDateFormat(format)
+        sdf.timeZone= TimeZone.getDefault()
+        var date=sdf.parse(normalDate)
+
         sdf.timeZone = TimeZone.getTimeZone("UTC")
-        return sdf.format(sdf.parse(normalDate))
+        return sdf.format(date )
+    }
+
+    fun isRestaurantOpen(openingTime: String, closingTime: String): Boolean {
+        var format = "HH:mm:ss"
+        var sdf = SimpleDateFormat(format)
+        var sdf1 = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format,format)
+
+        return sdf1.parse(localUtcDate).time.compareTo(sdf.parse(openingTime).time) == 1 && sdf.parse(
+            localUtcDate
+        ).time.compareTo(sdf.parse(closingTime).time) == -1
+    }
+
+    fun getFormattedUtc(data: String, patternFrom: String, patternTo: String): String {
+        var d: Date? = null
+        val sdf = SimpleDateFormat(patternFrom)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+        try {
+            d = sdf.parse(data)
+        } catch (ex: ParseException) {
+            Log.e("exp", "" + ex.message)
+        }
+
+        sdf.timeZone = TimeZone.getDefault()
+        sdf.applyPattern(patternTo)
+        return "" + sdf.format(d)
     }
 }
