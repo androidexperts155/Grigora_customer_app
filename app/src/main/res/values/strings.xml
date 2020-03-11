@@ -472,6 +472,12 @@
     <string name="buy_gift_card">Buy Gift Card</string>
     <string name="give_gift">Give the gift of food delivery</string>
     <string name="buy">Buy</string>
+    <string name="unavailable">This item is unavailable</string>
+    <string name="add_tip">Add a tip for driver</string>
+    <string name="approved">Approved</string>
+    <string name="pending">Pending</string>
+    <string name="outgoing">Outgoing</string>
+    <string name="incoming">Incoming</string>
 
 
 </resources><!--₦-->

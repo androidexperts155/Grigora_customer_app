@@ -28,6 +28,7 @@ import kotlin.collections.ArrayList
 
 class ScheduleOrder : Fragment(), IRecyclerItemClick {
     var daysList = ArrayList<DayModel>()
+    private var fromRestaurant = false
     lateinit var openingTime: String
     lateinit var closingTime: String
     lateinit var alwaysOpen: String
@@ -38,7 +39,7 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         super.onCreate(savedInstanceState)
         sharedViewModel =
             activity!!.let { ViewModelProviders.of(it).get(CartSharedViewModel::class.java) }
-//        viewModel = ViewModelProviders.of(this).get(ScheduleOrderViewModel::class.java)
+        fromRestaurant = arguments?.get(AppConstants.FROM_RESTAURANT_DETAIL) as Boolean
         openingTime = arguments?.get(AppConstants.RESTAURANT_OPENING_TIME).toString()
         closingTime = arguments?.get(AppConstants.RESTAURANT_CLOSING_TIME).toString()
         alwaysOpen = arguments?.get(AppConstants.RESTAURANT_ALWAYS_OPEN).toString()
@@ -60,7 +61,11 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         setDates()
+        if (fromRestaurant)
+            bt_done.text = getString(R.string.continueTxt)
+
         tv_address.text = CommonUtils.getPrefValue(context!!, PrefConstants.ADDRESS)
     }
 
@@ -367,12 +372,18 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
     }
 
     fun schedule() {
+
         if (ed_note.text.toString().isNullOrBlank())
             sharedViewModel.scheduleNote.value = ed_note.text.toString()
         else
             sharedViewModel.scheduleNote.value = ""
 
         sharedViewModel.isScheduledOrder.value = true
-        view?.findNavController()?.popBackStack()
+
+        if (fromRestaurant) {
+            view?.findNavController()?.navigate(R.id.action_scheduleOrder_to_navigationCart)
+        } else {
+            view?.findNavController()?.popBackStack()
+        }
     }
 }

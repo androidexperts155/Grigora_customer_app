@@ -8,10 +8,12 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
+import com.daimajia.swipe.SwipeLayout
 import com.rvtechnologies.grigora.NotificationsModel
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.NotificationTitleModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.TimeAgo
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.order_details_fragment.*
@@ -19,7 +21,10 @@ import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NotificationAdapter(val list: ArrayList<Notification>) :
+class NotificationAdapter(
+    val list: ArrayList<Notification>,
+    val iRecyclerItemClick: IRecyclerItemClick
+) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     val TITLE = 1
@@ -30,7 +35,6 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
     init {
         yesterday.add(Calendar.DAY_OF_MONTH, -1)
     }
-
 
     override fun getItemViewType(position: Int): Int {
         return if (list[position] is NotificationsModel)
@@ -56,7 +60,6 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
                     false
                 )
             )
-
         }
     }
 
@@ -70,6 +73,34 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
             holder.tv_title.text = (list[position] as NotificationTitleModel).name
         } else {
             holder as BodyViewHolder
+
+            holder.swipeLayout.addSwipeListener(object : SwipeLayout.SwipeListener {
+                override fun onOpen(layout: SwipeLayout?) {
+
+                }
+
+                override fun onUpdate(layout: SwipeLayout?, leftOffset: Int, topOffset: Int) {
+                }
+
+                override fun onStartOpen(layout: SwipeLayout?) {
+                }
+
+                override fun onStartClose(layout: SwipeLayout?) {
+                }
+
+                override fun onHandRelease(layout: SwipeLayout?, xvel: Float, yvel: Float) {
+                }
+
+                override fun onClose(layout: SwipeLayout?) {
+                }
+            })
+
+
+
+            holder.img_delete.setOnClickListener {
+                iRecyclerItemClick.onItemClick(position)
+            }
+
 
             val circularProgressDrawable = CircularProgressDrawable(holder.tv_name.context!!)
             circularProgressDrawable.strokeWidth = 5f
@@ -86,7 +117,11 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
                     )
                     .into(holder.img_data)
 
-           var utcDate=CommonUtils.getUtcDate(holder.img_data.context!!,(list[position] as NotificationsModel).createdAt,"yyyy-MM-dd HH:mm:ss")
+            var utcDate = CommonUtils.getUtcDate(
+                holder.img_data.context!!,
+                (list[position] as NotificationsModel).createdAt,
+                "yyyy-MM-dd HH:mm:ss"
+            )
 
 
             var format = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
@@ -117,17 +152,17 @@ class NotificationAdapter(val list: ArrayList<Notification>) :
         }
     }
 
-
     inner class TitleViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tv_title = view.findViewById<TextView>(R.id.tv_title)
 
     }
 
     inner class BodyViewHolder(view: View) : RecyclerView.ViewHolder(view) {
+        var img_delete = view.findViewById<ImageView>(R.id.img_delete)
         var img_data = view.findViewById<ImageView>(R.id.img_data)
         var tv_name = view.findViewById<TextView>(R.id.tv_name)
         var tv_time = view.findViewById<TextView>(R.id.tv_time)
-
+        var swipeLayout = view.findViewById<SwipeLayout>(R.id.swipeLayout)
     }
 
 

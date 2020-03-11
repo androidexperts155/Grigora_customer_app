@@ -111,7 +111,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                         )
 
                     tv_rating.text = restaurantDetailModel.total_rating
-                    tv_reviews.text = restaurantDetailModel.total_review
+                    tv_reviews.text = restaurantDetailModel.total_review.toString()
                     tv_restaurantname.text = restaurantDetailModel.restaurant_name
                     tv_cuisines.text = restaurantDetailModel.cuisines
                     tv_deliver.text =
@@ -249,7 +249,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         viewModel.cartId.value = data.cart?.id.toString()
         if (data.cart != null && data.cart?.quantity!! > 0) {
             fab_cart.visibility = View.VISIBLE
-        } else if(data.cart_id.isNullOrEmpty()) {
+        } else if (data.cart_id.isNullOrEmpty()) {
             var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
             groupOrderAlreadyPlaced.show(childFragmentManager, "")
         }
@@ -274,7 +274,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     "${getString(R.string.group_order_by)} ${data?.cart!!.name}"
                 tv_order_limit.text =
                     "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
-            } else   {
+            } else {
                 tv_group_order_title.text =
                     "${data?.cart!!.name}'s ${getString(R.string.group_order)}"
                 tv_order_limit.text =
@@ -297,7 +297,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 
             if (!cartId.isNullOrEmpty()) {
                 viewModel.updateType(
-                    cartId,
+                    restaurantId,
                     "1",
                     CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
                 )
@@ -317,7 +317,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 
             if (!cartId.isNullOrEmpty()) {
                 viewModel.updateType(
-                    cartId,
+                    restaurantId,
                     "2",
                     CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
                 )
@@ -436,104 +436,118 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 //     position=   -2 previous ordered, -1 popular
 
         if (position == -1) {
-            if (popularList[position2].itemCategories?.size!! > 0) {
+            if (popularList[position2].status == "1") {
+                if (popularList[position2].itemCategories?.size!! > 0) {
 //                have add ons
-                if (popularList[position2].item_count_in_cart!! > 0) {
+                    if (popularList[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                    showItems(popularList[position2])
-                } else {
+                        showItems(popularList[position2])
+                    } else {
 //                show item details screen
-                    popularList[position2].isForGroupCart = true
-                    popularList[position2].cartId = viewModel.cartId.value.toString()
+                        popularList[position2].isForGroupCart = true
+                        popularList[position2].cartId = viewModel.cartId.value.toString()
 
 
-                    val bundle =
-                        bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
-                    view?.findNavController()
-                        ?.navigate(
-                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
-                            bundle
-                        )
-                }
-            } else {
+                        val bundle =
+                            bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
+                        view?.findNavController()
+                            ?.navigate(
+                                R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                                bundle
+                            )
+                    }
+                } else {
 //                don't have add ons, simply add
-                popularList[position2].item_count_in_cart =
-                    (popularList[position2].item_count_in_cart!! + 1)
+                    popularList[position2].item_count_in_cart =
+                        (popularList[position2].item_count_in_cart!! + 1)
 
-                viewModel.addItemToCart(
-                    popularList[position2].restaurantId.toString()!!,
-                    popularList[position2].id.toString(),
-                    popularList[position2].price.toString(),
-                    "1"
-                )
+                    viewModel.addItemToCart(
+                        popularList[position2].restaurantId.toString()!!,
+                        popularList[position2].id.toString(),
+                        popularList[position2].price.toString(),
+                        "1"
+                    )
 
-                rc_popular.adapter?.notifyDataSetChanged()
-            }
+                    rc_popular.adapter?.notifyDataSetChanged()
+                }
+            } else
+                CommonUtils.showMessage(parentView, getString(R.string.unavailable))
+
         } else if (position == -2) {
-            if (previousList[position2].itemCategories?.size!! > 0) {
+            if (previousList[position2].status == "1") {
+                if (previousList[position2].itemCategories?.size!! > 0) {
 //                have add ons
-                if (previousList[position2].item_count_in_cart!! > 0) {
+                    if (previousList[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                    showItems(previousList[position2])
-                } else {
+                        showItems(previousList[position2])
+                    } else {
 //                show item details screen
-                    previousList[position2].isForGroupCart = true
-                    previousList[position2].cartId = viewModel.cartId.value.toString()
-                    val bundle =
-                        bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
-                    view?.findNavController()
-                        ?.navigate(
-                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
-                            bundle
-                        )
+                        previousList[position2].isForGroupCart = true
+                        previousList[position2].cartId = viewModel.cartId.value.toString()
+                        val bundle =
+                            bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
+                        view?.findNavController()
+                            ?.navigate(
+                                R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                                bundle
+                            )
+                    }
+                } else {
+//                don't have add ons, simply add
+                    previousList[position2].item_count_in_cart =
+                        (previousList[position2].item_count_in_cart!! + 1)
+
+                    viewModel.addItemToCart(
+                        previousList[position2].restaurantId.toString()!!,
+                        previousList[position2].id.toString(),
+                        previousList[position2].price.toString(),
+                        "1"
+                    )
+
+                    rc_previous.adapter?.notifyDataSetChanged()
                 }
             } else {
-//                don't have add ons, simply add
-                previousList[position2].item_count_in_cart =
-                    (previousList[position2].item_count_in_cart!! + 1)
+                CommonUtils.showMessage(parentView, getString(R.string.unavailable))
 
-                viewModel.addItemToCart(
-                    previousList[position2].restaurantId.toString()!!,
-                    previousList[position2].id.toString(),
-                    previousList[position2].price.toString(),
-                    "1"
-                )
-
-                rc_previous.adapter?.notifyDataSetChanged()
             }
         } else {
-            if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
+            if (filteredMealsAndCuisinesList[position].items[position2].status == "1") {
+                if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
 //                have add ons
-                if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! > 0) {
+                    if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                    showItems(filteredMealsAndCuisinesList[position].items[position2])
-                } else {
+                        showItems(filteredMealsAndCuisinesList[position].items[position2])
+                    } else {
 //                show item details screen
-                    filteredMealsAndCuisinesList[position].items[position2].isForGroupCart = true
-                    filteredMealsAndCuisinesList[position].items[position2].cartId =
-                        viewModel.cartId.value.toString()
-                    val bundle =
-                        bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
-                    view?.findNavController()
-                        ?.navigate(
-                            R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
-                            bundle
-                        )
-                }
-            } else {
+                        filteredMealsAndCuisinesList[position].items[position2].isForGroupCart =
+                            true
+                        filteredMealsAndCuisinesList[position].items[position2].cartId =
+                            viewModel.cartId.value.toString()
+                        val bundle =
+                            bundleOf(AppConstants.MENU_ITEM_MODEL to filteredMealsAndCuisinesList[position].items[position2])
+                        view?.findNavController()
+                            ?.navigate(
+                                R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                                bundle
+                            )
+                    }
+                } else {
 //                don't have add ons, simply add
-                filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
-                    (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
+                    filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
+                        (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
 
-                viewModel.addItemToCart(
-                    filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
-                    filteredMealsAndCuisinesList[position].items[position2].id.toString(),
-                    filteredMealsAndCuisinesList[position].items[position2].price.toString(),
-                    "1"
-                )
+                    viewModel.addItemToCart(
+                        filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
+                        filteredMealsAndCuisinesList[position].items[position2].id.toString(),
+                        filteredMealsAndCuisinesList[position].items[position2].price.toString(),
+                        "1"
+                    )
 
-                rc_items.adapter?.notifyDataSetChanged()
-            }
+                    rc_items.adapter?.notifyDataSetChanged()
+                }
+            } else
+                CommonUtils.showMessage(parentView, getString(R.string.unavailable))
+
         }
     }
 
@@ -768,3 +782,5 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
     }
 
 }
+
+

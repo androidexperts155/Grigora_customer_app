@@ -90,10 +90,10 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         })
         viewModel.itemCategories.observe(this, Observer { itemCategoriesListRes ->
             itemCategoriesList.clear()
-            itemCategoriesList.addAll(itemCategoriesListRes as Collection<ItemCategory>)
-            rvOptions.adapter = ItemCategoryAdapter(itemCategoriesList, this)
-//            txtChoices.visibility = if (itemCategoriesList.isEmpty()) GONE else VISIBLE
-        })
+                itemCategoriesList.addAll(itemCategoriesListRes as Collection<ItemCategory>)
+                rvOptions.adapter = ItemCategoryAdapter(itemCategoriesList, this)
+
+         })
         viewModel.isLoading.observe(this, Observer { isLoading ->
             if (isLoading) {
                 context?.let { it1 -> CommonUtils.showLoader(it1, getString(R.string.loading)) }
@@ -131,7 +131,7 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(viewModel.menuItem.value!!.restaurantName)
             (activity as MainActivity).lockDrawer(true)
-            (activity as MainActivity).showBottomNavigation(0)
+//            (activity as MainActivity).showBottomNavigation(0)
         }
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 

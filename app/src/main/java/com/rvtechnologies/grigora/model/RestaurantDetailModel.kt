@@ -25,8 +25,12 @@ data class RestaurantDetailModel(
 
     @SerializedName("table_booking")
     var table_booking: String = "",
+
     @SerializedName("total_cart_item")
     var total_cart_item: String = "",
+
+    @SerializedName("order_type")
+    var orderType: String = "",
 
 
     @SerializedName("cart_id")
@@ -56,7 +60,7 @@ data class RestaurantDetailModel(
     var total_rating: String = "",
 
     @SerializedName("total_review")
-    var total_review: String = "",
+    var total_review: Int = 0   ,
 
     @SerializedName("veg")
     var veg: String = "",

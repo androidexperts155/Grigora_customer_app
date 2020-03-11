@@ -109,11 +109,11 @@ class RestaurantDetailGroupViewModel : ViewModel() {
         }
     }
 
-    fun updateType(cartId: String, type: String, token: String) {
+    fun updateType(restaurantId: String, type: String, token: String) {
         ApiRepo.getInstance()
             .changeOrderType(
                 token = token,
-                cart_id = cartId,
+                restaurant_id = restaurantId,
                 cart_type = type
             ) { success, result ->
                 isLoading.value = false

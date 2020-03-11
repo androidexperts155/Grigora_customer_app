@@ -39,7 +39,6 @@ class RestaurantDetailsViewModel : ViewModel() {
     }
 
 
-
     fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
         isLoading.value = true
         ApiRepo.getInstance()
@@ -71,6 +70,7 @@ class RestaurantDetailsViewModel : ViewModel() {
                 }
             }
     }
+
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
         if (token.value.toString().isNotBlank()) {
             isLoading.value = true
@@ -92,17 +92,19 @@ class RestaurantDetailsViewModel : ViewModel() {
         }
     }
 
-    fun updateType(cartId: String, type: String, token: String) {
+    fun updateType(restaurantId: String, type: String, token: String) {
         ApiRepo.getInstance()
             .changeOrderType(
                 token = token,
-                cart_id = cartId,
+                restaurant_id = restaurantId,
                 cart_type = type
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-                    val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
-                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+//                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+//                    addCartRes.value = result
                 }
             }
 

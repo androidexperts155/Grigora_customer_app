@@ -122,6 +122,8 @@ dependencies {
     implementation 'me.everything:overscroll-decor-android:1.0.4'
     implementation 'com.hbb20:ccp:2.0.8'
 
+    implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

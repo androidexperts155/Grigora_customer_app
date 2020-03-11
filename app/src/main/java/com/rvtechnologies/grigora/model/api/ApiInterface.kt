@@ -215,7 +215,7 @@ interface ApiInterface {
     fun changeOrderType(
         @Header("Authorization") token: String,
         @Field("cart_type") cart_type: String,
-        @Field("cart_id") cart_id: String
+        @Field("restaurant_id") restaurant_id: String
 
     ): Call<JsonElement>
 
@@ -448,6 +448,11 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
+    @GET(ApiConstants.TABLE_BOOKING_LIST )
+    fun getBookedTables(
+         @Header("Authorization") token: String
+    ): Call<JsonElement>
+
     @FormUrlEncoded
     @POST(ApiConstants.SEARCH_USER)
     fun searchUser(
@@ -568,6 +573,14 @@ interface ApiInterface {
         @Header("Authorization") token: String,
         @Field("order_id") order_id: String
     ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.DELETE_NOTIFICATION)
+    fun deleteNotification(
+        @Header("Authorization") token: String,
+        @Field("notification_id") notificationId: String
+    ): Call<JsonElement>
+
 
 
     @GET(ApiConstants.FAQ)

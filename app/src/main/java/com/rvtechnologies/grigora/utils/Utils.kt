@@ -20,8 +20,8 @@ fun imageUrl(imageView: ImageView?, imageUrl: String?) {
             RequestOptions().override(
                 300,
                 200
-            ).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.cuisine).error(
-                R.drawable.cuisine
+            ).diskCacheStrategy(DiskCacheStrategy.ALL).placeholder(R.drawable.logo).error(
+                R.drawable.logo
             )
         ).into(imageView)
     }

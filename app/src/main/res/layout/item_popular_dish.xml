@@ -35,14 +35,16 @@
                 android:src="@drawable/restaurant"
                 app:image_url="@{itemDetail.image}" />
             
-            <View
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
+            <ImageView
+                android:src="@drawable/veg"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
                 android:layout_margin="@dimen/_6sdp"
-                android:background="@drawable/veg" />
+                android:id="@+id/img_type"
+                />
         </androidx.cardview.widget.CardView>
         
         <TextView

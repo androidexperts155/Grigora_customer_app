@@ -155,8 +155,35 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                     R.id.action_restaurantDetailParent_to_restaurantDetailGroup, arg
                 )
         } else if (item is Int) {
-            if (item == 1) {
-                tab_top.visibility = View.GONE
+            when (item) {
+                1 -> {
+                    tab_top.visibility = View.GONE
+                }
+                2 -> {
+                    var bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to arguments?.get(AppConstants.RESTAURANT_ID)!!
+                            .toString()
+                    )
+
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailParent_to_reviewsFragment, bundle
+                        )
+                }
+                3 -> {
+                    var bundle = bundleOf(
+                        AppConstants.RESTAURANT_OPENING_TIME to arguments?.get(AppConstants.RESTAURANT_OPENING_TIME)!!,
+                        AppConstants.RESTAURANT_CLOSING_TIME to arguments?.get(AppConstants.RESTAURANT_CLOSING_TIME)!!,
+                        AppConstants.RESTAURANT_ALWAYS_OPEN to arguments?.get(AppConstants.RESTAURANT_ALWAYS_OPEN)!!,
+                        AppConstants.FROM_RESTAURANT_DETAIL to true
+                    )
+
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_restaurantDetailParent_to_scheduleOrder
+                            , bundle
+                        )
+                }
             }
         }
     }

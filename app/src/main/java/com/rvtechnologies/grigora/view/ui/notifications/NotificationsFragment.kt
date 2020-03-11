@@ -13,28 +13,24 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.NotificationTitleModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.NotificationsViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.notifications_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
-class NotificationsFragment : Fragment() {
+class NotificationsFragment : Fragment(), IRecyclerItemClick {
+    var list = ArrayList<Notification>()
 
     companion object {
         fun newInstance() = NotificationsFragment()
     }
 
     private lateinit var viewModel: NotificationsViewModel
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        return inflater.inflate(R.layout.notifications_fragment, container, false)
-    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,7 +41,7 @@ class NotificationsFragment : Fragment() {
                 if (response is CommonResponseModel<*>) {
                     if (response.status!!) {
 
-                        var list = ArrayList<Notification>()
+                        list = ArrayList<Notification>()
                         list.addAll(response.data as Collection<NotificationsModel>)
 
 
@@ -57,8 +53,6 @@ class NotificationsFragment : Fragment() {
                             var otherdayAdded = false
 
                             var tempList = ArrayList<Notification>()
-                            var adapterList = ArrayList<Notification>()
-
 
                             var yesterday = Calendar.getInstance()
                             yesterday.add(Calendar.DAY_OF_MONTH, -1)
@@ -98,8 +92,9 @@ class NotificationsFragment : Fragment() {
                                                 yesterday.time
                                             )
                                         )
-                                    ) == 0){
-                                    data.timeToShow=context!!.getString(R.string.yesterday)
+                                    ) == 0
+                                ) {
+                                    data.timeToShow = context!!.getString(R.string.yesterday)
                                 }
 
                                 if (format.parse(data.createdAt).compareTo(
@@ -121,11 +116,11 @@ class NotificationsFragment : Fragment() {
                                 }
                                 tempList.add(data)
                             }
-
-                            adapterList.addAll(tempList)
+                            list.clear()
+                            list.addAll(tempList)
                             tempList.clear()
 
-                            rv_notifcations.adapter = NotificationAdapter(adapterList)
+                            rv_notifcations.adapter = NotificationAdapter(list, this)
                         }
                     }
                 }
@@ -141,6 +136,13 @@ class NotificationsFragment : Fragment() {
 
     }
 
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
+        return inflater.inflate(R.layout.notifications_fragment, container, false)
+    }
+
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -152,6 +154,28 @@ class NotificationsFragment : Fragment() {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).lockDrawer(true)
         (activity as MainActivity).backTitle(getString(R.string.notifications_center))
+        (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
+        (activity as MainActivity).img_right.setOnClickListener {
+            viewModel.deleteNotification(
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                ""
+            )
+        }
+
+        (activity as MainActivity).img_right.visibility = View.VISIBLE
+
+    }
+
+    override fun onItemClick(item: Any) {
+
+        item as Int
+        viewModel.deleteNotification(
+            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+            (list[item] as NotificationsModel).id.toString()
+        )
+
+        list.removeAt(item)
+        rv_notifcations.adapter?.notifyItemRemoved(item)
 
     }
 

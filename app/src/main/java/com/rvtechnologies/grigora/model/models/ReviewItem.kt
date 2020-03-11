@@ -25,6 +25,8 @@ data class ReviewItem(
     var review: String?,
     @SerializedName("sender_id")
     var senderId: Int?,
+    @SerializedName("sender_image")
+    var senderImage: String?,
     @SerializedName("sender_name")
     var senderName: String?,
     @SerializedName("updated_at")

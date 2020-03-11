@@ -14,6 +14,7 @@ import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.ReviewItem
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantReviewAdapter
 import kotlinx.android.synthetic.main.reviews_fragment.*
 
@@ -30,7 +31,12 @@ class ReviewsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val reviewsFragmentBinding=DataBindingUtil.inflate(inflater,R.layout.reviews_fragment, container, false) as ReviewsFragmentBinding
+        val reviewsFragmentBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.reviews_fragment,
+            container,
+            false
+        ) as ReviewsFragmentBinding
         return reviewsFragmentBinding.root
     }
 
@@ -39,19 +45,17 @@ class ReviewsFragment : Fragment() {
         viewModel = ViewModelProviders.of(this).get(ReviewsViewModel::class.java)
         if (arguments?.getString(AppConstants.RESTAURANT_ID) != null) {
             val resId = arguments?.getString(AppConstants.RESTAURANT_ID)
-            viewModel.id.value=resId
+            viewModel.id.value = resId
             viewModel.reviewListRes.observe(this, Observer { reviewRes ->
                 if (reviewRes is CommonResponseModel<*>) {
-                    if(reviewRes.status!!) {
+                    if (reviewRes.status!!) {
                         reviewItemList.clear()
                         reviewItemList.addAll(reviewRes.data as Collection<ReviewItem>)
                         rvReviews.adapter?.notifyDataSetChanged()
-                    }
-                    else{
+                    } else {
                         reviewRes.message?.let { CommonUtils.showMessage(parentView, it) }
                     }
-                }
-                else
+                } else
                     CommonUtils.showMessage(parentView, reviewRes.toString())
             })
         }
@@ -65,9 +69,17 @@ class ReviewsFragment : Fragment() {
             })
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).hideAll()
+        (activity as MainActivity).backTitle(getString(R.string.reviews))
+        (activity as MainActivity).lockDrawer(true)
+
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvReviews.adapter= RestaurantReviewAdapter(reviewItemList)
+        rvReviews.adapter = RestaurantReviewAdapter(reviewItemList)
         viewModel.getRestaurantsReviews()
     }
 

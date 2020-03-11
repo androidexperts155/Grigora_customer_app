@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+    tools:context=".view.ui.table_booking.TableBookingHistory">
+    
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_1sdp"
+        android:background="?attr/viewbg" />
+    
+    
+    <com.google.android.material.tabs.TabLayout
+        android:id="@+id/tab_top"
+        android:visibility="gone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_25sdp"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:layout_marginRight="@dimen/_16sdp"
+        app:tabIndicatorColor="@color/colorPrimaryDark"
+        app:tabIndicatorFullWidth="true"
+        app:tabIndicatorHeight="1dp"
+        app:tabMode="fixed"
+        app:tabRippleColor="@color/grey_bg"
+        app:tabTextColor="?attr/textWhite">
+        
+        <com.google.android.material.tabs.TabItem
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/all" />
+        
+        <com.google.android.material.tabs.TabItem
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/approved" />
+        
+        
+        <com.google.android.material.tabs.TabItem
+            
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/pending" />
+    </com.google.android.material.tabs.TabLayout>
+    
+    
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:id="@+id/rec_history"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:overScrollMode="never"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        
+        tools:itemCount="5"
+        tools:listitem="@layout/item_table_booking_history" />
+
+</LinearLayout>

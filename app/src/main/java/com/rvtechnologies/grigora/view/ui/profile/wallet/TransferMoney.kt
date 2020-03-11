@@ -39,7 +39,7 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
     private lateinit var viewModel: TransferMoneyViewModel
     lateinit var historyModel: WalletHistoryModel
     var timeFilter = 0
-    var tabFilter = 0
+    var tabFilter = ""
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -205,20 +205,18 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
 
                 when {
                     p0!!.text.toString().equals(getString(R.string.all)) -> {
-                        getFilteredList(0,timeFilter)
+                        getFilteredList(getString(R.string.all),timeFilter)
                     }
-                    p0!!.text.toString().equals(getString(R.string.transfered)) -> {
-                        getFilteredList(5, timeFilter)
+                    p0!!.text.toString().equals(getString(R.string.outgoing)) -> {
+                        getFilteredList(getString(R.string.outgoing), timeFilter)
                     }
-                    p0!!.text.toString().equals(getString(R.string.received)) -> {
-                        getFilteredList(6, timeFilter)
+                    p0!!.text.toString().equals(getString(R.string.incoming)) -> {
+                        getFilteredList(getString(R.string.incoming), timeFilter)
 
                     }
                 }
             }
         })
-
-
     }
 
     fun back() {
@@ -246,7 +244,7 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         view?.findNavController()!!.popBackStack()
     }
 
-    fun getFilteredList(tabFilter: Int, timeFilter: Int) {
+    fun getFilteredList(tabFilter: String, timeFilter: Int) {
         if (::historyModel.isInitialized) {
 
 
@@ -276,11 +274,24 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
                 when (timeFilter) {
                     0 -> {
 //                    no filter for time, check for type
-                        if (tabFilter != 5 && tabFilter != 6) {
+                        if(tabFilter == getString(R.string.all))
                             list.add(historyModel.history[i])
-                        } else if (historyModel.history[i].type == tabFilter.toString()) {
-                            list.add(historyModel.history[i])
+                        else if(tabFilter==getString(R.string.incoming)){
+                            if(historyModel.history[i].type=="3" || historyModel.history[i].type=="6"){
+                                list.add(historyModel.history[i])
+                            }
                         }
+                        else if(tabFilter==getString(R.string.outgoing)){
+                            if(historyModel.history[i].type=="4" || historyModel.history[i].type=="5"){
+                                list.add(historyModel.history[i])
+                            }
+                        }
+
+//                        if (tabFilter != 5 && tabFilter != 6) {
+//                            list.add(historyModel.history[i])
+//                        } else if (historyModel.history[i].type == tabFilter.toString()) {
+//                            list.add(historyModel.history[i])
+//                        }
                     }
                     1 -> {
 //                    today filter selected
@@ -293,11 +304,27 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
                                 )
                             ) == 0
                         ) {
-                            if (tabFilter != 5 && tabFilter != 6) {
+
+                            if(tabFilter == getString(R.string.all))
                                 list.add(historyModel.history[i])
-                            } else if (historyModel.history[i].type == tabFilter.toString()) {
-                                list.add(historyModel.history[i])
+                            else if(tabFilter==getString(R.string.incoming)){
+                                if(historyModel.history[i].type=="3" || historyModel.history[i].type=="6"){
+                                    list.add(historyModel.history[i])
+                                }
                             }
+                            else if(tabFilter==getString(R.string.outgoing)){
+                                if(historyModel.history[i].type=="4" || historyModel.history[i].type=="5"){
+                                    list.add(historyModel.history[i])
+                                }
+                            }
+
+
+
+//                            if (tabFilter != 5 && tabFilter != 6) {
+//                                list.add(historyModel.history[i])
+//                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+//                                list.add(historyModel.history[i])
+//                            }
                         }
                     }
                     2 -> {
@@ -311,11 +338,26 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
                                 )
                             ) == 0
                         ) {
-                            if (tabFilter != 5 && tabFilter != 6) {
+
+                            if(tabFilter == getString(R.string.all))
                                 list.add(historyModel.history[i])
-                            } else if (historyModel.history[i].type == tabFilter.toString()) {
-                                list.add(historyModel.history[i])
+                            else if(tabFilter==getString(R.string.incoming)){
+                                if(historyModel.history[i].type=="3" || historyModel.history[i].type=="6"){
+                                    list.add(historyModel.history[i])
+                                }
                             }
+                            else if(tabFilter==getString(R.string.outgoing)){
+                                if(historyModel.history[i].type=="4" || historyModel.history[i].type=="5"){
+                                    list.add(historyModel.history[i])
+                                }
+                            }
+
+//
+//                            if (tabFilter != 5 && tabFilter != 6) {
+//                                list.add(historyModel.history[i])
+//                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+//                                list.add(historyModel.history[i])
+//                            }
                         }
                     }
                     3 -> {
@@ -335,11 +377,26 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
                                 )
                             ) != 0
                         ) {
-                            if (tabFilter != 5 && tabFilter != 6) {
+
+                            if(tabFilter == getString(R.string.all))
                                 list.add(historyModel.history[i])
-                            } else if (historyModel.history[i].type == tabFilter.toString()) {
-                                list.add(historyModel.history[i])
+                            else if(tabFilter==getString(R.string.incoming)){
+                                if(historyModel.history[i].type=="3" || historyModel.history[i].type=="6"){
+                                    list.add(historyModel.history[i])
+                                }
                             }
+                            else if(tabFilter==getString(R.string.outgoing)){
+                                if(historyModel.history[i].type=="4" || historyModel.history[i].type=="5"){
+                                    list.add(historyModel.history[i])
+                                }
+                            }
+
+
+//                            if (tabFilter != 5 && tabFilter != 6) {
+//                                list.add(historyModel.history[i])
+//                            } else if (historyModel.history[i].type == tabFilter.toString()) {
+//                                list.add(historyModel.history[i])
+//                            }
                         }
 
 

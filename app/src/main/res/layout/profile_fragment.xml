@@ -195,6 +195,7 @@
                         
                         <TextView
                             style="@style/mediumText"
+                                android:id="@+id/tv_wallet"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/tvta"
@@ -392,13 +393,14 @@
                     
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
                         android:background="@drawable/selectable_item_background"
-                        
                         android:clickable="true"
                         android:gravity="center_vertical"
+                        android:onClick="@{()->profileFragment.toTableBooking()}"
                         android:orientation="horizontal"
-                        android:paddingLeft="@dimen/_14sdp"
+                        android:layout_height="wrap_content"
+                         
+                         android:paddingLeft="@dimen/_14sdp"
                         android:paddingTop="@dimen/_20sdp"
                         android:paddingRight="@dimen/_8sdp"
                         android:paddingBottom="@dimen/_8sdp">

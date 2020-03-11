@@ -11,7 +11,7 @@
             android:layout_width="wrap_content"
             style="@style/normalText"
             android:textSize="@dimen/_10sdp"
-            android:textColor="@color/colorAccent"
+            android:textColor="?attr/searchHint"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"

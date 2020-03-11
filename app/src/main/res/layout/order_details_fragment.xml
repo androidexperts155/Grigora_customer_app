@@ -111,6 +111,7 @@
                                     android:visibility="gone" />
                                 
                                 <TextView
+                                    
                                     android:id="@+id/tv_mins"
                                     style="@style/mediumText"
                                     android:layout_width="wrap_content"

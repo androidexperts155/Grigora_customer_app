@@ -58,6 +58,7 @@ class TrendingMealsViewModel : ViewModel() {
                 }
             }
     }
+
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
         if (token.value.toString().isNotBlank()) {
             isLoading.value = true
@@ -74,7 +75,9 @@ class TrendingMealsViewModel : ViewModel() {
                     if (success) {
                         val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
                         addCartRes.value = Gson().fromJson(result as JsonElement, type)
-                    }
+                    } else
+                        addCartRes.value = result
+
                 }
         }
     }

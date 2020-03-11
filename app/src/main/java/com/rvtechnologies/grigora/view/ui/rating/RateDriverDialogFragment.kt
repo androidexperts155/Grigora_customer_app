@@ -19,7 +19,9 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     DialogFragment() {
     var cList = ArrayList<TextView>()
     var chList = ArrayList<TextView>()
+    var tList = ArrayList<TextView>()
 
+    var tip = ""
     var goodReview = ""
     var badReview = ""
 
@@ -80,6 +82,11 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         chList.add(ch1)
         chList.add(ch2)
         chList.add(ch3)
+
+        tList.add(t1)
+        tList.add(t2)
+        tList.add(t3)
+        tList.add(t4)
     }
 
     private fun initClicks() {
@@ -92,7 +99,12 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         ch1.setOnClickListener { selectCh(ch1) }
         ch2.setOnClickListener { selectCh(ch2) }
         ch3.setOnClickListener { selectCh(ch3) }
-    }
+
+        t1.setOnClickListener { selectT(t1) }
+        t2.setOnClickListener { selectT(t2) }
+        t3.setOnClickListener { selectT(t3) }
+        t4.setOnClickListener { selectT(t4) }
+     }
 
     private fun selectC(view: TextView) {
         badReview = view.text.toString()
@@ -115,6 +127,23 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     private fun selectCh(view: TextView) {
         goodReview = view.text.toString()
         for (item in chList) {
+            if (item.id == view.id) {
+                item.setBackgroundResource(R.drawable.chip_selected_bg)
+                item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                item.setBackgroundResource(R.drawable.chip_deselected_bg)
+                if (CommonUtils.isDarkMode())
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                else
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+            }
+        }
+    }
+
+    private fun selectT(view: TextView) {
+        tip = view.tag.toString()
+        for (item in tList) {
             if (item.id == view.id) {
                 item.setBackgroundResource(R.drawable.chip_selected_bg)
                 item.setTextColor(ContextCompat.getColor(context!!, R.color.white))

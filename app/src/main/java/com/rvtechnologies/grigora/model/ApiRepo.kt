@@ -378,7 +378,7 @@ Cuisine repo
                 review = review,
                 goodReview = goodReview,
                 badReview = badReview
-             )
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -405,7 +405,7 @@ Cuisine repo
         orderId: String,
         goodReview: String,
         badReview: String,
-         onResult: (isSuccess: Boolean, response: Any?) -> Unit
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
         ApiClient.getClient().rateRestaurant(
@@ -414,7 +414,7 @@ Cuisine repo
                 orderId = orderId,
                 rating = rating,
                 receiver_type = "2",
-                review = review,goodReview = goodReview,badReview = badReview
+                review = review, goodReview = goodReview, badReview = badReview
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -876,12 +876,12 @@ Cuisine repo
     fun changeOrderType(
         token: String,
         cart_type: String,
-        cart_id: String,
+        restaurant_id: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().changeOrderType(
                 token = token,
-                cart_id = cart_id,
+                restaurant_id = restaurant_id,
                 cart_type = cart_type
             )
             .enqueue(object : Callback<JsonElement> {
@@ -1361,6 +1361,30 @@ Cuisine repo
             })
     }
 
+    fun getBookedTables(
+        token: String,
+         onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().getBookedTables(token)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun searchUser(
         token: String,
@@ -1815,6 +1839,36 @@ Cuisine repo
             .reOrder(
                 token = token,
                 order_id = order_id
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun deleteNotification(
+        token: String,
+        notificationId: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .deleteNotification(
+                token = token,
+                notificationId = notificationId
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

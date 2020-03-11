@@ -11,9 +11,9 @@ import android.os.Handler
 import android.util.DisplayMetrics
 import android.util.Log
 import android.view.LayoutInflater
-import android.view.MotionEvent
 import android.view.View
-import android.view.View.*
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
 import androidx.core.content.ContextCompat
@@ -55,6 +55,7 @@ import kotlinx.android.synthetic.main.order_details_fragment.*
 import org.json.JSONException
 import org.json.JSONObject
 import java.net.URISyntaxException
+import java.text.SimpleDateFormat
 import kotlin.random.Random
 
 class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFragment.DriverRate,
@@ -276,7 +277,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 tv_order_id.text = "#".plus(orderItemModel?.id)
                 tv_rest_name.text = orderItemModel?.restaurantName
                 if (orderItemModel?.preparingTime != null) {
-                    updateTimer(orderItemModel?.preparingTime?.toInt()!!)
+                    updateTimer(orderItemModel?.timeRemaining?.toInt()!!)
                 } else {
                     tv_est_delivery.visibility = View.GONE
                     tv_mins.visibility = View.GONE
@@ -773,15 +774,17 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             }
     }
 
-    fun rateDriverAndSaveOrder() {
+    private fun rateDriverAndSaveOrder() {
         var rateDriverDialog = RateDriverDialogFragment(orderItemModel!!, this)
         rateDriverDialog.isCancelable = false
         rateDriverDialog.show(this.childFragmentManager, "")
     }
 
-    override fun onDriverRateSubmit(rating: Float, goodReview: String,
-                                    badReview: String, orderItemModel: OrderItemModel) {
-        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(),goodReview,badReview)
+    override fun onDriverRateSubmit(
+        rating: Float, goodReview: String,
+        badReview: String, orderItemModel: OrderItemModel
+    ) {
+        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(), goodReview, badReview)
         orderItemModel.is_driver_rated = "1"
         CommonUtils.savePrefs(context, PrefConstants.ORDER_TO_RATE, Gson().toJson(orderItemModel))
     }
@@ -812,19 +815,22 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         }
     }
 
-    private fun updateTimer(minutes: Int) {
+    private fun updateTimer(seconds: Int) {
         tv_est_delivery.visibility = VISIBLE
-        tv_mins.visibility = VISIBLE
-        tv_est_delivery.text = minutes.toString()
-        object : CountDownTimer((minutes * 60000).toLong(), 1000) {
+        tv_mins.visibility = GONE
+//        tv_est_delivery.text = minutes.toString()
+        object : CountDownTimer((seconds * 1000).toLong(), 1000) {
             override fun onFinish() {
             }
 
             override fun onTick(millisUntilFinished: Long) {
-                tv_est_delivery.text = (millisUntilFinished / 60000).toString()
+
+                val p1 = (millisUntilFinished / 1000) % 60
+                var p2 = (millisUntilFinished / 1000) / 60
+                val p3 = p2 % 60
+                p2 = p2 / 60
+                tv_est_delivery.text = "$p2:$p3:$p1"
             }
-        }
+        }.start()
     }
-
-
 }

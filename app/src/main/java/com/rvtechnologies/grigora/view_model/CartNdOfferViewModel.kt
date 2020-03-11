@@ -218,4 +218,24 @@ class CartNdOfferViewModel : ViewModel() {
 
     }
 
+    fun updateType(restaurantId: String, type: String, token: String) {
+        ApiRepo.getInstance()
+            .changeOrderType(
+                token = token,
+                restaurant_id = restaurantId,
+                cart_type = type
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+//                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+//                    addCartRes.value = result
+                }
+            }
+
+    }
+
+
+
 }

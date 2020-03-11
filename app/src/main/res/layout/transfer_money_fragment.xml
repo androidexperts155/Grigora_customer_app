@@ -357,15 +357,14 @@
                                 style="@style/titleText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/transfered" />
+                                android:text="@string/outgoing" />
                             
                             
                             <com.google.android.material.tabs.TabItem
-                                
                                 style="@style/mediumText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="@string/received" />
+                                android:text="@string/incoming" />
                         
                         
                         </com.google.android.material.tabs.TabLayout>

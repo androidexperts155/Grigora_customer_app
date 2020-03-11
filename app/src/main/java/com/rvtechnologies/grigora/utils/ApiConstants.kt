@@ -27,7 +27,6 @@ object ApiConstants {
 
     const val GET_ORDER_DETAILS_URL = "order-details"
 
-
     const val PROFILE_DETAILS_URL = "get-userinfo"
 
     const val ADD_ITEM_URL = "add-cart"
@@ -59,6 +58,7 @@ object ApiConstants {
     const val UPDATE_FIREABSE_TOKEN = "update-user-token"
     const val CANCEL_ORDER = "cancel-order"
     const val COMPLETE_PICKUP_ORDER = "complete-pickup-order"
+    const val TABLE_BOOKING_LIST = "table-booking-list"
     const val LOGOUT = "logout"
     const val CONTACT_US = "contact-us"
     const val SEARCH_USER = "search-customer"
@@ -80,6 +80,7 @@ object ApiConstants {
     const val ADD_IN_GROUP_CART = "add-in-group-cart"
     const val SHOW_ALL_FILTER_DATA = "show-all-filter-data"
     const val RE_ORDER = "re-order"
+    const val DELETE_NOTIFICATION = "delete-notification"
     const val FAQ = "faqs"
     const val TRENDING_MEALS = "trending-items"
 }

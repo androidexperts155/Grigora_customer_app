@@ -33,6 +33,19 @@ class RestaurantItemAdapter(
             holder.itemView.bt_add.visibility = View.VISIBLE
         }
 
+        when (resModel.pureVeg) {
+            "1" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.veg)
+            }
+            "2" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.containes_egg)
+            }
+            "0" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.non_veg)
+            }
+        }
+
+
         holder.itemView.tv_price.text="₦ "+resModel.price.toString()
         holder.itemView.rating.rating=resModel.avgRatings.toFloat()
         holder.itemView.tv_plus.setOnClickListener {

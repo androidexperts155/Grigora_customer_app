@@ -75,6 +75,9 @@ data class OrderItemModel(
     var preparingEndTime: String = "",
     @SerializedName("preparing_time")
     var preparingTime: String = "",
+
+
+
     @SerializedName("price_after_promo")
     var priceAfterPromo: String = "",
     @SerializedName("price_before_promo")

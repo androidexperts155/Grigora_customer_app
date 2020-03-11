@@ -10,6 +10,7 @@ import com.rvtechnologies.grigora.model.ApiRepo
  import com.rvtechnologies.grigora.model.models.CommonResponseModel
 
 class NotificationsViewModel : ViewModel() {
+
     var notificationsRes = MutableLiveData<Any>()
     var isLoading = MutableLiveData<Boolean>()
 
@@ -30,5 +31,24 @@ class NotificationsViewModel : ViewModel() {
                 }
             }
     }
+
+    fun deleteNotification(token: String,id:String) {
+        isLoading.value = true
+
+        ApiRepo.getInstance()
+            .deleteNotification(
+                token = token,notificationId = id
+            ) { success, result ->
+                isLoading.value = false
+//                if (success) {
+//                    val type = object : TypeToken<CommonResponseModel<ArrayList<NotificationsModel>>>() {}.type
+//                    notificationsRes.value = Gson().fromJson(result as JsonElement, type)
+//                } else {
+//                    notificationsRes.value = result
+//                }
+            }
+    }
+
+
 
 }

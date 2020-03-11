@@ -23,6 +23,7 @@ object AppConstants {
     const val RESTAURANT_ID = "restaurant_id"
     const val RESTAURANT_SEATES = "seats"
 
+    const val FROM_RESTAURANT_DETAIL = "from_restaurant_detail"
     const val RESTAURANT_ALWAYS_OPEN = "always_open"
     const val FROM_PICKUP = "from_pickup"
     const val RESTAURANT_OPENING_TIME = "opening_time"

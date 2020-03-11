@@ -78,10 +78,12 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     li_not_delivering.visibility = View.GONE
 
                     var temp = ArrayList<NewDashboardModel.CustomizedData>()
-                    if (newDashboardModel.notifications)
+                    if (newDashboardModel.notifications) {
                         (activity as MainActivity).setRightIcon(R.drawable.ic_have_notification)
-                    else
+                    } else {
                         (activity as MainActivity).setRightIcon(R.drawable.ic_no_notification)
+                        (activity as MainActivity).img_right.visibility == View.GONE
+                    }
 
                     handleCart()
                     for (i in newDashboardModel.customizedData) {
@@ -94,7 +96,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
                     dashbordadapter = DashboardAdapter(newDashboardModel, this)
                     rc_dashboard.adapter = dashbordadapter
-
                 }
 
             } else {
@@ -210,18 +211,15 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                else
 //                    applyFilter("filter_id", "0")
             }
-        }
-        else if (item is NewDashboardModel.Promo) {
+        } else if (item is NewDashboardModel.Promo) {
 
-        }
-        else if (item is NewDashboardModel.Cuisine) {
+        } else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
                 applyCuisineFilter("cuisine_id", item.id.toString())
             else
                 applyCuisineFilter("cuisine_id", "0")
 
-        }
-        else if (item is NewDashboardModel.CustomizedData.Restaurant) {
+        } else if (item is NewDashboardModel.CustomizedData.Restaurant) {
 
             when (item.uiTpe) {
                 "1" -> {
@@ -285,8 +283,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                CUISINES
 //            else
 //                TOP_BRANDS
-        }
-        else if (item is NewDashboardModel.AllRestautants) {
+        } else if (item is NewDashboardModel.AllRestautants) {
             val bundle = bundleOf(
                 AppConstants.RESTAURANT_ID to item.id,
                 AppConstants.RESTAURANT_PICKUP to item.pickup,
@@ -301,8 +298,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     R.id.action_dashBoardFragment_fragment_to_restaurantDetailsParent,
                     bundle
                 )
-        }
-        else if (item is SelectedRating) {
+        } else if (item is SelectedRating) {
             if (item.applyRating) {
                 if (item.oldRating != item.newRating) {
 //                    if (!item.filter.selected)

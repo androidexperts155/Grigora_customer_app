@@ -12,6 +12,7 @@
     
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
+     
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/_8sdp">
         
@@ -39,15 +40,16 @@
                 app:siBorderWidth="0dp"
                 app:siRadius="@dimen/_8sdp" />
             
-            <View
-                
-                android:layout_width="@dimen/_10sdp"
-                android:layout_height="@dimen/_10sdp"
+            <ImageView
+                android:id="@+id/img_type"
+                android:layout_width="@dimen/_8sdp"
+                android:layout_height="@dimen/_8sdp"
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_gravity="right"
                 android:layout_margin="@dimen/_6sdp"
-                android:background="@drawable/veg" />
+                android:src="@drawable/veg"
+                 />
         
         </RelativeLayout>
         
@@ -70,7 +72,7 @@
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:text="@{itemDetail.name}"
                 android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_10sdp" />
+                android:textSize="@dimen/_11sdp" />
             
             <TextView
                 style="@style/normalText"
@@ -79,13 +81,12 @@
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_2sdp"
                 android:text="@{itemDetail.cuisineName}"
-                android:textColor="?attr/searchHint"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_10sdp" />
             
             <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                
                 android:layout_marginLeft="@dimen/_4sdp"
                 android:layout_marginTop="@dimen/_2sdp">
                 

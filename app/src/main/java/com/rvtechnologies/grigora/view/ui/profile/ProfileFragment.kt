@@ -15,6 +15,8 @@ import androidx.navigation.findNavController
 import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileFragmentBinding
+import com.rvtechnologies.grigora.model.WalletHistoryModel
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.LogoutModel
 import com.rvtechnologies.grigora.utils.ApiConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -27,11 +29,13 @@ import com.rvtechnologies.grigorahq.network.ConnectionNetwork
 import com.rvtechnologies.grigorahq.network.EventBroadcaster
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
-import kotlinx.android.synthetic.main.fragment_contact.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 
 class ProfileFragment : Fragment() {
     private lateinit var viewModel: ProfileViewModel
+
+    lateinit var historyModel: WalletHistoryModel
+    var amount = ""
 
 
     companion object {
@@ -42,9 +46,27 @@ class ProfileFragment : Fragment() {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ProfileViewModel::class.java)
 
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            if (isLoading) {
+                CommonUtils.showLoader(context, getString(R.string.loading))
+            } else {
+                CommonUtils.hideLoader()
+            }
+        })
+
+
         viewModel.logoutRes.observe(this, Observer {
             CommonUtils.delPrefValue(context!!)
             view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_socialLogin)
+        })
+
+        viewModel.historyResponse.observe(this, Observer { historyRes ->
+            if (historyRes is CommonResponseModel<*>) {
+                historyModel = historyRes.data as WalletHistoryModel
+                tv_wallet.text = "₦ ${historyModel.wallet}"
+            } else {
+                CommonUtils.showMessage(parentView, historyRes.toString())
+            }
         })
     }
 
@@ -71,8 +93,7 @@ class ProfileFragment : Fragment() {
             (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).showBottomNavigation(4)
         }
-
-
+        viewModel.getHistory(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
 
     }
 
@@ -118,6 +139,11 @@ class ProfileFragment : Fragment() {
     fun toProfileDetails() {
         view?.findNavController()
             ?.navigate(R.id.action_navigationMyAccounts_to_profileDetailsFragment)
+    }
+
+    fun toTableBooking() {
+        view?.findNavController()
+            ?.navigate(R.id.action_navigationMyAccounts_to_tableBookingHistory)
     }
 
     fun toAboutUs() {

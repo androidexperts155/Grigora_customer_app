@@ -28,7 +28,6 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
-import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.CartFragmentBinding
 import com.rvtechnologies.grigora.model.models.*
@@ -41,18 +40,8 @@ import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
 import com.rvtechnologies.grigora.view_model.CartSharedViewModel
-import io.branch.indexing.BranchUniversalObject
-import io.branch.referral.Branch
-import io.branch.referral.BranchError
-import io.branch.referral.SharingHelper
-import io.branch.referral.util.ContentMetadata
-import io.branch.referral.util.LinkProperties
-import io.branch.referral.util.ShareSheetStyle
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.cart_fragment.*
-import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
@@ -63,6 +52,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     var discount: String = ""
     var restId: String = ""
     var cart_type = "1"
+    var restaurantId = ""
     lateinit var cartDataModel: CartDataModel
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
@@ -99,10 +89,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         viewModel = ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
         cartSharedViewModel =
             activity!!.let { ViewModelProviders.of(it).get(CartSharedViewModel::class.java) }
-//        if (viewModel == null)
-//            viewModel = activity?.run {
-//                ViewModelProviders.of(this).get(CartNdOfferViewModel::class.java)
-//            } ?: throw Exception("Invalid Activity")
 
         viewModel?.token?.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         viewModel?.deliveryAddress?.value = CommonUtils.getPrefValue(context, PrefConstants.ADDRESS)
@@ -114,6 +100,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
+                    restaurantId=cartDataModel.restaurantId!!
                     handleTime()
                     cart_type = cartDataModel.cart_type.toString()
                     restId = cartDataModel.restaurantId.toString()
@@ -309,6 +296,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         rv_people_also_ordered.adapter = AlsoOrderedCartAdapter(addMoreList, this, this, -1)
 
+        if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
+            button5.text = getString(R.string.schedule_order)
+        }
+
+
     }
 
     override fun onResume() {
@@ -408,13 +400,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     fun paymentOptionsDialog() {
         placeClicked = true
-        if (viewModel!!.paymentMode.value.toString().equals("1") || viewModel!!.paymentMode.value.toString().equals(
+        if (viewModel!!.paymentMode.value.toString()
+                .equals("1") || viewModel!!.paymentMode.value.toString().equals(
                 "3"
             )
         ) {
-            if (!cartSharedViewModel.isScheduledOrder.value!!) {
-                viewModel!!.placeOrderNow(cart_type)
-            } else {
+            if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
                 var time = CommonUtils.localToUtc(
                     cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
                     "yyyy-MM-dd HH:mm:ss"
@@ -424,6 +415,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                     time,
                     cartSharedViewModel.scheduleNote.value!!
                 )
+            } else {
+                viewModel!!.placeOrderNow(cart_type)
             }
         } else {
             startActivityForResult(
@@ -461,10 +454,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (result != null) {
                 viewModel?.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
-                if (!cartSharedViewModel.isScheduledOrder.value!!)
-                    viewModel?.placeOrderNow(cart_type)
-                else {
-
+                if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
                     var time = CommonUtils.localToUtc(
                         cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
                         "yyyy-MM-dd HH:mm:ss"
@@ -476,6 +466,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                         time,
                         cartSharedViewModel.scheduleNote.value!!
                     )
+                } else {
+                    viewModel?.placeOrderNow(cart_type)
+
+
                 }
             }
         } else if (resultCode == RESULT_CANCELED) {
@@ -618,6 +612,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         var bundle = bundleOf(
             AppConstants.RESTAURANT_OPENING_TIME to cartDataModel.openingTime,
             AppConstants.RESTAURANT_CLOSING_TIME to cartDataModel.closingTime,
+            AppConstants.FROM_RESTAURANT_DETAIL to false,
             AppConstants.RESTAURANT_ALWAYS_OPEN to cartDataModel.fullTime
         )
 
@@ -629,7 +624,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun handleScheduleViewModel() {
-        cartSharedViewModel.isScheduledOrder.value = false
+//        cartSharedViewModel.isScheduledOrder.value = false
         cartSharedViewModel.isScheduledOrder.observe(this, Observer { it ->
             if (it) {
                 button5.text = getString(R.string.schedule_order)
@@ -638,7 +633,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun handleTime() {
-        if ( cartDataModel.fullTime == "0" ) {
+        if (cartDataModel.fullTime == "0") {
             if (!CommonUtils.isRestaurantOpen(
                     cartDataModel.openingTime!!,
                     cartDataModel.closingTime!!
@@ -661,5 +656,46 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             var scheduleOrderAlert = ScheduleAlert(this)
             scheduleOrderAlert.show(childFragmentManager, "")
         }
+    }
+
+    private fun manageSwitch() {
+        tv_delivery.setOnClickListener {
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+
+            tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+                 viewModel?.updateType(
+                    restaurantId,
+                    "1",
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+                )
+
+        }
+
+        tv_pickup.setOnClickListener {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
+
+            tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+
+            if (CommonUtils.isDarkMode()) {
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+
+                 viewModel?.updateType(
+                    restaurantId,
+                    "2",
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+                )
+
+        }
+
     }
 }

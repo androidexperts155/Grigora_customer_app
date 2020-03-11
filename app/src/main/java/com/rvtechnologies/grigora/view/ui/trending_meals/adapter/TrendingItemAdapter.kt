@@ -33,7 +33,7 @@ class TrendingItemAdapter(
         }
 
         holder.itemView.tv_price.text = "₦ " + resModel.price.toString()
-        holder.itemView.rating.rating = resModel.avgRatings.toFloat()
+        holder.itemView.rating.rating = resModel.avgRatings
         holder.itemView.tv_plus.setOnClickListener {
             quantityClicks.add(0, position)
         }
@@ -44,6 +44,18 @@ class TrendingItemAdapter(
 
         holder.itemView.bt_add.setOnClickListener {
             quantityClicks.add(0, position)
+        }
+
+        when (resModel.pureVeg) {
+            "1" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.veg)
+            }
+            "2" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.containes_egg)
+            }
+            "0" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.non_veg)
+            }
         }
 
         holder.bind(resModel, listener)

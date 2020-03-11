@@ -111,11 +111,19 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
 
         viewModel.addCartRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-                var data = response.data as AddCartModel
-                cartId = data.cartId.toString()
-                if (data.quantity > 0)
-                    AppConstants.CART_COUNT = data.quantity
-                (activity as MainActivity).updateCartButton()
+                if (response.status!!) {
+                    var data = response.data as AddCartModel
+                    cartId = data.cartId.toString()
+                    if (data.quantity > 0)
+                        AppConstants.CART_COUNT = data.quantity
+
+                    viewModel.trendingMeals()
+                    (activity as MainActivity).updateCartButton()
+                } else {
+                    CommonUtils.showMessage(parent, response.message!!)
+                }
+            } else {
+                CommonUtils.showMessage(parent, response.toString())
             }
         })
     }
@@ -143,17 +151,17 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
     }
 
     private fun showItems(model: MenuItemModel) {
-        menuItemModel=model
+        menuItemModel = model
         viewModel.getCartItems(viewModel.token.value!!, model.id.toString())
     }
 
     override fun onItemClick(item: Any) {
         if (item is MenuItemModel) {
-            if (item.itemCategories!!.isNotEmpty()) {
-                menuItemModel = item
-                val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
-                moveToDetail(bundle)
-            }
+//            if (item.itemCategories!!.isNotEmpty()) {
+            menuItemModel = item
+            val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
+            moveToDetail(bundle)
+//            }
         }
     }
 
@@ -172,8 +180,8 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
             }
         } else {
 //                don't have add ons, simply add
-            trendingModel.trending[position2].item_count_in_cart =
-                trendingModel.trending[position2].item_count_in_cart!! + 1
+//            trendingModel.trending[position2].item_count_in_cart =
+//                trendingModel.trending[position2].item_count_in_cart!! + 1
 
             viewModel.addItemToCart(
                 trendingModel.trending[position2].restaurantId.toString()!!,
@@ -202,14 +210,14 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
             }
         } else {
 //                don't have add ons, simply add
-            trendingModel.trending[position2].item_count_in_cart =
-                trendingModel.trending[position2].item_count_in_cart!! - 1
+//            trendingModel.trending[position2].item_count_in_cart =
+//                trendingModel.trending[position2].item_count_in_cart!! - 1
 
             viewModel.addItemToCart(
                 trendingModel.trending[position2].restaurantId.toString()!!,
                 trendingModel.trending[position2].id.toString(),
                 trendingModel.trending[position2].price.toString(),
-                "1"
+                "-1"
             )
 
             rc_trending.adapter?.notifyDataSetChanged()
@@ -223,7 +231,8 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
             cartItemList[position].id!!,
             cartItemList[position].cartId!!,
             "1"
-        )    }
+        )
+    }
 
     override fun dialogMinus(position: Int) {
 //        hit sub api
@@ -232,7 +241,8 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
             cartItemList[position].id!!,
             cartItemList[position].cartId!!,
             "-1"
-        )    }
+        )
+    }
 
     fun moveToDetail(bundle: Bundle) {
         view?.findNavController()

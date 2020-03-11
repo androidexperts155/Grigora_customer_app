@@ -157,6 +157,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
+                        android:clickable="true"
+                        android:onClick="@{()->restaurantDetailsView.reviewClick()}"
                         android:orientation="horizontal"
                         android:weightSum="2">
                         
@@ -246,43 +248,71 @@
                 </RelativeLayout>
                 
                 
-                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="?attr/viewbg" />
                 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:orientation="horizontal">
+                <RelativeLayout
+                    android:paddingLeft="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_8sdp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
                     
-                    <TextView
-                        android:id="@+id/tv_delivery"
-                        style="@style/normalText"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:background="@drawable/delivery_sel"
-                        android:gravity="center"
-                        android:text="@string/Delivery"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:textSize="@dimen/_12sdp" />
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal">
+                        
+                        <TextView
+                            android:id="@+id/tv_delivery"
+                            style="@style/normalText"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/delivery_sel"
+                            android:gravity="center"
+                            android:text="@string/Delivery"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_12sdp" />
+                        
+                        
+                        <TextView
+                            android:id="@+id/tv_pickup"
+                            style="@style/normalText"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/pickup_de_sel"
+                            android:gravity="center"
+                            android:text="@string/pickup"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_12sdp" />
+                    
+                    </LinearLayout>
                     
                     
-                    <TextView
-                        android:id="@+id/tv_pickup"
-                        style="@style/normalText"
-                        android:layout_width="@dimen/_100sdp"
-                        android:layout_height="@dimen/_30sdp"
-                        android:background="@drawable/pickup_de_sel"
-                        android:gravity="center"
-                        android:text="@string/pickup"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_12sdp" />
+                  
+                        
+                        <TextView
+                            android:background="@drawable/chip_deselected_bg"
+                            android:clickable="true"
+                            android:gravity="center"
+                            android:onClick="@{()->restaurantDetailsView.scheduleOrder()}"
+                            android:layout_alignParentRight="true"
+                            android:layout_width="@dimen/_70sdp"
+                            android:layout_centerVertical="true"
+                            android:layout_height="@dimen/_30sdp"
+                            style="@style/mediumText"
+                            android:textSize="@dimen/_11sdp"
+                            android:text="@string/schedule"
+                            android:textColor="?attr/textWhite" />
+                 
+                </RelativeLayout>
                 
-                </LinearLayout>
                 
                 <RelativeLayout
                     android:layout_width="wrap_content"
