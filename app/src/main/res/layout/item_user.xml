@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:background="?attr/backgroundColor"
+    android:padding="@dimen/_8sdp">
+    
+    <com.github.siyamed.shapeimageview.CircularImageView
+        android:id="@+id/img_user"
+        android:layout_width="@dimen/_50sdp"
+        android:layout_height="@dimen/_50sdp"
+        android:layout_alignParentLeft="true"
+        android:src="@drawable/restaurant" />
+    
+    <TextView
+        android:id="@+id/tv_name"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_toRightOf="@+id/img_user"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp"
+        tools:text="John doe" />
+    
+    <TextView
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_name"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_toRightOf="@+id/img_user"
+        android:textColor="?attr/searchHint"
+        android:textSize="@dimen/_10sdp"
+        tools:text="john.doe@gmail.com" />
+</RelativeLayout>

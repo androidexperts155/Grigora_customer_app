@@ -12,11 +12,11 @@
         app:cardBackgroundColor="?attr/chipDeSelected">
         
         <LinearLayout
-            android:padding="@dimen/_6sdp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:padding="@dimen/_6sdp"
             android:weightSum="3">
             
             <com.github.siyamed.shapeimageview.RoundedImageView

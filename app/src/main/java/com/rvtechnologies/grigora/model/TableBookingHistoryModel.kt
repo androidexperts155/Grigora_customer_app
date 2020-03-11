@@ -1,7 +1,7 @@
 package com.rvtechnologies.grigora.model
 
 data class TableBookingHistoryModel(
-    val booking_status: String,
+    val booking_status: Int,
     val cancel_reason: Any,
     val created_at: String,
     val customer_french_name: String,

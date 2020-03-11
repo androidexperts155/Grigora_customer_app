@@ -11,6 +11,7 @@ import android.widget.TextView
 import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import com.facebook.common.Common
+import com.google.android.material.tabs.TabLayout
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.TableBookingHistoryModel
@@ -27,15 +28,23 @@ class TableBookingHistory : Fragment() {
         fun newInstance() = TableBookingHistory()
     }
 
+    private var history = ArrayList<TableBookingHistoryModel>()
     private lateinit var viewModel: TableBookingHistoryViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(TableBookingHistoryViewModel::class.java)
-
+        viewModel?.isLoading?.observe(this,
+            Observer { response ->
+                if (response) {
+                    CommonUtils.showLoader(activity!!, getString(R.string.loading))
+                } else {
+                    CommonUtils.hideLoader()
+                }
+            })
         viewModel.tableBookingList.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
-                var history = res.data as ArrayList<TableBookingHistoryModel>
+                history = res.data as ArrayList<TableBookingHistoryModel>
                 rec_history.adapter = BookingAdapter(history)
             } else {
                 CommonUtils.showMessage(parent, res.toString())
@@ -68,9 +77,63 @@ class TableBookingHistory : Fragment() {
                     tv.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
             }
             tab_top.getTabAt(i)?.customView = tv
-
         }
+        tabListener()
+    }
 
+    fun tabListener() {
+        tab_top.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+                var view: View? = p0!!.customView
+
+                view as TextView
+
+                if (CommonUtils.isDarkMode())
+                    view.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                else
+                    view.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                var view: View? = p0!!.customView
+                view as TextView
+                view.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+
+                when {
+                    p0!!.text.toString() == getString(R.string.all) -> {
+                        filterList(0)
+                    }
+                    p0!!.text.toString() == getString(R.string.approved) -> {
+                        filterList(2)
+                    }
+                    p0!!.text.toString() == getString(R.string.pending) -> {
+                        filterList(1)
+
+
+                    }
+                }
+            }
+        })
+    }
+
+    fun filterList(status: Int) {
+        var temp = ArrayList<TableBookingHistoryModel>()
+
+        if (status == 0)
+            temp.addAll(history)
+        else
+            for (item in history)
+                if (item.booking_status == status)
+                    temp.add(item)
+
+
+
+        rec_history.adapter = BookingAdapter(temp)
     }
 
     override fun onResume() {

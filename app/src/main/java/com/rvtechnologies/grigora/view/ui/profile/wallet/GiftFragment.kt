@@ -10,41 +10,40 @@ import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view_model.BuyOrRedeemViewModel
-import kotlinx.android.synthetic.main.buy_or_redeem_fragment.*
+import com.rvtechnologies.grigora.view_model.GiftViewModel
+import kotlinx.android.synthetic.main.choose_user_fragment.*
 
-class BuyOrRedeem : Fragment() {
+class GiftFragment : Fragment() {
 
     companion object {
-        fun newInstance() = BuyOrRedeem()
+        fun newInstance() = GiftFragment()
     }
 
-    private lateinit var viewModel: BuyOrRedeemViewModel
+    private lateinit var viewModel: GiftViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        viewModel = ViewModelProviders.of(this).get(BuyOrRedeemViewModel::class.java)
+        viewModel = ViewModelProviders.of(this).get(GiftViewModel::class.java)
     }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.buy_or_redeem_fragment, container, false)
+        return inflater.inflate(R.layout.gift_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        bt_buy.setOnClickListener {
-            view?.findNavController()?.navigate(R.id.action_buyOrRedeem_to_giftFragment)
+        rel_user.setOnClickListener {
+            view?.findNavController()?.navigate(R.id.action_giftFragment_to_chooseUserFragment)
         }
     }
 
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-        (activity as MainActivity).lockDrawer(true)
-        (activity as MainActivity).backTitle("")
+        (activity as MainActivity).backTitle(getString(R.string.grigora_gift_card))
     }
 
 

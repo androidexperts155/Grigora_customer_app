@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="?attr/backgroundColor"
+    
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".view.ui.profile.wallet.GiftFragment">
+    
+    <ImageView
+        android:layout_width="@dimen/_150sdp"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="@dimen/_16sdp"
+        android:src="@drawable/gift" />
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:text="@string/add_points_info"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:elevation="@dimen/_1sdp"
+        app:cardBackgroundColor="?attr/chipDeSelected">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp">
+            
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/bt_transfer"
+                android:orientation="vertical">
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="John Doe"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_11sdp"
+                    tools:text="John Doe" />
+                
+                <TextView
+                    style="@style/normalText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="doe.JOh.@gmail.com"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="doe.JOh.@gmail.com" />
+            </LinearLayout>
+            
+            
+            <ImageView
+                android:id="@+id/bt_transfer"
+                android:layout_width="@dimen/_28sdp"
+                android:layout_height="@dimen/_28sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="right"
+                android:clickable="true"
+                android:foreground="@drawable/selectable_item_background"
+                android:padding="@dimen/_4sdp"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_search" />
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    
+    <androidx.cardview.widget.CardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/_16sdp"
+        android:elevation="@dimen/_1sdp"
+        app:cardBackgroundColor="?attr/chipDeSelected">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            
+            android:layout_height="wrap_content"
+            android:padding="@dimen/_8sdp">
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:minHeight="@dimen/_28sdp"
+                android:text="₦ 500"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+        
+        </RelativeLayout>
+    </androidx.cardview.widget.CardView>
+    
+    <TextView
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/_16sdp"
+        android:text="Naira Five Hundred Only"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_10sdp"
+        tools:text="doe.JOh.@gmail.com" />
+    
+    <Button
+        android:id="@+id/bt_add_new"
+        style="@style/normalText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="@dimen/_32sdp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded"
+         android:elevation="1dp"
+        android:paddingLeft="@dimen/_22sdp"
+        android:paddingRight="@dimen/_22sdp"
+        android:text="@string/proceed_preview_card"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+   
+
+
+</LinearLayout>

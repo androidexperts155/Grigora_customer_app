@@ -671,6 +671,12 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
+        <action
+            android:id="@+id/searchRestaurants_fragment_to_commonViewAll"
+            app:destination="@id/commonViewAll"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
     </fragment>
     <fragment
         android:id="@+id/restaurantDetailGroup"
@@ -815,7 +821,15 @@
     <fragment
         android:id="@+id/buyOrRedeem"
         android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.BuyOrRedeem"
-        android:label="Buy Or Redeem"></fragment>
+        android:label="Buy Or Redeem">
+        <action
+            android:id="@+id/action_buyOrRedeem_to_giftFragment"
+            app:destination="@id/giftFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+
+    </fragment>
     
     <fragment
         android:id="@+id/navigationTrendingMeals"
@@ -835,6 +849,24 @@
         android:id="@+id/tableBookingHistory"
         android:name="com.rvtechnologies.grigora.view.ui.table_booking.TableBookingHistory"
         android:label="Table Booking History">
+    </fragment>
+    
+    <fragment
+        android:id="@+id/giftFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.GiftFragment"
+        android:label="Gift Fragment">
+        <action
+            android:id="@+id/action_giftFragment_to_chooseUserFragment"
+            app:destination="@id/chooseUserFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+    </fragment>
+    
+    <fragment
+        android:id="@+id/chooseUserFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.ChooseUserFragment"
+        android:label="Choose User">
     </fragment>
 
 </navigation>

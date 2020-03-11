@@ -4,8 +4,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginLeft="@dimen/_8sdp"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:layout_marginRight="@dimen/_8sdp"
     android:layout_marginBottom="@dimen/_8sdp"
-     app:cardBackgroundColor="@color/transparent">
+    android:elevation="@dimen/_10sdp"
+    app:cardBackgroundColor="?attr/chipDeSelected"
+    app:cardElevation="@dimen/_10sdp">
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -40,8 +45,11 @@
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/ic_hourglass"
+                android:drawablePadding="@dimen/_4sdp"
                 android:gravity="center_vertical"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_10sdp"
@@ -73,14 +81,15 @@
                 android:maxLines="2"
                 android:textColor="?attr/searchHint"
                 android:textSize="@dimen/_10sdp"
+                android:visibility="gone"
                 tools:text="@tools:sample/lorem/random" />
             
             <TextView
                 android:id="@+id/tv_people"
-                style="@style/titleText"
+                style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
                 android:gravity="center_vertical"
                 android:textColor="?attr/textWhite"
@@ -100,11 +109,13 @@
             android:orientation="horizontal">
             
             <TextView
+                android:drawableLeft="@drawable/ic_calendar"
                 android:id="@+id/tv_date"
                 style="@style/normalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:drawablePadding="@dimen/_4sdp"
                 android:layout_marginRight="@dimen/_4sdp"
                 android:layout_toLeftOf="@+id/tv_time"
                 android:ellipsize="end"
@@ -119,8 +130,11 @@
                 style="@style/normalText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
+                android:drawableLeft="@drawable/ic_hour"
+                android:drawablePadding="@dimen/_4sdp"
                 android:gravity="center_vertical"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp"

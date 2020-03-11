@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:elevation="@dimen/_1sdp"
+    app:cardBackgroundColor="?attr/chipDeSelected"
+    app:cardCornerRadius="@dimen/_4sdp">
+    
+    <RelativeLayout
+        android:layout_width="match_parent"
+        
+        android:layout_height="match_parent"
+        android:padding="@dimen/_12sdp">
+        
+        <TextView
+            android:id="@+id/tv_code"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:background="@drawable/dashed_code_bg"
+            android:gravity="center"
+            android:minWidth="@dimen/_60sdp"
+            android:padding="@dimen/_4sdp"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            tools:text="C1234" />
+        
+        
+        <TextView
+            android:id="@+id/tv_info"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_toRightOf="@+id/tv_code"
+            android:gravity="center"
+            android:minWidth="@dimen/_60sdp"
+            android:padding="@dimen/_4sdp"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp"
+            tools:text="100 Gift Voucher" />
+    
+    
+        <TextView
+            android:id="@+id/tv_copy"
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+              android:gravity="center"
+            android:minWidth="@dimen/_60sdp"
+            android:padding="@dimen/_4sdp"
+            android:textColor="@color/colorPrimaryDark"
+            android:text="@string/copy"
+            android:textSize="@dimen/_10sdp"
+            />
+        
+        
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

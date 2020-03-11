@@ -3,6 +3,7 @@ package com.rvtechnologies.grigora.model.models
 
 import com.google.gson.annotations.SerializedName
 import com.rvtechnologies.grigora.view.ui.dashboard.DashboardItemType
+import com.rvtechnologies.grigora.view.ui.search.SearchItem
 
 data class NewDashboardModel(
     @SerializedName("cuisines")
@@ -290,7 +291,7 @@ data class NewDashboardModel(
         var status: String = "",
         @SerializedName("total_rating")
         var totalRating: String = ""
-    ) : DashboardItemType
+    ) : DashboardItemType, SearchItem
 
     data class Image(
         @SerializedName("id")

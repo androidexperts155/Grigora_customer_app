@@ -17,8 +17,7 @@
     
     <com.google.android.material.tabs.TabLayout
         android:id="@+id/tab_top"
-        android:visibility="gone"
-        android:layout_width="match_parent"
+         android:layout_width="match_parent"
         android:layout_height="@dimen/_25sdp"
         android:layout_marginLeft="@dimen/_16sdp"
         android:layout_marginRight="@dimen/_16sdp"

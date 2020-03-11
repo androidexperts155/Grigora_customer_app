@@ -478,6 +478,15 @@
     <string name="pending">Pending</string>
     <string name="outgoing">Outgoing</string>
     <string name="incoming">Incoming</string>
+    <string name="your_gift_voucher">Your Gift Voucher</string>
+    <string name="table_for">Table for</string>
+    <string name="disapproved">DisApproved</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="grigora_gift_card">Grigora Gift card</string>
+    <string name="add_points_info">Add Points to your Friend or Family \nGrigora Gora Pouch</string>
+    <string name="proceed_preview_card">Proceed To Preview Card</string>
+    <string name="search_nameoremail">Search by Name/Email Address</string>
+    <string name="gift_to">Gift To</string>
 
 
 </resources><!--₦-->

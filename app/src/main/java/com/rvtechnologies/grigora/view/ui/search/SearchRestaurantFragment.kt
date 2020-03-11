@@ -16,8 +16,11 @@ import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.SearchRestaurantFragmentBinding
+import com.rvtechnologies.grigora.model.DashboardSearchModel
 import com.rvtechnologies.grigora.model.PickupRestaurantsModel
+import com.rvtechnologies.grigora.model.SearchCuisineModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.CuisineModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -30,14 +33,14 @@ import com.rvtechnologies.grigora.view_model.SearchRestaurantViewModel
 import kotlinx.android.synthetic.main.search_restaurant_fragment.*
 
 class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
-    var filter = "1"
+    var filter = ""
 
     companion object {
         fun newInstance() = SearchRestaurantFragment()
     }
 
     private lateinit var viewModel: SearchRestaurantViewModel
-    private val restaurantList = ArrayList<NewDashboardModel.AllRestautants>()
+    private val restaurantList = ArrayList<SearchItem>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,11 +58,17 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
 
                     if (response.status!!) {
                         var model =
-                            response.data as PickupRestaurantsModel
+                            response.data as DashboardSearchModel
 
-                        restaurantList.addAll(model.mainInfo)
-                        rec_search.adapter = SearchRestaurantAdapter(restaurantList, this)
-                        rec_search.adapter?.notifyDataSetChanged()
+                        if (!model.mainInfo.cuisines.isNullOrEmpty()) {
+                            restaurantList.addAll(model.mainInfo.cuisines)
+                        }
+
+                        if (!model.mainInfo.restaurants.isNullOrEmpty()) {
+                            restaurantList.addAll(model.mainInfo.restaurants)
+                        }
+
+                         rec_search.adapter = SearchRestaurantAdapter(restaurantList, this)
                     }
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
@@ -73,13 +82,6 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
                     CommonUtils.hideLoader()
                 }
             })
-
-        viewModel?.getRestaurants(
-            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-            "",
-            filter
-        )
-
     }
 
     override fun onCreateView(
@@ -131,6 +133,24 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
             )
         )
         (activity as MainActivity).updateCartButton()
+
+        when {
+            filter.isNullOrEmpty() -> {
+                viewModel?.getRestaurants(
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    "",
+                    "1"
+                )
+            }
+            filter=="1" -> {
+                all()
+            }
+            filter=="2" -> {
+                restaurants()
+            }
+            filter=="3" -> cuisines()
+        }
+
 
     }
 
@@ -310,6 +330,17 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
 
             view?.findNavController()
                 ?.navigate(R.id.searchRestaurants_to_restaurant_detail, bundle)
+        }
+        else if(item is SearchCuisineModel){
+            val bundle = bundleOf(
+                AppConstants.FILTER_ID to "121",
+                AppConstants.CUISINE_ID to item.id.toString()
+            )
+
+            view?.findNavController()
+                ?.navigate(
+                    R.id.searchRestaurants_fragment_to_commonViewAll, bundle
+                )
         }
     }
 }
