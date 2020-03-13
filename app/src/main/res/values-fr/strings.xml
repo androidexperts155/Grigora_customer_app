@@ -8,30 +8,117 @@
     <string name="login">se connecter</string>
     <string name="sign_up">S\'inscrire</string>
     <string name="forgot_password">Mot de passe oublié?</string>
-    <string name="email_phone_number">Email / numéro de téléphone</string>
+    <string name="email_phone_number">E-mail / numéro de téléphone</string>
     <string name="password">Mot de passe</string>
     <string name="send">Envoyer</string>
-    <string name="please_enter_your_registered">Veuillez entrer votre email enregistré pour récupérer votre mot de passe par email</string>
-    <string name="delivery_location">Lieu de livraison des aliments</string>
-    <string name="use_my_current_location">Utiliser ma position actuelle</string>
-    <string name="select_area">Sélectionner une zone</string>
-    <string name="continueTxt">Continuer</string>
+    <string name="please_enter_your_registered">Veuillez saisir votre e-mail enregistré pour récupérer votre mot de passe par e-mail</string>
     
+    "Material is the metaphor.\n\n"
+    
+    "A material metaphor is the unifying theory of a rationalized space and a system of motion."
+    "The material is grounded in tactile reality, inspired by the study of paper and ink, yet "
+    "technologically advanced and open to imagination and magic.\n"
+    "Surfaces and edges of the material provide visual cues that are grounded in reality. The "
+    "use of familiar tactile attributes helps users quickly understand affordances. Yet the "
+    "flexibility of the material creates new affordances that supercede those in the physical "
+    "world, without breaking the rules of physics.\n"
+    "The fundamentals of light, surface, and movement are key to conveying how objects move, "
+    "interact, and exist in space and in relation to each other. Realistic lighting shows "
+    "seams, divides space, and indicates moving parts.\n\n"
+    
+    "Bold, graphic, intentional.\n\n"
+    
+    "The foundational elements of print based design typography, grids, space, scale, color, "
+    "and use of imagery guide visual treatments. These elements do far more than please the "
+    "eye. They create hierarchy, meaning, and focus. Deliberate color choices, edge to edge "
+    "imagery, large scale typography, and intentional white space create a bold and graphic "
+    "interface that immerse the user in the experience.\n"
+    "An emphasis on user actions makes core functionality immediately apparent and provides "
+    "waypoints for the user.\n\n"
+    
+    "Motion provides meaning.\n\n"
+    
+    "Motion respects and reinforces the user as the prime mover. Primary user actions are "
+    "inflection points that initiate motion, transforming the whole design.\n"
+    "All action takes place in a single environment. Objects are presented to the user without "
+    "breaking the continuity of experience even as they transform and reorganize.\n"
+    "Motion is meaningful and appropriate, serving to focus attention and maintain continuity. "
+    "Feedback is subtle yet clear. Transitions are efﬁcient yet coherent.\n\n"
+    
+    "3D world.\n\n"
+    
+    "The material environment is a 3D space, which means all objects have x, y, and z "
+    "dimensions. The z-axis is perpendicularly aligned to the plane of the display, with the "
+    "positive z-axis extending towards the viewer. Every sheet of material occupies a single "
+    "position along the z-axis and has a standard 1dp thickness.\n"
+    "On the web, the z-axis is used for layering and not for perspective. The 3D world is "
+    "emulated by manipulating the y-axis.\n\n"
+    
+    "Light and shadow.\n\n"
+    
+    "Within the material environment, virtual lights illuminate the scene. Key lights create "
+    "directional shadows, while ambient light creates soft shadows from all angles.\n"
+    "Shadows in the material environment are cast by these two light sources. In Android "
+    "development, shadows occur when light sources are blocked by sheets of material at "
+    "various positions along the z-axis. On the web, shadows are depicted by manipulating the "
+    "y-axis only. The following example shows the card with a height of 6dp.\n\n"
+    
+    "Resting elevation.\n\n"
+    
+    "All material objects, regardless of size, have a resting elevation, or default elevation "
+    "that does not change. If an object changes elevation, it should return to its resting "
+    "elevation as soon as possible.\n\n"
+    
+    "Component elevations.\n\n"
+    
+    "The resting elevation for a component type is consistent across apps (e.g., FAB elevation "
+    "does not vary from 6dp in one app to 16dp in another app).\n"
+    "Components may have different resting elevations across platforms, depending on the depth "
+    "of the environment (e.g., TV has a greater depth than mobile or desktop).\n\n"
+    
+    "Responsive elevation and dynamic elevation offsets.\n\n"
+    
+    "Some component types have responsive elevation, meaning they change elevation in response "
+    "to user input (e.g., normal, focused, and pressed) or system events. These elevation "
+    "changes are consistently implemented using dynamic elevation offsets.\n"
+    "Dynamic elevation offsets are the goal elevation that a component moves towards, relative "
+    "to the component’s resting state. They ensure that elevation changes are consistent "
+    "across actions and component types. For example, all components that lift on press have "
+    "the same elevation change relative to their resting elevation.\n"
+    "Once the input event is completed or cancelled, the component will return to its resting "
+    "elevation.\n\n"
+    
+    "Avoiding elevation interference.\n\n"
+    
+    "Components with responsive elevations may encounter other components as they move between "
+    "their resting elevations and dynamic elevation offsets. Because material cannot pass "
+    "through other material, components avoid interfering with one another any number of ways, "
+    "whether on a per component basis or using the entire app layout.\n"
+    "On a component level, components can move or be removed before they cause interference. "
+    "For example, a floating action button (FAB) can disappear or move off screen before a "
+    "user picks up a card, or it can move if a snackbar appears.\n"
+    "On the layout level, design your app layout to minimize opportunities for interference. "
+    "For example, position the FAB to one side of stream of a cards so the FAB won’t interfere "
+    "when a user tries to pick up one of cards.\n\n"
+    <string name="delivery_location">Lieu de livraison</string>
+    <string name="use_my_current_location">Utiliser ma position actuelle</string>
+    <string name="select_area">Sélectionnez une zone</string>
+    <string name="continueTxt">Continue</string>
     <string name="area">Zone</string>
     <string name="loading_getting_location">Obtenir l\'emplacement</string>
     <string name="deliver_to">Livrer à :</string>
     <string name="loading">Chargement</string>
     <string name="error_location">Veuillez sélectionner un lieu</string>
-    <string name="quick_order">Ordre rapide</string>
-    <string name="popular">Populaire</string>
+    <string name="error_location_type">Veuillez sélectionner le type d\'emplacement</string>
+    
     <string name="login_required">Connexion requise</string>
     <string name="to_continue_you_need_to_be_logged_in">Pour continuer, vous devez être connecté.</string>
-    <string name="login_signup_now">Connexion / Inscription maintenant</string>
+    <string name="login_signup_now">Connectez-vous / Inscrivez-vous maintenant</string>
     <string name="later">Plus tard</string>
     <string name="currency_sym">$</string>
     <string name="food_not_found">Nourriture non trouvée</string>
-    <string name="current_orders">Ordres en cours</string>
-    <string name="past_orders">Ordres passées</string>
+    <string name="current_orders">Commandes en cours</string>
+    <string name="past_orders">Commandes passées</string>
     <string name="status">Statut:</string>
     <string name="track">Piste</string>
     <string name="add_delivery_note">Ajouter un bon de livraison</string>
@@ -39,94 +126,373 @@
     <string name="payment_method">Sélectionnez le mode de paiement</string>
     <string name="delivery_address">Adresse de livraison</string>
     <string name="logout">Se déconnecter</string>
-    <string name="rate_now">Évaluer maintenant</string>
+    <string name="rate_now">Évaluez maintenant</string>
     <string name="submit">Soumettre</string>
-    <string name="driver_text">Comment était la livraison de nourriture de %s?</string>
-    <string name="restaurant_text">Comment était la nourriture %s?</string>
-    
-    <string name="add_comment">Ajouter un commentaire</string>
+    <string name="driver_text">Comment était la livraison de nourriture de %s \?</string>
+    <string name="restaurant_text">Comment était la nourriture de %s \?</string>
+    <string name="add_comment">Add comment</string>
     <string name="name">Nom</string>
     <string name="phone_number">Numéro de téléphone</string>
     <string name="confirm_password">Confirmez le mot de passe</string>
-    <string name="save">sauver</string>
-    <string name="settings">Paramètres</string>
+    <string name="save">sauvegarder</string>
+    <string name="settings">Réglages</string>
     <string name="about_us">À propos de nous</string>
-    <string name="contact_us">Contactez-nous</string>
+    <string name="contact_us">Nous contacter</string>
     <string name="change_password">Changer le mot de passe</string>
     <string name="change_language">Changer de langue</string>
-    <string name="notifications">Les notifications</string>
+    <string name="notifications">Notifications</string>
     <string name="old_password">ancien mot de passe</string>
     <string name="new_password">nouveau mot de passe</string>
     <string name="change">Changement</string>
+    
     <string name="reviews">Commentaires</string>
-    <string name="continuetxt">Continuez</string>
+    <string name="REVIEWS">COMMENTAIRES</string>
+    <string name="continuetxt">Continue</string>
+    <string name="french">français</string>
+    <string name="english">Anglais</string>
     <string name="home">Accueil</string>
     <string name="nearby">Proche</string>
     <string name="bag">Chariot</string>
     <string name="my_account">Mon compte</string>
     <string name="orders">Ordres</string>
-    <string name="paypal">Pay Pal</string>
     
+    
+    <string name="paypal">Pay Pal</string>
     <string name="credit_or_debit_card">Carte de crédit / débit</string>
     <string name="rating">Évaluation</string>
     <string name="all">Tout</string>
+    <string name="all_restaurants">Tous les restaurants</string>
     <string name="empty_bag">Sac vide</string>
-    <string name="place_order">Passer la ordre</string>
+    <string name="place_order">Place Order</string>
     <string name="setting_up">Mise en place</string>
     <string name="apply">Appliquer</string>
-    <string name="payment_mode">Détails paiement</string>
+    <string name="payment_mode">Détails de paiement</string>
     <string name="subtotal">Sous-total:</string>
     <string name="total">Total :</string>
     <string name="delivery_fee">Frais de livraison :</string>
     <string name="add">Ajouter</string>
     <string name="offers">Des offres</string>
-    <string name="order_id">Numéro de ordre</string>
-    <string name="description">La description</string>
+    <string name="order_id">Numéro de commande</string>
+    <string name="description">Description</string>
     <string name="or">Ou</string>
+    
+    <string name="select_type">Sélectionner le genre</string>
+    <string name="complaint">Plainte</string>
+    <string name="feedback">Retour d\'information</string>
+    <string name="Suggestions">Suggestions</string>
+    <string name="refund">Rembourser</string>
+    <string name="successfull">Succès</string>
+    <string name="sendtoadmin">Votre demande est envoyée avec succès à l\'administrateur</string>
+    <string name="ok">D\'accord</string>
+    <string name="min">min</string>
+    <string name="please_select_type">Veuillez sélectionner le type</string>
+    <string name="required">Champs obligatoires</string>
+    <string name="sending_request">Envoyer une requete</string>
+    <string name="went_wrong">Quelque chose a mal tourné</string>
+    <string name="oops_went_wrong">Oups. Quelque chose a mal tourné</string>
+    <string name="internetnotavailable">Internet non disponible</string>
     
     
     <string name="who_we_are">QUI NOUS SOMMES?</string>
-    <string name="who_we_are_detail">Grigora Limited a été créée en 2019 pour fournir des solutions rapides et fiables aux utilisateurs finaux utilisant la technologie. La société offre actuellement un service de livraison de nourriture aux restaurateurs et aux consommateurs de manière rapide et fiable à l\'aide de la technologie.</string>
-    <string name="our_vision">NOTRE VISION</string>
-    <string name="our_vision_detail">Être le principal fournisseur de solutions rapides et fiables utilisant la technologie</string>
+    <string name="who_we_are_detail">Grigora Limited a été créée en 2019 pour fournir des solutions rapides et fiables aux utilisateurs finaux utilisant la technologie. L\'entreprise offre actuellement un service de livraison de nourriture aux restaurateurs et aux consommateurs de manière rapide et fiable en utilisant la technologie.</string>
+    <string name="our_vision">OUR VISION</string>
+    <string name="our_vision_detail">Être le premier fournisseur de solutions rapides et fiables utilisant la technologie</string>
     <string name="our_value_proposition">NOTRE PROPOSITION DE VALEUR</string>
-    <string name="our_value_detail">Le modèle d’affaires sera basé sur la localisation, l’application mobile, la facilité de paiement, une large gamme de services et notre excellente culture de service à la clientèle compteront certainement comme un avantage concurrentiel pour Grigora Limited. Nous avons donc aussi une équipe qui peut faire tout ce qui est en son pouvoir pour donner à nos clients un bon rapport qualité-prix; une équipe formée et équipée pour prêter attention aux détails et fournir des services à temps et en toute sécurité</string>
-    <string name="promotion">Promotion:</string>
-    <string name="internetnotavailable">Internet non disponible</string>
-    <string name="went_wrong">Quelque chose a mal tourné</string>
-    <string name="sending_request">Envoyer une requete</string>
-    <string name="required">Champs obligatoires</string>
-    <string name="please_select_type">Veuillez sélectionner le type</string>
-    <string name="ok">Daccord</string>
-    <string name="sendtoadmin">Votre demande a bien été envoyée à ladministrateur</string>
-    <string name="successfull">Réussie</string>
-    <string name="refund">Rembourser</string>
-    <string name="Suggestions">Suggestions</string>
-    <string name="feedback">Retour d information</string>
-    <string name="complaint">Plainte</string>
-    <string name="english">Anglais</string>
-    <string name="french">Française</string>
-    <string name="select_type">Sélectionner le genre</string>
+    <string name="our_value_detail">Le modèle commercial reposera sur le suivi de la localisation, l\'application mobile, la facilité de paiement, une large gamme de services et notre excellente culture de service à la clientèle compteront certainement comme un avantage concurrentiel pour Grigora Limited. Nous avons donc aussi une équipe qui peut aller jusqu\'au bout pour donner à nos clients la valeur de leur argent; une équipe formée et équipée pour prêter attention aux détails et fournir des services à temps et en toute sécurité</string>
+    <string name="promotion">Promotion :</string>
     <string name="no_promo_selected">Aucune promo sélectionnée</string>
-    <string name="wallet">Mon portefeuille(₦ %s\)</string>
-    
-    
+    <string name="wallet">Mon portefeuille (₦ %s \)</string>
     <string name="transfr">Transfert</string>
     <string name="are_you_sure">Êtes-vous sûr?</string>
     
-    <string name="confirmation_message">Transfert ₦ %s\ à %s\ pour %s?</string>
-    <string name="confirmation_message1">Transfert ₦ %s\ à %s\?</string>
+    <string name="confirmation_message">Transférer ₦ %s \ vers %s \ pour %s?</string>
+    <string name="confirmation_message1">Transférer ₦ %s \ vers %s \?</string>
     <string name="enter_amount">Entrer le montant</string>
     <string name="pay">Payer</string>
-    <string name="op1">₦100</string>
-    <string name="op2">₦200</string>
-    <string name="op3">₦500</string>
+    <string name="op1">₦ 100</string>
+    <string name="op2">₦ 200</string>
+    <string name="op3">₦ 500</string>
     <string name="add_amount">Ajouter un montant</string>
-    <string name="ratings">3 de 5 notes</string>
+    <string name="ratings">sur 5 avis</string>
+    <string name="notdelivering">Désolé, nous ne livrons pas encore à votre adresse. Nous serons bientôt là.</string>
+    <string name="changelocation">Change Location</string>
     
-    <string name="notdelivering">Désolé, nous ne livrons pas à votre adresse pour le moment. Nous serons là bientôt.</string>
-    <string name="changelocation">Changer de lieu</string>
     
-    <string name="wallet_drawer">Argent Grigora : ₦</string>
+    
+    <string name="choose_categories">Choisissez des catégories</string>
+    
+    <string name="quick_order">Commande rapide</string>
+    <string name="popular">Populaire</string>
+    <string name="wallet_drawer">Grigora Money: ₦</string>
+    <string name="grigora_money">Grigora Money</string>
+    <string name="deliver_to_you">VOUS LIVRER</string>
+    <string name="deliver_in">Livraison dans environ %s \ minutes</string>
+    <string name="delivery">livraison</string>
+    <string name="Delivery">Livraison</string>
+    <string name="apply_promocode">Appliquer le code promo</string>
+    <string name="addnew">Ajouter un nouveau</string>
+    <string name="change_title">Change Location</string>
+    <string name="change_desc">Vous pouvez perdre des données de panier après avoir changé d\'emplacement</string>
+    <string name="remove">Retirer</string>
+    <string name="promo_applied">Promocode appliqué</string>
+    <string name="order_hash">COMMANDE</string>
+    
+    
+    <string name="waiting_for_confirmation">En attente de confirmation</string>
+    <string name="order_schduled">Commande programmée</string>
+    <string name="order_prepared">Aliments préparés</string>
+    <string name="order_accepted">Commande acceptée</string>
+    <string name="picked">La commande a été prise et en route vers vous</string>
+    <string name="delivered_by">Commande livrée par</string>
+    <string name="rejected_by_restaurant">Commande refusée par le restaurant</string>
+    <string name="being_prepared">Votre commande est en cours de préparation</string>
+    <string name="orderedon">Commandé le:</string>
+    <string name="almostready">Commande presque prête</string>
+    <string name="driver_assigned">Pilote attribué</string>
+    
+    
+    <string name="food_delivery_message">Comment était la livraison de nourriture?</string>
+    <string name="no_thanks">Non merci</string>
+    <string name="food_message">Quelle a été votre expérience avec %s \</string>
+    <string name="meals_message">Dites-nous comment vous évalueriez ces articles?</string>
+    <string name="ttext">j\'ai lu et accepté les</string>
+    <string name="termsandconditions">termes</string>
+    <string name="select_language">Choisir la langue</string>
+    <string name="delivery_to">Livraison à</string>
+    <string name="apt_number">Numéro d\'appartement / de suite (facultatif)</string>
+    <string name="loginn">S\'identifier</string>
+    <string name="termsandconditions_social">En vous connectant ou en vous inscrivant, vous acceptez toutes les conditions générales et la politique de confidentialité de GRIGORA</string>
+    <string name="didnot_got">Vous n\'avez pas reçu OTP?</string>
+    <string name="resend">Renvoyer</string>
+    <string name="search_restaurants_and_cusines">Recherche de restaurants, cuisines ...</string>
+    <string name="seemore">Plus</string>
+    <string name="deliveringto">Livrer à</string>
+    
+    <string name="food">Nourriture</string>
+    <string name="pickup">Ramasser</string>
+    <string name="otpverification">Vérification OTP</string>
+    <string name="login_with_password">Connectez-vous avec mot de passe</string>
+    <string name="loginwithfacebook">Se connecter avec Facebook</string>
+    <string name="loginwithtwitter">Connectez-vous avec Twitter</string>
+    <string name="loginwithgoogle">Connectez-vous avec Google</string>
+    <string name="loginwithinstagram">Connectez-vous avec Instagram</string>
+    <string name="loginwithphone">Connectez-vous avec le téléphone</string>
+    <string name="open_or_close_time">Temps d\'ouverture ou de fermeture</string>
+    <string name="veg">Veg</string>
+    <string name="nonveg">Non Veg</string>
+    <string name="contains_egg">Contient des œufs</string>
+    <string name="popular_dishes">Plats populaires</string>
+    <string name="previously_ordered_items">Articles précédemment commandés</string>
+    <string name="add_more_item">Ajouter plus d\'articles</string>
+    <string name="people_also_ordered">Les gens ont également commandé</string>
+    <string name="book_a_table">Réserver une table</string>
+    <string name="not_delivering_message">Nous ne livrons pas à cet endroit pour le moment.</string>
+    <string name="viewcart">Voir le panier</string>
+    <string name="and_over">et plus</string>
+    <string name="viewresults">Voir les résultats</string>
+    <string name="menuprice">Prix du menu</string>
+    <string name="how_many_people">Combien de personnes?</string>
+    <string name="pick_a_date">Choisis une date</string>
+    <string name="book_now">Reserve maintenant</string>
+    <string name="set_your_time">Réglez votre temps</string>
+    <string name="ma_seates_message">Impossible de réserver plus de places</string>
+    <string name="no_range_selected">Aucune plage sélectionnée</string>
+    <string name="sethour">Régler l\'heure</string>
+    <string name="setminute">Set Minute</string>
+    <string name="error_select_closing_time">Veuillez sélectionner l\'heure de fermeture</string>
+    <string name="error_select_date">Veuillez sélectionner la date</string>
+    <string name="error_seat">Aucun siège sélectionné</string>
+    <string name="account_credits">Crédits du compte</string>
+    <string name="get_free_deliveries">Obtenez des livraisons gratuites</string>
+    <string name="grigora_card">Carte Grigora</string>
+    <string name="support">Soutien</string>
+    <string name="refer_and_earn">Parrainer et gagner</string>
+    <string name="table_booking">Réservation de table</string>
+    <string name="group_orders">Commandes de groupe</string>
+    <string name="question">Question :-</string>
+    <string name="quiz_of_the_day">Quiz du jour</string>
+    <string name="please_select_an_answer">Veuillez sélectionner une réponse</string>
+    <string name="done">Terminé</string>
+    <string name="order">Commande</string>
+    <string name="request_sent">La demande de commande a été envoyée</string>
+    <string name="on_the_way">Votre commande est en route</string>
+    <string name="ready_to_dispatch">Prêt à expédier</string>
+    <string name="order_cancel">Commande Annuler</string>
+    <string name="notifications_center">Notifications Center</string>
+    <string name="today">Aujourd\'hui</string>
+    <string name="yesterday">Hier</string>
+    <string name="earliar">Plus tôt</string>
+    <string name="share_code">Partagez votre code d\'invitation</string>
+    <string name="copy">Copy Code</string>
+    <string name="sharewith">Partager avec:</string>
+    <string name="link_copied">Lien copié</string>
+    <string name="grand_total">Grand Total</string>
+    <string name="bill_details">Détails de la facture</string>
+    <string name="call_rest">Call Restaurant</string>
+    <string name="complete_order">Complétez la commande</string>
+    <string name="enjoymeal">Bon appétit.</string>
+    <string name="donotforgettorate">N\'oubliez pas de noter la nourriture</string>
+    <string name="group_order">Commande de groupe</string>
+    <string name="trending">Tendance</string>
+    <string name="Quiz">Quiz</string>
+    <string name="new_quiz_available">Nouveau quiz disponible</string>
+    <string name="share_order">Partagez votre commande avec des amis</string>
+    <string name="desc1">La façon la plus simple de commander de la nourriture pour un groupe d\'amis en suivant trois étapes faciles</string>
+    <string name="desc2">1. Définissez une limite de personnes et lancez une commande de groupe</string>
+    <string name="desc3">2. Invitez les autres à ajouter leur commande préférée</string>
+    <string name="desc4">3. Faites livrer les aliments ensemble</string>
+    <string name="group_order_limit">Limite de commande de groupe</string>
+    <string name="per_person_limit">Limite par personne</string>
+    <string name="none">Aucun</string>
+    <string name="others">Autres</string>
+    <string name="start_group_order">Lancer la commande de groupe</string>
+    <string name="want_to_learn_more">Envie d\'en savoir plus</string>
+    <string name="convient_way_to_order_food">La façon la plus pratique de commander de la nourriture pour un groupe</string>
+    <string name="follow_steps">Suivez ces 3 étapes simples</string>
+    <string name="start_group_order1">1. Lancer la commande de groupe</string>
+    <string name="choose_rest">Choisissez un restaurant parmi notre vaste sélection et fixez une limite de dépenses</string>
+    <string name="share_group_order">2. Partagez le lien de commande de groupe</string>
+    <string name="easily_add">Tout le monde peut facilement ajouter ses articles préférés à la même commande</string>
+    <string name="enjoy_meal">3. Profitez de votre repas ensemble</string>
+    <string name="enjoy_desc">Le paiement et la livraison sont simples, vous pouvez donc vous concentrer sur le plaisir des repas</string>
+    <string name="please_input_number">Veuillez saisir le montant</string>
+    <string name="invite">Invite</string>
+    <string name="ready_group_order">Votre commande de groupe est maintenant prête!</string>
+    <string name="invite_others">Invitez d\'autres personnes à ajouter leurs articles préférés. Les grosses commandes peuvent prendre plus de temps à se préparer</string>
+    <string name="invite_your_group">Invitez votre groupe</string>
+    <string name="search_in_area">Recherche dans la zone</string>
+    <string name="dark_mode">Dark Mode</string>
+    <string name="ratingg">Évaluations:</string>
+    <string name="closes">Se ferme</string>
+    <string name="places">Places</string>
+    <string name="order_canceled">Commande annulée!</string>
+    <string name="open_24_hours">Ouvert 24 heures</string>
+    <string name="search_here">Cherche ici</string>
+    <string name="restaurants">Restaurants</string>
+    <string name="cuisines">Cuisines</string>
+    <string name="km">KM</string>
+    <string name="group_order_by">Ordre de groupe par</string>
+    <string name="help_al">Aide 24x7</string>
+    <string name="choose_help_category">Choisissez une catégorie dont vous avez besoin d\'aide \ n</string>
+    <string name="issue_order">Problème lié à la commande</string>
+    <string name="get_help_order_info">Obtenez de l\'aide sur votre commande précédente de notre part</string>
+    <string name="gora_pouch">Pochette GORA</string>
+    <string name="gora_pouch_info">Fonds, points et carte de remboursement dans une pochette</string>
+    <string name="fraud_issue">Problème de fraude</string>
+    <string name="fraud_issue_info">Transactions illégales, détournement de fonds du portefeuille</string>
+    <string name="others_info">Contact direct avec nos experts</string>
+    <string name="faq">FAQ \</string>
+    <string name="view_all_faq">Voir toutes les FAQ \</string>
+    <string name="live_chat_with_rep">Chat en direct avec un représentant</string>
+    <string name="phone">Téléphone</string>
+    <string name="help_title">Notre aide 24h / 24, 7j / 7, 365 jours pour vous</string>
+    <string name="your_favourite">Vos favoris</string>
+    <string name="new_in_grigora">Nouveau à Grigora</string>
+    <string name="order_again">Commandez à nouveau</string>
+    <string name="top_cuisine">Top Cusines</string>
+    <string name="near_by">Près de toi</string>
+    <string name="current_balance">Solde actuel</string>
+    <string name="current_points">Points actuels</string>
+    <string name="ngn_to_naira">NGN - Naira</string>
+    <string name="pts_to_points">Pts - Points</string>
+    <string name="services">Services</string>
+    <string name="add_funds_via_card">Ajouter des fonds via des cartes</string>
+    <string name="redeem_via_grigora_card">Acheter / échanger via la carte Grigora</string>
+    <string name="transfer_points_to_wallet">Transférer des points vers des portefeuilles</string>
+    <string name="order_already_placed">Cette commande est déjà passée</string>
+    <string name="wallet_id">Identifiant Google Wallet</string>
+    <string name="see_all_transactions">Voir toutes les transactions</string>
+    <string name="items">Articles</string>
+    <string name="enter_wallet_id">Entrez l\'ID du portefeuille</string>
+    <string name="transactions">Transactions</string>
+    <string name="transfered">Transféré</string>
+    <string name="received">Reçu</string>
+    <string name="participants">Participants</string>
+    
+    
+    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
+    <string name="transfer_successfull">Transfert réussi</string>
+    <string name="transfer_successfull_desc">Vos fonds (points) transférés \ n ont été effectués avec succès</string>
+    <string name="ngn_to_how_naira">1 NGN = %s \ pts</string>
+    <string name="next">Prochain</string>
+    <string name="no_transactions_found">Aucune transaction trouvée</string>
+    <string name="invalid_wallet_id">Identifiant Google Wallet non valide</string>
+    <string name="please_enter_amount">Veuillez entrer le montant</string>
+    <string name="money_added">Argent ajouté</string>
+    <string name="money_deducted">Argent déduit</string>
+    <string name="add_funds_">Ajouter des fonds à la pochette Gora</string>
+    <string name="nigerian_naira">Naira nigérian</string>
+    <string name="points">Points</string>
+    <string name="schedule_order">Planifier la commande</string>
+    <string name="schedule_your_order">Planifiez votre commande</string>
+    <string name="place_order_for">Passer commande pour</string>
+    <string name="tomorrow">Demain</string>
+    <string name="select_time">Sélectionnez l\'heure</string>
+    <string name="breakfast">Petit déjeuner</string>
+    <string name="lunch">Le déjeuner</string>
+    <string name="dinner">Dîner</string>
+    <string name="breakfast_timing">07:00-10:00</string>
+    <string name="lunch_timing">12 h 00 à 15 h 00</string>
+    <string name="dinner_timing">20h00 - 23h00</string>
+    <string name="set_time">Régler le temps</string>
+    <string name="address_deliver">Adresse à livrer</string>
+    <string name="add_note">Ajouter une note</string>
+    <string name="note_hint">Vous pouvez ajouter votre note ici ...</string>
+    <string name="schedule_request_sent">Demande envoyée</string>
+    <string name="schedule_request_sent_info">Vous serez informé une fois que le restaurant \ n aura confirmé votre commande</string>
+    <string name="upcoming_orders">Commandes à venir</string>
+    <string name="reorder">Réorganiser</string>
+    <string name="closed">Actuellement fermé</string>
+    <string name="busy">Ne pas accepter</string>
+    <string name="rest_unav">Restaurant non disponible</string>
+    <string name="rest_unav_info">Vous pouvez choisir de planifier \ n afin d\'obtenir plus tard</string>
+    <string name="schedule_">Programme?</string>
+    <string name="schedule">Programme</string>
+    <string name="rate_driver">Les taux\</string>
+    <string name="late_delivery">Livraison tardive</string>
+    <string name="bad_attitude">Mauvaise attitude</string>
+    <string name="rude_beh">Comportement grossier</string>
+    <string name="unprofessional">Peu professionnel</string>
+    <string name="issue_driver">Eu un problème avec le pilote</string>
+    <string name="compliment_driver">Faites un compliment</string>
+    <string name="excelent">Excellent Service</string>
+    <string name="in_time">Livré à temps</string>
+    <string name="friendly">Amical</string>
+    <string name="like_rest">Qu\'avez-vous aimé de nous?</string>
+    <string name="time">Temps</string>
+    <string name="taste">Goût</string>
+    <string name="price">Prix</string>
+    <string name="leave_a_comment">"Laissez un commentaire "</string>
+    <string name="write_your_feedback_here">Écrivez vos commentaires ici</string>
+    <string name="credit_will_apply">Votre crédit sera automatiquement appliqué à \ n votre prochaine commande</string>
+    <string name="redeem_gift_card">Utiliser une carte-cadeau</string>
+    <string name="redeem">Racheter</string>
+    <string name="enter_gift_card">Entrez le coupon de la carte-cadeau</string>
+    <string name="buy_gift_card">Acheter une carte-cadeau</string>
+    <string name="give_gift">Offrez un cadeau de livraison de nourriture</string>
+    <string name="buy">Acheter</string>
+    <string name="unavailable">Cet article n\'est pas disponible</string>
+    <string name="add_tip">Ajouter un conseil au chauffeur</string>
+    <string name="approved">Approuvé</string>
+    <string name="pending">En attente</string>
+    <string name="outgoing">Sortant</string>
+    <string name="incoming">Entrant</string>
+    <string name="your_gift_voucher">Votre chèque cadeau</string>
+    <string name="table_for">Table pour</string>
+    <string name="disapproved">DisApproved</string>
+    <string name="cuisine">Cuisine</string>
+    <string name="grigora_gift_card">Carte-cadeau Grigora</string>
+    <string name="add_points_info">Ajoutez des points à votre ami ou à votre famille \ nGrigora Gora Pouch</string>
+    <string name="proceed_preview_card">Passer à la carte d\'aperçu</string>
+    <string name="search_nameoremail">Recherche par nom / adresse e-mail</string>
+    <string name="gift_to">Cadeau à</string>
+    <string name="chat">Chat</string>
+    <string name="type_here">Tapez votre message ici...</string>
+    <string name="chat_heads">Fils de conversation</string>
+    <string name="past_tickets">Billets antérieurs</string>
+    <string name="proceed_to_gift">Passez au chèque cadeau</string>
+    <string name="grigora_gift_voucher">Bon cadeau Grigora</string>
+    <string name="no_user_selected">Aucun utilisateur sélectionné</string>
+    <string name="ticket_id">ID de billets</string>
 
 </resources>
