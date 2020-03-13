@@ -90,7 +90,7 @@ class OrderViewModel : ViewModel() {
 
     fun rateDriver(
         token: String, orderId: String, driverId: String, rating: String, goodReview: String,
-        badReview: String
+        badReview: String,tip:String
     ) {
         isLoading.value = true
 

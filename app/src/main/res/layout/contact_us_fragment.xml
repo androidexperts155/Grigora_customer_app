@@ -63,6 +63,23 @@
                     android:textSize="@dimen/_8sdp" />
             
             </LinearLayout>
+            
+            <TextView
+                style="@style/mediumText"
+                android:onClick="@{()->contactUsView.chats()}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:clickable="true"
+                android:drawableLeft="@drawable/ic_chat"
+                android:drawablePadding="@dimen/_4sdp"
+                android:drawableTint="@color/colorPrimaryDark"
+                android:foreground="@drawable/selectable_item_background"
+                android:padding="@dimen/_8sdp"
+                android:text="@string/past_tickets"
+                android:textColor="@color/colorPrimaryDark"
+                android:textSize="@dimen/_10sdp" />
         
         </RelativeLayout>
         
@@ -101,8 +118,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="@dimen/_4sdp"
-                        android:clickable="true"
-                        android:foreground="@drawable/selectable_item_background"
+                        
                         android:orientation="horizontal"
                         android:weightSum="2">
                         
@@ -112,6 +128,9 @@
                             android:layout_marginRight="@dimen/_4sdp"
                             android:layout_weight="1"
                             android:background="@drawable/round_c"
+                            android:clickable="true"
+                            android:foreground="@drawable/selectable_item_background"
+                            android:onClick="@{()->contactUsView.i1()}"
                             android:orientation="vertical"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingTop="@dimen/_12sdp"
@@ -158,12 +177,14 @@
                             android:layout_width="0dp"
                             
                             android:layout_height="wrap_content"
+                            
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:layout_weight="1"
                             android:background="@drawable/round_c"
-                            
                             android:clickable="true"
+                            
                             android:foreground="@drawable/selectable_item_background"
+                            android:onClick="@{()->contactUsView.i2()}"
                             android:orientation="vertical"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingTop="@dimen/_12sdp"
@@ -210,18 +231,21 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                        android:clickable="true"
-                        android:foreground="@drawable/selectable_item_background"
+                        
                         android:orientation="horizontal"
                         android:weightSum="2">
+                        
                         
                         <LinearLayout
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="@dimen/_4sdp"
                             android:layout_weight="1"
-                            
                             android:background="@drawable/round_c"
+                            android:clickable="true"
+                            android:foreground="@drawable/selectable_item_background"
+                            
+                            android:onClick="@{()->contactUsView.i3()}"
                             android:orientation="vertical"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingTop="@dimen/_12sdp"
@@ -262,15 +286,17 @@
                         </LinearLayout>
                         
                         <LinearLayout
-                            android:layout_width="0dp"
                             
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
+                            
                             android:layout_marginLeft="@dimen/_4sdp"
                             android:layout_weight="1"
                             android:background="@drawable/round_c"
-                            
                             android:clickable="true"
+                            
                             android:foreground="@drawable/selectable_item_background"
+                            android:onClick="@{()->contactUsView.i4()}"
                             android:orientation="vertical"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingTop="@dimen/_12sdp"
@@ -376,6 +402,7 @@
                     
                     <LinearLayout
                         android:layout_width="0dp"
+                        android:onClick="@{()->contactUsView.i4()}"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="@dimen/_8sdp"
                         android:layout_weight="1"

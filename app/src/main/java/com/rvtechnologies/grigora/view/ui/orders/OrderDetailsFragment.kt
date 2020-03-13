@@ -782,9 +782,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     override fun onDriverRateSubmit(
         rating: Float, goodReview: String,
-        badReview: String, orderItemModel: OrderItemModel
+        badReview: String, orderItemModel: OrderItemModel,tip:String
     ) {
-        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(), goodReview, badReview)
+        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(), goodReview, badReview,tip)
         orderItemModel.is_driver_rated = "1"
         CommonUtils.savePrefs(context, PrefConstants.ORDER_TO_RATE, Gson().toJson(orderItemModel))
     }

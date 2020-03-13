@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:gravity="right">
+    
+    <TextView
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_sent"
+        android:layout_gravity="end"
+        android:layout_marginLeft="@dimen/_70sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+    
+        android:layout_toLeftOf="@+id/tv_send"
+        android:background="@drawable/chat_item_bg"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_10sdp"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_11sdp" />
+    
+    <TextView
+        android:id="@+id/tv_received"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        
+        android:layout_height="wrap_content"
+        android:layout_gravity="start"
+        android:layout_marginRight="@dimen/_70sdp"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_toLeftOf="@+id/tv_send"
+        android:background="@drawable/chat_item_bg"
+        android:ellipsize="end"
+        android:gravity="start|center_vertical"
+        android:padding="@dimen/_10sdp"
+        
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_11sdp" />
+</LinearLayout>

@@ -68,4 +68,13 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
         viewHolder!!.tv_title?.text = titleList[position]
         viewHolder!!.tv_desc?.text = descList[position]
     }
+
+    override fun getItemPosition(`object`: Any): Int {
+        return super.getItemPosition(`object`)
+    }
+
+    override fun getPageTitle(position: Int): CharSequence? {
+        return super.getPageTitle(position)
+    }
+
 }

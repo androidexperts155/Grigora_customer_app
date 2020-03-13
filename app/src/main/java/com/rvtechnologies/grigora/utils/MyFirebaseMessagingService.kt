@@ -96,6 +96,22 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 }
             }
 
+//            TODO handle with admin chat
+            if (notificationType.notificationType.toInt() == 112) {
+                val intent = Intent()
+                intent.action = "com.rvtechnologies.grigora"
+                intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
+                intent.putExtra(AppConstants.TICKET_ID, notificationType.orderId)
+                intent.putExtra(TYPE, notificationType.type)
+                intent.putExtra(MESSAGE, remoteMessage.data["body"]!!)
+                intent.addFlags(Intent.FLAG_INCLUDE_STOPPED_PACKAGES)
+                sendBroadcast(intent)
+
+                if (notificationType.notificationType.toInt() == 6) {
+                    notificationType.message = remoteMessage.data["body"]!!
+                }
+            }
+
 
         } catch (e: Exception) {
             print(e.message)

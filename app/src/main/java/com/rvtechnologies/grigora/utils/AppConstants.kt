@@ -1,7 +1,7 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
-    var IS_FOR_HISTORY="is_for_history"
+    var IS_FOR_HISTORY = "is_for_history"
     var CART_RESTAURANT = ""
     var CART_COUNT = 0
 
@@ -23,11 +23,15 @@ object AppConstants {
     const val RESTAURANT_ID = "restaurant_id"
     const val RESTAURANT_SEATES = "seats"
 
-    const val FROM_RESTAURANT_DETAIL = "from_restaurant_detail"
+    const val SUB_ISSUE_ID = "sub_issue_id"
+    const val TICKET_ID = "ticket_id"
+    const val TITLE = "title"
+    const val ISSUE_ID = "issueid"
     const val RESTAURANT_ALWAYS_OPEN = "always_open"
     const val FROM_PICKUP = "from_pickup"
     const val RESTAURANT_OPENING_TIME = "opening_time"
     const val RESTAURANT_CLOSING_TIME = "closing_time"
+    const val FROM_RESTAURANT_DETAIL = "from_rest_dertail"
 
     const val RESTAURANT_BOOKING = "booking"
     const val RESTAURANT_PICKUP = "pickup"

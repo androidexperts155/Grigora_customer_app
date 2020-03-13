@@ -355,7 +355,7 @@ interface ApiInterface {
         @Field("order_id") orderId: String,
         @Field("good_review") goodReview: String,
         @Field("bad_review") badReview: String
-     ): Call<JsonElement>
+    ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.ADD_RATING_REVIEW_URL_MEALS)
@@ -448,18 +448,36 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
-    @GET(ApiConstants.TABLE_BOOKING_LIST )
+    @GET(ApiConstants.TABLE_BOOKING_LIST)
     fun getBookedTables(
-         @Header("Authorization") token: String
+        @Header("Authorization") token: String
     ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.SEARCH_USER)
     fun searchUser(
         @Header("Authorization") token: String,
-        @Field("email") email: String
+        @Field("username") username: String
 
     ): Call<JsonElement>
+
+    @GET(ApiConstants.GET_VOUCHER_CODES)
+    fun getVoucherCodes(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+    @GET(ApiConstants.GET_VOUCHER_CARD + "/{id}")
+    fun getVoucherCode(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<JsonElement>
+
+
+    @GET(ApiConstants.MY_CARDS)
+    fun getCards(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.TRANSFER_MONEY)
@@ -469,6 +487,24 @@ interface ApiInterface {
         @Field("amount") amount: String
 
     ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.REDEEM_CODE)
+    fun redeem(
+        @Header("Authorization") token: String,
+        @Field("voucher_code") voucher_code: String
+
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SEND_GIFT)
+    fun sendGift(
+        @Header("Authorization") token: String,
+        @Field("email") email: String,
+        @Field("voucher_code") voucher_code: String
+
+    ): Call<JsonElement>
+
 
     @GET(ApiConstants.WALLET_HISTORY)
     fun walletHistory(
@@ -542,6 +578,12 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
+    @GET(ApiConstants.GET_CHT_HEADS)
+    fun getChatHeads(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+
     @FormUrlEncoded
     @POST(ApiConstants.SAVE_CART_LINK)
     fun saveCartLink(
@@ -582,10 +624,36 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
-
     @GET(ApiConstants.FAQ)
     fun getFaq(
         @Header("Authorization") token: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_SUB_ISSUES)
+    fun getSubIssues(
+        @Header("Authorization") token: String,
+        @Field("issue_id") issue_id: String
+
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_CHAT)
+    fun getChat(
+        @Header("Authorization") token: String,
+        @Field("ticket_id") tiketId: String
+
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.SEND_MESSGAE)
+    fun sendMessage(
+        @Header("Authorization") token: String,
+        @Field("issue_id") issue_id: String,
+        @Field("subissue_id") subissue_id: String,
+        @Field("ticket_id") ticket_id: String,
+        @Field("message") message: String
     ): Call<JsonElement>
 
 

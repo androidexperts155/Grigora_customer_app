@@ -270,7 +270,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     override fun onDriverRateSubmit(
         rating: Float, goodReview: String,
-        badReview: String, orderItemModel: OrderItemModel
+        badReview: String, orderItemModel: OrderItemModel,tip:String
     ) {
 
 
@@ -278,7 +278,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            driverId = orderItemModel.driverId,goodReview = goodReview,badReview = badReview
+            driverId = orderItemModel.driverId,goodReview = goodReview,badReview = badReview,tip=tip
         )
 
         if (orderItemModel.is_restaurant_rated == "0") {
@@ -358,7 +358,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     }
 
     fun rateDriver(token: String, orderId: String, driverId: String, rating: String, goodReview: String,
-                   badReview: String) {
+                   badReview: String,tip:String) {
 //        isLoading.value = true
 
         ApiRepo.getInstance()

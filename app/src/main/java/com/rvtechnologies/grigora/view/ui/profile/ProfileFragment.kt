@@ -146,6 +146,12 @@ class ProfileFragment : Fragment() {
             ?.navigate(R.id.action_navigationMyAccounts_to_tableBookingHistory)
     }
 
+    fun toGift() {
+        view?.findNavController()
+            ?.navigate(R.id.action_navigationMyAccounts_to_giftFragment)
+    }
+
+
     fun toAboutUs() {
         view?.findNavController()
             ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment)

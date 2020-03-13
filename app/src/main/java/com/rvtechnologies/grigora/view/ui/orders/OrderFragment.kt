@@ -196,13 +196,16 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
     override fun onDriverRateSubmit(
         rating: Float, goodReview: String,
-        badReview: String, orderItemModel: OrderItemModel
+        badReview: String, orderItemModel: OrderItemModel, tip: String
     ) {
         viewModel.rateDriver(
             token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            driverId = orderItemModel.driverId, goodReview = goodReview, badReview = badReview
+            driverId = orderItemModel.driverId,
+            goodReview = goodReview,
+            badReview = badReview,
+            tip = tip
         )
 
         if (orderItemModel.is_restaurant_rated == "0") {
@@ -267,7 +270,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
         var map = HashMap<String, HashMap<String, String>>()
 
         for (meal in ratedMeals) {
-            var m = HashMap<String,String>()
+            var m = HashMap<String, String>()
             m.put("rating", meal.rating.toString())
             m.put("review", meal.review)
 

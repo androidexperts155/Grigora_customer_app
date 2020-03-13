@@ -123,6 +123,7 @@ dependencies {
     implementation 'com.hbb20:ccp:2.0.8'
 
     implementation "com.daimajia.swipelayout:library:1.2.0@aar"
+    implementation 'com.tbuonomo.andrui:viewpagerdotsindicator:4.1.2'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

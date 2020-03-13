@@ -38,9 +38,10 @@
             android:clickable="true"
             android:foreground="@drawable/selectable_item_background"
             android:padding="@dimen/_8sdp">
-            
-            
+    
+    
             <EditText
+                android:id="@+id/ed_search"
                 style="@style/mediumText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_28sdp"
@@ -99,13 +100,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:background="?attr/viewbg" />
-            
+    
             <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rc_users"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:itemCount="6"
                 android:orientation="vertical"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="6"
                 tools:listitem="@layout/item_user" />
         
         </LinearLayout>

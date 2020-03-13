@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    android:layout_marginTop="@dimen/_8sdp"
+    
+    android:background="@drawable/chat_item_bg"
+        android:padding="@dimen/_12sdp">
+    
+    <TextView
+        android:id="@+id/tv_issue"
+        style="@style/mediumText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp"
+        tools:text="This is sub issue" />
+    
+    
+    <TextView
+        android:layout_marginTop="@dimen/_4sdp"
+        android:id="@+id/tv_id"
+        style="@style/mediumText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textGray"
+        android:textSize="@dimen/_12sdp"
+        tools:text="Ticket Id: TIC12345" />
+    
+    <TextView
+        android:id="@+id/tv_date"
+        android:layout_marginTop="@dimen/_4sdp"
+        style="@style/mediumText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?attr/textGray"
+        android:textSize="@dimen/_12sdp"
+        tools:text="2020/22/22" />
+    
+    
+    
+
+</LinearLayout>

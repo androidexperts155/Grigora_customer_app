@@ -58,7 +58,7 @@ class OrderDetailsViewModel : ViewModel() {
     }
 
     fun rateDriver(driverId: String, rating: String, goodReview: String,
-                   badReview: String) {
+                   badReview: String,tip:String) {
         isLoading.value = true
 
         ApiRepo.getInstance()

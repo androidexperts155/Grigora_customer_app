@@ -97,18 +97,16 @@ class PhoneLogin : Fragment() {
                     ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
                 ), AppConstants.OTP_CODE
             )
-
         }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstants.OTP_CODE) {
-            if (data?.extras?.containsKey("verified")!!)
+            if (data?.extras != null && data?.extras?.containsKey("verified")!!)
                 if (data?.getBooleanExtra("verified", false)!!)
                     viewModel.phoneLogin()
         }
-
     }
 
     private fun saveData(data: LoginResponseModel) {

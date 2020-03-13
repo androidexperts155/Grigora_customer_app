@@ -184,7 +184,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 )
         } else if (item is NewDashboardModel.Filter) {
             if (item.selectionType == "1") {
-
+                var priceDialog = RatingBarDialog(this, 0.0F, item)
+                priceDialog.show(this.childFragmentManager, "")
             } else if (item.selectionType == "2") {
                 var list = ArrayList<PriceFilterModel>()
                 if (item.multiSelected == null)

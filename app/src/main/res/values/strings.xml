@@ -487,6 +487,14 @@
     <string name="proceed_preview_card">Proceed To Preview Card</string>
     <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
+    <string name="chat">Chat</string>
+    <string name="type_here">Type your message here...</string>
+    <string name="chat_heads">Conversation Threads</string>
+    <string name="past_tickets">Past Tickets</string>
+    <string name="proceed_to_gift">Proceed to Gift Voucher</string>
+    <string name="grigora_gift_voucher">Grigora Gift Voucher</string>
+    <string name="no_user_selected">No User Selected</string>
+    <string name="ticket_id">Ticket Id</string>
 
 
 </resources><!--₦-->

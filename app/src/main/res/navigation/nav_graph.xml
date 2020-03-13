@@ -31,10 +31,17 @@
             app:destination="@id/profileDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_navigationMyAccounts_to_tableBookingHistory"
             app:destination="@id/tableBookingHistory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_giftFragment"
+            app:destination="@id/giftFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
         
@@ -670,7 +677,7 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/searchRestaurants_fragment_to_commonViewAll"
             app:destination="@id/commonViewAll"
@@ -709,9 +716,30 @@
         android:id="@+id/contactUs"
         android:name="com.rvtechnologies.grigora.view.ui.contact_us.ContactUs"
         android:label="Contact us">
+        
+        <action
+            android:id="@+id/action_contactUs_to_chatHeads"
+            app:destination="@id/chatHeads"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        
         <action
             android:id="@+id/action_contactUs_to_all_faq"
             app:destination="@id/faqAll"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        
+        <action
+            android:id="@+id/action_contactUs_to_all_subissues"
+            app:destination="@id/subIssues"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_contactUs_to_all_chat"
+            app:destination="@id/chatFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
@@ -827,8 +855,8 @@
             app:destination="@id/giftFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-
-
+    
+    
     </fragment>
     
     <fragment
@@ -848,8 +876,7 @@
     <fragment
         android:id="@+id/tableBookingHistory"
         android:name="com.rvtechnologies.grigora.view.ui.table_booking.TableBookingHistory"
-        android:label="Table Booking History">
-    </fragment>
+        android:label="Table Booking History"></fragment>
     
     <fragment
         android:id="@+id/giftFragment"
@@ -860,13 +887,49 @@
             app:destination="@id/chooseUserFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-
+        
+        <action
+            android:id="@+id/action_giftFragment_to_dashboard"
+            app:destination="@id/dashBoardFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpTo="@+id/nav_graph.xml"
+            app:popUpToInclusive="true" />
+    
     </fragment>
     
     <fragment
         android:id="@+id/chooseUserFragment"
         android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.ChooseUserFragment"
+        android:label="Choose User"></fragment>
+    <fragment
+        android:id="@+id/subIssues"
+        android:name="com.rvtechnologies.grigora.view.ui.contact_us.SubIssues"
         android:label="Choose User">
+        
+        <action
+            android:id="@+id/action_subIssues_to_all_chat"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    </fragment>
+    <fragment
+        android:id="@+id/chatFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.contact_us.ChatFragment"
+        android:label="Choose User"></fragment>
+    
+    
+    <fragment
+        android:id="@+id/chatHeads"
+        android:name="com.rvtechnologies.grigora.view.ui.contact_us.ChatHeads"
+        android:label="Chat Heads">
+        <action
+            android:id="@+id/action_chatHeads_to_all_chat"
+            app:destination="@id/chatFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
     </fragment>
 
 </navigation>

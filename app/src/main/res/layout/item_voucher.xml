@@ -45,24 +45,23 @@
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_10sdp"
             tools:text="100 Gift Voucher" />
-    
-    
+        
+        
         <TextView
             android:id="@+id/tv_copy"
             style="@style/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_alignParentRight="true"
-              android:gravity="center"
+            android:layout_centerVertical="true"
+            android:gravity="center"
             android:minWidth="@dimen/_60sdp"
             android:padding="@dimen/_4sdp"
+            android:text="@string/apply"
             android:textColor="@color/colorPrimaryDark"
-            android:text="@string/copy"
-            android:textSize="@dimen/_10sdp"
-            />
-        
-        
+            android:textSize="@dimen/_10sdp" />
+    
+    
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

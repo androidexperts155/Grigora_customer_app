@@ -39,16 +39,16 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
 
-
         initList()
         initClicks()
 
-            tv_name.text = getString(R.string.rate_driver, orderItemModel.driverName)
+        tv_name.text = getString(R.string.rate_driver, orderItemModel.driverName)
         val circularProgressDrawable = CircularProgressDrawable(context!!)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f
@@ -68,7 +68,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         }
 
         bt_rate_now.setOnClickListener {
-            driverRate.onDriverRateSubmit(rt_rating.rating, goodReview, badReview, orderItemModel)
+            driverRate.onDriverRateSubmit(rt_rating.rating, goodReview, badReview, orderItemModel,tip)
             this.dismiss()
         }
     }
@@ -104,7 +104,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         t2.setOnClickListener { selectT(t2) }
         t3.setOnClickListener { selectT(t3) }
         t4.setOnClickListener { selectT(t4) }
-     }
+    }
 
     private fun selectC(view: TextView) {
         badReview = view.text.toString()
@@ -163,7 +163,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
             rating: Float,
             goodReview: String,
             badReview: String,
-            orderItemModel: OrderItemModel
+            orderItemModel: OrderItemModel,tip:String
         )
 
         fun onDriverRateCancel(orderItemModel: OrderItemModel)

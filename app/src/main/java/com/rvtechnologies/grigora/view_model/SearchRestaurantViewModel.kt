@@ -27,7 +27,6 @@ class SearchRestaurantViewModel : ViewModel() {
 
 
     fun getRestaurants(token: String, search: String, filter: String) {
-
 //        isLoading.value = true
         searchRestaurants(
             token,
