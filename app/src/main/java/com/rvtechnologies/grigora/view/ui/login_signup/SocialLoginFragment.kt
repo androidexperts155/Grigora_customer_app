@@ -120,7 +120,7 @@ class SocialLoginFragment : Fragment() {
                 object : Callback<TwitterSession>() {
                     override fun success(twitterSessionResult: Result<TwitterSession>) { // Success
                         session = TwitterCore.getInstance().sessionManager.activeSession
-                        val authToken = session!!.getAuthToken()
+                        val authToken = session!!.authToken
                         val token = authToken.token
                         val secret = authToken.secret
                         mTwitterAuthClient!!.requestEmail(
@@ -170,6 +170,10 @@ class SocialLoginFragment : Fragment() {
 
         }
 
+
+        tv_skip.setOnClickListener {
+
+        }
 //        scrollview.postDelayed({
 //            scrollview.smoothScrollTo(0,20)
 //        }, 2000)

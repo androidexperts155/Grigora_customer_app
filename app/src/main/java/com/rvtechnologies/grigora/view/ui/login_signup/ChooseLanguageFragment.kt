@@ -113,6 +113,7 @@ class ChooseLanguageFragment : Fragment() {
             (activity as MainActivity).lockDrawer(true)
         }
     }
+
     companion object {
         @JvmStatic
         fun newInstance() =
@@ -148,7 +149,6 @@ class ChooseLanguageFragment : Fragment() {
 
         chooseLanguageViewModel?.langSelected?.value = AppConstants.FRENCH
     }
-
 
     override fun onDestroy() {
         super.onDestroy()

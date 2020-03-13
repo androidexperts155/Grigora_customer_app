@@ -1,56 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
     android:orientation="vertical"
     app:cardBackgroundColor="@android:color/white"
     app:cardCornerRadius="@dimen/_16sdp"
-    app:cardElevation="@dimen/_6sdp"
-    >
+    app:cardElevation="@dimen/_6sdp">
     
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
         android:orientation="vertical"
         android:padding="@dimen/_16sdp">
         
-
+        
         <TextView
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:text="@string/login_required"
-            android:textColor="@color/text_primary"
+            android:textColor="?attr/textWhite"
             android:textSize="@dimen/_14sdp" />
         
         <TextView
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="@dimen/_16sdp"
             android:text="@string/to_continue_you_need_to_be_logged_in"
-            android:textColor="@color/quantum_grey"
+            android:textColor="?attr/searchHint"
             android:textSize="@dimen/_12sdp" />
+        
         <Button
             android:id="@+id/btnLogin"
+            style="@style/titleText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_16sdp"
-            android:background="@drawable/btn_primary_back"
+            android:background="@color/colorPrimaryDark"
             android:text="@string/login_signup_now"
             android:textAllCaps="false"
-            android:textColor="@android:color/white" />
-    
+            android:textColor="@android:color/white"
+            android:textSize="@dimen/_13sdp" />
+        
         <Button
             android:id="@+id/btnLater"
+            style="@style/titleText"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_35sdp"
             android:layout_marginTop="@dimen/_6sdp"
-            android:background="@null"
+            android:background="?attr/searchHint"
             android:text="@string/later"
-            android:textAllCaps="false" />
-
-
+            android:textAllCaps="false"
+            android:textSize="@dimen/_13sdp" />
+    
+    
     </LinearLayout>
 </androidx.cardview.widget.CardView>

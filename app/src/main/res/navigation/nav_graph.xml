@@ -651,7 +651,14 @@
     <fragment
         android:id="@+id/notifications"
         android:name="com.rvtechnologies.grigora.view.ui.notifications.NotificationsFragment"
-        android:label="NotificationsFragment" />
+        android:label="NotificationsFragment" >
+    
+        <action
+            android:id="@+id/action_notifications_to_restaurantDetailParent"
+            app:destination="@id/restaurantDetailParent"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    </fragment>
     <fragment
         android:id="@+id/referAndEarn"
         android:name="com.rvtechnologies.grigora.view.ui.refer_and_earn.ReferAndEarn"

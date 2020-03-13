@@ -94,6 +94,13 @@ object CommonUtils {
         return prefs?.getString(key, "").toString()
     }
 
+
+    fun isLogin(): Boolean {
+
+        val prefs = GrigoraApp.getInstance().activity?.baseContext?.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
+        return !prefs?.getString(PrefConstants.TOKEN, "").toString().isNullOrEmpty()
+    }
+
     fun delPrefValue(context: Context?): Boolean {
         if (context == null)
             return false
@@ -411,28 +418,38 @@ object CommonUtils {
         return startLocation.distanceTo(endLocation) / 1000
     }
 
-    fun getUtcDate(context: Context, date: String, format: String): Date {
-        val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SimpleDateFormat(
-                format,
-                context.resources.configuration.locales[0]
-            )
-        } else
-            SimpleDateFormat(
-                format,
-                context.resources.configuration.locale
-            )
-        utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
-        return utcFormatter.parse(date)
+    fun getUtcDate(context: Context, d: String, format: String): Date {
+
+
+        var sdf = SimpleDateFormat(format)
+        var sdf1 = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getDefault()
+        var date = sdf.parse(d)
+
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        return sdf1.parse(sdf.format(date))
+    }
+
+    fun utcToLocal(context: Context, d: String, format: String): Date {
+
+        var sdf = SimpleDateFormat(format)
+        var sdf1 = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+        var date = sdf.parse(d)
+
+        sdf.timeZone = TimeZone.getDefault()
+
+        return sdf1.parse(sdf.format(date))
     }
 
     fun localToUtc(normalDate: String, format: String): String {
         var sdf = SimpleDateFormat(format)
-        sdf.timeZone= TimeZone.getDefault()
-        var date=sdf.parse(normalDate)
+        sdf.timeZone = TimeZone.getDefault()
+        var date = sdf.parse(normalDate)
 
         sdf.timeZone = TimeZone.getTimeZone("UTC")
-        return sdf.format(date )
+        return sdf.format(date)
     }
 
     fun isRestaurantOpen(openingTime: String, closingTime: String): Boolean {
@@ -440,7 +457,7 @@ object CommonUtils {
         var sdf = SimpleDateFormat(format)
         var sdf1 = SimpleDateFormat(format)
         sdf.timeZone = TimeZone.getTimeZone("UTC")
-        var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format,format)
+        var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format, format)
 
         return sdf1.parse(localUtcDate).time.compareTo(sdf.parse(openingTime).time) == 1 && sdf.parse(
             localUtcDate
