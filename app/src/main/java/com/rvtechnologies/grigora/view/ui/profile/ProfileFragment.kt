@@ -68,6 +68,8 @@ class ProfileFragment : Fragment() {
                 CommonUtils.showMessage(parentView, historyRes.toString())
             }
         })
+
+
     }
 
     override fun onCreateView(
@@ -82,6 +84,13 @@ class ProfileFragment : Fragment() {
         ) as ProfileFragmentBinding
         profileFragmentBinding.profileFragment = this
         return profileFragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        if (!CommonUtils.isLogin()) {
+            (activity as MainActivity).showLoginAlert(pop = true, id = R.id.dashBoardFragment)
+        }
     }
 
     override fun onResume() {

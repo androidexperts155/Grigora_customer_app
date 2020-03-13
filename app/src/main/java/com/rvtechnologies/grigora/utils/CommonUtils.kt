@@ -16,16 +16,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.github.siyamed.shapeimageview.CircularImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -97,7 +91,10 @@ object CommonUtils {
 
     fun isLogin(): Boolean {
 
-        val prefs = GrigoraApp.getInstance().activity?.baseContext?.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
+        val prefs = GrigoraApp.getInstance().activity?.baseContext?.getSharedPreferences(
+            PrefConstants.PREF_NAME,
+            Context.MODE_PRIVATE
+        )
         return !prefs?.getString(PrefConstants.TOKEN, "").toString().isNullOrEmpty()
     }
 
@@ -358,8 +355,19 @@ object CommonUtils {
         )
     }
 
-    fun isFirst(): Boolean {
-        return true
+    fun isNotFirst(): Boolean {
+        return getBooleanPrefValue(
+            GrigoraApp.getInstance().activity?.baseContext,
+            PrefConstants.IS_NOT_FIRST
+        )
+    }
+
+    fun getUid(): String {
+        return if (isLogin()) {
+            getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.ID)
+        } else
+            "0"
+
     }
 
     fun loadImage(imageView: ImageView?, imageUrl: String?) {

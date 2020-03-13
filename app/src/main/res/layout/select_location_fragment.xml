@@ -139,8 +139,6 @@
                         android:textColor="?attr/textWhite"
                         android:textColorHint="?attr/searchHint"
                         android:textSize="@dimen/_11sdp" />
-                    
-                    
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rc_chip"
                         android:layout_width="match_parent"

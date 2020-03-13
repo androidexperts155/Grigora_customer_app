@@ -172,7 +172,22 @@ class SocialLoginFragment : Fragment() {
 
 
         tv_skip.setOnClickListener {
+            var latitude = 0.0
+            if (!CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LATITUDE
+                ).isNullOrEmpty()
+            )
+                latitude =
+                    CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble()
 
+
+            if (latitude != 0.0)
+                view?.findNavController()
+                    ?.navigate(R.id.action_social_fragment_to_dashboardFragment)
+            else
+                view?.findNavController()
+                    ?.navigate(R.id.action_social_fragment_to_selectLocationFragment)
         }
 //        scrollview.postDelayed({
 //            scrollview.smoothScrollTo(0,20)

@@ -492,6 +492,8 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
         
+        
+        
         <action
             android:id="@+id/action_social_fragment_to_signup"
             app:destination="@id/signUpFragment"
@@ -509,6 +511,14 @@
         <action
             android:id="@+id/action_social_fragment_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popUpToInclusive="true" />
+    
+        <action
+            android:id="@+id/action_social_fragment_to_dashboardFragment"
+            app:destination="@id/dashBoardFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"

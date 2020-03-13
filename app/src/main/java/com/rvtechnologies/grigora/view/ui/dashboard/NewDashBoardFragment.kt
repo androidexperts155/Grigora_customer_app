@@ -136,11 +136,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         super.onViewCreated(view, savedInstanceState)
 
         map["latitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
-        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+//        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         map["longitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
         map["filter_id"] = "0"
         map["cuisine_id"] = "0"
-        map["user_id"] = CommonUtils.getPrefValue(context!!, PrefConstants.ID)
+        map["user_id"] = CommonUtils.getUid()
 
         viewModel.getDashboardData(map)
 
@@ -187,8 +187,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 if (!item.selected) {
                     var priceDialog = RatingBarDialog(this, 0.0F, item)
                     priceDialog.show(this.childFragmentManager, "")
-                }
-                else removeRatingFiler()
+                } else removeRatingFiler()
             } else if (item.selectionType == "2") {
                 var list = ArrayList<PriceFilterModel>()
                 if (item.multiSelected == null)
@@ -381,7 +380,6 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
 
     }
-
 
     private fun applyPriceFilter(filter: String, select: Boolean) {
         map["price_range"] = filter
