@@ -46,6 +46,7 @@ class GroupOrders : Fragment(), IRecyclerItemClick {
         viewModel.groupOrdersRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
+                    list.clear()
                     list.addAll(response.data as Collection<GroupOrdersModel>)
                     rc_orders.adapter = GroupOrdersAdapter(list, this)
                 }

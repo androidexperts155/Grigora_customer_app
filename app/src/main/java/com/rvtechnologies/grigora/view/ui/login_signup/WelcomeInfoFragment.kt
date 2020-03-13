@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.navigation.findNavController
+import androidx.viewpager.widget.ViewPager
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -40,7 +41,7 @@ class WelcomeInfoFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         CommonUtils.saveBooleanPrefs(context!!, PrefConstants.IS_NOTIFICATIONS_ON, true)
-        vp.adapter = ViewPagerAdapter()
+        vp.adapter = ViewPagerAdapter(context!!)
 
         dots_indicator.setViewPager(vp);
 
@@ -57,18 +58,40 @@ class WelcomeInfoFragment : Fragment() {
 
 
         tv_next.setOnClickListener {
-//            if (tv_next.text.toString().equals("Finish")) {
-//                view?.findNavController()
-//                    ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
-//            } else {
-//                current++
-//                imageSlider.currentPagePosition = current
-//            }
+            if (tv_next.text.toString().equals("Finish")) {
+                view?.findNavController()
+                    ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
+            } else {
+                current++
+                vp.currentItem = current
+            }
         }
         tv_skip.setOnClickListener {
             view?.findNavController()
                 ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
         }
+
+        vp.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+            override fun onPageScrollStateChanged(state: Int) {
+
+            }
+
+            override fun onPageScrolled(
+                position: Int,
+                positionOffset: Float,
+                positionOffsetPixels: Int
+            ) {
+             }
+
+            override fun onPageSelected(position: Int) {
+                current = position
+            if (position == 4)
+                tv_next.text = "Finish"
+            else
+                tv_next.text = "Next"
+
+             }
+        })
 
     }
 

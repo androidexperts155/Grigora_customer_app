@@ -25,5 +25,13 @@ data class NotificationsModel(
     var updatedAt: String = "",
     @SerializedName("user_id")
     var userId: Int = 0,
+
+    @SerializedName("timer")
+    var timer: Int = 0,
+
+    @SerializedName("restaurant_id")
+    var restautrantId: Int = 0,
+
+
     var timeToShow:String=""
 ):Notification

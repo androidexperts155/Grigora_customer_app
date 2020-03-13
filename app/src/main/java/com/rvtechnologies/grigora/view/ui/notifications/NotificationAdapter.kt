@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.notifications
 
 import android.os.Build
+import android.os.CountDownTimer
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -16,7 +17,6 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.TimeAgo
 import com.squareup.picasso.Picasso
-import kotlinx.android.synthetic.main.order_details_fragment.*
 import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
@@ -146,7 +146,12 @@ class NotificationAdapter(
                     TimeAgo.getTimeAgo(format.parse(format.format(utcDate)).time)
             }
 
+            holder.tv_timer.visibility = View.GONE
+            if ((list[position] as NotificationsModel).timer == 1) {
 
+                setTimer(list[position] as NotificationsModel, holder.tv_timer)
+
+            }
 
             holder.tv_name.text = (list[position] as NotificationsModel).notification
         }
@@ -162,7 +167,55 @@ class NotificationAdapter(
         var img_data = view.findViewById<ImageView>(R.id.img_data)
         var tv_name = view.findViewById<TextView>(R.id.tv_name)
         var tv_time = view.findViewById<TextView>(R.id.tv_time)
+        var tv_timer = view.findViewById<TextView>(R.id.tv_timer)
         var swipeLayout = view.findViewById<SwipeLayout>(R.id.swipeLayout)
+    }
+
+    private fun setTimer(notificationsModel: NotificationsModel, tv_timer: TextView) {
+        var format = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+
+
+        var currentTime = Calendar.getInstance()
+
+        var currentTimeUtc = Calendar.getInstance()
+        currentTimeUtc.time = CommonUtils.getUtcDate(
+            tv_timer.context!!,
+            format.format(currentTime.time),
+            "dd/MM/yyyy HH:mm:ss"
+        )
+
+        currentTimeUtc.add(Calendar.MINUTE, 10)
+
+
+        var notificationTimeUtc = CommonUtils.getUtcDate(
+            tv_timer.context!!,
+            notificationsModel.createdAt,
+            "dd/MM/yyyy HH:mm:ss"
+        )
+
+
+        var seconds = currentTimeUtc.time.time - notificationTimeUtc.time
+
+        if (seconds > 0) {
+            tv_timer.visibility = View.VISIBLE
+
+            seconds /= 1000
+
+            object : CountDownTimer((seconds * 1000).toLong(), 1000) {
+                override fun onFinish() {
+                }
+
+                override fun onTick(millisUntilFinished: Long) {
+
+                    val p1 = (millisUntilFinished / 1000) % 60
+                    var p2 = (millisUntilFinished / 1000) / 60
+                    val p3 = p2 % 60
+                    p2 = p2 / 60
+                    tv_timer.text = "$p2:$p3:$p1"
+                }
+            }.start()
+        }
+
     }
 
 

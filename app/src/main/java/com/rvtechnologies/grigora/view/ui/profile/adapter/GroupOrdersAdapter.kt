@@ -53,7 +53,7 @@ class GroupOrdersAdapter(
 
 
         holder.itemView.setOnClickListener {
-            iRecyclerItemClick.onItemClick(1)
+            iRecyclerItemClick.onItemClick(position)
         }
 
     }

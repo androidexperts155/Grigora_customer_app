@@ -9,27 +9,25 @@
     
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/vp"
-        android:layout_alignParentTop="true"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_350sdp"
-        android:layout_marginTop="@dimen/_60sdp"/>
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/_60sdp" />
     
-     
     
     <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
         android:id="@+id/dots_indicator"
         android:layout_width="wrap_content"
-        android:layout_below="@+id/vp"
         android:layout_height="wrap_content"
-        app:dotsColor="@color/white"
-        app:dotsCornerRadius="8dp"
+        android:layout_below="@+id/vp"
         android:layout_centerHorizontal="true"
-        app:dotsSize="16dp"
+        app:dotsColor="@color/colorPrimaryDark"
+        app:dotsCornerRadius="@dimen/_2sdp"
+        app:dotsSize="@dimen/_4sdp"
         app:dotsSpacing="4dp"
         app:dotsWidthFactor="2.5"
-        app:selectedDotColor="@color/green"
         app:progressMode="true"
-        />
+        app:selectedDotColor="@color/colorPrimaryDark" />
     
     
     <TextView

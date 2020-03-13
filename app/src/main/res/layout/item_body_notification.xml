@@ -56,16 +56,35 @@
                     android:textSize="@dimen/_12sdp"
                     tools:text="Bakery Kings accepted your order." />
                 
-                <TextView
-                    android:id="@+id/tv_time"
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginRight="@dimen/_10sdp"
-                    android:textColor="?attr/textGray"
-                    android:textSize="@dimen/_10sdp"
-                    tools:text="0 min ago" />
+                    android:layout_marginRight="@dimen/_10sdp">
+                    
+                    <TextView
+                        android:id="@+id/tv_time"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        
+                        android:textColor="?attr/textGray"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="0 min ago" />
+                    
+                    <TextView
+                        android:id="@+id/tv_timer"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        
+                        android:textColor="@color/colorPrimaryDark"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="00:22:33" />
+                </RelativeLayout>
             
             </LinearLayout>
         </LinearLayout>
