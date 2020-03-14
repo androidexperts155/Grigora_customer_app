@@ -30,7 +30,7 @@ object ApiConstants {
     const val PROFILE_DETAILS_URL = "get-userinfo"
 
     const val ADD_ITEM_URL = "add-cart"
-    const val ADD_GROUP_ITEM_CART= "add-in-group-cart"
+    const val ADD_GROUP_ITEM_CART = "add-in-group-cart"
     const val CHANGE_ORDER_TYPE = "change-ordertype"
     const val UPDATE_CART_QTY = "update-cart-item-quantity"
     const val REMOVE_CART_URL = "remove-cart"
@@ -88,8 +88,8 @@ object ApiConstants {
     const val RE_ORDER = "re-order"
     const val DELETE_NOTIFICATION = "delete-notification"
     const val FAQ = "faqs"
-        const val GET_SUB_ISSUES = "get-sub-issues"
-        const val GET_CHAT = "getchat"
-        const val SEND_MESSGAE = "chat"
+    const val GET_SUB_ISSUES = "get-sub-issues"
+    const val GET_CHAT = "getchat"
+    const val SEND_MESSGAE = "chat"
     const val TRENDING_MEALS = "trending-items"
 }

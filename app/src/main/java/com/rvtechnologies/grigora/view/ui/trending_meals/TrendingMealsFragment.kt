@@ -166,62 +166,67 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
     }
 
     override fun add(position: Int, position2: Int) {
-        if (trendingModel.trending[position2].itemCategories?.size!! > 0) {
+        if (CommonUtils.isLogin())
+            if (trendingModel.trending[position2].itemCategories?.size!! > 0) {
 //                have add ons
-            if (trendingModel.trending[position2].item_count_in_cart!! > 0) {
+                if (trendingModel.trending[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                showItems(trendingModel.trending[position2])
-            } else {
+                    showItems(trendingModel.trending[position2])
+                } else {
 //                show item details screen
-                menuItemModel = trendingModel.trending[position2]
-                val bundle =
-                    bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trending[position2])
-                moveToDetail(bundle)
-            }
-        } else {
+                    menuItemModel = trendingModel.trending[position2]
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trending[position2])
+                    moveToDetail(bundle)
+                }
+            } else {
 //                don't have add ons, simply add
 //            trendingModel.trending[position2].item_count_in_cart =
 //                trendingModel.trending[position2].item_count_in_cart!! + 1
 
-            viewModel.addItemToCart(
-                trendingModel.trending[position2].restaurantId.toString()!!,
-                trendingModel.trending[position2].id.toString(),
-                trendingModel.trending[position2].price.toString(),
-                "1"
-            )
+                viewModel.addItemToCart(
+                    trendingModel.trending[position2].restaurantId.toString()!!,
+                    trendingModel.trending[position2].id.toString(),
+                    trendingModel.trending[position2].price.toString(),
+                    "1"
+                )
 
-            rc_trending.adapter?.notifyDataSetChanged()
-        }
+                rc_trending.adapter?.notifyDataSetChanged()
+            }
+        else
+            (activity as MainActivity).showLoginAlert()
 
     }
 
     override fun minus(position: Int, position2: Int) {
-        if (trendingModel.trending[position2].itemCategories?.size!! > 0) {
+        if (CommonUtils.isLogin())
+            if (trendingModel.trending[position2].itemCategories?.size!! > 0) {
 //                have add ons
-            if (trendingModel.trending[position2].item_count_in_cart!! > 0) {
+                if (trendingModel.trending[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                showItems(trendingModel.trending[position2])
-            } else {
+                    showItems(trendingModel.trending[position2])
+                } else {
 //                show item details screen
-                menuItemModel = trendingModel.trending[position2]
-                val bundle =
-                    bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trending[position2])
-                moveToDetail(bundle)
-            }
-        } else {
+                    menuItemModel = trendingModel.trending[position2]
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trending[position2])
+                    moveToDetail(bundle)
+                }
+            } else {
 //                don't have add ons, simply add
 //            trendingModel.trending[position2].item_count_in_cart =
 //                trendingModel.trending[position2].item_count_in_cart!! - 1
 
-            viewModel.addItemToCart(
-                trendingModel.trending[position2].restaurantId.toString()!!,
-                trendingModel.trending[position2].id.toString(),
-                trendingModel.trending[position2].price.toString(),
-                "-1"
-            )
+                viewModel.addItemToCart(
+                    trendingModel.trending[position2].restaurantId.toString()!!,
+                    trendingModel.trending[position2].id.toString(),
+                    trendingModel.trending[position2].price.toString(),
+                    "-1"
+                )
 
-            rc_trending.adapter?.notifyDataSetChanged()
-        }
+                rc_trending.adapter?.notifyDataSetChanged()
+            }
+        else (activity as MainActivity).showLoginAlert()
 
     }
 

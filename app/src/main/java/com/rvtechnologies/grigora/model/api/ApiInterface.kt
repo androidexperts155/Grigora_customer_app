@@ -128,6 +128,7 @@ interface ApiInterface {
     @POST(ApiConstants.SEARCH_RESTAURANTS)
     fun searchRestaurants(
         @Header("Authorization") token: String,
+        @Field("user_id") user_id: String,
         @Field("latitude") latitude: String,
         @Field("longitude") longitude: String,
         @Field("search") search: String,
@@ -140,6 +141,7 @@ interface ApiInterface {
     @POST(ApiConstants.GET_RESTAURANTS_BY_CUISINE_URL)
     fun getRestaurantsByCuisine(
         @Header("Authorization") token: String,
+        @Field("user_id") user_id: String,
         @Field("id") id: String,
         @Field("latitude") latitude: String,
         @Field("longitude") longitude: String
@@ -159,6 +161,7 @@ interface ApiInterface {
     @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
     fun getRestaurantDetails(
         @Header("Authorization") token: String,
+        @Field("user_id") user_id: String,
         @Field("restaurant_id") restaurant_id: String,
         @Field("price_range") price_range: String
     ): Call<JsonElement>
@@ -332,7 +335,8 @@ interface ApiInterface {
         @Field("receiver_type") receiver_type: String,
         @Field("order_id") orderId: String,
         @Field("bad_review") badReview: String,
-        @Field("good_review") goodReview: String
+        @Field("good_review") goodReview: String,
+        @Field("amount") tipAmount: String
     ): Call<JsonElement>
 
 
@@ -546,7 +550,7 @@ interface ApiInterface {
     @POST(ApiConstants.PICKUP_RESTAURANTS)
     fun getPickupRestaurants(
         @Header("Authorization") token: String,
-        @Header("user_id") uid: String,
+        @Field("user_id") uid: String,
         @Field("latitude") latitude: String,
         @Field("longitude") logitude: String
     ): Call<JsonElement>
@@ -605,6 +609,7 @@ interface ApiInterface {
     @POST(ApiConstants.SHOW_ALL_FILTER_DATA)
     fun showFilterData(
         @Header("Authorization") token: String,
+        @Field("user_id") user_id: String,
         @Field("filter_type") filter_type: String,
         @Field("latitude") latitude: String,
         @Field("longitude") longitude: String

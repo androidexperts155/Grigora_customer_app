@@ -83,6 +83,17 @@ object CommonUtils {
         }
     }
 
+    fun savePermanentBooleanPrefs(context: Context?, key: String, value: Boolean) {
+        if (context != null) {
+            val prefs =
+                context.getSharedPreferences(PrefConstants.PERMANENT_PREF, Context.MODE_PRIVATE)
+            val editor = prefs.edit()
+            editor.putBoolean(key, value)
+            editor.apply()
+        }
+    }
+
+
     fun getPrefValue(context: Context?, key: String): String {
         val prefs = context?.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
         return prefs?.getString(key, "").toString()
@@ -356,10 +367,14 @@ object CommonUtils {
     }
 
     fun isNotFirst(): Boolean {
-        return getBooleanPrefValue(
-            GrigoraApp.getInstance().activity?.baseContext,
-            PrefConstants.IS_NOT_FIRST
+        val prefs = GrigoraApp.getInstance().activity?.baseContext?.getSharedPreferences(
+            PrefConstants.PERMANENT_PREF,
+            Context.MODE_PRIVATE
         )
+        return prefs?.getBoolean(
+            PrefConstants.IS_NOT_FIRST
+            , false
+        )!!
     }
 
     fun getUid(): String {
@@ -368,6 +383,10 @@ object CommonUtils {
         } else
             "0"
 
+    }
+
+    fun getToken(): String {
+        return getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.TOKEN)
     }
 
     fun loadImage(imageView: ImageView?, imageUrl: String?) {

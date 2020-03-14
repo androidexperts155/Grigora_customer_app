@@ -175,7 +175,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_rounded"
                 android:elevation="1dp"
-                android:onClick="@{()->menuItemViewModel.addItemToCart()}"
+                android:onClick="@{()->menuItemView.addItemToCart()}"
                 android:paddingLeft="@dimen/_12sdp"
                 android:paddingRight="@dimen/_12sdp"
                 android:text="@string/add"

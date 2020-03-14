@@ -91,11 +91,14 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
                 CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, data.completeAddress)
                 CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, data.id.toString())
 
-                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                    .popBackStack(R.id.nav_graph_xml, true)
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
 
-                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                    .navigate(R.id.dashBoardFragment)
+//                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                    .popBackStack(R.id.nav_graph_xml, true)
+//
+//                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//                    .navigate(R.id.dashBoardFragment)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -358,10 +361,14 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
         CommonUtils.savePrefs(context, PrefConstants.ADDRESS, address)
         CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
 
-        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .popBackStack(R.id.nav_graph_xml, true)
 
-        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .navigate(R.id.dashBoardFragment)
+        (activity as MainActivity).clearStack()
+        (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
+
+//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//            .popBackStack(R.id.nav_graph_xml, true)
+//
+//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//            .navigate(R.id.dashBoardFragment)
     }
 }

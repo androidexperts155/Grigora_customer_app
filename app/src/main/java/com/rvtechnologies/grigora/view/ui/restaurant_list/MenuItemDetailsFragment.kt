@@ -90,10 +90,10 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         })
         viewModel.itemCategories.observe(this, Observer { itemCategoriesListRes ->
             itemCategoriesList.clear()
-                itemCategoriesList.addAll(itemCategoriesListRes as Collection<ItemCategory>)
-                rvOptions.adapter = ItemCategoryAdapter(itemCategoriesList, this)
+            itemCategoriesList.addAll(itemCategoriesListRes as Collection<ItemCategory>)
+            rvOptions.adapter = ItemCategoryAdapter(itemCategoriesList, this)
 
-         })
+        })
         viewModel.isLoading.observe(this, Observer { isLoading ->
             if (isLoading) {
                 context?.let { it1 -> CommonUtils.showLoader(it1, getString(R.string.loading)) }
@@ -122,7 +122,6 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCategoryItems()
-
     }
 
     override fun onResume() {
@@ -141,5 +140,11 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         activity?.onBackPressed()
     }
 
+    fun addItemToCart() {
+        if (CommonUtils.isLogin())
+            viewModel.addItemToCart()
+        else
+            (activity as MainActivity).showLoginAlert()
+    }
 }
 

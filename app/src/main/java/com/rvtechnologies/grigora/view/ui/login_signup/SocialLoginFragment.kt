@@ -182,9 +182,12 @@ class SocialLoginFragment : Fragment() {
                     CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble()
 
 
-            if (latitude != 0.0)
-                view?.findNavController()
-                    ?.navigate(R.id.action_social_fragment_to_dashboardFragment)
+            if (latitude != 0.0){
+//                view?.findNavController()
+//                    ?.navigate(R.id.action_social_fragment_to_dashboardFragment)
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
+            }
             else
                 view?.findNavController()
                     ?.navigate(R.id.action_social_fragment_to_selectLocationFragment)
@@ -277,7 +280,6 @@ class SocialLoginFragment : Fragment() {
         request.parameters = parameters
         request.executeAsync()
     }
-
 
     fun googleLogin() {
         startActivityForResult(intent, 121)

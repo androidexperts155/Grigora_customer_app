@@ -14,12 +14,13 @@ import com.rvtechnologies.grigora.model.models.NewDashboardModel
 class PickupRestaurantsViewModel : ViewModel() {
     var restaurantsResponse: MutableLiveData<Any> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
-    fun getRestaurants(token: String, lat: String, lng: String) {
+
+
+    fun getRestaurants( lat: String, lng: String) {
         isLoading.value = true
         ApiRepo.getInstance()
             .getPickupRestaurants(
-                token,
-                lat, lng
+                 lat, lng
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

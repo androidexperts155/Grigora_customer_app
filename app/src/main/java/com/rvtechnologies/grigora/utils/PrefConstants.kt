@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.utils
 
 object PrefConstants {
     val PREF_NAME = "grigora"
+    val PERMANENT_PREF = "grigora_permanent"
     val TOKEN = "token"
 
     val LATITUDE = "latitude"

@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.profile
 
 import android.os.Bundle
+import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
@@ -57,7 +58,10 @@ class ProfileFragment : Fragment() {
 
         viewModel.logoutRes.observe(this, Observer {
             CommonUtils.delPrefValue(context!!)
-            view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_socialLogin)
+
+            (activity as MainActivity).clearStack()
+            (activity as MainActivity).setDestination(R.id.socialLoginFragment)
+
         })
 
         viewModel.historyResponse.observe(this, Observer { historyRes ->

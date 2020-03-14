@@ -96,8 +96,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
 
         viewModel.getRestaurants(
-            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-            CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+             CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
             CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
         )
 
@@ -124,8 +123,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
         card_search.setOnClickListener {
             viewModel.getRestaurants(
-                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+                 CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
                 CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
             )
         }

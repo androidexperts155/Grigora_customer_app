@@ -108,10 +108,14 @@ class AddressList : Fragment(), IRecyclerItemClick {
         CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, item.completeAddress)
         CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, item.id.toString())
 
-        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .popBackStack(R.id.nav_graph_xml, true)
+        (activity as MainActivity).clearStack()
+        (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
 
-        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-            .navigate(R.id.dashBoardFragment)
+
+//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//            .popBackStack(R.id.nav_graph_xml, true)
+//
+//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+//            .navigate(R.id.dashBoardFragment)
     }
 }

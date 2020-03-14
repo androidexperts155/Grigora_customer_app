@@ -376,7 +376,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
                 rating = rating,
                 review = "",
                 goodReview = goodReview,
-                badReview = badReview
+                badReview = badReview, tipAmount = tip
             ) { success, result ->
                 //                isLoading.value = false
             }
@@ -573,6 +573,17 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun selectedNavigation(id: Int) {
         bottom_navigation.selectedItemId = id
     }
+
+    fun setDestination(id: Int) {
+        Navigation.findNavController(this, R.id.main_nav_fragment)
+            .navigate(id)
+    }
+
+
+    fun clearStack() {
+        Navigation.findNavController(this, R.id.main_nav_fragment)
+            .popBackStack(R.id.nav_graph_xml, true)
+     }
 }
 
 

@@ -94,10 +94,20 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                         vp_fragments.currentItem = 0
                     }
                     p0!!.text.toString().equals(getString(R.string.book_a_table)) -> {
-                        vp_fragments.currentItem = 1
+                        if (CommonUtils.isLogin())
+                            vp_fragments.currentItem = 1
+                        else {
+                            (activity as MainActivity).showLoginAlert()
+                            tab_top.getTabAt(0)?.select()
+                        }
                     }
                     p0!!.text.toString().equals(getString(R.string.group_order)) -> {
-                        vp_fragments.currentItem = 2
+                        if (CommonUtils.isLogin())
+                            vp_fragments.currentItem = 2
+                        else {
+                            tab_top.getTabAt(0)?.select()
+                            (activity as MainActivity).showLoginAlert()
+                        }
                     }
                 }
             }

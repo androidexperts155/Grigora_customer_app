@@ -366,6 +366,7 @@ Cuisine repo
         orderId: String,
         goodReview: String,
         badReview: String,
+        tipAmount: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
@@ -377,7 +378,8 @@ Cuisine repo
                 receiver_type = "3",
                 review = review,
                 goodReview = goodReview,
-                badReview = badReview
+                badReview = badReview,
+                tipAmount = tipAmount
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -594,7 +596,8 @@ Cuisine repo
                 latitude = latitude,
                 longitude = longitude,
                 search = search,
-                filter_id = filter_id
+                filter_id = filter_id,
+                user_id = CommonUtils.getUid()
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -622,7 +625,7 @@ Cuisine repo
         longitude: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantsByCuisine(token, filter_type, latitude, longitude)
+        ApiClient.getClient().getRestaurantsByCuisine(token,CommonUtils.getUid(), filter_type, latitude, longitude)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -677,7 +680,7 @@ Cuisine repo
         price: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantDetails(token, restId, price)
+        ApiClient.getClient().getRestaurantDetails(token,CommonUtils.getUid(), restId, price)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1730,14 +1733,13 @@ Cuisine repo
     }
 
     fun getPickupRestaurants(
-        token: String,
         latitude: String,
         logitude: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
             .getPickupRestaurants(
-                token = token,
+                token = CommonUtils.getToken(),
                 uid = CommonUtils.getUid(),
                 latitude = latitude,
                 logitude = logitude
@@ -2048,7 +2050,6 @@ Cuisine repo
             })
     }
 
-
     fun showFilterData(
         token: String,
         filter_type: String,
@@ -2059,6 +2060,7 @@ Cuisine repo
         ApiClient.getClient()
             .showFilterData(
                 token = token,
+                user_id = CommonUtils.getUid(),
                 filter_type = filter_type,
                 latitude = latitude,
                 longitude = longitude
@@ -2078,7 +2080,6 @@ Cuisine repo
                 override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
                     onResult(false, t?.message)
                 }
-
             })
     }
 

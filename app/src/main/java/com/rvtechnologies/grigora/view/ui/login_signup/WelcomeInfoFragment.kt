@@ -17,7 +17,7 @@ import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.login_signup.adapter.ViewPagerAdapter
 import kotlinx.android.synthetic.main.fragment_welcome_info.*
 
- class WelcomeInfoFragment : Fragment() {
+class WelcomeInfoFragment : Fragment() {
     var current = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -81,7 +81,7 @@ import kotlinx.android.synthetic.main.fragment_welcome_info.*
     }
 
     fun save() {
-        CommonUtils.saveBooleanPrefs(context, PrefConstants.IS_NOT_FIRST, true)
+        CommonUtils.savePermanentBooleanPrefs(context, PrefConstants.IS_NOT_FIRST, true)
     }
 
     override fun onResume() {

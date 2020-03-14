@@ -84,6 +84,12 @@ class PhoneLogin : Fragment() {
         view?.findNavController()?.navigate(R.id.action_phoneLogin_fragment_to_login)
     }
 
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).hideAll()
+        (activity as MainActivity).backTitle("")
+    }
+
     fun toOTP() {
         if (viewModel?.isValidPhone()!!) {
 

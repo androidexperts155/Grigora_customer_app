@@ -66,7 +66,7 @@ class SearchRestaurantViewModel : ViewModel() {
             latitude = latitude,
             longitude = longitude,
             search = search,
-            filter_id = filter_id
+            filter_id = filter_id,user_id = CommonUtils.getUid()
         )
 
         callback.enqueue(object : Callback<JsonElement> {

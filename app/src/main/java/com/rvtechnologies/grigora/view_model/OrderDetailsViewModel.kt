@@ -64,7 +64,7 @@ class OrderDetailsViewModel : ViewModel() {
         ApiRepo.getInstance()
             .rateDriver(
                 token = token.value.toString(),
-                orderId = orderId.value!!, receiverId = driverId, rating = rating, review = "",goodReview = goodReview,badReview = badReview
+                orderId = orderId.value!!, receiverId = driverId, rating = rating, review = "",goodReview = goodReview,badReview = badReview,tipAmount = tip
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
