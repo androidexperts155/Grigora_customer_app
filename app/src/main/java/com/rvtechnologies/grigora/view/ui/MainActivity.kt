@@ -44,7 +44,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     RestaurantRatingDialogFragment.RestaurantRate {
     lateinit var content: RelativeLayout
     var googleSignIn: GoogleSignin? = null
-
+    var alredayShown = false
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -495,6 +495,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun showBottomNavigation(index: Int) {
         bottom_navigation.visibility = View.VISIBLE
         bottom_navigation.selectedItemId = index
+
     }
 
     fun showBottomMenu() {
@@ -539,33 +540,39 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     fun showLoginAlert(pop: Boolean = false, id: Int = 0) {
         var alertDialog: AlertDialog? = null
-
-        val dialogBuilder = this?.let { AlertDialog.Builder(it) }
-        if (this is MainActivity && !this.isDestroyed && alertDialog == null) {
-            val inflater = this.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                Navigation.findNavController(this, R.id.main_nav_fragment)
-                    .navigate(R.id.socialLoginFragment)
-            }
-            dialogView.btnLater.setOnClickListener {
-                if (pop) {
+        if (!alredayShown) {
+            val dialogBuilder = this?.let { AlertDialog.Builder(it) }
+            if (this is MainActivity && !this.isDestroyed && alertDialog == null) {
+                val inflater = this.layoutInflater
+                val dialogView = inflater.inflate(R.layout.alert_login, null)
+                dialogBuilder?.setView(dialogView)
+                dialogBuilder?.setCancelable(false)
+                dialogView.btnLogin.setOnClickListener {
+                    alredayShown = false
+                    alertDialog?.dismiss()
                     Navigation.findNavController(this, R.id.main_nav_fragment)
-                        .navigate(id)
+                        .navigate(R.id.socialLoginFragment)
                 }
-                alertDialog?.dismiss()
-                this.onBackPressed()
-            }
+                dialogView.btnLater.setOnClickListener {
+                    alredayShown = false
+                    alertDialog?.dismiss()
+                    if (pop) {
+                        selectedNavigation(id)
+                    }
 
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
+                }
+
+                alertDialog = dialogBuilder?.create()
+                alertDialog?.show()
+                alredayShown = true
+
+            }
         }
     }
 
-
+    fun selectedNavigation(id: Int) {
+        bottom_navigation.selectedItemId = id
+    }
 }
 
 

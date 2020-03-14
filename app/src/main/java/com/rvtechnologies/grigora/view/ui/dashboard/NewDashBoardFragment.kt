@@ -162,8 +162,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
 
             (activity as MainActivity).img_right.setOnClickListener {
-                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                    .navigate(R.id.notifications)
+                if (CommonUtils.isLogin())
+                    Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+                        .navigate(R.id.notifications)
+                else
+                    (activity as MainActivity).showLoginAlert()
             }
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)

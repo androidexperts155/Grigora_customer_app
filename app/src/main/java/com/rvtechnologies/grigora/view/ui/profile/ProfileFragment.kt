@@ -125,7 +125,6 @@ class ProfileFragment : Fragment() {
         )}"
     }
 
-
     private fun toLogin() {
         view?.findNavController()
             ?.navigate(
@@ -159,7 +158,6 @@ class ProfileFragment : Fragment() {
         view?.findNavController()
             ?.navigate(R.id.action_navigationMyAccounts_to_giftFragment)
     }
-
 
     fun toAboutUs() {
         view?.findNavController()

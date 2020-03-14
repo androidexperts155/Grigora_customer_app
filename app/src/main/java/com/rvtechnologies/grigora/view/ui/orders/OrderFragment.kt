@@ -96,51 +96,24 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-        if (token.isBlank()) {
-            showLoginAlert(activity as MainActivity?)
+
+        if (!CommonUtils.isLogin()) {
+            (activity as MainActivity).showLoginAlert(pop = true, id = R.id.dashBoardFragment)
         } else {
             if (currentIndex == 0) {
-                viewModel.getCurrentOrder(token)
+                viewModel.getCurrentOrder(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
             } else if (currentIndex == 1) {
-                viewModel.getPastOrder(token)
+                viewModel.getPastOrder(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
             } else {
-                viewModel.getUpcomingOrders(token)
+                viewModel.getUpcomingOrders(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
             }
 
             rvOrders.adapter = OrderAdapter(orderList, this, currentIndex)
         }
     }
 
-    private fun showLoginAlert(activity: MainActivity?) {
-        var alertDialog: AlertDialog? = null
 
-        val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-        if (activity is MainActivity && !activity.isDestroyed && alertDialog == null) {
-            val inflater = activity.layoutInflater
-            val dialogView = inflater.inflate(R.layout.alert_login, null)
-            dialogBuilder?.setView(dialogView)
-            dialogBuilder?.setCancelable(false)
-            dialogView.btnLogin.setOnClickListener {
-                alertDialog?.dismiss()
-                toLogin()
-            }
-            dialogView.btnLater.setOnClickListener {
-                alertDialog?.dismiss()
-                activity.onBackPressed()
-            }
 
-            alertDialog = dialogBuilder?.create()
-            alertDialog?.show()
-        }
-    }
-
-    private fun toLogin() {
-        view?.findNavController()
-            ?.navigate(
-                R.id.action_navigationCart_to_loginFragment2
-            )
-    }
 
     override fun onItemClick(item: Any) {
         if (item is OrderItemModel) {
