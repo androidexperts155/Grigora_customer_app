@@ -60,7 +60,7 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
 
     private lateinit var viewModel: LocationTypeViewModel
 
-        private lateinit var mMap: GoogleMap
+    private lateinit var mMap: GoogleMap
 
     private var latitude = 0.0
     private var longitude = 0.0
@@ -167,6 +167,10 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
 
         chipAdapter = ChipAdapter(chipList, this)
         rc_chip.adapter = chipAdapter
+
+        if (!CommonUtils.isLogin()) {
+            rc_chip.visibility = View.GONE
+        }
     }
 
     override fun onResume() {
@@ -198,8 +202,8 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
         fields = listOf(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME, Place.Field.ADDRESS)
 
         var intent: Intent = Autocomplete.IntentBuilder(
-            AutocompleteActivityMode.OVERLAY, fields
-        ).setTypeFilter(TypeFilter.ADDRESS)
+                AutocompleteActivityMode.OVERLAY, fields
+            ).setTypeFilter(TypeFilter.ADDRESS)
             .build(activity!!)
         startActivityForResult(intent, AppConstants.SELECT_AREA)
     }
@@ -273,19 +277,25 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
 
     fun saveLocationContinue() {
         CommonUtils.hideLoader()
-        if (latitude > 0.0 &&
-            longitude > 0.0
+        if (latitude != 0.0 &&
+            longitude != 0.0
         ) {
             (activity as MainActivity).updateLocation()
-            var map = HashMap<String, String>()
-            map.put(AppConstants.LATITUDE, latitude.toString())
-            map.put(AppConstants.LONGITUDE, longitude.toString())
-            map.put(AppConstants.ADDRESS, address)
-            map.put(AppConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
 
-            map[AppConstants.TOKEN] = CommonUtils.getPrefValue(this.context, PrefConstants.TOKEN)
-            map[AppConstants.LOCATION_TYPE_ID] = selectedType
-            viewModel.addAddress(map)
+            if (CommonUtils.isLogin()) {
+                var map = HashMap<String, String>()
+                map.put(AppConstants.LATITUDE, latitude.toString())
+                map.put(AppConstants.LONGITUDE, longitude.toString())
+                map.put(AppConstants.ADDRESS, address)
+                map.put(AppConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
+
+                map[AppConstants.TOKEN] =
+                    CommonUtils.getPrefValue(this.context, PrefConstants.TOKEN)
+                map[AppConstants.LOCATION_TYPE_ID] = selectedType
+                viewModel.addAddress(map)
+            } else {
+                countinueWithoutLogin()
+            }
         } else if (selectedType.isNullOrEmpty()) {
             CommonUtils.showMessage(parentView, getString(R.string.error_location_type))
         } else {
@@ -342,4 +352,16 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
     }
 
 
+    private fun countinueWithoutLogin() {
+        CommonUtils.savePrefs(context, PrefConstants.LATITUDE, latitude.toString())
+        CommonUtils.savePrefs(context, PrefConstants.LONGITUDE, longitude.toString())
+        CommonUtils.savePrefs(context, PrefConstants.ADDRESS, address)
+        CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, ed_apartment.text.toString())
+
+        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+            .popBackStack(R.id.nav_graph_xml, true)
+
+        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+            .navigate(R.id.dashBoardFragment)
+    }
 }

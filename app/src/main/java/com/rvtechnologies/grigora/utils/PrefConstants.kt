@@ -23,6 +23,7 @@ object PrefConstants {
     val IMAGE = "image"
 
     val IS_DARK_MODE = "is_dark_mode"
+    val IS_NOT_FIRST = "is_first"
     val IS_LANGUAGE_SELECTED = "is_language_selected"
     val LANGUAGE_SELECTED = "language_selected"
     val IS_NOTIFICATIONS_ON = "is_notifications_on"

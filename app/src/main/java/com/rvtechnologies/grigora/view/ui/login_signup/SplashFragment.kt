@@ -11,10 +11,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_splash.*
 
 
@@ -54,33 +52,43 @@ class SplashFragment : Fragment() {
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
 
+            var latitude = 0.0
+            if (!CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LATITUDE
+                ).isNullOrEmpty()
+            )
+                latitude =
+                    CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble()
+
+
 
             Handler().postDelayed({
-                if (GrigoraApp.getInstance().isLogin(this.context!!)) {
-                    var latitude = 0.0
-                    if (!CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.LATITUDE
-                        ).isNullOrEmpty()
-                    )
-                        latitude =
-                            CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble()
+                if (CommonUtils.isLogin()) {
 
-                    if (latitude > 0.0
 
-                    ) {
+//                    check if user has selected address
+                    if (latitude > 0.0) {
                         view?.findNavController()
                             ?.navigate(R.id.action_splashFragment2_to_dashboard)
                     } else
                         view?.findNavController()
                             ?.navigate(R.id.action_splashFragment2_to_selectLocationFragment2)
                 } else {
-                    if (CommonUtils.isFirst())
-                        view?.findNavController()
+                    when {
+                        !CommonUtils.isNotFirst() -> view?.findNavController()
                             ?.navigate(R.id.action_splashFragment2_to_welcomeFragment)
-                    else
-                        view?.findNavController()
-                            ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+                        latitude > 0.0 -> {
+                            view?.findNavController()
+                                ?.navigate(R.id.action_splashFragment2_to_dashboard)
+                        }
+                        else -> {
+                            view?.findNavController()
+                                ?.navigate(R.id.action_splashFragment2_to_chooseLanguageFragment)
+                        }
+                    }
+
+
                 }
 
 //                if (CommonUtils.getBooleanPrefValue(context, PrefConstants.IS_LANGUAGE_SELECTED)) {

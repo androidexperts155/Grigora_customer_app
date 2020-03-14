@@ -2,7 +2,6 @@ package com.rvtechnologies.grigora.view.ui.login_signup
 
 
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,15 +14,10 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.login_signup.adapter.SliderAdapter
 import com.rvtechnologies.grigora.view.ui.login_signup.adapter.ViewPagerAdapter
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_welcome_info.*
 
-/**
- * A simple [Fragment] subclass.
- */
-class WelcomeInfoFragment : Fragment() {
+ class WelcomeInfoFragment : Fragment() {
     var current = 0
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -45,33 +39,24 @@ class WelcomeInfoFragment : Fragment() {
 
         dots_indicator.setViewPager(vp);
 
-
-//        imageSlider.setCurrentPageListener { index ->
-//            Log.e("INDEX", index.toString())
-//
-//            current = index
-//            if (index == 3)
-//                tv_next.text = "Finish"
-//            else
-//                tv_next.text = "Next"
-//        }
-
-
         tv_next.setOnClickListener {
             if (tv_next.text.toString().equals("Finish")) {
+                save()
                 view?.findNavController()
                     ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
+
             } else {
                 current++
                 vp.currentItem = current
             }
         }
         tv_skip.setOnClickListener {
+            save()
             view?.findNavController()
                 ?.navigate(R.id.action_welcomeFragment_to_SelectLanguage)
         }
 
-        vp.addOnPageChangeListener(object :ViewPager.OnPageChangeListener{
+        vp.addOnPageChangeListener(object : ViewPager.OnPageChangeListener {
             override fun onPageScrollStateChanged(state: Int) {
 
             }
@@ -81,18 +66,22 @@ class WelcomeInfoFragment : Fragment() {
                 positionOffset: Float,
                 positionOffsetPixels: Int
             ) {
-             }
+            }
 
             override fun onPageSelected(position: Int) {
                 current = position
-            if (position == 4)
-                tv_next.text = "Finish"
-            else
-                tv_next.text = "Next"
+                if (position == 4)
+                    tv_next.text = "Finish"
+                else
+                    tv_next.text = "Next"
 
-             }
+            }
         })
 
+    }
+
+    fun save() {
+        CommonUtils.saveBooleanPrefs(context, PrefConstants.IS_NOT_FIRST, true)
     }
 
     override fun onResume() {
@@ -102,6 +91,4 @@ class WelcomeInfoFragment : Fragment() {
             (activity as MainActivity).lockDrawer(true)
         }
     }
-
-
 }

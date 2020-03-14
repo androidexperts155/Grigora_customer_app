@@ -14,10 +14,24 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
         
+        <TextView
+            android:id="@+id/tv_skip"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/_8sdp"
+            android:padding="@dimen/_8sdp"
+            android:text="@string/skip"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
         <HorizontalScrollView
             android:id="@+id/sc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/tv_skip"
             
             android:layout_alignParentTop="true"
             
@@ -223,10 +237,10 @@
         </LinearLayout>
         
         <LinearLayout
-            android:layout_below="@+id/logins"
             android:id="@+id/li_login_signup"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/logins"
             android:layout_centerHorizontal="true"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_25sdp"
@@ -266,10 +280,10 @@
         <TextView
             android:id="@+id/tv_bottom"
             style="@style/normalText"
-            android:layout_below="@+id/li_login_signup"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-             android:gravity="center"
+            android:layout_below="@+id/li_login_signup"
+            android:gravity="center"
             android:padding="@dimen/_20sdp"
             android:text="@string/termsandconditions_social"
             android:textColor="?attr/lightGray" />

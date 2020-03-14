@@ -546,6 +546,7 @@ interface ApiInterface {
     @POST(ApiConstants.PICKUP_RESTAURANTS)
     fun getPickupRestaurants(
         @Header("Authorization") token: String,
+        @Header("user_id") uid: String,
         @Field("latitude") latitude: String,
         @Field("longitude") logitude: String
     ): Call<JsonElement>
@@ -662,7 +663,8 @@ interface ApiInterface {
     fun trendingMeals(
         @Header("Authorization") token: String,
         @Field("latitude") latitude: String,
-        @Field("longitude") longitude: String
+        @Field("longitude") longitude: String,
+        @Field("user_id") uid: String
     ): Call<JsonElement>
 
 }

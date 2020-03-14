@@ -114,15 +114,12 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 AppConstants.RESTAURANT_OPENING_TIME to data.openingTime,
                 AppConstants.RESTAURANT_ALWAYS_OPEN to data.fullTime,
                 AppConstants.FROM_PICKUP to true
-
             )
             view?.findNavController()
                 ?.navigate(
                     R.id.action_pickupRestaurants_to_rest_parent,
                     bundle
                 )
-
-
         }
 
         card_search.setOnClickListener {

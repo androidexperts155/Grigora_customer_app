@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
     <string name="default_notification_channel_id" translatable="false">212</string>
     
-    <string name="facebook_app_id" translatable="false">2538212279779515</string>
-    <string name="fb_login_protocol_scheme" translatable="false">fb2538212279779515</string>
+    <string name="facebook_app_id" translatable="false">2250256151942771</string>
+    <string name="fb_login_protocol_scheme" translatable="false">2250256151942771</string>
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
@@ -495,6 +495,7 @@
     <string name="grigora_gift_voucher">Grigora Gift Voucher</string>
     <string name="no_user_selected">No User Selected</string>
     <string name="ticket_id">Ticket Id</string>
+    <string name="skip">Skip</string>
 
 
 </resources><!--₦-->

@@ -35,8 +35,7 @@
                     android:layout_width="@dimen/_45sdp"
                     android:layout_height="@dimen/_45sdp"
                     android:layout_alignParentLeft="true"
-                    android:layout_marginTop="8dp"
-                    />
+                    android:layout_marginTop="8dp" />
                 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -83,7 +82,7 @@
                     android:layout_centerVertical="true"
                     android:textColor="?attr/textWhite"
                     tools:text="4 Hours ago" />
-                
+            
             </RelativeLayout>
             
             <TextView

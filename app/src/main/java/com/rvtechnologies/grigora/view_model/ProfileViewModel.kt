@@ -10,6 +10,7 @@ import com.rvtechnologies.grigora.model.QuizModel
 import com.rvtechnologies.grigora.model.WalletHistoryModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.LogoutModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 
 class ProfileViewModel : ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
@@ -34,21 +35,24 @@ class ProfileViewModel : ViewModel() {
     }
 
     fun getHistory(token: String) {
-        isLoading.value = true
+        if (CommonUtils.isLogin()) {
 
-        ApiRepo.getInstance()
-            .walletHistory(
-                token = token
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type = object :
-                        TypeToken<CommonResponseModel<WalletHistoryModel>>() {}.type
-                    historyResponse.value = Gson().fromJson(result as JsonElement, type)
-                } else {
-                    historyResponse.value = result
+            isLoading.value = true
+
+            ApiRepo.getInstance()
+                .walletHistory(
+                    token = token
+                ) { success, result ->
+                    isLoading.value = false
+                    if (success) {
+                        val type = object :
+                            TypeToken<CommonResponseModel<WalletHistoryModel>>() {}.type
+                        historyResponse.value = Gson().fromJson(result as JsonElement, type)
+                    } else {
+                        historyResponse.value = result
+                    }
                 }
-            }
+        }
     }
 
 

@@ -6,12 +6,15 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.NotificationsModel
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.NotificationTitleModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
@@ -167,16 +170,32 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
+        if (item is NotificationsModel) {
+            val bundle = bundleOf(
+                AppConstants.RESTAURANT_ID to item.restautrantId,
+                AppConstants.RESTAURANT_PICKUP to item.pickup,
+                AppConstants.RESTAURANT_BOOKING to item.table_booking,
+                AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                AppConstants.RESTAURANT_CLOSING_TIME to item.closing_time,
+                AppConstants.RESTAURANT_OPENING_TIME to item.opening_time,
+                AppConstants.RESTAURANT_ALWAYS_OPEN to item.full_time,
+                AppConstants.FROM_PICKUP to false
+            )
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_notifications_to_restaurantDetailParent,
+                    bundle
+                )
+        } else {
+            item as Int
+            viewModel.deleteNotification(
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                (list[item] as NotificationsModel).id.toString()
+            )
 
-        item as Int
-        viewModel.deleteNotification(
-            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-            (list[item] as NotificationsModel).id.toString()
-        )
+            list.removeAt(item)
+            rv_notifcations.adapter?.notifyItemRemoved(item)
 
-        list.removeAt(item)
-        rv_notifcations.adapter?.notifyItemRemoved(item)
-
+        }
     }
-
 }

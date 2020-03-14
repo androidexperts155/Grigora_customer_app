@@ -12,6 +12,7 @@ import android.view.WindowManager
 import android.util.Base64
 import android.view.Window
 import android.widget.RelativeLayout
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.os.bundleOf
 import androidx.core.view.GravityCompat
@@ -32,6 +33,7 @@ import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.alert_login.view.*
 import org.json.JSONObject
 import java.security.MessageDigest
 import java.security.NoSuchAlgorithmException
@@ -42,7 +44,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     RestaurantRatingDialogFragment.RestaurantRate {
     lateinit var content: RelativeLayout
     var googleSignIn: GoogleSignin? = null
-
+    var alredayShown = false
 
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
@@ -125,26 +127,16 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
         rateOrder()
 
-        bottom_navigation.setOnNavigationItemSelectedListener { item ->
-
-
-            //            Navigation.findNavController(this, R.id.main_nav_fragment).popBackStack(item.itemId,true)
-
-
-            onNavDestinationSelected(
-                item,
-                Navigation.findNavController(this, R.id.main_nav_fragment)
-            )
-
-        }
-
 
         deliverLayout.setOnClickListener {
-            //            Navigation.findNavController(this, R.id.main_nav_fragment)
-//                .popBackStack(R.id.nav_graph_xml, true)
+            if (CommonUtils.isLogin()) {
+                Navigation.findNavController(this, R.id.main_nav_fragment)
+                    .navigate(R.id.addressListFragment)
+            } else {
+                Navigation.findNavController(this, R.id.main_nav_fragment)
+                    .navigate(R.id.selectLocationFragment)
+            }
 
-            Navigation.findNavController(this, R.id.main_nav_fragment)
-                .navigate(R.id.addressListFragment)
         }
 
         Log.e("token:: ", CommonUtils.getPrefValue(this, PrefConstants.TOKEN))
@@ -154,6 +146,12 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
         img_menu.setOnClickListener {
             closeOrOpenDrawer()
+        }
+        bottom_navigation.setOnNavigationItemSelectedListener { item ->
+            onNavDestinationSelected(
+                item,
+                Navigation.findNavController(this, R.id.main_nav_fragment)
+            )
         }
 
 
@@ -270,7 +268,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     override fun onDriverRateSubmit(
         rating: Float, goodReview: String,
-        badReview: String, orderItemModel: OrderItemModel,tip:String
+        badReview: String, orderItemModel: OrderItemModel, tip: String
     ) {
 
 
@@ -278,7 +276,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            driverId = orderItemModel.driverId,goodReview = goodReview,badReview = badReview,tip=tip
+            driverId = orderItemModel.driverId,
+            goodReview = goodReview,
+            badReview = badReview,
+            tip = tip
         )
 
         if (orderItemModel.is_restaurant_rated == "0") {
@@ -299,13 +300,17 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
-    override fun onrestaurantRateSubmit(rating: Float, goodReview: String,
-                                        badReview: String, orderItemModel: OrderItemModel) {
+    override fun onrestaurantRateSubmit(
+        rating: Float, goodReview: String,
+        badReview: String, orderItemModel: OrderItemModel
+    ) {
         rateRestaurant(
             token = CommonUtils.getPrefValue(this, PrefConstants.TOKEN),
             rating = rating.toString(),
             orderId = orderItemModel.id.toString(),
-            restaurantId = orderItemModel.restaurantId.toString(),goodReview = goodReview,badReview = badReview
+            restaurantId = orderItemModel.restaurantId.toString(),
+            goodReview = goodReview,
+            badReview = badReview
         )
 
         var mealsToRate = ArrayList<OrderItemModel.OrderDetail>()
@@ -340,7 +345,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         var map = HashMap<String, HashMap<String, String>>()
 
         for (meal in ratedMeals) {
-            var m = HashMap<String,String>()
+            var m = HashMap<String, String>()
             m.put("rating", meal.rating.toString())
             m.put("review", meal.review)
 
@@ -357,26 +362,40 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
 
     }
 
-    fun rateDriver(token: String, orderId: String, driverId: String, rating: String, goodReview: String,
-                   badReview: String,tip:String) {
+    fun rateDriver(
+        token: String, orderId: String, driverId: String, rating: String, goodReview: String,
+        badReview: String, tip: String
+    ) {
 //        isLoading.value = true
 
         ApiRepo.getInstance()
             .rateDriver(
                 token = token,
-                orderId = orderId, receiverId = driverId, rating = rating, review = "",goodReview = goodReview,badReview = badReview
+                orderId = orderId,
+                receiverId = driverId,
+                rating = rating,
+                review = "",
+                goodReview = goodReview,
+                badReview = badReview
             ) { success, result ->
                 //                isLoading.value = false
             }
     }
 
-    fun rateRestaurant(token: String, orderId: String, restaurantId: String, rating: String, goodReview: String,
-                       badReview: String) {
+    fun rateRestaurant(
+        token: String, orderId: String, restaurantId: String, rating: String, goodReview: String,
+        badReview: String
+    ) {
 //        isLoading.value = true
         ApiRepo.getInstance()
             .rateRestaurant(
                 token = token,
-                orderId = orderId, receiverId = restaurantId, rating = rating, review = badReview,goodReview = goodReview,badReview = ""
+                orderId = orderId,
+                receiverId = restaurantId,
+                rating = rating,
+                review = badReview,
+                goodReview = goodReview,
+                badReview = ""
             ) { success, result ->
                 //                isLoading.value = false
             }
@@ -476,6 +495,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun showBottomNavigation(index: Int) {
         bottom_navigation.visibility = View.VISIBLE
         bottom_navigation.selectedItemId = index
+
     }
 
     fun showBottomMenu() {
@@ -518,7 +538,41 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
+    fun showLoginAlert(pop: Boolean = false, id: Int = 0) {
+        var alertDialog: AlertDialog? = null
+        if (!alredayShown) {
+            val dialogBuilder = this?.let { AlertDialog.Builder(it) }
+            if (this is MainActivity && !this.isDestroyed && alertDialog == null) {
+                val inflater = this.layoutInflater
+                val dialogView = inflater.inflate(R.layout.alert_login, null)
+                dialogBuilder?.setView(dialogView)
+                dialogBuilder?.setCancelable(false)
+                dialogView.btnLogin.setOnClickListener {
+                    alredayShown = false
+                    alertDialog?.dismiss()
+                    Navigation.findNavController(this, R.id.main_nav_fragment)
+                        .navigate(R.id.socialLoginFragment)
+                }
+                dialogView.btnLater.setOnClickListener {
+                    alredayShown = false
+                    alertDialog?.dismiss()
+                    if (pop) {
+                        selectedNavigation(id)
+                    }
 
+                }
+
+                alertDialog = dialogBuilder?.create()
+                alertDialog?.show()
+                alredayShown = true
+
+            }
+        }
+    }
+
+    fun selectedNavigation(id: Int) {
+        bottom_navigation.selectedItemId = id
+    }
 }
 
 

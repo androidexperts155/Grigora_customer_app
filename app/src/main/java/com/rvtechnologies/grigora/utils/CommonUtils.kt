@@ -16,16 +16,10 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
-import android.view.WindowManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
-import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.CircularProgressDrawable
-import com.bumptech.glide.Glide
-import com.bumptech.glide.load.engine.DiskCacheStrategy
-import com.bumptech.glide.request.RequestOptions
-import com.github.siyamed.shapeimageview.CircularImageView
 import com.google.android.material.snackbar.Snackbar
 import com.google.gson.Gson
 import com.google.gson.JsonElement
@@ -92,6 +86,16 @@ object CommonUtils {
     fun getPrefValue(context: Context?, key: String): String {
         val prefs = context?.getSharedPreferences(PrefConstants.PREF_NAME, Context.MODE_PRIVATE)
         return prefs?.getString(key, "").toString()
+    }
+
+
+    fun isLogin(): Boolean {
+
+        val prefs = GrigoraApp.getInstance().activity?.baseContext?.getSharedPreferences(
+            PrefConstants.PREF_NAME,
+            Context.MODE_PRIVATE
+        )
+        return !prefs?.getString(PrefConstants.TOKEN, "").toString().isNullOrEmpty()
     }
 
     fun delPrefValue(context: Context?): Boolean {
@@ -351,8 +355,19 @@ object CommonUtils {
         )
     }
 
-    fun isFirst(): Boolean {
-        return true
+    fun isNotFirst(): Boolean {
+        return getBooleanPrefValue(
+            GrigoraApp.getInstance().activity?.baseContext,
+            PrefConstants.IS_NOT_FIRST
+        )
+    }
+
+    fun getUid(): String {
+        return if (isLogin()) {
+            getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.ID)
+        } else
+            "0"
+
     }
 
     fun loadImage(imageView: ImageView?, imageUrl: String?) {
@@ -411,28 +426,38 @@ object CommonUtils {
         return startLocation.distanceTo(endLocation) / 1000
     }
 
-    fun getUtcDate(context: Context, date: String, format: String): Date {
-        val utcFormatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            SimpleDateFormat(
-                format,
-                context.resources.configuration.locales[0]
-            )
-        } else
-            SimpleDateFormat(
-                format,
-                context.resources.configuration.locale
-            )
-        utcFormatter.timeZone = TimeZone.getTimeZone("UTC")
-        return utcFormatter.parse(date)
+    fun getUtcDate(context: Context, d: String, format: String): Date {
+
+
+        var sdf = SimpleDateFormat(format)
+        var sdf1 = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getDefault()
+        var date = sdf.parse(d)
+
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+        return sdf1.parse(sdf.format(date))
+    }
+
+    fun utcToLocal(context: Context, d: String, format: String): Date {
+
+        var sdf = SimpleDateFormat(format)
+        var sdf1 = SimpleDateFormat(format)
+        sdf.timeZone = TimeZone.getTimeZone("UTC")
+
+        var date = sdf.parse(d)
+
+        sdf.timeZone = TimeZone.getDefault()
+
+        return sdf1.parse(sdf.format(date))
     }
 
     fun localToUtc(normalDate: String, format: String): String {
         var sdf = SimpleDateFormat(format)
-        sdf.timeZone= TimeZone.getDefault()
-        var date=sdf.parse(normalDate)
+        sdf.timeZone = TimeZone.getDefault()
+        var date = sdf.parse(normalDate)
 
         sdf.timeZone = TimeZone.getTimeZone("UTC")
-        return sdf.format(date )
+        return sdf.format(date)
     }
 
     fun isRestaurantOpen(openingTime: String, closingTime: String): Boolean {
@@ -440,7 +465,7 @@ object CommonUtils {
         var sdf = SimpleDateFormat(format)
         var sdf1 = SimpleDateFormat(format)
         sdf.timeZone = TimeZone.getTimeZone("UTC")
-        var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format,format)
+        var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format, format)
 
         return sdf1.parse(localUtcDate).time.compareTo(sdf.parse(openingTime).time) == 1 && sdf.parse(
             localUtcDate

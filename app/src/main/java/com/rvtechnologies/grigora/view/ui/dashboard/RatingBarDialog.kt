@@ -65,12 +65,12 @@ class RatingBarDialog(
 
             override fun onStartTrackingTouch(seekBar: IndicatorSeekBar) {}
             override fun onStopTrackingTouch(seekBar: IndicatorSeekBar) {
-//                if (seekBar.progressFloat.equals(5.0))
-//                    tv_over.visibility = View.GONE
-//                else
-//                    tv_over.visibility = View.VISIBLE
-//
-//                tv_rating.text = seekBar.progressFloat.toString()
+                if (seekBar.progressFloat.equals(5.0))
+                    tv_over.visibility = View.GONE
+                else
+                    tv_over.visibility = View.VISIBLE
+
+                tv_rating.text = seekBar.progressFloat.toString()
             }
         })
     }

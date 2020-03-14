@@ -136,11 +136,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         super.onViewCreated(view, savedInstanceState)
 
         map["latitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
-        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+//        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         map["longitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
         map["filter_id"] = "0"
         map["cuisine_id"] = "0"
-        map["user_id"] = CommonUtils.getPrefValue(context!!, PrefConstants.ID)
+        map["user_id"] = CommonUtils.getUid()
 
         viewModel.getDashboardData(map)
 
@@ -162,8 +162,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
 
             (activity as MainActivity).img_right.setOnClickListener {
-                Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-                    .navigate(R.id.notifications)
+                if (CommonUtils.isLogin())
+                    Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
+                        .navigate(R.id.notifications)
+                else
+                    (activity as MainActivity).showLoginAlert()
             }
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
@@ -184,8 +187,10 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 )
         } else if (item is NewDashboardModel.Filter) {
             if (item.selectionType == "1") {
-                var priceDialog = RatingBarDialog(this, 0.0F, item)
-                priceDialog.show(this.childFragmentManager, "")
+                if (!item.selected) {
+                    var priceDialog = RatingBarDialog(this, 0.0F, item)
+                    priceDialog.show(this.childFragmentManager, "")
+                } else removeRatingFiler()
             } else if (item.selectionType == "2") {
                 var list = ArrayList<PriceFilterModel>()
                 if (item.multiSelected == null)
@@ -302,10 +307,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         } else if (item is SelectedRating) {
             if (item.applyRating) {
                 if (item.oldRating != item.newRating) {
-//                    if (!item.filter.selected)
-//                        applyFilter("filter_id", item.filter.id.toString())
-//                    else
-//                        applyFilter("filter_id", "0")
+                    applyRatingFilter(item.newRating.toString())
                 }
             }
         } else if (item is FilteredPrice) {
@@ -352,9 +354,38 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         viewModel.getDashboardData(map)
     }
 
+    private fun applyRatingFilter(filter: String) {
+        map["rating_range"] = filter
+        val result: MutableList<List<String>> =
+            Arrays.asList(map["filter_id"].toString().split(","))
+
+
+        var list = ArrayList<String>(result[0])
+        if (!list.contains("1"))
+            list.add("1")
+
+        map["filter_id"] = list.joinToString(",")
+        viewModel.getDashboardData(map)
+
+
+    }
+
+    private fun removeRatingFiler() {
+        val result: MutableList<List<String>> =
+            Arrays.asList(map["filter_id"].toString().split(","))
+
+        var list = ArrayList<String>(result[0])
+        if (list.contains("1"))
+            list.remove("1")
+
+        map["filter_id"] = list.joinToString(",")
+        viewModel.getDashboardData(map)
+
+
+    }
+
     private fun applyPriceFilter(filter: String, select: Boolean) {
         map["price_range"] = filter
-
 
         val result: MutableList<List<String>> =
             Arrays.asList(map["filter_id"].toString().split(","))

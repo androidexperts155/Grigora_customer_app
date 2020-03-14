@@ -1736,7 +1736,12 @@ Cuisine repo
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
-            .getPickupRestaurants(token = token, latitude = latitude, logitude = logitude)
+            .getPickupRestaurants(
+                token = token,
+                uid = CommonUtils.getUid(),
+                latitude = latitude,
+                logitude = logitude
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -2147,7 +2152,8 @@ Cuisine repo
             .trendingMeals(
                 token = token,
                 latitude = latitude,
-                longitude = longitude
+                longitude = longitude,
+                uid = CommonUtils.getUid()
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

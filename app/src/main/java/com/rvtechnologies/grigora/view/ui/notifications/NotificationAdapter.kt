@@ -117,7 +117,7 @@ class NotificationAdapter(
                     )
                     .into(holder.img_data)
 
-            var utcDate = CommonUtils.getUtcDate(
+            var utcDate = CommonUtils.utcToLocal(
                 holder.img_data.context!!,
                 (list[position] as NotificationsModel).createdAt,
                 "yyyy-MM-dd HH:mm:ss"
@@ -149,7 +149,11 @@ class NotificationAdapter(
             holder.tv_timer.visibility = View.GONE
             if ((list[position] as NotificationsModel).timer == 1) {
 
-                setTimer(list[position] as NotificationsModel, holder.tv_timer)
+                if (setTimer(list[position] as NotificationsModel, holder.tv_timer)) {
+                    holder.itemView.setOnClickListener {
+                        iRecyclerItemClick.onItemClick(list[position])
+                    }
+                }
 
             }
 
@@ -171,8 +175,9 @@ class NotificationAdapter(
         var swipeLayout = view.findViewById<SwipeLayout>(R.id.swipeLayout)
     }
 
-    private fun setTimer(notificationsModel: NotificationsModel, tv_timer: TextView) {
+    private fun setTimer(notificationsModel: NotificationsModel, tv_timer: TextView): Boolean {
         var format = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
+        var format1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
 
         var currentTime = Calendar.getInstance()
@@ -186,17 +191,13 @@ class NotificationAdapter(
 
         currentTimeUtc.add(Calendar.MINUTE, 10)
 
+        var notificationTimeUtc = format1.parse(notificationsModel.createdAt)
 
-        var notificationTimeUtc = CommonUtils.getUtcDate(
-            tv_timer.context!!,
-            notificationsModel.createdAt,
-            "dd/MM/yyyy HH:mm:ss"
-        )
-
-
-        var seconds = currentTimeUtc.time.time - notificationTimeUtc.time
+        var seconds = notificationTimeUtc.time - currentTimeUtc.time.time
 
         if (seconds > 0) {
+
+
             tv_timer.visibility = View.VISIBLE
 
             seconds /= 1000
@@ -214,7 +215,10 @@ class NotificationAdapter(
                     tv_timer.text = "$p2:$p3:$p1"
                 }
             }.start()
-        }
+
+            return true
+        } else
+            return false
 
     }
 

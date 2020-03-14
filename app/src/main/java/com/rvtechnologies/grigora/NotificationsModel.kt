@@ -21,8 +21,31 @@ data class NotificationsModel(
     var read: String = "",
     @SerializedName("role")
     var role: String = "",
+
+
+
     @SerializedName("updated_at")
     var updatedAt: String = "",
+
+    @SerializedName("pickup")
+    var pickup: String = "",
+    @SerializedName("table_booking")
+    var table_booking: String = "",
+
+    @SerializedName("no_of_seats")
+    var no_of_seats: String = "",
+
+    @SerializedName("opening_time")
+    var opening_time: String = "",
+
+    @SerializedName("closing_time")
+    var closing_time: String = "",
+
+    @SerializedName("full_time")
+    var full_time: String = "",
+
+
+
     @SerializedName("user_id")
     var userId: Int = 0,
 
