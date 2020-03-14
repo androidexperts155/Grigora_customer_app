@@ -35,7 +35,7 @@ class SignUpFragmentViewModel : ViewModel() {
                 .signUp(
                     name.value.toString().trim(),
                     email.value.toString().trim(),
-                    phone.value.toString().trim(),
+                     phone.value.toString().trim(),
                     password.value.toString().trim(),
                     confirm_password.value.toString().trim()
                 ) { success, result ->

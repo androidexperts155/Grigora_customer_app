@@ -20,7 +20,9 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.SignUpFragmentViewModel
+import kotlinx.android.synthetic.main.activity_otp.*
 import kotlinx.android.synthetic.main.fragment_sign_up.*
+import kotlinx.android.synthetic.main.fragment_sign_up.parentView
 
 class SignUpFragment : Fragment() {
     private var signUpViewModel: SignUpFragmentViewModel? = null
@@ -80,10 +82,7 @@ class SignUpFragment : Fragment() {
     fun signUp() {
         if (signUpViewModel?.isValidData()!!) {
             startActivityForResult(
-                Intent(context, OtpActivity::class.java).putExtra(
-                    "phone",
-                    signUpViewModel?.phone?.value
-                ), AppConstants.OTP_CODE
+                Intent(context, OtpActivity::class.java).putExtra("phone", "+"+ccp.selectedCountryCode.toString()+signUpViewModel?.phone?.value), ccp.selectedCountryCode.toInt()
             )
         }
     }
@@ -103,6 +102,10 @@ class SignUpFragment : Fragment() {
             if (data?.getBooleanExtra("verified", false)!!) {
                 signUpViewModel?.signUp()
             }
+        }
+        else{
+          var message=  data!!.getStringExtra("message")
+            CommonUtils.showMessage(parentView, message)
         }
     }
 }

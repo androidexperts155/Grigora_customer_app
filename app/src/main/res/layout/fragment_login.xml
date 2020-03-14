@@ -52,7 +52,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:layout_marginEnd="16dp"
-                android:text="@string/email_phone_number"
+                android:text="@string/email"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
             

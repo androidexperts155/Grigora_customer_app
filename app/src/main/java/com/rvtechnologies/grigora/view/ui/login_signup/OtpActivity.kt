@@ -12,7 +12,7 @@ import android.view.WindowManager
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
- import com.google.firebase.FirebaseException
+import com.google.firebase.FirebaseException
 import com.google.firebase.FirebaseTooManyRequestsException
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseAuthInvalidCredentialsException
@@ -49,7 +49,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         updateLocale(false)
 
         setTheme(CommonUtils.getBooleanPrefValue(this, PrefConstants.IS_DARK_MODE))
-         super.onCreate(savedInstanceState)
+        super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             window.setFlags(
                 WindowManager.LayoutParams.FLAG_LAYOUT_NO_LIMITS,
@@ -75,7 +75,10 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
         buttonVerifyPhone.setOnClickListener(this)
         buttonResend.setOnClickListener(this)
 
-        // [START initialize_auth]
+        // [START initial
+        //
+        //
+        // ize_auth]
         // Initialize Firebase Auth
         auth = FirebaseAuth.getInstance()
         auth.currentUser != null
@@ -117,24 +120,33 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 if (e is FirebaseAuthInvalidCredentialsException) {
                     // Invalid request
                     // [START_EXCLUDE]
-                    CommonUtils.showMessage(parentView, "Invalid phone number.")
 
-                    Toast.makeText(
-                        this@OtpActivity,
-                        "Invalid phone number.",
-                        Toast.LENGTH_LONG
-                    )                    // [END_EXCLUDE]
+                    var i = Intent().putExtra("message", "Invalid phone number.")
+                    setResult(RESULT_OK, i);
+                    finish();
+
+                                   // [END_EXCLUDE]
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
-                    CommonUtils.showMessage(parentView, "Quota exceeded.")
+
+                    var i = Intent().putExtra("message", "Quota exceeded.")
+                    setResult(RESULT_OK, i);
+                    finish();
 
                     // [END_EXCLUDE]
+                }
+                else{
+                    var i = Intent().putExtra("message", e.message.toString())
+                    setResult(RESULT_OK, i);
+                    finish();
                 }
 
                 // Show a message and update the UI
                 // [START_EXCLUDE]
-                CommonUtils.showMessage(parentView, e.message.toString())
+
+
+
 //                updateUI(STATE_VERIFY_FAILED)
                 // [END_EXCLUDE]
             }

@@ -65,7 +65,11 @@
                     app:ccp_showFullName="false"
                     app:ccp_showNameCode="false"
                     app:ccp_showPhoneCode="true"
-                     android:id="@+id/ccp"
+                    app:ccpDialog_searchEditTextTint="@color/colorPrimary"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    app:ccpDialog_textColor="@color/textBlack"
+                    app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
+                    android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -115,14 +119,12 @@
             
             
             <Button
-                
-                
                 android:id="@+id/btnLogin"
                 style="@style/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_below="@+id/btnForgot"
-                
+                android:maxLength="10"
                 android:layout_centerHorizontal="true"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginStart="@dimen/_48sdp"

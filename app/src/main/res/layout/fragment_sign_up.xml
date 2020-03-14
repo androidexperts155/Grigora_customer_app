@@ -108,19 +108,44 @@
                     android:text="@string/phone_number"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-        
-                <EditText
-                    android:inputType="phone"
-                    android:text="@={signUpFragmentViewModel.phone}"
-                    style="@style/normalText"
+                
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@android:color/transparent"
-                     tools:text="7696379802"
-                    android:padding="@dimen/_4sdp"
-                    android:singleLine="true"
-                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
+                    android:orientation="horizontal"
+                    android:gravity="center_vertical"
+                    android:layout_height="wrap_content">
+    
+                    <com.hbb20.CountryCodePicker
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="false"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showPhoneCode="true"
+                        app:ccpDialog_searchEditTextTint="@color/colorPrimary"
+                        app:ccpDialog_backgroundColor="@color/white"
+                        app:ccpDialog_textColor="@color/textBlack"
+                        app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
+                        android:id="@+id/ccp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:theme="@style/AppTheme.Light" />
+                    <EditText
+                        android:inputType="phone"
+                        android:text="@={signUpFragmentViewModel.phone}"
+                        style="@style/normalText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@android:color/transparent"
+                        tools:text="7696379802"
+                        android:maxLength="10"
+                        android:padding="@dimen/_4sdp"
+                        android:singleLine="true"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp" />
+
+
+                </LinearLayout>
+        
         
                 <View
                     android:layout_width="match_parent"

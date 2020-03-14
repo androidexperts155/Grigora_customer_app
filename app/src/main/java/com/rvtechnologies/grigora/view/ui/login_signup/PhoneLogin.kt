@@ -94,7 +94,7 @@ class PhoneLogin : Fragment() {
             startActivityForResult(
                 Intent(context, OtpActivity::class.java).putExtra(
                     "phone",
-                    ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
+                    "+"+ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
                 ), AppConstants.OTP_CODE
             )
         }
