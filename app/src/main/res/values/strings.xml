@@ -1,4 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
+    <string name="about_us_url_en" translatable="false">http://3.13.78.53/about_us/en/</string>
+    <string name="about_us_url_fr" translatable="false">http://3.13.78.53/about_us/fr/</string>
+    <string name="terms_and_conditions" translatable="false">http://3.13.78.53/terms-and-conditions.html</string>
+    
+    
     <string name="default_notification_channel_id" translatable="false">212</string>
     
     <string name="facebook_app_id" translatable="false">2250256151942771</string>
@@ -496,6 +501,17 @@
     <string name="no_user_selected">No User Selected</string>
     <string name="ticket_id">Ticket Id</string>
     <string name="skip">Skip</string>
+    <string name="delivery_pickup_info">"Delivery not available now \n Still Hungry? Try Pickup. "</string>
+    <string name="delivery_pickup_info_more">"We'll resume deliveries again soon. You can still place an order from Pickup. See what's available. "</string>
+    <string name="see_stores">See stores open for pickup</string>
+    <string name="dismiss">Dismiss</string>
+    <string name="order_cancel_info">No available riders at the moment. You can convert the order into pickup order by selecting the pickup option or can wait for driver availability</string>
+    <string name="cancel">Cancel</string>
+    <string name="wait_for_driver">Wait for driver</string>
+    <string name="preparing">Preparing time left</string>
+    <string name="restaurant_asked_more_time">Restaurant has asked for More Time</string>
+    <string name="delivering_in">Delivering in</string>
+    <string name="addtip">Add tip</string>
 
 
 </resources><!--₦-->

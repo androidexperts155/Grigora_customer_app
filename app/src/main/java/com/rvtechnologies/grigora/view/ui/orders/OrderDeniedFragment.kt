@@ -33,7 +33,7 @@ class OrderDeniedFragment(
 
         tv_title.text = text
 
-        if (type == 4) {
+        if (type == 3) {
             bt_ok.visibility = View.GONE
             li_continue.visibility = View.VISIBLE
 

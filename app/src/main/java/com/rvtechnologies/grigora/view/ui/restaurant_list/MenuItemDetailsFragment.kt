@@ -29,6 +29,8 @@ import com.rvtechnologies.grigora.view_model.MenuItemDetailsViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.menu_item_details_fragment.*
+import kotlinx.android.synthetic.main.menu_item_details_fragment.parentView
+import kotlinx.android.synthetic.main.restaurant_details_fragment.*
 
 
 class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
@@ -79,9 +81,11 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
         viewModel.itemCount.value = "1"
         viewModel.response.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-                CommonUtils.showMessage(parentView, response.message!!)
-                view?.findNavController()?.popBackStack()
-
+                if (response.status!!) {
+                    CommonUtils.showMessage(parentView, response.message!!)
+                    view?.findNavController()?.popBackStack()
+                } else
+                    CommonUtils.showMessage(parentView, response.message!!)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }

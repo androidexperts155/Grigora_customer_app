@@ -22,6 +22,7 @@ object AppConstants {
     const val CUISINE_MODEL = "cuisine_model"
     const val RESTAURANT_ID = "restaurant_id"
     const val RESTAURANT_SEATES = "seats"
+    const val PAGE_TYPE = "page_type"
 
     const val SUB_ISSUE_ID = "sub_issue_id"
     const val TICKET_ID = "ticket_id"
@@ -42,6 +43,7 @@ object AppConstants {
     const val ORDER_ID = "order_id"
     const val MESSAGE = "message"
     const val TYPE = "type"
+    const val PREPARING_TIME_RESTAURANT = "_time_restaurant"
 
     const val NOTIFICATION_TYPE = "notification_type"
     const val REVIEW_FOOD = "1"

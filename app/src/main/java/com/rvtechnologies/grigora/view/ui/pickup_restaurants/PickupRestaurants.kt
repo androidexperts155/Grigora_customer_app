@@ -61,9 +61,9 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             })
 
         viewModel.restaurantsResponse.observe(this, Observer {
+
+
             var model = (it as CommonResponseModel<*>).data as PickupRestaurantsModel
-
-
             var temp = ArrayList<NewDashboardModel.AllRestautants>()
             temp.addAll(model.mainInfo)
             allRestaurants.clear()
@@ -96,7 +96,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
 
         viewModel.getRestaurants(
-             CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+            CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
             CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
         )
 
@@ -123,7 +123,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
         card_search.setOnClickListener {
             viewModel.getRestaurants(
-                 CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+                CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
                 CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
             )
         }
@@ -283,12 +283,10 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                     AppConstants.base_delivery_fee.toFloat() + (distance * AppConstants.min_kilo_meter.toFloat())
                 tv_delivery_charges.text =
                     "₦" + (price.toInt()).toString() + " " + tv_delivery_time.context.getString(R.string.delivery)
-
-
             }
         }
-
-
         return true
     }
 }
+
+

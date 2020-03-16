@@ -672,6 +672,14 @@ interface ApiInterface {
         @Field("user_id") uid: String
     ): Call<JsonElement>
 
+
+    @GET()
+    fun getUpdatedTime(
+        @Url url: String
+
+    ): Call<JsonElement>
+//"https://maps.googleapis.com/maps/api/directions/json?origin=\(source.latitude),\(source.longitude)&destination=\(destination.latitude),\(destination.longitude)&sensor=false&mode=driving&key=\(GoogleApiKey)")!
+
 }
 
 //   fSgph9c6OcQ:APA91bHI1DGyEOIWtpJEaHshDJ_2xSD2eT1UJmZVaGMr3eNTDS71DTKOyg9nPiiCvWJCR99Hw-TrDaY-Fi1m39jLc7W2mA0OOtUQpG2R4sdHyAgq5Y111_j_2IhBh1yFdPSO-rOiRL0j

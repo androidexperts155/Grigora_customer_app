@@ -457,6 +457,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         tv_title.visibility = View.VISIBLE
         tv_title.text = title
         img_back.setOnClickListener {
+            CommonUtils.hideKeyboard(this)
             onBackPressed()
         }
 

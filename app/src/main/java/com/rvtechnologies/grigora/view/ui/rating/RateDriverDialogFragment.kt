@@ -68,7 +68,16 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         }
 
         bt_rate_now.setOnClickListener {
-            driverRate.onDriverRateSubmit(rt_rating.rating, goodReview, badReview, orderItemModel,tip)
+            if (!ed_tip.text.toString().isNullOrEmpty())
+                tip = ed_tip.text.toString()
+
+            driverRate.onDriverRateSubmit(
+                rt_rating.rating,
+                goodReview,
+                badReview,
+                orderItemModel,
+                tip
+            )
             this.dismiss()
         }
     }
@@ -163,7 +172,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
             rating: Float,
             goodReview: String,
             badReview: String,
-            orderItemModel: OrderItemModel,tip:String
+            orderItemModel: OrderItemModel, tip: String
         )
 
         fun onDriverRateCancel(orderItemModel: OrderItemModel)

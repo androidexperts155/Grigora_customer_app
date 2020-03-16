@@ -8,6 +8,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AlertDialog
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -19,10 +20,7 @@ import com.rvtechnologies.grigora.databinding.ProfileFragmentBinding
 import com.rvtechnologies.grigora.model.WalletHistoryModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.LogoutModel
-import com.rvtechnologies.grigora.utils.ApiConstants
-import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.GrigoraApp
-import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.ProfileViewModel
 import com.rvtechnologies.grigora.view_model.SettingViewModel
@@ -164,8 +162,15 @@ class ProfileFragment : Fragment() {
     }
 
     fun toAboutUs() {
+        var bundle = bundleOf(AppConstants.PAGE_TYPE to 1)
         view?.findNavController()
-            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment)
+            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment,bundle)
+    }
+
+    fun toTermsAndConditions() {
+        var bundle = bundleOf(AppConstants.PAGE_TYPE to 2)
+        view?.findNavController()
+            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment,bundle)
     }
 
     fun toGroupOrders() {

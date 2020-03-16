@@ -16,32 +16,32 @@
         
         
         <ImageView
-            android:layout_width="@dimen/_80sdp"
-            android:layout_height="@dimen/_80sdp"
+            android:layout_width="@dimen/_120sdp"
+            android:layout_height="@dimen/_120sdp"
             android:layout_gravity="center"
-            app:srcCompat="@drawable/ic_mistake" />
+            app:srcCompat="@drawable/denied_img" />
         
         <TextView
-            style="@style/mediumText"
+            style="@style/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="@dimen/_8sdp"
-            
             android:text="@string/order_canceled"
             android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_12sdp" />
+            android:textSize="@dimen/_14sdp" />
         
         <TextView
             android:id="@+id/tv_title"
-            style="@style/mediumText"
+            style="@style/normalText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            
             android:gravity="center"
-            android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_10sdp"
-            tools:text="Your order has been denied due to less drivers" />
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_11sdp"
+            tools:text="@string/order_cancel_info" />
         
         
         <Button
@@ -79,42 +79,74 @@
             android:orientation="vertical"
             android:visibility="visible">
             
-            <Button
-                android:id="@+id/bt_continue"
-                style="@style/titleText"
-                android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
-                android:layout_gravity="center_horizontal"
-                android:background="@drawable/btn_rounded"
-                android:clickable="true"
-                android:elevation="1dp"
-                android:foreground="@drawable/selectable_item_background"
-                android:hapticFeedbackEnabled="true"
-                android:minWidth="@dimen/_100sdp"
-                android:text="@string/pickup"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_14sdp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:gravity="center"
+                android:layout_height="wrap_content"
+                android:weightSum="2"
+                android:orientation="horizontal">
+                
+                <Button
+                    
+                    android:layout_marginRight="@dimen/_4sdp"
+                    android:id="@+id/bt_continue"
+                    style="@style/titleText"
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:background="@drawable/btn_rounded"
+                    android:clickable="true"
+                    android:elevation="1dp"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:hapticFeedbackEnabled="true"
+                    android:text="@string/pickup"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <Button
+                    android:layout_weight="1"
+                    android:layout_width="0dp"
+                    android:layout_marginLeft="@dimen/_4sdp"
+                    android:id="@+id/bt_wait"
+                    style="@style/titleText"
+                     android:layout_height="@dimen/_30sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@drawable/btn_rounded"
+                    android:clickable="true"
+                    android:elevation="1dp"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:hapticFeedbackEnabled="true"
+                    android:text="@string/wait_for_driver"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
+            </LinearLayout>
             
-            <Button
+            <TextView
                 android:id="@+id/bt_cancel"
-                style="@style/titleText"
+                style="@style/mediumText"
                 android:layout_width="wrap_content"
-                android:layout_height="@dimen/_30sdp"
+                android:layout_height="@dimen/_35sdp"
                 android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_10sdp"
                 android:layout_marginTop="@dimen/_8sdp"
-                
-                android:background="@drawable/btn_rounded"
+                android:layout_marginEnd="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_8sdp"
+                android:background="@color/transparent"
                 android:clickable="true"
-                android:elevation="1dp"
-                
                 android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
                 android:hapticFeedbackEnabled="true"
-                android:minWidth="@dimen/_100sdp"
-                android:text="@string/places_cancel"
+                android:paddingLeft="@dimen/_12sdp"
+                android:paddingRight="@dimen/_12sdp"
+                android:text="@string/cancel"
                 android:textAllCaps="false"
-                android:textColor="@color/white"
+                android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_14sdp" />
+        
         </LinearLayout>
     
     

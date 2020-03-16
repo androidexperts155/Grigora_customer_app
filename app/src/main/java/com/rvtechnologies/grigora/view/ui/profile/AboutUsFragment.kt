@@ -31,17 +31,27 @@ class AboutUsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-        (activity as MainActivity).backTitle(getString(R.string.about_us))
+        if(arguments?.get(AppConstants.PAGE_TYPE) == 2)
+        (activity as MainActivity).backTitle(getString(R.string.termsandconditions))
+        else
+            (activity as MainActivity).backTitle(getString(R.string.about_us))
     }
 
     @SuppressLint("SetJavaScriptEnabled")
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        var address =
+            when {
+                arguments?.get(AppConstants.PAGE_TYPE) == 2 -> getString(R.string.terms_and_conditions)
+                GrigoraApp.getInstance()
+                    .getCurrentLanguage() == AppConstants.FRENCH -> getString(R.string.about_us_url_fr)
+                else -> getString(R.string.about_us_url_en)
+            }
+
+
         web_view.getSettings().javaScriptEnabled = true
         web_view.webViewClient = object : WebViewClient() {}
-
-        var address= if (GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH) "http://3.13.78.53/about_us/fr/" else "http://3.13.78.53/about_us/en/"
-        web_view .loadUrl(address)
+        web_view.loadUrl(address)
 
 
     }

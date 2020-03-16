@@ -486,6 +486,96 @@
                         android:clickable="true"
                         
                         android:gravity="center_vertical"
+                        android:onClick="@{()->profileFragment.toAboutUs()}"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_14sdp"
+                        android:paddingTop="@dimen/_20sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_8sdp">
+                        
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:tint="?attr/textWhite"
+                            
+                            app:srcCompat="@drawable/ic_about_us" />
+                        
+                        <TextView
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_6sdp"
+                            android:layout_toRightOf="@+id/img2"
+                            android:text="@string/about_us"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    </LinearLayout>
+                    
+                    <View
+                        
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selectable_item_background"
+                        android:clickable="true"
+                        
+                        android:gravity="center_vertical"
+                        android:onClick="@{()->profileFragment.toTermsAndConditions()}"
+                        android:orientation="horizontal"
+                        android:paddingLeft="@dimen/_14sdp"
+                        android:paddingTop="@dimen/_20sdp"
+                        android:paddingRight="@dimen/_8sdp"
+                        android:paddingBottom="@dimen/_8sdp">
+                        
+                        <ImageView
+                            android:layout_width="@dimen/_15sdp"
+                            android:layout_height="@dimen/_15sdp"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:tint="?attr/textWhite"
+                            
+                            app:srcCompat="@drawable/ic_terms_and_conditions" />
+                        
+                        <TextView
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_6sdp"
+                            android:layout_toRightOf="@+id/img2"
+                            android:text="@string/termsandconditions"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_11sdp" />
+                    
+                    
+                    </LinearLayout>
+                    
+                    <View
+                        
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginLeft="@dimen/_14sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
+                    
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/selectable_item_background"
+                        android:clickable="true"
+                        
+                        android:gravity="center_vertical"
                         android:onClick="@{()->profileFragment.toSettings()}"
                         android:orientation="horizontal"
                         android:paddingLeft="@dimen/_14sdp"
@@ -522,53 +612,7 @@
                         android:layout_marginLeft="@dimen/_14sdp"
                         android:layout_marginRight="@dimen/_8sdp"
                         android:background="?attr/viewbg" />
-    
-    
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/selectable_item_background"
-                        android:clickable="true"
-        
-                        android:gravity="center_vertical"
-                        android:onClick="@{()->profileFragment.toAboutUs()}"
-                        android:orientation="horizontal"
-                        android:paddingLeft="@dimen/_14sdp"
-                        android:paddingTop="@dimen/_20sdp"
-                        android:paddingRight="@dimen/_8sdp"
-                        android:paddingBottom="@dimen/_8sdp">
-        
-                        <ImageView
-                            android:layout_width="@dimen/_15sdp"
-                            android:layout_height="@dimen/_15sdp"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
-                            android:tint="?attr/textWhite"
-    
-                             app:srcCompat="@drawable/ic_about_us" />
-        
-                        <TextView
-                            style="@style/mediumText"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:layout_marginLeft="@dimen/_6sdp"
-                            android:layout_toRightOf="@+id/img2"
-                            android:text="@string/about_us"
-                            android:textColor="?attr/textWhite"
-                            android:textSize="@dimen/_11sdp" />
-    
-    
-                    </LinearLayout>
-    
-                    <View
-        
-                        android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"
-                        android:layout_marginLeft="@dimen/_14sdp"
-                        android:layout_marginRight="@dimen/_8sdp"
-                        android:background="?attr/viewbg" />
-    
+                    
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -619,3 +663,5 @@
             type="com.rvtechnologies.grigora.view.ui.profile.ProfileFragment" />
     </data>
 </layout>
+    
+  

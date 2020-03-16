@@ -198,7 +198,7 @@ class RestaurantDetailsFragment(
         viewModel.addCartRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    var data = response.data as AddCartModel
+                    var data =  response.data as AddCartModel
                     cartId = data.cartId.toString()
                     if (data.quantity > 0)
                         AppConstants.CART_COUNT = data.quantity
@@ -211,8 +211,17 @@ class RestaurantDetailsFragment(
                         ""
                     )
                     (activity as MainActivity).updateCartButton()
-                } else
-                    CommonUtils.showMessage(parent, response.message!!)
+                } else {
+                    CommonUtils.showMessage(parentView, response.message!!)
+                    viewModel.getRestaurantsDetails(
+                        CommonUtils.getPrefValue(
+                            context,
+                            PrefConstants.TOKEN
+                        ),
+                        restaurantId,
+                        ""
+                    )
+                }
 
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -400,8 +409,8 @@ class RestaurantDetailsFragment(
                         }
                     } else {
 //                don't have add ons, simply add
-                        popularList[position2].item_count_in_cart =
-                            (popularList[position2].item_count_in_cart!! + 1)
+//                        popularList[position2].item_count_in_cart =
+//                            (popularList[position2].item_count_in_cart!! + 1)
 
                         viewModel.addItemToCart(
                             popularList[position2].restaurantId.toString()!!,
@@ -430,8 +439,8 @@ class RestaurantDetailsFragment(
                         }
                     } else {
 //                don't have add ons, simply add
-                        previousList[position2].item_count_in_cart =
-                            (previousList[position2].item_count_in_cart!! + 1)
+//                        previousList[position2].item_count_in_cart =
+//                            (previousList[position2].item_count_in_cart!! + 1)
 
                         viewModel.addItemToCart(
                             previousList[position2].restaurantId.toString()!!,
@@ -446,7 +455,6 @@ class RestaurantDetailsFragment(
                     CommonUtils.showMessage(parentView, getString(R.string.unavailable))
 
             } else {
-                if (filteredMealsAndCuisinesList[position].items[position2].status == "1") {
                     if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {
 //                have add ons
                         if (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! > 0) {
@@ -460,8 +468,8 @@ class RestaurantDetailsFragment(
                         }
                     } else {
 //                don't have add ons, simply add
-                        filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
-                            (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
+//                        filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
+//                            (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! + 1)
 
                         viewModel.addItemToCart(
                             filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,
@@ -472,9 +480,6 @@ class RestaurantDetailsFragment(
 
                         rc_items.adapter?.notifyDataSetChanged()
                     }
-                } else
-                    CommonUtils.showMessage(parentView, getString(R.string.unavailable))
-
             }
         else
             (activity as MainActivity).showLoginAlert()
@@ -497,8 +502,8 @@ class RestaurantDetailsFragment(
                     }
                 } else {
 //                don't have add ons, simply add
-                    popularList[position2].item_count_in_cart =
-                        (popularList[position2].item_count_in_cart!! - 1)
+//                    popularList[position2].item_count_in_cart =
+//                        (popularList[position2].item_count_in_cart!! - 1)
 
                     rc_popular.adapter?.notifyDataSetChanged()
                 }
@@ -516,8 +521,8 @@ class RestaurantDetailsFragment(
                     }
                 } else {
 //                don't have add ons, simply add
-                    previousList[position2].item_count_in_cart =
-                        (previousList[position2].item_count_in_cart!! - 1)
+//                    previousList[position2].item_count_in_cart =
+//                        (previousList[position2].item_count_in_cart!! - 1)
 
 
                     viewModel.addItemToCart(
@@ -543,8 +548,8 @@ class RestaurantDetailsFragment(
                     }
                 } else {
 //                don't have add ons, simply add
-                    filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
-                        (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! - 1)
+//                    filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart =
+//                        (filteredMealsAndCuisinesList[position].items[position2].item_count_in_cart!! - 1)
 
                     viewModel.addItemToCart(
                         filteredMealsAndCuisinesList[position].items[position2].restaurantId.toString()!!,

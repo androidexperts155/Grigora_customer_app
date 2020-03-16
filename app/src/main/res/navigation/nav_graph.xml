@@ -582,6 +582,8 @@
             app:destination="@id/groupCartFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        
     
     </fragment>
     <fragment

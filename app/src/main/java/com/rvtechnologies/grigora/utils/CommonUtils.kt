@@ -1,5 +1,6 @@
 package com.rvtechnologies.grigora.utils
 
+import android.app.Activity
 import android.app.Dialog
 import android.content.Context
 import android.graphics.*
@@ -16,6 +17,7 @@ import android.util.TypedValue
 import android.view.LayoutInflater
 import android.view.View
 import android.view.Window
+import android.view.inputmethod.InputMethodManager
 import android.widget.ImageView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.RecyclerView
@@ -142,6 +144,20 @@ object CommonUtils {
             progressBarDialog?.dismiss()
             progressBarDialog = null
         }
+    }
+
+    fun hideKeyboard(activity: AppCompatActivity) {
+        val imm: InputMethodManager =
+            activity.getSystemService(Activity.INPUT_METHOD_SERVICE) as InputMethodManager
+        //Find the currently focused view, so we can grab the correct window token from it.
+        //Find the currently focused view, so we can grab the correct window token from it.
+        var view = activity.currentFocus
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        //If no view currently has focus, create a new one, just so we can grab a window token from it
+        if (view == null) {
+            view = View(activity)
+        }
+        imm.hideSoftInputFromWindow(view.windowToken, 0)
     }
 
     fun parseError(response: Response<JsonElement>?): String? {
@@ -382,7 +398,6 @@ object CommonUtils {
             getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.ID)
         } else
             "0"
-
     }
 
     fun getToken(): String {
@@ -486,9 +501,9 @@ object CommonUtils {
         sdf.timeZone = TimeZone.getTimeZone("UTC")
         var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format, format)
 
-        return sdf1.parse(localUtcDate).time.compareTo(sdf.parse(openingTime).time) == 1 && sdf.parse(
+        return sdf1.parse(localUtcDate).time.compareTo(sdf1.parse(openingTime).time) == 1 && sdf.parse(
             localUtcDate
-        ).time.compareTo(sdf.parse(closingTime).time) == -1
+        ).time.compareTo(sdf1.parse(closingTime).time) == -1
     }
 
     fun getFormattedUtc(data: String, patternFrom: String, patternTo: String): String {

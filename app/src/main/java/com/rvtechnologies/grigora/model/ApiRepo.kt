@@ -1,10 +1,13 @@
 package com.rvtechnologies.grigora.model
 
 import android.util.Log
+import androidx.core.content.ContextCompat
 import com.google.gson.JsonElement
+import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.api.ApiClient
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.GrigoraApp
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -625,7 +628,8 @@ Cuisine repo
         longitude: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantsByCuisine(token,CommonUtils.getUid(), filter_type, latitude, longitude)
+        ApiClient.getClient()
+            .getRestaurantsByCuisine(token, CommonUtils.getUid(), filter_type, latitude, longitude)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -680,7 +684,7 @@ Cuisine repo
         price: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getRestaurantDetails(token,CommonUtils.getUid(), restId, price)
+        ApiClient.getClient().getRestaurantDetails(token, CommonUtils.getUid(), restId, price)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -2155,6 +2159,36 @@ Cuisine repo
                 latitude = latitude,
                 longitude = longitude,
                 uid = CommonUtils.getUid()
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun getUpdatedTime(
+        origin: String,
+        destination: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .getUpdatedTime(
+                "https://maps.googleapis.com/maps/api/directions/json?origin=$origin&destination=$destination&sensor=false&mode=driving&key=${GrigoraApp.getInstance().activity?.baseContext?.getString(
+                    R.string.google_api_key
+                )!!}"
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

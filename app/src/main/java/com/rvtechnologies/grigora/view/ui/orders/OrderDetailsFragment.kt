@@ -38,6 +38,7 @@ import com.makesense.labs.curvefit.CurveOptions
 import com.makesense.labs.curvefit.impl.CurveManager
 import com.makesense.labs.curvefit.interfaces.OnCurveDrawnCallback
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.model.RoutesModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.model.models.OrderStatusModel
@@ -45,6 +46,7 @@ import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.utils.AppConstants.MESSAGE
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
 import com.rvtechnologies.grigora.utils.AppConstants.ORDER_ID
+import com.rvtechnologies.grigora.utils.AppConstants.PREPARING_TIME_RESTAURANT
 import com.rvtechnologies.grigora.utils.AppConstants.TYPE
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderItemAdapter
@@ -70,6 +72,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     private lateinit var curveManager: CurveManager
     lateinit var sheetBehavior: BottomSheetBehavior<View>
     var oldStatus = -1
+    lateinit var timer: CountDownTimer
 
 
     override fun onMapReady(googleMap: GoogleMap) {
@@ -279,6 +282,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 if (orderItemModel?.preparingTime != null) {
                     updateTimer(orderItemModel?.timeRemaining?.toInt()!!)
                 } else {
+                    tv_status.visibility = View.GONE
                     tv_est_delivery.visibility = View.GONE
                     tv_mins.visibility = View.GONE
                 }
@@ -374,7 +378,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     orderItemModel?.endLat!!,
                     orderItemModel?.endLong!!
                 )
-
+                if (orderItemModel?.orderStatus == 4) {
+                    startGettingDriverUpdates()
+                }
                 updateStatus(orderItemModel?.orderStatus)
 //                orderItemModel?.idToShow = "ORDER#".plus(orderItemModel?.id)
 
@@ -394,9 +400,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
         viewModel.cancelOrderRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-                view?.findNavController()?.popBackStack()
-                view?.findNavController()?.popBackStack()
-                view?.findNavController()?.popBackStack()
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -426,6 +431,30 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 }
             }
 
+        })
+
+        viewModel.driverUpdateRes.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                var data = response.data as OrderItemModel
+                if (data.driverId != null) {
+                    viewModel.getEstimatedTime(
+                        "${CommonUtils.getPrefValue(
+                            context!!,
+                            PrefConstants.LATITUDE
+                        )},${CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)}",
+                        "${data.driverLat},${data.driverLong}"
+                    )
+                }
+            }
+        })
+
+
+        viewModel.driverLocationUpdateRes.observe(this, Observer { response ->
+
+            if (response is RoutesModel) {
+                tv_status.text = getString(R.string.delivering_in)
+                updateTimer(response.routes[0].legs[0].duration.value / 60 / 60)
+            }
         })
     }
 
@@ -517,7 +546,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
                 }
                 4 -> {
-
                     //    4 -> "Order picked up by driver,order is now its way to you"
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
@@ -534,8 +562,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
 
                     img_6.startAnimation(anim)
-
-
+//TODO hit api to get estimated time
                 }
                 5 -> {
 //    5 -> "Order completed Delivered by " + orderModel.driverName
@@ -549,8 +576,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     deniedFragment.show(childFragmentManager, "")
                 }
                 7 -> {
-
-//    7 -> "Order almost ready"
+//    7 -> "Order is ready"
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
                     tv_4.setTextColor(activatedColor)
@@ -584,7 +610,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 //    8 -> "Order cancelled by use"
 
                 }
-
 
                 else -> getString(R.string.waiting_for_confirmation)
             }
@@ -739,7 +764,30 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         super.onResume()
         receiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
-                if (p1!!.getStringExtra(ORDER_ID).equals(viewModel.orderId.value)) {
+                if (p1!!.getStringExtra(ORDER_ID) == viewModel.orderId.value) {
+
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 2) {
+//                        restaurant accepted
+                        updateTimer(p1!!.getIntExtra(PREPARING_TIME_RESTAURANT, 0) * 60)
+                        tv_status.text = getString(R.string.preparing)
+
+                    }
+
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 11) {
+//                        restaurant requested for more time to prepare
+                        updateTimer(p1!!.getIntExtra(PREPARING_TIME_RESTAURANT, 0) * 60)
+                        tv_status.text = getString(R.string.preparing)
+                        CommonUtils.showMessage(
+                            parentView,
+                            getString(R.string.restaurant_asked_more_time)
+                        )
+                    }
+
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 7) {
+//                        restaurant have prepared order
+                        updateTimer(0)
+                    }
+
                     if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 6) {
                         type = p1!!.getStringExtra(TYPE).toInt()
                         message = p1!!.getStringExtra(MESSAGE)
@@ -782,9 +830,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     override fun onDriverRateSubmit(
         rating: Float, goodReview: String,
-        badReview: String, orderItemModel: OrderItemModel,tip:String
+        badReview: String, orderItemModel: OrderItemModel, tip: String
     ) {
-        viewModel.rateDriver(orderItemModel?.driverId!!, rating.toString(), goodReview, badReview,tip)
+        viewModel.rateDriver(
+            orderItemModel?.driverId!!,
+            rating.toString(),
+            goodReview,
+            badReview,
+            tip
+        )
         orderItemModel.is_driver_rated = "1"
         CommonUtils.savePrefs(context, PrefConstants.ORDER_TO_RATE, Gson().toJson(orderItemModel))
     }
@@ -816,10 +870,18 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     }
 
     private fun updateTimer(seconds: Int) {
+        tv_status.visibility = VISIBLE
         tv_est_delivery.visibility = VISIBLE
         tv_mins.visibility = GONE
+        if (seconds == 0) {
+            tv_est_delivery.text = "00:00:00"
+        }
+
 //        tv_est_delivery.text = minutes.toString()
-        object : CountDownTimer((seconds * 1000).toLong(), 1000) {
+        if (::timer.isInitialized) {
+            timer.cancel()
+        }
+        timer = object : CountDownTimer((seconds * 1000).toLong(), 1000) {
             override fun onFinish() {
             }
 
@@ -828,9 +890,22 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 val p1 = (millisUntilFinished / 1000) % 60
                 var p2 = (millisUntilFinished / 1000) / 60
                 val p3 = p2 % 60
-                p2 = p2 / 60
-                tv_est_delivery.text = "$p2:$p3:$p1"
+                p2 /= 60
+
+                var pp2 = if (p2 > 9) p2.toString() else "0$p2"
+                var pp1 = if (p1 > 9) p1.toString() else "0$p1"
+                var pp3 = if (p3 > 9) p3.toString() else "0$p3"
+
+                tv_est_delivery.text = "$pp2:$pp3:$pp1"
             }
         }.start()
+
+    }
+
+    private fun startGettingDriverUpdates() {
+        Handler().postDelayed({
+            viewModel.getDriverDetails()
+            startGettingDriverUpdates()
+        }, 4000)
     }
 }
