@@ -324,6 +324,11 @@ interface ApiInterface {
         @Header("Authorization") token: String
     ): Call<JsonElement>
 
+    @GET(ApiConstants.GET_PURCHASED_CARDS)
+    fun getPurchasedCards(
+        @Header("Authorization") token: String
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.ADD_RATING_REVIEW_URL)
@@ -508,6 +513,16 @@ interface ApiInterface {
         @Field("voucher_code") voucher_code: String
 
     ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.BUY_CARD)
+    fun buyCard(
+        @Header("Authorization") token: String,
+        @Field("voucher_code") voucher_code: String
+
+    ): Call<JsonElement>
+
 
 
     @GET(ApiConstants.WALLET_HISTORY)

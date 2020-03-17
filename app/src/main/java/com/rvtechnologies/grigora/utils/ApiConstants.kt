@@ -28,6 +28,7 @@ object ApiConstants {
     const val GET_ORDER_DETAILS_URL = "order-details"
 
     const val PROFILE_DETAILS_URL = "get-userinfo"
+    const val GET_PURCHASED_CARDS = "my-purchased-card"
 
     const val ADD_ITEM_URL = "add-cart"
     const val ADD_GROUP_ITEM_CART = "add-in-group-cart"
@@ -64,6 +65,7 @@ object ApiConstants {
     const val SEARCH_USER = "search-customer"
     const val GET_VOUCHER_CODES = "get-voucher-codes"
     const val SEND_GIFT = "send-gift-card"
+    const val BUY_CARD = "buy-card"
     const val GET_VOUCHER_CARD = "voucher-card"
     const val MY_CARDS = "my-gift-card"
     const val TRANSFER_MONEY = "send-wallet-money"

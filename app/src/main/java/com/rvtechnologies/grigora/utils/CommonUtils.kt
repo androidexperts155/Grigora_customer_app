@@ -34,6 +34,7 @@ import java.io.File
 import java.io.FileNotFoundException
 import java.io.FileOutputStream
 import java.io.IOException
+import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
@@ -521,4 +522,11 @@ object CommonUtils {
         sdf.applyPattern(patternTo)
         return "" + sdf.format(d)
     }
+
+fun getRoundedOff(value:Double):String{
+    val df = DecimalFormat("###.###")
+    return df.format(value)
+
+}
+
 }

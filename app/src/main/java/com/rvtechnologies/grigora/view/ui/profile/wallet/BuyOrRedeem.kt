@@ -1,16 +1,27 @@
 package com.rvtechnologies.grigora.view.ui.profile.wallet
 
-import androidx.lifecycle.ViewModelProviders
+import android.Manifest
+import android.R.attr
+import android.content.Intent
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-
+import com.google.zxing.integration.android.IntentIntegrator
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.ReceivedVoucherModel
+import com.rvtechnologies.grigora.model.WalletHistoryModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
@@ -20,7 +31,9 @@ import com.rvtechnologies.grigora.view.ui.profile.wallet.adapter.VouchersAdapter
 import com.rvtechnologies.grigora.view_model.BuyOrRedeemViewModel
 import kotlinx.android.synthetic.main.buy_or_redeem_fragment.*
 
+
 class BuyOrRedeem : Fragment(), IRecyclerItemClick {
+    lateinit var historyModel: WalletHistoryModel
 
     companion object {
         fun newInstance() = BuyOrRedeem()
@@ -51,14 +64,32 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
                     CommonUtils.showMessage(parent, res.message!!)
-                    view?.findNavController()?.popBackStack()
+                    viewModel.getHistory(CommonUtils.getToken())
+                    viewModel.getCards(
+                        CommonUtils.getToken()
+                    )
                 } else {
                     CommonUtils.showMessage(parent, res.message!!)
                 }
             } else {
                 CommonUtils.showMessage(parent, res.toString())
             }
+
         })
+
+        viewModel.historyResponse.observe(this, Observer { historyRes ->
+            if (historyRes is CommonResponseModel<*>) {
+                historyModel = historyRes.data as WalletHistoryModel
+                wallet.text = "₦ " + CommonUtils.getRoundedOff(historyModel.wallet.toDouble())
+
+                tv_points.text =  "₦ " +CommonUtils.getRoundedOff(((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()))
+                tv_wallet_id.text = historyModel.wallet_id
+
+            } else {
+                CommonUtils.showMessage(parent, historyRes.toString())
+            }
+        })
+
 
         viewModel.isLoading.observe(this, Observer { isLoading ->
             if (isLoading) {
@@ -86,6 +117,29 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
             if (!ed_wallet_id.text.toString().isNullOrEmpty())
                 redeem(ed_wallet_id.text.toString())
         }
+
+        img_scanner.setOnClickListener {
+            Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.CAMERA)
+                .withListener(object : PermissionListener {
+                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                        IntentIntegrator.forSupportFragment(this@BuyOrRedeem)
+                            .initiateScan()
+                    }
+
+                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permission: PermissionRequest,
+                        token: PermissionToken
+                    ) {
+
+                    }
+                }).check()
+
+
+        }
     }
 
     override fun onResume() {
@@ -94,8 +148,9 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).lockDrawer(true)
         (activity as MainActivity).backTitle("")
         viewModel.getCards(
-            CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+            CommonUtils.getToken()
         )
+        viewModel.getHistory(CommonUtils.getToken())
     }
 
     private fun redeem(item: String) {
@@ -108,5 +163,17 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
         }
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        val result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data)
+        if (result != null) {
+            if (result.contents == null) {
+
+            } else {
+                ed_wallet_id.setText(result.contents)
+            }
+        } else {
+            super.onActivityResult(requestCode, resultCode, data)
+        }
+    }
 
 }

@@ -132,7 +132,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
                             CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
                             item.id.toString()
                         )
-                    } else if (item.is_driver_rated == "0") {
+                    } else if (item.is_driver_rated == "0" && item.driverId!=null) {
                         var rateDriverDialog = RateDriverDialogFragment(item, this)
                         rateDriverDialog.isCancelable = false
                         rateDriverDialog.show(this.childFragmentManager, "")

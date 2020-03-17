@@ -7,13 +7,14 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.ReceivedVoucherModel
+import com.rvtechnologies.grigora.model.WalletHistoryModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 
 class BuyOrRedeemViewModel : ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var cards: MutableLiveData<Any> = MutableLiveData()
     var redeemRes: MutableLiveData<Any> = MutableLiveData()
-    var redeemResponse: MutableLiveData<Any> = MutableLiveData()
+     var historyResponse: MutableLiveData<Any> = MutableLiveData()
 
     fun getCards(token: String) {
         isLoading.value = true
@@ -51,5 +52,26 @@ class BuyOrRedeemViewModel : ViewModel() {
                 }
             }
     }
+
+    fun getHistory(token: String) {
+        isLoading.value = true
+
+        ApiRepo.getInstance()
+            .walletHistory(
+                token = token
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object :
+                        TypeToken<CommonResponseModel<WalletHistoryModel>>() {}.type
+                        historyResponse.value = Gson().fromJson(result as JsonElement, type)
+
+                } else {
+                    historyResponse.value = result
+                }
+            }
+    }
+
+
 
 }

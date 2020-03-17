@@ -49,9 +49,9 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
         viewModel.historyResponse.observe(this, Observer { historyRes ->
             if (historyRes is CommonResponseModel<*>) {
                 historyModel = historyRes.data as WalletHistoryModel
-                wallet.text = "₦ " + historyModel.wallet
+                wallet.text = "₦ " + CommonUtils.getRoundedOff(historyModel.wallet.toDouble())
                 tv_points.text =
-                    "₦ " + ((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()).toString()
+                    "₦ " + CommonUtils.getRoundedOff((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble())
                 tv_to_naira.text =
                     getString(R.string.ngn_to_how_naira, historyModel.naira_to_points)
                 tv_wallet_id.text = historyModel.wallet_id

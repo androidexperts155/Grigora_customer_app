@@ -2,8 +2,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
     android:orientation="vertical"
@@ -212,12 +212,25 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
             
+            
+            <ImageView
+                android:id="@+id/img_scanner"
+                android:clickable="true"
+                android:foreground="@drawable/selectable_item_background"
+                android:tint="@color/colorPrimaryDark"
+                android:layout_width="@dimen/_35sdp"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_alignParentLeft="true"
+                app:srcCompat="@drawable/ic_qr_code" />
+            
+            
             <EditText
                 android:id="@+id/ed_wallet_id"
                 style="@style/mediumText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_35sdp"
                 android:layout_toLeftOf="@+id/bt_add_new"
+                android:layout_toRightOf="@+id/img_scanner"
                 android:background="@color/transparent"
                 android:gravity="center_vertical"
                 android:hint="@string/enter_gift_card"
@@ -331,13 +344,13 @@
             android:textSize="@dimen/_12sdp" />
         
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
-            android:orientation="vertical"
-            tools:itemCount="6"
             android:id="@+id/rc_vouchers"
-            tools:listitem="@layout/item_voucher"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            android:layout_height="wrap_content" />
+            tools:itemCount="6"
+            tools:listitem="@layout/item_voucher" />
     
     </LinearLayout>
 

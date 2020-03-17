@@ -76,6 +76,19 @@
             app:destination="@id/walletFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_addressList"
+            app:destination="@id/addressListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        
         
         <action
             android:id="@+id/action_navigationMyAccounts_to_refer_and_earn"
@@ -83,7 +96,13 @@
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     
-    
+        <action
+            android:id="@+id/action_navigationMyAccounts_to_purchasedCards"
+            app:destination="@id/purchasedCards"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+
+
     </fragment>
     <fragment
         android:id="@+id/restaurantDetailsFragment"
@@ -949,6 +968,13 @@
             app:destination="@id/chatFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/purchasedCards"
+        android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.PurchasedCards"
+        android:label="Purchased Cards">
+        
     </fragment>
 
 </navigation>

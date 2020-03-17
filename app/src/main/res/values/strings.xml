@@ -488,7 +488,7 @@
     <string name="disapproved">DisApproved</string>
     <string name="cuisine">Cuisine</string>
     <string name="grigora_gift_card">Grigora Gift card</string>
-    <string name="add_points_info">Add Points to your Friend or Family \nGrigora Gora Pouch</string>
+    <string name="add_points_info">Add Points to your Friend or Family and Self\nGrigora Gora Pouch</string>
     <string name="proceed_preview_card">Proceed To Preview Card</string>
     <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
@@ -512,6 +512,19 @@
     <string name="restaurant_asked_more_time">Restaurant has asked for More Time</string>
     <string name="delivering_in">Delivering in</string>
     <string name="addtip">Add tip</string>
+        <string name="money_info">Naira %s\ only</string>
+    <string name="fifty">Fifty</string>
+    <string name="hundred">One Hundred</string>
+    <string name="two_hundred">Two Hundred</string>
+    <string name="four_hundred">Four Hundred</string>
+    <string name="five_hundred">Five Hundred</string>
+    <string name="eight_hundred">Eight Hundred</string>
+    <string name="thousand">One Thousand</string>
+    <string name="buy_for_others">Buy for Others</string>
+    <string name="buy_for_self">Buy for Self</string>
+    <string name="proceed_to_buy">Proceed to Buy Voucher</string>
+    <string name="gora_pouch_value">GORA pouch (%s\)</string>
+    <string name="purchased_card">Purchased Card</string>
 
 
 </resources><!--₦-->

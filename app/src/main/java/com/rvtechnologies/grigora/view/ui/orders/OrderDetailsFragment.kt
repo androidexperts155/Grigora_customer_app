@@ -125,6 +125,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         fun newInstance() = OrderDetailsFragment()
     }
 
+
     private var mSocket: Socket? = null
     private var mRecoverySocket: Socket? = null
 
@@ -280,6 +281,26 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 tv_order_id.text = "#".plus(orderItemModel?.id)
                 tv_rest_name.text = orderItemModel?.restaurantName
                 if (orderItemModel?.preparingTime != null) {
+
+
+                    if (orderItemModel?.orderStatus == 2) {
+//                        restaurant accepted
+                        tv_status.text = getString(R.string.preparing)
+
+                    }
+
+                    if (orderItemModel?.orderStatus == 11) {
+//                        restaurant requested for more time to prepare
+                        tv_status.text = getString(R.string.preparing)
+                    }
+
+                    if (orderItemModel?.orderStatus == 7) {
+//                        restaurant have prepared order
+                        updateTimer(0)
+                    }
+
+
+
                     updateTimer(orderItemModel?.timeRemaining?.toInt()!!)
                 } else {
                     tv_status.visibility = View.GONE
@@ -428,8 +449,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             if (res is CommonResponseModel<*> && type == 4) {
                 if (res.status!!) {
                     viewModel.getOrderDetails()
-                }
-            }
+                }else CommonUtils.showMessage(
+                    parentView,
+                    res.message!!
+                )
+            }else
+                CommonUtils.showMessage(
+                    parentView,
+                    res.toString()!!
+                )
 
         })
 
@@ -458,15 +486,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         })
     }
 
-//    0 -> "Waiting for confirmation"
-//    1 -> "Order scheduled"
-//    2 -> "Order Accepted and being prepared"
-//    8 -> "Rejected by Restaurant"
-//    3 -> "Driver assigned"
-//    4 -> "Order picked up by driver,order is now its way to you"
-//    5 -> "Order completed Delivered by " + orderModel.driverName
-//    6 -> "Rejected by Restaurant"
-//    7 -> "Order almost ready"
 
     override fun onDestroy() {
         super.onDestroy()
@@ -491,6 +510,20 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             ContextCompat.getColor(context!!, R.color.textBlack)
         }
 
+//        0,2,3,9,7,4,5
+
+//        0=>Waiting for confirmation
+//        2=>accepted by restaurant,
+//        3=>driver assigned,
+//        9=>restaurant starts preparing
+//        7=> order is almost ready,
+//        4=>out of delivery,
+//        5=> deliverd,
+//        1=> schedule order ,
+//        6=>rejected by restaurant,
+
+//        8=>cancelled by customer,
+
         if (orderStatus != oldStatus) {
             oldStatus = orderStatus!!
             bt_cancel.visibility = GONE
@@ -498,7 +531,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 0 -> {
 //    0 -> "Waiting for confirmation"
                     bt_cancel.visibility = VISIBLE
-
                     tv_2.setTextColor(deActivatedColor)
                     tv_3.setTextColor(deActivatedColor)
                     tv_4.setTextColor(deActivatedColor)
@@ -511,38 +543,69 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
                     img_6.setImageResource(R.drawable.ic_motorcycle_grey)
                 }
-                2, 3 -> {
-                    //    2 -> "Order Accepted and being prepared"
-                    //    3 -> "Driver assigned"
+                2 -> {
+//                    accepted by restaurant
+                    tv_2.setTextColor(activatedColor)
+                    tv_3.setTextColor(deActivatedColor)
+                    tv_4.setTextColor(deActivatedColor)
+                    tv_5.setTextColor(deActivatedColor)
+                    tv_6.setTextColor(deActivatedColor)
+                    img_2.setImageResource(R.drawable.ic_tick_mark)
+                    img_3.setImageResource(R.drawable.ic_cooking_grey)
+                    img_4.setImageResource(R.drawable.ic_cooking_time_grey)
+                    img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
+                    img_6.setImageResource(R.drawable.ic_motorcycle_grey)
+                    var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
+                    img_2.startAnimation(anim)
+                }
+                3 -> {
+                    //        3=>driver assigned,
+//                    TODO get driver info here
 
+//                    tv_2.setTextColor(activatedColor)
+//                    tv_3.setTextColor(activatedColor)
+//                    tv_4.setTextColor(deActivatedColor)
+//                    tv_5.setTextColor(deActivatedColor)
+//                    tv_6.setTextColor(deActivatedColor)
+//                    img_2.setImageResource(R.drawable.ic_tick_mark)
+//                    if (orderStatus == 3)
+//                        img_3.setImageResource(R.drawable.ic_cooking)
+//                    else
+//                        img_3.setImageResource(R.drawable.ic_cooking_grey)
+//
+//                    img_4.setImageResource(R.drawable.ic_cooking_time_grey)
+//                    img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
+//                    img_6.setImageResource(R.drawable.ic_motorcycle_grey)
+//
+//
+//                    var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
+//
+//                    if (orderStatus == 2)
+//                        img_2.startAnimation(anim)
+//
+//                    var random = Random.nextLong(5000)
+//
+//                    if (orderStatus == 3)
+//                        Handler()
+//                            .postDelayed({
+//                                img_3.startAnimation(anim)
+//                            }, random)
+
+                }
+                9 -> {
+//                    restaurant starts preparing
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
                     tv_4.setTextColor(deActivatedColor)
                     tv_5.setTextColor(deActivatedColor)
                     tv_6.setTextColor(deActivatedColor)
                     img_2.setImageResource(R.drawable.ic_tick_mark)
-                    if (orderStatus == 3)
-                        img_3.setImageResource(R.drawable.ic_cooking)
-                    else
-                        img_3.setImageResource(R.drawable.ic_cooking_grey)
-
+                    img_3.setImageResource(R.drawable.ic_cooking)
                     img_4.setImageResource(R.drawable.ic_cooking_time_grey)
                     img_5.setImageResource(R.drawable.ic_shopping_bag_grey)
                     img_6.setImageResource(R.drawable.ic_motorcycle_grey)
-
-
                     var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
-
-                    if (orderStatus == 2)
-                        img_2.startAnimation(anim)
-
-                    var random = Random.nextLong(5000)
-
-                    if (orderStatus == 3)
-                        Handler()
-                            .postDelayed({
-                                img_3.startAnimation(anim)
-                            }, random)
+                    img_3.startAnimation(anim)
 
                 }
                 4 -> {
@@ -765,12 +828,24 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         receiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1!!.getStringExtra(ORDER_ID) == viewModel.orderId.value) {
+//        0=>Waiting for confirmation
+//        2=>accepted by restaurant,
+//        3=>driver assigned,
+//        9=>restaurant starts preparing  get time from notification
+//        7=> order is almost ready,   stop prepation time/nill
+//        4=>out of delivery,  get driver time
+//        5=> deliverd,   stop driver time
+//        1=> schedule order ,
+//        6=>rejected by restaurant,
 
-                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 2) {
+//        8=>cancelled by customer,
+//        (notification type )11=> show elapsed time and reset counter
+
+
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 9) {
 //                        restaurant accepted
                         updateTimer(p1!!.getIntExtra(PREPARING_TIME_RESTAURANT, 0) * 60)
                         tv_status.text = getString(R.string.preparing)
-
                     }
 
                     if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 11) {
@@ -788,7 +863,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                         updateTimer(0)
                     }
 
-                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 6) {
+                    if (p1!!.getStringExtra(NOTIFICATION_TYPE).toInt() == 4) {
                         type = p1!!.getStringExtra(TYPE).toInt()
                         message = p1!!.getStringExtra(MESSAGE)
                     }
@@ -865,6 +940,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
             } else if (item == "2") {
                 viewModel.changeDeliveryToPickup("1")
+            } else if (item == "3") {
+                viewModel.changeDeliveryToPickup("3")
             }
         }
     }
@@ -896,7 +973,11 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 var pp1 = if (p1 > 9) p1.toString() else "0$p1"
                 var pp3 = if (p3 > 9) p3.toString() else "0$p3"
 
-                tv_est_delivery.text = "$pp2:$pp3:$pp1"
+                if (tv_est_delivery != null) {
+                    tv_est_delivery.text = "$pp2:$pp3:$pp1"
+                } else
+                    timer.cancel()
+
             }
         }.start()
 

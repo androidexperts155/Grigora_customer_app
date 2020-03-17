@@ -50,10 +50,16 @@ class OrderDeniedFragment(
             dismiss()
             iRecyclerItemClick.onItemClick("2")
         }
+        bt_wait.setOnClickListener {
+            dismiss()
+            iRecyclerItemClick.onItemClick("3")
+        }
         bt_cancel.setOnClickListener {
             dismiss()
             iRecyclerItemClick.onItemClick("1")
         }
+
+
     }
 
 

@@ -65,7 +65,7 @@ class ProfileFragment : Fragment() {
         viewModel.historyResponse.observe(this, Observer { historyRes ->
             if (historyRes is CommonResponseModel<*>) {
                 historyModel = historyRes.data as WalletHistoryModel
-                tv_wallet.text = "₦ ${historyModel.wallet}"
+                tv_wallet.text = "₦ ${CommonUtils.getRoundedOff(historyModel.wallet.toDouble())}"
             } else {
                 CommonUtils.showMessage(parentView, historyRes.toString())
             }
@@ -142,6 +142,10 @@ class ProfileFragment : Fragment() {
         view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_refer_and_earn)
     }
 
+    fun toPurchasedCards() {
+        view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_purchasedCards)
+    }
+
     fun toSettings() {
         view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_settingFragment)
     }
@@ -164,13 +168,13 @@ class ProfileFragment : Fragment() {
     fun toAboutUs() {
         var bundle = bundleOf(AppConstants.PAGE_TYPE to 1)
         view?.findNavController()
-            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment,bundle)
+            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment, bundle)
     }
 
     fun toTermsAndConditions() {
         var bundle = bundleOf(AppConstants.PAGE_TYPE to 2)
         view?.findNavController()
-            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment,bundle)
+            ?.navigate(R.id.action_navigationMyAccounts_to_aboutUsFragment, bundle)
     }
 
     fun toGroupOrders() {
@@ -186,6 +190,11 @@ class ProfileFragment : Fragment() {
     fun toWallet() {
         view?.findNavController()
             ?.navigate(R.id.action_navigationMyAccounts_to_walletFragment)
+    }
+
+    fun toAddress() {
+        view?.findNavController()
+            ?.navigate(R.id.action_navigationMyAccounts_to_addressList)
     }
 
     fun logout() {

@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@android:color/transparent"
@@ -53,6 +52,7 @@
         
         <LinearLayout
             android:id="@+id/li_pod"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/selectable_item_background"
@@ -166,7 +166,7 @@
                     android:layout_gravity="center_vertical"
                     android:paddingTop="@dimen/_10sdp"
                     android:paddingBottom="@dimen/_10sdp"
-                    android:text="@string/wallet"
+                    android:text="@string/gora_pouch_value"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
                 

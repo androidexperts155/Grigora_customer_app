@@ -28,27 +28,25 @@
         android:textSize="@dimen/_12sdp" />
     
     <com.github.siyamed.shapeimageview.RoundedImageView
-        app:siRadius="@dimen/_8sdp"
-        android:scaleType="fitXY"
-    
         android:id="@+id/img_card"
-        android:layout_width="@dimen/_180sdp"
+        android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="@dimen/_8sdp"
         
-        android:layout_gravity="center_horizontal" />
+        app:siRadius="@dimen/_8sdp" />
     
     
     <Button
-        android:layout_marginTop="@dimen/_16sdp"
         android:id="@+id/bt_submit"
-        
         style="@style/titleText"
+        
         android:layout_width="wrap_content"
         android:layout_height="@dimen/_35sdp"
         android:layout_centerHorizontal="true"
         android:layout_gravity="center_horizontal"
         android:layout_marginStart="@dimen/_24sdp"
+        android:layout_marginTop="@dimen/_16sdp"
         
         android:layout_marginEnd="@dimen/_24sdp"
         android:layout_marginBottom="@dimen/_8sdp"

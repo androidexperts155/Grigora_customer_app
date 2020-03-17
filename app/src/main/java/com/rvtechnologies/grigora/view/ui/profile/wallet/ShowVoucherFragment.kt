@@ -16,8 +16,9 @@ import kotlinx.android.synthetic.main.fragment_show_voucher.*
 
 class ShowVoucherFragment(
     var codeModel: VoucherCodeModel,
-    var iRecyclerItemClick: IRecyclerItemClick
+    var iRecyclerItemClick: IRecyclerItemClick, var isSelf: Boolean
 ) : DialogFragment() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
     }
@@ -32,6 +33,11 @@ class ShowVoucherFragment(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
+
+        if (isSelf)
+            bt_submit.text = getString(R.string.proceed_to_buy)
+        else
+            bt_submit.text = getString(R.string.proceed_to_gift)
 
 
         bt_submit.setOnClickListener {

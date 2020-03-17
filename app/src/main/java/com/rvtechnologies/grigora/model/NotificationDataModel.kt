@@ -7,7 +7,7 @@ data class NotificationDataModel(
     @SerializedName("notification_type")
     var notificationType: String = "",
     @SerializedName("order_id")
-    var orderId: String = "",
+    var orderId: Int = 0,
     @SerializedName("restaurant_address")
     var restaurantAddress: String = "",
     @SerializedName("restaurant_image")

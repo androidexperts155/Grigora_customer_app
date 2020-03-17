@@ -24,6 +24,7 @@ class SharedGiftViewModel : ViewModel() {
     var sendGift: MutableLiveData<Any> = MutableLiveData()
     var selectedUser: MutableLiveData<SearchUserModel> = MutableLiveData()
     var selectedVoucher: MutableLiveData<VoucherModel> = MutableLiveData()
+    var isSelfSelected: MutableLiveData<Boolean> = MutableLiveData()
 
     fun destroy(activity: MainActivity) {
 
@@ -33,6 +34,7 @@ class SharedGiftViewModel : ViewModel() {
         sendGift.value = null
         selectedUser.value = null
         selectedVoucher.value = null
+        isSelfSelected.value = null
 
         searchResult.removeObservers(activity)
         voucherCodes.removeObservers(activity)
@@ -40,6 +42,7 @@ class SharedGiftViewModel : ViewModel() {
         sendGift.removeObservers(activity)
         selectedUser.removeObservers(activity)
         selectedVoucher.removeObservers(activity)
+        isSelfSelected.removeObservers(activity)
 
 
     }
@@ -84,6 +87,26 @@ class SharedGiftViewModel : ViewModel() {
                 }
             }
     }
+
+    fun buyCard(token: String, item: VoucherCodeModel) {
+        isLoading.value = true
+
+        ApiRepo.getInstance()
+            .buyCard(
+                token = token,
+                voucher_code = item.voucher_card_code.voucher_code
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object :
+                        TypeToken<CommonResponseModel<*>>() {}.type
+                    sendGift.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    sendGift.value = result
+                }
+            }
+    }
+
 
     fun getVoucherCodes(token: String) {
         isLoading.value = true

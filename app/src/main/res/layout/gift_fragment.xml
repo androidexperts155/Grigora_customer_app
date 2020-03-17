@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/parent"
@@ -10,137 +10,187 @@
     android:orientation="vertical"
     tools:context=".view.ui.profile.wallet.GiftFragment">
     
-    <ImageView
-        android:layout_width="@dimen/_150sdp"
-        android:layout_height="@dimen/_150sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_margin="@dimen/_16sdp"
-        android:src="@drawable/gift" />
     
-    <TextView
-        style="@style/titleText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_8sdp"
-        android:text="@string/add_points_info"
-        android:textColor="?attr/textWhite"
-        android:textSize="@dimen/_12sdp" />
-    
-    <androidx.cardview.widget.CardView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:elevation="@dimen/_1sdp"
-        app:cardBackgroundColor="?attr/chipDeSelected">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
         
-        <RelativeLayout
-            android:id="@+id/rel_user"
-            android:layout_width="match_parent"
+        
+        <ImageView
+            android:layout_width="@dimen/_150sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="@dimen/_16sdp"
+            android:src="@drawable/gift" />
+        
+        <TextView
+            style="@style/titleText"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:foreground="@drawable/selectable_item_background"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:text="@string/add_points_info"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        
+        <RadioGroup
+            android:id="@+id/rd_sel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:orientation="horizontal"
+            
             android:padding="@dimen/_8sdp">
             
+            <RadioButton
+                android:id="@+id/rd_others"
+                style="@style/mediumText"
+                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/buy_for_others"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
             
-            <LinearLayout
+            <RadioButton
+                android:id="@+id/rd_self"
+                style="@style/mediumText"
+                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:buttonTint="@color/colorPrimaryDark"
+                android:text="@string/buy_for_self"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+        
+        </RadioGroup>
+        
+        
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card_search"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/_16sdp"
+            
+            android:elevation="@dimen/_1sdp"
+            app:cardBackgroundColor="?attr/chipDeSelected">
+            
+            <RelativeLayout
+                android:id="@+id/rel_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/bt_transfer"
-                android:orientation="vertical">
-                
-                <TextView
-                    android:id="@+id/tv_name"
-                    style="@style/mediumText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_11sdp"
-                    tools:text="John Doe" />
-                
-                <TextView
-                    android:id="@+id/tv_email"
-                    style="@style/normalText"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_10sdp"
-                    tools:text="doe.JOh.@gmail.com" />
-            </LinearLayout>
-            
-            
-            <ImageView
-                android:id="@+id/bt_transfer"
-                android:layout_width="@dimen/_28sdp"
-                android:layout_height="@dimen/_28sdp"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_gravity="right"
                 android:clickable="true"
                 android:foreground="@drawable/selectable_item_background"
-                android:padding="@dimen/_4sdp"
-                android:tint="@color/colorPrimaryDark"
-                app:srcCompat="@drawable/ic_search" />
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
-    
-    <androidx.cardview.widget.CardView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/_16sdp"
-        android:elevation="@dimen/_1sdp"
-        app:cardBackgroundColor="?attr/chipDeSelected">
+                android:padding="@dimen/_8sdp">
+                
+                
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_toLeftOf="@+id/bt_transfer"
+                    android:orientation="vertical">
+                    
+                    <TextView
+                        android:id="@+id/tv_name"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp"
+                        tools:text="John Doe" />
+                    
+                    <TextView
+                        android:id="@+id/tv_email"
+                        style="@style/normalText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="doe.JOh.@gmail.com" />
+                </LinearLayout>
+                
+                
+                <ImageView
+                    android:id="@+id/bt_transfer"
+                    android:layout_width="@dimen/_28sdp"
+                    android:layout_height="@dimen/_28sdp"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="right"
+                    android:clickable="true"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:padding="@dimen/_4sdp"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/ic_search" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
         
-        <RelativeLayout
-            android:id="@+id/rel_price"
+        <androidx.cardview.widget.CardView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:clickable="true"
-            android:padding="@dimen/_8sdp">
+            android:layout_margin="@dimen/_16sdp"
+            android:elevation="@dimen/_1sdp"
+            app:cardBackgroundColor="?attr/chipDeSelected">
             
-            <TextView
-                android:id="@+id/tv_money"
-                style="@style/titleText"
+            <RelativeLayout
+                android:id="@+id/rel_price"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|center_vertical"
-                android:minHeight="@dimen/_28sdp"
-                android:text="₦ 500"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp"
-                android:visibility="visible" />
+                android:clickable="true"
+                android:padding="@dimen/_8sdp">
+                
+                <TextView
+                    android:id="@+id/tv_money"
+                    style="@style/titleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="start|center_vertical"
+                    android:minHeight="@dimen/_28sdp"
+                    android:text="₦ 500"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp"
+                    android:visibility="visible" />
+            
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
         
-        </RelativeLayout>
-    </androidx.cardview.widget.CardView>
+        <TextView
+            android:id="@+id/tv_money_info"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:text="Naira Five Hundred Only"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp"
+            tools:text="doe.JOh.@gmail.com" />
+        
+        <Button
+            android:id="@+id/bt_add_new"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="@dimen/_32sdp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1dp"
+            android:paddingLeft="@dimen/_22sdp"
+            android:paddingRight="@dimen/_22sdp"
+            android:text="@string/proceed_preview_card"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
     
-    <TextView
-        style="@style/mediumText"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/_16sdp"
-        android:text="Naira Five Hundred Only"
-        android:textColor="?attr/textWhite"
-        android:textSize="@dimen/_10sdp"
-        tools:text="doe.JOh.@gmail.com" />
-    
-    <Button
-        android:id="@+id/bt_add_new"
-        style="@style/normalText"
-        android:layout_width="wrap_content"
-        android:layout_height="@dimen/_35sdp"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="@dimen/_32sdp"
-        android:layout_marginEnd="16dp"
-        android:layout_marginBottom="8dp"
-        android:background="@drawable/btn_rounded"
-        android:elevation="1dp"
-        android:paddingLeft="@dimen/_22sdp"
-        android:paddingRight="@dimen/_22sdp"
-        android:text="@string/proceed_preview_card"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="@dimen/_12sdp" />
+    </LinearLayout>
+</ScrollView>
 
-
-</LinearLayout>

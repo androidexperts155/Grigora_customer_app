@@ -51,9 +51,9 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
             if (historyRes is CommonResponseModel<*>) {
                 historyModel = historyRes.data as WalletHistoryModel
 
-                wallet.text = "₦ " + historyModel.wallet
+                wallet.text = "₦ " + CommonUtils.getRoundedOff(historyModel.wallet.toDouble())
                 tv_points.text =
-                    "₦ " + ((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()).toString()
+                    "₦ " + CommonUtils.getRoundedOff((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble())
                 tv_wallet_id.text = historyModel.wallet_id
                 handleHistory()
 

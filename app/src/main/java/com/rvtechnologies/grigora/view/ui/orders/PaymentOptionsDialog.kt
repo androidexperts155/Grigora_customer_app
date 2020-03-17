@@ -50,10 +50,10 @@ class PaymentOptionsDialog(
             this.dismiss()
         }
 
-        li_pod.setOnClickListener {
-            iRecyclerItemClick.onItemClick(1)
-            this.dismiss()
-        }
+//        li_pod.setOnClickListener {
+//            iRecyclerItemClick.onItemClick(1)
+//            this.dismiss()
+//        }
 
         li_paystack.setOnClickListener {
             iRecyclerItemClick.onItemClick(2)

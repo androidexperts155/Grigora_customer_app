@@ -75,11 +75,16 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     internal fun showNotificationMessage(remoteMessage: RemoteMessage) {
         var destinationId = 0
-        lateinit var args: Bundle
+         var args: Bundle?=null
+
+
+        Log.d("notification_data",remoteMessage.data.get("data"))
+        Log.d("sendby",remoteMessage.data.get("sendby"))
+        Log.d("body",remoteMessage.data.get("body"))
+
         try {
             var notificationType =
                 Gson().fromJson(remoteMessage.data.get("data"), NotificationDataModel::class.java)
-
             if (
                 notificationType.notificationType.toInt() == 0 ||
                 notificationType.notificationType.toInt() == 2 ||
@@ -157,26 +162,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             resultIntent.flags =
                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
-            val resultPendingIntent = PendingIntent.getActivity(
-                applicationContext,
-                0,
-                resultIntent,
-                PendingIntent.FLAG_CANCEL_CURRENT
-            )
 
-//            val pendingIntent: PendingIntent
-//            pendingIntent = if (args != null) {
-//                NavDeepLinkBuilder(applicationContext)
-//                    .setGraph(R.navigation.nav_graph)
-//                    .setDestination(destinationId)
-//                    .setArguments(args)
-//                    .createPendingIntent()
-//            } else
-//                NavDeepLinkBuilder(applicationContext)
-//                    .setGraph(R.navigation.nav_graph)
-//                    .setDestination(destinationId)
-//                    .createPendingIntent()
-
+            val pendingIntent: PendingIntent
+            pendingIntent = if (args!=null) {
+                NavDeepLinkBuilder(applicationContext)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(destinationId)
+                    .setArguments(args)
+                    .createPendingIntent()
+            } else
+                NavDeepLinkBuilder(applicationContext)
+                    .setGraph(R.navigation.nav_graph)
+                    .setDestination(destinationId)
+                    .createPendingIntent()
 
             val mBuilder = NotificationCompat.Builder(applicationContext)
             val inboxStyle = NotificationCompat.InboxStyle()
@@ -191,7 +189,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     .setTicker(applicationContext.getString(R.string.app_name))
                     .setAutoCancel(true)
                     .setContentTitle(name)
-                    .setContentIntent(resultPendingIntent)
+                    .setContentIntent(pendingIntent)
                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                     .setStyle(inboxStyle)
                     .setContentText(message)
@@ -201,11 +199,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     .setTicker(applicationContext.getString(R.string.app_name))
                     .setAutoCancel(true)
                     .setContentTitle(name)
-                    .setContentIntent(resultPendingIntent)
+                    .setContentIntent(pendingIntent)
                     .setSound(Settings.System.DEFAULT_NOTIFICATION_URI)
                     .setStyle(inboxStyle)
                     .setContentText(message)
-
 
             val notification = notificationCompat.build()
 

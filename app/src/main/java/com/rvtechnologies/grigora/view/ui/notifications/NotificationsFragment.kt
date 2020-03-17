@@ -46,8 +46,6 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
 
                         list = ArrayList<Notification>()
                         list.addAll(response.data as Collection<NotificationsModel>)
-
-
                         var format = SimpleDateFormat("yyyy-MM-dd")
 
                         if (list.isNotEmpty()) {

@@ -100,7 +100,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
-                    restaurantId=cartDataModel.restaurantId!!
+                    restaurantId = cartDataModel.restaurantId!!
                     handleTime()
                     cart_type = cartDataModel.cart_type.toString()
                     restId = cartDataModel.restaurantId.toString()
@@ -264,8 +264,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         viewModel?.reference?.value = ""
         handleScheduleViewModel()
-
-
     }
 
     override fun onCreateView(
@@ -299,8 +297,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
             button5.text = getString(R.string.schedule_order)
         }
-
-
     }
 
     override fun onResume() {
@@ -328,8 +324,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 PrefConstants.LONGITUDE
             )
         )
-
-
     }
 
     fun addMore() {
@@ -398,7 +392,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
     }
 
-    fun paymentOptionsDialog() {
+    fun paymentAndPlace() {
         placeClicked = true
         if (viewModel!!.paymentMode.value.toString()
                 .equals("1") || viewModel!!.paymentMode.value.toString().equals(
@@ -592,6 +586,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         if (item is Int) {
             if (item != 0) {
                 viewModel?.paymentMode?.value = item.toString()
+                if (item == 2) {
+                    tv_payment_type.text = getString(R.string.credit_or_debit_card)
+                }
+                if (item == 3) {
+                    tv_payment_type.text = getString(R.string.gora_pouch)
+                }
             }
         } else if (item is String) {
             view?.findNavController()
@@ -670,11 +670,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             } else
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
-                 viewModel?.updateType(
-                    restaurantId,
-                    "1",
-                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
-                )
+            viewModel?.updateType(
+                restaurantId,
+                "1",
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+            )
 
         }
 
@@ -689,11 +689,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             } else
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
-                 viewModel?.updateType(
-                    restaurantId,
-                    "2",
-                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
-                )
+            viewModel?.updateType(
+                restaurantId,
+                "2",
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+            )
 
         }
 
