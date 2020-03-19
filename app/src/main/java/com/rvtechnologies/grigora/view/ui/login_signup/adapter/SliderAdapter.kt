@@ -36,7 +36,7 @@ class SliderAdapter : SliderViewAdapter<SliderAdapter.SliderAdapterVH>() {
 
 
         descList.add("Track your order easily to your door step in real time")
-        descList.add("Reserve tables &amp; make bookings at your favorite restaurant")
+        descList.add("Reserve tables & make bookings at your favorite restaurant")
         descList.add("Explore the extensive selection of your favorite restaurants and cuisines")
         descList.add("Get points or discounts from previous deliveries")
         descList.add("Order meals together with family, friends and colleagues")

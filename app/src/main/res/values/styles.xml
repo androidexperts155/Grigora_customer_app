@@ -4,14 +4,25 @@
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:textColor">@color/textBlack</item>
+        <item name="android:editTextColor">@color/textBlack</item>
         <item name="android:textSize">@dimen/_10sdp</item>
         <item name="android:fontFamily">@font/roboto_regular</item>
         <item name="otpViewStyle">@style/OtpWidget.OtpView</item>
         <item name="backgroundColor">@color/background_light</item>
     </style>
     
-   
+    <style name="PaymentTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        
+        <item name="android:textColorPrimary">@color/dark_gray</item>
+        <item name="android:windowBackground">@color/white</item>
+    </style>
     
+    
+     
     
     <style name="SelectableItemTheme">
         <item name="colorControlHighlight">@color/ripple</item>
@@ -55,16 +66,16 @@
         <item name="chipDeSelectedTextColor">@color/text_hint_color</item>
         
         <item name="viewbg">@color/viewbg_light</item>
-      
+        
         <item name="answer_selected">@color/white</item>
         <item name="answer_de_selected">@color/viewbg_light</item>
-    
+        
         <item name="light_bg">#f8f8f8</item>
-       
-     </style>
+    
+    </style>
     
     <style name="AppTheme.Dark" parent="Theme.AppCompat.NoActionBar">
-     
+        
         <item name="android:windowBackground">@color/background_light</item>
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
@@ -95,11 +106,11 @@
         <item name="chipDeSelected">@color/background_dark_light</item>
         <item name="chipDeSelectedTextColor">@color/lightGrey</item>
         <item name="viewbg">@color/viewbg_dark</item>
-    
+        
         <item name="answer_selected">@color/background_dark_light</item>
         <item name="answer_de_selected">@color/background_dark_light</item>
         <item name="light_bg">@color/viewbg_dark</item>
- 
+    
     </style>
     
     
@@ -172,12 +183,8 @@
     <style name="MYBottomSheetStyle" parent="Widget.Design.BottomSheet.Modal">
         <item name="android:background">@android:color/transparent</item>
     </style>
-    
-    
-  
-    
-    
-    
+
+
 </resources>
 
 

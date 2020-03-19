@@ -1,13 +1,12 @@
 package com.rvtechnologies.grigora.model
 
+import com.rvtechnologies.grigora.view.ui.notifications.Notification
+
 data class FaqModel(
-    val answer: String,
     val created_at: String,
-    val french_answer: String,
-    val french_question: String,
-    val icon: String,
+    val faqs: List<Faq>,
+    val french_name: String,
     val id: Int,
-    val question: String,
-    val status: String,
+    val name: String,
     val updated_at: String
-)
+): Notification

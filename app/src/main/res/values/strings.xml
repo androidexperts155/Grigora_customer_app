@@ -488,7 +488,7 @@
     <string name="disapproved">DisApproved</string>
     <string name="cuisine">Cuisine</string>
     <string name="grigora_gift_card">Grigora Gift card</string>
-    <string name="add_points_info">Add Points to your Friend or Family and Self\nGrigora Gora Pouch</string>
+    <string name="add_points_info">By/Send Voucher cards to Family or  \n Friend(s).</string>
     <string name="proceed_preview_card">Proceed To Preview Card</string>
     <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
@@ -525,6 +525,24 @@
     <string name="proceed_to_buy">Proceed to Buy Voucher</string>
     <string name="gora_pouch_value">GORA pouch (%s\)</string>
     <string name="purchased_card">Purchased Card</string>
-
+    <string name="title_action_reset">Reset</string>
+    
+    <string name="label_card_number">XXXX XXXX XXXX XXXX</string>
+    <string name="label_expired_date">MM/YY</string>
+    <string name="label_card_holder">CARD HOLDER</string>
+    <string name="label_cvv_code">CVV CODE</string>
+    
+    <string name="hint_card_number">CARD NUMBER</string>
+    <string name="hint_expired_date">EXPIRED DATE(MM/YY)</string>
+    <string name="hint_card_holder">CARD HOLDER</string>
+    <string name="hint_cvv_code">CVV CODE</string>
+    
+    <string name="label_secure_submission">Secure Submission</string>
+    <string name="payment">Payment</string>
+    <string name="invalid">Invalid</string>
+    <string name="invalid_date">Invalid date. Ideal date(12/22)</string>
+    <string name="myself">MYSELF</string>
+    <string name="enter_name_wallet_id">Enter Name or Wallet Id</string>
+    <string name="search_name_wallet_id">Search by Name/Wallet id</string>
 
 </resources><!--₦-->

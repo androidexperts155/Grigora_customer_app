@@ -26,7 +26,7 @@
         
         <TextView
             style="@style/titleText"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_marginRight="@dimen/_8sdp"
@@ -34,9 +34,39 @@
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_12sdp" />
         
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/tab_top"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            app:tabIndicatorColor="@color/colorPrimaryDark"
+            app:tabIndicatorHeight="1dp"
+            app:tabMode="fixed"
+            app:tabRippleColor="@color/grey_bg"
+            app:tabSelectedTextColor="@color/colorPrimaryDark"
+            app:tabTextColor="?attr/textWhite">
+            
+            <com.google.android.material.tabs.TabItem
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/myself" />
+            
+            <com.google.android.material.tabs.TabItem
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/others" />
+        
+        
+        </com.google.android.material.tabs.TabLayout>
+        
         
         <RadioGroup
             android:id="@+id/rd_sel"
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -74,6 +104,8 @@
         
         <androidx.cardview.widget.CardView
             android:id="@+id/card_search"
+            tools:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="@dimen/_16sdp"
@@ -96,8 +128,18 @@
                     android:layout_centerVertical="true"
                     android:layout_toLeftOf="@+id/bt_transfer"
                     android:orientation="vertical">
+                    <TextView
+                         android:id="@+id/tv_hint"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp"
+                        android:text="@string/enter_name_wallet_id"
+                        />
                     
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_name"
                         style="@style/mediumText"
                         android:layout_width="wrap_content"
@@ -107,6 +149,7 @@
                         tools:text="John Doe" />
                     
                     <TextView
+                        android:visibility="gone"
                         android:id="@+id/tv_email"
                         style="@style/normalText"
                         android:layout_width="wrap_content"

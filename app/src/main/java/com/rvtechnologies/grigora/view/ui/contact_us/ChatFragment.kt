@@ -44,7 +44,6 @@ class ChatFragment : Fragment() {
         viewModel.subIssueId.value = arguments?.get(AppConstants.SUB_ISSUE_ID).toString()
         viewModel.ticketId.value = arguments?.get(AppConstants.TICKET_ID).toString()
         viewModel.token.value = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
-
         viewModel.sendMessageRes.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
@@ -93,7 +92,7 @@ class ChatFragment : Fragment() {
         tv_send.setOnClickListener {
             send()
         }
-
+        img_back.setOnClickListener { back() }
 
         rc_chat.adapter = ChatAdapter(list)
     }
@@ -101,12 +100,8 @@ class ChatFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-
-
-
+        list.clear()
         refreshChat()
-
-
         receiver = object : BroadcastReceiver() {
             override fun onReceive(p0: Context?, p1: Intent?) {
                 if (p1!!.getStringExtra(AppConstants.TICKET_ID).equals(viewModel.ticketId.value)) {

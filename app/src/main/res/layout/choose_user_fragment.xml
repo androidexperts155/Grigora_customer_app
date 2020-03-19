@@ -45,17 +45,17 @@
                 style="@style/mediumText"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_28sdp"
-                android:layout_toLeftOf="@+id/bt_transfer"
+                android:layout_toLeftOf="@+id/img_search"
                 android:background="@color/transparent"
                 android:gravity="center_vertical"
-                android:hint="@string/search_nameoremail"
+                android:hint="@string/search_name_wallet_id"
                 android:textColor="?attr/textWhite"
                 android:textColorHint="?attr/searchHint"
                 android:textSize="@dimen/_11sdp" />
             
             
             <ImageView
-                android:id="@+id/bt_transfer"
+                android:id="@+id/img_search"
                 android:layout_width="@dimen/_28sdp"
                 android:layout_height="@dimen/_28sdp"
                 android:layout_alignParentRight="true"

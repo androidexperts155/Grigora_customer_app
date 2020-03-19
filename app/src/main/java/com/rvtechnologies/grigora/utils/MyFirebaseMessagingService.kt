@@ -39,37 +39,14 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         val NOTIFICATION_CHANNEL_ID = "10001"
     }
 
-//    override fun onNewToken(s: String?) {
-//        super.onNewToken(s)
-//        Log.d(TAG, "onNewToken: " + s!!)
-//    }
 
     override fun onNewToken(p0: String) {
         Log.d(TAG, "onNewToken: " + p0)
     }
 
-//    Bundle[
-//    {
-//        google.delivered_priority =
-//            high, content-available = 1, google.sent_time = 1567422817731, google.ttl = 2419200, google.original_priority = high, sendby = Grigora, body = Order Is Accepted By Driver, data ={ "order_id":3 }, from = 652242170156, type = Grigora, badge = 0, sound = default, google.message_id = 0:1567422817737898%65d2fb8bf9fd7ecd, establishment_detail = Grigora
-//    }]
-
-
     override fun onMessageReceived(remoteMessage: RemoteMessage) {
         if (remoteMessage?.data != null) {
             showNotificationMessage(remoteMessage)
-//            GrigoraApp.getInstance()!!.updateData(
-//                BroadcastConstants.noti_new_order,
-//                remoteMessage.data.get("body")
-//            )
-//            MyApplication.instance!!.updateData(
-//                BroadcastConstants.noti_ongoing,
-//                remoteMessage.data.get("body")
-//            )
-//            MyApplication.instance!!.updateData(
-//                BroadcastConstants.noti_past,
-//                remoteMessage.data.get("body")
-//            )
         }
     }
 
@@ -85,9 +62,24 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
         try {
             var notificationType =
                 Gson().fromJson(remoteMessage.data.get("data"), NotificationDataModel::class.java)
+
+            //        0=>Waiting for confirmation
+//        2=>accepted by restaurant,
+//        3=>driver assigned,
+//        9=>restaurant starts preparing  get time from notification
+//        7=> order is almost ready,   stop prepation time/nill
+//        4=>out of delivery,  get driver time
+//        5=> deliverd,   stop driver time
+//        1=> schedule order ,
+//        6=>rejected by restaurant,
+//        8=>cancelled by customer,
+//        (notification type )11=> show elapsed time and reset counter
+
             if (
                 notificationType.notificationType.toInt() == 0 ||
+                notificationType.notificationType.toInt() == 1 ||
                 notificationType.notificationType.toInt() == 2 ||
+                notificationType.notificationType.toInt() == 9 ||
                 notificationType.notificationType.toInt() == 8 ||
                 notificationType.notificationType.toInt() == 3 ||
                 notificationType.notificationType.toInt() == 6 ||
@@ -102,7 +94,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 val intent = Intent()
                 intent.action = "com.rvtechnologies.grigora"
                 intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
-                intent.putExtra(ORDER_ID, notificationType.orderId)
+                intent.putExtra(ORDER_ID, notificationType.orderId.toString())
                 intent.putExtra(TYPE, notificationType.type)
 
                 intent.putExtra(MESSAGE, remoteMessage.data["body"]!!)
@@ -110,7 +102,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
                 if (notificationType.notificationType.toInt() == 11)
                     intent.putExtra(PREPARING_TIME_RESTAURANT, notificationType.preparing_time)
-                else if (notificationType.notificationType.toInt() == 2)
+                else if (notificationType.notificationType.toInt() == 9)
                     intent.putExtra(
                         PREPARING_TIME_RESTAURANT,
                         notificationType.restaurant_preparing_time
@@ -122,8 +114,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 }
             }
 
-//            TODO handle with admin chat
-            if (notificationType.notificationType.toInt() == 112) {
+             if (notificationType.notificationType.toInt() == 112) {
                 val intent = Intent()
                 intent.action = "com.rvtechnologies.grigora"
                 intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
@@ -367,3 +358,6 @@ when order is ready to dispatch
     "restaurant_name":"Subway",
     "restaurant_long":"76.7267531"
 }*/
+
+
+

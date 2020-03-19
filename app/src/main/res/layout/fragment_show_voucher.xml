@@ -27,14 +27,21 @@
         android:textColor="?attr/textWhite"
         android:textSize="@dimen/_12sdp" />
     
-    <com.github.siyamed.shapeimageview.RoundedImageView
-        android:id="@+id/img_card"
+    <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_150sdp"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="@dimen/_120sdp"
         android:layout_marginTop="@dimen/_8sdp"
+        android:elevation="0dp"
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="0dp">
         
-        app:siRadius="@dimen/_8sdp" />
+        <ImageView
+            android:id="@+id/img_card"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center_horizontal"
+            android:src="@drawable/restaurant" />
+    </androidx.cardview.widget.CardView>
     
     
     <Button

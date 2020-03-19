@@ -146,6 +146,10 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             mMap.animateCamera(location)
 
         }
+
+        img_close.setOnClickListener {
+            card_res.visibility = View.GONE
+        }
     }
 
     override fun onResume() {

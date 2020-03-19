@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
-import com.rvtechnologies.grigora.NotificationsModel
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.FaqModel
 import com.rvtechnologies.grigora.model.SubIssueModel

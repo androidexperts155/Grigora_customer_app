@@ -21,6 +21,7 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.contact_us.adapter.FaqAdapter
+import com.rvtechnologies.grigora.view.ui.notifications.Notification
 import com.rvtechnologies.grigora.view_model.ContactUsViewModel
 import kotlinx.android.synthetic.main.contact_us_fragment.*
 
@@ -38,15 +39,10 @@ class ContactUs : Fragment() {
                 if (response.status!!) {
                     var list = ArrayList<FaqModel>()
                     list.addAll(response.data as Collection<FaqModel>)
-
-                    if (list.size > 2) {
-                        tv_viewall.visibility = View.VISIBLE
-                    }
-                    var list1 = ArrayList<FaqModel>()
-                    list1.add(list[0])
-                    list1.add(list[1])
-
-
+                    tv_viewall.visibility = View.VISIBLE
+                    var list1 = ArrayList<Notification>()
+                    list1.add(list[0].faqs[0])
+                    list1.add(list[0].faqs[1])
                     rc_faqs.adapter = FaqAdapter(list1)
                 }
             }

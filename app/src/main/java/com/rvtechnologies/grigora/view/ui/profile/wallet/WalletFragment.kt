@@ -25,7 +25,7 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.PaymentActivity
+import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view_model.WalletViewModel
 import kotlinx.android.synthetic.main.wallet_fragment.*
 

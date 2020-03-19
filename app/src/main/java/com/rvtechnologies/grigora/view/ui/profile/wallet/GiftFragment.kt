@@ -2,13 +2,17 @@ package com.rvtechnologies.grigora.view.ui.profile.wallet
 
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.view.Gravity
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.RadioGroup
+import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
+import com.google.android.material.tabs.TabLayout
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.VoucherCodeModel
@@ -27,10 +31,6 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
     private lateinit var viewModel: SharedGiftViewModel
     private var vouchers = ArrayList<VoucherModel>()
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
@@ -89,7 +89,6 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
             }
         })
 
-
         viewModel.isLoading.observe(this, Observer { isLoading ->
             if (isLoading) {
                 CommonUtils.showLoader(context, getString(R.string.loading))
@@ -98,7 +97,7 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
             }
         })
 
-        viewModel.isSelfSelected.value = false
+        viewModel.isSelfSelected.value = true
 
     }
 
@@ -131,6 +130,7 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
         }
 
         rd_others.isChecked = true
+
         rd_sel.setOnCheckedChangeListener { group, checkedId ->
             if (checkedId == R.id.rd_others) {
                 card_search.visibility = View.VISIBLE
@@ -140,6 +140,61 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
                 viewModel.isSelfSelected.value = true
             }
         }
+
+        for (i in 0 until tab_top.tabCount) {
+
+            //noinspection ConstantConditions
+            var tv = layoutInflater.inflate(R.layout.tab_textview, null) as TextView
+            tv.gravity = Gravity.CENTER
+            tv.text = tab_top.getTabAt(i)?.text
+
+            if (tab_top.getTabAt(i)?.isSelected!!) {
+                tv.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            } else {
+                if (CommonUtils.isDarkMode())
+                    tv.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                else
+                    tv.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
+            tab_top.getTabAt(i)?.customView = tv
+
+        }
+
+        tab_top.addOnTabSelectedListener(object : TabLayout.OnTabSelectedListener {
+            override fun onTabReselected(p0: TabLayout.Tab?) {
+
+
+            }
+
+            override fun onTabUnselected(p0: TabLayout.Tab?) {
+                var view: View? = p0!!.customView
+
+                view as TextView
+
+                if (CommonUtils.isDarkMode())
+                    view.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                else
+                    view.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
+
+            override fun onTabSelected(p0: TabLayout.Tab?) {
+                var view: View? = p0!!.customView
+                view as TextView
+                view.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+
+                when {
+                    p0!!.text.toString().equals(getString(R.string.myself)) -> {
+                        card_search.visibility = View.GONE
+                        viewModel.isSelfSelected.value = true
+                    }
+                    p0!!.text.toString().equals(getString(R.string.others)) -> {
+                        card_search.visibility = View.VISIBLE
+                        viewModel.isSelfSelected.value = false
+                    }
+
+                }
+            }
+        })
     }
 
     override fun onResume() {
@@ -148,8 +203,11 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).backTitle(getString(R.string.grigora_gift_card))
 
         if (viewModel.selectedUser.value != null) {
+            tv_hint.visibility=View.GONE
+            tv_name.visibility=View.VISIBLE
+            tv_email.visibility=View.VISIBLE
             tv_name.text = viewModel.selectedUser.value?.name
-            tv_email.text = viewModel.selectedUser.value?.email
+            tv_email.text = viewModel.selectedUser.value?.wallet
         }
         viewModel.getVoucherCodes(
             CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)

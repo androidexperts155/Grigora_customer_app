@@ -26,6 +26,7 @@ class OrderDetailsViewModel : ViewModel() {
 
     var orderItemRes = MutableLiveData<Any>()
     var driverUpdateRes = MutableLiveData<Any>()
+    var driver = MutableLiveData<Any>()
     fun getOrderDetails() {
         isLoading.value = true
         ApiRepo.getInstance()
@@ -55,6 +56,21 @@ class OrderDetailsViewModel : ViewModel() {
                     driverUpdateRes.value = Gson().fromJson(result as JsonElement, type)
                 } else {
                     driverUpdateRes.value = result
+                }
+            }
+    }
+
+    fun getDriver() {
+        ApiRepo.getInstance()
+            .getOrderDetails(
+                token = token.value.toString(),
+                orderId = orderId.value!!
+            ) { success, result ->
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<OrderItemModel>>() {}.type
+                    driver.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    driver.value = result
                 }
             }
     }

@@ -95,12 +95,9 @@ class NotificationAdapter(
                 }
             })
 
-
-
             holder.img_delete.setOnClickListener {
                 iRecyclerItemClick.onItemClick(position)
             }
-
 
             val circularProgressDrawable = CircularProgressDrawable(holder.tv_name.context!!)
             circularProgressDrawable.strokeWidth = 5f
@@ -154,7 +151,6 @@ class NotificationAdapter(
                         iRecyclerItemClick.onItemClick(list[position])
                     }
                 }
-
             }
 
             holder.tv_name.text = (list[position] as NotificationsModel).notification

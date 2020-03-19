@@ -6,7 +6,6 @@ import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.model.ApiRepo
-import com.rvtechnologies.grigora.model.FaqModel
 import com.rvtechnologies.grigora.model.SubIssueModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 

@@ -37,6 +37,7 @@ class ChatHeads : Fragment(), IRecyclerItemClick {
         viewModel.subIssuesRes.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
+                    headsList.clear()
                     headsList.addAll(res.data as ArrayList<ChatHeadModel>)
                     rc_chat_heads.adapter = ChatHeadsAdapter(headsList, this)
 
@@ -69,8 +70,9 @@ class ChatHeads : Fragment(), IRecyclerItemClick {
         item as ChatHeadModel
         var bundle = bundleOf(
             AppConstants.ISSUE_ID to item.issue_id, AppConstants.SUB_ISSUE_ID to item.subissue_id,
-            AppConstants.TICKET_ID to item.ticket_id)
+            AppConstants.TICKET_ID to item.ticket_id
+        )
 
-        view?.findNavController()?.navigate(R.id.action_chatHeads_to_all_chat,bundle)
+        view?.findNavController()?.navigate(R.id.action_chatHeads_to_all_chat, bundle)
     }
 }

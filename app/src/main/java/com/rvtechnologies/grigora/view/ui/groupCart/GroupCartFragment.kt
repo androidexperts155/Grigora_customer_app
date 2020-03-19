@@ -24,25 +24,21 @@ import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.databinding.CartFragmentBinding
 import com.rvtechnologies.grigora.databinding.GroupCartFragmentBinding
 import com.rvtechnologies.grigora.model.GroupCartModel
 import com.rvtechnologies.grigora.model.models.*
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.PaymentActivity
+import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.group_cart_fragment.*
 import kotlinx.android.synthetic.main.group_cart_fragment.parentView
 import kotlinx.android.synthetic.main.group_cart_fragment.tv_group_order_title
 import kotlinx.android.synthetic.main.group_cart_fragment.tv_order_limit
-import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
-import java.util.*
 import kotlin.collections.ArrayList
 
 class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,

@@ -3,20 +3,11 @@ package com.rvtechnologies.grigora.view.ui.profile.adapter
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.LinearLayout
 import android.widget.TextView
-import androidx.core.content.ContextCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.FaqModel
 import com.rvtechnologies.grigora.model.GroupOrdersModel
-import com.rvtechnologies.grigora.model.models.AddressModel
-import com.rvtechnologies.grigora.model.models.ChipModel
-import com.rvtechnologies.grigora.model.models.LocationTypeModel
-import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import com.rvtechnologies.grigora.utils.PrefConstants
 
 class GroupOrdersAdapter(
     val list: ArrayList<GroupOrdersModel>,val iRecyclerItemClick: IRecyclerItemClick

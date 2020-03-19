@@ -4,17 +4,12 @@ import android.app.Activity
 import android.app.Activity.RESULT_CANCELED
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
-import android.widget.AdapterView
-import android.widget.ArrayAdapter
-import android.widget.LinearLayout
 import androidx.appcompat.app.AlertDialog
-import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
@@ -33,7 +28,7 @@ import com.rvtechnologies.grigora.databinding.CartFragmentBinding
 import com.rvtechnologies.grigora.model.models.*
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.PaymentActivity
+import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
 import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog

@@ -11,7 +11,6 @@ import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.FaqModel
 import com.rvtechnologies.grigora.model.GroupOrdersModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.AppConstants
@@ -19,7 +18,6 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.contact_us.adapter.FaqAdapter
 import com.rvtechnologies.grigora.view.ui.profile.adapter.GroupOrdersAdapter
 import com.rvtechnologies.grigora.view_model.GroupOrdersViewModel
 import kotlinx.android.synthetic.main.group_orders_fragment.*
