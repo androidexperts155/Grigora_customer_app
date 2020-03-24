@@ -42,6 +42,20 @@ class AlsoOrderedCartAdapter(
             quantityClicks.add(pos, position)
         }
 
+        when (resModel.pureVeg) {
+            "1" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.veg)
+            }
+            "2" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.containes_egg)
+            }
+            "0" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.non_veg)
+            }
+        }
+
+
+
         holder.bind(resModel, listener)
     }
 

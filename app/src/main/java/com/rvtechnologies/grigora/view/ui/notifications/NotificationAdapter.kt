@@ -145,15 +145,14 @@ class NotificationAdapter(
 
             holder.tv_timer.visibility = View.GONE
             if ((list[position] as NotificationsModel).timer == 1) {
-
-                if (setTimer(list[position] as NotificationsModel, holder.tv_timer)) {
-                    holder.itemView.setOnClickListener {
-                        iRecyclerItemClick.onItemClick(list[position])
-                    }
-                }
+                setTimer(list[position] as NotificationsModel, holder.tv_timer)
             }
 
             holder.tv_name.text = (list[position] as NotificationsModel).notification
+
+            holder.itemView.setOnClickListener {
+                iRecyclerItemClick.onItemClick(list[position])
+            }
         }
     }
 
@@ -175,7 +174,6 @@ class NotificationAdapter(
         var format = SimpleDateFormat("dd/MM/yyyy HH:mm:ss")
         var format1 = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-
         var currentTime = Calendar.getInstance()
 
         var currentTimeUtc = Calendar.getInstance()
@@ -184,7 +182,6 @@ class NotificationAdapter(
             format.format(currentTime.time),
             "dd/MM/yyyy HH:mm:ss"
         )
-
         currentTimeUtc.add(Calendar.MINUTE, 10)
 
         var notificationTimeUtc = format1.parse(notificationsModel.createdAt)

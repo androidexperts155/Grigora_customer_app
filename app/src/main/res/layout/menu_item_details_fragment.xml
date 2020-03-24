@@ -37,6 +37,22 @@
             tools:text="Meal Name" />
         
         <TextView
+            android:id="@+id/tv_time"
+            style="@style/normalText"
+            
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:layout_marginEnd="@dimen/_16sdp"
+            android:ellipsize="end"
+            android:maxLines="3"
+            
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Prepare in " />
+        
+        <TextView
             android:id="@+id/textView12"
             style="@style/normalText"
             
@@ -51,6 +67,7 @@
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp"
             tools:text="Description" />
+        
         
         <View
             android:layout_width="match_parent"

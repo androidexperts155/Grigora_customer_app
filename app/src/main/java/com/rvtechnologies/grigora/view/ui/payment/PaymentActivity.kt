@@ -148,117 +148,116 @@ class PaymentActivity : AppCompatActivity() {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-        val width = size.x
-        val height = size.y
+//        val width = size.x
+//        val height = size.y
+//
+//        val adapter: PagerAdapter = MyPagerAdapter()
+//        activitySubmitCreditCardBinding!!.viewPager.adapter = adapter
+//        activitySubmitCreditCardBinding!!.viewPager.clipToPadding = false
+//        activitySubmitCreditCardBinding!!.viewPager.setPadding(width / 4, 0, width / 4, 0)
+//        activitySubmitCreditCardBinding!!.viewPager.pageMargin = width / 14
+//        activitySubmitCreditCardBinding!!.viewPager.setPagingEnabled(false)
+//        activitySubmitCreditCardBinding!!.viewPager.addOnPageChangeListener(object :
+//            ViewPager.OnPageChangeListener {
+//            override fun onPageScrollStateChanged(state: Int) {
+//            }
+//
+//            override fun onPageScrolled(
+//                position: Int,
+//                positionOffset: Float,
+//                positionOffsetPixels: Int
+//            ) {
+//            }
+//
+//            override fun onPageSelected(position: Int) {
+//                when (position) {
+//                    0 -> {
+//                        updateProgressBar(25)
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusableInTouchMode =
+//                            true
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.requestFocus()
+//                        return
+//                    }
+//                    1 -> {
+//                        updateProgressBar(50)
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusableInTouchMode =
+//                            true
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.requestFocus()
+//                        return
+//                    }
+//                    2 -> {
+//                        updateProgressBar(75)
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusableInTouchMode =
+//                            true
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.requestFocus()
+//                        return
+//                    }
+//                    3 -> {
+//                        updateProgressBar(100)
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusableInTouchMode =
+//                            true
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.requestFocus()
+//                        return
+//                    }
+//                    4 -> {
+//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
+//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
+//                        return
+//                    }
+//                }
+//            }
+//        })
 
-        val adapter: PagerAdapter = MyPagerAdapter()
-        activitySubmitCreditCardBinding!!.viewPager.adapter = adapter
-        activitySubmitCreditCardBinding!!.viewPager.clipToPadding = false
-        activitySubmitCreditCardBinding!!.viewPager.setPadding(width / 4, 0, width / 4, 0)
-        activitySubmitCreditCardBinding!!.viewPager.pageMargin = width / 14
-        activitySubmitCreditCardBinding!!.viewPager.setPagingEnabled(false)
-        activitySubmitCreditCardBinding!!.viewPager.addOnPageChangeListener(object :
-            ViewPager.OnPageChangeListener {
-            override fun onPageScrollStateChanged(state: Int) {
-            }
+//        val onEditorActionListener =
+//            OnEditorActionListener { v, actionId, event ->
+//                var handled = false
+//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
+////                    activitySubmitCreditCardBinding!!.viewPager.currentItem =
+////                        activitySubmitCreditCardBinding!!.viewPager.currentItem + 1
+//                    handled = true
+//                }
+//                if (actionId == EditorInfo.IME_ACTION_DONE) {
+//                    submit()
+//                    handled = true
+//                }
+//                handled
+//            }
 
-            override fun onPageScrolled(
-                position: Int,
-                positionOffset: Float,
-                positionOffsetPixels: Int
-            ) {
-            }
-
-            override fun onPageSelected(position: Int) {
-                when (position) {
-                    0 -> {
-                        updateProgressBar(25)
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusableInTouchMode =
-                            true
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.requestFocus()
-                        return
-                    }
-                    1 -> {
-                        updateProgressBar(50)
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusableInTouchMode =
-                            true
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.requestFocus()
-                        return
-                    }
-                    2 -> {
-                        updateProgressBar(75)
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusableInTouchMode =
-                            true
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.requestFocus()
-                        return
-                    }
-                    3 -> {
-                        updateProgressBar(100)
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusableInTouchMode =
-                            true
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.requestFocus()
-                        return
-                    }
-                    4 -> {
-                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-                        return
-                    }
-                }
-            }
-        })
-
-        val onEditorActionListener =
-            OnEditorActionListener { v, actionId, event ->
-                var handled = false
-                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-                    activitySubmitCreditCardBinding!!.viewPager.currentItem =
-                        activitySubmitCreditCardBinding!!.viewPager.currentItem + 1
-                    handled = true
-                }
-                if (actionId == EditorInfo.IME_ACTION_DONE) {
-                    submit()
-                    handled = true
-                }
-                handled
-            }
-
-        activitySubmitCreditCardBinding!!.inputEditCardNumber.setOnEditorActionListener(
-
-                onEditorActionListener
-
-
-        )
-        activitySubmitCreditCardBinding!!.inputEditExpiredDate.setOnEditorActionListener(
-
-                onEditorActionListener
-        )
-        activitySubmitCreditCardBinding!!.inputEditCardHolder.setOnEditorActionListener(
-            onEditorActionListener
-        )
-        activitySubmitCreditCardBinding!!.inputEditCvvCode.setOnEditorActionListener(
-            onEditorActionListener
-        )
-
-        activitySubmitCreditCardBinding?.inputEditCardNumber?.requestFocus()
+//        activitySubmitCreditCardBinding!!.inputEditCardNumber.setOnEditorActionListener(
+//
+//            onEditorActionListener
+//
+//
+//        )
+//        activitySubmitCreditCardBinding!!.inputEditExpiredDate.setOnEditorActionListener(
+//
+//            onEditorActionListener
+//        )
+//        activitySubmitCreditCardBinding!!.inputEditCardHolder.setOnEditorActionListener(
+//            onEditorActionListener
+//        )
+//        activitySubmitCreditCardBinding!!.inputEditCvvCode.setOnEditorActionListener(
+//            onEditorActionListener
+//        )
+//
+//        activitySubmitCreditCardBinding?.inputEditCardNumber?.requestFocus()
 
         inSet = AnimatorInflater.loadAnimator(this, R.animator.card_flip_in) as AnimatorSet
         outSet = AnimatorInflater.loadAnimator(this, R.animator.card_flip_out) as AnimatorSet
-
 
         /*    card_form.cardRequired(true)
                .expirationRequired(true)
@@ -351,10 +350,8 @@ class PaymentActivity : AppCompatActivity() {
                                  .show()
                          }
                      })
-
              }
          }*/
-
     }
 
     fun updateLocale(shouldRecreate: Boolean) {
@@ -379,8 +376,6 @@ class PaymentActivity : AppCompatActivity() {
         )
         if (shouldRecreate)
             recreate()
-
-
     }
 
     private fun hideKeyboard(view: View) {
@@ -395,26 +390,14 @@ class PaymentActivity : AppCompatActivity() {
         imm.showSoftInput(view, 0)
     }
 
-    private fun updateProgressBar(progress: Int) {
-        val animation = ObjectAnimator.ofInt(
-            activitySubmitCreditCardBinding!!.progressHorizontal,
-            "progress",
-            progress
-        )
-        animation.duration = 300
-        animation.interpolator = DecelerateInterpolator()
-        animation.start()
-    }
-
     private fun submit() {
-        activitySubmitCreditCardBinding!!.viewPager.currentItem = 4
+//        activitySubmitCreditCardBinding!!.viewPager.currentItem = 4
         card!!.cardNumber = activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
         card!!.expiredDate = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
         card!!.cardHolder = activitySubmitCreditCardBinding!!.inputEditCardHolder.text.toString()
         card!!.cvvCode = activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()
 //        Toast.makeText(this@PaymentActivity, card.toString(), Toast.LENGTH_LONG).show()
         Handler().postDelayed({
-            activitySubmitCreditCardBinding!!.inputLayoutCvvCode.visibility = View.INVISIBLE
             window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
             activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.VISIBLE
             hideKeyboard(activitySubmitCreditCardBinding!!.inputEditCvvCode)
@@ -423,10 +406,9 @@ class PaymentActivity : AppCompatActivity() {
 
     private fun reset() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        activitySubmitCreditCardBinding!!.inputLayoutCvvCode.visibility = View.VISIBLE
         activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.GONE
         flipToGray()
-        activitySubmitCreditCardBinding!!.viewPager.currentItem = 0
+//        activitySubmitCreditCardBinding!!.viewPager.currentItem = 0
         activitySubmitCreditCardBinding!!.inputEditCardNumber.setText("")
         activitySubmitCreditCardBinding!!.inputEditExpiredDate.setText("")
         activitySubmitCreditCardBinding!!.inputEditCardHolder.setText("")

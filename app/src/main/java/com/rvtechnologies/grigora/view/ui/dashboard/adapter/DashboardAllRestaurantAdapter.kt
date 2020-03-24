@@ -86,7 +86,6 @@ class DashboardAllRestaurantAdapter(
                 holder.tv_closed.text = holder.tv_closed.context!!.getString(R.string.closed)
             }
         }
-
         if ((CommonUtils.isRestaurantOpen(
                 detail.openingTime,
                 detail.closingTime

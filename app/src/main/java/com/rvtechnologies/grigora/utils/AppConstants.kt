@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
+    var FROM_SETTINGS = "from_settings"
     var IS_FOR_HISTORY = "is_for_history"
     var CART_RESTAURANT = ""
     var CART_COUNT = 0

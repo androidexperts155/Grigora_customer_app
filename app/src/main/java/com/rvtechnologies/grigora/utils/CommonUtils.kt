@@ -9,6 +9,7 @@ import android.location.Location
 import android.media.ExifInterface
 import android.os.Build
 import android.os.Environment
+import android.provider.Settings
 import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
@@ -401,6 +402,29 @@ object CommonUtils {
             "0"
     }
 
+    fun getUidDevice(): String {
+        return if (isLogin()) {
+            getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.ID)
+        } else
+            {
+                return Settings.Secure.getString(
+                    GrigoraApp.getInstance().activity!!.getContentResolver(),
+                    Settings.Secure.ANDROID_ID
+                )
+            }
+    }
+
+    fun getDeviceId():String{
+        return Settings.Secure.getString(
+            GrigoraApp.getInstance().activity!!.getContentResolver(),
+            Settings.Secure.ANDROID_ID
+        )
+    }
+
+    fun getLoginType(): String {
+        return if (isLogin()) "1" else "2"
+    }
+
     fun getToken(): String {
         return getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.TOKEN)
     }
@@ -523,10 +547,17 @@ object CommonUtils {
         return "" + sdf.format(d)
     }
 
-fun getRoundedOff(value:Double):String{
-    val df = DecimalFormat("###.###")
-    return df.format(value)
+    fun getRoundedOff(value: Double): String {
+        val df = DecimalFormat("###.###")
+        return df.format(value)
+    }
 
-}
+    fun getImageLoader(context: Context?): CircularProgressDrawable {
+        val circularProgressDrawable = CircularProgressDrawable(context!!)
+        circularProgressDrawable.strokeWidth = 5f
+        circularProgressDrawable.centerRadius = 30f
+        circularProgressDrawable.start()
+        return circularProgressDrawable
+    }
 
 }

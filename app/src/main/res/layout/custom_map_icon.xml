@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/custom_marker_view"
+    android:layout_width="@dimen/_40sdp"
+    android:layout_height="@dimen/_40sdp"
+    android:elevation="@dimen/_1sdp"
+    android:padding="@dimen/_2sdp"
+    app:cardBackgroundColor="@color/textLightGrey"
+    app:cardCornerRadius="@dimen/_32sdp">
+    
+    <ImageView
+        android:id="@+id/profile_image"
+        android:layout_width="@dimen/_35sdp"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:contentDescription="@null" />
+</androidx.cardview.widget.CardView>

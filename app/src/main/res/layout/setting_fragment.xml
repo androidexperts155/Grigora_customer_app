@@ -113,8 +113,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->settingView.toChangeLanguage()}"
-                android:background="@drawable/selectable_item_background"
+                 android:background="@drawable/selectable_item_background"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -173,8 +172,7 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:onClick="@{()->settingView.toChangeLanguage()}"
-                android:background="@drawable/selectable_item_background"
+                 android:background="@drawable/selectable_item_background"
                 android:clickable="true"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="cartItem"
+            type="com.rvtechnologies.grigora.model.models.CartDetail" />
+    </data>
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="1dp"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical"
+        app:cardCornerRadius="0dp">
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="@dimen/_8sdp"
+            android:paddingTop="@dimen/_6sdp"
+            android:paddingRight="@dimen/_8sdp"
+            android:paddingBottom="@dimen/_6sdp">
+            
+            
+            <TextView
+                android:id="@+id/textView10"
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:drawableLeft="@drawable/veg"
+                android:drawablePadding="@dimen/_4sdp"
+                android:text="@{cartItem.itemNameToDisplay}"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_11sdp"
+                tools:text="Cheese onion Pizza" />
+            
+             
+            
+            <TextView
+                android:id="@+id/textView20"
+                style="@style/normalText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView10"
+                android:layout_marginLeft="@dimen/_18sdp"
+                android:text="@{cartItem.total}"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_10sdp"
+                tools:text="₦ 120" />
+            
+            <TextView
+                android:id="@+id/textView15"
+                
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView20"
+                android:layout_marginLeft="@dimen/_18sdp"
+                android:layout_marginTop="4dp"
+                android:text="@{cartItem.choicesString}"
+                
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_8sdp"
+                
+                app:layout_constraintBottom_toBottomOf="parent"
+                tools:text="Capsicum, Tomato, Olive" />
+        
+        </RelativeLayout>
+    
+    </LinearLayout>
+</layout>

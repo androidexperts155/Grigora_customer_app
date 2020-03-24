@@ -26,11 +26,25 @@ data class RestaurantDetailModel(
     @SerializedName("table_booking")
     var table_booking: String = "",
 
+    @SerializedName("latitude")
+    var latitude: String = "",
+
+    @SerializedName("longitude")
+    var longitude: String = "",
+
+
+
+
     @SerializedName("total_cart_item")
     var total_cart_item: String = "",
 
     @SerializedName("order_type")
     var orderType: String = "",
+
+
+    @SerializedName("address")
+    var address: String = "",
+
 
 
     @SerializedName("cart_id")
@@ -48,6 +62,10 @@ data class RestaurantDetailModel(
 
     @SerializedName("full_time")
     var full_time: String = "",
+
+    @SerializedName("busy_status")
+    var busyStatus: String = "",
+
 
     @SerializedName("estimated_preparing_time")
     var estimated_preparing_time: String = "",
@@ -123,7 +141,7 @@ data class RestaurantDetailModel(
         @SerializedName("updated_at")
         val updated_at: String,
         @SerializedName("user_id")
-        val user_id: Int,
+        val user_id: String,
         @SerializedName("user_name")
         val name: String
     ) : Parcelable

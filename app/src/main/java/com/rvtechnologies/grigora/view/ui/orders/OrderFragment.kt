@@ -101,19 +101,21 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
             (activity as MainActivity).showLoginAlert(pop = true, id = R.id.dashBoardFragment)
         } else {
             if (currentIndex == 0) {
-                viewModel.getCurrentOrder(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
+                viewModel.getCurrentOrder(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
             } else if (currentIndex == 1) {
-                viewModel.getPastOrder(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
+                viewModel.getPastOrder(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
             } else {
-                viewModel.getUpcomingOrders(CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN))
+                viewModel.getUpcomingOrders(
+                    CommonUtils.getPrefValue(
+                        context!!,
+                        PrefConstants.TOKEN
+                    )
+                )
             }
 
             rvOrders.adapter = OrderAdapter(orderList, this, currentIndex)
         }
     }
-
-
-
 
     override fun onItemClick(item: Any) {
         if (item is OrderItemModel) {
@@ -132,7 +134,7 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
                             CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
                             item.id.toString()
                         )
-                    } else if (item.is_driver_rated == "0" && item.driverId!=null) {
+                    } else if (item.is_driver_rated == "0" && item.driverId != null) {
                         var rateDriverDialog = RateDriverDialogFragment(item, this)
                         rateDriverDialog.isCancelable = false
                         rateDriverDialog.show(this.childFragmentManager, "")
@@ -180,6 +182,12 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
             badReview = badReview,
             tip = tip
         )
+        for (i in orderList) {
+            if (i.id == orderItemModel.id) {
+                i.is_driver_rated = "1"
+            }
+        }
+        rvOrders.adapter?.notifyDataSetChanged()
 
         if (orderItemModel.is_restaurant_rated == "0") {
             var restaurantRatingDialogFragment =
@@ -203,6 +211,12 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
         rating: Float, goodReview: String,
         badReview: String, orderItemModel: OrderItemModel
     ) {
+        for (i in orderList) {
+            if (i.id == orderItemModel.id) {
+                i.is_restaurant_rated = "1"
+            }
+        }
+        rvOrders.adapter?.notifyDataSetChanged()
         viewModel.rateRestaurant(
             token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN),
             rating = rating.toString(),
@@ -240,6 +254,15 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
     }
 
     override fun onMealRateSubmit(ratedMeals: ArrayList<OrderItemModel.OrderDetail>) {
+
+        for (i in orderList) {
+            if (i.id == ratedMeals[0].orderId) {
+                i.is_already_rated = true
+            }
+        }
+        rvOrders.adapter?.notifyDataSetChanged()
+
+
         var map = HashMap<String, HashMap<String, String>>()
 
         for (meal in ratedMeals) {

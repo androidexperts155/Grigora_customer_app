@@ -176,13 +176,14 @@
                         android:textSize="@dimen/_11sdp" />
                     
                     <LinearLayout
-                        
+                        android:id="@+id/li_time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/tv_cuisines"
                         android:layout_alignParentLeft="true"
                         android:gravity="center_vertical"
-                        android:orientation="horizontal">
+                        android:orientation="horizontal"
+                        android:visibility="visible">
                         
                         <com.airbnb.lottie.LottieAnimationView
                             android:id="@+id/stopwatch"
@@ -206,6 +207,33 @@
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp" />
                     </LinearLayout>
+                    
+                    <LinearLayout
+                        android:id="@+id/li_status"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/tv_cuisines"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        
+                        
+                        <TextView
+                            android:id="@+id/tv_status"
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:maxLines="2"
+                            android:text="Deliver in 36 Minutes"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_12sdp" />
+                    </LinearLayout>
+                    
                     
                     <LinearLayout
                         android:id="@+id/li_rating_review"
@@ -308,15 +336,21 @@
                 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="@dimen/_8sdp"
+                    android:paddingRight="@dimen/_8sdp">
+                    
                     <LinearLayout
-                        android:layout_alignParentLeft="true"
+                        android:id="@+id/li_enabled"
                         android:layout_width="wrap_content"
+                        
                         android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
                         android:layout_gravity="center"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:orientation="horizontal">
-        
+                        
                         <TextView
                             android:id="@+id/tv_delivery"
                             style="@style/normalText"
@@ -327,8 +361,8 @@
                             android:text="@string/Delivery"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/_12sdp" />
-        
-        
+                        
+                        
                         <TextView
                             android:id="@+id/tv_pickup"
                             style="@style/normalText"
@@ -339,9 +373,76 @@
                             android:text="@string/pickup"
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_12sdp" />
-    
+                    
                     </LinearLayout>
+                    
+                    
+                    <LinearLayout
+                        android:id="@+id/li_disabled"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/delivery_sel_dis"
+                            android:gravity="center"
+                            android:text="@string/Delivery"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_12sdp" />
+                        
+                        <View
+                            android:layout_width="@dimen/_1sdp"
+                            android:layout_height="match_parent"
+                            android:backgroundTint="?attr/textWhite" />
+                        
+                        <TextView
+                            style="@style/normalText"
+                            android:layout_width="@dimen/_100sdp"
+                            android:layout_height="@dimen/_30sdp"
+                            android:background="@drawable/pickup_sel_dis"
+                            android:gravity="center"
+                            android:text="@string/pickup"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_12sdp" />
+                    
+                    </LinearLayout>
+                    
+                    
+                    <TextView
+                        style="@style/mediumText"
+                        android:layout_width="@dimen/_70sdp"
+                        android:layout_height="@dimen/_30sdp"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/chip_deselected_bg"
+                        android:clickable="true"
+                        android:gravity="center"
+                        android:onClick="@{()->restaurantDetailsView.schedule()}"
+                        android:text="@string/schedule"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_11sdp"
+                        android:visibility="gone" />
+                
                 </RelativeLayout>
+                
+                
+                <TextView
+                    android:id="@+id/tv_pickup_desc"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_10sdp" />
+                
                 
                 <RelativeLayout
                     android:layout_width="wrap_content"
@@ -406,8 +507,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="vertical"
                     
-                    android:orientation="vertical">
+                    android:visibility="gone">
                     
                     <RelativeLayout
                         android:id="@+id/rel_"
@@ -468,8 +570,9 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
+                    android:orientation="vertical"
                     
-                    android:orientation="vertical">
+                    android:visibility="gone">
                     
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -539,7 +642,7 @@
         </androidx.core.widget.NestedScrollView>
         
         <LinearLayout
-            android:id="@+id/fab_cart"
+            android:id="@+id/fab_cart_group"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/bottom_navigation"
@@ -598,7 +701,6 @@
         
         
         </LinearLayout>
-    
     
     </RelativeLayout>
     

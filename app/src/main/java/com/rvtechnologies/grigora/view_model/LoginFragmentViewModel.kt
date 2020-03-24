@@ -48,6 +48,22 @@ class LoginFragmentViewModel : ViewModel() {
         }
     }
 
+
+    fun changeToLogin() {
+        isLoading.value = true
+        if (isValidData()) {
+            ApiRepo.getInstance()
+                .changeToLogin()
+            { success, result ->
+                isLoading.value = false
+                if (success) {
+
+                } else {
+                 }
+            }
+        }
+    }
+
     /*
     Validate login credentials from user
      */
@@ -85,7 +101,7 @@ class LoginFragmentViewModel : ViewModel() {
         }
     }
 
-      fun isValidPhone(): Boolean {
+    fun isValidPhone(): Boolean {
         return if (email.value.isNullOrBlank()) {
             isLoading.value = false
             loginResult.value = "Invalid Phone"

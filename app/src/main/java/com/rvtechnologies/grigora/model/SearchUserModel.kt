@@ -61,5 +61,7 @@ data class SearchUserModel(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("wallet")
-    var wallet: String = ""
+    var wallet: String = "",
+    @SerializedName("username")
+    var username: String = ""
 )

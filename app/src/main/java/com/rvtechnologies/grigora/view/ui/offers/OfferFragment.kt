@@ -41,6 +41,7 @@ class OfferFragment : Fragment(), IRecyclerItemClick {
     }
 
     private lateinit var viewModel: CartNdOfferViewModel
+
     private val offerList = ArrayList<OfferModel>()
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -91,8 +92,6 @@ class OfferFragment : Fragment(), IRecyclerItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         rvOffer.adapter = OffersAdapter(offerList, this)
-
-        viewModel.getOffers((viewModel.responseCart.value as CommonResponseModel<CartDataModel>).data!!.restaurantId!!)
     }
 
     override fun onResume() {
@@ -103,6 +102,9 @@ class OfferFragment : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).img_back.visibility = View.VISIBLE
             (activity as MainActivity).lockDrawer(true)
         }
+        (activity as MainActivity).hideAll()
+        (activity as MainActivity).backTitle(getString(R.string.offers))
+
     }
 }
 

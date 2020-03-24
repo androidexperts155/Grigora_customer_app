@@ -90,10 +90,8 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
 
     }
 
-
-
     fun none() {
-        selected_amount = ""
+        selected_amount = "50"
         tv_none.setBackgroundResource(R.drawable.none_sel)
         tv_none.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
 
@@ -121,7 +119,7 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
     }
 
     fun p1() {
-        selected_amount = "10"
+        selected_amount = "100"
         tv_p1.setBackgroundResource(R.drawable.price_sel)
         tv_p1.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
 
@@ -147,7 +145,7 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
     }
 
     fun p2() {
-        selected_amount = "15"
+        selected_amount = "200"
 
         tv_p2.setBackgroundResource(R.drawable.price_sel)
         tv_p2.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
@@ -174,7 +172,7 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
     }
 
     fun p3() {
-        selected_amount = "20"
+        selected_amount = "500"
 
         tv_p3.setBackgroundResource(R.drawable.price_sel)
         tv_p3.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
@@ -201,7 +199,7 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
     }
 
     fun p4() {
-        selected_amount = "25"
+        selected_amount = "1000"
 
         tv_p4.setBackgroundResource(R.drawable.price_sel)
         tv_p4.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
@@ -271,12 +269,12 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
     private fun generateLink(data: CreateGroupOrderModel) {
         val buo = BranchUniversalObject()
             .setCanonicalIdentifier("content/12345")
-            .setTitle("Grigoa Group Order")
+            .setTitle("Group Order")
             .setContentDescription(
-                "You are invited from ${CommonUtils.getPrefValue(
+                "${CommonUtils.getPrefValue(
                     context!!,
                     PrefConstants.NAME
-                )} to order from this ${data.restaurant_name}"
+                )} invited you to order from ${data.restaurant_name}"
             )
             .setContentImageUrl("http://3.13.78.53/GriGora/public/images/grigora.png")
             .setContentIndexingMode(BranchUniversalObject.CONTENT_INDEX_MODE.PUBLIC)

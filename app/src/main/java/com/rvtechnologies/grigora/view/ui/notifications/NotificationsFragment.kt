@@ -147,7 +147,7 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.getNotifications(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
+
     }
 
     override fun onResume() {
@@ -164,26 +164,90 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
         }
 
         (activity as MainActivity).img_right.visibility = View.VISIBLE
-
+        viewModel.getNotifications(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
     }
 
     override fun onItemClick(item: Any) {
         if (item is NotificationsModel) {
-            val bundle = bundleOf(
-                AppConstants.RESTAURANT_ID to item.restautrantId,
-                AppConstants.RESTAURANT_PICKUP to item.pickup,
-                AppConstants.RESTAURANT_BOOKING to item.table_booking,
-                AppConstants.RESTAURANT_SEATES to item.no_of_seats,
-                AppConstants.RESTAURANT_CLOSING_TIME to item.closing_time,
-                AppConstants.RESTAURANT_OPENING_TIME to item.opening_time,
-                AppConstants.RESTAURANT_ALWAYS_OPEN to item.full_time,
-                AppConstants.FROM_PICKUP to false
+
+//            Paid $amount to $otherUserName: 15
+//            $userName sent you $amount.: 16
+//            $amount Added to your wallet(cancel order by customer) : 8
+//            $amount Added to your wallet(pickup request rejeted by customer) : 18
+
+//            $userName sent you a gift card of $amount.: 17
+
+
+//            Your Schedule order is placed waiting for restaurant confirmation : 1
+//            Driver Is Reaching The Restaurant To Pick Up Your Order : 3
+//            Your Order Is Picked From Restaurant : 4
+//            Preparation time for order Id #$orderId has been increased due to some challenges. We apologize for the delay. : 11
+//            Your Order is Almost Prepared : 7
+//            Restaurant has started preparing the order : 9
+
+
+//            Restaurant Not Accepted Your Booking : 18
+//            Restaurant Accepted Your Booking : 19
+
+            viewModel.deleteNotification(
+                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                item.id.toString()
             )
-            view?.findNavController()
-                ?.navigate(
-                    R.id.action_notifications_to_restaurantDetailParent,
-                    bundle
-                )
+
+            when (item.notificationType) {
+
+                100 -> {
+                    val bundle = bundleOf(
+                        AppConstants.RESTAURANT_ID to item.restautrantId,
+                        AppConstants.RESTAURANT_PICKUP to item.pickup,
+                        AppConstants.RESTAURANT_BOOKING to item.tableBooking,
+                        AppConstants.RESTAURANT_SEATES to item.no_of_seats,
+                        AppConstants.RESTAURANT_CLOSING_TIME to item.closing_time,
+                        AppConstants.RESTAURANT_OPENING_TIME to item.opening_time,
+                        AppConstants.RESTAURANT_ALWAYS_OPEN to item.full_time,
+                        AppConstants.FROM_PICKUP to false
+                    )
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_restaurantDetailParent,
+                            bundle
+                        )
+                }
+                1, 2, 4, 11, 7, 6, 9, 0 -> {
+                    val bundle = bundleOf(
+                        AppConstants.ORDER_ID to item.orderId
+                    )
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_orderDetails,
+                            bundle
+                        )
+                }
+                15, 16, 8, 18 -> {
+                    val bundle = bundleOf(
+                        AppConstants.IS_FOR_HISTORY to true
+                    )
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_transferMoney,
+                            bundle
+                        )
+                }
+
+                17 -> {
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_purchasedCards
+
+                        )
+                }
+
+                18, 19 -> {
+
+                }
+            }
+
+
         } else {
             item as Int
             viewModel.deleteNotification(

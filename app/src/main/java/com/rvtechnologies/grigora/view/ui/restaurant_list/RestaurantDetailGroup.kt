@@ -2,20 +2,20 @@ package com.rvtechnologies.grigora.view.ui.restaurant_list
 
 import android.app.AlertDialog
 import android.content.Intent
-import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.text.Editable
+import android.text.Html
 import android.text.TextWatcher
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailGroupFragmentBinding
 import com.rvtechnologies.grigora.model.AddCartModel
@@ -34,7 +34,6 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
-import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.fab_cart
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.img_back
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.tv_restname
 
@@ -53,6 +52,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
     private var restaurantId = ""
     private var cartId = ""
     lateinit var restaurantDetailModel: RestaurantDetailModel
+
 
     companion object {
         fun newInstance() = RestaurantDetailGroup()
@@ -74,26 +74,30 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                 filteredMealsAndCuisinesList.clear()
                 if (response.status!!) {
                     restaurantDetailModel = response.data as RestaurantDetailModel
-
+                    handleClosed()
                     handleGroup(restaurantDetailModel)
                     tv_restname.text = restaurantDetailModel.restaurant_name
 
+                    if (!restaurantDetailModel.orderType.isNullOrEmpty() && restaurantDetailModel.orderType == "1")
+                        tv_delivery.callOnClick()
+                    else
+                        tv_pickup.callOnClick()
 
                     if (restaurantDetailModel.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
                     } else {
-                        popularList.addAll(restaurantDetailModel.popluarItems)
-                        rc_popular.adapter!!.notifyDataSetChanged()
-                        tv_popular_count.text = restaurantDetailModel.popluarItems.size.toString()
+//                        popularList.addAll(restaurantDetailModel.popluarItems)
+//                        rc_popular.adapter!!.notifyDataSetChanged()
+//                        tv_popular_count.text = restaurantDetailModel.popluarItems.size.toString()
                     }
 
                     if (restaurantDetailModel.previousOrderedItems.size == 0) {
                         li_previous.visibility = View.GONE
                     } else {
-                        previousList.addAll(restaurantDetailModel.previousOrderedItems)
-                        tv_pre_count.text =
-                            restaurantDetailModel.previousOrderedItems.size.toString()
-                        rc_previous.adapter!!.notifyDataSetChanged()
+//                        previousList.addAll(restaurantDetailModel.previousOrderedItems)
+//                        tv_pre_count.text =
+//                            restaurantDetailModel.previousOrderedItems.size.toString()
+//                        rc_previous.adapter!!.notifyDataSetChanged()
                     }
 
                     if (restaurantDetailModel.full_time.equals("1")) {
@@ -114,8 +118,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
                     tv_restaurantname.text = restaurantDetailModel.restaurant_name
                     tv_cuisines.text = restaurantDetailModel.cuisines
-                    tv_deliver.text =
-                        "Delivers in " + restaurantDetailModel.estimated_preparing_time + " min"
+
 
                     mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
                     filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
@@ -201,7 +204,6 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                         restaurantId,
                         "", cartId
                     )
-                    (activity as MainActivity).updateCartButton()
                 } else {
                     CommonUtils.showMessage(parentView, response.message!!)
                     viewModel.getRestaurantsDetailsCart(
@@ -213,7 +215,9 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                         "", cartId
                     )
                 }
-            }
+            } else
+                CommonUtils.showMessage(parentView, response.toString())
+
 
         })
 
@@ -225,7 +229,6 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
               restaurantId,
               "", cartId
           )*/
-
     }
 
 
@@ -267,12 +270,16 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 //        if(arguments?.get(AppConstants.FROM_PICKUP) as Boolean){
 //            tv_pickup.callOnClick()
 //        }
+
+        li_disabled.setOnClickListener {
+            CommonUtils.showMessage(parentView, getString(R.string.unavailable_func))
+        }
     }
 
     private fun handleGroup(data: RestaurantDetailModel) {
         viewModel.cartId.value = data.cart?.id.toString()
         if (data.cart != null && data.cart?.quantity!! > 0) {
-            fab_cart.visibility = View.VISIBLE
+            fab_cart_group.visibility = View.VISIBLE
         } else if (data.cart_id.isNullOrEmpty()) {
             var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
             groupOrderAlreadyPlaced.show(childFragmentManager, "")
@@ -304,50 +311,162 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                 tv_order_limit.text =
                     "₦ ${data?.cart!!.max_per_person} ${getString(R.string.per_person_limit)}"
             }
+
+        }
+    }
+
+    private fun handleClosed() {
+        //        not always opened
+        if (restaurantDetailModel.full_time == "0") {
+            if (!CommonUtils.isRestaurantOpen(
+                    restaurantDetailModel.opening_time,
+                    restaurantDetailModel.closing_time
+                )
+            ) {
+//                restaurant is closed
+                li_enabled.visibility = View.GONE
+                li_disabled.visibility = View.VISIBLE
+
+
+                li_time.visibility = View.GONE
+                li_status.visibility = View.VISIBLE
+
+                tv_status.text = getString(R.string.closed)
+                tv_pickup_desc.visibility = View.GONE
+
+            }
+        }
+        if ((CommonUtils.isRestaurantOpen(
+                restaurantDetailModel.opening_time,
+                restaurantDetailModel.closing_time
+            ) || restaurantDetailModel.full_time == "1") && restaurantDetailModel.busyStatus == "1"
+        ) {
+//restaurant is busy
+            li_enabled.visibility = View.GONE
+            li_disabled.visibility = View.VISIBLE
+
+            li_time.visibility = View.GONE
+            li_status.visibility = View.VISIBLE
+
+            tv_status.text = getString(R.string.busy)
+            tv_pickup_desc.visibility = View.GONE
+
         }
     }
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
+
+            var distance = CommonUtils.calculateDistance(
+                restaurantDetailModel.latitude.toDouble(),
+                restaurantDetailModel.longitude.toDouble(),
+                CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble(),
+                CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
+            )
+
+
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
-
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+            tv_pickup_desc.visibility = View.GONE
+
+            var t = restaurantDetailModel.estimated_preparing_time.toInt() + (distance * 2)
+
+            val hours: Int =
+                t.toInt() / 60 //since both are ints, you get an int
+
+            val minutes: Int = t.toInt() % 60
+
+            if (hours > 0) {
+                tv_deliver.text =
+                    getString(R.string.delivers_in) + " $hours hours and $minutes minutes"
+            } else {
+                tv_deliver.text =
+                    getString(R.string.delivers_in) + " $minutes minutes"
+            }
+
+
+
+
 
             if (CommonUtils.isDarkMode()) {
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             } else
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
-            if (!cartId.isNullOrEmpty()) {
+            if (restaurantDetailModel.orderType != "1")
                 viewModel.updateType(
                     restaurantId,
                     "1",
                     CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
                 )
-            }
         }
 
         tv_pickup.setOnClickListener {
+//            if (CommonUtils.isLogin()) {
             tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
 
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+            tv_pickup_desc.visibility = View.VISIBLE
+
+            var distance = CommonUtils.calculateDistance(
+                restaurantDetailModel.latitude.toDouble(),
+                restaurantDetailModel.longitude.toDouble(),
+                CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble(),
+                CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
+            )
+
+            var color: String = if (CommonUtils.isDarkMode()) "#ffffff" else "#262626"
+            val address = getColoredSpanned(restaurantDetailModel.address + ". ", "#D01110")
+            val info = getColoredSpanned(getString(R.string.pick_order_info), color)
+            val distanceM = getColoredSpanned(
+                "${CommonUtils.getRoundedOff(
+                    distance.toDouble()
+                )} " + getString(
+                    R.string.km_away
+                ), color
+            )
+
+            tv_pickup_desc.text = Html.fromHtml(info + " " + address + " " + distanceM)
+
+
+
+
+            val hours: Int =
+                restaurantDetailModel.estimated_preparing_time.toInt() / 60 //since both are ints, you get an int
+
+            val minutes: Int = restaurantDetailModel.estimated_preparing_time.toInt() % 60
+
+
+            if (hours > 0) {
+                tv_deliver.text =
+                    getString(R.string.preparein) + " $hours hours and $minutes minutes"
+            } else {
+                tv_deliver.text =
+                    getString(R.string.preparein) + " $minutes minutes"
+            }
+
 
             if (CommonUtils.isDarkMode()) {
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             } else
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
-            if (!cartId.isNullOrEmpty()) {
+            if (restaurantDetailModel.orderType != "2")
                 viewModel.updateType(
                     restaurantId,
                     "2",
                     CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
                 )
-            }
+//            } else
+//                (activity as MainActivity).showLoginAlert()
         }
 
+    }
+
+    private fun getColoredSpanned(text: String, color: String): String? {
+        return "<font color=$color>$text</font>"
     }
 
     private fun filterVegNonVeg() {
@@ -416,6 +535,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             "", cartId
         )
 
+        (activity as MainActivity).fab_cart.visibility = View.GONE
     }
 
     fun back() {
@@ -714,18 +834,18 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             menuItemModel.isForGroupCart = true
             menuItemModel.cartId = viewModel.cartId.value.toString()
 
-            if (item.itemCategories!!.isNotEmpty()) {
-                item.isForGroupCart = true
-                item.cartId = viewModel.cartId.value.toString()
-                val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
+//            if (item.itemCategories!!.isNotEmpty()) {
+            item.isForGroupCart = true
+            item.cartId = viewModel.cartId.value.toString()
+            val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
 
 
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
-                        bundle
-                    )
-            }
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_restaurantDetailGroup_to_menuItemDetailsFragment,
+                    bundle
+                )
+//            }
         } else if (item is Int) {
             view?.findNavController()
                 ?.navigate(
@@ -805,6 +925,17 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             )
     }
 
+    fun schedule() {
+        if (CommonUtils.isLogin()) {
+//            if ((activity as MainActivity).fab_cart.visibility == View.VISIBLE)
+//                iRecyclerItemClick.onItemClick(3)
+//            else
+//                CommonUtils.showMessage(parentView, getString(R.string.please_add_items))
+
+
+        } else
+            (activity as MainActivity).showLoginAlert()
+    }
 }
 
 

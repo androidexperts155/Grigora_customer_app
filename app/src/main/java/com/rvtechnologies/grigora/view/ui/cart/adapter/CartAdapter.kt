@@ -59,13 +59,13 @@ class CartAdapter(
 
         holder.itemView.tv_plus.setOnClickListener {
             quantityClicks.add(position, 0)
-            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) + 1).toString()
+//            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) + 1).toString()
             notifyDataSetChanged()
         }
 
         holder.itemView.tv_minus.setOnClickListener {
             quantityClicks.minus(position, 0)
-            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
+//            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
             notifyDataSetChanged()
         }
 

@@ -21,13 +21,10 @@ class RestaurantAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val resModel = restaurantList[position]
-
-//        resModel.nameToShow =
-//            if (GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH) resModel.frenchName else resModel.name
-//        resModel.addressToShow =
-//            if (GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH) resModel.frenchAddress else resModel.address
         resModel.reviewToShow =
             "(${resModel.reviews} ${holder.itemView.context!!.getString(R.string.reviews)})"
+
+
 
         if ((resModel.fullTime == "0")) {
             resModel.closeToShow =

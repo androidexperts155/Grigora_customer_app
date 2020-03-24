@@ -8,47 +8,28 @@
             type="com.rvtechnologies.grigora.view_model.CartNdOfferViewModel" />
     </data>
     
-    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:tools="http://schemas.android.com/tools"
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical"
         tools:context=".view.ui.offers.adapter.OfferFragment">
         
         <View
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_200sdp"
-            android:layout_alignParentTop="true"
-            android:background="@color/colorPrimaryDark" />
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
         
-        <TextView
-            android:id="@+id/txtRestaurantName"
-            style="@style/mediumText"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="28dp"
-            android:text="@string/offers"
-            android:textColor="@color/white"
-            android:textSize="@dimen/_14sdp" />
-        
-        <LinearLayout
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOffer"
+            android:overScrollMode="never"
+            tools:itemCount="5"
+            tools:listitem="@layout/offer_item"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="@dimen/_80sdp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/shadow"
-            android:orientation="vertical">
-            
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rvOffer"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
-        </LinearLayout>
-        </RelativeLayout>
+            android:layout_margin="@dimen/_8sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
 </layout>

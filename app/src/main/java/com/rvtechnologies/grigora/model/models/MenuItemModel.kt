@@ -11,8 +11,8 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class MenuItemModel(
 
-    var cartId:String="",
-    var isForGroupCart:Boolean=false,
+    var cartId: String = "",
+    var isForGroupCart: Boolean = false,
 
     @SerializedName("id")
     @Expose
@@ -97,11 +97,23 @@ data class MenuItemModel(
     var itemCart: List<ItemCart>?,
 
 
+    @SerializedName("customers")
+    @Expose
+    var customers: String,
+
+    @SerializedName("total_orders")
+    @Expose
+    var total_orders: String,
+
+    @SerializedName("time")
+    @Expose
+    var time: String,
+
+
     @SerializedName("cuisine_name")
     var cuisineName: String = "",
     var nameToShow: String?,
     var index: Int,
-
 
 
     @SerializedName("approx_prep_time")
@@ -115,9 +127,7 @@ data class MenuItemModel(
     var restaurantName: String = ""
 
 
-
-
-) : Parcelable{
+) : Parcelable {
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class ItemCart(
@@ -130,5 +140,5 @@ data class MenuItemModel(
         val quantity: Int,
         val updated_at: String,
         val user_id: Int
-    ):Parcelable
+    ) : Parcelable
 }

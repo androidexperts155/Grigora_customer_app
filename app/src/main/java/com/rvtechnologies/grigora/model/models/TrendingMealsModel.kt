@@ -1,8 +1,8 @@
 package com.rvtechnologies.grigora.model.models
 
 data class TrendingMealsModel(
-    val cart: Cart,
-    val trending:ArrayList<MenuItemModel>
+    val cart: Cart?,
+    val trendingItems:ArrayList<MenuItemModel>
 ) {
     data class Cart(
         val cart_type: String,
@@ -17,6 +17,7 @@ data class TrendingMealsModel(
         val status: String,
         val total_price: String,
         val updated_at: String,
+
         val user_id: Int
     )
 

@@ -33,10 +33,10 @@ class OrderDeniedFragment(
 
         tv_title.text = text
 
-        if (type == 3) {
+        if (type == 4) {
             bt_ok.visibility = View.GONE
+            tv_title.text = getString(R.string.order_cancel_info)
             li_continue.visibility = View.VISIBLE
-
         } else {
             bt_ok.visibility = View.VISIBLE
             li_continue.visibility = View.GONE

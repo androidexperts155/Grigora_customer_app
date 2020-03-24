@@ -24,6 +24,7 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.tasks.Task
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentLoginBinding
+import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
@@ -95,6 +96,8 @@ class LoginFragment : Fragment(), GoogleSignin {
         CommonUtils.savePrefs(context, PrefConstants.ID, data.data?.id?.toString())
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
+
+        loginViewModel?.changeToLogin()
 
         if (data?.data?.have_address!!) {
             view?.findNavController()?.navigate(R.id.action_loginFragment2_to_addressListFragment)

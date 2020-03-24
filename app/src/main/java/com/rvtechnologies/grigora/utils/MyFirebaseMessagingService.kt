@@ -22,6 +22,7 @@ import com.google.firebase.messaging.RemoteMessage
 import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.NotificationDataModel
+import com.rvtechnologies.grigora.utils.AppConstants.IS_FOR_HISTORY
 import com.rvtechnologies.grigora.utils.AppConstants.MESSAGE
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
 import com.rvtechnologies.grigora.utils.AppConstants.ORDER_ID
@@ -52,18 +53,18 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
     internal fun showNotificationMessage(remoteMessage: RemoteMessage) {
         var destinationId = 0
-         var args: Bundle?=null
+        var args: Bundle? = null
 
 
-        Log.d("notification_data",remoteMessage.data.get("data"))
-        Log.d("sendby",remoteMessage.data.get("sendby"))
-        Log.d("body",remoteMessage.data.get("body"))
+        Log.d("notification_data", remoteMessage.data.get("data"))
+        Log.d("sendby", remoteMessage.data.get("sendby"))
+        Log.d("body", remoteMessage.data.get("body"))
 
         try {
             var notificationType =
                 Gson().fromJson(remoteMessage.data.get("data"), NotificationDataModel::class.java)
 
-            //        0=>Waiting for confirmation
+//        0=>Waiting for confirmation
 //        2=>accepted by restaurant,
 //        3=>driver assigned,
 //        9=>restaurant starts preparing  get time from notification
@@ -74,6 +75,19 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 //        6=>rejected by restaurant,
 //        8=>cancelled by customer,
 //        (notification type )11=> show elapsed time and reset counter
+
+            if (notificationType.notificationType.toInt() == 15 || notificationType.notificationType.toInt() == 16 || notificationType.notificationType.toInt() == 8
+                || notificationType.notificationType.toInt() == 18
+            ) {
+                destinationId = R.id.transferMoney
+                args = bundleOf(IS_FOR_HISTORY to true)
+            }
+
+            if (notificationType.notificationType.toInt() == 17
+            ) {
+                destinationId = R.id.purchasedCards
+
+            }
 
             if (
                 notificationType.notificationType.toInt() == 0 ||
@@ -114,7 +128,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                 }
             }
 
-             if (notificationType.notificationType.toInt() == 112) {
+            if (notificationType.notificationType.toInt() == 112) {
                 val intent = Intent()
                 intent.action = "com.rvtechnologies.grigora"
                 intent.putExtra(NOTIFICATION_TYPE, notificationType.notificationType)
@@ -155,7 +169,7 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
 
 
             val pendingIntent: PendingIntent
-            pendingIntent = if (args!=null) {
+            pendingIntent = if (args != null) {
                 NavDeepLinkBuilder(applicationContext)
                     .setGraph(R.navigation.nav_graph)
                     .setDestination(destinationId)

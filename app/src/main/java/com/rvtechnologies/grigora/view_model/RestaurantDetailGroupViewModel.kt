@@ -105,6 +105,8 @@ class RestaurantDetailGroupViewModel : ViewModel() {
                         val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
                         addCartRes.value = Gson().fromJson(result as JsonElement, type)
                     }
+                    else
+                        addCartRes.value = result
                 }
         }
     }
@@ -121,6 +123,8 @@ class RestaurantDetailGroupViewModel : ViewModel() {
                     val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
                     addCartRes.value = Gson().fromJson(result as JsonElement, type)
                 }
+                else
+                    addCartRes.value = result
             }
 
     }

@@ -7,6 +7,11 @@ import com.rvtechnologies.grigora.view.ui.notifications.Notification
 data class NotificationsModel(
     @SerializedName("created_at")
     var createdAt: String = "",
+
+    @SerializedName("order_id")
+    var orderId: Int = 0,
+
+
     @SerializedName("french_notification")
     var frenchNotification: String = "",
     @SerializedName("id")
@@ -16,12 +21,14 @@ data class NotificationsModel(
     @SerializedName("notification")
     var notification: String = "",
     @SerializedName("notification_type")
-    var notificationType: String = "",
+    var notificationType: Int = 0,
+    @SerializedName("table_booking")
+    var tableBooking: Int = 0,
+
     @SerializedName("read")
     var read: String = "",
     @SerializedName("role")
     var role: String = "",
-
 
 
     @SerializedName("updated_at")
@@ -29,8 +36,7 @@ data class NotificationsModel(
 
     @SerializedName("pickup")
     var pickup: String = "",
-    @SerializedName("table_booking")
-    var table_booking: String = "",
+
 
     @SerializedName("no_of_seats")
     var no_of_seats: String = "",
@@ -45,7 +51,6 @@ data class NotificationsModel(
     var full_time: String = "",
 
 
-
     @SerializedName("user_id")
     var userId: Int = 0,
 
@@ -56,5 +61,5 @@ data class NotificationsModel(
     var restautrantId: Int = 0,
 
 
-    var timeToShow:String=""
-):Notification
+    var timeToShow: String = ""
+) : Notification

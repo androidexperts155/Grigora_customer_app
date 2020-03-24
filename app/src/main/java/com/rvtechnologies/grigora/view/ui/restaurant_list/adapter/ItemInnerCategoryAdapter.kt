@@ -25,7 +25,7 @@ class ItemInnerCategoryAdapter(
             "(+"+holder.itemView.context.getString(R.string.currency_sym) + innerCategoryModel.addOnPrice+")"
 
         holder.binding.chkIsChecked.setOnClickListener {
-            if (selection == "1") {
+                if (selection == "1") {
                 val newList = ArrayList<ItemSubCategory>()
                 for (innerItem in itemInnerCategoryList) {
                     if (innerItem.id == innerCategoryModel.id) {
@@ -34,7 +34,7 @@ class ItemInnerCategoryAdapter(
                         iRecyclerItemClick.onItemClick(innerCategoryModel)
                     } else {
                         innerItem.checked = false
-                        iRecyclerItemClick.onItemClick(innerCategoryModel)
+                         iRecyclerItemClick.onItemClick(innerItem)
                     }
                     newList.add(innerItem)
                 }

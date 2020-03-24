@@ -53,7 +53,7 @@ class MenuItemDetailsViewModel : ViewModel() {
 
     fun addItemToCart() {
         if (!cartId.value.toString().isNullOrEmpty()) {
-            if (token.value.toString().isNotBlank()) {
+
                 val choices = ArrayList<ItemChoicesModel>()
                 try {
                     for (item in selectedChoices.value as Collection<ItemSubCategory>) {
@@ -126,9 +126,7 @@ class MenuItemDetailsViewModel : ViewModel() {
                     response.value = "Quantity too low"
 
                 }
-            } else {
-                response.value = "Unauthorized"
-            }
+
         } else
             addItemToGroupCart()
     }

@@ -13,14 +13,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:layout_marginTop="1dp"
+        
+        android:layout_marginTop="8dp"
+        android:background="?attr/chipDeSelected"
         android:orientation="vertical"
         android:padding="@dimen/_8sdp">
         
         <TextView
             android:id="@+id/tv_title"
-            style="@style/normalText"
+            style="@style/titleText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
@@ -28,21 +29,20 @@
             android:layout_alignParentTop="true"
             android:text="@{offerModel.code}"
             android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/_10sdp"
-            android:textStyle="italic"
+            android:textSize="@dimen/_12sdp"
             tools:text="Title" />
         
         <TextView
             android:id="@+id/tv_per"
-            style="@style/normalText"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
             android:layout_alignParentLeft="true"
             android:layout_marginTop="4dp"
             android:text="@{offerModel.name}"
-            android:textColor="@color/textBlack"
-            android:textSize="@dimen/_10sdp"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_11sdp"
             tools:text="50%" />
         
         
@@ -56,25 +56,32 @@
             android:layout_alignParentLeft="true"
             android:layout_marginTop="4dp"
             android:text="@{offerModel.description}"
-            android:textColor="@color/textGrey"
-            android:textSize="@dimen/_8sdp"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_10sdp"
             tools:text="Desctiption" />
         
         
         <Button
             android:id="@+id/bt_apply"
-            style="@style/normalText"
+            style="@style/mediumText"
             
             android:layout_width="wrap_content"
-            android:layout_height="@dimen/_35sdp"
+            android:layout_height="@dimen/_30sdp"
             android:layout_alignParentTop="true"
             android:layout_alignParentRight="true"
-            android:background="@color/white"
+            android:background="@color/colorPrimaryDark"
             android:clickable="true"
             android:padding="@dimen/_8sdp"
             android:text="@string/apply"
-            android:textColor="@color/colorPrimaryDark"
-            android:textSize="@dimen/_10sdp" />
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+        
+        <View
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:layout_below="@+id/tv_desc"
+            android:background="?attr/viewbg" />
     
     
     </RelativeLayout>

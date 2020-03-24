@@ -8,382 +8,405 @@
         <import type="android.text.InputType" />
     </data>
     
-    <androidx.coordinatorlayout.widget.CoordinatorLayout
+    <ScrollView
+        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/white"
-        tools:context=".view.ui.payment.PaymentActivity">
+        android:layout_height="match_parent">
         
-        <com.google.android.material.appbar.AppBarLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@color/white"
-            android:fitsSystemWindows="true"
-            app:elevation="1dp">
-            
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                app:navigationIcon="@drawable/ic_close_gray_24dp"
-                app:popupTheme="@style/AppTheme.PopupOverlay"
-                app:title="" />
-        
-        </com.google.android.material.appbar.AppBarLayout>
-        
-        <RelativeLayout
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@null"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            android:background="@color/white"
+            tools:context=".view.ui.payment.PaymentActivity">
             
-            <androidx.cardview.widget.CardView
-                android:id="@+id/card_blue"
+            <com.google.android.material.appbar.AppBarLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:alpha="0"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="12dp"
-                app:cardPreventCornerOverlap="false">
+                android:background="@color/white"
+                android:fitsSystemWindows="true"
+                app:elevation="1dp">
                 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/gradient"
-                    android:padding="24dp">
+                    android:layout_height="?attr/actionBarSize"
+                    app:navigationIcon="@drawable/ic_close_gray_24dp"
+                    app:popupTheme="@style/AppTheme.PopupOverlay"
+                    app:title="" />
+            
+            </com.google.android.material.appbar.AppBarLayout>
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@null"
+                app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_blue"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:alpha="0"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="12dp"
+                    app:cardPreventCornerOverlap="false">
                     
-                    <TextView
-                        android:id="@+id/text_card_number"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{inputEditCardNumber.text.toString().isEmpty() ? @string/label_card_number : inputEditCardNumber.text}"
-                        android:textAllCaps="true"
-                        android:textColor="@{inputEditCardNumber.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"
-                        tools:text="@string/label_card_number" />
-                    
-                    <TextView
-                        android:id="@+id/text_expired_date"
-                        style="@style/mediumText"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{inputEditExpiredDate.text.toString().isEmpty() ? @string/label_expired_date : inputEditExpiredDate.text}"
-                        android:textAllCaps="true"
-                        android:textColor="@{inputEditExpiredDate.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/text_cvv_code"
-                        app:layout_constraintTop_toBottomOf="@+id/text_card_number"
-                        tools:text="@string/label_expired_date" />
-                    
-                    <TextView
-                        android:id="@+id/text_card_holder"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@{inputEditCardHolder.text.toString().isEmpty() ? @string/label_card_holder : inputEditCardHolder.text}"
-                        android:textAllCaps="true"
-                        android:textColor="@{inputEditCardHolder.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/text_expired_date"
-                        tools:text="@string/label_card_holder" />
-                    
-                    <TextView
-                        android:id="@+id/text_cvv_code"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:ellipsize="end"
-                        android:inputType="@{inputEditCvvCode.text.toString().isEmpty() ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) : (InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD)}"
-                        android:maxLines="1"
-                        android:text="@{inputEditCvvCode.text.toString().isEmpty() ? @string/label_cvv_code : inputEditCvvCode.text}"
-                        android:textAllCaps="true"
-                        android:textColor="@{inputEditCvvCode.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_expired_date"
-                        app:layout_constraintRight_toLeftOf="@+id/icon_help_blue"
-                        app:layout_constraintTop_toTopOf="@+id/text_expired_date"
-                        tools:text="@string/label_cvv_code" />
-                    
-                    <ImageView
+                        android:layout_height="match_parent"
+                        android:background="@drawable/gradient"
+                        android:padding="24dp">
                         
-                        android:id="@+id/icon_help_blue"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/text_expired_date"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/text_expired_date"
-                        app:srcCompat="@drawable/ic_help_translucent_24dp" />
-                
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            
-            </androidx.cardview.widget.CardView>
-            
-            <androidx.cardview.widget.CardView
-                
-                android:id="@+id/card_gray"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="32dp"
-                android:layout_marginLeft="32dp"
-                android:layout_marginTop="24dp"
-                android:layout_marginEnd="32dp"
-                android:layout_marginRight="32dp"
-                android:alpha="1"
-                app:cardCornerRadius="12dp"
-                app:cardElevation="12dp"
-                app:cardPreventCornerOverlap="false">
-                
-                <androidx.constraintlayout.widget.ConstraintLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@color/dark_gray"
-                    android:padding="24dp">
+                        <TextView
+                            android:id="@+id/text_card_number"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{inputEditCardNumber.text.toString().isEmpty() ? @string/label_card_number : inputEditCardNumber.text}"
+                            android:textAllCaps="true"
+                            android:textColor="@{inputEditCardNumber.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"
+                            tools:text="@string/label_card_number" />
+                        
+                        <TextView
+                            android:id="@+id/text_expired_date"
+                            style="@style/mediumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{inputEditExpiredDate.text.toString().isEmpty() ? @string/label_expired_date : inputEditExpiredDate.text}"
+                            android:textAllCaps="true"
+                            android:textColor="@{inputEditExpiredDate.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/text_cvv_code"
+                            app:layout_constraintTop_toBottomOf="@+id/text_card_number"
+                            tools:text="@string/label_expired_date" />
+                        
+                        <TextView
+                            android:id="@+id/text_card_holder"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@{inputEditCardHolder.text.toString().isEmpty() ? @string/label_card_holder : inputEditCardHolder.text}"
+                            android:textAllCaps="true"
+                            android:textColor="@{inputEditCardHolder.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/text_expired_date"
+                            tools:text="@string/label_card_holder" />
+                        
+                        <TextView
+                            android:id="@+id/text_cvv_code"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ellipsize="end"
+                            android:inputType="@{inputEditCvvCode.text.toString().isEmpty() ? (InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_CHARACTERS | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS) : (InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_VARIATION_PASSWORD)}"
+                            android:maxLines="1"
+                            android:text="@{inputEditCvvCode.text.toString().isEmpty() ? @string/label_cvv_code : inputEditCvvCode.text}"
+                            android:textAllCaps="true"
+                            android:textColor="@{inputEditCvvCode.text.toString().isEmpty() ? @color/translucent_white : @color/light_gray}"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_expired_date"
+                            app:layout_constraintRight_toLeftOf="@+id/icon_help_blue"
+                            app:layout_constraintTop_toTopOf="@+id/text_expired_date"
+                            tools:text="@string/label_cvv_code" />
+                        
+                        <ImageView
+                            
+                            android:id="@+id/icon_help_blue"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/text_expired_date"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/text_expired_date"
+                            app:srcCompat="@drawable/ic_help_translucent_24dp" />
                     
-                    <TextView
-                        android:id="@+id/label_card_number"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/label_card_number"
-                        android:textAllCaps="true"
-                        android:textColor="@color/light_gray"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
-                    
-                    <TextView
-                        android:id="@+id/label_expired_date"
-                        style="@style/mediumText"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="32dp"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/label_expired_date"
-                        android:textAllCaps="true"
-                        android:textColor="@color/translucent_white"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintRight_toLeftOf="@+id/label_cvv_code"
-                        app:layout_constraintTop_toBottomOf="@+id/label_card_number" />
-                    
-                    <TextView
-                        android:id="@+id/label_card_holder"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="16dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/label_card_holder"
-                        android:textAllCaps="true"
-                        android:textColor="@color/translucent_white"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintLeft_toLeftOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/label_expired_date" />
-                    
-                    <TextView
-                        android:id="@+id/label_cvv_code"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:layout_marginRight="8dp"
-                        android:ellipsize="end"
-                        android:maxLines="1"
-                        android:text="@string/label_cvv_code"
-                        android:textAllCaps="true"
-                        android:textColor="@color/translucent_white"
-                        android:textSize="@dimen/_12sdp"
-                        android:typeface="monospace"
-                        app:layout_constraintBottom_toBottomOf="@+id/label_expired_date"
-                        app:layout_constraintRight_toLeftOf="@+id/icon_help_gray"
-                        app:layout_constraintTop_toTopOf="@+id/label_expired_date" />
-                    
-                    <ImageView
-                        android:id="@+id/icon_help_gray"
-                        android:layout_width="18dp"
-                        android:layout_height="18dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/label_expired_date"
-                        app:layout_constraintRight_toRightOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/label_expired_date"
-                        app:srcCompat="@drawable/ic_help_translucent_24dp" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 
-                </androidx.constraintlayout.widget.ConstraintLayout>
-            
-            </androidx.cardview.widget.CardView>
-            
-            <com.rvtechnologies.grigora.view.ui.payment.WrapContentHeightViewPager
-                android:id="@+id/view_pager"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/card_gray"
-                android:layout_marginTop="16dp">
+                </androidx.cardview.widget.CardView>
                 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_card_number"
+                <androidx.cardview.widget.CardView
+                    
+                    android:id="@+id/card_gray"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                    android:layout_marginStart="32dp"
+                    android:layout_marginLeft="32dp"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginEnd="32dp"
+                    android:layout_marginRight="32dp"
+                    android:alpha="1"
+                    app:cardCornerRadius="12dp"
+                    app:cardElevation="12dp"
+                    app:cardPreventCornerOverlap="false">
                     
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_edit_card_number"
-                        style="@style/mediumText"
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/hint_card_number"
-                        android:imeOptions="actionNext"
-                        android:inputType="phone"
-                        android:paddingTop="8dp"
-                        android:textColor="@color/textBlack"
-                        android:textSize="@dimen/_12sdp"
-                        tools:text="4242 4242 4242 4242" />
+                        android:layout_height="match_parent"
+                        android:background="@color/dark_gray"
+                        android:padding="24dp">
+                        
+                        <TextView
+                            android:id="@+id/label_card_number"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/label_card_number"
+                            android:textAllCaps="true"
+                            android:textColor="@color/light_gray"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+                        
+                        <TextView
+                            android:id="@+id/label_expired_date"
+                            style="@style/mediumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/label_expired_date"
+                            android:textAllCaps="true"
+                            android:textColor="@color/translucent_white"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintRight_toLeftOf="@+id/label_cvv_code"
+                            app:layout_constraintTop_toBottomOf="@+id/label_card_number" />
+                        
+                        <TextView
+                            android:id="@+id/label_card_holder"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/label_card_holder"
+                            android:textAllCaps="true"
+                            android:textColor="@color/translucent_white"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintLeft_toLeftOf="parent"
+                            app:layout_constraintTop_toBottomOf="@+id/label_expired_date" />
+                        
+                        <TextView
+                            android:id="@+id/label_cvv_code"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginEnd="8dp"
+                            android:layout_marginRight="8dp"
+                            android:ellipsize="end"
+                            android:maxLines="1"
+                            android:text="@string/label_cvv_code"
+                            android:textAllCaps="true"
+                            android:textColor="@color/translucent_white"
+                            android:textSize="@dimen/_12sdp"
+                            android:typeface="monospace"
+                            app:layout_constraintBottom_toBottomOf="@+id/label_expired_date"
+                            app:layout_constraintRight_toLeftOf="@+id/icon_help_gray"
+                            app:layout_constraintTop_toTopOf="@+id/label_expired_date" />
+                        
+                        <ImageView
+                            android:id="@+id/icon_help_gray"
+                            android:layout_width="18dp"
+                            android:layout_height="18dp"
+                            app:layout_constraintBottom_toBottomOf="@+id/label_expired_date"
+                            app:layout_constraintRight_toRightOf="parent"
+                            app:layout_constraintTop_toTopOf="@+id/label_expired_date"
+                            app:srcCompat="@drawable/ic_help_translucent_24dp" />
+                    
+                    </androidx.constraintlayout.widget.ConstraintLayout>
                 
-                </com.google.android.material.textfield.TextInputLayout>
+                </androidx.cardview.widget.CardView>
                 
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_expired_date"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                    android:layout_below="@+id/card_gray"
                     
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_edit_expired_date"
-                        style="@style/mediumText"
+                    android:layout_marginLeft="@dimen/_16sdp"
+                    android:layout_marginTop="@dimen/_28sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_16sdp"
+                    android:orientation="vertical">
+                    
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_card_number"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/hint_expired_date"
-                        android:imeOptions="actionNext"
-                        android:inputType="date"
-                        android:maxLength="5"
-                        android:paddingTop="8dp"
-                        android:textColor="@color/textBlack"
-                        android:textSize="@dimen/_12sdp"
-                        tools:text="12/19" />
-                
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_card_holder"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                        android:background="@drawable/round_c"
+                        android:padding="@dimen/_8sdp"
+                        android:textColorHint="@color/colorPrimaryDark">
+                        
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_edit_card_number"
+                            style="@style/mediumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:hint="@string/hint_card_number"
+                            android:imeOptions="actionNext"
+                            android:inputType="phone"
+                            android:paddingTop="8dp"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp"
+                            tools:text="4242 4242 4242 4242" />
                     
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_edit_card_holder"
-                        style="@style/mediumText"
+                    </com.google.android.material.textfield.TextInputLayout>
+                    
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/hint_card_holder"
-                        android:imeOptions="actionNext"
-                        android:inputType="textPersonName|textCapCharacters|textNoSuggestions"
-                        android:paddingTop="8dp"
-                        android:textColor="@color/textBlack"
-                        android:textSize="@dimen/_12sdp"
-                        tools:text="12/19" />
-                
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <com.google.android.material.textfield.TextInputLayout
-                    android:id="@+id/input_layout_cvv_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="16dp">
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:orientation="horizontal"
+                        android:weightSum="2">
+                        
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_expired_date"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginRight="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            
+                            android:background="@drawable/round_c"
+                            android:padding="@dimen/_8sdp"
+                            
+                            android:textColorHint="@color/colorPrimaryDark">
+                            
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/input_edit_expired_date"
+                                style="@style/mediumText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:hint="@string/hint_expired_date"
+                                android:imeOptions="actionNext"
+                                android:inputType="date"
+                                android:maxLength="5"
+                                android:paddingTop="8dp"
+                                android:textColor="@color/textBlack"
+                                android:textSize="@dimen/_10sdp"
+                                tools:text="12/19" />
+                        
+                        </com.google.android.material.textfield.TextInputLayout>
+                        
+                        <com.google.android.material.textfield.TextInputLayout
+                            android:id="@+id/input_layout_cvv_code"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_4sdp"
+                            android:layout_weight="1"
+                            android:background="@drawable/round_c"
+                            
+                            android:padding="@dimen/_8sdp"
+                            android:textColorHint="@color/colorPrimaryDark">
+                            
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/input_edit_cvv_code"
+                                style="@style/mediumText"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:background="@android:color/transparent"
+                                android:gravity="center"
+                                android:hint="@string/hint_cvv_code"
+                                android:imeOptions="actionNext"
+                                android:inputType="numberPassword"
+                                android:maxLength="4"
+                                android:paddingTop="8dp"
+                                android:textColor="@color/textBlack"
+                                android:textSize="@dimen/_10sdp"
+                                tools:text="12/19" />
+                        
+                        </com.google.android.material.textfield.TextInputLayout>
                     
-                    <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/input_edit_cvv_code"
-                        style="@style/mediumText"
+                    
+                    </LinearLayout>
+                    
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/input_layout_card_holder"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:background="@android:color/transparent"
-                        android:gravity="center"
-                        android:hint="@string/hint_cvv_code"
-                        android:imeOptions="actionDone"
-                        android:inputType="numberPassword"
-                        android:maxLength="4"
-                        android:paddingTop="8dp"
-                        android:textColor="@color/textBlack"
-                        android:textSize="@dimen/_12sdp"
-                        tools:text="12/19" />
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="@drawable/round_c"
+                        
+                        android:padding="@dimen/_8sdp"
+                        android:textColorHint="@color/colorPrimaryDark">
+                        
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/input_edit_card_holder"
+                            style="@style/mediumText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@android:color/transparent"
+                            android:gravity="center"
+                            android:hint="@string/hint_card_holder"
+                            android:imeOptions="actionDone"
+                            android:inputType="textPersonName|textCapCharacters|textNoSuggestions"
+                            android:paddingTop="8dp"
+                            android:textColor="@color/textBlack"
+                            android:textSize="@dimen/_10sdp"
+                            tools:text="Amit kumar" />
+                    
+                    </com.google.android.material.textfield.TextInputLayout>
                 
-                </com.google.android.material.textfield.TextInputLayout>
-                
-                <Space
-                    android:id="@+id/space"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-            
-            </com.rvtechnologies.grigora.view.ui.payment.WrapContentHeightViewPager>
-            
-            
-            <ProgressBar
-                android:id="@+id/progress_horizontal"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
-                android:layout_marginBottom="-8dp"
-                android:progress="25" />
-            
-            <TextView
-                android:id="@+id/label_secure_submission"
-                style="@style/mediumText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:background="@color/colorPrimaryDark"
-                android:gravity="center"
-                android:paddingTop="14dp"
-                android:paddingBottom="14dp"
-                android:text="@string/label_secure_submission"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp"
-                android:textStyle="bold"
-                android:visibility="gone" />
-        
-        
-        </RelativeLayout>
+                </LinearLayout>
     
-    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    
+                <TextView
+                    android:id="@+id/label_secure_submission"
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/colorPrimaryDark"
+                    android:gravity="center"
+                    android:paddingTop="14dp"
+                    android:paddingBottom="14dp"
+                    android:text="@string/label_secure_submission"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp"
+                    android:textStyle="bold"
+                    android:visibility="visible" />
+            
+            
+            </RelativeLayout>
+        
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+    </ScrollView>
 </layout>

@@ -253,7 +253,7 @@
     <string name="rejected_by_restaurant">Order rejected by Restaurant</string>
     <string name="being_prepared">Your Order is being prepared</string>
     <string name="orderedon">Ordered on :</string>
-    <string name="almostready">Order almost ready</string>
+    <string name="almostready">Your order is ready to Dispatch</string>
     <string name="driver_assigned">Driver Assigned</string>
     
     <!-- TODO: Remove or change this placeholder text -->
@@ -488,7 +488,7 @@
     <string name="disapproved">DisApproved</string>
     <string name="cuisine">Cuisine</string>
     <string name="grigora_gift_card">Grigora Gift card</string>
-    <string name="add_points_info">By/Send Voucher cards to Family or  \n Friend(s).</string>
+    <string name="add_points_info">Buy/Send Voucher cards to Family or  \n Friend(s).</string>
     <string name="proceed_preview_card">Proceed To Preview Card</string>
     <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
@@ -501,8 +501,8 @@
     <string name="no_user_selected">No User Selected</string>
     <string name="ticket_id">Ticket Id</string>
     <string name="skip">Skip</string>
-    <string name="delivery_pickup_info">"Delivery not available now \n Still Hungry? Try Pickup. "</string>
-    <string name="delivery_pickup_info_more">"We'll resume deliveries again soon. You can still place an order from Pickup. See what's available. "</string>
+    <string name="delivery_pickup_info">"No DELIVERIES AVAILABLE NOW.\n STILL HUNGRY? TRY PICK UP"</string>
+    <string name="delivery_pickup_info_more">"Sorry! No deliveries at the moment. You can still place order for self pickup. Want to see what's available?"</string>
     <string name="see_stores">See stores open for pickup</string>
     <string name="dismiss">Dismiss</string>
     <string name="order_cancel_info">No available riders at the moment. You can convert the order into pickup order by selecting the pickup option or can wait for driver availability</string>
@@ -532,10 +532,10 @@
     <string name="label_card_holder">CARD HOLDER</string>
     <string name="label_cvv_code">CVV CODE</string>
     
-    <string name="hint_card_number">CARD NUMBER</string>
-    <string name="hint_expired_date">EXPIRED DATE(MM/YY)</string>
-    <string name="hint_card_holder">CARD HOLDER</string>
-    <string name="hint_cvv_code">CVV CODE</string>
+    <string name="hint_card_number">Card Number</string>
+    <string name="hint_expired_date">Expiry Date(MM/YY)</string>
+    <string name="hint_card_holder">Holder Name</string>
+    <string name="hint_cvv_code">CVV Code</string>
     
     <string name="label_secure_submission">Secure Submission</string>
     <string name="payment">Payment</string>
@@ -544,5 +544,16 @@
     <string name="myself">MYSELF</string>
     <string name="enter_name_wallet_id">Enter Name or Wallet Id</string>
     <string name="search_name_wallet_id">Search by Name/Wallet id</string>
+    <string name="please_add_items">Please add Items</string>
+    <string name="search">Search</string>
+    <string name="cancelled_by_you">Canclled by you</string>
+    <string name="preparation_started">Your food is being prepared</string>
+    <string name="order_delivered">"Delivered "</string>
+    <string name="scheduled_order">Scheduled Order</string>
+    <string name="delivers_in">Delivers in</string>
+    <string name="preparein">Prepare in</string>
+    <string name="unavailable_func">This servide is unavailable. You can proceed with scheduling order.</string>
+    <string name="pick_order_info">"Pick this order from "</string>
+    <string name="km_away">km away</string>
 
 </resources><!--₦-->

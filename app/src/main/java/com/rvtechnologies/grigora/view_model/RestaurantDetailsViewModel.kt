@@ -72,8 +72,7 @@ class RestaurantDetailsViewModel : ViewModel() {
     }
 
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
-        if (token.value.toString().isNotBlank()) {
-            isLoading.value = true
+             isLoading.value = true
             ApiRepo.getInstance()
                 .addItemToCart(
                     token = token.value.toString(),
@@ -88,8 +87,11 @@ class RestaurantDetailsViewModel : ViewModel() {
                         val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
                         addCartRes.value = Gson().fromJson(result as JsonElement, type)
                     }
+                    else
+                        addCartRes.value = result
+
                 }
-        }
+
     }
 
     fun updateType(restaurantId: String, type: String, token: String) {

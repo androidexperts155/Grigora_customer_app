@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.view.ui.restaurant_list
 
 import android.graphics.Paint
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.View.GONE
@@ -30,20 +31,63 @@ import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.menu_item_details_fragment.*
 import kotlinx.android.synthetic.main.menu_item_details_fragment.parentView
-import kotlinx.android.synthetic.main.restaurant_details_fragment.*
 
 
 class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
+    var list = ArrayList<Int>()
+
 
     override fun onItemClick(item: Any) {
         if (item is ItemSubCategory) {
             if (item.checked) {
-                selectedItemCategoriesList.add(item)
+                /* var temp = ArrayList<ItemSubCategory?>()
+                 temp.addAll(selectedItemCategoriesList)
+
+                 for (i in selectedItemCategoriesList) {
+                     if (i?.id!! == item.id) {
+                         temp.remove(i)
+                     }
+                 }
+                 selectedItemCategoriesList.clear()
+                 selectedItemCategoriesList.addAll(temp)*/
+
+                var add = true
+
+                for (i in selectedItemCategoriesList) {
+                    if (i?.id!! == item.id) {
+                        add = false
+                    }
+                }
+
+                if (add)
+                    selectedItemCategoriesList.add(item)
             } else {
                 selectedItemCategoriesList.remove(item)
+
+                /*  var temp = ArrayList<ItemSubCategory?>()
+                  temp.addAll(selectedItemCategoriesList)
+
+                  for (i in selectedItemCategoriesList) {
+                      if (i?.id!! == item.id) {
+                          temp.remove(i)
+                      }
+                  }
+
+                  selectedItemCategoriesList.clear()
+                  selectedItemCategoriesList.addAll(temp)
+
+                  list.clear()
+                  for(ii in itemCategoriesList){
+                      list.add(ii.id!!)
+                  }
+
+                  Log.e("CHOICES",list.toString())
+  */
             }
             viewModel.selectedChoices.value = selectedItemCategoriesList
+
             menuItemDetailsFragmentBinding.menuItemViewModel = viewModel
+
             viewModel.refresh()
         }
     }
@@ -92,6 +136,7 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
 
 
         })
+
         viewModel.itemCategories.observe(this, Observer { itemCategoriesListRes ->
             itemCategoriesList.clear()
             itemCategoriesList.addAll(itemCategoriesListRes as Collection<ItemCategory>)
@@ -126,6 +171,9 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel.getCategoryItems()
+        tv_time.text =
+            getString(R.string.preparein) + " " + viewModel.menuItem.value?.approxPrepTime + " min"
+
     }
 
     override fun onResume() {
@@ -145,10 +193,10 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     }
 
     fun addItemToCart() {
-        if (CommonUtils.isLogin())
-            viewModel.addItemToCart()
-        else
-            (activity as MainActivity).showLoginAlert()
+//        if (CommonUtils.isLogin())
+        viewModel.addItemToCart()
+//        else
+//            (activity as MainActivity).showLoginAlert()
     }
 }
 

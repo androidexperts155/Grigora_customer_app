@@ -8,11 +8,21 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.MenuItemViewBinding
+import com.rvtechnologies.grigora.databinding.TrendingMenuItemViewBinding
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.OnItemClickListener
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.menu_item_view.view.*
+import kotlinx.android.synthetic.main.menu_item_view.view.bt_add
+import kotlinx.android.synthetic.main.menu_item_view.view.img_type
+import kotlinx.android.synthetic.main.menu_item_view.view.li_add
+import kotlinx.android.synthetic.main.menu_item_view.view.rating
+import kotlinx.android.synthetic.main.menu_item_view.view.tv_minus
+import kotlinx.android.synthetic.main.menu_item_view.view.tv_plus
+import kotlinx.android.synthetic.main.menu_item_view.view.tv_price
+import kotlinx.android.synthetic.main.menu_item_view.view.tv_quantity
+import kotlinx.android.synthetic.main.trending_menu_item_view.view.*
 
 
 class TrendingItemAdapter(
@@ -31,7 +41,8 @@ class TrendingItemAdapter(
             holder.itemView.li_add.visibility = View.GONE
             holder.itemView.bt_add.visibility = View.VISIBLE
         }
-
+        holder.itemView.tv_time.text="in "+resModel.time
+        holder.itemView.tv_info.text=resModel.total_orders + " Orders("+"${resModel.customers} Customers)"
         holder.itemView.tv_price.text = "₦ " + resModel.price.toString()
         holder.itemView.rating.rating = resModel.avgRatings
         holder.itemView.tv_plus.setOnClickListener {
@@ -67,12 +78,12 @@ class TrendingItemAdapter(
         val inflater = LayoutInflater.from(parent.context)
         val binding = DataBindingUtil.inflate<ViewDataBinding>(
             inflater,
-            R.layout.menu_item_view,
+            R.layout.trending_menu_item_view,
             parent,
             false
         )
 
-        return ViewHolder(binding as MenuItemViewBinding)
+        return ViewHolder(binding as TrendingMenuItemViewBinding)
     }
 
     override fun getItemCount(): Int {
@@ -80,7 +91,7 @@ class TrendingItemAdapter(
     }
 
     class ViewHolder(
-        var binding: MenuItemViewBinding
+        var binding: TrendingMenuItemViewBinding
     ) :
         RecyclerView.ViewHolder(binding.root) {
 

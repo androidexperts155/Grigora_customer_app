@@ -30,7 +30,7 @@ class OffersAdapter(
             holder.itemView.bt_apply.setTextColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    R.color.colorPrimaryDark
+                    R.color.white
                 )
             )
         } else {
@@ -38,7 +38,7 @@ class OffersAdapter(
             holder.itemView.bt_apply.setTextColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
-                    R.color.textGrey
+                    R.color.viewbg
                 )
             )
         }

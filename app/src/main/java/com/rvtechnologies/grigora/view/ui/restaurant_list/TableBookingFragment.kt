@@ -246,8 +246,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
         current = 4
         var timeDialog = TimeBottomSheetDialog(
             this,
-            tv_minute.text.toString().toInt(),
-            getClosingMinutes(),
+            getOpeningMinutes(), getClosingMinutes(),
             false
         )
         timeDialog.show(this.childFragmentManager, "")
@@ -358,7 +357,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
 
 
         return if (is24HourOpen())
-            59
+            1
         else if (minutes != 0)
             CommonUtils.getFormattedTimeOrDate(
                 closingTime,
@@ -366,7 +365,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
                 "mm"
             ).toInt()
         else
-            59
+            1
     }
 
     private fun getClosingHours(): Int {

@@ -136,7 +136,7 @@ class SharedGiftViewModel : ViewModel() {
 //            isLoading.value = false
             if (success) {
                 val type =
-                    object : TypeToken<CommonResponseModel<SearchUserModel>>() {}.type
+                    object : TypeToken<CommonResponseModel<Collection<SearchUserModel>>>() {}.type
                 searchResult.value = Gson().fromJson(result as JsonElement, type)
 
             } else {

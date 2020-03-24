@@ -153,7 +153,7 @@
                     android:foreground="@drawable/selectable_item_background"
                     android:gravity="center"
                     android:onClick="@{()->orderView.none()}"
-                    android:text="@string/none"
+                    android:text="₦50"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_10sdp" />
                 
@@ -168,7 +168,7 @@
                     android:foreground="@drawable/selectable_item_background"
                     android:gravity="center"
                     android:onClick="@{()->orderView.p1()}"
-                    android:text="₦10"
+                    android:text="₦100"
                     android:textColor="?attr/searchHint"
                     android:textSize="@dimen/_10sdp" />
                 
@@ -183,7 +183,7 @@
                     android:foreground="@drawable/selectable_item_background"
                     android:gravity="center"
                     android:onClick="@{()->orderView.p2()}"
-                    android:text="₦15"
+                    android:text="₦200"
                     android:textColor="?attr/searchHint"
                     android:textSize="@dimen/_10sdp" />
                 
@@ -198,7 +198,7 @@
                     android:foreground="@drawable/selectable_item_background"
                     android:gravity="center"
                     android:onClick="@{()->orderView.p3()}"
-                    android:text="₦20"
+                    android:text="₦500"
                     android:textColor="?attr/searchHint"
                     android:textSize="@dimen/_10sdp" />
                 
@@ -213,7 +213,7 @@
                     android:foreground="@drawable/selectable_item_background"
                     android:gravity="center"
                     android:onClick="@{()->orderView.p4()}"
-                    android:text="₦25"
+                    android:text="₦1000"
                     android:textColor="?attr/searchHint"
                     android:textSize="@dimen/_10sdp" />
                 

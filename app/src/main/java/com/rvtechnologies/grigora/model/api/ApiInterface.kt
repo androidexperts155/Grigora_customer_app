@@ -163,22 +163,29 @@ interface ApiInterface {
         @Header("Authorization") token: String,
         @Field("user_id") user_id: String,
         @Field("restaurant_id") restaurant_id: String,
-        @Field("price_range") price_range: String
-    ): Call<JsonElement>
+        @Field("price_range") price_range: String,
+        @Field("login_type") loginType: String
+
+        ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
     fun getRestaurantDetailsCart(
         @Header("Authorization") token: String,
+        @Field("user_id") user_id: String,
         @Field("restaurant_id") restaurant_id: String,
         @Field("price_range") price_range: String,
-        @Field("cart_id") cart_id: String
-    ): Call<JsonElement>
+        @Field("cart_id") cart_id: String,
+        @Field("login_type") login_type: String
+
+        ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.REMOVE_CART_URL)
     fun removeCart(
         @Header("Authorization") token: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
         @Field("cart_id") cart_id: String
     ): Call<JsonElement>
 
@@ -189,11 +196,16 @@ interface ApiInterface {
     ): Call<JsonElement>
 
 
+
+
+
     @FormUrlEncoded
     @POST(ApiConstants.ADD_ITEM_URL)
     fun addItemToCart(
         @Header("Authorization") token: String,
         @Field("restaurant_id") restaurantId: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
         @Field("item_id") itemId: String,
         @Field("quantity") quantity: String,
         @Field("price") price: String,
@@ -218,6 +230,8 @@ interface ApiInterface {
     fun changeOrderType(
         @Header("Authorization") token: String,
         @Field("cart_type") cart_type: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
         @Field("restaurant_id") restaurant_id: String
 
     ): Call<JsonElement>
@@ -226,6 +240,8 @@ interface ApiInterface {
     @POST(ApiConstants.UPDATE_CART_QTY)
     fun updateCartQty(
         @Header("Authorization") token: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
         @Field("cart_item_id") cartItemId: String,
         @Field("quantity") quantity: String,
         @Field("cart_id") cartId: String
@@ -241,6 +257,8 @@ interface ApiInterface {
     @POST(ApiConstants.VIEW_CART_URL)
     fun viewCart(
         @Header("Authorization") token: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
         @Field("latitude") latitude: String,
         @Field("logitude") logitude: String
     ): Call<JsonElement>
@@ -504,6 +522,16 @@ interface ApiInterface {
         @Field("voucher_code") voucher_code: String
 
     ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_ANONOMOUS_TO_LOGIN)
+    fun changeToLogin(
+        @Header("Authorization") token: String,
+        @Field("device_id") device_id: String
+
+    ): Call<JsonElement>
+
 
     @FormUrlEncoded
     @POST(ApiConstants.SEND_GIFT)

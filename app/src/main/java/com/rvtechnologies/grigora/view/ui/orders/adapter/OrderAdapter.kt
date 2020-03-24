@@ -21,32 +21,32 @@ class OrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderModel = orderList[position]
-//        orderModel.finalPrice = ""
         orderModel.finalPrice = "₦ " + (orderModel.finalPrice)
+
+
         val status = when (orderModel.orderStatus) {
             0 -> holder.itemView.context.getString(R.string.waiting_for_confirmation)
-            1 -> holder.itemView.context.getString(R.string.order_schduled)
-            2 -> holder.itemView.context.getString(R.string.order_accepted)
-            8 -> holder.itemView.context.getString(R.string.being_prepared)
+            1 -> holder.itemView.context.getString(R.string.order_accepted)
+            9 -> holder.itemView.context.getString(R.string.preparation_started)
+            2 -> holder.itemView.context.getString(R.string.order_schduled)
+            8 -> holder.itemView.context.getString(R.string.cancelled_by_you)
             3 -> holder.itemView.context.getString(R.string.driver_assigned)
             4 -> holder.itemView.context.getString(R.string.picked)
-            5 -> holder.itemView.context.getString(R.string.delivered_by) + orderModel.driverName
+            5 -> if (orderModel.driverId == null) holder.itemView.context.getString(R.string.order_delivered) else holder.itemView.context.getString(
+                R.string.delivered_by
+            ) + " " + orderModel.driverName
             6 -> holder.itemView.context.getString(R.string.rejected_by_restaurant)
             7 -> holder.itemView.context.getString(R.string.almostready)
             else -> holder.itemView.context.getString(R.string.waiting_for_confirmation)
         }
 
-//        if (orderModel.orderStatus == 5 || !isCurrent)
-//            holder.binding.btnRate.text = holder.itemView.context.getString(R.string.rate_now)
-//        else
-//            holder.binding.btnRate.text = holder.itemView.context.getString(R.string.track)
 
         orderModel.status = status
 
 
         var isRated = true
 
-        if (orderModel.is_driver_rated == "0")
+        if (orderModel.is_driver_rated == "0"  && orderModel.driverId!=null)
             isRated = false
         else if (orderModel.is_restaurant_rated == "0")
             isRated = false
@@ -60,11 +60,27 @@ class OrderAdapter(
         }
         orderModel.is_rated = isRated
 
+        if (orderModel.is_already_rated)
+            orderModel.is_rated = true
+
         orderModel.idToShow =
             holder.itemView.context.getString(R.string.order_hash).plus(orderModel.id)
 
         holder.binding.btnDetails.visibility = GONE
         holder.binding.liPast.visibility = GONE
+
+
+        //        0=>Waiting for confirmation
+//        2=>accepted by restaurant,
+//        3=>driver assigned,
+//        9=>restaurant starts preparing  get time from notification
+//        7=> order is almost ready,   stop prepation time/nill
+//        4=>out of delivery,  get driver time
+//        5=> deliverd,   stop driver time
+//        1=> schedule order ,
+//        6=>rejected by restaurant,
+//        8=>cancelled by customer,
+//        (notification type )11=> show elapsed time and reset counter
 
         when (currentIndex) {
             0 -> {
@@ -74,7 +90,7 @@ class OrderAdapter(
                 holder.binding.liPast.visibility = VISIBLE
 
                 holder.binding.btnRate.visibility =
-                    if (!orderModel.is_rated && (orderModel.orderStatus != 6 && orderModel.orderStatus != 8)) VISIBLE else GONE
+                    if (!orderModel.is_rated && orderModel.orderStatus == 5) VISIBLE else GONE
             }
             2 -> {
 

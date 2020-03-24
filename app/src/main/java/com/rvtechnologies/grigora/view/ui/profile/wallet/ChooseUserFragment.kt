@@ -47,12 +47,12 @@ class ChooseUserFragment : Fragment(), IRecyclerItemClick {
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     users.clear()
-                    users.add(response.data as SearchUserModel)
+                    users.addAll(response.data as ArrayList<SearchUserModel>)
                     rc_users.adapter = UsersAdapter(users, this)
                 } else {
                     CommonUtils.showMessage(parent, response?.message!!)
                 }
-            } else if(response!=null) {
+            } else if (response != null) {
                 CommonUtils.showMessage(parent, response.toString())
             }
         })
@@ -90,6 +90,7 @@ class ChooseUserFragment : Fragment(), IRecyclerItemClick {
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
                 ed_search.text.toString()
             )
+            CommonUtils.hideKeyboard(activity as MainActivity)
         }
 
     }

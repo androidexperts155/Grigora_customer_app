@@ -41,6 +41,7 @@ class SubIssues : Fragment(),IRecyclerItemClick {
         viewModel.subIssuesRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
+                    subIssues.clear()
                     subIssues.addAll(response.data as Collection<SubIssueModel>)
 
                     var tempIssues = ArrayList<SubIssueModel>()

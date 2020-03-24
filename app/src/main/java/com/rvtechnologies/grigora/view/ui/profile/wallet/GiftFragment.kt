@@ -31,9 +31,8 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
     private lateinit var viewModel: SharedGiftViewModel
     private var vouchers = ArrayList<VoucherModel>()
 
-
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
         viewModel =
             activity!!.let { ViewModelProviders.of(it).get(SharedGiftViewModel::class.java) }
         viewModel.voucherCodes.observe(this, Observer { response ->
@@ -98,8 +97,12 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
         })
 
         viewModel.isSelfSelected.value = true
-
     }
+//    override fun onActivityCreated(savedInstanceState: Bundle?) {
+//        super.onActivityCreated(savedInstanceState)
+//
+//
+//    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -191,7 +194,6 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
                         card_search.visibility = View.VISIBLE
                         viewModel.isSelfSelected.value = false
                     }
-
                 }
             }
         })
@@ -202,13 +204,18 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).backTitle(getString(R.string.grigora_gift_card))
 
+        if(viewModel?.isSelfSelected.value==false){
+             tab_top.getTabAt(1)?.select()
+
+        }
         if (viewModel.selectedUser.value != null) {
             tv_hint.visibility=View.GONE
             tv_name.visibility=View.VISIBLE
             tv_email.visibility=View.VISIBLE
             tv_name.text = viewModel.selectedUser.value?.name
-            tv_email.text = viewModel.selectedUser.value?.wallet
+            tv_email.text = viewModel.selectedUser.value?.username
         }
+
         viewModel.getVoucherCodes(
             CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         )

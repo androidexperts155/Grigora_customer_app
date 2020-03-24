@@ -1,7 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.pickup_restaurants
 
-import android.graphics.Bitmap
-import android.graphics.Canvas
+import android.graphics.*
+import android.graphics.drawable.Drawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,7 +28,9 @@ import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.dashboard.adapter.ImagesAdapter
 import com.rvtechnologies.grigora.view_model.PickupRestaurantsViewModel
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.activity_main.*
+import kotlinx.android.synthetic.main.custom_map_icon.view.*
 import kotlinx.android.synthetic.main.pickup_restaurants_fragment.*
 
 
@@ -132,7 +134,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             var longitude = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE).toDouble()
 
             mMap.moveCamera(CameraUpdateFactory.newLatLng(LatLng(latitude, longitude)))
-            mMap?.setMinZoomPreference(15f)
+            mMap?.setMinZoomPreference(5f)
 
             val coordinate =
                 LatLng(
@@ -141,7 +143,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 )
 
             val location = CameraUpdateFactory.newLatLngZoom(
-                coordinate, 15f
+                coordinate, 5f
             )
             mMap.animateCamera(location)
 
@@ -202,7 +204,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                 )
 
             val location = CameraUpdateFactory.newLatLngZoom(
-                coordinate, 15f
+                coordinate, 5f
             )
             mMap.addMarker(marker)
             mMap.animateCamera(location)
@@ -227,14 +229,106 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                     .icon(bitmapDescriptorFromVector(R.drawable.ic_rest))
                     .title(allRestaurants[i].name)
 
-                var m = mMap.addMarker(marker)
-                allRestaurants[i].markerId = m.id
+
+                val latLng = LatLng(latitude, longitude)
+                loadMarkerImage(latLng, allRestaurants[i].image, i)
+
+
+//                var m = mMap.addMarker(marker)
+//                allRestaurants[i].markerId = m.id
 
             }
         }
 
 
     }
+
+    private fun loadMarkerImage(latlng: LatLng, image: String, position: Int) {
+        Picasso.get()
+            .load(image).placeholder(R.drawable.ic_user).error(R.drawable.ic_user)
+            .into(object : com.squareup.picasso.Target {
+                override
+                fun onBitmapLoaded(bitmap: Bitmap?, loadedFrom: Picasso.LoadedFrom?) {
+                    val marker: Marker = mMap.addMarker(
+                        MarkerOptions()
+                            .anchor(0.0f, 1.0f) // Anchors the marker on the bottom left
+                            .icon(
+                                BitmapDescriptorFactory.fromBitmap(
+                                    getMarkerBitmapFromView(
+                                        bitmap!!
+                                    )
+                                )
+                            )
+                            .position(latlng)
+                    )
+                    allRestaurants[position].markerId = marker.id
+                }
+
+                override
+                fun onPrepareLoad(drawable: Drawable?) {
+                }
+
+                override fun onBitmapFailed(e: Exception?, errorDrawable: Drawable?) {
+
+                }
+            })
+
+    }
+
+
+    private fun getMarkerBitmapFromView(
+        resId: Bitmap
+    ): Bitmap? {
+        var view = LayoutInflater.from(context).inflate(
+            R.layout.custom_map_icon,
+            null,
+            false
+        )
+
+
+        view.profile_image.setImageBitmap(resId)
+        view.measure(
+            View.MeasureSpec.UNSPECIFIED,
+            View.MeasureSpec.UNSPECIFIED
+        )
+        view.layout(0, 0, view.measuredWidth, view.measuredHeight)
+        view.buildDrawingCache()
+        val returnedBitmap = Bitmap.createBitmap(
+            view.measuredWidth, view.measuredHeight,
+            Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(returnedBitmap)
+        canvas.drawColor(Color.WHITE, PorterDuff.Mode.SRC_IN)
+        val drawable = view.background
+        drawable?.draw(canvas)
+        view.draw(canvas)
+        return getCroppedBitmap(returnedBitmap)
+    }
+
+    fun getCroppedBitmap(bitmap: Bitmap): Bitmap? {
+        val output = Bitmap.createBitmap(
+            bitmap.width,
+            bitmap.height, Bitmap.Config.ARGB_8888
+        )
+        val canvas = Canvas(output)
+        val color = -0xbdbdbe
+        val paint = Paint()
+        val rect = Rect(0, 0, bitmap.width, bitmap.height)
+        paint.setAntiAlias(true)
+        canvas.drawARGB(0, 0, 0, 0)
+        paint.setColor(color)
+        // canvas.drawRoundRect(rectF, roundPx, roundPx, paint);
+        canvas.drawCircle(
+            bitmap.width / 2.toFloat(), bitmap.height / 2.toFloat(),
+            bitmap.width / 2.toFloat(), paint
+        )
+        paint.setXfermode(PorterDuffXfermode(PorterDuff.Mode.SRC_IN))
+        canvas.drawBitmap(bitmap, rect, rect, paint)
+        //Bitmap _bmp = Bitmap.createScaledBitmap(output, 60, 60, false);
+        //return _bmp;
+        return output
+    }
+
 
     private fun bitmapDescriptorFromVector(
         vectorResId: Int

@@ -5,10 +5,12 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
+import com.rvtechnologies.grigora.model.AddCartModel
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.*
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.GrigoraApp
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import java.lang.Exception
 
 class CartNdOfferViewModel : ViewModel() {
@@ -26,45 +28,17 @@ class CartNdOfferViewModel : ViewModel() {
     var deliveryLat = MutableLiveData<String>()
     var deliveryLong = MutableLiveData<String>()
     var deliveryNote = MutableLiveData<String>()
-    var cartItemList: MutableLiveData<Any> = MutableLiveData()
-
-    fun getCartItems(token: String, itemId: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
-            .getItemCart(
-                token,
-                itemId
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type =
-                        object : TypeToken<CommonResponseModel<ArrayList<CartDetail>>>() {}.type
-                    cartItemList.value = Gson().fromJson(result as JsonElement, type)
-                } else {
-                    cartItemList.value = result
-                }
-            }
-    }
-
-
+    var cartItemList = MutableLiveData<Any>()
+    var addCartRes = MutableLiveData<Any>()
     var offerModel = MutableLiveData<OfferModel>()
-
-    fun select(item: OfferModel) {
-        offerModel.value = item
-    }
-
-    fun getSelected(): OfferModel? {
-        return offerModel.value
-    }
+    var responsePlaceOrder = MutableLiveData<Any>()
+    var responseScheduleOrder = MutableLiveData<Any>()
+    var offersListRes = MutableLiveData<Any>()
 
     init {
         promoId.value = "0"
         deliveryNote.value = ""
     }
-
-    var responsePlaceOrder = MutableLiveData<Any>()
-    var responseScheduleOrder = MutableLiveData<Any>()
-    var offersListRes: MutableLiveData<Any> = MutableLiveData()
 
     fun viewCart(token: String, lat: String, lng: String) {
         isLoading.value = true
@@ -74,15 +48,12 @@ class CartNdOfferViewModel : ViewModel() {
                 if (success) {
                     try {
                         val type = object : TypeToken<CommonResponseModel<CartDataModel>>() {}.type
-                        responseCart.value =
-                            Gson().fromJson(
-                                result as JsonElement, type
-                            )
-
+                        responseCart.value = Gson().fromJson(
+                            result as JsonElement, type
+                        )
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
-
                 } else {
                     responseCart.value = result
                 }
@@ -90,6 +61,10 @@ class CartNdOfferViewModel : ViewModel() {
     }
 
     fun placeOrderNow(cartType: String) {
+        if (promoId.value == null) {
+            promoId.value = ""
+        }
+
         val cartData = cartData.value
         isLoading.value = true
         ApiRepo.getInstance()
@@ -109,7 +84,6 @@ class CartNdOfferViewModel : ViewModel() {
                 delivery_long = deliveryLong.value.toString(),
                 delivery_note = deliveryNote.value.toString(),
                 carttype = cartType
-
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
@@ -127,6 +101,9 @@ class CartNdOfferViewModel : ViewModel() {
 
     fun scheduleOrderNow(cartType: String, time: String, note: String) {
         val cartData = cartData.value
+        if (promoId.value == null) {
+            promoId.value = ""
+        }
         isLoading.value = true
         ApiRepo.getInstance()
             .scheduleOrder(
@@ -159,11 +136,6 @@ class CartNdOfferViewModel : ViewModel() {
                     responseScheduleOrder.value = result
                 }
             }
-    }
-
-
-    fun isFrench(): Boolean {
-        return GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
     }
 
     fun getOffers(restId: String) {
@@ -211,11 +183,31 @@ class CartNdOfferViewModel : ViewModel() {
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
                 }
             }
+    }
 
-
+    fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
+        if (token.value.toString().isNotBlank()) {
+            isLoading.value = true
+            ApiRepo.getInstance()
+                .addItemToCart(
+                    token = token.value.toString(),
+                    restaurantId = restaurantId,
+                    itemId = itemId,
+                    price = price,
+                    quantity = quantity,
+                    itemChoices = ""
+                ) { success, result ->
+                    isLoading.value = false
+                    if (success) {
+                        val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
+                        addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                    }
+                }
+        }
     }
 
     fun updateType(restaurantId: String, type: String, token: String) {
@@ -237,5 +229,46 @@ class CartNdOfferViewModel : ViewModel() {
     }
 
 
+    fun destroy(activity: MainActivity) {
+        isLoading.value = false
+        responseCart.value = null
+        responseClearCart.value = null
+        cartData.value = null
+        token.value = null
+        promoId.value = null
+        paymentMode.value = null
+        clientToken.value = null
+        reference.value = null
+        deliveryAddress.value = null
+        deliveryLat.value = null
+        deliveryLong.value = null
+        deliveryNote.value = null
+        cartItemList.value = null
+        addCartRes.value = null
+        offerModel.value = null
+        responsePlaceOrder.value = null
+        responseScheduleOrder.value = null
+        offersListRes.value = null
+
+        isLoading.removeObservers(activity)
+        responseCart.removeObservers(activity)
+        responseClearCart.removeObservers(activity)
+        cartData.removeObservers(activity)
+        token.removeObservers(activity)
+        promoId.removeObservers(activity)
+        paymentMode.removeObservers(activity)
+        clientToken.removeObservers(activity)
+        reference.removeObservers(activity)
+        deliveryAddress.removeObservers(activity)
+        deliveryLat.removeObservers(activity)
+        deliveryLong.removeObservers(activity)
+        deliveryNote.removeObservers(activity)
+        cartItemList.removeObservers(activity)
+        addCartRes.removeObservers(activity)
+        offerModel.removeObservers(activity)
+        responsePlaceOrder.removeObservers(activity)
+        responseScheduleOrder.removeObservers(activity)
+        offersListRes.removeObservers(activity)
+    }
 
 }

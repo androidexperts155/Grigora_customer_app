@@ -193,6 +193,7 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
+        
     </fragment>
     <fragment
         
@@ -689,6 +690,26 @@
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_notifications_to_orderDetails"
+            app:destination="@id/orderDetailsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_notifications_to_transferMoney"
+            app:destination="@id/transferMoney"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+        <action
+            android:id="@+id/action_notifications_to_purchasedCards"
+            app:destination="@id/purchasedCards"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        
     </fragment>
     <fragment
         android:id="@+id/referAndEarn"

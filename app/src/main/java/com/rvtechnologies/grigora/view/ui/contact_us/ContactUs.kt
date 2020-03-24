@@ -1,16 +1,25 @@
 package com.rvtechnologies.grigora.view.ui.contact_us
 
-import androidx.lifecycle.ViewModelProviders
+import android.Manifest
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
+import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-
+import com.google.zxing.integration.android.IntentIntegrator
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ContactUsFragmentBinding
 import com.rvtechnologies.grigora.model.FaqModel
@@ -24,6 +33,7 @@ import com.rvtechnologies.grigora.view.ui.contact_us.adapter.FaqAdapter
 import com.rvtechnologies.grigora.view.ui.notifications.Notification
 import com.rvtechnologies.grigora.view_model.ContactUsViewModel
 import kotlinx.android.synthetic.main.contact_us_fragment.*
+
 
 class ContactUs : Fragment() {
     private lateinit var viewModel: ContactUsViewModel
@@ -121,6 +131,35 @@ class ContactUs : Fragment() {
             )
             view?.findNavController()?.navigate(R.id.action_contactUs_to_all_chat, bundle)
         }
+    }
+
+    fun call(){
+        Dexter.withActivity(activity)
+            .withPermission(Manifest.permission.CALL_PHONE)
+            .withListener(object : PermissionListener {
+                override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "09010669160"))
+                    startActivity(intent)
+                }
+
+                override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permission: PermissionRequest,
+                    token: PermissionToken
+                ) {
+
+                }
+            }).check()
+
+
+
+    }
+    fun email(){
+        val email = Intent(Intent.ACTION_SENDTO)
+        email.setData(Uri.parse("mailto:support@grigora.net"));
+        startActivity(email)
     }
 
     fun i2() {

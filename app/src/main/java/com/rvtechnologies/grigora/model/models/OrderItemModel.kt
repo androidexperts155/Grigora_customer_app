@@ -121,6 +121,7 @@ data class OrderItemModel(
     @SerializedName("is_restaurant_rated")
     var is_restaurant_rated: String = "",
 
+
      var isReorder: Boolean= false,
 
 
@@ -138,6 +139,7 @@ data class OrderItemModel(
     var userPhone: String = "",
     var idToShow: String,
     var is_rated: Boolean = false,
+    var is_already_rated: Boolean = false,
     var status: String = "",
     var rating:Float= 0.0F
 

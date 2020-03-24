@@ -2,6 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     package="com.rvtechnologies.grigora">
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     
     <application
         android:name=".utils.GrigoraApp"
@@ -14,6 +15,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme.Light"
         android:usesCleartextTraffic="true">
+    
+    
         
         <provider
             android:name="com.facebook.FacebookContentProvider"
@@ -31,6 +34,7 @@
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.Light"
             android:windowSoftInputMode="adjustPan">
+    
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
                 <action android:name="android.intent.action.MAIN" />
@@ -82,6 +86,7 @@
             android:label="@string/payment"
             android:theme="@style/PaymentTheme"
             android:windowSoftInputMode="stateVisible|adjustResize">
+            
          
         
         </activity>

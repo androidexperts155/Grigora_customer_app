@@ -62,7 +62,9 @@ object ApiConstants {
     const val TABLE_BOOKING_LIST = "table-booking-list"
     const val LOGOUT = "logout"
     const val CONTACT_US = "contact-us"
-    const val SEARCH_USER = "search-user"
+    const val CHANGE_ANONOMOUS_TO_LOGIN = "change-anonymous-to-login"
+
+    const val SEARCH_USER = "search-customer"
     const val GET_VOUCHER_CODES = "get-voucher-codes"
     const val SEND_GIFT = "send-gift-card"
     const val BUY_CARD = "buy-card"

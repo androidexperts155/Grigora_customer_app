@@ -22,7 +22,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:itemCount="5"
-        tools:listitem="@layout/menu_item_view" />
+        tools:listitem="@layout/trending_menu_item_view" />
 
 
 </LinearLayout>

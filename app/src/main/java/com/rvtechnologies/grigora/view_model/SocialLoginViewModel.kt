@@ -42,5 +42,19 @@ class SocialLoginViewModel : ViewModel() {
 
     }
 
+    fun changeToLogin() {
+        isLoading.value = true
+             ApiRepo.getInstance()
+                .changeToLogin()
+                { success, result ->
+                    isLoading.value = false
+                    if (success) {
+
+                    } else {
+                    }
+                }
+
+    }
+
 
 }

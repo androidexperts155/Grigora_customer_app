@@ -20,6 +20,9 @@ data class NewDashboardModel(
     @SerializedName("notifications")
     var notifications: Boolean = false,
 
+    @SerializedName("driver_status")
+    var driverStatus: Boolean = false,
+
     @SerializedName("min_kilo_meter")
     var min_kilo_meter: String = "",
     @SerializedName("is_cart")
@@ -316,6 +319,6 @@ data class NewDashboardModel(
         @SerializedName("updated_at")
         var updatedAt: String = "",
         @SerializedName("user_id")
-        var userId: Int = 0
+        var userId: String = ""
     )
 }
