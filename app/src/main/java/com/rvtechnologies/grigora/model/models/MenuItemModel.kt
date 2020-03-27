@@ -139,6 +139,6 @@ data class MenuItemModel(
         val price: String,
         val quantity: Int,
         val updated_at: String,
-        val user_id: Int
+        val user_id: String
     ) : Parcelable
 }

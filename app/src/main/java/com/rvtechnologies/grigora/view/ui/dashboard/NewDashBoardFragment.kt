@@ -19,10 +19,7 @@ import com.rvtechnologies.grigora.model.SelectedRating
 import com.rvtechnologies.grigora.model.ViewMore
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
-import com.rvtechnologies.grigora.utils.AppConstants
-import com.rvtechnologies.grigora.utils.CommonUtils
-import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-import com.rvtechnologies.grigora.utils.PrefConstants
+import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.dashboard.adapter.DashboardAdapter
 import com.rvtechnologies.grigora.view_model.NewDashBoardViewModel
@@ -46,6 +43,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(NewDashBoardViewModel::class.java)
+        GrigoraApp.getInstance().updateToken()
 
         viewModel.isLoading.observe(this, Observer { it ->
             if (it) {
@@ -66,8 +64,22 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
 
                 newDashboardModel = response.data as NewDashboardModel
+
                 AppConstants.base_delivery_fee = newDashboardModel.base_delivery_fee
                 AppConstants.min_kilo_meter = newDashboardModel.min_kilo_meter
+
+                CommonUtils.savePrefs(
+                    context,
+                    PrefConstants.BASE_DELIVERY_FEE,
+                    AppConstants.base_delivery_fee
+                )
+                CommonUtils.savePrefs(
+                    context,
+                    PrefConstants.MIN_KILO_METER,
+                    AppConstants.min_kilo_meter
+                )
+
+
                 if (newDashboardModel.allRestaurants.size == 0) {
                     li_data.visibility = View.GONE
                     li_not_delivering.visibility = View.VISIBLE
@@ -227,7 +239,16 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 //                    applyFilter("filter_id", "0")
             }
         } else if (item is NewDashboardModel.Promo) {
+            val bundle = bundleOf(
+                AppConstants.FILTER_ID to item.id.toString(),
+                AppConstants.FOR_PROMO to true,
+                AppConstants.TITLE to item.name
+            )
 
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_dashBoardFragment_fragment_to_commonViewAll, bundle
+                )
         } else if (item is NewDashboardModel.Cuisine) {
             if (!item.selected)
                 applyCuisineFilter("cuisine_id", item.id.toString())
@@ -425,6 +446,5 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     private fun applyCuisineFilter(key: String, value: String) {
         map[key] = value
         viewModel.getDashboardData(map)
-
     }
 }

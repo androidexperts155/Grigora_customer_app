@@ -147,7 +147,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             var alertDialog: AlertDialog? = null
 
             val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-            if (activity is MainActivity && !(activity as MainActivity).isDestroyed && alertDialog == null) {
+             if (activity is MainActivity && !(activity as MainActivity).isDestroyed && alertDialog == null) {
                 val inflater = (activity as MainActivity).layoutInflater
                 val dialogView = inflater.inflate(R.layout.existing_cart_dialog, null)
                 dialogBuilder?.setView(dialogView)
@@ -356,7 +356,6 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-
             var distance = CommonUtils.calculateDistance(
                 restaurantDetailModel.latitude.toDouble(),
                 restaurantDetailModel.longitude.toDouble(),
@@ -364,11 +363,27 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
                 CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
             )
 
-
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
-            tv_pickup_desc.visibility = View.GONE
+            tv_pickup_desc.visibility = View.VISIBLE
+
+            tv_pickup_desc.visibility = View.VISIBLE
+
+
+            var color: String = if (CommonUtils.isDarkMode()) "#ffffff" else "#262626"
+//            val address = getColoredSpanned(restaurantDetailModel.address + ". ", "#D01110")
+//            val info = getColoredSpanned(getString(R.string.pick_order_info), color)
+            val distanceM = getColoredSpanned(
+                "${CommonUtils.getRoundedOff(
+                    distance.toDouble()
+                )} " + getString(
+                    R.string.km_away
+                ), color
+            )
+
+            tv_pickup_desc.text = Html.fromHtml(distanceM)
+
 
             var t = restaurantDetailModel.estimated_preparing_time.toInt() + (distance * 2)
 
@@ -429,8 +444,6 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
             )
 
             tv_pickup_desc.text = Html.fromHtml(info + " " + address + " " + distanceM)
-
-
 
 
             val hours: Int =
@@ -549,7 +562,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
     fun toReviews() {
         val bundle = bundleOf(AppConstants.RESTAURANT_ID to viewModel.id.value)
         view?.findNavController()
-            ?.navigate(R.id.action_restaurantDetailsFragment_to_reviewsFragment, bundle)
+            ?.navigate(R.id.action_restaurantDetailGroup_to_reviewsFragment, bundle)
     }
 
     private fun showLoginAlert(activity: MainActivity?) {
@@ -805,7 +818,7 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         menuItemModel.isForGroupCart = true
         menuItemModel.cartId = viewModel.cartId.value.toString()
 
-        viewModel.getCartItems(viewModel.token.value!!, model.id.toString())
+        viewModel.getCartItems(model.cartId, model.id.toString())
     }
 
     override fun dialogAdd(position: Int) {
@@ -936,6 +949,8 @@ class RestaurantDetailGroup : Fragment(), QuantityClicks,
         } else
             (activity as MainActivity).showLoginAlert()
     }
+
+
 }
 
 

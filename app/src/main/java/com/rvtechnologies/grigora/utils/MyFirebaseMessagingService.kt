@@ -52,43 +52,55 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
     }
 
     internal fun showNotificationMessage(remoteMessage: RemoteMessage) {
-        var destinationId = 0
+        var destinationId = R.id.dashBoardFragment
         var args: Bundle? = null
 
-
-        Log.d("notification_data", remoteMessage.data.get("data"))
-        Log.d("sendby", remoteMessage.data.get("sendby"))
-        Log.d("body", remoteMessage.data.get("body"))
+        try {
+            Log.d("FULL_NOTIFICATION_DATA", remoteMessage.data.toString())
+        } catch (e: Exception) {
+            Log.e("NOTIFICATION_DATA_EXC", e.message)
+        }
 
         try {
             var notificationType =
                 Gson().fromJson(remoteMessage.data.get("data"), NotificationDataModel::class.java)
 
-//        0=>Waiting for confirmation
-//        2=>accepted by restaurant,
-//        3=>driver assigned,
-//        9=>restaurant starts preparing  get time from notification
-//        7=> order is almost ready,   stop prepation time/nill
-//        4=>out of delivery,  get driver time
-//        5=> deliverd,   stop driver time
-//        1=> schedule order ,
-//        6=>rejected by restaurant,
-//        8=>cancelled by customer,
-//        (notification type )11=> show elapsed time and reset counter
+// Paid $amount to $otherUserName: 15
+// $userName sent you $amount.: 16
+// $amount Added to your wallet(cancel order by customer) : 8
+// $amount Added to your wallet(pickup request rejeted by customer) : 18
+// amount is deducted from you wallet at the time of buy card : 20
+// amount is deducted from you wallet at the time of buy and send gift card : 21
 
-            if (notificationType.notificationType.toInt() == 15 || notificationType.notificationType.toInt() == 16 || notificationType.notificationType.toInt() == 8
+            if (notificationType.notificationType.toInt() == 15
+                || notificationType.notificationType.toInt() == 16
+                || notificationType.notificationType.toInt() == 20
+                || notificationType.notificationType.toInt() == 21
+                || notificationType.notificationType.toInt() == 8
                 || notificationType.notificationType.toInt() == 18
             ) {
                 destinationId = R.id.transferMoney
                 args = bundleOf(IS_FOR_HISTORY to true)
             }
 
+            // Restaurant Not Accepted Your Booking : 18
+// Restaurant Accepted Your Booking : 22
+            if (notificationType.notificationType.toInt() == 22 || notificationType.notificationType.toInt() == 19) {
+                destinationId = R.id.tableBookingHistory
+            }
+
+            // $userName sent you a gift card of $amount.: 17
             if (notificationType.notificationType.toInt() == 17
             ) {
                 destinationId = R.id.purchasedCards
-
             }
 
+            // Your Schedule order is placed waiting for restaurant confirmation : 1
+// Driver Is Reaching The Restaurant To Pick Up Your Order : 3
+// Your Order Is Picked From Restaurant : 4
+// Preparation time for order Id #$orderId has been increased due to some challenges. We apologize for the delay. : 11
+// Your Order is Almost Prepared : 7
+// Restaurant has started preparing the order : 9
             if (
                 notificationType.notificationType.toInt() == 0 ||
                 notificationType.notificationType.toInt() == 1 ||
@@ -167,8 +179,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             resultIntent.flags =
                 Intent.FLAG_ACTIVITY_NEW_TASK or Intent.FLAG_ACTIVITY_CLEAR_TOP or Intent.FLAG_ACTIVITY_SINGLE_TOP
 
-
             val pendingIntent: PendingIntent
+
             pendingIntent = if (args != null) {
                 NavDeepLinkBuilder(applicationContext)
                     .setGraph(R.navigation.nav_graph)
@@ -187,7 +199,6 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             inboxStyle.addLine(message)
             val notificationCompat: NotificationCompat.Builder?
             if (largeIcon != null)
-
                 notificationCompat = mBuilder
                     .setSmallIcon(icon)
                     .setLargeIcon(largeIcon)
@@ -233,145 +244,4 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             }
         }
     }
-
-    private fun playNotificationSound() {
-        try {
-            val alarmSound = Uri.parse(
-                ContentResolver.SCHEME_ANDROID_RESOURCE
-                        + "://" + applicationContext.packageName + "/raw/notification"
-            )
-            val r = RingtoneManager.getRingtone(applicationContext, alarmSound)
-            r.play()
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-
-    }
-
-    fun showNoti() {
-        val notiId = Date().time.toInt()
-        var notiChannel = "1"
-        val intent = Intent(this, MainActivity::class.java)
-        notiChannel = "4"
-        intent.putExtra("from", "notification")
-        intent.putExtra("type", "1")
-//        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
-
-        val pendingIntent =
-            PendingIntent.getActivity(
-                this,
-                System.currentTimeMillis().toInt(),
-                intent,
-                PendingIntent.FLAG_ONE_SHOT
-            )
-
-        val builder: NotificationCompat.Builder
-        builder = NotificationCompat.Builder(applicationContext, notiChannel)
-        builder.setAutoCancel(true)
-
-        builder.setSmallIcon(R.drawable.logo)
-            .setContentTitle(getString(R.string.Quiz))
-            .setSound(null)
-            .setContentText(getString(R.string.new_quiz_available)).setContentIntent(pendingIntent)
-
-        builder.setStyle(NotificationCompat.BigTextStyle())
-        val mNotificationManager =
-            this.applicationContext.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
-
-        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.O) {
-            val notificationChannel =
-                NotificationChannel(
-                    "131",
-                    "NOTIFICATION_CHANNEL_NAME",
-                    NotificationManager.IMPORTANCE_HIGH
-                )
-            notificationChannel.enableLights(true)
-            notificationChannel.lightColor = Color.RED
-
-            notificationChannel.setShowBadge(true)
-
-            assert(mNotificationManager != null)
-            builder.setChannelId("131")
-            mNotificationManager.createNotificationChannel(notificationChannel)
-            mNotificationManager.notify(notiId, builder.build())
-        } else
-            mNotificationManager.notify(notiId, builder.build())
-    }
 }
-
-/*
-
-when rest accept order
-{
-    "restaurant_image":"http:\/\/3.13.78.53\/GriGora\/public\/images\/brands\/1579176534.png",
-    "notification_type":"2",
-    "restaurant_address":"Mohali Railway Station Rd, Phase 11, Sector 65, Sahibzada Ajit Singh Nagar, Punjab, India",
-    "restaurant_lat":"30.679366",
-    "order_id":"196",
-    "restaurant_preparing_time":"3",
-    "restaurant_name":"Subway",
-    "restaurant_long":"76.7267531"
-}*/
-
-/*
-when restaurant add more time to meal
-{
-    "notification_type":"11",
-    "start_long":"76.7267531",
-    "max_per_person":null,
-    "driver_id":null,
-    "delivery_address":"127, Mohali Bypass, Phase 8, Industrial Area, Sector 73, Sahibzada Ajit Singh Nagar, Punjab 160071, India,160071,India",
-    "end_lat":"30.7130455",
-    "dispatch":"0",
-    "restaurant_id":369,
-    "created_at":"2020-03-16 10:54:52",
-    "delivery_time":null,
-    "cancel_type":null,
-    "price_before_promo":"121.00",
-    "reference":"",
-    "cart_id":253,
-    "delivery_fee":"20.00",
-    "order_status":"2",
-    "request_time":"2020-03-16T10:58:59.764767Z",
-    "updated_at":"2020-03-16 10:58:59",
-    "final_price":"141.00",
-    "start_lat":"30.679366",
-    "app_fee":10,
-    "is_schedule":"0",
-    "payment_data":"",
-    "id":196,
-    "price_after_promo":"121.00",
-    "order_accepted_time":null,
-    "order_type":"1",
-    "payment_method":"3",
-    "preparing_end_time":"2020-03-16 10:58:34",
-    "driver_fee":"20.00",
-    "notification_sent":"0",
-    "quantity":1,
-    "preparing_time":"5",
-    "promocode":"",
-    "delivery_note":null,
-    "time_remaining":null,
-    "schedule_time":null,
-    "user_id":387,
-    "end_long":"76.709415",
-    "start_address":"Mohali Railway Station Rd, Phase 11, Sector 65, Sahibzada Ajit Singh Nagar, Punjab, India",
-    "group_order":"0"
-}*/
-
-
-/*
-when order is ready to dispatch
-
-{
-    "restaurant_image":"http:\/\/3.13.78.53\/GriGora\/public\/images\/brands\/1579176534.png",
-    "notification_type":"7",
-    "restaurant_address":"Mohali Railway Station Rd, Phase 11, Sector 65, Sahibzada Ajit Singh Nagar, Punjab, India",
-    "restaurant_lat":"30.679366",
-    "order_id":196,
-    "restaurant_name":"Subway",
-    "restaurant_long":"76.7267531"
-}*/
-
-
-

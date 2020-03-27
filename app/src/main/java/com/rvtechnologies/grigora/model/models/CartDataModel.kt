@@ -18,6 +18,9 @@ data class CartDataModel(
     @SerializedName("cart_type")
     var cart_type: String?,
 
+    @SerializedName("delivery_fee")
+    var delivery_fee: String?,
+
     @SerializedName("estimated_delivery_time")
     var estimated_delivery_time: String?,
 
@@ -27,10 +30,17 @@ data class CartDataModel(
 
     @SerializedName("created_at")
     var createdAt: String?,
-    @SerializedName("delivery_fee")
-    var deliveryFee: String?,
+
+
     @SerializedName("id")
     var id: String?,
+
+    @SerializedName("restaurant_latitude")
+    var restaurant_latitude: String,
+    @SerializedName("restaurant_longitude")
+    var restaurant_longitude: String,
+
+
     @SerializedName("quantity")
     var quantity: String?,
     @SerializedName("restaurant_id")
@@ -54,13 +64,7 @@ data class CartDataModel(
     @SerializedName("busy_status")
     var busyStatus: String = "",
     @SerializedName("fullTime")
-    var fullTime: String="",
-
-
-
-
-
-
+    var fullTime: String = "",
 
 
     @SerializedName("cart_details")
@@ -69,5 +73,8 @@ data class CartDataModel(
     var cartTotal: String?,
     var cartSubTotal: String?,
     var beforePromo: Double?,
+    var discount: String = "",
+
     var afterPromo: Double?
+
 ) : Parcelable

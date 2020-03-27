@@ -38,12 +38,12 @@
             android:orientation="vertical">
             
             <ImageView
-                android:visibility="gone"
                 android:layout_width="@dimen/_120sdp"
-                android:layout_gravity="center"
                 android:layout_height="@dimen/_120sdp"
+                android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/_8sdp"
-                android:src="@drawable/logo_text_light" />
+                android:src="@drawable/logo_text_light"
+                android:visibility="gone" />
             
             <TextView
                 style="@style/mediumText"
@@ -64,12 +64,12 @@
                 android:layout_marginEnd="16dp"
                 android:background="@android:color/transparent"
                 android:inputType="textEmailAddress"
-                tools:text="amit@gmail.com"
                 android:padding="@dimen/_4sdp"
                 android:singleLine="true"
                 android:text="@={loginFragmentViewModel.email}"
                 android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                tools:text="amit@gmail.com" />
             
             <View
                 android:layout_width="match_parent"
@@ -101,11 +101,11 @@
                 android:background="@android:color/transparent"
                 android:inputType="textPassword"
                 android:padding="@dimen/_4sdp"
-                tools:text="123456"
                 android:singleLine="true"
                 android:text="@={loginFragmentViewModel.password}"
                 android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                tools:text="123456" />
             
             <View
                 android:layout_width="match_parent"

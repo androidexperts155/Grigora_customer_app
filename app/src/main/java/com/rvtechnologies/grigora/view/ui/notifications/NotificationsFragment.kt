@@ -223,7 +223,7 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
                             bundle
                         )
                 }
-                15, 16, 8, 18 -> {
+                15, 16, 8, 18, 20, 21 -> {
                     val bundle = bundleOf(
                         AppConstants.IS_FOR_HISTORY to true
                     )
@@ -238,12 +238,15 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
                     view?.findNavController()
                         ?.navigate(
                             R.id.action_notifications_to_purchasedCards
-
                         )
                 }
 
-                18, 19 -> {
+                22, 19 -> {
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_tableBokingHistory
 
+                        )
                 }
             }
 

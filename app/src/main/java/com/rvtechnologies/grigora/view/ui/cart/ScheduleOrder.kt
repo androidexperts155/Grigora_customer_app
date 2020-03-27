@@ -312,7 +312,7 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
     fun chooseTime() {
         var timePickerDialog = TimePickerDialog(
-            context!!,
+            context!!,R.style.TimePickerTheme,
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
 
@@ -338,11 +338,11 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
             Calendar.getInstance().get(Calendar.MINUTE),
             false
         )
-        timePickerDialog.show()
+         timePickerDialog.show()
     }
 
     fun changeAddress() {
-        val builder = AlertDialog.Builder(activity!!)
+        val builder = AlertDialog.Builder(activity!!,R.style.TimePickerTheme)
         //set title for alert dialog
         builder.setTitle(R.string.change_title)
         //set message for alert dialog

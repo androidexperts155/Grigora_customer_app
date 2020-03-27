@@ -8,6 +8,7 @@
         android:id="@+id/parentView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:animateLayoutChanges="true"
         android:background="?attr/backgroundColor">
         
         <RelativeLayout
@@ -98,9 +99,9 @@
                         android:layout_alignParentLeft="true"
                         android:layout_alignParentTop="true"
                         android:layout_toLeftOf="@+id/li_rating_review"
-                        android:text="Restaurant Name"
                         android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_14sdp" />
+                        android:textSize="@dimen/_14sdp"
+                        tools:text="Restaurant Name" />
                     
                     <TextView
                         android:id="@+id/tv_cuisines"
@@ -116,9 +117,9 @@
                         android:ellipsize="end"
                         android:gravity="left"
                         android:maxLines="2"
-                        android:text="North Indian, Chinese, Fast Food"
                         android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_11sdp" />
+                        android:textSize="@dimen/_11sdp"
+                        tools:text="North Indian, Chinese, Fast Food" />
                     
                     <LinearLayout
                         android:id="@+id/li_time"
@@ -147,9 +148,9 @@
                             android:ellipsize="end"
                             android:gravity="left"
                             android:maxLines="2"
-                            android:text="Deliver in 36 Minutes"
                             android:textColor="?attr/textWhite"
-                            android:textSize="@dimen/_10sdp" />
+                            android:textSize="@dimen/_10sdp"
+                            tools:text="Deliver in 36 Minutes" />
                     </LinearLayout>
                     
                     <LinearLayout
@@ -203,7 +204,7 @@
                                 style="@style/normalText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="5.0"
+                                android:text="0.0"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_8sdp" />
                             
@@ -229,7 +230,7 @@
                                 style="@style/normalText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="500"
+                                android:text="0"
                                 android:textColor="@color/textBlack"
                                 android:textSize="@dimen/_8sdp" />
                             
@@ -375,15 +376,16 @@
                         android:textSize="@dimen/_11sdp" />
                 
                 </RelativeLayout>
-    
+                
                 <TextView
-                    android:padding="@dimen/_8sdp"
                     android:id="@+id/tv_pickup_desc"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:padding="@dimen/_8sdp"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_10sdp" />
+                
                 <RelativeLayout
                     android:layout_width="wrap_content"
                     android:layout_height="?actionBarSize"
@@ -509,8 +511,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/_10sdp"
-                    android:visibility="gone"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
                     
                     <RelativeLayout
                         android:layout_width="match_parent"

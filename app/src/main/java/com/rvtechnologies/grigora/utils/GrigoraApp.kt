@@ -44,6 +44,16 @@ class GrigoraApp : Application() {
 
         PaystackSdk.initialize(applicationContext)
         FirebaseMessaging.getInstance().isAutoInitEnabled = true
+
+        updateToken()
+        val fabric = Fabric.Builder(this)
+            .kits(Crashlytics())
+            .debuggable(true) // Enables Crashlytics debugger
+            .build()
+        Fabric.with(fabric)
+    }
+
+    fun updateToken() {
         FirebaseInstanceId.getInstance().instanceId
             .addOnCompleteListener(OnCompleteListener { task ->
                 if (!task.isSuccessful) {
@@ -54,12 +64,12 @@ class GrigoraApp : Application() {
                 val token = task.result?.token
 
                 ApiClient.getClient().updateFirebaseToken(
-                    token = CommonUtils.getPrefValue(
-                        applicationContext,
-                        PrefConstants.TOKEN
-                    ), deviceType = "0", deviceToken = token!!, deviceId = device_id()
+                        token = CommonUtils.getPrefValue(
+                            activity?.baseContext,
+                            PrefConstants.TOKEN
+                        ), deviceType = "0", deviceToken = token!!, deviceId = CommonUtils.getDeviceId()
 
-                )
+                    )
                     .enqueue(object : Callback<JsonElement> {
                         override fun onResponse(
                             call: Call<JsonElement>?,
@@ -78,12 +88,6 @@ class GrigoraApp : Application() {
                     })
 
             })
-
-        val fabric = Fabric.Builder(this)
-            .kits(Crashlytics())
-            .debuggable(true) // Enables Crashlytics debugger
-            .build()
-        Fabric.with(fabric)
     }
 
     var activity: Activity? = null
@@ -132,19 +136,19 @@ class GrigoraApp : Application() {
 
         Log.e(
             "device_id", Settings.Secure.getString(
-                applicationContext.getContentResolver(),
+                activity?.baseContext?.getContentResolver(),
                 Settings.Secure.ANDROID_ID
             )
         )
         return Settings.Secure.getString(
-            applicationContext.getContentResolver(),
+            activity?.baseContext?.getContentResolver(),
             Settings.Secure.ANDROID_ID
         )
 
     }
 
-    fun isLogin(context: Context): Boolean{
-        return  !CommonUtils.getPrefValue(context,PrefConstants.TOKEN).isNullOrEmpty()
+    fun isLogin(context: Context): Boolean {
+        return !CommonUtils.getPrefValue(context, PrefConstants.TOKEN).isNullOrEmpty()
     }
 
 

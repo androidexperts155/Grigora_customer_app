@@ -52,7 +52,7 @@ class MenuItemDetailsViewModel : ViewModel() {
     }
 
     fun addItemToCart() {
-        if (!cartId.value.toString().isNullOrEmpty()) {
+        if (cartId.value.isNullOrEmpty()) {
 
                 val choices = ArrayList<ItemChoicesModel>()
                 try {

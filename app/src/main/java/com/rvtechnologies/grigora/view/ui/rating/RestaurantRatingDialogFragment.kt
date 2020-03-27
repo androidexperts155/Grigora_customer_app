@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.view.ui.rating
 
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -15,6 +16,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_reatsurant_rating_dialog.*
 
@@ -25,9 +27,10 @@ class RestaurantRatingDialogFragment(
     val orderItemModel: OrderItemModel,
     val restaurantRate: RestaurantRate
 ) : DialogFragment() {
-var review=""
-    var goodReview=""
+    var review = ""
+    var goodReview = ""
     var cList = ArrayList<TextView>()
+    var selectedView: TextView? = null
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -63,10 +66,16 @@ var review=""
         }
 
         bt_rate_now.setOnClickListener {
-            restaurantRate.onrestaurantRateSubmit(rt_rating.rating,goodReview,ed_review.text.toString(), orderItemModel)
+            restaurantRate.onrestaurantRateSubmit(
+                rt_rating.rating,
+                goodReview,
+                ed_review.text.toString(),
+                orderItemModel
+            )
             this.dismiss()
         }
     }
+
     private fun initList() {
         cList.add(c1)
         cList.add(c2)
@@ -82,36 +91,58 @@ var review=""
         c4.setOnClickListener { selectC(c4) }
     }
 
-
     fun selectC(view: TextView) {
-        goodReview=view.text.toString()
+
         for (item in cList) {
             if (item.id == view.id) {
-                item.setBackgroundResource(R.drawable.chip_selected_bg)
-                item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+//                selected again
+                if (selectedView != null && selectedView == view) {
+                    selectedView = null
+                    goodReview = ""
+                    item.setBackgroundResource(R.drawable.chip_deselected_bg)
+                    if (CommonUtils.isDarkMode())
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    else
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                } else {
+                    goodReview = view.text.toString()
+                    item.setBackgroundResource(R.drawable.chip_selected_bg)
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    selectedView = view
+                }
+
             } else {
                 item.setBackgroundResource(R.drawable.chip_deselected_bg)
                 if (CommonUtils.isDarkMode())
                     item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                 else
                     item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-
             }
         }
     }
 
-    override fun onResume() {
-        super.onResume()
-        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
-    }
 
     interface RestaurantRate {
-        fun onrestaurantRateSubmit(rating: Float, goodReview: String,
-                                   badReview: String, orderItemModel: OrderItemModel)
+        fun onrestaurantRateSubmit(
+            rating: Float, goodReview: String,
+            badReview: String, orderItemModel: OrderItemModel
+        )
+
         fun onRateRestaurantCancel(orderItemModel: OrderItemModel)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        var displayMetrics = DisplayMetrics()
+        (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        var width = (displayMetrics.widthPixels - (displayMetrics.widthPixels / 9))
+
+
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = width
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }
 
 }

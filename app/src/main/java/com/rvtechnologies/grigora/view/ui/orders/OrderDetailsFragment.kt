@@ -1,11 +1,16 @@
 package com.rvtechnologies.grigora.view.ui.orders
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
 import android.content.IntentFilter
 import android.graphics.*
+import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
+import android.location.Location
+import android.net.Uri
+import android.os.AsyncTask
 import android.os.Bundle
 import android.os.CountDownTimer
 import android.os.Handler
@@ -34,10 +39,17 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.*
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.gson.Gson
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.single.PermissionListener
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.RoutesModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.OrderItemModel
+import com.rvtechnologies.grigora.network.AnimateMarker
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.utils.AppConstants.MESSAGE
 import com.rvtechnologies.grigora.utils.AppConstants.NOTIFICATION_TYPE
@@ -46,14 +58,27 @@ import com.rvtechnologies.grigora.utils.AppConstants.PREPARING_TIME_RESTAURANT
 import com.rvtechnologies.grigora.utils.AppConstants.TYPE
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.orders.adapter.OrderItemAdapter
+import com.rvtechnologies.grigora.view.ui.orders.order_denied.OrderDeniedFragment
+import com.rvtechnologies.grigora.view.ui.orders.order_denied.OrderDeniedRiderNotAvailable
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view_model.OrderDetailsViewModel
 import com.squareup.picasso.Picasso
 import com.squareup.picasso.Picasso.LoadedFrom
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.custom_map_icon.view.*
 import kotlinx.android.synthetic.main.order_details_fragment.*
+import org.json.JSONArray
+import org.json.JSONException
+import org.json.JSONObject
+import java.io.BufferedReader
+import java.io.IOException
+import java.io.InputStream
+import java.io.InputStreamReader
+import java.net.HttpURLConnection
 import java.net.URISyntaxException
+import java.net.URL
 import kotlin.random.Random
+
 
 class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFragment.DriverRate,
     IRecyclerItemClick {
@@ -73,6 +98,10 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     var DRIVER_TAG = "driver"
     var RESTAURANT_TAG = "restaurant"
     var MINE_TAG = "mine"
+    var driverMarker: Marker? = null
+    var animateMarker: AnimateMarker? = null
+    var listOfMarker = ArrayList<Marker>()
+
 
     companion object {
         fun newInstance() = OrderDetailsFragment()
@@ -98,6 +127,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        animateMarker = AnimateMarker()
+        animateMarker!!.driverMarkerAnimFinished = true
+
         viewModel = ViewModelProviders.of(this).get(OrderDetailsViewModel::class.java)
         viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
@@ -169,7 +201,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         viewModel.driverUpdateRes.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 var data = response.data as OrderItemModel
+                orderItemModel = data
                 if (data.driverId != null) {
+                    updateOwnLocation()
                     viewModel.getEstimatedTime(
                         "${CommonUtils.getPrefValue(
                             context!!,
@@ -185,8 +219,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         viewModel.driver.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 var data = response.data as OrderItemModel
+                orderItemModel = data
                 setDriverMarker()
                 handleResponse(orderItemModel!!)
+
+                if (orderItemModel?.orderStatus == 4) {
+                    startGettingDriverUpdates()
+                }
             }
         })
 
@@ -212,7 +251,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     .into(img_driver)
 
 
-                updateTimer(response.routes[0].legs[0].duration.value / 60 / 60)
+                updateTimer(response.routes[0].legs[0].duration.value)
             }
         })
     }
@@ -269,6 +308,16 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             viewModel.completeOrder()
         }
 
+
+        li_driver.setOnClickListener {
+            if (isPickUp) {
+                if (!orderItemModel?.restaurantPhone.isNullOrEmpty())
+                    call(orderItemModel?.restaurantPhone!!)
+            } else {
+                if (!orderItemModel?.driverPhone.isNullOrEmpty())
+                    call(orderItemModel?.driverPhone!!)
+            }
+        }
     }
 
     override fun onResume() {
@@ -323,6 +372,11 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(getString(R.string.order))
             (activity as MainActivity).lockDrawer(true)
+
+            (activity as MainActivity).img_back.setOnClickListener {
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.ordersFragment)
+            }
         }
         stop = false
     }
@@ -510,6 +564,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     img_6.setImageResource(R.drawable.ic_motorcycle_grey)
                 }
                 2 -> {
+                    showDirections()
 //                    accepted by restaurant
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(deActivatedColor)
@@ -525,10 +580,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     img_2.startAnimation(anim)
                 }
                 3 -> {
+                    showDirections()
                     //        3=>driver assigned,
                     viewModel.getDriver()
                 }
                 9 -> {
+                    showDirections()
+
 //                    restaurant starts preparing
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
@@ -545,6 +603,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
                 }
                 4 -> {
+                    showDirections()
+
                     //    4 -> "Order picked up by driver,order is now its way to you"
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
@@ -561,13 +621,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     var anim = AnimationUtils.loadAnimation(context!!, R.anim.shakeanimation)
 
                     img_6.startAnimation(anim)
-                    startGettingDriverUpdates()
-//                 TODO add latlng check here, when live status change    also make small icon or driver on map
-                    if (orderItemModel?.driverId != null) {
+                    if (orderItemModel?.driverId == null) {
                         viewModel.getDriver()
-                    } else setDriverMarker()
+                    } else {
+                        setDriverMarker()
+                        startGettingDriverUpdates()
+                    }
                 }
                 5 -> {
+
 //    5 -> "Order completed Delivered by " + orderModel.driverName
                     if (isPickUp) {
                         var congDialog = CongDialog(this)
@@ -579,10 +641,27 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 }
                 6 -> {
                     //    6 -> "Rejected by Restaurant"
-                    var deniedFragment = OrderDeniedFragment(type, message, this)
-                    deniedFragment.show(childFragmentManager, "")
+                    if (type == 4) {
+                        var deniedFragment =
+                            OrderDeniedRiderNotAvailable(
+                                this
+                            )
+                        deniedFragment.show(childFragmentManager, "")
+                    } else {
+                        var deniedFragment =
+                            OrderDeniedFragment(
+                                type,
+                                message,
+                                this
+                            )
+                        deniedFragment.show(childFragmentManager, "")
+                    }
+
+
                 }
                 7 -> {
+                    showDirections()
+
 //    7 -> "Order is ready"
                     tv_2.setTextColor(activatedColor)
                     tv_3.setTextColor(activatedColor)
@@ -610,8 +689,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                         .postDelayed({
                             img_5.startAnimation(anim)
                         }, random)
-
-
                 }
                 8 -> {
 //    8 -> "Order cancelled by use"
@@ -723,22 +800,151 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     }
 
+    var time = 5000.toLong()
     private fun startGettingDriverUpdates() {
+
         Handler().postDelayed({
             viewModel.getDriverDetails()
             startGettingDriverUpdates()
-        }, 4000)
+            time = 30000
+        }, time)
     }
 
     private fun setDriverMarker() {
         val latLng =
             LatLng(orderItemModel?.driverLat!!.toDouble(), orderItemModel?.driverLong!!.toDouble())
-        loadMarkerImage(latLng, R.drawable.driver_d, DRIVER_TAG)
+        if (driverMarker == null) {
+            val height: Int = resources.getDimension(R.dimen._40sdp).toInt()
+            val width: Int = resources.getDimension(R.dimen._40sdp).toInt()
+            val b = (activity!!.resources
+                .getDrawable(R.drawable.driver_d) as BitmapDrawable).bitmap
+
+            val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
+            val markerOptions_driver = MarkerOptions()
+            markerOptions_driver.position(latLng)
+            markerOptions_driver.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                .anchor(0.5f, 0.5f).flat(true)
+            driverMarker = mMap!!.addMarker(markerOptions_driver)
+        }
+    }
+
+
+    fun updateOwnLocation() {
+        var myLocation =
+            LatLng(orderItemModel?.driverLat!!.toDouble(), orderItemModel?.driverLong!!.toDouble())
+        if (driverMarker == null) {
+            setDriverMarker()
+            listOfMarker.add(0, driverMarker!!)
+        }
+        var rotation = if (driverMarker == null) 0.0F else driverMarker!!.getRotation()
+        if (animateMarker!!.currentLng != null) {
+            rotation =
+                animateMarker!!.bearingBetweenLocations(animateMarker!!.currentLng, myLocation)
+                    .toFloat()
+        } else {
+            rotation = animateMarker!!.bearingBetweenLocations(myLocation, myLocation).toFloat()
+        }
+        updateCarMarker(myLocation, driverMarker, rotation, "45")
+    }
+
+    fun updateCarMarker(newLocation: LatLng, marker: Marker?, rotation: Float, driverId: String) {
+        val previousItemOfMarker = animateMarker!!.getLastLocationDataOfMarker(marker)
+        val data_map = HashMap<String, String>()
+        data_map["vLatitude"] = "" + newLocation.latitude
+        data_map["vLongitude"] = "" + newLocation.longitude
+        data_map["iDriverId"] = "" + driverId
+        data_map["RotationAngle"] = "" + rotation
+        data_map["LocTime"] = "" + System.currentTimeMillis()
+        val location = Location("marker")
+        location.latitude = newLocation.latitude
+        location.longitude = newLocation.longitude
+        if (animateMarker!!.toPositionLat["" + newLocation.latitude] == null && animateMarker!!.toPositionLat["" + newLocation.longitude] == null) {
+            if (previousItemOfMarker["LocTime"] != null && previousItemOfMarker["LocTime"] != "") {
+                val previousLocTime = parseLongValue(0, previousItemOfMarker["LocTime"]!!)
+                val newLocTime = parseLongValue(0, data_map["LocTime"]!!)
+                if (previousLocTime != 0L && newLocTime != 0L) {
+                    if (newLocTime - previousLocTime > 0 && animateMarker!!.driverMarkerAnimFinished === false) {
+                        animateMarker!!.addToListAndStartNext(
+                            marker,
+                            this.mMap,
+                            location,
+                            rotation,
+                            1200F,
+                            driverId,
+                            data_map["LocTime"]
+                        )
+                    } else if (newLocTime - previousLocTime > 0) {
+                        animateMarker!!.animateMarker(
+                            marker,
+                            this.mMap,
+                            location,
+                            rotation,
+                            1200F,
+                            driverId,
+                            data_map["LocTime"]
+                        )
+                    }
+                } else if ((previousLocTime == 0L || newLocTime == 0L) && animateMarker!!.driverMarkerAnimFinished === false) {
+                    animateMarker!!.addToListAndStartNext(
+                        marker,
+                        this.mMap,
+                        location,
+                        rotation,
+                        1200F,
+                        driverId,
+                        data_map["LocTime"]
+                    )
+                } else {
+                    animateMarker!!.animateMarker(
+                        marker,
+                        this.mMap,
+                        location,
+                        rotation,
+                        1200F,
+                        driverId,
+                        data_map["LocTime"]
+                    )
+                }
+            } else if (animateMarker!!.driverMarkerAnimFinished === false) {
+                animateMarker!!.addToListAndStartNext(
+                    marker,
+                    this.mMap,
+                    location,
+                    rotation,
+                    1200F,
+                    driverId,
+                    data_map["LocTime"]
+                )
+            } else {
+                animateMarker!!.animateMarker(
+                    marker,
+                    this.mMap,
+                    location,
+                    rotation,
+                    1200F,
+                    driverId,
+                    data_map["LocTime"]
+                )
+            }
+        }
+    }
+
+    fun parseLongValue(defaultValue: Long, strValue: String): Long {
+        return try {
+            strValue.toLong()
+        } catch (e: java.lang.Exception) {
+            defaultValue
+        }
     }
 
     private fun setMineImage() {
         val latLng =
             LatLng(orderItemModel?.endLat!!.toDouble(), orderItemModel?.endLong!!.toDouble())
+
+        mMap!!.moveCamera(CameraUpdateFactory.newLatLng(latLng))
+        mMap!!.animateCamera(CameraUpdateFactory.zoomTo(11f))
+
+
         if (!CommonUtils.getPrefValue(context!!, PrefConstants.IMAGE).isNullOrEmpty())
             loadMarkerImage(
                 latLng,
@@ -872,5 +1078,268 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         return output
     }
 
+    fun call(number: String) {
+        if (!number.isNullOrEmpty())
+            Dexter.withActivity(activity)
+                .withPermission(Manifest.permission.CALL_PHONE)
+                .withListener(object : PermissionListener {
+                    override fun onPermissionGranted(response: PermissionGrantedResponse) {
+                        val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + number))
+                        startActivity(intent)
+                    }
+
+                    override fun onPermissionDenied(response: PermissionDeniedResponse) {
+                    }
+
+                    override fun onPermissionRationaleShouldBeShown(
+                        permission: PermissionRequest,
+                        token: PermissionToken
+                    ) {
+
+                    }
+                }).check()
+    }
+
+
+    // Fetches data from url passed
+    private inner class FetchUrl : AsyncTask<String, Void, String>() {
+
+        override fun doInBackground(vararg url: String): String {
+
+            // For storing data from web service
+            var data = ""
+
+            try {
+                // Fetching the data from web service
+                data = downloadUrl(url[0])
+                Log.d("Background Task data", data)
+            } catch (e: Exception) {
+                Log.d("Background Task", e.toString())
+            }
+
+            return data
+        }
+
+        override fun onPostExecute(result: String) {
+            super.onPostExecute(result)
+
+            val parserTask = ParserTask()
+            // Invokes the thread for parsing the JSON data
+            parserTask.execute(result)
+
+        }
+    }
+
+    private inner class ParserTask : AsyncTask<String, Int, List<List<HashMap<String, String>>>>() {
+
+        // Parsing the data in non-ui thread
+        override fun doInBackground(vararg jsonData: String): List<List<HashMap<String, String>>>? {
+
+            val jObject: JSONObject
+            var routes: List<List<HashMap<String, String>>>? = null
+
+            try {
+                jObject = JSONObject(jsonData[0])
+                Log.d("ParserTask", jsonData[0])
+                val parser = DataParser()
+                Log.d("ParserTask", parser.toString())
+
+                // Starts parsing data
+                routes = parser.parse(jObject)
+                Log.d("ParserTask", "Executing routes")
+                Log.d("ParserTask", routes!!.toString())
+
+            } catch (e: Exception) {
+                Log.d("ParserTask", e.toString())
+                e.printStackTrace()
+            }
+
+            return routes
+        }
+
+        // Executes in UI thread, after the parsing process
+        override fun onPostExecute(result: List<List<HashMap<String, String>>>) {
+            var points: ArrayList<LatLng>
+            var lineOptions: PolylineOptions? = null
+            // Traversing through all the routes
+            for (i in result.indices) {
+                points = ArrayList()
+                lineOptions = PolylineOptions()
+                // Fetching i-th route
+                val path = result[i]
+                // Fetching all the points in i-th route
+                for (j in path.indices) {
+                    val point = path[j]
+                    val lat = java.lang.Double.parseDouble(point["lat"]!!)
+                    val lng = java.lang.Double.parseDouble(point["lng"]!!)
+                    val position = LatLng(lat, lng)
+                    points.add(position)
+                }
+                // Adding all the points in the route to LineOptions
+                lineOptions.addAll(points)
+                lineOptions.width(12f)
+                lineOptions.color(Color.DKGRAY)
+                Log.d("onPostExecute", "onPostExecute lineoptions decoded")
+            }
+
+            // Drawing polyline in the Google Map for the i-th route
+            if (lineOptions != null) {
+                mMap!!.addPolyline(lineOptions)
+            } else {
+                Log.d("onPostExecute", "without Polylines drawn")
+            }
+        }
+    }
+
+    @Throws(IOException::class)
+    private fun downloadUrl(strUrl: String): String {
+        var data = ""
+        var iStream: InputStream? = null
+        var urlConnection: HttpURLConnection? = null
+        try {
+            val url = URL(strUrl)
+            // Creating an http connection to communicate with url
+            urlConnection = url.openConnection() as HttpURLConnection
+            // Connecting to url
+            urlConnection!!.connect()
+            // Reading data from url
+            iStream = urlConnection!!.getInputStream()
+            val br = BufferedReader(InputStreamReader(iStream))
+            val sb = StringBuffer()
+            var line: String? = ""
+            while (line != null) {
+                try {
+                    line = br.readLine()
+                    sb.append(line)
+                } catch (e: java.lang.Exception) {
+                    line = null
+                    Log.e("Exp", "HEHHEHEHE")
+                }
+            }
+
+            data = sb.toString()
+            Log.d("downloadUrl", data)
+            br.close()
+
+        } catch (e: Exception) {
+            Log.d("Exception", e.toString())
+        } finally {
+            iStream!!.close()
+            urlConnection!!.disconnect()
+        }
+        return data
+    }
+
+
+    private fun showDirections() {
+        val url = getDirectionsUrl(
+            LatLng(orderItemModel?.startLat!!, orderItemModel?.startLong!!),
+            LatLng(orderItemModel?.endLat!!, orderItemModel?.endLong!!)
+        )
+        Log.d("onMapClick", url.toString())
+        val FetchUrl = FetchUrl()
+
+        // Start downloading json data from Google Directions API
+        FetchUrl.execute(url)
+    }
+
+    private fun getDirectionsUrl(origin: LatLng, dest: LatLng): String {
+        // Origin of route
+        val str_origin = "origin=" + origin.latitude + "," + origin.longitude
+        // Destination of route
+        val str_dest = "destination=" + dest.latitude + "," + dest.longitude
+        // Sensor enabled
+        val sensor = "sensor=false"
+        val mode = "mode=driving"
+        // Building the parameters to the web service
+        val parameters = "$str_origin&$str_dest&$sensor&$mode"
+        val key = "key=" + resources.getString(R.string.google_api_key)
+        // Output format
+        val output = "json"
+        // Building the url to the web service
+        return "https://maps.googleapis.com/maps/api/directions/$output?$parameters&$key"
+    }
+
+    inner class DataParser {
+        /** Receives a JSONObject and returns a list of lists containing latitude and longitude  */
+        fun parse(jObject: JSONObject): List<List<HashMap<String, String>>> {
+            val routes = ArrayList<ArrayList<HashMap<String, String>>>()
+            val jRoutes: JSONArray
+            var jLegs: JSONArray
+            var jSteps: JSONArray
+            try {
+                jRoutes = jObject.getJSONArray("routes")
+                /** Traversing all routes  */
+                for (i in 0 until jRoutes.length()) {
+                    jLegs = (jRoutes.get(i) as JSONObject).getJSONArray("legs")
+                    val path = ArrayList<HashMap<String, String>>()
+                    /** Traversing all legs  */
+                    for (j in 0 until jLegs.length()) {
+                        jSteps = (jLegs.get(j) as JSONObject).getJSONArray("steps")
+                        /** Traversing all steps  */
+                        for (k in 0 until jSteps.length()) {
+                            var polyline = ""
+                            polyline =
+                                ((jSteps.get(k) as JSONObject).get("polyline") as JSONObject).get("points") as String
+                            val list = decodePoly(polyline)
+                            /** Traversing all points  */
+                            for (l in list.indices) {
+                                val hm = HashMap<String, String>()
+                                hm.put("lat", list[l].latitude.toString())
+                                hm.put("lng", list[l].longitude.toString())
+                                path.add(hm)
+                            }
+                        }
+                        routes.add(path)
+                    }
+                }
+
+            } catch (e: JSONException) {
+                e.printStackTrace()
+            } catch (e: Exception) {
+            }
+            return routes
+        }
+
+        /**
+         * Method to decode polyline points
+         * Courtesy : https://jeffreysambells.com/2010/05/27/decoding-polylines-from-google-maps-direction-api-with-java
+         */
+        private fun decodePoly(encoded: String): List<LatLng> {
+
+            val poly = ArrayList<LatLng>()
+            var index = 0
+            val len = encoded.length
+            var lat = 0
+            var lng = 0
+
+            while (index < len) {
+                var b: Int
+                var shift = 0
+                var result = 0
+                do {
+                    b = encoded[index++].toInt() - 63
+                    result = result or (b and 0x1f shl shift)
+                    shift += 5
+                } while (b >= 0x20)
+                val dlat = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+                lat += dlat
+
+                shift = 0
+                result = 0
+                do {
+                    b = encoded[index++].toInt() - 63
+                    result = result or (b and 0x1f shl shift)
+                    shift += 5
+                } while (b >= 0x20)
+                val dlng = if (result and 1 != 0) (result shr 1).inv() else result shr 1
+                lng += dlng
+
+                val p = LatLng(lat.toDouble() / 1E5, lng.toDouble() / 1E5)
+                poly.add(p)
+            }
+            return poly
+        }
+    }
 
 }

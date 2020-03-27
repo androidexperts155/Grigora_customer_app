@@ -44,7 +44,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private var mMap: GoogleMap? = null
     var dialogShown = false
     var placeClicked = false
-    var discount: String = "0"
     var restId: String = ""
     var cart_type = "1"
     var restaurantId = ""
@@ -78,7 +77,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private var cartFragmentBinding: CartFragmentBinding? = null
     private val cartItemList = ArrayList<CartDetail>()
     private val addMoreList = ArrayList<MenuItemModel>()
-
+    private var isPickup = false
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -107,38 +106,21 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
+                    viewModel.cartData?.value = response.data as CartDataModel
                     restaurantId = cartDataModel.restaurantId!!
                     viewModel.getOffers(restaurantId)
 
                     handleTime()
                     cart_type = cartDataModel.cart_type.toString()
                     if (cart_type == "1") {
+                        isPickup = false
                         tv_delivery.callOnClick()
-                    } else
+                    } else {
                         tv_pickup.callOnClick()
-
-                    restId = cartDataModel.restaurantId.toString()
-                    var cartSubTotal = 0.0
-                    for (cartDetail in cartDataModel.cartDetails!!) {
-                        var price = cartDetail?.price?.toDouble()!!
-
-                        var addOnPrice = 0.0
-
-                        if (cartDetail.item_choices != null && cartDetail.item_choices?.isNotEmpty()!!) {
-
-                            for (item in cartDetail.item_choices!!) {
-                                for (innerItem in item.itemSubCategory!!) {
-                                    addOnPrice += innerItem?.addOnPrice!!
-                                }
-                            }
-                        }
-                        cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail?.quantity!!))
+                        isPickup = true
                     }
+                    restId = cartDataModel.restaurantId.toString()
 
-                    var cartTotal = cartSubTotal + cartDataModel.deliveryFee?.toDouble()!!
-
-                    cartDataModel.cartSubTotal = cartSubTotal.toString()
-                    cartDataModel.cartTotal = cartTotal.toString()
 
 
                     addMoreList.clear()
@@ -151,9 +133,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                             AlsoOrderedCartAdapter(addMoreList, this, this, -1)
                     } else
                         li_also_ordered.visibility = GONE
-
-
-                    viewModel.cartData?.value = response.data as CartDataModel
 
                     cartFragmentBinding?.cartViewModel = viewModel
 
@@ -168,29 +147,16 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                         cartView?.visibility = GONE
                     }
 
-                    viewModel.cartData?.value?.afterPromo = String.format(
-                        "%.2f",
-                        (viewModel.cartData?.value?.cartSubTotal?.toDouble()!!)
-                    ).toDouble()
 
-                    viewModel.cartData?.value?.beforePromo = String.format(
-                        "%.2f",
-                        (viewModel.cartData?.value?.cartSubTotal?.toDouble()!!)
-                    ).toDouble()
-
-                    tv_estimated.text = getString(
-                        R.string.deliver_in,
-                        (cartDataModel.estimated_delivery_time!!.toInt() + cartDataModel.estimated_preparing_time!!.toInt()).toString()
-
-                    )
-//                    tv_restname.text = cartDataModel.restaurantName
-                    tv_total.text = cartDataModel.cartTotal
                     if (viewModel.offerModel.value != null)
                         setPromo()
 
+                    setPrices()
+
+
                 } else {
-                    AppConstants.CART_COUNT=0
-                    AppConstants.CART_RESTAURANT=""
+                    AppConstants.CART_COUNT = 0
+                    AppConstants.CART_RESTAURANT = ""
                     empty?.visibility = VISIBLE
                     cartView?.visibility = GONE
                 }
@@ -225,18 +191,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                                     R.id.action_navigationCart_to_orderDetailsFragment,
                                     bundle
                                 )
-                            viewModel.viewCart(
-                                CommonUtils.getPrefValue(
-                                    context,
-                                    PrefConstants.TOKEN
-                                ), CommonUtils.getPrefValue(
-                                    context,
-                                    PrefConstants.LATITUDE
-                                ), CommonUtils.getPrefValue(
-                                    context,
-                                    PrefConstants.LONGITUDE
-                                )
-                            )
+
                         }
                     }
                 } else if (response != null) {
@@ -395,26 +350,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private fun applyPromo() {
         if (viewModel.offerModel?.value != null) {
-            discount = String.format(
-                "%.2f",
-                (viewModel.cartData?.value?.cartSubTotal?.toDouble()!! * viewModel.offerModel?.value!!.percentage!!.toDouble()!! / 100)
-            )
-            viewModel.cartData?.value?.totalPrice = String.format(
-                "%.2f",
-                (viewModel.cartData?.value?.cartTotal?.toDouble()!! - discount.toDouble())
-            )
+            viewModel.cartData?.value?.discount =
+                CommonUtils.getRoundedOff(viewModel.cartData?.value?.cartSubTotal?.toDouble()!! * viewModel.offerModel?.value!!.percentage!!.toDouble()!! / 100)
 
-            viewModel.cartData?.value?.beforePromo =
-                String.format("%.2f", (viewModel.cartData?.value?.cartSubTotal?.toDouble()!!))
-                    .toDouble()
-
-            viewModel.cartData?.value?.afterPromo = String.format(
-                "%.2f",
-                (viewModel.cartData?.value?.cartSubTotal?.toDouble()!! - discount.toDouble())
-            ).toDouble()
-
-            tv_promotion.text = discount
-            tv_total.text = viewModel.cartData?.value?.totalPrice
+            setPrices()
         } else {
             CommonUtils.showMessage(view, getString(R.string.no_promo_selected))
         }
@@ -427,25 +366,30 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 "3"
             )
         ) {
-            if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
-                var time = CommonUtils.localToUtc(
-                    cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
-                    "yyyy-MM-dd HH:mm:ss"
-                )
-                viewModel.scheduleOrderNow(
-                    cart_type,
-                    time,
-                    cartSharedViewModel.scheduleNote.value!!
-                )
+            if (!CommonUtils.isLogin()) {
+                (activity as MainActivity).showLoginAlert()
             } else {
-                viewModel!!.placeOrderNow(cart_type)
+                if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
+                    var time = CommonUtils.localToUtc(
+                        cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
+                        "yyyy-MM-dd HH:mm:ss"
+                    )
+                    viewModel.scheduleOrderNow(
+                        cart_type,
+                        time,
+                        cartSharedViewModel.scheduleNote.value!!
+                    )
+                } else {
+                    viewModel!!.placeOrderNow(cart_type)
+                }
             }
         } else {
             startActivityForResult(
                 Intent(
                     activity,
                     PaymentActivity::class.java
-                ), 400
+                ).putExtra("amount", viewModel?.cartData.value?.totalPrice!!.toDouble().toInt()),
+                400
             )
 //            var mBottomSheetDialog = BottomSheetDialog(activity!!)
 //            var sheetView = activity!!.layoutInflater.inflate(
@@ -476,22 +420,27 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (result != null) {
                 viewModel.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
-                if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
-                    var time = CommonUtils.localToUtc(
-                        cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
-                        "yyyy-MM-dd HH:mm:ss"
-                    )
 
-
-                    viewModel.scheduleOrderNow(
-                        cart_type,
-                        time,
-                        cartSharedViewModel.scheduleNote.value!!
-                    )
+                if (!CommonUtils.isLogin()) {
+                    (activity as MainActivity).showLoginAlert()
                 } else {
-                    viewModel.placeOrderNow(cart_type)
+                    if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
+                        var time = CommonUtils.localToUtc(
+                            cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
+                            "yyyy-MM-dd HH:mm:ss"
+                        )
 
 
+                        viewModel.scheduleOrderNow(
+                            cart_type,
+                            time,
+                            cartSharedViewModel.scheduleNote.value!!
+                        )
+                    } else {
+                        viewModel.placeOrderNow(cart_type)
+
+
+                    }
                 }
             }
         } else if (resultCode == RESULT_CANCELED) {
@@ -503,7 +452,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     fun changeLocation() {
-        val builder = AlertDialog.Builder(activity!!)
+        val builder = AlertDialog.Builder(activity!!,R.style.TimePickerTheme)
         //set title for alert dialog
         builder.setTitle(R.string.change_title)
         //set message for alert dialog
@@ -594,31 +543,16 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         tv_remove.visibility = GONE
 
         if (viewModel.offerModel?.value != null) {
-            discount = "0"
+            viewModel.cartData?.value?.discount = "0"
 
-            viewModel.cartData?.value?.totalPrice = String.format(
-                "%.2f",
-                (viewModel.cartData?.value?.cartTotal?.toDouble()!! - discount.toDouble())
-            )
 
-            viewModel.cartData?.value?.beforePromo =
-                String.format("%.2f", (viewModel.cartData?.value?.cartSubTotal?.toDouble()!!))
-                    .toDouble()
 
-            viewModel.cartData?.value?.afterPromo = String.format(
-                "%.2f",
-                (viewModel.cartData?.value?.cartSubTotal?.toDouble()!! - discount.toDouble())
-            ).toDouble()
+            tv_promotion.text = viewModel.cartData?.value?.discount
 
-            tv_promotion.text = discount
-            tv_total.text = viewModel.cartData?.value?.totalPrice
         } else {
             CommonUtils.showMessage(view, getString(R.string.no_promo_selected))
         }
-
-
-//        applyPromo()
-
+        setPrices()
     }
 
     override fun onItemClick(item: Any) {
@@ -707,10 +641,13 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
+            cart_type="1"
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
-
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+
+            isPickup = false
+            setPrices()
 
             if (CommonUtils.isDarkMode()) {
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -726,10 +663,15 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
 
         tv_pickup.setOnClickListener {
+            cart_type="2"
+
             tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
 
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+
+            isPickup = true
+            setPrices()
 
             if (CommonUtils.isDarkMode()) {
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -741,14 +683,118 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 "2",
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
             )
-
         }
-
     }
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.destroy(activity as MainActivity)
+    }
+
+    private fun setPrices() {
+        if (viewModel.cartData?.value?.discount.isNullOrEmpty()) {
+            viewModel.cartData?.value?.discount = "0.0"
+        }
+        tv_promotion.text = viewModel.cartData?.value?.discount
+
+        viewModel.deliveryPrice.value =
+            if (isPickup) "0.0" else CommonUtils.getRoundedOff(getDeliveryPrice())
+
+
+        var cartSubTotal = 0.0
+        for (cartDetail in cartDataModel.cartDetails!!) {
+            var price = cartDetail?.price?.toDouble()!!
+            var addOnPrice = 0.0
+            if (cartDetail.item_choices != null && cartDetail.item_choices?.isNotEmpty()!!) {
+                for (item in cartDetail.item_choices!!) {
+                    for (innerItem in item.itemSubCategory!!) {
+                        addOnPrice += innerItem?.addOnPrice!!
+                    }
+                }
+            }
+            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail?.quantity!!))
+        }
+
+        viewModel.cartData?.value!!.cartTotal =
+            (cartSubTotal + viewModel.deliveryPrice.value!!.toDouble()).toString()
+        cartDataModel.cartSubTotal = cartSubTotal.toString()
+        viewModel.cartData?.value?.cartSubTotal = cartSubTotal.toString()
+
+
+        viewModel.cartData?.value?.totalPrice =
+            CommonUtils.getRoundedOff(viewModel.cartData?.value?.cartTotal?.toDouble()!! - viewModel.cartData?.value?.discount!!.toDouble())
+
+        viewModel.cartData?.value?.beforePromo =
+            CommonUtils.getRoundedOff(viewModel.cartData?.value?.cartSubTotal?.toDouble()!!)
+                .toDouble()
+
+        viewModel.cartData?.value?.afterPromo =
+            CommonUtils.getRoundedOff((viewModel.cartData?.value?.cartSubTotal?.toDouble()!! - viewModel.cartData?.value?.discount!!.toDouble()))
+                .toDouble()
+
+        tv_subtotal.text = CommonUtils.getRoundedOff(viewModel.cartData?.value?.beforePromo!!)
+
+
+        tv_total.text = viewModel.cartData?.value?.totalPrice
+        tv_delivery_price.text = viewModel.deliveryPrice.value
+
+
+        var distance = if (!isPickup) CommonUtils.calculateDistance(
+            cartDataModel?.restaurant_latitude.toDouble(),
+            cartDataModel?.restaurant_longitude.toDouble(),
+            CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble(),
+            CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
+        ) else 0F
+
+        var t = cartDataModel.estimated_preparing_time!!.toInt() + (distance * 2)
+
+        val hours: Int =
+            t.toInt() / 60 //since both are ints, you get an int
+
+        val minutes: Int = t.toInt() % 60
+
+        if (hours > 0) {
+            if (isPickup) {
+                tv_msg.text = getString(R.string.will_prepare_in)
+                tv_estimated.text =
+                    "$hours hours and $minutes minutes"
+            } else {
+                tv_msg.text = getString(R.string.deliver_to_you)
+
+                tv_estimated.text =
+                    "$hours hours and $minutes minutes"
+            }
+
+        } else {
+            if (isPickup) {
+                tv_msg.text = getString(R.string.will_prepare_in)
+
+                tv_estimated.text =
+                    "$minutes minutes"
+            } else {
+                tv_msg.text = getString(R.string.deliver_to_you)
+
+                tv_estimated.text =
+                    "$minutes minutes"
+            }
+        }
+    }
+
+    fun getDeliveryPrice(): Double {
+        return cartDataModel.delivery_fee!!.toDouble()
+
+        var distance = CommonUtils.calculateDistance(
+            cartDataModel?.restaurant_latitude.toDouble(),
+            cartDataModel?.restaurant_longitude.toDouble(),
+            CommonUtils.getPrefValue(context, PrefConstants.LATITUDE).toDouble(),
+            CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
+        )
+
+        return CommonUtils.getPrefValue(context, PrefConstants.BASE_DELIVERY_FEE)
+            .toDouble() + (distance * CommonUtils.getPrefValue(
+            context,
+            PrefConstants.MIN_KILO_METER
+        ).toDouble())
     }
 
 

@@ -39,12 +39,12 @@ class RestaurantDetailGroupViewModel : ViewModel() {
             }
     }
 
-    fun getCartItems(token: String, itemId: String) {
+    fun getCartItems(cartId: String, itemId: String) {
         isLoading.value = true
         ApiRepo.getInstance()
-            .getItemCart(
-                token,
-                itemId
+            .getGroupItemCart(
+                itemId,
+                cartId
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
@@ -104,8 +104,7 @@ class RestaurantDetailGroupViewModel : ViewModel() {
                     if (success) {
                         val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
                         addCartRes.value = Gson().fromJson(result as JsonElement, type)
-                    }
-                    else
+                    } else
                         addCartRes.value = result
                 }
         }
@@ -119,12 +118,12 @@ class RestaurantDetailGroupViewModel : ViewModel() {
                 cart_type = type
             ) { success, result ->
                 isLoading.value = false
-                if (success) {
-                    val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
-                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
-                }
-                else
-                    addCartRes.value = result
+//                if (success) {
+//                    val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
+//                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+//                }
+//                else
+//                    addCartRes.value = result
             }
 
     }

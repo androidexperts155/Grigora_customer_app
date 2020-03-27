@@ -125,6 +125,18 @@ interface ApiInterface {
     ): Call<JsonElement>
 
     @FormUrlEncoded
+    @POST(ApiConstants.PROMO_RESTAURANTS)
+    fun promoRestaurants(
+        @Header("Authorization") token: String,
+        @Field("latitude") latitude: String,
+        @Field("longitude") longitude: String,
+        @Field("promo_id") promo_id: String,
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
     @POST(ApiConstants.SEARCH_RESTAURANTS)
     fun searchRestaurants(
         @Header("Authorization") token: String,
@@ -166,7 +178,7 @@ interface ApiInterface {
         @Field("price_range") price_range: String,
         @Field("login_type") loginType: String
 
-        ): Call<JsonElement>
+    ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
@@ -178,7 +190,7 @@ interface ApiInterface {
         @Field("cart_id") cart_id: String,
         @Field("login_type") login_type: String
 
-        ): Call<JsonElement>
+    ): Call<JsonElement>
 
     @FormUrlEncoded
     @POST(ApiConstants.REMOVE_CART_URL)
@@ -189,14 +201,22 @@ interface ApiInterface {
         @Field("cart_id") cart_id: String
     ): Call<JsonElement>
 
-    @GET(ApiConstants.CART_ITEMS_URL + "/{id}")
+    @FormUrlEncoded
+    @POST(ApiConstants.CART_ITEMS_URL)
     fun getItemCart(
         @Header("Authorization") token: String,
-        @Path("id") itemId: String
+        @Field("user_id") userId: String,
+        @Field("login_type") loginType: String,
+        @Field("item_id") cart_id: String
     ): Call<JsonElement>
 
-
-
+    @FormUrlEncoded
+    @POST(ApiConstants.GROUP_CART_ITEMS_URL)
+    fun getGroupItemCart(
+        @Header("Authorization") token: String,
+        @Field("cart_id") cart_id: String,
+        @Field("item_id") item_id: String
+    ): Call<JsonElement>
 
 
     @FormUrlEncoded
@@ -538,7 +558,9 @@ interface ApiInterface {
     fun sendGift(
         @Header("Authorization") token: String,
         @Field("email") email: String,
-        @Field("voucher_code") voucher_code: String
+        @Field("voucher_code") voucher_code: String,
+        @Field("payment_method") payment_method: String,
+        @Field("reference") reference: String
 
     ): Call<JsonElement>
 
@@ -547,10 +569,11 @@ interface ApiInterface {
     @POST(ApiConstants.BUY_CARD)
     fun buyCard(
         @Header("Authorization") token: String,
-        @Field("voucher_code") voucher_code: String
+        @Field("voucher_code") voucher_code: String,
+        @Field("payment_method") payment_method: String,
+        @Field("reference") reference: String
 
     ): Call<JsonElement>
-
 
 
     @GET(ApiConstants.WALLET_HISTORY)

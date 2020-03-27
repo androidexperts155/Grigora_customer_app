@@ -45,7 +45,10 @@ class ShowVoucherFragment(
             dismiss()
         }
 
-        bt_cancel.setOnClickListener { dismiss() }
+        bt_cancel.setOnClickListener {
+            dismiss()
+        }
+
         val circularProgressDrawable = CircularProgressDrawable(context!!)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f

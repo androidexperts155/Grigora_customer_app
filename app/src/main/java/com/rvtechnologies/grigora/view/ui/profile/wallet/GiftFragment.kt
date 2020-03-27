@@ -1,5 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.profile.wallet
 
+import android.app.Activity
+import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
 import android.view.Gravity
@@ -20,6 +22,8 @@ import com.rvtechnologies.grigora.model.VoucherModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
+import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view_model.SharedGiftViewModel
 import kotlinx.android.synthetic.main.gift_fragment.*
 
@@ -30,7 +34,7 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
 
     private lateinit var viewModel: SharedGiftViewModel
     private var vouchers = ArrayList<VoucherModel>()
-
+    lateinit var voucherCodeModel: VoucherCodeModel
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel =
@@ -100,8 +104,6 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
     }
 //    override fun onActivityCreated(savedInstanceState: Bundle?) {
 //        super.onActivityCreated(savedInstanceState)
-//
-//
 //    }
 
     override fun onCreateView(
@@ -204,14 +206,14 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).backTitle(getString(R.string.grigora_gift_card))
 
-        if(viewModel?.isSelfSelected.value==false){
-             tab_top.getTabAt(1)?.select()
+        if (viewModel?.isSelfSelected.value == false) {
+            tab_top.getTabAt(1)?.select()
 
         }
         if (viewModel.selectedUser.value != null) {
-            tv_hint.visibility=View.GONE
-            tv_name.visibility=View.VISIBLE
-            tv_email.visibility=View.VISIBLE
+            tv_hint.visibility = View.GONE
+            tv_name.visibility = View.VISIBLE
+            tv_email.visibility = View.VISIBLE
             tv_name.text = viewModel.selectedUser.value?.name
             tv_email.text = viewModel.selectedUser.value?.username
         }
@@ -229,30 +231,62 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
                     .getCurrentLanguage() == AppConstants.FRENCH
             ) item.created_atamount_french_name!! else item.amount_english_name!!
         } else if (item is VoucherCodeModel) {
-            if (viewModel.isSelfSelected.value!!)
-                viewModel.buyCard(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN), item)
-            else viewModel.sendGift(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN), item)
+            voucherCodeModel = item
+            showPaymentOptionsDialog()
+        } else if (item is Int) {
+            if (item == 3) {
+//                weallet selected
+                buyOrSend("3", "")
+            } else if (item == 2) {
+//                paystack selected
+                startActivityForResult(
+                    Intent(
+                        activity,
+                        PaymentActivity::class.java
+                    ).putExtra("amount", voucherCodeModel.amount), 400
+                )
+            }
+
         }
     }
 
     override fun onDestroy() {
         super.onDestroy()
         viewModel.destroy(activity as MainActivity)
-
-
     }
 
-    fun getAmount(amount: Int): String {
-        var am = ""
-        when (amount) {
-            50 -> am = getString(R.string.fifty)
-            100 -> am = getString(R.string.hundred)
-            200 -> am = getString(R.string.two_hundred)
-            400 -> am = getString(R.string.four_hundred)
-            500 -> am = getString(R.string.five_hundred)
-            800 -> am = getString(R.string.eight_hundred)
-            1000 -> am = getString(R.string.thousand)
+    fun showPaymentOptionsDialog() {
+        var optionsDialog = PaymentOptionsDialog(this)
+        optionsDialog.show(this.childFragmentManager, "")
+    }
+
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode == Activity.RESULT_OK && requestCode == 400) {
+            val result = data?.getStringExtra("reference")
+            if (result != null) {
+                buyOrSend("2", result)
+            }
+        } else if (resultCode == Activity.RESULT_CANCELED) {
+            // the user canceled
+        } else {
+            // handle errors here, an exception may be available in
+
         }
-        return am
+    }
+
+    fun buyOrSend(type: String, ref: String) {
+        if (::voucherCodeModel.isInitialized)
+            if (viewModel.isSelfSelected.value!!)
+                viewModel.buyCard(
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    voucherCodeModel, type, ref
+                )
+            else
+                viewModel.sendGift(
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    voucherCodeModel, type, ref
+                )
     }
 }

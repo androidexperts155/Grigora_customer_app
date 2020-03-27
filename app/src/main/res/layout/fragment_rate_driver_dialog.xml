@@ -9,6 +9,7 @@
     android:orientation="vertical"
     android:padding="@dimen/_16sdp">
     
+    
     <TextView
         android:id="@+id/tv_name"
         style="@style/mediumText"
@@ -278,8 +279,8 @@
     </HorizontalScrollView>
     
     <EditText
-        style="@style/normalText"
         android:id="@+id/ed_tip"
+        style="@style/normalText"
         android:layout_width="@dimen/_80sdp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -292,11 +293,12 @@
         android:textColor="?attr/textWhite"
         android:textColorHint="?attr/searchHint"
         android:textSize="@dimen/_10sdp" />
+    
     <View
-        android:layout_gravity="center"
-        android:background="?attr/viewbg"
         android:layout_width="@dimen/_90sdp"
-        android:layout_height="@dimen/_1sdp"/>
+        android:layout_height="@dimen/_1sdp"
+        android:layout_gravity="center"
+        android:background="?attr/viewbg" />
     
     
     <Button

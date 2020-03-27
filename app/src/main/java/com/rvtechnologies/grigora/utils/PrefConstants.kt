@@ -11,6 +11,9 @@ object PrefConstants {
     val COMPLETE_ADDRESS = "complete_address"
     val ADDRESS_ID = "address_id"
 
+    var MIN_KILO_METER = "min_kilo_meter"
+    var BASE_DELIVERY_FEE = "base_delivery_fee"
+
 
 //    val TEMP_LATITUDE = "temp_latitude"
 //    val TEMP_LONGITUDE = "temp_longitude"

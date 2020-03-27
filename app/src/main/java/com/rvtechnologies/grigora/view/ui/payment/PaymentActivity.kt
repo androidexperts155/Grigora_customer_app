@@ -281,7 +281,7 @@ class PaymentActivity : AppCompatActivity() {
             if (card.isValid) {
                 PaystackSdk.chargeCard(
                     this,
-                    Charge().setCard(card).setAmount(35).setCurrency("NGN")
+                    Charge().setCard(card).setAmount(intent.getIntExtra("amount",0)).setCurrency("NGN")
                         .setEmail("test@yopmail.com"),
                     object : Paystack.TransactionCallback {
                         override fun onSuccess(transaction: Transaction) {

@@ -9,9 +9,9 @@
     </data>
     
     <ScrollView
-        android:fillViewport="true"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:fillViewport="true">
         
         <androidx.coordinatorlayout.widget.CoordinatorLayout
             android:layout_width="match_parent"
@@ -260,8 +260,8 @@
                     
                     android:layout_marginLeft="@dimen/_16sdp"
                     android:layout_marginTop="@dimen/_28sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
                     android:layout_marginRight="@dimen/_16sdp"
+                    android:layout_marginBottom="@dimen/_8sdp"
                     android:orientation="vertical">
                     
                     <com.google.android.material.textfield.TextInputLayout
@@ -386,8 +386,8 @@
                     </com.google.android.material.textfield.TextInputLayout>
                 
                 </LinearLayout>
-    
-    
+                
+                
                 <TextView
                     android:id="@+id/label_secure_submission"
                     style="@style/mediumText"

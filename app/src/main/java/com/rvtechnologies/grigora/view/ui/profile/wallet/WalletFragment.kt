@@ -102,7 +102,8 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
             override fun afterTextChanged(s: Editable?) {
                 if (!s?.trim().toString().isNullOrEmpty()) {
                     tv_pts.text =
-                        (s?.trim().toString().toDouble() * (historyModel.naira_to_points).toDouble()).toString()
+                        (s?.trim().toString()
+                            .toDouble() * (historyModel.naira_to_points).toDouble()).toString()
                 } else
                     tv_pts.text = "0"
             }
@@ -137,16 +138,17 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
     }
 
     fun add() {
-        var addMoneyDialog = AddMoneyDialog(this,historyModel.naira_to_points)
+        var addMoneyDialog = AddMoneyDialog(this, historyModel.naira_to_points)
         addMoneyDialog.show(this.childFragmentManager, "")
     }
 
-    fun seeAllTransactions(){
+    fun seeAllTransactions() {
         var bundle = bundleOf(AppConstants.IS_FOR_HISTORY to true)
         view?.findNavController()
             ?.navigate(R.id.action_walletFragment_to_sendMoneyFragment, bundle)
     }
-    fun buyOrRedeem(){
+
+    fun buyOrRedeem() {
         view?.findNavController()
             ?.navigate(R.id.action_walletFragment_to_buyOrRedeem)
     }
@@ -158,7 +160,7 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
             Intent(
                 activity,
                 PaymentActivity::class.java
-            ), 400
+            ).putExtra("amount", amount.toDouble().toInt()), 400
         )
 
     }

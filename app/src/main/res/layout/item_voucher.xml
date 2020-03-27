@@ -29,8 +29,8 @@
             android:textColor="@color/colorPrimaryDark"
             android:textSize="@dimen/_10sdp"
             tools:text="C1234" />
-        
-        
+    
+    
         <TextView
             android:id="@+id/tv_info"
             style="@style/normalText"
@@ -39,7 +39,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_toRightOf="@+id/tv_code"
-            android:gravity="center"
+            android:layout_toLeftOf="@+id/tv_copy"
+            android:gravity="start"
+            android:maxLines="2"
             android:minWidth="@dimen/_60sdp"
             android:padding="@dimen/_4sdp"
             android:textColor="?attr/textWhite"

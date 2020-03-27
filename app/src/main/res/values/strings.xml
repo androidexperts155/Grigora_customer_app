@@ -232,6 +232,7 @@
     <string name="wallet_drawer">Grigora Money : ₦</string>
     <string name="grigora_money">Grigora Money</string>
     <string name="deliver_to_you">DELIVER TO YOU</string>
+    <string name="will_prepare_in">WILL PREPARE IN</string>
     <string name="deliver_in">Delivery in approximately %s\ minutes</string>
     <string name="delivery">delivery</string>
     <string name="Delivery">Delivery</string>
@@ -475,7 +476,7 @@
     <string name="redeem">Redeem</string>
     <string name="enter_gift_card">Enter gift card coupon</string>
     <string name="buy_gift_card">Buy Gift Card</string>
-    <string name="give_gift">Give the gift of food delivery</string>
+    <string name="give_gift">Buy Grigora Card</string>
     <string name="buy">Buy</string>
     <string name="unavailable">This item is unavailable</string>
     <string name="add_tip">Add a tip for driver</string>
@@ -512,7 +513,7 @@
     <string name="restaurant_asked_more_time">Restaurant has asked for More Time</string>
     <string name="delivering_in">Delivering in</string>
     <string name="addtip">Add tip</string>
-        <string name="money_info">Naira %s\ only</string>
+    <string name="money_info">Naira %s\ only</string>
     <string name="fifty">Fifty</string>
     <string name="hundred">One Hundred</string>
     <string name="two_hundred">Two Hundred</string>
@@ -555,5 +556,8 @@
     <string name="unavailable_func">This servide is unavailable. You can proceed with scheduling order.</string>
     <string name="pick_order_info">"Pick this order from "</string>
     <string name="km_away">km away</string>
+    <string name="restaurant_not_available">Restaurant not available</string>
+    <string name="no_driver_available">NO RIDER AVAILABLE \n AT THE MOMENT.</string>
+    <string name="no_driver_available_info">Sorry! No available rider at the moment. A rider will be available soon. You can OPT IN for the self pickup option or wait for the rider.</string>
 
 </resources><!--₦-->

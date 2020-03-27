@@ -21,6 +21,7 @@
         android:padding="@dimen/_8sdp">
         
         <TextView
+            android:id="@+id/tv_order_id"
             style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -35,11 +36,12 @@
             android:orientation="horizontal">
             
             <androidx.cardview.widget.CardView
-                android:layout_width="@dimen/_100sdp"
-                android:layout_height="@dimen/_90sdp"
+                android:layout_width="@dimen/_80sdp"
+                android:layout_height="@dimen/_70sdp"
                 app:cardCornerRadius="@dimen/_8sdp">
                 
                 <ImageView
+                    android:id="@+id/img_rest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:scaleType="fitXY"
@@ -53,6 +55,7 @@
                 android:orientation="vertical">
                 
                 <TextView
+                    android:id="@+id/tv_name"
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -61,6 +64,7 @@
                     tools:text="Restaurant Name" />
                 
                 <TextView
+                    android:id="@+id/tv_cuisines"
                     style="@style/normalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -70,6 +74,7 @@
                     tools:text="@tools:sample/lorem/random" />
                 
                 <TextView
+                    android:id="@+id/tv_ins"
                     style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -106,6 +111,7 @@
                 android:textSize="@dimen/_12sdp" />
             
             <TextView
+                android:id="@+id/tv_date"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -133,6 +139,7 @@
                 android:textSize="@dimen/_12sdp" />
             
             <TextView
+                android:id="@+id/tv_status"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -155,7 +162,8 @@
                 android:padding="@dimen/_8sdp"
                 android:text="@string/cancel"
                 android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp" />
+                android:textSize="@dimen/_12sdp"
+                android:visibility="gone" />
         
         </RelativeLayout>
         
@@ -174,32 +182,33 @@
             android:text="@string/bill_details"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_12sdp" />
-    
+        
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rvOrderItems"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp"
-            android:background="?attr/viewbg"
+            android:background="?attr/backgroundColor"
             android:orientation="vertical"
             android:overScrollMode="never"
+            android:padding="@dimen/_8sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="2"
             tools:listitem="@layout/scheduled_cart_item" />
         
         <View
             
-            android:background="?attr/viewbg"
             android:layout_width="match_parent"
-            android:layout_height="@dimen/_1sdp"/>
-    
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="@dimen/_8sdp"
             android:layout_marginEnd="16dp">
-        
+            
             <TextView
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
@@ -210,16 +219,17 @@
                 android:text="@string/subtotal"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-        
-        
+            
+            
             <TextView
                 android:id="@+id/cartSubTotal"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/ic_naira"
-            
+                
                 android:drawablePadding="@dimen/_4sdp"
                 android:drawableTint="?attr/textWhite"
                 android:gravity="end|center"
@@ -227,16 +237,16 @@
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_10sdp"
                 tools:text="0.0" />
-    
+        
         </RelativeLayout>
-    
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp">
-        
+            
             <TextView
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
@@ -247,33 +257,33 @@
                 android:text="@string/promotion"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-        
-        
+            
+            
             <TextView
                 android:id="@+id/tv_promotion"
                 style="@style/mediumText"
-                android:drawableLeft="@drawable/ic_naira"
-                android:drawablePadding="@dimen/_4sdp"
-                android:drawableTint="@color/colorPrimaryDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-            
                 android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/ic_naira"
+                android:drawablePadding="@dimen/_4sdp"
+                
+                android:drawableTint="@color/colorPrimaryDark"
                 android:gravity="end|center"
                 android:text="@{cartFragment.discount}"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_10sdp"
                 tools:text="0.0" />
-    
+        
         </RelativeLayout>
-    
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp">
-        
+            
             <TextView
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
@@ -284,8 +294,8 @@
                 android:text="@string/delivery_fee"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-        
-        
+            
+            
             <TextView
                 android:id="@+id/textView27"
                 style="@style/mediumText"
@@ -296,20 +306,19 @@
                 android:drawablePadding="@dimen/_4sdp"
                 android:drawableTint="?attr/textWhite"
                 android:gravity="end|center"
-                android:text="@{cartViewModel.cartData.deliveryFee}"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_10sdp"
                 tools:text="0.0" />
-    
+        
         </RelativeLayout>
-    
+        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="16dp">
-        
+            
             <TextView
                 style="@style/titleText"
                 android:layout_width="wrap_content"
@@ -319,10 +328,10 @@
                 android:layout_toLeftOf="@+id/tv_total"
                 android:text="@string/total"
                 android:textColor="?attr/textWhite"
-            
+                
                 android:textSize="@dimen/_12sdp" />
-        
-        
+            
+            
             <TextView
                 android:id="@+id/tv_total"
                 style="@style/titleText"
@@ -330,17 +339,17 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:drawableLeft="@drawable/ic_naira"
-                android:drawableTint="?attr/textWhite"
                 android:drawablePadding="@dimen/_4sdp"
+                android:drawableTint="?attr/textWhite"
                 android:gravity="end|center"
                 android:textColor="?attr/textWhite"
-            
+                
                 android:textSize="@dimen/_10sdp"
                 tools:text="0.0" />
-    
+        
         </RelativeLayout>
-
-
+    
+    
     </LinearLayout>
 
 </LinearLayout>

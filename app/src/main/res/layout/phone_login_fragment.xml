@@ -59,21 +59,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="horizontal">
-                
+    
                 <com.hbb20.CountryCodePicker
-                    app:ccp_showFlag="true"
-                    app:ccp_showFullName="false"
-                    app:ccp_showNameCode="false"
-                    app:ccp_showPhoneCode="true"
-                    app:ccpDialog_searchEditTextTint="@color/colorPrimary"
-                    app:ccpDialog_backgroundColor="@color/white"
-                    app:ccpDialog_textColor="@color/textBlack"
-                    app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
                     android:id="@+id/ccp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:theme="@style/AppTheme.Light" />
+                    android:theme="@style/AppTheme.Light"
+                    app:ccpDialog_backgroundColor="@color/white"
+                    app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
+                    app:ccpDialog_searchEditTextTint="@color/colorPrimary"
+                    app:ccpDialog_textColor="@color/textBlack"
+                    app:ccp_showFlag="true"
+                    app:ccp_showFullName="false"
+                    app:ccp_showNameCode="false"
+                    app:ccp_showPhoneCode="true" />
                 
                 <LinearLayout
                     android:layout_width="match_parent"

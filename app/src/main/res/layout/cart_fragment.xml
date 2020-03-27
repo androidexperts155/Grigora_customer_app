@@ -103,6 +103,7 @@
                         android:layout_marginTop="@dimen/_8sdp">
                         
                         <TextView
+                            android:id="@+id/tv_msg"
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -129,12 +130,13 @@
                     
                     <TextView
                         android:id="@+id/tv_estimated"
+                        android:layout_marginLeft="@dimen/_8sdp"
                         style="@style/mediumText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:textColor="?attr/textWhite"
                         android:textSize="@dimen/_11sdp"
-                        tools:text="Delivery in 50-60 min" />
+                        tools:text="" />
                     
                     <View
                         android:layout_width="match_parent"
@@ -497,7 +499,7 @@
     
     
                         <TextView
-                            android:id="@+id/cartSubTotal"
+                            android:id="@+id/tv_subtotal"
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -536,15 +538,15 @@
                         <TextView
                             android:id="@+id/tv_promotion"
                             style="@style/mediumText"
-                            android:drawableLeft="@drawable/ic_naira"
-                            android:drawablePadding="@dimen/_4sdp"
-                            android:drawableTint="@color/colorPrimaryDark"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            
                             android:layout_alignParentRight="true"
+                            android:drawableLeft="@drawable/ic_naira"
+                            android:drawablePadding="@dimen/_4sdp"
+    
+                            android:drawableTint="@color/colorPrimaryDark"
                             android:gravity="end|center"
-                            android:text="@{cartFragment.discount}"
+                            
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/_10sdp"
                             tools:text="0.0" />
@@ -571,7 +573,7 @@
     
     
                         <TextView
-                            android:id="@+id/textView27"
+                            android:id="@+id/tv_delivery_price"
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -580,7 +582,7 @@
                             android:drawablePadding="@dimen/_4sdp"
                             android:drawableTint="?attr/textWhite"
                             android:gravity="end|center"
-                            android:text="@{cartViewModel.cartData.deliveryFee}"
+                            
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp"
                             tools:text="0.0" />

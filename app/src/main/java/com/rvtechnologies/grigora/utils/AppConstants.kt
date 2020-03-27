@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
+    var FOR_PROMO = "for_promo"
     var FROM_SETTINGS = "from_settings"
     var IS_FOR_HISTORY = "is_for_history"
     var CART_RESTAURANT = ""
@@ -8,6 +9,7 @@ object AppConstants {
 
 
     var FILTER_ID = "filter_id"
+    var CURRENT_SELECTED = 0
     var CUISINE_ID = "cuisine_id"
     var SHARE_LINK: String = "share_link"
     val IS_FOR_GROUP_ORDER = "is_for_group_order"
@@ -40,6 +42,7 @@ object AppConstants {
     const val RESTAURANT_MODEL = "restaurant_model"
     const val IS_DRIVER = "isdriver"
     const val MENU_ITEM_MODEL = "menu_item_model"
+    const val SCHEDULED_ORDER_MODEL = "scheduled_order_model"
     const val ORDER_ITEM_MODEL = "order_item_model"
     const val ORDER_ID = "order_id"
     const val MESSAGE = "message"

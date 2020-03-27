@@ -50,7 +50,7 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
                 if (response.status!!) {
                     var model =
                         response.data as PickupRestaurantsModel
-
+                    restaurantList.clear()
                     restaurantList.addAll(model.mainInfo)
                     rec_rest.adapter = RestaurantAdapter(restaurantList, this)
                     rec_rest.adapter?.notifyDataSetChanged()
@@ -61,17 +61,10 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
         })
 
 
-        viewModel.token.value=CommonUtils.getPrefValue(context!!,PrefConstants.TOKEN)
-        viewModel.lat.value=CommonUtils.getPrefValue(context!!,PrefConstants.LATITUDE)
-        viewModel.lng.value=CommonUtils.getPrefValue(context!!,PrefConstants.LONGITUDE)
+        viewModel.token.value = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+        viewModel.lat.value = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
+        viewModel.lng.value = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
 
-        if(arguments?.getString(AppConstants.FILTER_ID).toString()!="121"){
-            viewModel.getFilterData(arguments?.getString(AppConstants.FILTER_ID)!!)
-        }
-        else
-        {
-            viewModel.getFilterData(arguments?.getString(AppConstants.FILTER_ID)!!,arguments?.getString(AppConstants.CUISINE_ID)!!)
-        }
 
     }
 
@@ -87,13 +80,34 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).lockDrawer(true)
 
-        when (arguments?.getString(AppConstants.FILTER_ID)) {
-            "1" -> (activity as MainActivity).backTitle(getString(R.string.your_favourite))
-            "2" -> (activity as MainActivity).backTitle(getString(R.string.new_in_grigora))
-            "3" -> (activity as MainActivity).backTitle(getString(R.string.order_again))
-            "4" -> (activity as MainActivity).backTitle(getString(R.string.popular))
-            "5" -> (activity as MainActivity).backTitle(getString(R.string.near_by))
-            "121" -> (activity as MainActivity).backTitle(getString(R.string.top_cuisine))
+
+        if ((arguments?.getBoolean(AppConstants.FOR_PROMO, false)!!)) {
+            (activity as MainActivity).backTitle(arguments?.get(AppConstants.TITLE)!!.toString())
+        } else {
+            when (arguments?.getString(AppConstants.FILTER_ID)) {
+                "1" -> (activity as MainActivity).backTitle(getString(R.string.your_favourite))
+                "2" -> (activity as MainActivity).backTitle(getString(R.string.new_in_grigora))
+                "3" -> (activity as MainActivity).backTitle(getString(R.string.order_again))
+                "4" -> (activity as MainActivity).backTitle(getString(R.string.popular))
+                "5" -> (activity as MainActivity).backTitle(getString(R.string.near_by))
+                "121" -> (activity as MainActivity).backTitle(getString(R.string.top_cuisine))
+            }
+        }
+
+
+        if (arguments?.getBoolean(AppConstants.FOR_PROMO, false)!!) {
+            viewModel.getPromo(
+                CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE),
+                CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE),
+                arguments?.getString(AppConstants.FILTER_ID).toString()
+            )
+        } else if (arguments?.getString(AppConstants.FILTER_ID).toString() != "121") {
+            viewModel.getFilterData(arguments?.getString(AppConstants.FILTER_ID)!!)
+        } else {
+            viewModel.getFilterData(
+                arguments?.getString(AppConstants.FILTER_ID)!!,
+                arguments?.getString(AppConstants.CUISINE_ID)!!
+            )
         }
 
 

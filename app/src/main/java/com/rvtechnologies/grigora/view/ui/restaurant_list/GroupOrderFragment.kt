@@ -27,6 +27,7 @@ import io.branch.referral.SharingHelper
 import io.branch.referral.util.ContentMetadata
 import io.branch.referral.util.LinkProperties
 import io.branch.referral.util.ShareSheetStyle
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.group_order_fragment.*
 import kotlinx.android.synthetic.main.refer_and_earn_fragment.*
 import java.util.*
@@ -357,5 +358,8 @@ class GroupOrderFragment(val args: Bundle?, val iRecyclerItemClick: IRecyclerIte
 
     }
 
-
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).fab_cart.visibility=View.GONE
+    }
 }

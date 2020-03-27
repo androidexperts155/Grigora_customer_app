@@ -74,6 +74,7 @@
             
             <TextView
                 android:id="@+id/c1"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="@dimen/_8sdp"

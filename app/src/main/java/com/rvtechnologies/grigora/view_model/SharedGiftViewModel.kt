@@ -68,14 +68,14 @@ class SharedGiftViewModel : ViewModel() {
     }
 
 
-    fun sendGift(token: String, item: VoucherCodeModel) {
+    fun sendGift(token: String, item: VoucherCodeModel, type: String, ref: String) {
         isLoading.value = true
 
         ApiRepo.getInstance()
             .sendGift(
                 token = token,
                 email = selectedUser.value?.email.toString(),
-                voucher_code = item.voucher_card_code.voucher_code
+                voucher_code = item.voucher_card_code.voucher_code, reference = ref, type = type
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
@@ -88,13 +88,14 @@ class SharedGiftViewModel : ViewModel() {
             }
     }
 
-    fun buyCard(token: String, item: VoucherCodeModel) {
+    fun buyCard(token: String, item: VoucherCodeModel, type: String, ref: String) {
         isLoading.value = true
 
         ApiRepo.getInstance()
             .buyCard(
                 token = token,
                 voucher_code = item.voucher_card_code.voucher_code
+                , reference = ref, type = type
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

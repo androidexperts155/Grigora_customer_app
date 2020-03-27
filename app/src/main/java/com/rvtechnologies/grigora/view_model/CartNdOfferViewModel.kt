@@ -19,9 +19,11 @@ class CartNdOfferViewModel : ViewModel() {
     var responseCart = MutableLiveData<Any>()
     var responseClearCart = MutableLiveData<Any>()
     var cartData = MutableLiveData<CartDataModel>()
+    var cartId = MutableLiveData<String>()
     var token = MutableLiveData<String>()
     var promoId = MutableLiveData<String>()
     var paymentMode = MutableLiveData<String>()
+    var deliveryPrice = MutableLiveData<String>()
     var clientToken = MutableLiveData<Any>()
     var reference = MutableLiveData<String>()
     var deliveryAddress = MutableLiveData<String>()
@@ -48,9 +50,9 @@ class CartNdOfferViewModel : ViewModel() {
                 if (success) {
                     try {
                         val type = object : TypeToken<CommonResponseModel<CartDataModel>>() {}.type
-                        responseCart.value = Gson().fromJson(
+                        responseCart.postValue(Gson().fromJson(
                             result as JsonElement, type
-                        )
+                        ))
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -73,7 +75,7 @@ class CartNdOfferViewModel : ViewModel() {
                 cart_id = cartData?.id.toString(),
                 promo_id = promoId.value.toString(),
                 app_fee = cartData?.appFee.toString(),
-                delivery_fee = cartData?.deliveryFee.toString(),
+                delivery_fee = deliveryPrice.value.toString(),
                 price_before_promo = cartData?.beforePromo.toString(),
                 price_after_promo = cartData?.afterPromo.toString(),
                 final_price = cartData?.cartTotal.toString(),
@@ -111,7 +113,7 @@ class CartNdOfferViewModel : ViewModel() {
                 cart_id = cartData?.id.toString(),
                 promo_id = promoId.value.toString(),
                 app_fee = cartData?.appFee.toString(),
-                delivery_fee = cartData?.deliveryFee.toString(),
+                delivery_fee = deliveryPrice.value.toString(),
                 price_before_promo = cartData?.beforePromo.toString(),
                 price_after_promo = cartData?.afterPromo.toString(),
                 final_price = cartData?.cartTotal.toString(),

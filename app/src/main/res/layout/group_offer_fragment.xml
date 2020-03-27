@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto">
+    
+    <data>
+        
+        <variable
+            name="offerViewModel"
+            type="com.rvtechnologies.grigora.view.ui.groupCart.GroupCartViewModel" />
+    </data>
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor"
+        android:orientation="vertical"
+        tools:context=".view.ui.offers.adapter.OfferFragment">
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_1sdp"
+            android:background="?attr/viewbg" />
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvOffer"
+            android:overScrollMode="never"
+            tools:itemCount="5"
+            tools:listitem="@layout/offer_item"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="@dimen/_8sdp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+    </LinearLayout>
+</layout>

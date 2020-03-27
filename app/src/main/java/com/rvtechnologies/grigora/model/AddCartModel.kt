@@ -37,7 +37,7 @@ data class AddCartModel(
     @SerializedName("updated_at")
     var updatedAt: String = "",
     @SerializedName("user_id")
-    var userId: Int = 0
+    var userId: String = ""
 ) {
     data class CartDetail(
         @SerializedName("created_at")
@@ -59,6 +59,6 @@ data class AddCartModel(
         @SerializedName("updated_at")
         var updatedAt: String = "",
         @SerializedName("user_id")
-        var userId: Int = 0
+        var userId: String = ""
     )
 }

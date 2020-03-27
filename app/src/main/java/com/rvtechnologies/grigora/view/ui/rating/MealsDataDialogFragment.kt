@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.view.ui.rating
 
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +11,7 @@ import androidx.fragment.app.DialogFragment
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.OrderItemModel
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.rating.adapter.MealsAdapter
 import kotlinx.android.synthetic.main.fragment_meals_rating_dialog.*
 
@@ -22,8 +24,7 @@ class MealsDataDialogFragment(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_meals_rating_dialog, container, false)
+         return inflater.inflate(R.layout.fragment_meals_rating_dialog, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,8 +58,14 @@ class MealsDataDialogFragment(
 
     override fun onResume() {
         super.onResume()
+
+        var displayMetrics = DisplayMetrics()
+        (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        var width = (displayMetrics.widthPixels - (displayMetrics.widthPixels / 9))
+
+
         val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = 800
+        params.width = width
         params.height = ViewGroup.LayoutParams.WRAP_CONTENT
         dialog!!.window!!.attributes = params as WindowManager.LayoutParams
     }

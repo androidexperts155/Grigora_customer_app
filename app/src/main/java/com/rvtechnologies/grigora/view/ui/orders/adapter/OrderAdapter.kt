@@ -58,6 +58,10 @@ class OrderAdapter(
                 }
             }
         }
+
+        if(currentIndex==2){
+            holder.itemView.setOnClickListener {iRecyclerItemClick.onItemClick(orderModel) }
+        }
         orderModel.is_rated = isRated
 
         if (orderModel.is_already_rated)
@@ -138,6 +142,8 @@ class OrderAdapter(
             binding.btnDetails.setOnClickListener {
                 iRecyclerItemClick.onItemClick(item)
             }
+
+
             binding.btnRate.setOnClickListener {
                 item.isReorder = false
                 iRecyclerItemClick.onItemClick(item)

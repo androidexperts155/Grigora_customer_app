@@ -31,6 +31,7 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        AppConstants.CURRENT_SELECTED=0
         if ((arguments?.containsKey(AppConstants.CART_ID)!!)) {
             tab_top.visibility = View.GONE
         }
@@ -110,6 +111,8 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                         }
                     }
                 }
+
+                AppConstants.CURRENT_SELECTED=p0.position
             }
         })
 

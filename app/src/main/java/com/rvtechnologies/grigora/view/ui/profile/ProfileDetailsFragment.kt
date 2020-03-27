@@ -1,5 +1,6 @@
 package com.rvtechnologies.grigora.view.ui.profile
 
+import android.Manifest
 import android.app.Activity
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -14,6 +15,15 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import com.karumi.dexter.Dexter
+import com.karumi.dexter.MultiplePermissionsReport
+import com.karumi.dexter.PermissionToken
+import com.karumi.dexter.listener.PermissionDeniedResponse
+import com.karumi.dexter.listener.PermissionGrantedResponse
+import com.karumi.dexter.listener.PermissionRequest
+import com.karumi.dexter.listener.multi.MultiplePermissionsListener
+import com.karumi.dexter.listener.single.PermissionListener
+import com.opensooq.supernova.gligar.GligarPicker
 //import com.fxn.pix.Options
 //import com.fxn.pix.Pix
 //import com.fxn.utility.PermUtil
@@ -53,9 +63,13 @@ class ProfileDetailsFragment : Fragment() {
                     viewModel.phone.value = userDetails.phone?.toString()
                     viewModel.image.value = userDetails.image?.toString()
 
-                    CommonUtils.savePrefs(context, PrefConstants.ID,userDetails.id?.toString())
-                    CommonUtils.savePrefs(context, PrefConstants.NAME,userDetails.name?.toString())
-                    CommonUtils.savePrefs(context, PrefConstants.IMAGE,userDetails.image?.toString())
+                    CommonUtils.savePrefs(context, PrefConstants.ID, userDetails.id?.toString())
+                    CommonUtils.savePrefs(context, PrefConstants.NAME, userDetails.name?.toString())
+                    CommonUtils.savePrefs(
+                        context,
+                        PrefConstants.IMAGE,
+                        userDetails.image?.toString()
+                    )
 
                     profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
                     profileDetailsFragmentBinding?.profileDetailsView = this
@@ -110,20 +124,40 @@ class ProfileDetailsFragment : Fragment() {
     }
 
     fun chooseProfilePic() {
-//        Pix.start(this, Options.init().setRequestCode(AppConstants.SELECT_IMAGE_CODE))
+        Dexter.withActivity(activity)
+            .withPermissions(
+                Manifest.permission.CAMERA,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE,
+                Manifest.permission.READ_EXTERNAL_STORAGE
+            ).withListener(object : MultiplePermissionsListener {
+
+                override fun onPermissionsChecked(report: MultiplePermissionsReport) {/* ... */
+
+                    GligarPicker().requestCode(400).withFragment(this@ProfileDetailsFragment)
+                        .limit(1).show()
+
+//                    if (report.areAllPermissionsGranted()) {
+//                        allPermissionGranted = true
+//                    } else {
+//                        allPermissionGranted = false
+//// showSettingsDialog()
+//                    }
+//                    if (report.isAnyPermissionPermanentlyDenied) {
+//                        showSettingsDialog()
+//                        allPermissionGranted = false;
+//                    }
+                }
+
+                override fun onPermissionRationaleShouldBeShown(
+                    permissions: List<PermissionRequest>,
+                    token: PermissionToken
+                ) {/* ... */
+                    token.continuePermissionRequest()
+//                    showSettingsDialog()
+                }
+            }).check()
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-//        if (resultCode == Activity.RESULT_OK && requestCode == AppConstants.SELECT_IMAGE_CODE) {
-//            val returnValue = data!!.getStringArrayListExtra(Pix.IMAGE_RESULTS)
-//            if (returnValue != null) {
-//                viewModel.image.value = returnValue[0]
-//                profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
-//            }
-//        }
-
-    }
 
     override fun onRequestPermissionsResult(
         requestCode: Int,
@@ -156,4 +190,28 @@ class ProfileDetailsFragment : Fragment() {
             (activity as MainActivity).lockDrawer(true)
         }
     }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (resultCode != Activity.RESULT_OK) {
+            return
+        }
+
+        when (requestCode) {
+            400 -> {
+                val imagesList =
+                    data?.extras?.getStringArray(GligarPicker.IMAGES_RESULT)// return list of selected images paths.
+                if (!imagesList.isNullOrEmpty()) {
+
+                    viewModel.image.value = imagesList[0]
+                    profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
+
+
+//
+                }
+            }
+        }
+    }
+
+
 }

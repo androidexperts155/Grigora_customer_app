@@ -10,6 +10,7 @@ import com.rvtechnologies.grigora.model.GroupCartModel
 import com.rvtechnologies.grigora.model.models.*
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.GrigoraApp
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import java.lang.Exception
 
 class GroupCartViewModel : ViewModel() {
@@ -20,6 +21,8 @@ class GroupCartViewModel : ViewModel() {
     var cartId = MutableLiveData<String>()
     var cartData = MutableLiveData<GroupCartModel>()
     var token = MutableLiveData<String>()
+    var deliveryPrice = MutableLiveData<String>()
+
     var promoId = MutableLiveData<String>()
     var paymentMode = MutableLiveData<String>()
     var clientToken = MutableLiveData<Any>()
@@ -29,43 +32,16 @@ class GroupCartViewModel : ViewModel() {
     var deliveryLong = MutableLiveData<String>()
     var deliveryNote = MutableLiveData<String>()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
-
-    fun getCartItems(token: String, itemId: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
-            .getItemCart(
-                token,
-                itemId
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type =
-                        object : TypeToken<CommonResponseModel<ArrayList<CartDetail>>>() {}.type
-                    cartItemList.value = Gson().fromJson(result as JsonElement, type)
-                } else {
-                    cartItemList.value = result
-                }
-            }
-    }
-
-
+    var addCartRes = MutableLiveData<Any>()
     var offerModel = MutableLiveData<OfferModel>()
+    var responsePlaceOrder = MutableLiveData<Any>()
+    var offersListRes: MutableLiveData<Any> = MutableLiveData()
 
-    fun select(item: OfferModel) {
-        offerModel.value = item
-    }
-
-    fun getSelected(): OfferModel? {
-        return offerModel.value
-    }
 
     init {
         promoId.value = "0"
         deliveryNote.value = ""
     }
-
-    var responsePlaceOrder = MutableLiveData<Any>()
-    var offersListRes: MutableLiveData<Any> = MutableLiveData()
 
     fun viewGroupCart(token: String, lat: String, lng: String) {
         isLoading.value = true
@@ -75,10 +51,10 @@ class GroupCartViewModel : ViewModel() {
                 if (success) {
                     try {
                         val type = object : TypeToken<CommonResponseModel<GroupCartModel>>() {}.type
-                        responseCart.value =
-                            Gson().fromJson(
-                                result as JsonElement, type
-                            )
+                        responseCart.postValue( Gson().fromJson(
+                            result as JsonElement, type
+                        ))
+
 
                     } catch (e: Exception) {
                         e.printStackTrace()
@@ -126,11 +102,6 @@ class GroupCartViewModel : ViewModel() {
             }
     }
 
-
-    fun isFrench(): Boolean {
-        return GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
-    }
-
     fun getOffers(restId: String) {
         isLoading.value = true
         ApiRepo.getInstance()
@@ -167,20 +138,100 @@ class GroupCartViewModel : ViewModel() {
             }
     }
 
-    fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
-        isLoading.value = true
+//    fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
+//        isLoading.value = true
+//        ApiRepo.getInstance()
+//            .updateCartQty(
+//                token,
+//                itemId, quantity, cartId
+//            ) { success, result ->
+//                isLoading.value = false
+//                if (success) {
+//
+//                }
+//            }
+//
+//
+//    }
+
+    fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
+        if (token.value.toString().isNotBlank()) {
+            isLoading.value = true
+            ApiRepo.getInstance()
+                .addItemToGroupCart(
+                    token = token.value.toString(),
+                    restaurantId = restaurantId,
+                    itemId = itemId,
+                    price = price,
+                    quantity = quantity,
+                    itemChoices = "", cartId = cartId.value.toString()
+                ) { success, result ->
+                    isLoading.value = false
+                    if (success) {
+                        val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                        addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                    } else
+                        addCartRes.value = result
+                }
+        }
+    }
+
+    fun updateType(restaurantId: String, type: String, token: String) {
         ApiRepo.getInstance()
-            .updateCartQty(
-                token,
-                itemId, quantity, cartId
+            .changeOrderType(
+                token = token,
+                restaurant_id = restaurantId,
+                cart_type = type
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+//                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+//                    addCartRes.value = result
                 }
             }
 
+    }
 
+    fun destroy(activity: MainActivity) {
+        isLoading.value = false
+        responseCart.value = null
+        responseClearCart.value = null
+        cartData.value = null
+        token.value = null
+        promoId.value = null
+        paymentMode.value = null
+        clientToken.value = null
+        reference.value = null
+        deliveryAddress.value = null
+        deliveryLat.value = null
+        deliveryLong.value = null
+        deliveryNote.value = null
+        cartItemList.value = null
+        addCartRes.value = null
+        offerModel.value = null
+        responsePlaceOrder.value = null
+         offersListRes.value = null
+
+        isLoading.removeObservers(activity)
+        responseCart.removeObservers(activity)
+        responseClearCart.removeObservers(activity)
+        cartData.removeObservers(activity)
+        token.removeObservers(activity)
+        promoId.removeObservers(activity)
+        paymentMode.removeObservers(activity)
+        clientToken.removeObservers(activity)
+        reference.removeObservers(activity)
+        deliveryAddress.removeObservers(activity)
+        deliveryLat.removeObservers(activity)
+        deliveryLong.removeObservers(activity)
+        deliveryNote.removeObservers(activity)
+        cartItemList.removeObservers(activity)
+        addCartRes.removeObservers(activity)
+        offerModel.removeObservers(activity)
+        responsePlaceOrder.removeObservers(activity)
+         offersListRes.removeObservers(activity)
     }
 
 }

@@ -132,6 +132,7 @@ dependencies {
     implementation 'com.journeyapps:zxing-android-embedded:3.4.0'
     implementation 'com.github.jd-alexander:library:1.1.0'
 
+    implementation 'com.opensooq.supernova:gligar:1.0.0'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

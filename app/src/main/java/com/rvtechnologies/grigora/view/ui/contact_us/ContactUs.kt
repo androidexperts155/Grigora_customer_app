@@ -134,6 +134,7 @@ class ContactUs : Fragment() {
     }
 
     fun call(){
+
         Dexter.withActivity(activity)
             .withPermission(Manifest.permission.CALL_PHONE)
             .withListener(object : PermissionListener {
@@ -152,7 +153,6 @@ class ContactUs : Fragment() {
 
                 }
             }).check()
-
 
 
     }

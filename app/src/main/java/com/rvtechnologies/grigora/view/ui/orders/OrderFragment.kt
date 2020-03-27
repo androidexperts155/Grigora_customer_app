@@ -162,6 +162,14 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
                 2 -> {
 //                    TODO: handle click of upcoming orders
 
+                    val bundle =
+                        bundleOf(AppConstants.SCHEDULED_ORDER_MODEL to item)
+
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_ordersFragment_to_scheduledOrderDetail,
+                            bundle
+                        )
                 }
             }
 

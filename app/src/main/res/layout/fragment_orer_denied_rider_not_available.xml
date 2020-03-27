@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@android:color/transparent"
+    android:orientation="vertical">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/round_white"
+        android:orientation="vertical"
+        android:padding="@dimen/_16sdp">
+        
+        
+        <ImageView
+            android:layout_width="@dimen/_160sdp"
+            android:layout_height="@dimen/_160sdp"
+            android:layout_gravity="center"
+            app:srcCompat="@drawable/no_rider" />
+        
+        <TextView
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="@dimen/_8sdp"
+            android:gravity="center"
+            android:text="@string/no_driver_available"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_14sdp" />
+        
+        <TextView
+            android:id="@+id/tv_title"
+            style="@style/normalText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            
+            android:gravity="center"
+            android:text="@string/no_driver_available_info"
+            android:textColor="?attr/searchHint"
+            android:textSize="@dimen/_11sdp" />
+        
+        
+        <LinearLayout
+            
+            android:id="@+id/li_continue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginBottom="@dimen/_16sdp"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:visibility="visible">
+            
+            
+            <Button
+                android:id="@+id/bt_continue"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:background="@drawable/btn_rounded"
+                android:clickable="true"
+                android:elevation="1dp"
+                android:foreground="@drawable/selectable_item_background"
+                android:hapticFeedbackEnabled="true"
+                android:minWidth="@dimen/_80sdp"
+                android:text="@string/pickup"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+            
+            <TextView
+                android:id="@+id/bt_wait"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="?attr/chipDeSelected"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:minWidth="@dimen/_140sdp"
+                android:text="@string/wait_for_driver"
+                android:textAllCaps="false"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <TextView
+                android:id="@+id/bt_cancel"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_30sdp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="@dimen/_12sdp"
+                android:background="?attr/chipDeSelected"
+                android:clickable="true"
+                android:elevation="0dp"
+                android:foreground="@drawable/selectable_item_background"
+                android:gravity="center"
+                android:hapticFeedbackEnabled="true"
+                android:minWidth="@dimen/_140sdp"
+                android:text="@string/cancel"
+                android:textAllCaps="false"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+        
+        
+        </LinearLayout>
+    
+    
+    </LinearLayout>
+
+</LinearLayout>
+

@@ -22,6 +22,7 @@ import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.DateAdapter
 import com.rvtechnologies.grigora.view_model.TableBookingViewModel
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.table_booking_fragment.*
 import java.util.*
 import kotlin.collections.ArrayList
@@ -415,6 +416,12 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
         }
 
         return true
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        (activity as MainActivity).fab_cart.visibility=View.GONE
 
     }
 }

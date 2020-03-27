@@ -81,7 +81,7 @@
             app:destination="@id/selectLocationFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_navigationMyAccounts_to_addressList"
             app:destination="@id/addressListFragment"
@@ -89,20 +89,19 @@
             app:exitAnim="@anim/slide_out_left" />
         
         
-        
         <action
             android:id="@+id/action_navigationMyAccounts_to_refer_and_earn"
             app:destination="@id/referAndEarn"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_navigationMyAccounts_to_purchasedCards"
             app:destination="@id/purchasedCards"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-
-
+    
+    
     </fragment>
     <fragment
         android:id="@+id/restaurantDetailsFragment"
@@ -193,7 +192,7 @@
             app:launchSingleTop="true"
             app:popUpTo="@+id/nav_graph.xml"
             app:popUpToInclusive="true" />
-        
+    
     </fragment>
     <fragment
         
@@ -222,6 +221,12 @@
         <action
             android:id="@+id/action_ordersFragment_to_cartFragment"
             app:destination="@id/navigationCart"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
+        <action
+            android:id="@+id/action_ordersFragment_to_scheduledOrderDetail"
+            app:destination="@id/scheduleOrderDetail"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
     </fragment>
@@ -513,7 +518,6 @@
             app:exitAnim="@anim/slide_out_left" />
         
         
-        
         <action
             android:id="@+id/action_social_fragment_to_signup"
             app:destination="@id/signUpFragment"
@@ -535,7 +539,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:launchSingleTop="true"
             app:popUpToInclusive="true" />
-    
+        
         <action
             android:id="@+id/action_social_fragment_to_dashboardFragment"
             app:destination="@id/dashBoardFragment"
@@ -602,8 +606,7 @@
             app:destination="@id/groupCartFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-        
-        
+    
     
     </fragment>
     <fragment
@@ -683,33 +686,44 @@
     <fragment
         android:id="@+id/notifications"
         android:name="com.rvtechnologies.grigora.view.ui.notifications.NotificationsFragment"
-        android:label="NotificationsFragment" >
-    
+        android:label="NotificationsFragment">
+        
         <action
             android:id="@+id/action_notifications_to_restaurantDetailParent"
             app:destination="@id/restaurantDetailParent"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_notifications_to_orderDetails"
             app:destination="@id/orderDetailsFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_notifications_to_transferMoney"
             app:destination="@id/transferMoney"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-    
+        
         <action
             android:id="@+id/action_notifications_to_purchasedCards"
             app:destination="@id/purchasedCards"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        <action
+            android:id="@+id/action_notifications_to_tableBokingHistory"
+            app:destination="@id/tableBookingHistory"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
         
-        
+        <action
+            android:id="@+id/action_notifications_to_scheduledOrder"
+            app:destination="@id/scheduleOrderDetail"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+    
+    
     </fragment>
     <fragment
         android:id="@+id/referAndEarn"
@@ -761,6 +775,14 @@
             app:destination="@id/groupCartFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
+        
+        
+        <action
+            android:id="@+id/action_restaurantDetailGroup_to_reviewsFragment"
+            app:destination="@id/reviewsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left" />
+        
         
         <action
             android:id="@+id/action_restaurantDetailGroup_to_dashboardFragment"
@@ -839,10 +861,9 @@
             app:popUpTo="@id/nav_graph.xml" />
         <action
             android:id="@+id/action_groupCartFragment_to_offerFragment"
-            app:destination="@id/offerFragment"
+            app:destination="@id/groupOfferFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-        
         
         <action
             android:id="@+id/action_groupCartFragment_to_selectLocationFragment"
@@ -995,7 +1016,21 @@
         android:id="@+id/purchasedCards"
         android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.PurchasedCards"
         android:label="Purchased Cards">
-        
+    
     </fragment>
+    
+    <fragment
+        android:id="@+id/scheduleOrderDetail"
+        android:name="com.rvtechnologies.grigora.view.ui.orders.ScheduleOrderDetails"
+        android:label="Purchased Cards">
+    
+    </fragment>
+    <fragment
+        android:id="@+id/groupOfferFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.offers.GroupOffers"
+        android:label="Purchased Cards">
+    
+    </fragment>
+
 
 </navigation>

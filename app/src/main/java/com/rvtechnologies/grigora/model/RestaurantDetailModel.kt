@@ -108,7 +108,7 @@ data class RestaurantDetailModel(
         val status: String,
         val total_price: String,
         val updated_at: String,
-        val user_id: Int
+        val user_id: String
     ): Parcelable
 
 

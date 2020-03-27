@@ -9,6 +9,7 @@ object ApiConstants {
     const val PHONE_LOGIN_URL = "phone-login"
     const val SIGNUP_URL = "signup"
     const val SOCIAL_LOGIN_URL = "social-login"
+    const val PROMO_RESTAURANTS = "promo-restaurants"
 
     const val FORGOT_PASSWORD_URL = "forgot-password"
 
@@ -36,6 +37,7 @@ object ApiConstants {
     const val UPDATE_CART_QTY = "update-cart-item-quantity"
     const val REMOVE_CART_URL = "remove-cart"
     const val CART_ITEMS_URL = "cart-item-list"
+    const val GROUP_CART_ITEMS_URL = "group-cart-item-list"
 
     const val PAY_STACK = "pay-stack"
     const val VIEW_GROUP_CART_URL = "view-group-cart"

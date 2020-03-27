@@ -22,6 +22,7 @@ class CommonViewAllViewModel : ViewModel() {
         isLoading.value = true
 
 
+
         ApiRepo.getInstance()
             .showFilterData(
                 token = token.value!!,
@@ -51,6 +52,26 @@ class CommonViewAllViewModel : ViewModel() {
                 latitude = lat.value!!,
                 longitude = lng.value!!,
                 filter_type = id
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type =
+                        object :
+                            TypeToken<CommonResponseModel<PickupRestaurantsModel>>() {}.type
+
+                    restaurantsResponse.value = Gson().fromJson((result as JsonElement), type)
+                } else {
+                    restaurantsResponse.value = result
+                }
+            }
+    }
+
+    fun getPromo(lat: String, lng: String, promo: String) {
+        isLoading.value = true
+
+        ApiRepo.getInstance()
+            .promoRestaurants(
+                lat = lat, lng = lng, promo = promo
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

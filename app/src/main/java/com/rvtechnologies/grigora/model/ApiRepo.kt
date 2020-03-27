@@ -2,6 +2,7 @@ package com.rvtechnologies.grigora.model
 
 import android.util.Log
 import androidx.core.content.ContextCompat
+import com.facebook.common.Common
 import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.api.ApiClient
@@ -134,7 +135,6 @@ class ApiRepo {
                 }
             })
     }
-
 
     /*
   Signup repo
@@ -585,6 +585,39 @@ Cuisine repo
             })
     }
 
+    fun promoRestaurants(
+        lat: String,
+        lng: String,
+        promo: String,
+
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().promoRestaurants(
+                token = CommonUtils.getToken(),
+                loginType = CommonUtils.getLoginType(),
+                userId = CommonUtils.getUidDevice(),
+                latitude = lat,
+                longitude = lng,
+                promo_id = promo
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
 
     fun searchRestaurants(
         token: String,
@@ -749,7 +782,33 @@ Cuisine repo
         itemId: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().getItemCart(token, itemId)
+        ApiClient.getClient()
+            .getItemCart(token, CommonUtils.getUidDevice(), CommonUtils.getLoginType(), itemId)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
+    fun getGroupItemCart(
+        itemId: String,
+        cartId: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .getGroupItemCart(cart_id = cartId, item_id = itemId, token = CommonUtils.getToken())
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1558,10 +1617,18 @@ Cuisine repo
         token: String,
         email: String,
         voucher_code: String,
+        type: String,
+        reference: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
-            .sendGift(token = token, email = email, voucher_code = voucher_code)
+            .sendGift(
+                token = token,
+                email = email,
+                voucher_code = voucher_code,
+                reference = reference,
+                payment_method = type
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1585,10 +1652,17 @@ Cuisine repo
     fun buyCard(
         token: String,
         voucher_code: String,
+        type: String,
+        reference: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
-            .buyCard(token = token, voucher_code = voucher_code)
+            .buyCard(
+                token = token,
+                voucher_code = voucher_code,
+                payment_method = type,
+                reference = reference
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,

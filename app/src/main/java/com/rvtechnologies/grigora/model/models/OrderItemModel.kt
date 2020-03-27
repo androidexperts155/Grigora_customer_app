@@ -32,6 +32,10 @@ data class OrderItemModel(
     var deliveryNote: String = "",
     @SerializedName("delivery_time")
     var deliveryTime: String = "",
+
+
+
+
     @SerializedName("dispatch")
     var dispatch: String = "",
     @SerializedName("driver_email")

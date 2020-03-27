@@ -1,6 +1,7 @@
 package com.rvtechnologies.grigora.view.ui.rating
 
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,6 +13,7 @@ import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.fragment_rate_driver_dialog.*
 
@@ -25,6 +27,11 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     var goodReview = ""
     var badReview = ""
 
+    var selectedPos: TextView? = null
+    var selectedNeg: TextView? = null
+    var selectetTip: TextView? = null
+
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -32,13 +39,6 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         return inflater.inflate(R.layout.fragment_rate_driver_dialog, container, false)
     }
 
-    override fun onResume() {
-        super.onResume()
-        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
-        params.width = ViewGroup.LayoutParams.WRAP_CONTENT
-        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
-        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
-    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
@@ -46,7 +46,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
 
 
         initList()
-        initClicks()
+         initClicks()
 
         tv_name.text = getString(R.string.rate_driver, orderItemModel.driverName)
         val circularProgressDrawable = CircularProgressDrawable(context!!)
@@ -116,12 +116,25 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     }
 
     private fun selectC(view: TextView) {
-        badReview = view.text.toString()
-
         for (item in cList) {
+
+
             if (item.id == view.id) {
-                item.setBackgroundResource(R.drawable.chip_selected_bg)
-                item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                if (selectedNeg != null && selectedNeg == view) {
+                    selectedNeg = null
+                    badReview = ""
+                    item.setBackgroundResource(R.drawable.chip_deselected_bg)
+                    if (CommonUtils.isDarkMode())
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    else
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                } else {
+                    item.setBackgroundResource(R.drawable.chip_selected_bg)
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    badReview = view.text.toString()
+                    selectedNeg = view
+
+                }
             } else {
                 item.setBackgroundResource(R.drawable.chip_deselected_bg)
                 if (CommonUtils.isDarkMode())
@@ -134,11 +147,23 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     }
 
     private fun selectCh(view: TextView) {
-        goodReview = view.text.toString()
         for (item in chList) {
             if (item.id == view.id) {
-                item.setBackgroundResource(R.drawable.chip_selected_bg)
-                item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+
+                if (selectedPos != null && selectedPos == view) {
+                    selectedPos = null
+                    goodReview = ""
+                    item.setBackgroundResource(R.drawable.chip_deselected_bg)
+                    if (CommonUtils.isDarkMode())
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    else
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                } else {
+                    item.setBackgroundResource(R.drawable.chip_selected_bg)
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    goodReview = view.text.toString()
+                    selectedPos = view
+                }
             } else {
                 item.setBackgroundResource(R.drawable.chip_deselected_bg)
                 if (CommonUtils.isDarkMode())
@@ -151,11 +176,24 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
     }
 
     private fun selectT(view: TextView) {
-        tip = view.tag.toString()
         for (item in tList) {
             if (item.id == view.id) {
-                item.setBackgroundResource(R.drawable.chip_selected_bg)
-                item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+
+                if (selectetTip != null && selectetTip == view) {
+                    selectetTip = null
+                    tip = ""
+
+                    item.setBackgroundResource(R.drawable.chip_deselected_bg)
+                    if (CommonUtils.isDarkMode())
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    else
+                        item.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                } else {
+                    item.setBackgroundResource(R.drawable.chip_selected_bg)
+                    item.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                    tip = view.tag.toString()
+                    selectetTip = view
+                }
             } else {
                 item.setBackgroundResource(R.drawable.chip_deselected_bg)
                 if (CommonUtils.isDarkMode())
@@ -178,5 +216,18 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
         fun onDriverRateCancel(orderItemModel: OrderItemModel)
     }
 
+    override fun onResume() {
+        super.onResume()
+
+        var displayMetrics = DisplayMetrics()
+        (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
+        var width = (displayMetrics.widthPixels - (displayMetrics.widthPixels / 9))
+
+
+        val params: ViewGroup.LayoutParams = dialog!!.window!!.attributes
+        params.width = width
+        params.height = ViewGroup.LayoutParams.WRAP_CONTENT
+        dialog!!.window!!.attributes = params as WindowManager.LayoutParams
+    }
 
 }

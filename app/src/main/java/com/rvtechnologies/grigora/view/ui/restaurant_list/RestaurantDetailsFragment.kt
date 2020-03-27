@@ -70,14 +70,11 @@ class RestaurantDetailsFragment(
                 mealsAndCuisinesList.clear()
                 filteredMealsAndCuisinesList.clear()
 
-
-
                 if (response.status!!) {
                     restaurantDetailModel = response.data as RestaurantDetailModel
 
 //                    disable pickup/delivery if restaurant is unavailable or closed
                     handleClosed()
-
 
                     if (!restaurantDetailModel.orderType.isNullOrEmpty() && restaurantDetailModel.orderType == "1") {
                         tv_delivery.callOnClick()
@@ -124,8 +121,7 @@ class RestaurantDetailsFragment(
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
                     tv_restaurantname.text = restaurantDetailModel.restaurant_name
                     tv_cuisines.text = restaurantDetailModel.cuisines
-                    tv_deliver.text =
-                        "Delivers in " + restaurantDetailModel.estimated_preparing_time + " min"
+
 
                     mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
                     filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
@@ -134,8 +130,8 @@ class RestaurantDetailsFragment(
                     if (!filter.isNullOrEmpty())
                         filter()
 
-
-                    updateCartButton()
+                    if (AppConstants.CURRENT_SELECTED == 0)
+                        updateCartButton()
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
@@ -154,47 +150,52 @@ class RestaurantDetailsFragment(
             })
 
         viewModel.cartItemList.observe(this, Observer {
-            cartItemList.clear()
-            cartItemList.addAll((it as CommonResponseModel<*>).data as ArrayList<CartDetail>)
 
-            var alertDialog: AlertDialog? = null
+            if (it is CommonResponseModel<*>) {
+                cartItemList.clear()
+                cartItemList.addAll((it as CommonResponseModel<*>).data as ArrayList<CartDetail>)
 
-            val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
-            if (activity is MainActivity && !(activity as MainActivity).isDestroyed && alertDialog == null) {
-                val inflater = (activity as MainActivity).layoutInflater
-                val dialogView = inflater.inflate(R.layout.existing_cart_dialog, null)
-                dialogBuilder?.setView(dialogView)
-                dialogBuilder?.setCancelable(false)
+                var alertDialog: AlertDialog? = null
 
-                dialogView.tv_title.text =
-                    cartItemList[0].itemName
+                val dialogBuilder = activity?.let { AlertDialog.Builder(it) }
+                if (activity is MainActivity && !(activity as MainActivity).isDestroyed && alertDialog == null) {
+                    val inflater = (activity as MainActivity).layoutInflater
+                    val dialogView = inflater.inflate(R.layout.existing_cart_dialog, null)
+                    dialogBuilder?.setView(dialogView)
+                    dialogBuilder?.setCancelable(false)
+
+                    dialogView.tv_title.text =
+                        cartItemList[0].itemName
 
 
-                dialogView.rvOrderItems.adapter =
-                    ItemsCartAdapter(
-                        cartItemList,
-                        this@RestaurantDetailsFragment, this
-                    )
-                dialogView.bt_add_new.setOnClickListener {
-                    alertDialog?.dismiss()
-                    val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to menuItemModel)
-                    iRecyclerItemClick.onItemClick(bundle)
+                    dialogView.rvOrderItems.adapter =
+                        ItemsCartAdapter(
+                            cartItemList,
+                            this@RestaurantDetailsFragment, this
+                        )
+                    dialogView.bt_add_new.setOnClickListener {
+                        alertDialog?.dismiss()
+                        val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to menuItemModel)
+                        iRecyclerItemClick.onItemClick(bundle)
+                    }
+
+                    dialogView.img_close.setOnClickListener {
+                        alertDialog?.dismiss()
+
+                        viewModel.getRestaurantsDetails(
+                            CommonUtils.getPrefValue(
+                                context,
+                                PrefConstants.TOKEN
+                            ),
+                            restaurantId,
+                            ""
+                        )
+                    }
+                    alertDialog = dialogBuilder?.create()
+                    alertDialog?.show()
                 }
-
-                dialogView.img_close.setOnClickListener {
-                    alertDialog?.dismiss()
-
-                    viewModel.getRestaurantsDetails(
-                        CommonUtils.getPrefValue(
-                            context,
-                            PrefConstants.TOKEN
-                        ),
-                        restaurantId,
-                        ""
-                    )
-                }
-                alertDialog = dialogBuilder?.create()
-                alertDialog?.show()
+            } else {
+                CommonUtils.showMessage(parentView, it.toString())
             }
         })
 
@@ -205,6 +206,8 @@ class RestaurantDetailsFragment(
                     cartId = data.cartId.toString()
                     if (data.quantity > 0)
                         AppConstants.CART_COUNT = data.quantity
+
+
                     viewModel.getRestaurantsDetails(
                         CommonUtils.getPrefValue(
                             context,
@@ -316,7 +319,6 @@ class RestaurantDetailsFragment(
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-
             var distance = CommonUtils.calculateDistance(
                 restaurantDetailModel.latitude.toDouble(),
                 restaurantDetailModel.longitude.toDouble(),
@@ -324,11 +326,27 @@ class RestaurantDetailsFragment(
                 CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
             )
 
-
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
-            tv_pickup_desc.visibility = View.GONE
+            tv_pickup_desc.visibility = View.VISIBLE
+
+            tv_pickup_desc.visibility = View.VISIBLE
+
+
+            var color: String = if (CommonUtils.isDarkMode()) "#ffffff" else "#262626"
+//            val address = getColoredSpanned(restaurantDetailModel.address + ". ", "#D01110")
+//            val info = getColoredSpanned(getString(R.string.pick_order_info), color)
+            val distanceM = getColoredSpanned(
+                "${CommonUtils.getRoundedOff(
+                    distance.toDouble()
+                )} " + getString(
+                    R.string.km_away
+                ), color
+            )
+
+            tv_pickup_desc.text = Html.fromHtml(distanceM)
+
 
             var t = restaurantDetailModel.estimated_preparing_time.toInt() + (distance * 2)
 
@@ -389,8 +407,6 @@ class RestaurantDetailsFragment(
             )
 
             tv_pickup_desc.text = Html.fromHtml(info + " " + address + " " + distanceM)
-
-
 
 
             val hours: Int =
@@ -480,15 +496,13 @@ class RestaurantDetailsFragment(
     }
 
     fun scheduleOrder() {
-//        if (CommonUtils.isLogin()) {
-        if ((activity as MainActivity).fab_cart.visibility == View.VISIBLE)
-            iRecyclerItemClick.onItemClick(3)
-        else
-            CommonUtils.showMessage(parentView, getString(R.string.please_add_items))
-
-
-//        } else
-//            (activity as MainActivity).showLoginAlert()
+        if (CommonUtils.isLogin()) {
+            if ((activity as MainActivity).fab_cart.visibility == View.VISIBLE)
+                iRecyclerItemClick.onItemClick(3)
+            else
+                CommonUtils.showMessage(parentView, getString(R.string.please_add_items))
+        } else
+            (activity as MainActivity).showLoginAlert()
     }
 
     override fun onResume() {
@@ -505,7 +519,9 @@ class RestaurantDetailsFragment(
             restaurantId,
             ""
         )
-        updateCartButton()
+        if (AppConstants.CURRENT_SELECTED == 0)
+            updateCartButton()
+
     }
 
     fun back() {
