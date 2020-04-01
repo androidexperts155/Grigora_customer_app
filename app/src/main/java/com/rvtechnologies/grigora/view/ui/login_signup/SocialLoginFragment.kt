@@ -290,7 +290,6 @@ class SocialLoginFragment : Fragment() {
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
 
-        viewModel?.changeToLogin()
 
         if (data?.data?.have_address!!) {
             view?.findNavController()?.navigate(R.id.action_social_fragment_to_addressListFragment)

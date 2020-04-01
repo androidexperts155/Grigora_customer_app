@@ -91,7 +91,7 @@
             android:text="5.99 delivery"
             android:textColor="?attr/searchHint"
             android:textSize="@dimen/_10sdp" />
-    
+        
         <TextView
             android:id="@+id/tv_closed"
             android:visibility="gone"

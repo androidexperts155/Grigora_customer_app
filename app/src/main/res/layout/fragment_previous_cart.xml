@@ -1,0 +1,170 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parent"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/round_white"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:padding="@dimen/_16sdp">
+    
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:text="@string/two_carts_created"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_16sdp" />
+    
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:clickable="true"
+        android:foreground="@drawable/selectable_item_background"
+        android:orientation="vertical">
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/from_previous"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        <RelativeLayout
+            android:id="@+id/rel_pre"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            
+            android:orientation="horizontal"
+            android:padding="@dimen/_8sdp">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/rd_pre"
+                android:orientation="vertical">
+                
+                
+                <TextView
+                    android:id="@+id/tv_res1"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Burger King"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_14sdp" />
+                
+                <TextView
+                    android:id="@+id/tv_itm1"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 Items"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_10sdp" />
+            
+            </LinearLayout>
+            
+            <RadioButton
+                android:id="@+id/rd_pre"
+                
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:buttonTint="@color/colorPrimaryDark" />
+        </RelativeLayout>
+    </LinearLayout>
+    
+    
+    <TextView
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="left"
+        android:text="@string/from_recent"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
+    
+    <LinearLayout
+        android:id="@+id/rel_recent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        
+        android:foreground="@drawable/selectable_item_background"
+        android:orientation="vertical"
+        android:padding="@dimen/_8sdp">
+        
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            
+            
+            android:orientation="horizontal">
+            
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/rd_recent"
+                android:orientation="vertical">
+                
+                
+                <TextView
+                    android:id="@+id/tv_res2"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Burger King"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_14sdp" />
+                
+                <TextView
+                    android:id="@+id/tv_itm2"
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="5 Items"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_10sdp" />
+            
+            </LinearLayout>
+            
+            <RadioButton
+                android:id="@+id/rd_recent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:buttonTint="@color/colorPrimaryDark" />
+        </RelativeLayout>
+    </LinearLayout>
+    
+    <Button
+        android:id="@+id/bt_view"
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_10sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_10sdp"
+        android:layout_marginBottom="@dimen/_4sdp"
+        android:background="@drawable/btn_rounded"
+        android:elevation="1dp"
+        android:hapticFeedbackEnabled="true"
+        android:paddingLeft="@dimen/_18sdp"
+        android:paddingRight="@dimen/_18sdp"
+        android:text="@string/continueTxt"
+        android:textAllCaps="false"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_14sdp" />
+
+
+</LinearLayout>

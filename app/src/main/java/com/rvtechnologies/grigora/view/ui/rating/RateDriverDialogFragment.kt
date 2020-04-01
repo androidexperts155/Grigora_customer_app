@@ -46,7 +46,7 @@ class RateDriverDialogFragment(val orderItemModel: OrderItemModel, val driverRat
 
 
         initList()
-         initClicks()
+        initClicks()
 
         tv_name.text = getString(R.string.rate_driver, orderItemModel.driverName)
         val circularProgressDrawable = CircularProgressDrawable(context!!)

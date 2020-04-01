@@ -58,6 +58,7 @@ data class OrderItemModel(
     var endLong: Double = 0.0,
     @SerializedName("final_price")
     var finalPrice: String = "",
+    var finalPriceToShow: String = "",
 
     @SerializedName("restaurant_cusines")
     var restaurant_cusines: String = "",

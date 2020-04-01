@@ -4,8 +4,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:id="@+id/parent"
+    android:layout_height="match_parent">
     
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_8sdp"
-            android:text="@string/add_points_info"
+            android:text="@string/send_card"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_12sdp" />
         
@@ -47,16 +47,16 @@
                 
                 <EditText
                     android:id="@+id/ed_search"
-                    android:inputType="text"
-                    android:maxLines="1"
-                    
                     style="@style/mediumText"
                     android:layout_width="match_parent"
+                    
                     android:layout_height="@dimen/_28sdp"
                     android:layout_toLeftOf="@+id/img_search"
                     android:background="@color/transparent"
                     android:gravity="center_vertical"
                     android:hint="@string/search_name_wallet_id"
+                    android:inputType="text"
+                    android:maxLines="1"
                     android:textColor="?attr/textWhite"
                     android:textColorHint="?attr/searchHint"
                     android:textSize="@dimen/_11sdp" />
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_horizontal"
                     android:padding="@dimen/_8sdp"
-                    android:text="@string/gift_to"
+                    android:text="@string/send_to"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
                 

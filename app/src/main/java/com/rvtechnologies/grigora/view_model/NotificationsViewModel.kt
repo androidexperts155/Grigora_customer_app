@@ -7,11 +7,13 @@ import com.google.gson.JsonElement
 import com.google.gson.reflect.TypeToken
 import com.rvtechnologies.grigora.NotificationsModel
 import com.rvtechnologies.grigora.model.ApiRepo
- import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 
 class NotificationsViewModel : ViewModel() {
 
     var notificationsRes = MutableLiveData<Any>()
+    var notificationsDelete = MutableLiveData<Any>()
     var isLoading = MutableLiveData<Boolean>()
 
 
@@ -24,7 +26,8 @@ class NotificationsViewModel : ViewModel() {
             ) { success, result ->
                 isLoading.value = false
                 if (success) {
-                    val type = object : TypeToken<CommonResponseModel<ArrayList<NotificationsModel>>>() {}.type
+                    val type = object :
+                        TypeToken<CommonResponseModel<ArrayList<NotificationsModel>>>() {}.type
                     notificationsRes.value = Gson().fromJson(result as JsonElement, type)
                 } else {
                     notificationsRes.value = result
@@ -32,23 +35,39 @@ class NotificationsViewModel : ViewModel() {
             }
     }
 
-    fun deleteNotification(token: String,id:String) {
+    fun deleteNotification(token: String, id: String) {
         isLoading.value = true
 
         ApiRepo.getInstance()
             .deleteNotification(
-                token = token,notificationId = id
+                token = token, notificationId = id
             ) { success, result ->
                 isLoading.value = false
 //                if (success) {
-//                    val type = object : TypeToken<CommonResponseModel<ArrayList<NotificationsModel>>>() {}.type
-//                    notificationsRes.value = Gson().fromJson(result as JsonElement, type)
+//                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+//                    notificationsDelete.value = Gson().fromJson(result as JsonElement, type)
 //                } else {
-//                    notificationsRes.value = result
+//                    notificationsDelete.value = result
 //                }
             }
     }
 
+    fun deleteAllNotification() {
+        isLoading.value = true
+
+        ApiRepo.getInstance()
+            .deleteNotification(
+                token = CommonUtils.getToken(), notificationId = ""
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                    notificationsDelete.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    notificationsDelete.value = result
+                }
+            }
+    }
 
 
 }

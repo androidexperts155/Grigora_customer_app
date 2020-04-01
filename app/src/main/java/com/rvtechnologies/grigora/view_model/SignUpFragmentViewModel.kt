@@ -35,7 +35,7 @@ class SignUpFragmentViewModel : ViewModel() {
                 .signUp(
                     name.value.toString().trim(),
                     email.value.toString().trim(),
-                     phone.value.toString().trim(),
+                    phone.value.toString().trim(),
                     password.value.toString().trim(),
                     confirm_password.value.toString().trim()
                 ) { success, result ->
@@ -56,7 +56,7 @@ class SignUpFragmentViewModel : ViewModel() {
     /*
     Validate login credentials from user
      */
-      fun isValidData(): Boolean {
+    fun isValidData(): Boolean {
         if (name.value.isNullOrBlank()) {
             isLoading.value = false
             signUpResult.value = "Invalid name"
@@ -73,7 +73,7 @@ class SignUpFragmentViewModel : ViewModel() {
             isLoading.value = false
             signUpResult.value = "Invalid phone number"
             return false
-        } else if (password.value.isNullOrBlank() != confirm_password.value.isNullOrBlank()) {
+        } else if (password.value.toString() != confirm_password.value.toString()) {
             isLoading.value = false
             signUpResult.value = "Please confirm password"
             return false

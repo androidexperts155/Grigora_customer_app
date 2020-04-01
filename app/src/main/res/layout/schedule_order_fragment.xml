@@ -17,6 +17,7 @@
         android:paddingBottom="@dimen/_16sdp"
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
+        android:id="@+id/parentView"
         android:background="?attr/backgroundColor"
         android:fillViewport="true">
         

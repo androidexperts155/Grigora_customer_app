@@ -545,15 +545,6 @@ interface ApiInterface {
 
 
     @FormUrlEncoded
-    @POST(ApiConstants.CHANGE_ANONOMOUS_TO_LOGIN)
-    fun changeToLogin(
-        @Header("Authorization") token: String,
-        @Field("device_id") device_id: String
-
-    ): Call<JsonElement>
-
-
-    @FormUrlEncoded
     @POST(ApiConstants.SEND_GIFT)
     fun sendGift(
         @Header("Authorization") token: String,
@@ -562,6 +553,25 @@ interface ApiInterface {
         @Field("payment_method") payment_method: String,
         @Field("reference") reference: String
 
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.GET_ALL_CARTS)
+    fun getAllCarts(
+        @Header("Authorization") token: String,
+        @Field("device_id") device_id: String
+
+
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_ANONOMOUS_TO_LOGIN)
+    fun mergeCarts(
+        @Header("Authorization") token: String,
+        @Field("device_id") device_id: String,
+        @Field("selected_cart_id") selected_cart_id: String
     ): Call<JsonElement>
 
 

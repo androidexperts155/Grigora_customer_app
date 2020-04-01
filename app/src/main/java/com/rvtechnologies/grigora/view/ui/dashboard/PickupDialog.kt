@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.fragment.app.DialogFragment
 import androidx.lifecycle.ViewModelProviders
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 
@@ -16,11 +17,11 @@ import kotlinx.android.synthetic.main.fragment_pickup_dialog.*
 /**
  * A simple [Fragment] subclass.
  */
-class PickupDialog(var iRecyclerItemClick: IRecyclerItemClick) : BottomSheetDialogFragment() {
+class PickupDialog(var iRecyclerItemClick: IRecyclerItemClick) : DialogFragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setStyle(STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
+//        setStyle(STYLE_NORMAL, R.style.MyBottomSheetDialogTheme)
     }
 
     override fun onCreateView(
@@ -40,8 +41,18 @@ class PickupDialog(var iRecyclerItemClick: IRecyclerItemClick) : BottomSheetDial
         }
 
         bt_dismiss.setOnClickListener {
+            iRecyclerItemClick.onItemClick(2)
             dismiss()
         }
 
     }
 }
+
+
+
+
+
+
+
+
+

@@ -97,7 +97,6 @@ class LoginFragment : Fragment(), GoogleSignin {
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
 
-        loginViewModel?.changeToLogin()
 
         if (data?.data?.have_address!!) {
             view?.findNavController()?.navigate(R.id.action_loginFragment2_to_addressListFragment)

@@ -490,6 +490,7 @@
     <string name="cuisine">Cuisine</string>
     <string name="grigora_gift_card">Grigora Gift card</string>
     <string name="add_points_info">Buy/Send Voucher cards to Family or  \n Friend(s).</string>
+    <string name="send_card">Send Voucher cards to Family or  Friend(s).</string>
     <string name="proceed_preview_card">Proceed To Preview Card</string>
     <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
@@ -559,5 +560,14 @@
     <string name="restaurant_not_available">Restaurant not available</string>
     <string name="no_driver_available">NO RIDER AVAILABLE \n AT THE MOMENT.</string>
     <string name="no_driver_available_info">Sorry! No available rider at the moment. A rider will be available soon. You can OPT IN for the self pickup option or wait for the rider.</string>
+    <string name="retry">RETRY</string>
+    <string name="two_carts_created">You have two carts \n Choose one to Continue</string>
+    <string name="from_previous">From previous Login</string>
+    <string name="from_recent">Recent cart</string>
+    <string name="no_cart_selected">No Cart Selected</string>
+    <string name="please_select_time">Please select time</string>
+    <string name="please_select_date">Please select Date</string>
+    <string name="send_to">Send To</string>
+    <string name="reset">Reset</string>
 
 </resources><!--₦-->

@@ -69,6 +69,7 @@ object ApiConstants {
     const val SEARCH_USER = "search-customer"
     const val GET_VOUCHER_CODES = "get-voucher-codes"
     const val SEND_GIFT = "send-gift-card"
+    const val GET_ALL_CARTS = "check-login-logout-cart"
     const val BUY_CARD = "buy-card"
     const val GET_VOUCHER_CARD = "voucher-card"
     const val MY_CARDS = "my-gift-card"

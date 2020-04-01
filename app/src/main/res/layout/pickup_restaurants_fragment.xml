@@ -17,12 +17,14 @@
         android:id="@+id/card_res"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        
         android:layout_alignParentBottom="true"
         android:layout_margin="@dimen/_12sdp"
         android:clickable="true"
         android:visibility="gone"
         app:cardBackgroundColor="?attr/backgroundColor"
-        app:cardCornerRadius="@dimen/_8sdp">
+        app:cardCornerRadius="@dimen/_8sdp"
+        tools:visibility="visible">
         
         <RelativeLayout
             android:layout_width="match_parent"
@@ -118,6 +120,65 @@
                         android:textSize="@dimen/_10sdp" />
                 </RelativeLayout>
                 
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+                    
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_toLeftOf="@+id/tv_pickup_desc"
+                        android:orientation="vertical">
+                        
+                        <TextView
+                            android:id="@+id/tv_tt"
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/open_or_close_time"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_time"
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_tt"
+                            
+                            android:text="9am to 10pm"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_10sdp" />
+                        
+                        <TextView
+                            android:id="@+id/tv_status"
+                            style="@style/normalText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="@dimen/_2sdp"
+                            android:ellipsize="end"
+                            android:gravity="left"
+                            android:maxLines="2"
+                            android:text="Deliver in 36 Minutes"
+                            android:textColor="@color/colorPrimaryDark"
+                            android:textSize="@dimen/_10sdp" />
+                    </LinearLayout>
+                    
+                    <TextView
+                        android:id="@+id/tv_pickup_desc"
+                        style="@style/mediumText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_10sdp"
+                        tools:text="5 KM away" />
+                
+                
+                </RelativeLayout>
+                
                 <ImageView
                     android:id="@+id/img_next"
                     android:layout_width="@dimen/_24sdp"
@@ -133,6 +194,7 @@
             
             </LinearLayout>
         </RelativeLayout>
+    
     </androidx.cardview.widget.CardView>
     
     <androidx.cardview.widget.CardView
@@ -185,8 +247,9 @@
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/bt_cursor"
         android:layout_width="wrap_content"
+        
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bt_list"
+        android:layout_below="@+id/card_search"
         android:layout_alignParentRight="true"
         android:layout_marginTop="@dimen/_8sdp"
         android:layout_marginRight="@dimen/_16sdp"

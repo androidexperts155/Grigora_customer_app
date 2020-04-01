@@ -13,10 +13,7 @@ import androidx.navigation.Navigation
 import androidx.navigation.Navigator
 import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.model.FilteredPrice
-import com.rvtechnologies.grigora.model.PriceFilterModel
-import com.rvtechnologies.grigora.model.SelectedRating
-import com.rvtechnologies.grigora.model.ViewMore
+import com.rvtechnologies.grigora.model.*
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.*
@@ -36,24 +33,30 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     lateinit var newDashboardModel: NewDashboardModel
     lateinit var dashbordadapter: DashboardAdapter
 
+    var getAllCart = true
+
     companion object {
         fun newInstance() = NewDashBoardFragment()
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        AppConstants.CART_RESTAURANT = ""
+        AppConstants.CART_COUNT = 0
+
+
+        getAllCart = CommonUtils.isLogin()
+
         viewModel = ViewModelProviders.of(this).get(NewDashBoardViewModel::class.java)
         GrigoraApp.getInstance().updateToken()
 
         viewModel.isLoading.observe(this, Observer { it ->
             if (it) {
                 li_not_delivering.visibility = View.GONE
-
                 shimmer_view.visibility = View.VISIBLE
                 li_data.visibility = View.GONE
             } else {
                 li_not_delivering.visibility = View.GONE
-
                 shimmer_view.visibility = View.GONE
                 li_data.visibility = View.VISIBLE
             }
@@ -61,10 +64,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
         viewModel.dashboardResult.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-
-
                 newDashboardModel = response.data as NewDashboardModel
-
                 AppConstants.base_delivery_fee = newDashboardModel.base_delivery_fee
                 AppConstants.min_kilo_meter = newDashboardModel.min_kilo_meter
 
@@ -88,14 +88,14 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     went_wrong.visibility = View.GONE
                     tv_message.text = getString(R.string.not_delivering_message)
 
+//                    var pickupDialog = PickupDialog(this)
+//                    pickupDialog.show(childFragmentManager, "")
+
+                } else if (!newDashboardModel.driverStatus) {
                     var pickupDialog = PickupDialog(this)
                     pickupDialog.show(childFragmentManager, "")
-
                 } else {
-                    if (!newDashboardModel.driverStatus) {
-                        var pickupDialog = PickupDialog(this)
-                        pickupDialog.show(childFragmentManager, "")
-                    }
+
                     li_data.visibility = View.VISIBLE
                     li_not_delivering.visibility = View.GONE
 
@@ -116,6 +116,24 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     saveWallet()
                     newDashboardModel.customizedData.removeAll(temp)
 
+                    var show=false
+                    for(item in newDashboardModel.cuisines){
+                        if(item.selected){
+                            show=true
+                            break
+                        }
+                    }
+
+                    for(item in newDashboardModel.filters){
+                        if(item.selected){
+                            show=true
+                            break
+                        }
+                    }
+
+                    if(show){
+                        tv_reset.visibility=View.VISIBLE
+                    }
                     dashbordadapter = DashboardAdapter(newDashboardModel, this)
                     rc_dashboard.adapter = dashbordadapter
                 }
@@ -127,6 +145,28 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 went_wrong.visibility = View.VISIBLE
                 tv_message.text = getString(R.string.oops_went_wrong)
             }
+        })
+
+        viewModel.allCartResult.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                if (response.status!!)
+                    if (response.data is AllCartModel) {
+                        var data = response.data as AllCartModel
+                        if (data.login_cart != null && data.logout_cart != null) {
+                            var f = PreviousCart(this, data)
+                            f.show(childFragmentManager, "")
+                        } else
+                            viewModel.getDashboardData(map)
+
+                    } else viewModel.getDashboardData(map)
+                else viewModel.getDashboardData(map)
+
+            }
+
+        })
+
+        viewModel.mergeCartResult.observe(this, Observer {
+            viewModel.getDashboardData(map)
         })
     }
 
@@ -155,7 +195,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        tv_reset.visibility=View.GONE
         map["latitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
 //        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         map["longitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
@@ -163,7 +203,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         map["cuisine_id"] = "0"
         map["user_id"] = CommonUtils.getUid()
 
-        viewModel.getDashboardData(map)
+        if (getAllCart) {
+            getAllCart = false
+            viewModel.getAllCart()
+        } else
+            viewModel.getDashboardData(map)
 
         li_search.setOnClickListener {
             view?.findNavController()
@@ -171,6 +215,8 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                     R.id.action_dashBoardFragment_fragment_to_searchRestaurant
                 )
         }
+
+        tv_reset.setOnClickListener { reset() }
     }
 
     override fun onResume() {
@@ -197,7 +243,9 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
-        if (item is ViewMore) {
+        if (item is AllCartModel) {
+            viewModel.mergeCart(item.seleted)
+        } else if (item is ViewMore) {
             val bundle = bundleOf(
                 AppConstants.FILTER_ID to item.data.toString()
             )
@@ -359,7 +407,10 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 CommonUtils.showMessage(parentView, getString(R.string.no_range_selected))
             }
         } else if (item is Int) {
-            (activity as MainActivity).selectedNavigation(R.id.pickupRestaurants)
+            if (item == 1)
+                (activity as MainActivity).selectedNavigation(R.id.pickupRestaurants)
+            else
+                viewModel.getDashboardData(map)
         }
     }
 
@@ -445,6 +496,18 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
     private fun applyCuisineFilter(key: String, value: String) {
         map[key] = value
+        viewModel.getDashboardData(map)
+    }
+
+    private fun reset() {
+        tv_reset.visibility=View.GONE
+        map.clear()
+        map["latitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
+//        map["token"] = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
+        map["longitude"] = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
+        map["filter_id"] = "0"
+        map["cuisine_id"] = "0"
+        map["user_id"] = CommonUtils.getUid()
         viewModel.getDashboardData(map)
     }
 }

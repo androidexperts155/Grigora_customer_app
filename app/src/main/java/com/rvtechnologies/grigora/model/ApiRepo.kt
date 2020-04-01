@@ -1588,31 +1588,6 @@ Cuisine repo
     }
 
 
-    fun changeToLogin(
-        onResult: (isSuccess: Boolean, response: Any?) -> Unit
-    ) {
-        ApiClient.getClient()
-            .changeToLogin(token = CommonUtils.getToken(), device_id = CommonUtils.getDeviceId())
-            .enqueue(object : Callback<JsonElement> {
-                override fun onResponse(
-                    call: Call<JsonElement>?,
-                    response: Response<JsonElement>?
-                ) {
-                    if (response != null && response.isSuccessful)
-                        onResult(true, response.body()!!)
-                    else {
-                        onResult(false, CommonUtils.parseError(response))
-                    }
-                }
-
-                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
-                    onResult(false, t?.message)
-                }
-
-            })
-    }
-
-
     fun sendGift(
         token: String,
         email: String,
@@ -1783,6 +1758,60 @@ Cuisine repo
 
             })
     }
+
+    fun getAllCarts(
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .getAllCarts(token = CommonUtils.getToken(), device_id = CommonUtils.getDeviceId())
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun mergeCarts(
+        cartId: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .mergeCarts(
+                token = CommonUtils.getToken(),
+                device_id = CommonUtils.getDeviceId(),
+                selected_cart_id = cartId
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun addMoney(
         token: String,

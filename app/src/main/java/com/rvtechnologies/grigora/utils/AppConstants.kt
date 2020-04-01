@@ -1,7 +1,8 @@
 package com.rvtechnologies.grigora.utils
 
 object AppConstants {
-    var FOR_PROMO = "for_promo"
+     var CARD_DATA = "card_data"
+     var FOR_PROMO = "for_promo"
     var FROM_SETTINGS = "from_settings"
     var IS_FOR_HISTORY = "is_for_history"
     var CART_RESTAURANT = ""

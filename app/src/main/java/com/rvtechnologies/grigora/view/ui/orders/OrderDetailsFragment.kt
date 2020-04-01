@@ -168,9 +168,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
         viewModel.ratingResult.observe(this, Observer {
             if (it is CommonResponseModel<*>) {
-                view?.findNavController()?.popBackStack()
-                view?.findNavController()?.popBackStack()
-                view?.findNavController()?.popBackStack()
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
             } else {
                 CommonUtils.showMessage(parentView, it.toString())
             }
@@ -454,15 +453,15 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
     override fun onItemClick(item: Any) {
         if (item is Int) {
-            view?.findNavController()
-                ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+            (activity as MainActivity).clearStack()
+            (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
         } else if (item is String) {
             if (item == "1") {
                 if (type == 4) {
                     viewModel.changeDeliveryToPickup("2")
                 }
-                view?.findNavController()
-                    ?.navigate(R.id.action_orderDetailsFragment_to_dashboard)
+                (activity as MainActivity).clearStack()
+                (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
 
 
             } else if (item == "2") {

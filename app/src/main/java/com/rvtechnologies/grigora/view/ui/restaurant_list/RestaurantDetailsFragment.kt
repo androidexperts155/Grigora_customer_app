@@ -89,6 +89,7 @@ class RestaurantDetailsFragment(
                     if (restaurantDetailModel.popluarItems.size == 0) {
                         li_popular.visibility = View.GONE
                     } else {
+                        popularList.clear()
                         popularList.addAll(restaurantDetailModel.popluarItems)
                         rc_popular.adapter!!.notifyDataSetChanged()
                         tv_popular_count.text = restaurantDetailModel.popluarItems.size.toString()
@@ -97,10 +98,11 @@ class RestaurantDetailsFragment(
                     if (restaurantDetailModel.previousOrderedItems.size == 0) {
                         li_previous.visibility = View.GONE
                     } else {
+                        previousList.clear()
+
                         previousList.addAll(restaurantDetailModel.previousOrderedItems)
                         tv_pre_count.text =
                             restaurantDetailModel.previousOrderedItems.size.toString()
-//                        ````rc_previous````.adapter!!.notifyDataSetChanged()
                     }
 
                     if (restaurantDetailModel.full_time == "1") {
@@ -121,7 +123,6 @@ class RestaurantDetailsFragment(
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
                     tv_restaurantname.text = restaurantDetailModel.restaurant_name
                     tv_cuisines.text = restaurantDetailModel.cuisines
-
 
                     mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
                     filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
@@ -532,64 +533,59 @@ class RestaurantDetailsFragment(
 //     position=   -2 previous ordered, -1 popular
 //        if (CommonUtils.isLogin())
         if (position == -1) {
-            if (popularList[position2].status == "1") {
-                if (popularList[position2].itemCategories?.size!! > 0) {
+            if (popularList[position2].itemCategories?.size!! > 0) {
 //                have add ons
-                    if (popularList[position2].item_count_in_cart!! > 0) {
+                if (popularList[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
-                        showItems(popularList[position2])
-                    } else {
-//                show item details screen
-                        val bundle =
-                            bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
-                        iRecyclerItemClick.onItemClick(bundle)
-                    }
+                    showItems(popularList[position2])
                 } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to popularList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
+                }
+            } else {
 //                don't have add ons, simply add
 //                        popularList[position2].item_count_in_cart =
 //                            (popularList[position2].item_count_in_cart!! + 1)
 
-                    viewModel.addItemToCart(
-                        popularList[position2].restaurantId.toString()!!,
-                        popularList[position2].id.toString(),
-                        popularList[position2].price.toString(),
-                        "1"
-                    )
+                viewModel.addItemToCart(
+                    popularList[position2].restaurantId.toString()!!,
+                    popularList[position2].id.toString(),
+                    popularList[position2].price.toString(),
+                    "1"
+                )
 
-                    rc_popular.adapter?.notifyDataSetChanged()
+                rc_popular.adapter?.notifyDataSetChanged()
+            }
+
+        } else if (position == -2) {
+            if (previousList[position2].itemCategories?.size!! > 0) {
+//                have add ons
+                if (previousList[position2].item_count_in_cart!! > 0) {
+//                already have added before, call api and get what is added
+                    showItems(previousList[position2])
+                } else {
+//                show item details screen
+                    val bundle =
+                        bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
+                    iRecyclerItemClick.onItemClick(bundle)
                 }
             } else {
-                CommonUtils.showMessage(parentView, getString(R.string.unavailable))
-            }
-        } else if (position == -2) {
-            if (previousList[position2].status == "1") {
-                if (previousList[position2].itemCategories?.size!! > 0) {
-//                have add ons
-                    if (previousList[position2].item_count_in_cart!! > 0) {
-//                already have added before, call api and get what is added
-                        showItems(previousList[position2])
-                    } else {
-//                show item details screen
-                        val bundle =
-                            bundleOf(AppConstants.MENU_ITEM_MODEL to previousList[position2])
-                        iRecyclerItemClick.onItemClick(bundle)
-                    }
-                } else {
 //                don't have add ons, simply add
 //                        previousList[position2].item_count_in_cart =
 //                            (previousList[position2].item_count_in_cart!! + 1)
 
-                    viewModel.addItemToCart(
-                        previousList[position2].restaurantId.toString()!!,
-                        previousList[position2].id.toString(),
-                        previousList[position2].price.toString(),
-                        "1"
-                    )
+                viewModel.addItemToCart(
+                    previousList[position2].restaurantId.toString()!!,
+                    previousList[position2].id.toString(),
+                    previousList[position2].price.toString(),
+                    "1"
+                )
 
 //                rc_previous.adapter?.notifyDataSetChanged()
-                }
-            } else
-                CommonUtils.showMessage(parentView, getString(R.string.unavailable))
+            }
+
 
         } else {
             if (filteredMealsAndCuisinesList[position].items[position2].itemCategories?.size!! > 0) {

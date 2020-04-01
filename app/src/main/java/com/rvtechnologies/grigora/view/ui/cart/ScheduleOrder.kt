@@ -158,6 +158,9 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         tv_minutes.text = "00"
         tv_am_pm.text = "AM"
 
+        sharedViewModel.scheduleTime.value =
+            "07" + ":" + "00" + ":00"
+
         tv_breakfast.setBackgroundResource(R.drawable.food_time_selected)
         tv_lunch.setBackgroundResource(R.drawable.food_time_de_selected)
         tv_dinner.setBackgroundResource(R.drawable.food_time_de_selected)
@@ -218,6 +221,9 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         tv_minutes.text = "00"
         tv_am_pm.text = "PM"
 
+        sharedViewModel.scheduleTime.value =
+            "12" + ":" + "00" + ":00"
+
 
         tv_breakfast.setBackgroundResource(R.drawable.food_time_de_selected)
         tv_lunch.setBackgroundResource(R.drawable.food_time_selected)
@@ -269,6 +275,9 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         tv_am_pm.text = "PM"
 
 
+        sharedViewModel.scheduleTime.value =
+            "08" + ":" + "00" + ":00"
+
         tv_breakfast.setBackgroundResource(R.drawable.food_time_de_selected)
         tv_lunch.setBackgroundResource(R.drawable.food_time_de_selected)
         tv_dinner.setBackgroundResource(R.drawable.food_time_selected)
@@ -312,7 +321,7 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
     fun chooseTime() {
         var timePickerDialog = TimePickerDialog(
-            context!!,R.style.TimePickerTheme,
+            context!!, R.style.TimePickerTheme,
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
 
@@ -338,11 +347,11 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
             Calendar.getInstance().get(Calendar.MINUTE),
             false
         )
-         timePickerDialog.show()
+        timePickerDialog.show()
     }
 
     fun changeAddress() {
-        val builder = AlertDialog.Builder(activity!!,R.style.TimePickerTheme)
+        val builder = AlertDialog.Builder(activity!!, R.style.TimePickerTheme)
         //set title for alert dialog
         builder.setTitle(R.string.change_title)
         //set message for alert dialog
@@ -372,7 +381,6 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
     }
 
     fun schedule() {
-
         if (ed_note.text.toString().isNullOrBlank())
             sharedViewModel.scheduleNote.value = ed_note.text.toString()
         else
@@ -380,10 +388,19 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
         sharedViewModel.isScheduledOrder.value = true
 
-        if (fromRestaurant) {
-            view?.findNavController()?.navigate(R.id.action_scheduleOrder_to_navigationCart)
-        } else {
-            view?.findNavController()?.popBackStack()
+        when {
+            sharedViewModel.scheduleTime.value.isNullOrEmpty() -> {
+                CommonUtils.showMessage(parentView, getString(R.string.please_select_time))
+            }
+            sharedViewModel.scheduleDate.value.isNullOrEmpty() -> {
+                CommonUtils.showMessage(parentView, getString(R.string.please_select_date))
+            }
+            fromRestaurant -> {
+                view?.findNavController()?.navigate(R.id.action_scheduleOrder_to_navigationCart)
+            }
+            else -> {
+                view?.findNavController()?.popBackStack()
+            }
         }
     }
 }

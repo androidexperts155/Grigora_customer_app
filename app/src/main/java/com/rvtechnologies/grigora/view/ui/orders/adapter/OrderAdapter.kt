@@ -21,7 +21,8 @@ class OrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderModel = orderList[position]
-        orderModel.finalPrice = "₦ " + (orderModel.finalPrice)
+        orderModel.finalPriceToShow = ""
+        orderModel.finalPriceToShow = "₦ " + (orderModel.finalPrice)
 
 
         val status = when (orderModel.orderStatus) {
@@ -46,7 +47,7 @@ class OrderAdapter(
 
         var isRated = true
 
-        if (orderModel.is_driver_rated == "0"  && orderModel.driverId!=null)
+        if (orderModel.is_driver_rated == "0" && orderModel.driverId != null)
             isRated = false
         else if (orderModel.is_restaurant_rated == "0")
             isRated = false
@@ -59,8 +60,8 @@ class OrderAdapter(
             }
         }
 
-        if(currentIndex==2){
-            holder.itemView.setOnClickListener {iRecyclerItemClick.onItemClick(orderModel) }
+        if (currentIndex == 2) {
+            holder.itemView.setOnClickListener { iRecyclerItemClick.onItemClick(orderModel) }
         }
         orderModel.is_rated = isRated
 

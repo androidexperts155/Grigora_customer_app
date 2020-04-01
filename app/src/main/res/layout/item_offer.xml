@@ -10,8 +10,11 @@
     <androidx.cardview.widget.CardView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:elevation="0dp"
+        
         app:cardBackgroundColor="@android:color/transparent"
-        app:cardCornerRadius="@dimen/_8sdp">
+        app:cardCornerRadius="@dimen/_8sdp"
+        app:cardElevation="0dp">
         
         <ImageView
             android:id="@+id/img_data"

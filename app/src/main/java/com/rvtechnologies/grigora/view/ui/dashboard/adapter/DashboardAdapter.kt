@@ -27,8 +27,6 @@ class DashboardAdapter(
     var TOP_BRANDS = 6
     var RESTAURANTS_HORIZONTAL = 7
     var RESTAURANTS_VERTICAL = 8
-
-
     var topSize = 3
 
     override fun getItemViewType(position: Int): Int {
@@ -127,7 +125,7 @@ class DashboardAdapter(
                 var adapter = FilterAdapter(newDashboardModel.filters, iRecyclerItemClick)
                 holder.rc_data.layoutManager = layoutManager
                 holder.rc_data.adapter = adapter
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
 
             }
             is Offers -> {
@@ -136,7 +134,7 @@ class DashboardAdapter(
                 holder.rc_data.layoutManager = layoutManager
                 holder.rel_title.visibility = View.GONE
                 holder.rc_data.adapter = OfferAdapter(newDashboardModel.promos, iRecyclerItemClick)
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
             }
             is Categories -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -144,7 +142,7 @@ class DashboardAdapter(
                 holder.rel_title.visibility = View.GONE
                 holder.rc_data.adapter =
                     CategoriesAdapter(newDashboardModel.cuisines, iRecyclerItemClick)
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
 
             }
             is Cuisines -> {
@@ -165,7 +163,7 @@ class DashboardAdapter(
                         iRecyclerItemClick,
                         customisedData.uiType
                     )
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
 
             }
             is TopBrands -> {
@@ -186,7 +184,7 @@ class DashboardAdapter(
                     customisedData.restaurants, newDashboardModel.min_kilo_meter,
                     newDashboardModel.base_delivery_fee, iRecyclerItemClick, customisedData.uiType
                 )
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
             }
             is RestaurantsHorizontal -> {
                 layoutManager.orientation = LinearLayoutManager.HORIZONTAL
@@ -212,7 +210,7 @@ class DashboardAdapter(
                 holder.tv_more.setOnClickListener {
                     iRecyclerItemClick.onItemClick(ViewMore(customisedData.id))
                 }
-                CommonUtils.setOverScroll(holder.rc_data,1)
+                CommonUtils.setOverScroll(holder.rc_data, 1)
             }
             is RestaurantsVertical -> {
                 layoutManager.orientation = LinearLayoutManager.VERTICAL

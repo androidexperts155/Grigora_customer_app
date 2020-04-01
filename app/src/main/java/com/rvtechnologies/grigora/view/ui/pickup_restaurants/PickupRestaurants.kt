@@ -355,6 +355,9 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
         for (detail in allRestaurants) {
             if (detail.markerId == p0!!.id) {
                 data = detail
+                tv_time.visibility = View.VISIBLE
+                tv_tt.visibility = View.VISIBLE
+                tv_pickup_desc.visibility = View.VISIBLE
 
                 card_res.visibility = View.VISIBLE
                 tv_name.text = detail.name
@@ -377,14 +380,78 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
                     CommonUtils.getPrefValue(tv_name.context, PrefConstants.LONGITUDE).toDouble()
                 )
 
+                tv_pickup_desc.text = CommonUtils.getRoundedOff(
+                    distance.toDouble()
+                ) + " " + getString(
+                    R.string.km_away
+                )
+
+                if (data.fullTime == "1") {
+                    tv_tt.text = getString(R.string.open_24_hours)
+                    tv_time.visibility = View.GONE
+                } else {
+                    tv_tt.text = getString(R.string.open_or_close_time)
+
+                    tv_time.text = CommonUtils.getFormattedUtc(
+                        data.openingTime,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    ) + " to " + CommonUtils.getFormattedUtc(
+                        data.closingTime,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    )
+                }
+
+
                 var price =
                     AppConstants.base_delivery_fee.toFloat() + (distance * AppConstants.min_kilo_meter.toFloat())
                 tv_delivery_charges.text =
                     "₦" + (price.toInt()).toString() + " " + tv_delivery_time.context.getString(R.string.delivery)
+
+                handleClosed(data)
             }
         }
         return true
     }
+
+    private fun handleClosed(restaurantDetailModel: NewDashboardModel.AllRestautants) {
+
+
+        tv_status.visibility = View.GONE
+
+        //        not always opened
+        if (restaurantDetailModel.fullTime == "0") {
+            if (!CommonUtils.isRestaurantOpen(
+                    restaurantDetailModel.openingTime,
+                    restaurantDetailModel.closingTime
+                )
+            ) {
+//                restaurant is closed
+                tv_time.visibility = View.GONE
+                tv_tt.visibility = View.GONE
+                tv_status.visibility = View.VISIBLE
+                tv_status.text = getString(R.string.closed)
+                tv_pickup_desc.visibility = View.GONE
+
+            }
+        }
+        if ((CommonUtils.isRestaurantOpen(
+                restaurantDetailModel.openingTime,
+                restaurantDetailModel.closingTime
+            ) || restaurantDetailModel.fullTime == "1") && restaurantDetailModel.busyStatus == "1"
+        ) {
+//restaurant is busy
+            tv_time.visibility = View.GONE
+            tv_tt.visibility = View.GONE
+            tv_status.visibility = View.VISIBLE
+
+            tv_status.text = getString(R.string.busy)
+            tv_pickup_desc.visibility = View.GONE
+
+        }
+    }
+
 }
 
 

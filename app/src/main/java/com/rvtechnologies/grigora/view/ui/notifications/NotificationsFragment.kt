@@ -135,6 +135,10 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
             }
         })
 
+        viewModel?.notificationsDelete.observe(this,Observer{
+            view?.findNavController()?.popBackStack()
+        })
+
     }
 
     override fun onCreateView(
@@ -157,9 +161,8 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
         (activity as MainActivity).backTitle(getString(R.string.notifications_center))
         (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
         (activity as MainActivity).img_right.setOnClickListener {
-            viewModel.deleteNotification(
-                CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                ""
+            viewModel.deleteAllNotification(
+
             )
         }
 

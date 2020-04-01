@@ -6,13 +6,16 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.os.bundleOf
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import com.rvtechnologies.grigora.NotificationsModel
 
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.MyPurchasedCardModel
 import com.rvtechnologies.grigora.model.NotificationTitleModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
@@ -47,7 +50,7 @@ class PurchasedCards : Fragment(), IRecyclerItemClick {
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
 
-list.clear()
+                    list.clear()
                     list.addAll(response.data as Collection<MyPurchasedCardModel>)
                     var format = SimpleDateFormat("yyyy-MM-dd")
 
@@ -132,7 +135,6 @@ list.clear()
             } else {
                 CommonUtils.showMessage(parent, res.toString())
             }
-
         })
 
         viewModel.isLoading.observe(this, Observer { isLoading ->
@@ -142,7 +144,6 @@ list.clear()
                 CommonUtils.hideLoader()
             }
         })
-
     }
 
     override fun onResume() {
@@ -156,7 +157,9 @@ list.clear()
     override fun onItemClick(item: Any) {
         if (item is MyPurchasedCardModel) {
             if (item.isShare) {
-
+                var bundle = bundleOf(AppConstants.CARD_DATA to item)
+                view?.findNavController()
+                    ?.navigate(R.id.action_purchasedCards_to_sarePurchasedCards, bundle)
             } else {
                 viewModel.redeem(CommonUtils.getToken(), item.voucher_code)
             }

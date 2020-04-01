@@ -106,6 +106,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
+
+
                     viewModel.cartData?.value = response.data as CartDataModel
                     restaurantId = cartDataModel.restaurantId!!
                     viewModel.getOffers(restaurantId)
@@ -153,12 +155,14 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                     setPrices()
 
-
                 } else {
+
                     AppConstants.CART_COUNT = 0
                     AppConstants.CART_RESTAURANT = ""
-                    empty?.visibility = VISIBLE
-                    cartView?.visibility = GONE
+//                    empty?.visibility = VISIBLE
+//                    cartView?.visibility = GONE
+                    (activity as MainActivity).clearStack()
+                    (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
                 }
             } else if (response != null) {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -452,7 +456,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     fun changeLocation() {
-        val builder = AlertDialog.Builder(activity!!,R.style.TimePickerTheme)
+        val builder = AlertDialog.Builder(activity!!, R.style.TimePickerTheme)
         //set title for alert dialog
         builder.setTitle(R.string.change_title)
         //set message for alert dialog
@@ -641,7 +645,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-            cart_type="1"
+            cart_type = "1"
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
@@ -663,7 +667,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
 
         tv_pickup.setOnClickListener {
-            cart_type="2"
+            cart_type = "2"
 
             tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)

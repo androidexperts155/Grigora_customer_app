@@ -436,6 +436,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         }
     }
 
+
+
     fun initGoogleSignin(googleSigni: GoogleSignin) {
         this.googleSignIn = googleSigni
     }
