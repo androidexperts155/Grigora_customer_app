@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph.xml"
-    app:startDestination="@id/splashFragment2">
+    app:startDestination="@id/restaurantDetail">
     
     <fragment
         android:id="@+id/navigationMyAccounts"
@@ -1021,7 +1021,7 @@
             app:destination="@id/sharePurchasedCard"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left" />
-
+    
     </fragment>
     
     <fragment
@@ -1040,6 +1040,32 @@
         android:id="@+id/sharePurchasedCard"
         android:name="com.rvtechnologies.grigora.view.ui.profile.wallet.SharePurchasedCard"
         android:label="Share purchased card">
+    
+    </fragment>
+    
+    
+    <!--    new flow-->
+    
+    <fragment
+        android:id="@+id/restaurantDetail"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_detail.RestaurantDetail"
+        android:label="Restaurant Details">
+        <action
+            android:id="@+id/action_restaurantDetail_to_mealsList"
+            app:destination="@id/mealsList"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            
+            />
+    </fragment>
+    
+    <fragment
+        android:id="@+id/mealsList"
+        android:name="com.rvtechnologies.grigora.view.ui.restaurant_detail.MealsList"
+        android:label="MealsList">
     
     </fragment>
 

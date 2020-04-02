@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/_8sdp"
+    android:orientation="horizontal">
+    
+    <ImageView
+        android:layout_width="@dimen/_80sdp"
+        android:layout_height="@dimen/_80sdp"
+        android:scaleType="centerCrop"
+        android:src="@mipmap/burger" />
+    
+    
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        android:gravity="center_vertical"
+        android:orientation="vertical">
+        
+        <TextView
+            style="@style/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_4sdp"
+            android:maxLines="1"
+            android:text="Chicken Burger"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp"
+            android:maxLines="2"
+            android:text="Bonne less chicken leg marineted in our spices and flame-grilled"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+        
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_2sdp">
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:maxLines="1"
+                android:text="₦ 4.00"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:drawableTint="?attr/searchHint"
+                android:text="2.5"
+                android:textColor="?attr/searchHint"
+                android:drawableLeft="@drawable/ic_star_24dp"
+                android:textSize="@dimen/_12sdp" />
+        
+        </RelativeLayout>
+    
+    </LinearLayout>
+
+</LinearLayout>

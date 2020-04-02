@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        
+        <RadioButton
+            android:id="@+id/chkIsChecked"
+            style="@style/mediumText"
+            
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_centerVertical="true"
+            android:buttonTint="@color/colorPrimaryDark"
+            android:checked="@{itemSubCategory.checked}"
+            
+            android:text="@{itemSubCategory.name}"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp"
+            tools:text="Normal Buns" />
+        
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignWithParentIfMissing="true"
+            android:layout_centerVertical="true"
+            
+            android:layout_toLeftOf="@+id/img_r"
+            android:text="@{itemSubCategory.addOnPriceString}"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp"
+            tools:text="₦ 12.00" />
+        
+        <ImageView
+            android:id="@+id/img_r"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:rotation="-90"
+            android:tint="?attr/textWhite"
+            android:visibility="gone"
+            app:srcCompat="@drawable/ic_expanded" />
+    </RelativeLayout>
+    
+    <data>
+        
+        <variable
+            name="itemSubCategory"
+            type="com.rvtechnologies.grigora.model.models.ItemSubCategory" />
+    </data>
+</layout>

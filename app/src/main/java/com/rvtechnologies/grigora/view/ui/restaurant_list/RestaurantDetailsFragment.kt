@@ -797,4 +797,6 @@ class RestaurantDetailsFragment(
             (activity as MainActivity).updateCartButton()
         }
     }
+
+
 }

@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/rating_filter_bg"
+        android:elevation="@dimen/_2sdp"
+        android:paddingTop="@dimen/_12sdp">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            
+            android:layout_height="match_parent"
+            android:minHeight="@dimen/_500sdp"
+            android:orientation="vertical">
+            
+            <ImageView
+                android:layout_width="@dimen/_20sdp"
+                android:layout_height="@dimen/_20sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:padding="@dimen/_2sdp"
+                android:tint="@color/colorPrimaryDark"
+                app:srcCompat="@drawable/ic_close" />
+            
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_120sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:scaleType="centerCrop"
+                android:src="@mipmap/burger_king" />
+            
+            <TextView
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:text="Chicked Tandoori Grill"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_15sdp" />
+            
+            <TextView
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="start"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:text="@string/termsandconditions_social"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_10sdp" />
+            
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+                
+                <TextView
+                    android:id="@+id/tv_time"
+                    style="@style/normalText"
+                    
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_4sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:text="Prepare in 40 Minutes"
+                    android:textColor="@color/colorPrimaryDark"
+                    android:textSize="@dimen/_10sdp" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="@dimen/_8sdp"
+                    android:layout_marginRight="@dimen/_8sdp"
+                    android:drawableLeft="@drawable/ic_star_24dp"
+                    android:drawableTint="?attr/searchHint"
+                    android:text="2.5"
+                    android:textColor="?attr/searchHint"
+                    android:textSize="@dimen/_12sdp" />
+            
+            </RelativeLayout>
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                
+                android:layout_above="@+id/btn_add"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_meal_adons" />
+        
+        
+        </LinearLayout>
+    
+    </androidx.core.widget.NestedScrollView>
+</layout>

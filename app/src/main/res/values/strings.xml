@@ -454,7 +454,7 @@
     <string name="rest_unav">Restaurant Unavailable</string>
     <string name="rest_unav_info">You can opt to schedule\n order to get later</string>
     <string name="schedule_">Schedule?</string>
-    <string name="schedule">Schedule</string>
+    <string name="schedule">Schedule Order</string>
     <string name="rate_driver">Rate %s\</string>
     <string name="late_delivery">Late Delivery</string>
     <string name="bad_attitude">Bad Attitude</string>
@@ -569,5 +569,8 @@
     <string name="please_select_date">Please select Date</string>
     <string name="send_to">Send To</string>
     <string name="reset">Reset</string>
+    <string name="promotion_title">Promotion</string>
+    <string name="featured_dishes">Featured Dishes</string>
+    <string name="required_">Required</string>
 
 </resources><!--₦-->

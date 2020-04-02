@@ -50,6 +50,8 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
 //            filter = "2"
 //        }
 
+//        don't show choices, required by client
+        choices=""
         if (choices.isNullOrEmpty())
             holder.tv_choices.visibility = View.GONE
 

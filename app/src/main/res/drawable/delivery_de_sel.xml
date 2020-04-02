@@ -4,8 +4,10 @@
     
     
     <corners
-        android:bottomLeftRadius="@dimen/_16sdp"
-        android:topLeftRadius="@dimen/_16sdp"></corners>
+        android:bottomLeftRadius="@dimen/_8sdp"
+        android:topLeftRadius="@dimen/_8sdp"></corners>
     <solid android:color="?attr/answer_selected"></solid>
-    <stroke android:width="@dimen/_1sdp" android:color="?attr/viewbg"/>
+    <stroke
+        android:width="@dimen/_1sdp"
+        android:color="?attr/viewbg" />
 </shape>

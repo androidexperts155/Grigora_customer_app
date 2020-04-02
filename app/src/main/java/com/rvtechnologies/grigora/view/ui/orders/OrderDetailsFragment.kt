@@ -655,10 +655,10 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                             )
                         deniedFragment.show(childFragmentManager, "")
                     }
-
-
                 }
                 7 -> {
+                    tv_status.visibility = GONE
+                    tv_est_delivery.visibility = GONE
                     showDirections()
 
 //    7 -> "Order is ready"

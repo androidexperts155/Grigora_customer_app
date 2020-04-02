@@ -7,19 +7,19 @@
     android:orientation="vertical">
     
     <TextView
-            android:id="@+id/tv_item"
-        android:layout_marginTop="@dimen/_8sdp"
-        android:layout_marginBottom="@dimen/_8sdp"
+        android:id="@+id/tv_item"
         style="@style/mediumText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:layout_marginBottom="@dimen/_8sdp"
         android:gravity="center"
         android:text="₦ 12"
         android:textColor="?attr/textWhite"
         android:textSize="@dimen/_16sdp" />
     
     <View
-        android:background="?attr/viewbg"
         android:layout_width="match_parent"
-        android:layout_height="@dimen/_1sdp"/>
+        android:layout_height="@dimen/_1sdp"
+        android:background="?attr/viewbg" />
 </LinearLayout>
