@@ -73,7 +73,7 @@ data class RestaurantDetailNewModel(
         val name: String,
         val offer_price: Int,
         val parent_cuisine_id: Int,
-        val price: String,
+        var price: String,
         val pure_veg: String,
         val restaurant_id: Int,
         val restaurant_name: String,
@@ -92,14 +92,18 @@ data class RestaurantDetailNewModel(
             val name: String,
             val selection: String,
             val status: String,
-            val updated_at: String
+            val optional: String,
+            val updated_at: String,
+            var min:String="1",
+            var max:String="2",
+            var required:String="1"
         ) : Parcelable {
             @SuppressLint("ParcelCreator")
             @Parcelize
             data class ItemSubCategory(
                 var checked: Boolean,
                 var addOnPriceString: String,
-                val add_on_price: String,
+                val add_on_price: Double,
                 val created_at: String,
                 val french_name: String,
                 val id: Int,

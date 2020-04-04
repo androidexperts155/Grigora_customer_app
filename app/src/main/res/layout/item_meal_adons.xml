@@ -34,14 +34,15 @@
                 tools:text="Category Name" />
             
             <TextView
+                android:id="@+id/tv_isRequired"
                 style="@style/mediumText"
+                
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_8sdp"
-                android:text="@string/required_"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
                 android:textSize="@dimen/_10sdp" />
@@ -49,8 +50,8 @@
         
         </RelativeLayout>
         
-        
         <TextView
+            android:id="@+id/tv_choose"
             style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -1,7 +1,7 @@
 package com.rvtechnologies.grigora.utils
 
 object ApiConstants {
-    const val BASE_URL = "http://3.13.78.53/GriGora/public/api/"
+    const val BASE_URL = "http://3.13.78.53/api/"
     const val SOCKET_URL = "http://3.13.78.53:3000/"
 
     const val CHANGE_LANGUAGE_URL = "change-language"

@@ -40,16 +40,6 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
     override fun onItemClick(item: Any) {
         if (item is ItemSubCategory) {
             if (item.checked) {
-                /* var temp = ArrayList<ItemSubCategory?>()
-                 temp.addAll(selectedItemCategoriesList)
-
-                 for (i in selectedItemCategoriesList) {
-                     if (i?.id!! == item.id) {
-                         temp.remove(i)
-                     }
-                 }
-                 selectedItemCategoriesList.clear()
-                 selectedItemCategoriesList.addAll(temp)*/
 
                 var add = true
 
@@ -64,25 +54,6 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
             } else {
                 selectedItemCategoriesList.remove(item)
 
-                /*  var temp = ArrayList<ItemSubCategory?>()
-                  temp.addAll(selectedItemCategoriesList)
-
-                  for (i in selectedItemCategoriesList) {
-                      if (i?.id!! == item.id) {
-                          temp.remove(i)
-                      }
-                  }
-
-                  selectedItemCategoriesList.clear()
-                  selectedItemCategoriesList.addAll(temp)
-
-                  list.clear()
-                  for(ii in itemCategoriesList){
-                      list.add(ii.id!!)
-                  }
-
-                  Log.e("CHOICES",list.toString())
-  */
             }
             viewModel.selectedChoices.value = selectedItemCategoriesList
 
@@ -198,5 +169,7 @@ class MenuItemDetailsFragment : Fragment(), IRecyclerItemClick {
 //        else
 //            (activity as MainActivity).showLoginAlert()
     }
+
+
 }
 

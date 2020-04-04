@@ -134,6 +134,7 @@ dependencies {
 
     implementation 'com.opensooq.supernova:gligar:1.0.0'
     implementation 'com.google.maps.android:android-maps-utils:1.0.2'
+    implementation 'com.daimajia.androidanimations:library:2.3@aar'
 
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test:runner:1.2.0'

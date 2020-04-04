@@ -3,34 +3,61 @@
     xmlns:tools="http://schemas.android.com/tools">
     
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/li_main"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="horizontal">
+        android:clickable="true"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/_4sdp"
+        android:paddingBottom="@dimen/_4sdp"
+        android:tag="false">
         
-        <RadioButton
-            android:id="@+id/chkIsChecked"
-            style="@style/mediumText"
+        <LinearLayout
+            android:id="@+id/li_d"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
             
+            <ImageView
+                android:id="@+id/img_selected"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/sel"
+                android:visibility="gone" />
+            
+            <ImageView
+                android:id="@+id/img_desel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/desel"
+                android:visibility="visible" />
+        </LinearLayout>
+        
+        <TextView
+            android:id="@+id/tv_name"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:buttonTint="@color/colorPrimaryDark"
-            android:checked="@{itemSubCategory.checked}"
-            
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_toRightOf="@+id/li_d"
             android:text="@{itemSubCategory.name}"
             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_10sdp"
-            tools:text="Normal Buns" />
+            tools:text="Burger" />
         
         
         <TextView
+            android:id="@+id/tv_price"
             style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
-            android:layout_centerVertical="true"
             
+            android:layout_centerVertical="true"
             android:layout_toLeftOf="@+id/img_r"
             android:text="@{itemSubCategory.addOnPriceString}"
             android:textColor="?attr/textWhite"
