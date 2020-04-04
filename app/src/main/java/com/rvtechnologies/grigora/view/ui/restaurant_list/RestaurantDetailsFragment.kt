@@ -336,8 +336,6 @@ class RestaurantDetailsFragment(
 
 
             var color: String = if (CommonUtils.isDarkMode()) "#ffffff" else "#262626"
-//            val address = getColoredSpanned(restaurantDetailModel.address + ". ", "#D01110")
-//            val info = getColoredSpanned(getString(R.string.pick_order_info), color)
             val distanceM = getColoredSpanned(
                 "${CommonUtils.getRoundedOff(
                     distance.toDouble()

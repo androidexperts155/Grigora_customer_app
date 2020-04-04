@@ -7,9 +7,9 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.RestaurantDetail
 import com.rvtechnologies.grigora.view.ui.restaurant_list.GroupOrderFragment
-import com.rvtechnologies.grigora.view.ui.restaurant_list.RestaurantDetailsFragment
-import com.rvtechnologies.grigora.view.ui.restaurant_list.TableBookingFragment
+ import com.rvtechnologies.grigora.view.ui.restaurant_list.TableBookingFragment
 
 class RestaurantPagerAdapter(
     fragmentManager: FragmentManager,
@@ -21,7 +21,7 @@ class RestaurantPagerAdapter(
 
         if (count == 3) {
             return if (position == 0) {
-                RestaurantDetailsFragment(
+                RestaurantDetail(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
                     iRecyclerItemClick
                 )
@@ -34,7 +34,7 @@ class RestaurantPagerAdapter(
             }
         } else {
             return if (position == 0) {
-                RestaurantDetailsFragment(
+                RestaurantDetail(
                     arguments?.get(AppConstants.RESTAURANT_ID).toString(),
                     iRecyclerItemClick
                 )
@@ -46,9 +46,9 @@ class RestaurantPagerAdapter(
         }
 
         return if (position == 0) {
-            RestaurantDetailsFragment(
-                 arguments?.get(AppConstants.RESTAURANT_ID).toString(),
-                 iRecyclerItemClick
+            RestaurantDetail(
+                arguments?.get(AppConstants.RESTAURANT_ID).toString(),
+                iRecyclerItemClick
             )
         } else {
             TableBookingFragment(arguments)

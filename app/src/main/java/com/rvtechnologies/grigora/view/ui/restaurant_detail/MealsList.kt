@@ -38,11 +38,7 @@ class MealsList : Fragment(), IRecyclerItemClick {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        var list = ArrayList<FeaturedModel>()
-        list.add(FeaturedModel())
-        list.add(FeaturedModel())
-        list.add(FeaturedModel())
-        rc_meals.adapter = MealsAdapter(list, this)
+
     }
 
     override fun onResume() {
@@ -53,8 +49,8 @@ class MealsList : Fragment(), IRecyclerItemClick {
 
     override fun onItemClick(item: Any) {
         if(item is FeaturedModel){
-            var sheet = MealDetailSheet()
-            sheet.show(childFragmentManager, "")
+//            var sheet = MealDetailSheet()
+//            sheet.show(childFragmentManager, "")
         }
     }
 

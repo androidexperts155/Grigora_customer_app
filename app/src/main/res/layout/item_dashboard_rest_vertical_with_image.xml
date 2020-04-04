@@ -4,18 +4,46 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_20sdp"
+    android:layout_marginBottom="@dimen/_28sdp"
     android:background="@drawable/selectable_item_background"
     android:orientation="vertical">
     
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rc_images"
+    <!-- <androidx.recyclerview.widget.RecyclerView
+         android:id="@+id/rc_images"
+         android:layout_width="match_parent"
+         android:layout_height="wrap_content"
+         android:clickable="true"
+         android:orientation="horizontal"
+         android:overScrollMode="never"
+         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+     -->
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true"
-        android:orientation="horizontal"
-        android:overScrollMode="never"
-        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+        android:layout_height="@dimen/_150sdp">
+        
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/vp"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_alignParentTop="true" />
+        
+        <com.tbuonomo.viewpagerdotsindicator.DotsIndicator
+            android:id="@+id/dots_indicator"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_marginBottom="@dimen/_8sdp"
+            app:dotsColor="?attr/searchHint"
+            app:dotsCornerRadius="@dimen/_4sdp"
+            app:dotsSize="@dimen/_6sdp"
+            app:dotsSpacing="4dp"
+            app:dotsWidthFactor="2.5"
+            app:progressMode="true"
+            app:selectedDotColor="@color/textBlack" />
+    
+    </RelativeLayout>
+    
     
     <RelativeLayout
         android:layout_width="match_parent"

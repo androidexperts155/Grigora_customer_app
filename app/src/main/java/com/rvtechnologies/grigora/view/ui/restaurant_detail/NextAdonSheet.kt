@@ -3,39 +3,33 @@ package com.rvtechnologies.grigora.view.ui.restaurant_detail
 import android.app.Dialog
 import android.os.Bundle
 import android.util.DisplayMetrics
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
 import android.view.View
+import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import com.google.android.material.bottomsheet.BottomSheetBehavior
 import com.google.android.material.bottomsheet.BottomSheetDialog
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import com.google.gson.Gson
-import com.rvtechnologies.grigora.model.models.ItemSubCategory
-  import com.rvtechnologies.grigora.R
-import com.rvtechnologies.grigora.databinding.FragmentMealDetailSheetBinding
-import com.rvtechnologies.grigora.utils.CommonUtils
+
+import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.databinding.FragmentNextAdonSheetBinding
+import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
-import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ItemAdOnsAdapter
-import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
-import kotlinx.android.synthetic.main.fragment_meal_detail_sheet.*
-import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
 
 
-class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
-    BottomSheetDialogFragment(),
-    IRecyclerItemClick {
-    var bi: FragmentMealDetailSheetBinding? = null
+class NextAdonSheet : BottomSheetDialogFragment(), IRecyclerItemClick {
     var bottomSheetBehavior: BottomSheetBehavior<*>? = null
-    var list = ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory>()
-    private var selectedItemCategoriesList = ArrayList<ItemSubCategory?>()
+
+    var bi: FragmentNextAdonSheetBinding? = null
+
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         val bottomSheet =
             super.onCreateDialog(savedInstanceState) as BottomSheetDialog
         val view =
-            View.inflate(context, R.layout.fragment_meal_detail_sheet, null)
+            View.inflate(context, R.layout.fragment_next_adon_sheet, null)
 
         bi = DataBindingUtil.bind(view)!!
 
@@ -66,16 +60,6 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
                 }
             }
         })
-
-        list.addAll(mealItem.item_categories)
-        bi!!.rvOptions.adapter = ItemAdOnsAdapter(list, this)
-
-        CommonUtils.loadImage(bi!!.imgMeal,mealItem.image)
-        bi!!.tvName.text=mealItem.name
-        bi!!.tvDesc.text=mealItem.description
-        bi!!.tvRating.text=mealItem.avg_ratings.toString()
-        bi!!.tvTime.text=getString(R.string.preparein) + " " + mealItem.approx_prep_time + " min"
-
         return bottomSheet
     }
 
@@ -84,6 +68,7 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
         super.onStart()
         bottomSheetBehavior?.setState(BottomSheetBehavior.STATE_COLLAPSED)
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -99,26 +84,7 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
 
 
     override fun onItemClick(item: Any) {
-        if (item is ItemSubCategory) {
-            if (item.checked) {
 
-
-                var add = true
-
-                for (i in selectedItemCategoriesList) {
-                    if (i?.id!! == item.id) {
-                        add = false
-                    }
-                }
-
-                if (add)
-                    selectedItemCategoriesList.add(item)
-            } else {
-                selectedItemCategoriesList.remove(item)
-
-
-            }
-        }
     }
 
 

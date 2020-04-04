@@ -10,6 +10,7 @@ import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.SheetTypeAdapter
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SheetTypeModel
 import kotlinx.android.synthetic.main.fragment_choose_type_sheet.*
 
@@ -17,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_choose_type_sheet.*
  * A simple [Fragment] subclass.
  */
 class ChooseTypeSheet(
-    var list: ArrayList<SheetTypeModel>,
+    var list: ArrayList<RestaurantDetailNewModel.AllData>,
     val iRecyclerItemClick: IRecyclerItemClick
 ) : BottomSheetDialogFragment(), IRecyclerItemClick {
 

@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    
+    <androidx.core.widget.NestedScrollView
+        android:id="@+id/parent"
+        android:layout_width="match_parent"
+        
+        android:layout_height="match_parent"
+        android:background="@drawable/meal_detail_sheet_bg"
+        android:elevation="@dimen/_2sdp"
+        android:paddingTop="@dimen/_12sdp">
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+            
+            <androidx.cardview.widget.CardView
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"
+                android:layout_marginLeft="@dimen/_8sdp"
+                android:elevation="@dimen/_2sdp"
+                
+                app:cardBackgroundColor="?attr/chipDeSelected"
+                app:cardCornerRadius="@dimen/_12sdp"
+                app:cardElevation="@dimen/_2sdp">
+                
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="@dimen/_6sdp"
+                    android:tint="@color/colorPrimaryDark"
+                    app:srcCompat="@drawable/ic_close" />
+            </androidx.cardview.widget.CardView>
+            
+            
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rvOptions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_above="@+id/btn_add"
+                android:layout_marginTop="@dimen/_8sdp"
+                android:nestedScrollingEnabled="true"
+                android:orientation="vertical"
+                android:visibility="visible"
+                app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                tools:itemCount="1"
+                tools:listitem="@layout/item_meal_adons" />
+            
+            
+            <Button
+                android:id="@+id/btn_add"
+                style="@style/titleText"
+                android:layout_width="wrap_content"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="@dimen/_16sdp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
+                android:paddingLeft="@dimen/_12sdp"
+                android:paddingRight="@dimen/_12sdp"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:textColor="@color/white"
+                android:textSize="@dimen/_12sdp" />
+        </LinearLayout>
+    
+    </androidx.core.widget.NestedScrollView>
+</layout>

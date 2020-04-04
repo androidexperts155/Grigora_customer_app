@@ -11,10 +11,11 @@ import com.rvtechnologies.grigora.databinding.ItemMealAdonsBinding
 import com.rvtechnologies.grigora.model.models.ItemCategory
 import com.rvtechnologies.grigora.model.models.ItemSubCategory
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.synthetic.main.item_category_view.view.*
 
 class ItemAdOnsAdapter(
-    var itemCategoryList: ArrayList<ItemCategory>,
+    var itemCategoryList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory>,
     var iRecyclerItemClick: IRecyclerItemClick
 ) :
     RecyclerView.Adapter<ItemAdOnsAdapter.ViewHolder>(), IRecyclerItemClick {
@@ -26,10 +27,11 @@ class ItemAdOnsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val categoryModel = itemCategoryList[position]
 
-        val innerList = categoryModel.itemSubCategory as ArrayList<ItemSubCategory>
-
+        val innerList = categoryModel.item_sub_category
+var list=ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>()
+        list.addAll(innerList)
         holder.itemView.rvInnerOptions.adapter =
-            ItemInnerAdOnsAdapter(innerList, categoryModel.selection!!, this)
+            ItemInnerAdOnsAdapter(list, categoryModel.selection!!, this)
         holder.bind(categoryModel, iRecyclerItemClick)
     }
 
@@ -53,7 +55,7 @@ class ItemAdOnsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: ItemCategory,
+            item: RestaurantDetailNewModel.MealItem.ItemCategory,
             iRecyclerItemClick: IRecyclerItemClick
         ) {
             binding.itemCategory = item

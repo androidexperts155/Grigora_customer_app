@@ -7,13 +7,14 @@ import androidx.databinding.ViewDataBinding
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ItemInnerAdonBinding
- import com.rvtechnologies.grigora.model.models.ItemSubCategory
+import com.rvtechnologies.grigora.model.models.ItemSubCategory
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.synthetic.main.item_inner_adon.view.*
 
 
 class ItemInnerAdOnsAdapter(
-    var itemInnerCategoryList: ArrayList<ItemSubCategory>,
+    var itemInnerCategoryList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>,
     var selection: String,
     var iRecyclerItemClick: IRecyclerItemClick
 ) :
@@ -22,11 +23,12 @@ class ItemInnerAdOnsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val innerCategoryModel = itemInnerCategoryList[position]
         innerCategoryModel.addOnPriceString =
-            "(+" + holder.itemView.context.getString(R.string.currency_sym) + innerCategoryModel.addOnPrice + ")"
+            "(+" + holder.itemView.context.getString(R.string.currency_sym) + innerCategoryModel.add_on_price + ")"
 
         holder.binding.chkIsChecked.setOnClickListener {
             if (selection == "1") {
-                val newList = ArrayList<ItemSubCategory>()
+                val newList =
+                    ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>()
                 for (innerItem in itemInnerCategoryList) {
                     if (innerItem.id == innerCategoryModel.id) {
                         innerItem.checked = holder.itemView.chkIsChecked.isChecked
@@ -49,7 +51,7 @@ class ItemInnerAdOnsAdapter(
         holder.bind(innerCategoryModel, iRecyclerItemClick)
     }
 
-    private fun updateList(newList: ArrayList<ItemSubCategory>) {
+    private fun updateList(newList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>) {
         itemInnerCategoryList = newList
         notifyDataSetChanged()
     }
@@ -73,7 +75,7 @@ class ItemInnerAdOnsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: ItemSubCategory,
+            item: RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory,
             iRecyclerItemClick: IRecyclerItemClick
         ) {
             binding.itemSubCategory = item

@@ -53,6 +53,6 @@
         
         <variable
             name="itemSubCategory"
-            type="com.rvtechnologies.grigora.model.models.ItemSubCategory" />
+            type="com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory" />
     </data>
 </layout>

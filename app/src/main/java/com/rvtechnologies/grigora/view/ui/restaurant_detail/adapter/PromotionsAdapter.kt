@@ -4,7 +4,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -12,23 +11,20 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.FeaturedModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 
-class FeaturedAdapter(
-    val list: ArrayList<RestaurantDetailNewModel.MealItem>,
+class PromotionsAdapter(
+    val list: ArrayList<RestaurantDetailNewModel.Promo>,
     val iRecyclerItemClick: IRecyclerItemClick
-) : RecyclerView.Adapter<FeaturedAdapter.ViewHolder>() {
+) : RecyclerView.Adapter<PromotionsAdapter.ViewHolder>() {
 
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        var img_meal = view.findViewById<ImageView>(R.id.img_meal)
-        var tv_name = view.findViewById<TextView>(R.id.tv_name)
-        var tv_price = view.findViewById<TextView>(R.id.tv_price)
-        var tv_rating = view.findViewById<TextView>(R.id.tv_rating)
+        var img_promo = view.findViewById<ImageView>(R.id.img_promo)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         return ViewHolder(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_featured,
+                R.layout.item_promo,
                 parent,
                 false
             )
@@ -40,11 +36,7 @@ class FeaturedAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        CommonUtils.loadImage(holder.img_meal, list[position].image)
-        holder.tv_name.text = list[position].name
-        holder.tv_price.text = "₦ " + list[position].price
-        holder.tv_rating.text = list[position].avg_ratings.toString()
+        CommonUtils.loadImage(holder.img_promo, list[position].image)
         holder.itemView.setOnClickListener { iRecyclerItemClick.onItemClick(list[position]) }
     }
-
 }

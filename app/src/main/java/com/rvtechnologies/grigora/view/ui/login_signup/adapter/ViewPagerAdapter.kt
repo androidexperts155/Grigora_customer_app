@@ -54,32 +54,8 @@ var context: Context
         img.setImageResource(imagesList[position])
         tv_title.text = titleList[position]
         tv_desc.text = descList[position]
-
-
-
-
         container.addView(layout)
-
-
         return layout
-//        val inflater = LayoutInflater.from(container.context)
-
-
-
-
-//        val view = LayoutInflater.from(container!!.context)
-//            .inflate(R.layout.item_image_slider, container,false)
-//
-//        var img = view.findViewById<ImageView>(R.id.image_view)
-//        var tv_title = view.findViewById<TextView>(R.id.tv_title)
-//        var tv_desc = view.findViewById<TextView>(R.id.tv_desc)
-//
-//        img.setImageResource(imagesList[position])
-//        tv_title.text = titleList[position]
-//        tv_desc.text = descList[position]
-//
-//        container.addView(view)
-//        return container
     }
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
@@ -92,7 +68,5 @@ var context: Context
 
     override fun destroyItem(container: ViewGroup, position: Int, `object`: Any) {
         container.removeView(`object` as LinearLayout)
-
-
     }
 }

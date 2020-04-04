@@ -5,11 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.viewpager.widget.ViewPager
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
+import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class DashboardAllRestaurantAdapter(
     val list: ArrayList<NewDashboardModel.AllRestautants>,
@@ -34,12 +36,14 @@ class DashboardAllRestaurantAdapter(
     }
 
     inner class MyView(view: View) : RecyclerView.ViewHolder(view) {
-        var rc_images: RecyclerView = view.findViewById(R.id.rc_images)
+//        var rc_images: RecyclerView = view.findViewById(R.id.rc_images)
         var tv_name: TextView = view.findViewById(R.id.tv_name)
         var tv_delivery_time: TextView = view.findViewById(R.id.tv_delivery_time)
         var tv_rating: TextView = view.findViewById(R.id.tv_rating)
         var tv_delivery_charges: TextView = view.findViewById(R.id.tv_delivery_charges)
         var tv_closed: TextView = view.findViewById(R.id.tv_closed)
+        var vp: ViewPager = view.findViewById(R.id.vp)
+        var dots_indicator: DotsIndicator = view.findViewById(R.id.dots_indicator)
     }
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
@@ -47,10 +51,17 @@ class DashboardAllRestaurantAdapter(
         holder.tv_name.text = detail.name
 
         if (detail.items.isNotEmpty()) {
-            holder.rc_images.adapter = ImagesAdapter(detail, iRecyclerItemClick)
-            holder.rc_images.setOnClickListener {
-                iRecyclerItemClick.onItemClick(list[position])
-            }
+
+
+            holder.vp.adapter = ImagePagerAdapter(holder.itemView.context!!,detail,iRecyclerItemClick)
+
+            holder.dots_indicator.setViewPager(holder.vp)
+
+
+//            holder.rc_images.adapter = ImagesAdapter(detail, iRecyclerItemClick)
+//            holder.rc_images.setOnClickListener {
+//                iRecyclerItemClick.onItemClick(list[position])
+//            }
         }
 
         holder.tv_rating.text = detail.averageRating.toString()
@@ -68,9 +79,15 @@ class DashboardAllRestaurantAdapter(
         holder.tv_delivery_charges.text =
             "₦" + (price.toInt()).toString() + " " + holder.tv_delivery_time.context.getString(R.string.delivery)
 
-        holder.rc_images.setOnClickListener {
+//        holder.rc_images.setOnClickListener {
+//            iRecyclerItemClick.onItemClick(list[position])
+//        }
+
+               holder.vp.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
         }
+
+
         holder.itemView.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
         }

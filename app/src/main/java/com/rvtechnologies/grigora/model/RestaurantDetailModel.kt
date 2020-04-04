@@ -15,8 +15,14 @@ data class RestaurantDetailModel(
     var allData: ArrayList<AllData> = ArrayList(),
     @SerializedName("popluar_items")
     var popluarItems: ArrayList<MenuItemModel> = ArrayList(),
+
     @SerializedName("previous_ordered_items")
     var previousOrderedItems: ArrayList<MenuItemModel> = ArrayList(),
+
+
+    @SerializedName("promo")
+    var promo: ArrayList<Promo> = ArrayList(),
+
 
     @SerializedName("cart")
     var cart: Cart?,
@@ -32,20 +38,14 @@ data class RestaurantDetailModel(
     @SerializedName("longitude")
     var longitude: String = "",
 
-
-
-
     @SerializedName("total_cart_item")
     var total_cart_item: String = "",
 
     @SerializedName("order_type")
     var orderType: String = "",
 
-
     @SerializedName("address")
     var address: String = "",
-
-
 
     @SerializedName("cart_id")
     var cart_id: String = "",
@@ -56,7 +56,6 @@ data class RestaurantDetailModel(
     @SerializedName("restaurant_name")
     var restaurant_name: String = "",
 
-
     @SerializedName("restaurant_id")
     var restaurant_id: String = "",
 
@@ -65,7 +64,6 @@ data class RestaurantDetailModel(
 
     @SerializedName("busy_status")
     var busyStatus: String = "",
-
 
     @SerializedName("estimated_preparing_time")
     var estimated_preparing_time: String = "",
@@ -78,7 +76,7 @@ data class RestaurantDetailModel(
     var total_rating: String = "",
 
     @SerializedName("total_review")
-    var total_review: Int = 0   ,
+    var total_review: Int = 0,
 
     @SerializedName("veg")
     var veg: String = "",
@@ -109,10 +107,7 @@ data class RestaurantDetailModel(
         val total_price: String,
         val updated_at: String,
         val user_id: String
-    ): Parcelable
-
-
-
+    ) : Parcelable
 
 
     @SuppressLint("ParcelCreator")
@@ -155,4 +150,35 @@ data class RestaurantDetailModel(
         @SerializedName("name")
         var name: String = ""
     ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Promo(
+        @SerializedName("id")
+        var id: String = "",
+
+        @SerializedName("name")
+        var name: String = "",
+
+        @SerializedName("image")
+        var image: String = "",
+
+        @SerializedName("description")
+        var description: String = "",
+
+        @SerializedName("code")
+        var code: String = "",
+
+        @SerializedName("percentage")
+        var percentage: String = "",
+
+        @SerializedName("no_of_attempts")
+        var no_of_attempts: String = "",
+
+        @SerializedName("min_order_value")
+        var min_order_value: String = "",
+        @SerializedName("status")
+        var status: String = ""
+    ) : Parcelable
+
 }

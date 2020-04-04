@@ -24,9 +24,6 @@ class ApiRepo {
             }
     }
 
-    /*
-   Set Language data
-    */
 
     fun setLanguage(
         language: String,

@@ -6,10 +6,11 @@
     android:orientation="horizontal">
     
     <ImageView
-        android:layout_width="@dimen/_80sdp"
-        android:layout_height="@dimen/_80sdp"
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="@dimen/_75sdp"
         android:scaleType="centerCrop"
-        android:src="@mipmap/burger" />
+        android:id="@+id/img_meal"
+        />
     
     
     <LinearLayout
@@ -22,6 +23,7 @@
         
         <TextView
             style="@style/titleText"
+            android:id="@+id/tv_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
@@ -34,6 +36,7 @@
             style="@style/mediumText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:id="@+id/tv_desc"
             android:layout_marginTop="@dimen/_2sdp"
             android:maxLines="2"
             android:text="Bonne less chicken leg marineted in our spices and flame-grilled"
@@ -50,6 +53,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:id="@+id/tv_price"
                 android:maxLines="1"
                 android:text="₦ 4.00"
                 android:textColor="?attr/textWhite"
@@ -58,6 +62,7 @@
             
             <TextView
                 style="@style/mediumText"
+                android:id="@+id/tv_rating"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"

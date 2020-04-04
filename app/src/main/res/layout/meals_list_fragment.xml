@@ -7,13 +7,13 @@
     tools:context=".view.ui.restaurant_detail.MealsList">
     
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_width="match_parent"
-        android:padding="@dimen/_8sdp"
         android:id="@+id/rc_meals"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:padding="@dimen/_8sdp"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-        tools:listitem="@layout/item_meal"
-        tools:itemCount="2" />
+        tools:itemCount="2"
+        tools:listitem="@layout/item_meal" />
 
 
 </LinearLayout>

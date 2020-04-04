@@ -7,10 +7,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SheetTypeModel
 
 class SheetTypeAdapter(
-    val list: ArrayList<SheetTypeModel>,
+    val list: ArrayList<RestaurantDetailNewModel.AllData>,
     val iRecyclerItemClick: IRecyclerItemClick
 ) : RecyclerView.Adapter<SheetTypeAdapter.ViewHolder>() {
 
@@ -34,7 +35,7 @@ class SheetTypeAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tv_item.text = list[position].name
+        holder.tv_item.text = list[position].category_name
 
         holder.itemView.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
