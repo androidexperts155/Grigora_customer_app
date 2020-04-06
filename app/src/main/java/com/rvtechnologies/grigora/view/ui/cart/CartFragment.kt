@@ -645,18 +645,21 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-            cart_type = "1"
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
-            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            }
+
+
+            cart_type = "1"
 
             isPickup = false
             setPrices()
-
-            if (CommonUtils.isDarkMode()) {
-                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            } else
-                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
 
             viewModel.updateType(
                 restaurantId,
@@ -667,21 +670,19 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
 
         tv_pickup.setOnClickListener {
-            cart_type = "2"
-
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
-
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
 
+            cart_type = "2"
             isPickup = true
             setPrices()
-
-            if (CommonUtils.isDarkMode()) {
-                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            } else
-                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-
             viewModel.updateType(
                 restaurantId,
                 "2",

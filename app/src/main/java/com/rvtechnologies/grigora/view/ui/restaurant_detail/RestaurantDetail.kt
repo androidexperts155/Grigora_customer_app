@@ -241,6 +241,7 @@ class RestaurantDetail(
                 )
             ) {
 //                restaurant is closed
+                tv_delivery_fee.visibility = View.GONE
                 li_enabled.visibility = View.GONE
                 li_disabled.visibility = View.VISIBLE
 
@@ -258,6 +259,7 @@ class RestaurantDetail(
             ) || restaurantDetailModel.full_time == "1") && restaurantDetailModel.busy_status == "1"
         ) {
 //restaurant is busy
+            tv_delivery_fee.visibility = View.GONE
             li_enabled.visibility = View.GONE
             li_disabled.visibility = View.VISIBLE
 
@@ -278,6 +280,7 @@ class RestaurantDetail(
     fun pickupClicked() {
         tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
         tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+        tv_delivery_fee.visibility = View.GONE
         if (CommonUtils.isDarkMode()) {
             tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -333,6 +336,9 @@ class RestaurantDetail(
     fun deliveryClicked() {
         tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
         tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+        tv_delivery_fee.text =
+            getString(R.string.delivey_fee) + " ${restaurantDetailModel.delivery_fee}"
+        tv_delivery_fee.visibility = View.VISIBLE
         if (CommonUtils.isDarkMode()) {
             tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -424,7 +430,9 @@ class RestaurantDetail(
                 var sheet = MealDetailSheet(item)
                 sheet.show(childFragmentManager, "")
             }
-//            else -> view?.findNavController()?.navigate(R.id.action_restaurantDetail_to_mealsList)
+            is RestaurantDetailNewModel.AllData.Data -> {
+                iRecyclerItemClick.onItemClick(item)
+            }
         }
     }
 

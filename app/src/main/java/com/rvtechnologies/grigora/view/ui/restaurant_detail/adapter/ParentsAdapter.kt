@@ -41,7 +41,7 @@ class ParentsAdapter(
         holder.tv_name.text = list[position].name
 
         holder.itemView.setOnClickListener {
-            iRecyclerItemClick.onItemClick(position)
+            iRecyclerItemClick.onItemClick(list[position])
         }
     }
 

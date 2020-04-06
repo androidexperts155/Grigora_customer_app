@@ -26,6 +26,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_8sdp"
                 android:text="@{itemCategory.name}"
@@ -39,14 +40,40 @@
                 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_8sdp"
                 android:layout_marginRight="@dimen/_8sdp"
+                android:layout_toLeftOf="@+id/card"
                 android:textAllCaps="true"
                 android:textColor="@color/colorPrimaryDark"
-                android:textSize="@dimen/_10sdp" />
-        
+                android:textSize="@dimen/_10sdp"
+                tools:text="OPTIONAL" />
+            
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card"
+                android:layout_width="@dimen/_26sdp"
+                android:layout_height="@dimen/_26sdp"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:elevation="@dimen/_1sdp"
+                app:cardBackgroundColor="?attr/viewbg"
+                app:cardCornerRadius="@dimen/_16sdp">
+                
+                <ImageView
+                    android:id="@+id/img_collapse"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:clickable="true"
+                    android:foreground="@drawable/selectable_item_background"
+                    android:scaleType="centerCrop"
+                    android:tag="expanded"
+                    android:tint="?attr/textWhite"
+                    app:srcCompat="@drawable/ic_expanded" />
+            </androidx.cardview.widget.CardView>
         
         </RelativeLayout>
         
@@ -70,7 +97,9 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:layout_marginRight="@dimen/_8sdp"
             android:layout_marginBottom="@dimen/_8sdp"
+            android:nestedScrollingEnabled="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="5"
             tools:listitem="@layout/item_inner_adon" />
         

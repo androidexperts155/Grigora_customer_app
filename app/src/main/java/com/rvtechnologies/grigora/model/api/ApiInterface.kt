@@ -181,6 +181,14 @@ interface ApiInterface {
     ): Call<JsonElement>
 
     @FormUrlEncoded
+    @POST(ApiConstants.GET_MEALS_LIST)
+    fun getMeals(
+        @Header("Authorization") token: String,
+        @Field("cuisine_id") cuisine_id: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
     @POST(ApiConstants.GET_RESTAURANTS_DETAILS)
     fun getRestaurantDetailsCart(
         @Header("Authorization") token: String,

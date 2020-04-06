@@ -2,11 +2,13 @@ package com.rvtechnologies.grigora.view.ui.restaurant_detail.model
 
 import android.annotation.SuppressLint
 import android.os.Parcelable
+import com.google.gson.annotations.SerializedName
 import kotlinx.android.parcel.Parcelize
 
 data class RestaurantDetailNewModel(
     val address: String,
     val busy_status: String,
+    val delivery_fee: String,
     val cart_id: String,
     val all_data: List<AllData>,
     val closing_time: String,
@@ -32,7 +34,8 @@ data class RestaurantDetailNewModel(
     val total_rating: String,
     val total_review: Int,
     val veg: String,
-    var normal_cart: NormalCart?
+    var normal_cart: NormalCart?,
+    var cart: Cart?
 ) {
     @SuppressLint("ParcelCreator")
     @Parcelize
@@ -50,6 +53,37 @@ data class RestaurantDetailNewModel(
         val total_price: String,
         val updated_at: String,
         val user_id: String
+    ) : Parcelable
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Cart(
+        @SerializedName("cart_type")
+        val cart_type: String,
+        @SerializedName("created_at")
+        val created_at: String,
+        @SerializedName("group_order")
+        val group_order: String,
+        @SerializedName("id")
+        val id: Int,
+        @SerializedName("max_per_person")
+        val max_per_person: Int,
+        @SerializedName("quantity")
+        val quantity: Int,
+        @SerializedName("restaurant_id")
+        val restaurant_id: Int,
+        @SerializedName("share_link")
+        val share_link: String,
+        @SerializedName("status")
+        val status: String,
+        @SerializedName("total_price")
+        val total_price: String,
+        @SerializedName("updated_at")
+        val updated_at: String,
+        @SerializedName("user_id")
+        val user_id: String,
+        @SerializedName("user_name")
+        val name: String
     ) : Parcelable
 
 
@@ -101,7 +135,7 @@ data class RestaurantDetailNewModel(
             @SuppressLint("ParcelCreator")
             @Parcelize
             data class ItemSubCategory(
-                var checked: Boolean,
+                var checked: Boolean=false,
                 var addOnPriceString: String,
                 val add_on_price: Double,
                 val created_at: String,

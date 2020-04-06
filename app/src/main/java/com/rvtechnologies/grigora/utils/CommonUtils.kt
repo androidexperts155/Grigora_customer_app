@@ -464,6 +464,23 @@ object CommonUtils {
         }
     }
 
+    fun loadFoodImage(imageView: ImageView?, imageUrl: String?) {
+        if (imageView != null) {
+
+
+            Picasso.get()
+                .load(imageUrl).placeholder(
+                    R.drawable.food_placeholder
+                )
+                 .error(
+                     R.drawable.food_placeholder
+                )
+                .into(imageView)
+
+        }
+    }
+
+
     fun setOverScroll(recyclerView: RecyclerView, mode: Int) {
         OverScrollDecoratorHelper.setUpOverScroll(recyclerView, mode)
     }

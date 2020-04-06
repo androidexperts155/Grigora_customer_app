@@ -10,6 +10,7 @@ import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 
 class RestaurantDetailGroupViewModel : ViewModel() {
     var id: MutableLiveData<String> = MutableLiveData()
@@ -21,16 +22,14 @@ class RestaurantDetailGroupViewModel : ViewModel() {
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
     fun getRestaurantsDetailsCart(token: String, restId: String, price: String, cartId: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
+         ApiRepo.getInstance()
             .getRestaurantsDetailsCart(
                 token,
                 restId, price, cartId
             ) { success, result ->
-                isLoading.value = false
-                if (success) {
+                 if (success) {
                     val type =
-                        object : TypeToken<CommonResponseModel<RestaurantDetailModel>>() {}.type
+                        object : TypeToken<CommonResponseModel<RestaurantDetailNewModel>>() {}.type
                     restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
 
                 } else {

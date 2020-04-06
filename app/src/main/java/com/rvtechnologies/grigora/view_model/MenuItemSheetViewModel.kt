@@ -122,9 +122,7 @@ class MenuItemSheetViewModel : ViewModel() {
                     }
             } else {
                 response.value = "Quantity too low"
-
             }
-
         } else
             addItemToGroupCart()
     }

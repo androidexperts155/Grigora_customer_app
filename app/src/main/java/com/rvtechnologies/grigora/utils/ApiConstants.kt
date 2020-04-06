@@ -24,6 +24,7 @@ object ApiConstants {
 
     const val GET_MENU_ITEM_BY_CATEGORY_URL = "get-items-by-category"
     const val GET_RESTAURANTS_DETAILS = "restaurant-details"
+    const val GET_MEALS_LIST = "get-items-by-cuisines"
     const val GET_OFFER_LIST_URL = "restaurant-promo"
 
     const val GET_ORDER_DETAILS_URL = "order-details"

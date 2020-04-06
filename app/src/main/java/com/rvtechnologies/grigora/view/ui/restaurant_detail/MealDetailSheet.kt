@@ -155,6 +155,7 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
             bi!!.menuItemViewModel = viewModel
 
             viewModel.refresh()
+            bi!!.rvOptions.adapter?.notifyDataSetChanged()
         }
     }
 }

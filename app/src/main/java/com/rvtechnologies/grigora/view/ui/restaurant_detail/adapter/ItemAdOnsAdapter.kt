@@ -16,6 +16,8 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.synthetic.main.item_category_view.view.*
+import kotlinx.android.synthetic.main.item_category_view.view.rvInnerOptions
+import kotlinx.android.synthetic.main.item_meal_adons.view.*
 
 class ItemAdOnsAdapter(
     var itemCategoryList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory>,
@@ -29,10 +31,15 @@ class ItemAdOnsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val categoryModel = itemCategoryList[position]
 
+//        TODO remove this dummy later
+        categoryModel.max = "2"
+        categoryModel.min = "1"
+        categoryModel.required = "0"
+
+
         val innerList = categoryModel.item_sub_category
         var list = ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>()
         list.addAll(innerList)
-
 
         if (categoryModel.max.toInt() > 0) {
             holder.binding.tvChoose.text =
@@ -40,51 +47,99 @@ class ItemAdOnsAdapter(
         } else
             holder.binding.tvChoose.visibility = View.GONE
 
-
+        // show or hide - w optional or required
+        var selected = 0
+        for (item in categoryModel.item_sub_category) {
+            if (item.checked)
+                selected++
+        }
 
         if (categoryModel.required == "1") {
 //            this field is required
             holder.binding.tvIsRequired.text =
                 holder.itemView.context!!.getString(R.string.required_)
-            holder.binding.tvIsRequired.setTextColor(
-                ContextCompat.getColor(
-                    holder.itemView.context!!,
-                    R.color.colorPrimaryDark
-                )
-            )
-        } else {
-            holder.binding.tvIsRequired.text =
-                holder.itemView.context!!.getString(R.string.optional)
 
-            if (CommonUtils.isDarkMode()) {
+            if (selected >= categoryModel.min.toInt() && selected <= categoryModel.max.toInt()) {
+//                            this is valid
                 holder.binding.tvIsRequired.setTextColor(
                     ContextCompat.getColor(
                         holder.itemView.context!!,
-                        R.color.light_gray
+                        R.color.green
                     )
                 )
             } else {
                 holder.binding.tvIsRequired.setTextColor(
                     ContextCompat.getColor(
                         holder.itemView.context!!,
-                        R.color.text_hint_color
+                        R.color.colorPrimaryDark
                     )
                 )
             }
+
+        } else {
+            holder.binding.tvIsRequired.text =
+                holder.itemView.context!!.getString(R.string.optional)
+            if (CommonUtils.isDarkMode()) {
+                if (selected >= categoryModel.max.toInt()) {
+                    holder.binding.tvIsRequired.setTextColor(
+                        ContextCompat.getColor(
+                            holder.itemView.context!!,
+                            R.color.green
+                        )
+                    )
+                } else
+                    holder.binding.tvIsRequired.setTextColor(
+                        ContextCompat.getColor(
+                            holder.itemView.context!!,
+                            R.color.light_gray
+                        )
+                    )
+            } else {
+                if (selected >= categoryModel.max.toInt()) {
+                    holder.binding.tvIsRequired.setTextColor(
+                        ContextCompat.getColor(
+                            holder.itemView.context!!,
+                            R.color.green
+                        )
+                    )
+                } else
+                    holder.binding.tvIsRequired.setTextColor(
+                        ContextCompat.getColor(
+                            holder.itemView.context!!,
+                            R.color.text_hint_color
+                        )
+                    )
+            }
         }
 
-        if (categoryModel.max.isNullOrEmpty() || categoryModel.max == "0") {
-            categoryModel.max = (categoryModel.item_sub_category.size - 1).toString()
+        if (holder.itemView.rvInnerOptions.adapter == null)
+            holder.itemView.rvInnerOptions.adapter =
+                ItemInnerAdOnsAdapter(
+                    list,
+                    categoryModel.required,
+                    categoryModel.min,
+                    categoryModel.max,
+                    this
+                )
+
+        holder.itemView.img_collapse.setOnClickListener {
+            if (holder.itemView.rvInnerOptions.visibility == View.VISIBLE) {
+                holder.itemView.rvInnerOptions.visibility = View.GONE
+                holder.itemView.img_collapse.rotation = -90F
+                holder.binding.tvChoose.visibility = View.GONE
+
+
+            } else {
+                holder.itemView.rvInnerOptions.visibility = View.VISIBLE
+                holder.itemView.img_collapse.rotation = 0F
+                if (categoryModel.max.toInt() == 0)
+                    holder.binding.tvChoose.visibility = View.GONE
+                else
+                    holder.binding.tvChoose.visibility = View.VISIBLE
+            }
+
         }
 
-        holder.itemView.rvInnerOptions.adapter =
-            ItemInnerAdOnsAdapter(
-                list,
-                categoryModel.required,
-                categoryModel.min,
-                categoryModel.max,
-                this
-            )
         holder.bind(categoryModel, iRecyclerItemClick)
     }
 

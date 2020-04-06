@@ -575,5 +575,6 @@
     <string name="special_instructions">Add your special instrucions here...</string>
     <string name="optional">Optional</string>
     <string name="choose_any">"Choose any "</string>
+    <string name="delivey_fee">Delivery Fee: ₦</string>
 
 </resources><!--₦-->

@@ -773,6 +773,34 @@ Cuisine repo
             })
     }
 
+    fun getMeals(
+        cuisineId: String,
+
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient().getMeals(
+                CommonUtils.getToken(),
+                cuisineId
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun getItemCart(
         token: String,

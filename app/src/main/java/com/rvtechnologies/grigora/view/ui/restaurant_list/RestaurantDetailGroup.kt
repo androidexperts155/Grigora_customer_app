@@ -16,10 +16,10 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailGroupFragmentBinding
 import com.rvtechnologies.grigora.model.AddCartModel
-import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
@@ -27,6 +27,10 @@ import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.groupCart.GroupOrderAlreadyPlaced
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.ChooseTypeSheet
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.FeaturedAdapter
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.MealsAdapter
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ParentsAdapter
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.PromotionsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SheetTypeModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapter
@@ -40,18 +44,15 @@ import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.tv_restname
 
 class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
+    private var EXPANDED = "expanded"
+    private var COLLAPESD = "collapsed"
 
-    private val cartItemList = ArrayList<CartDetail>()
     lateinit var menuItemModel: MenuItemModel
     private lateinit var fragmentRestaurantsDetailsBinding: RestaurantDetailGroupFragmentBinding
     private lateinit var viewModel: RestaurantDetailGroupViewModel
-    private var mealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
-    private var filteredMealsAndCuisinesList = ArrayList<RestaurantDetailModel.AllData>()
-    private val popularList = ArrayList<MenuItemModel>()
-    private val previousList = ArrayList<MenuItemModel>()
     private var restaurantId = ""
     private var cartId = ""
-    lateinit var restaurantDetailModel: RestaurantDetailModel
+    lateinit var restaurantDetailModel: RestaurantDetailNewModel
 
     companion object {
         fun newInstance() = RestaurantDetailGroup()
@@ -69,15 +70,20 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
 
         viewModel.restaurantDetail.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-                mealsAndCuisinesList.clear()
-                filteredMealsAndCuisinesList.clear()
                 if (response.status!!) {
-                    restaurantDetailModel = response.data as RestaurantDetailModel
+                    restaurantDetailModel = response.data as RestaurantDetailNewModel
                     handleClosed()
+                    setPreviousOrder()
+                    setFeatured()
+                    setPopular()
+                    setPromotions()
+                    setMenu()
                     handleGroup(restaurantDetailModel)
-                    tv_restname.text = restaurantDetailModel.restaurant_name
 
-                    if (!restaurantDetailModel.orderType.isNullOrEmpty() && restaurantDetailModel.orderType == "1")
+
+
+                    tv_restname.text = restaurantDetailModel.restaurant_name
+                    if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1")
                         tv_delivery.callOnClick()
                     else
                         tv_pickup.callOnClick()
@@ -98,13 +104,22 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
                             "hh:mm aa"
                         )
 
+                    CommonUtils.loadImage(img_rest, restaurantDetailModel.restaurant_image)
+                    CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_image)
+                    tv_address.text = restaurantDetailModel.address
                     tv_rating.text = restaurantDetailModel.total_rating
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
                     tv_restaurantname.text = restaurantDetailModel.restaurant_name
                     tv_cuisines.text = restaurantDetailModel.cuisines
 
-                    mealsAndCuisinesList.addAll((restaurantDetailModel.allData))
-                    filteredMealsAndCuisinesList.addAll(mealsAndCuisinesList)
+
+//                    handle shimmer
+                    li_shimmer.visibility = View.GONE
+                    shimmer_image.visibility = View.GONE
+                    li_main.visibility = View.VISIBLE
+                    img_wall.visibility = View.VISIBLE
+
+
                 } else {
                     CommonUtils.showMessage(parentView, response.toString())
                 }
@@ -157,7 +172,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
         }
     }
 
-    private fun handleGroup(data: RestaurantDetailModel) {
+    private fun handleGroup(data: RestaurantDetailNewModel) {
         viewModel.cartId.value = data.cart?.id.toString()
         if (data.cart != null && data.cart?.quantity!! > 0) {
             fab_cart_group.visibility = View.VISIBLE
@@ -205,9 +220,9 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
                 )
             ) {
 //                restaurant is closed
+                tv_delivery_fee.visibility = View.GONE
                 li_enabled.visibility = View.GONE
                 li_disabled.visibility = View.VISIBLE
-
 
                 li_time.visibility = View.GONE
                 li_status.visibility = View.VISIBLE
@@ -220,9 +235,10 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
         if ((CommonUtils.isRestaurantOpen(
                 restaurantDetailModel.opening_time,
                 restaurantDetailModel.closing_time
-            ) || restaurantDetailModel.full_time == "1") && restaurantDetailModel.busyStatus == "1"
+            ) || restaurantDetailModel.full_time == "1") && restaurantDetailModel.busy_status == "1"
         ) {
 //restaurant is busy
+            tv_delivery_fee.visibility = View.GONE
             li_enabled.visibility = View.GONE
             li_disabled.visibility = View.VISIBLE
 
@@ -233,6 +249,89 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
             tv_pickup_desc.visibility = View.GONE
 
         }
+    }
+
+
+    private fun setPromotions() {
+        if (restaurantDetailModel.promo.isNullOrEmpty()) {
+            li_promotion.visibility = View.GONE
+        } else {
+            var list = ArrayList<RestaurantDetailNewModel.Promo>()
+            list.addAll(restaurantDetailModel.promo)
+            rc_promo.adapter = PromotionsAdapter(list, this)
+            li_promotion.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setFeatured() {
+        if (restaurantDetailModel.featured_items.isNullOrEmpty()) {
+            li_featured.visibility = View.GONE
+        } else {
+            var list = ArrayList<RestaurantDetailNewModel.MealItem>()
+            list.addAll(restaurantDetailModel.featured_items)
+            if (list.size <= 3) {
+                var layoutManager = LinearLayoutManager(context!!)
+                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
+//                set horizontal
+                rec_featured.layoutManager = layoutManager
+            }
+            rec_featured.adapter = FeaturedAdapter(list, this)
+            li_featured.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setPreviousOrder() {
+        if (restaurantDetailModel.previous_ordered_items.isNullOrEmpty()) {
+            li_previously_orderd.visibility = View.GONE
+        } else {
+            var list = ArrayList<RestaurantDetailNewModel.MealItem>()
+            list.addAll(restaurantDetailModel.previous_ordered_items)
+            rec_previously.adapter = MealsAdapter(list, this)
+
+            collapse_previously.setOnClickListener {
+                if (it.tag == COLLAPESD) {
+                    it.tag = EXPANDED
+                    it.rotation = 0F
+                    rec_previously.visibility = View.VISIBLE
+                } else {
+                    rec_previously.visibility = View.GONE
+                    it.tag = COLLAPESD
+                    it.rotation = -90F
+                }
+            }
+            li_previously_orderd.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setPopular() {
+        if (restaurantDetailModel.popular_items.isNullOrEmpty()) {
+            li_popular.visibility = View.GONE
+        } else {
+            var list = ArrayList<RestaurantDetailNewModel.MealItem>()
+            list.addAll(restaurantDetailModel.popular_items)
+            rec_popular.adapter = MealsAdapter(list, this)
+
+            collapse_popular.setOnClickListener {
+                if (it.tag == COLLAPESD) {
+                    it.tag = EXPANDED
+                    it.rotation = 0F
+                    rec_popular.visibility = View.VISIBLE
+                } else {
+                    rec_popular.visibility = View.GONE
+                    it.tag = COLLAPESD
+                    it.rotation = -90F
+                }
+            }
+
+            li_popular.visibility = View.VISIBLE
+        }
+    }
+
+    private fun setMenu() {
+        bt_type.text = restaurantDetailModel.all_data[0].category_name
+        var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
+        list.addAll(restaurantDetailModel.all_data[0].data)
+        rec_parents.adapter = ParentsAdapter(list, this)
     }
 
 
@@ -272,6 +371,21 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
     }
 
     fun deliveryClicked() {
+        tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+        tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+        tv_delivery_fee.text =
+            getString(R.string.delivey_fee) + " ${restaurantDetailModel.delivery_fee}"
+        tv_delivery_fee.visibility = View.VISIBLE
+        if (CommonUtils.isDarkMode()) {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        } else {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        }
+
+//        functionality
+
         var distance = CommonUtils.calculateDistance(
             restaurantDetailModel.latitude.toDouble(),
             restaurantDetailModel.longitude.toDouble(),
@@ -279,17 +393,8 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
             CommonUtils.getPrefValue(context, PrefConstants.LONGITUDE).toDouble()
         )
 
-        tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
-        tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
-        tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
         tv_pickup_desc.visibility = View.VISIBLE
-
-        tv_pickup_desc.visibility = View.VISIBLE
-
-
         var color: String = if (CommonUtils.isDarkMode()) "#ffffff" else "#262626"
-//            val address = getColoredSpanned(restaurantDetailModel.address + ". ", "#D01110")
-//            val info = getColoredSpanned(getString(R.string.pick_order_info), color)
         val distanceM = getColoredSpanned(
             "${CommonUtils.getRoundedOff(
                 distance.toDouble()
@@ -299,7 +404,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
         )
 
         tv_pickup_desc.text = Html.fromHtml(distanceM)
-
 
         var t = restaurantDetailModel.estimated_preparing_time.toInt() + (distance * 2)
 
@@ -315,34 +419,25 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
             tv_deliver.text =
                 getString(R.string.delivers_in) + " $minutes minutes"
         }
-
-
-
-
-
-        if (CommonUtils.isDarkMode()) {
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-        } else {
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-        }
-
-        if (restaurantDetailModel.orderType != "1")
+        if (restaurantDetailModel.order_type != "1")
             viewModel.updateType(
                 restaurantId,
                 "1",
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
             )
-
     }
 
     fun pickupClicked() {
-        tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
         tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
-
         tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
-        tv_pickup_desc.visibility = View.VISIBLE
+        tv_delivery_fee.visibility = View.GONE
+        if (CommonUtils.isDarkMode()) {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+        } else {
+            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+        }
 
         var distance = CommonUtils.calculateDistance(
             restaurantDetailModel.latitude.toDouble(),
@@ -361,12 +456,15 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
                 R.string.km_away
             ), color
         )
+
         tv_pickup_desc.text = Html.fromHtml(info + " " + address + " " + distanceM)
+
 
         val hours: Int =
             restaurantDetailModel.estimated_preparing_time.toInt() / 60 //since both are ints, you get an int
 
         val minutes: Int = restaurantDetailModel.estimated_preparing_time.toInt() % 60
+
 
         if (hours > 0) {
             tv_deliver.text =
@@ -376,32 +474,23 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
                 getString(R.string.preparein) + " $minutes minutes"
         }
 
-        if (CommonUtils.isDarkMode()) {
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-        } else {
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
-        }
-
-        if (restaurantDetailModel.orderType != "2")
+        if (restaurantDetailModel.order_type != "2")
             viewModel.updateType(
                 restaurantId,
                 "2",
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
             )
-//            } else
-//                (activity as MainActivity).showLoginAlert()
-    }
 
+    }
 
     fun chooseType() {
-//        var list=ArrayList<RestaurantDetailNewModel.AllData>()
-//        list.addAll(restaurantDetailModel.allData)
-//        var sheet = ChooseTypeSheet(list, this)
-//        sheet.show(childFragmentManager, "")
-    }
 
+        var list = ArrayList<RestaurantDetailNewModel.AllData>()
+        list.addAll(restaurantDetailModel.all_data)
+
+        var sheet = ChooseTypeSheet(list, this)
+        sheet.show(childFragmentManager, "")
+    }
 
     override fun onItemClick(item: Any) {
         if (item is MenuItemModel) {

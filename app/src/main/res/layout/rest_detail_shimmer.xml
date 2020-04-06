@@ -237,6 +237,74 @@
                 android:textSize="@dimen/_10sdp" />
         </com.facebook.shimmer.ShimmerFrameLayout>
     
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+        
+            app:shimmer_auto_start="true"
+            app:shimmer_direction="left_to_right">
+        
+            <LinearLayout
+                android:layout_width="match_parent"
+            
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            
+                <View
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_120sdp"
+                
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="?attr/lightGray" />
+            
+                <View
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_120sdp"
+                
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="?attr/lightGray" />
+        
+        
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
     
+        <com.facebook.shimmer.ShimmerFrameLayout
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/_8sdp"
+        
+            app:shimmer_auto_start="true"
+            app:shimmer_direction="left_to_right">
+        
+            <LinearLayout
+                android:layout_width="match_parent"
+            
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+            
+                <View
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_120sdp"
+                
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="?attr/lightGray" />
+            
+                <View
+                    android:layout_width="@dimen/_220sdp"
+                    android:layout_height="@dimen/_120sdp"
+                
+                    android:layout_marginRight="@dimen/_10sdp"
+                    android:background="?attr/lightGray" />
+        
+        
+            </LinearLayout>
+        </com.facebook.shimmer.ShimmerFrameLayout>
+
+
     </LinearLayout>
 </LinearLayout>

@@ -170,30 +170,23 @@ class ItemInnerAdOnsAdapter(
                             )
                         }
                     }
-
-                    if(valid(holder) && required=="1"){
-
-                    }else
-                    {
-
-                    }
                     iRecyclerItemClick.onItemClick(innerCategoryModel)
                     notifyDataSetChanged()
                 }
                 else -> {
-
                     YoYo.with(Techniques.Bounce)
                         .duration(200)
                         .playOn(holder.itemView)
-
-
                 }
             }
         }
         holder.bind(innerCategoryModel, iRecyclerItemClick)
     }
 
-    fun valid(holder: ViewHolder): Boolean {
+    private fun valid(holder: ViewHolder): Boolean {
+        if (required == "0" && max.toInt() == 0)
+            return true
+
         if (holder.itemView.li_main.tag == "true")
             return true
         var count = 0
@@ -203,6 +196,7 @@ class ItemInnerAdOnsAdapter(
         }
         return count != max.toInt()
     }
+
 
     private fun updateList(newList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>) {
         itemInnerCategoryList = newList

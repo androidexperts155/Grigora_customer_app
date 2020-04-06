@@ -18,6 +18,7 @@ import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantPagerAdapter
 import kotlinx.android.synthetic.main.fragment_restaurant_detail_parent.*
 
@@ -31,7 +32,7 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        AppConstants.CURRENT_SELECTED=0
+        AppConstants.CURRENT_SELECTED = 0
         if ((arguments?.containsKey(AppConstants.CART_ID)!!)) {
             tab_top.visibility = View.GONE
         }
@@ -112,7 +113,7 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                     }
                 }
 
-                AppConstants.CURRENT_SELECTED=p0.position
+                AppConstants.CURRENT_SELECTED = p0.position
             }
         })
 
@@ -198,6 +199,16 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
                         )
                 }
             }
+        } else if (item is RestaurantDetailNewModel.AllData.Data) {
+            var bundle = bundleOf(
+                AppConstants.CUISINE_ID to item.id
+            )
+
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_restaurantDetailParent_to_mealsList
+                    , bundle
+                )
         }
     }
 }
