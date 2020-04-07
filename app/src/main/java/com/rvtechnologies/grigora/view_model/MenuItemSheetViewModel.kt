@@ -268,12 +268,17 @@ class MenuItemSheetViewModel : ViewModel() {
         var price = menuItem.value!!.price!!.toDouble()
         if (selectedChoices.value != null) {
             for (item in selectedChoices.value as ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory?>) {
+                if (!item!!.item_sub_sub_category.isNullOrEmpty()) {
+                    for (i in item!!.item_sub_sub_category) {
+                        if (i.checked)
+                            price += i!!.add_on_price.toDouble()
+                    }
+                }
                 price += item!!.add_on_price
             }
         }
         price *= itemCount.value!!.toDouble()
         this.price.value = CommonUtils.getRoundedOff(price)
-
 /*
         val choices = ArrayList<ItemChoicesModel>()
         try {

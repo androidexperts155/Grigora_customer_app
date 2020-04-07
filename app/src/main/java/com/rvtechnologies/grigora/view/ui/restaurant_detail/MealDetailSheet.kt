@@ -20,6 +20,8 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ItemAdOnsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.ShowSubAdOnModel
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SubAdOnAdded
 import com.rvtechnologies.grigora.view_model.MenuItemDetailsViewModel
 import com.rvtechnologies.grigora.view_model.MenuItemSheetViewModel
 import kotlinx.android.synthetic.main.fragment_meal_detail_sheet.*
@@ -28,7 +30,11 @@ import java.io.InputStream
 import java.nio.charset.Charset
 
 
-class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem, var cartId: String,var refresh: Refresh) :
+class MealDetailSheet(
+    var mealItem: RestaurantDetailNewModel.MealItem,
+    var cartId: String,
+    var refresh: Refresh
+) :
     BottomSheetDialogFragment(),
     IRecyclerItemClick {
     private lateinit var viewModel: MenuItemSheetViewModel
@@ -187,13 +193,32 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem, var cartI
 
             viewModel.refresh()
             bi!!.rvOptions.adapter?.notifyDataSetChanged()
+        } else if (item is ShowSubAdOnModel) {
+            var subAdOnSheet = SubAdOnSheet(item.subCategory, this)
+            subAdOnSheet.show(childFragmentManager, "")
+        } else if (item is SubAdOnAdded) {
+            if (item.itemSubCategory.checked) {
+                var add = true
+
+                for (i in 0 until selectedItemCategoriesList.size) {
+                    if (selectedItemCategoriesList[i]?.id!! == item.itemSubCategory.id) {
+                        selectedItemCategoriesList[i]?.item_sub_sub_category?.clear()
+                        selectedItemCategoriesList[i]?.item_sub_sub_category?.addAll(item.itemSubCategory.item_sub_sub_category)
+                    }
+                }
+
+
+            }
+            viewModel.selectedChoices.value = selectedItemCategoriesList
+
+            bi!!.menuItemViewModel = viewModel
+
+            viewModel.refresh()
+            bi!!.rvOptions.adapter?.notifyDataSetChanged()
         }
     }
 
-
-
-
-    interface Refresh{
-        fun refresh(refresh:Boolean)
+    interface Refresh {
+        fun refresh(refresh: Boolean)
     }
 }

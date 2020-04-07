@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+    
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/_8sdp"
+        android:background="@drawable/meal_detail_sheet_bg"
+        android:elevation="@dimen/_2sdp"
+        android:fitsSystemWindows="true"
+        android:minHeight="@dimen/_400sdp"
+        android:orientation="vertical">
+        
+        
+        <TextView
+            android:id="@+id/tv_back"
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableLeft="@drawable/ic_back_black_24dp"
+            android:gravity="center"
+            android:paddingRight="@dimen/_8sdp"
+            
+            android:text="@string/back"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_14sdp" />
+        
+        
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rvInnerOptions"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_8sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_8sdp"
+            android:layout_marginBottom="@dimen/_8sdp"
+            android:nestedScrollingEnabled="true"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            tools:itemCount="5"
+            tools:listitem="@layout/item_inner_adon" />
+        
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_2sdp"
+            android:background="?attr/viewbg" />
+        
+        <Button
+            android:id="@+id/btn_add"
+            style="@style/titleText"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_marginStart="@dimen/_50sdp"
+            android:layout_marginTop="@dimen/_16sdp"
+            android:layout_marginEnd="@dimen/_50sdp"
+            android:layout_marginBottom="8dp"
+            android:background="@drawable/btn_rounded"
+            android:elevation="1dp"
+            android:paddingLeft="@dimen/_12sdp"
+            android:paddingRight="@dimen/_12sdp"
+            android:text="@string/save"
+            android:textAllCaps="false"
+            android:textColor="@color/white"
+            android:textSize="@dimen/_12sdp" />
+    
+    </LinearLayout>
+</layout>

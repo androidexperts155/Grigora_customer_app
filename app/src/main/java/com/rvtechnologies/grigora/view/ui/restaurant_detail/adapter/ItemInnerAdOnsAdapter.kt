@@ -16,6 +16,7 @@ import com.rvtechnologies.grigora.model.models.ItemSubCategory
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.ShowSubAdOnModel
 import kotlinx.android.synthetic.main.item_inner_adon.view.*
 
 
@@ -33,7 +34,14 @@ class ItemInnerAdOnsAdapter(
         innerCategoryModel.addOnPriceString =
             "(+" + holder.itemView.context.getString(R.string.currency_sym) + innerCategoryModel.add_on_price + ")"
 
+        if (!innerCategoryModel.item_sub_sub_category.isNullOrEmpty()) {
+            holder.binding.imgR.visibility = View.VISIBLE
+        } else
+            holder.binding.imgR.visibility = View.GONE
+
         holder.itemView.li_main.setOnClickListener {
+
+
             when {
                 max == "1" -> {
                     //                only single item can be selected
@@ -61,9 +69,6 @@ class ItemInnerAdOnsAdapter(
                         }
                         newList.add(innerItem)
                     }
-
-
-
                     if (holder.itemView.li_main.tag == "true") {
                         holder.itemView.img_selected.visibility = View.VISIBLE
                         holder.itemView.img_desel.visibility = View.GONE
@@ -114,16 +119,8 @@ class ItemInnerAdOnsAdapter(
                     updateList(newList)
                 }
                 valid(innerCategoryModel) -> {
-                    if (!innerCategoryModel.checked) {
-//                        holder.itemView.li_main.tag = "true"
-                        innerCategoryModel.checked = true
-                    } else {
-//                        holder.itemView.li_main.tag = "false"
-                        innerCategoryModel.checked = false
-
-                    }
-
-                    if (innerCategoryModel.checked ) {
+                    innerCategoryModel.checked = !innerCategoryModel.checked
+                    if (innerCategoryModel.checked) {
                         holder.binding.imgSelected.visibility = View.VISIBLE
                         holder.binding.imgDesel.visibility = View.GONE
                         holder.binding.tvName.setTextColor(
@@ -179,6 +176,10 @@ class ItemInnerAdOnsAdapter(
                         .playOn(holder.itemView)
                 }
             }
+
+            if (!innerCategoryModel.item_sub_sub_category.isNullOrEmpty() && innerCategoryModel.checked ) {
+                iRecyclerItemClick.onItemClick(ShowSubAdOnModel(innerCategoryModel))
+            }
         }
         holder.bind(innerCategoryModel, iRecyclerItemClick)
     }
@@ -196,7 +197,6 @@ class ItemInnerAdOnsAdapter(
         }
         return count != max.toInt()
     }
-
 
     private fun updateList(newList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>) {
         itemInnerCategoryList = newList
@@ -217,7 +217,6 @@ class ItemInnerAdOnsAdapter(
     override fun getItemCount(): Int {
         return itemInnerCategoryList.size
     }
-
 
     class ViewHolder(var binding: ItemInnerAdonBinding) :
         RecyclerView.ViewHolder(binding.root) {

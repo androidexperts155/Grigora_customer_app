@@ -10,9 +10,7 @@ import android.view.ViewGroup
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailFragmentBinding
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
@@ -25,9 +23,7 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.FeaturedAdap
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ParentsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.MealsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.PromotionsAdapter
-import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.FeaturedModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
-import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SheetTypeModel
 import com.rvtechnologies.grigora.view_model.RestaurantDetailViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_restaurant_detail_parent.*
@@ -135,7 +131,6 @@ class RestaurantDetail(
 
         })
 
-
         viewModel.isLoading.observe(this,
             Observer { response ->
                 if (response) {
@@ -144,7 +139,6 @@ class RestaurantDetail(
                     CommonUtils.hideLoader()
                 }
             })
-
     }
 
     private fun setPromotions() {
@@ -429,7 +423,7 @@ class RestaurantDetail(
                 rec_parents.adapter = ParentsAdapter(list, this)
             }
             is RestaurantDetailNewModel.MealItem -> {
-                var sheet = MealDetailSheet(item, "",this)
+                var sheet = MealDetailSheet(item, "", this)
                 sheet.show(childFragmentManager, "")
             }
             is RestaurantDetailNewModel.AllData.Data -> {
@@ -448,10 +442,18 @@ class RestaurantDetail(
     }
 
     override fun refresh(refresh: Boolean) {
-        if (refresh)
+        if (refresh) {
+
+            //                    handle shimmer
+            li_shimmer.visibility = View.VISIBLE
+            shimmer_image.visibility = View.VISIBLE
+            li_main.visibility = View.GONE
+            img_wall.visibility = View.GONE
+            (activity as MainActivity).fab_cart.visibility = View.GONE
             viewModel.getRestaurantsDetails(
                 restaurantId,
                 ""
             )
+        }
     }
 }

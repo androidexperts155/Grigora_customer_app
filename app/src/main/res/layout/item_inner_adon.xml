@@ -13,6 +13,7 @@
         android:tag="false">
         
         <LinearLayout
+            android:layout_centerVertical="true"
             android:id="@+id/li_d"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
@@ -21,18 +22,14 @@
                 android:id="@+id/img_selected"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/sel"
+                 android:src="@drawable/sel"
                 android:visibility="gone" />
             
             <ImageView
                 android:id="@+id/img_desel"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:src="@drawable/desel"
+                 android:src="@drawable/desel"
                 android:visibility="visible" />
         </LinearLayout>
         
@@ -41,6 +38,7 @@
             style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            
             android:layout_centerVertical="true"
             android:layout_marginLeft="@dimen/_8sdp"
             android:layout_toRightOf="@+id/li_d"
@@ -53,6 +51,7 @@
         <TextView
             android:id="@+id/tv_price"
             style="@style/mediumText"
+            
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignWithParentIfMissing="true"
@@ -73,6 +72,7 @@
             android:rotation="-90"
             android:tint="?attr/textWhite"
             android:visibility="gone"
+            tools:visibility="visible"
             app:srcCompat="@drawable/ic_expanded" />
     </RelativeLayout>
     
