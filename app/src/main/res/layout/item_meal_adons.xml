@@ -23,12 +23,15 @@
             
             <TextView
                 style="@style/mediumText"
+                android:layout_toLeftOf="@+id/tv_isRequired"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
+                android:maxLines="2"
+                android:ellipsize="end"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="@dimen/_8sdp"
-                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_marginRight="@dimen/_4sdp"
                 android:text="@{itemCategory.name}"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_15sdp"
@@ -99,7 +102,6 @@
             android:layout_marginBottom="@dimen/_8sdp"
             android:nestedScrollingEnabled="true"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             tools:itemCount="5"
             tools:listitem="@layout/item_inner_adon" />
         

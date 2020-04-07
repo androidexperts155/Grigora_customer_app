@@ -52,164 +52,164 @@ class MenuItemDetailsViewModel : ViewModel() {
     }
 
     fun addItemToCart() {
-        if (cartId.value.isNullOrEmpty()) {
-
-                val choices = ArrayList<ItemChoicesModel>()
-                try {
-                    for (item in selectedChoices.value as Collection<ItemSubCategory>) {
-                        if (item.checked) {
-                            if (choices.isEmpty()) {
-                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
-
-                                menuItem.value?.price =
-                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-
-                            } else {
-                                var already = false
-                                for (pos in 0 until choices.size) {
-                                    val parentId = item.itemCatId
-                                    if (choices[pos].id == parentId) {
-                                        already = true
-                                        var choice = choices[pos].itemSubCategory!!
-                                        if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
-                                            choice =
-                                                choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
-
-                                        choices[pos] = ItemChoicesModel(parentId, choice)
-                                    }
-                                }
-                                if (!already) {
-                                    choices.add(ItemChoicesModel(item.itemCatId, item.id))
-                                    menuItem.value?.price =
-                                        (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-                                }
-
-                            }
-                        }
-                    }
-                } catch (e: Exception) {
-                    e.printStackTrace()
-                }
-                Log.e("Choices model", Gson().toJson(selectedChoices.value))
-                Log.e("Choices", Gson().toJson(choices))
-
-                var selected = ""
-                if (choices.isNotEmpty()) {
-                    selected = Gson().toJson(choices)
-                }
-                Log.e("Choices", selected)
-
-                isLoading.value = true
-                if (itemCount.value?.toInt()!! > 0) {
-                    ApiRepo.getInstance()
-                        .addItemToCart(
-                            token = token.value.toString(),
-                            restaurantId = menuItem.value?.restaurantId.toString(),
-                            itemId = menuItem.value?.id.toString(),
-                            price = price.value.toString(),
-//                        price = menuItem.value?.price.toString(),
-                            quantity = itemCount.value!!,
-                            itemChoices = selected
-                        ) { success, result ->
-                            isLoading.value = false
-                            if (success) {
-                                response.value =
-                                    Gson().fromJson(
-                                        result as JsonElement,
-                                        CommonResponseModel::class.java
-                                    )
-                            } else {
-                                response.value = result
-                            }
-                        }
-                } else {
-                    response.value = "Quantity too low"
-
-                }
-
-        } else
-            addItemToGroupCart()
+//        if (cartId.value.isNullOrEmpty()) {
+//
+//            val choices = ArrayList<ItemChoicesModel>()
+//            try {
+//                for (item in selectedChoices.value as Collection<ItemSubCategory>) {
+//                    if (item.checked) {
+//                        if (choices.isEmpty()) {
+//                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
+//
+//                            menuItem.value?.price =
+//                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+//
+//                        } else {
+//                            var already = false
+//                            for (pos in 0 until choices.size) {
+//                                val parentId = item.itemCatId
+//                                if (choices[pos].id == parentId) {
+//                                    already = true
+//                                    var choice = choices[pos].itemSubCategory!!
+//                                    if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
+//                                        choice =
+//                                            choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
+//
+//                                    choices[pos] = ItemChoicesModel(parentId, choice)
+//                                }
+//                            }
+//                            if (!already) {
+//                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
+//                                menuItem.value?.price =
+//                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//            Log.e("Choices model", Gson().toJson(selectedChoices.value))
+//            Log.e("Choices", Gson().toJson(choices))
+//
+//            var selected = ""
+//            if (choices.isNotEmpty()) {
+//                selected = Gson().toJson(choices)
+//            }
+//            Log.e("Choices", selected)
+//
+//            isLoading.value = true
+//            if (itemCount.value?.toInt()!! > 0) {
+//                ApiRepo.getInstance()
+//                    .addItemToCart(
+//                        token = token.value.toString(),
+//                        restaurantId = menuItem.value?.restaurantId.toString(),
+//                        itemId = menuItem.value?.id.toString(),
+//                        price = price.value.toString(),
+////                        price = menuItem.value?.price.toString(),
+//                        quantity = itemCount.value!!,
+//                        itemChoices = selected
+//                    ) { success, result ->
+//                        isLoading.value = false
+//                        if (success) {
+//                            response.value =
+//                                Gson().fromJson(
+//                                    result as JsonElement,
+//                                    CommonResponseModel::class.java
+//                                )
+//                        } else {
+//                            response.value = result
+//                        }
+//                    }
+//            } else {
+//                response.value = "Quantity too low"
+//
+//            }
+//
+//        } else
+//            addItemToGroupCart()
     }
 
     private fun addItemToGroupCart() {
 
-        if (token.value.toString().isNotBlank()) {
-            val choices = ArrayList<ItemChoicesModel>()
-            try {
-                for (item in selectedChoices.value as Collection<ItemSubCategory>) {
-                    if (item.checked) {
-                        if (choices.isEmpty()) {
-                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
-
-                            menuItem.value?.price =
-                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-
-                        } else {
-                            var already = false
-                            for (pos in 0 until choices.size) {
-                                val parentId = item.itemCatId
-                                if (choices[pos].id == parentId) {
-                                    already = true
-                                    var choice = choices[pos].itemSubCategory!!
-                                    if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
-                                        choice =
-                                            choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
-
-                                    choices[pos] = ItemChoicesModel(parentId, choice)
-                                }
-                            }
-                            if (!already) {
-                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
-                                menuItem.value?.price =
-                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-                            }
-
-                        }
-                    }
-                }
-            } catch (e: Exception) {
-                e.printStackTrace()
-            }
-            Log.e("Choices model", Gson().toJson(selectedChoices.value))
-            Log.e("Choices", Gson().toJson(choices))
-
-            var selected = ""
-            if (choices.isNotEmpty()) {
-                selected = Gson().toJson(choices)
-            }
-            Log.e("Choices", selected)
-
-            isLoading.value = true
-            if (itemCount.value?.toInt()!! > 0) {
-                ApiRepo.getInstance()
-                    .addItemToGroupCart(
-                        token = token.value.toString(),
-                        restaurantId = menuItem.value?.restaurantId.toString(),
-                        itemId = menuItem.value?.id.toString(),
-                        price = price.value.toString(),
-//                        price = menuItem.value?.price.toString(),
-                        quantity = itemCount.value!!,
-                        itemChoices = selected, cartId = cartId.value.toString()
-
-                    ) { success, result ->
-                        isLoading.value = false
-                        if (success) {
-                            response.value =
-                                Gson().fromJson(
-                                    result as JsonElement,
-                                    CommonResponseModel::class.java
-                                )
-                        } else {
-                            response.value = result
-                        }
-                    }
-            } else {
-                response.value = "Quantity too low"
-
-            }
-        } else {
-            response.value = "Unauthorized"
-        }
+//        if (token.value.toString().isNotBlank()) {
+//            val choices = ArrayList<ItemChoicesModel>()
+//            try {
+//                for (item in selectedChoices.value as Collection<ItemSubCategory>) {
+//                    if (item.checked) {
+//                        if (choices.isEmpty()) {
+//                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
+//
+//                            menuItem.value?.price =
+//                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+//
+//                        } else {
+//                            var already = false
+//                            for (pos in 0 until choices.size) {
+//                                val parentId = item.itemCatId
+//                                if (choices[pos].id == parentId) {
+//                                    already = true
+//                                    var choice = choices[pos].itemSubCategory!!
+//                                    if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
+//                                        choice =
+//                                            choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
+//
+//                                    choices[pos] = ItemChoicesModel(parentId, choice)
+//                                }
+//                            }
+//                            if (!already) {
+//                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
+//                                menuItem.value?.price =
+//                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+//                            }
+//
+//                        }
+//                    }
+//                }
+//            } catch (e: Exception) {
+//                e.printStackTrace()
+//            }
+//            Log.e("Choices model", Gson().toJson(selectedChoices.value))
+//            Log.e("Choices", Gson().toJson(choices))
+//
+//            var selected = ""
+//            if (choices.isNotEmpty()) {
+//                selected = Gson().toJson(choices)
+//            }
+//            Log.e("Choices", selected)
+//
+//            isLoading.value = true
+//            if (itemCount.value?.toInt()!! > 0) {
+//                ApiRepo.getInstance()
+//                    .addItemToGroupCart(
+//                        token = token.value.toString(),
+//                        restaurantId = menuItem.value?.restaurantId.toString(),
+//                        itemId = menuItem.value?.id.toString(),
+//                        price = price.value.toString(),
+////                        price = menuItem.value?.price.toString(),
+//                        quantity = itemCount.value!!,
+//                        itemChoices = selected, cartId = cartId.value.toString()
+//
+//                    ) { success, result ->
+//                        isLoading.value = false
+//                        if (success) {
+//                            response.value =
+//                                Gson().fromJson(
+//                                    result as JsonElement,
+//                                    CommonResponseModel::class.java
+//                                )
+//                        } else {
+//                            response.value = result
+//                        }
+//                    }
+//            } else {
+//                response.value = "Quantity too low"
+//
+//            }
+//        } else {
+//            response.value = "Unauthorized"
+//        }
     }
 
     fun refresh() {

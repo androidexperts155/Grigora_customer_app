@@ -14,6 +14,7 @@ import com.google.gson.Gson
 import com.rvtechnologies.grigora.model.models.ItemSubCategory
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentMealDetailSheetBinding
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
@@ -27,11 +28,10 @@ import java.io.InputStream
 import java.nio.charset.Charset
 
 
-class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
+class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem, var cartId: String,var refresh: Refresh) :
     BottomSheetDialogFragment(),
     IRecyclerItemClick {
     private lateinit var viewModel: MenuItemSheetViewModel
-
 
     var bi: FragmentMealDetailSheetBinding? = null
     var bottomSheetBehavior: BottomSheetBehavior<*>? = null
@@ -56,7 +56,7 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
         )
 
         bottomSheetBehavior!!.peekHeight =
-            (displayMetrics.heightPixels - (displayMetrics.heightPixels / 7))
+            (displayMetrics.heightPixels)
 
 
         bottomSheetBehavior!!.setBottomSheetCallback(object :
@@ -71,8 +71,9 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
                 if (BottomSheetBehavior.STATE_COLLAPSED == i) {
                 }
                 if (BottomSheetBehavior.STATE_HIDDEN == i) {
-                    viewModel.destroy(activity as MainActivity)
                     dismiss()
+                    viewModel.destroy(activity as MainActivity)
+
                 }
             }
         })
@@ -86,6 +87,7 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
         bi!!.tvRating.text = mealItem.avg_ratings.toString()
         bi!!.tvTime.text = getString(R.string.preparein) + " " + mealItem.approx_prep_time + " min"
         bi!!.imgClose.setOnClickListener { close() }
+        bi!!.btnAdd.setOnClickListener { viewModel.addItemToCart() }
         setObservers()
         return bottomSheet
     }
@@ -93,6 +95,11 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
     fun setObservers() {
         viewModel =
             activity!!.let { ViewModelProviders.of(it).get(MenuItemSheetViewModel::class.java) }
+
+        if (!cartId.isNullOrEmpty()) {
+            viewModel.cartId.value = cartId
+        }
+
         viewModel.menuItem.value = mealItem
 
         viewModel.itemCount.value = "1"
@@ -110,11 +117,35 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
                 bi!!.btnAdd.text = getString(R.string.add) + " (₦ " + it + ")"
             }
         })
+
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            if (isLoading != null)
+                if (isLoading) {
+                    context?.let { it1 -> CommonUtils.showLoader(it1, getString(R.string.loading)) }
+                } else {
+                    CommonUtils.hideLoader()
+                }
+        })
+
+        viewModel.response.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                if (response.status!!) {
+                    CommonUtils.showMessage(parent, response.message!!)
+                    refresh.refresh(true)
+                    dismiss()
+                    viewModel.destroy(activity as MainActivity)
+                } else
+                    CommonUtils.showMessage(parent, response.message!!)
+            } else if (response != null) {
+                CommonUtils.showMessage(this.view, response.toString())
+            }
+        })
     }
 
     fun close() {
-        viewModel.destroy(activity as MainActivity)
         dismiss()
+        viewModel.destroy(activity as MainActivity)
+
     }
 
     override fun onStart() {
@@ -157,5 +188,12 @@ class MealDetailSheet(var mealItem: RestaurantDetailNewModel.MealItem) :
             viewModel.refresh()
             bi!!.rvOptions.adapter?.notifyDataSetChanged()
         }
+    }
+
+
+
+
+    interface Refresh{
+        fun refresh(refresh:Boolean)
     }
 }

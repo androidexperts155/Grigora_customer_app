@@ -645,8 +645,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-            tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
-            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             if (CommonUtils.isDarkMode()) {
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -654,6 +652,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
             }
+            tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
+            tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
+
+
 
 
             cart_type = "1"
@@ -672,6 +674,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         tv_pickup.setOnClickListener {
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
+
             if (CommonUtils.isDarkMode()) {
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
                 tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))

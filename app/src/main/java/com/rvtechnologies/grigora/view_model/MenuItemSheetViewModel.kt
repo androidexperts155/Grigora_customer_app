@@ -6,7 +6,8 @@ import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.model.ApiRepo
-import com.rvtechnologies.grigora.model.models.*
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.ItemChoicesModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.GrigoraApp
@@ -54,32 +55,63 @@ class MenuItemSheetViewModel : ViewModel() {
 
             val choices = ArrayList<ItemChoicesModel>()
             try {
-                for (item in selectedChoices.value as Collection<ItemSubCategory>) {
+                for (item in selectedChoices.value as Collection<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>) {
                     if (item.checked) {
-                        if (choices.isEmpty()) {
-                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
+                        var sel = ""
+                        if (!item.item_sub_sub_category.isNullOrEmpty()) {
+                            for (i in item.item_sub_sub_category) {
+                                if (i.checked) {
+                                    sel = if (sel.isNullOrEmpty())
+                                        i.id.toString()
+                                    else
+                                        sel + "," + i.id.toString()
+                                }
+                            }
+                        }
 
-                            menuItem.value?.price =
-                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+                        var itemChoicesModel = ItemChoicesModel()
+                        itemChoicesModel.id = item.item_cat_id
+                        var data = ItemChoicesModel.Data()
+                        data.id = item.id
+                        if (!sel.isEmpty())
+                            data.itemSubSubCategory = sel
+
+                        if (itemChoicesModel.itemSubCategory.isNullOrEmpty())
+                            itemChoicesModel.itemSubCategory = ArrayList()
+
+                        itemChoicesModel.itemSubCategory!!.add(data)
+
+                        /*  {
+                              "id":"2",
+                              "item_sub_category":[
+                              {
+                                  "id":"3",
+                                  "item_sub_sub_category":"3,4"
+                              },
+                              {
+                                  "id":"4",
+                                  "item_sub_sub_category":"3,4"
+                              }
+                              ]
+                          }*/
+//                        above is ready
+
+                        if (choices.isEmpty()) {
+                            choices.add(itemChoicesModel)
 
                         } else {
                             var already = false
                             for (pos in 0 until choices.size) {
-                                val parentId = item.itemCatId
+                                val parentId = item.item_cat_id
                                 if (choices[pos].id == parentId) {
                                     already = true
-                                    var choice = choices[pos].itemSubCategory!!
-                                    if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
-                                        choice =
-                                            choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
+                                    choices[pos].itemSubCategory?.add(data)
 
-                                    choices[pos] = ItemChoicesModel(parentId, choice)
                                 }
                             }
                             if (!already) {
-                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
-                                menuItem.value?.price =
-                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+                                choices.add(itemChoicesModel)
+
                             }
 
                         }
@@ -88,9 +120,6 @@ class MenuItemSheetViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            Log.e("Choices model", Gson().toJson(selectedChoices.value))
-            Log.e("Choices", Gson().toJson(choices))
-
             var selected = ""
             if (choices.isNotEmpty()) {
                 selected = Gson().toJson(choices)
@@ -132,32 +161,63 @@ class MenuItemSheetViewModel : ViewModel() {
         if (token.value.toString().isNotBlank()) {
             val choices = ArrayList<ItemChoicesModel>()
             try {
-                for (item in selectedChoices.value as Collection<ItemSubCategory>) {
+                for (item in selectedChoices.value as Collection<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>) {
                     if (item.checked) {
-                        if (choices.isEmpty()) {
-                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
+                        var sel = ""
+                        if (!item.item_sub_sub_category.isNullOrEmpty()) {
+                            for (i in item.item_sub_sub_category) {
+                                if (i.checked) {
+                                    sel = if (sel.isNullOrEmpty())
+                                        i.id.toString()
+                                    else
+                                        sel + "," + i.id.toString()
+                                }
+                            }
+                        }
 
-                            menuItem.value?.price =
-                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+                        var itemChoicesModel = ItemChoicesModel()
+                        itemChoicesModel.id = item.item_cat_id
+                        var data = ItemChoicesModel.Data()
+                        data.id = item.id
+                        if (!sel.isEmpty())
+                            data.itemSubSubCategory = sel
+
+                        if (itemChoicesModel.itemSubCategory.isNullOrEmpty())
+                            itemChoicesModel.itemSubCategory = ArrayList()
+
+                        itemChoicesModel.itemSubCategory!!.add(data)
+
+                        /*  {
+                              "id":"2",
+                              "item_sub_category":[
+                              {
+                                  "id":"3",
+                                  "item_sub_sub_category":"3,4"
+                              },
+                              {
+                                  "id":"4",
+                                  "item_sub_sub_category":"3,4"
+                              }
+                              ]
+                          }*/
+//                        above is ready
+
+                        if (choices.isEmpty()) {
+                            choices.add(itemChoicesModel)
 
                         } else {
                             var already = false
                             for (pos in 0 until choices.size) {
-                                val parentId = item.itemCatId
+                                val parentId = item.item_cat_id
                                 if (choices[pos].id == parentId) {
                                     already = true
-                                    var choice = choices[pos].itemSubCategory!!
-                                    if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
-                                        choice =
-                                            choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
+                                    choices[pos].itemSubCategory?.add(data)
 
-                                    choices[pos] = ItemChoicesModel(parentId, choice)
                                 }
                             }
                             if (!already) {
-                                choices.add(ItemChoicesModel(item.itemCatId, item.id))
-                                menuItem.value?.price =
-                                    (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
+                                choices.add(itemChoicesModel)
+
                             }
 
                         }
@@ -166,15 +226,11 @@ class MenuItemSheetViewModel : ViewModel() {
             } catch (e: Exception) {
                 e.printStackTrace()
             }
-            Log.e("Choices model", Gson().toJson(selectedChoices.value))
-            Log.e("Choices", Gson().toJson(choices))
-
             var selected = ""
             if (choices.isNotEmpty()) {
                 selected = Gson().toJson(choices)
             }
             Log.e("Choices", selected)
-
             isLoading.value = true
             if (itemCount.value?.toInt()!! > 0) {
                 ApiRepo.getInstance()

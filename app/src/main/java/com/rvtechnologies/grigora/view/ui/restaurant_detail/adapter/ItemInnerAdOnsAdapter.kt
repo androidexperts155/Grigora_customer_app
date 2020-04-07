@@ -113,56 +113,56 @@ class ItemInnerAdOnsAdapter(
                     }
                     updateList(newList)
                 }
-                valid(holder) -> {
-                    if (holder.itemView.li_main.tag == "false") {
-                        holder.itemView.li_main.tag = "true"
+                valid(innerCategoryModel) -> {
+                    if (!innerCategoryModel.checked) {
+//                        holder.itemView.li_main.tag = "true"
                         innerCategoryModel.checked = true
                     } else {
-                        holder.itemView.li_main.tag = "false"
+//                        holder.itemView.li_main.tag = "false"
                         innerCategoryModel.checked = false
 
                     }
 
-                    if (holder.itemView.li_main.tag == "true") {
-                        holder.itemView.img_selected.visibility = View.VISIBLE
-                        holder.itemView.img_desel.visibility = View.GONE
-                        holder.itemView.tv_name.setTextColor(
+                    if (innerCategoryModel.checked ) {
+                        holder.binding.imgSelected.visibility = View.VISIBLE
+                        holder.binding.imgDesel.visibility = View.GONE
+                        holder.binding.tvName.setTextColor(
                             ContextCompat.getColor(
                                 holder.itemView.context!!,
                                 R.color.colorPrimaryDark
                             )
                         )
-                        holder.itemView.tv_price.setTextColor(
+                        holder.binding.tvPrice.setTextColor(
                             ContextCompat.getColor(
                                 holder.itemView.context!!,
                                 R.color.colorPrimaryDark
                             )
                         )
                     } else {
-                        holder.itemView.img_selected.visibility = View.GONE
-                        holder.itemView.img_desel.visibility = View.VISIBLE
+                        holder.binding.imgSelected.visibility = View.GONE
+                        holder.binding.imgDesel.visibility = View.VISIBLE
 
                         if (CommonUtils.isDarkMode()) {
-                            holder.itemView.tv_name.setTextColor(
+                            holder.binding.tvName.setTextColor(
                                 ContextCompat.getColor(
                                     holder.itemView.context!!,
                                     R.color.white
                                 )
                             )
-                            holder.itemView.tv_price.setTextColor(
+                            holder.binding.tvPrice.setTextColor(
                                 ContextCompat.getColor(
                                     holder.itemView.context!!,
                                     R.color.white
                                 )
                             )
                         } else {
-                            holder.itemView.tv_name.setTextColor(
+                            holder.binding.tvName.setTextColor(
                                 ContextCompat.getColor(
                                     holder.itemView.context!!,
                                     R.color.textBlack
                                 )
                             )
-                            holder.itemView.tv_price.setTextColor(
+                            holder.binding.tvPrice.setTextColor(
                                 ContextCompat.getColor(
                                     holder.itemView.context!!,
                                     R.color.textBlack
@@ -183,11 +183,11 @@ class ItemInnerAdOnsAdapter(
         holder.bind(innerCategoryModel, iRecyclerItemClick)
     }
 
-    private fun valid(holder: ViewHolder): Boolean {
+    private fun valid(innerCategoryModel: RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory): Boolean {
         if (required == "0" && max.toInt() == 0)
             return true
 
-        if (holder.itemView.li_main.tag == "true")
+        if (innerCategoryModel.checked)
             return true
         var count = 0
         for (item in itemInnerCategoryList) {

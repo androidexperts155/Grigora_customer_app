@@ -20,7 +20,7 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDeta
 import com.rvtechnologies.grigora.view_model.MealsListViewModel
 import kotlinx.android.synthetic.main.meals_list_fragment.*
 
-class MealsList : Fragment(), IRecyclerItemClick {
+class MealsList : Fragment(), IRecyclerItemClick ,MealDetailSheet.Refresh{
 
     companion object {
         fun newInstance() = MealsList()
@@ -68,9 +68,15 @@ class MealsList : Fragment(), IRecyclerItemClick {
 
     override fun onItemClick(item: Any) {
         if (item is RestaurantDetailNewModel.MealItem) {
-            var sheet = MealDetailSheet(item)
+            var cartId = arguments?.containsKey(AppConstants.CART_ID)!!.toString()
+
+            var sheet = MealDetailSheet(item, cartId,this)
             sheet.show(childFragmentManager, "")
         }
+    }
+
+    override fun refresh(refresh: Boolean) {
+
     }
 
 }

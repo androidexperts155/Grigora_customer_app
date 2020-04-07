@@ -36,7 +36,7 @@ import kotlinx.android.synthetic.main.restaurant_detail_fragment.*
 class RestaurantDetail(
     var restaurantId: String,
     val iRecyclerItemClick: IRecyclerItemClick
-) : Fragment(), IRecyclerItemClick {
+) : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
     private var EXPANDED = "expanded"
     private var COLLAPESD = "collapsed"
     lateinit var restaurantDetailModel: RestaurantDetailNewModel
@@ -144,10 +144,7 @@ class RestaurantDetail(
                     CommonUtils.hideLoader()
                 }
             })
-        viewModel.getRestaurantsDetails(
-            restaurantId,
-            ""
-        )
+
     }
 
     private fun setPromotions() {
@@ -275,6 +272,11 @@ class RestaurantDetail(
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
+        viewModel.getRestaurantsDetails(
+            restaurantId,
+            ""
+        )
+
     }
 
     fun pickupClicked() {
@@ -427,7 +429,7 @@ class RestaurantDetail(
                 rec_parents.adapter = ParentsAdapter(list, this)
             }
             is RestaurantDetailNewModel.MealItem -> {
-                var sheet = MealDetailSheet(item)
+                var sheet = MealDetailSheet(item, "",this)
                 sheet.show(childFragmentManager, "")
             }
             is RestaurantDetailNewModel.AllData.Data -> {
@@ -443,5 +445,13 @@ class RestaurantDetail(
             AppConstants.CART_COUNT = restaurantDetailModel.normal_cart!!.quantity
             (activity as MainActivity).updateCartButton()
         }
+    }
+
+    override fun refresh(refresh: Boolean) {
+        if (refresh)
+            viewModel.getRestaurantsDetails(
+                restaurantId,
+                ""
+            )
     }
 }

@@ -31,10 +31,10 @@ class ItemAdOnsAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val categoryModel = itemCategoryList[position]
 
-//        TODO remove this dummy later
-        categoryModel.max = "2"
-        categoryModel.min = "1"
-        categoryModel.required = "0"
+////        TODO remove this dummy later
+//        categoryModel.max = "2"
+//        categoryModel.min = "1"
+//        categoryModel.required = "0"
 
 
         val innerList = categoryModel.item_sub_category

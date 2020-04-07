@@ -154,7 +154,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             PrefConstants.ID
                         )
                     ) {
-                        li_t.visibility = View.VISIBLE
+                        li_enabled.visibility = View.VISIBLE
                         tv_change.visibility = VISIBLE
                         tv_change_payment.visibility = VISIBLE
                         offers.visibility = VISIBLE
@@ -164,7 +164,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                         tv_order_limit.text =
                             "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
                     } else {
-                        li_t.visibility = View.GONE
+                        li_enabled.visibility = View.GONE
                         tv_change.visibility = GONE
                         tv_change_payment.visibility = GONE
                         offers.visibility = GONE
@@ -570,7 +570,13 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         tv_delivery.setOnClickListener {
             cart_type="1"
 
-            tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            }
             tv_delivery.setBackgroundResource(R.drawable.delivery_sel)
             tv_pickup.setBackgroundResource(R.drawable.pickup_de_sel)
 
@@ -592,11 +598,16 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
 
         tv_pickup.setOnClickListener {
             cart_type="2"
-            tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.colorPrimaryDark))
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
-
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
 
+            if (CommonUtils.isDarkMode()) {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+            } else {
+                tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
+                tv_delivery.setTextColor(ContextCompat.getColor(context!!, R.color.textBlack))
+            }
             isPickup = true
             setPrices()
 

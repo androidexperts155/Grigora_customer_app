@@ -10,7 +10,19 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class ItemChoicesModel(
     @SerializedName("id")
-    var id: Int?,
+    var id: Int=0,
     @SerializedName("item_sub_category")
-    var itemSubCategory: String?
-):Parcelable
+    var itemSubCategory: ArrayList<Data>?=null
+):Parcelable{
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class Data(
+        @SerializedName("id")
+        var id: Int=0,
+        @SerializedName("item_sub_sub_category")
+        var itemSubSubCategory: String=""
+    ):Parcelable{
+
+    }
+}

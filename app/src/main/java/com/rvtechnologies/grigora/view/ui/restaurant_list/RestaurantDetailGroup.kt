@@ -27,6 +27,7 @@ import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.groupCart.GroupOrderAlreadyPlaced
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.ChooseTypeSheet
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.MealDetailSheet
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.FeaturedAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.MealsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ParentsAdapter
@@ -43,7 +44,7 @@ import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.tv_restname
 
-class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
+class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
     private var EXPANDED = "expanded"
     private var COLLAPESD = "collapsed"
 
@@ -251,7 +252,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
         }
     }
 
-
     private fun setPromotions() {
         if (restaurantDetailModel.promo.isNullOrEmpty()) {
             li_promotion.visibility = View.GONE
@@ -333,7 +333,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
         list.addAll(restaurantDetailModel.all_data[0].data)
         rec_parents.adapter = ParentsAdapter(list, this)
     }
-
 
     private fun getColoredSpanned(text: String, color: String): String? {
         return "<font color=$color>$text</font>"
@@ -493,6 +492,30 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
+        when (item) {
+            is RestaurantDetailNewModel.AllData -> {
+                bt_type.text = item.category_name
+                var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
+                list.addAll(restaurantDetailModel.all_data[0].data)
+                rec_parents.adapter = ParentsAdapter(list, this)
+            }
+            is RestaurantDetailNewModel.MealItem -> {
+                var sheet = MealDetailSheet(item, cartId,this)
+                sheet.show(childFragmentManager, "")
+            }
+            is RestaurantDetailNewModel.AllData.Data -> {
+                val bundle =
+                    bundleOf(AppConstants.CUISINE_ID to item.id, AppConstants.CART_ID to cartId)
+                view?.findNavController()
+                    ?.navigate(
+                        R.id.action_restaurantDetailGroup_to_mealsList,
+                        bundle
+                    )
+            }
+        }
+
+
+
         if (item is MenuItemModel) {
             menuItemModel = item
             menuItemModel.isForGroupCart = true
@@ -548,6 +571,19 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick {
 
         } else
             (activity as MainActivity).showLoginAlert()
+    }
+
+    override fun refresh(refresh: Boolean) {
+        if (refresh) {
+            viewModel.getRestaurantsDetailsCart(
+                CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.TOKEN
+                ),
+                restaurantId,
+                "", cartId
+            )
+        }
     }
 }
 

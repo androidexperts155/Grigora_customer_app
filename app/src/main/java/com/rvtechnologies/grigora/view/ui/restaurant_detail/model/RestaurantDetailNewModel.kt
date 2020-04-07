@@ -128,14 +128,14 @@ data class RestaurantDetailNewModel(
             val status: String,
             val optional: String,
             val updated_at: String,
-            var min:String="1",
-            var max:String="2",
-            var required:String="1"
+            var min: String = "1",
+            var max: String = "2",
+            var required: String = "1"
         ) : Parcelable {
             @SuppressLint("ParcelCreator")
             @Parcelize
             data class ItemSubCategory(
-                var checked: Boolean=false,
+                var checked: Boolean = false,
                 var addOnPriceString: String,
                 val add_on_price: Double,
                 val created_at: String,
@@ -144,10 +144,28 @@ data class RestaurantDetailNewModel(
                 val item_cat_id: Int,
                 val name: String,
                 val status: String,
-                val updated_at: String
+                val updated_at: String,
+                val item_sub_sub_category: ArrayList<ItemSubSubCategory>
             ) : Parcelable
         }
     }
+
+    @SuppressLint("ParcelCreator")
+    @Parcelize
+    data class ItemSubSubCategory(
+        var checked: Boolean = false,
+        val add_on_price: String,
+        val created_at: String,
+        val french_name: String,
+        val id: Int,
+        val item_sub_cat_id: Int,
+        val max: Int,
+        val min: Int,
+        val name: String,
+        val required: String,
+        val status: String,
+        val updated_at: String
+    ) : Parcelable
 
     data class Promo(
         val code: String,
