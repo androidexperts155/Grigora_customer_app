@@ -546,7 +546,9 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                         AppConstants.CUISINE_ID to item.id,
                         AppConstants.CART_ID to cartId,
                         AppConstants.CUISINE_NAME to item.name,
-                        AppConstants.FILTER_ID to filter
+                        AppConstants.FILTER_ID to filter,
+                        AppConstants.RESTAURANT_ID to restaurantId
+
                     )
                 view?.findNavController()
                     ?.navigate(

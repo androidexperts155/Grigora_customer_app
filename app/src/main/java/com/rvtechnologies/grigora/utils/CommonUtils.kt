@@ -405,16 +405,15 @@ object CommonUtils {
     fun getUidDevice(): String {
         return if (isLogin()) {
             getPrefValue(GrigoraApp.getInstance().activity?.baseContext, PrefConstants.ID)
-        } else
-            {
-                return Settings.Secure.getString(
-                    GrigoraApp.getInstance().activity!!.getContentResolver(),
-                    Settings.Secure.ANDROID_ID
-                )
-            }
+        } else {
+            return Settings.Secure.getString(
+                GrigoraApp.getInstance().activity!!.getContentResolver(),
+                Settings.Secure.ANDROID_ID
+            )
+        }
     }
 
-    fun getDeviceId():String{
+    fun getDeviceId(): String {
         return Settings.Secure.getString(
             GrigoraApp.getInstance().activity!!.getContentResolver(),
             Settings.Secure.ANDROID_ID
@@ -436,15 +435,14 @@ object CommonUtils {
             circularProgressDrawable.centerRadius = 30f
             circularProgressDrawable.start()
 
-            Picasso.get()
-                .load(imageUrl).placeholder(
-                    circularProgressDrawable
-                )
-//                .resize(800,500)
-                .error(
-                    circularProgressDrawable
-                )
-                .into(imageView)
+                Picasso.get()
+                    .load(imageUrl).placeholder(
+                        circularProgressDrawable
+                    )
+                    .error(
+                        circularProgressDrawable
+                    )
+                    .into(imageView)
 
 //            Picasso.get()
 //                .load(imageUrl)
@@ -472,8 +470,8 @@ object CommonUtils {
                 .load(imageUrl).placeholder(
                     R.drawable.food_placeholder
                 )
-                 .error(
-                     R.drawable.food_placeholder
+                .error(
+                    R.drawable.food_placeholder
                 )
                 .into(imageView)
 

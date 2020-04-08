@@ -201,7 +201,10 @@ class RestaurantDetailParent : Fragment(), IRecyclerItemClick {
             }
         } else if (item is RestaurantDetailNewModel.AllData.Data) {
             var bundle = bundleOf(
-                AppConstants.CUISINE_ID to item.id, AppConstants.CUISINE_NAME to item.name,AppConstants.FILTER_ID to item.filter
+                AppConstants.CUISINE_ID to item.id,
+                AppConstants.CUISINE_NAME to item.name,
+                AppConstants.FILTER_ID to item.filter,
+                AppConstants.RESTAURANT_ID to arguments?.get(AppConstants.RESTAURANT_ID).toString()
             )
 
             view?.findNavController()

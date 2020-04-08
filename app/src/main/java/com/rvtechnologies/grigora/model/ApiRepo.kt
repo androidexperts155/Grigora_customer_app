@@ -779,7 +779,7 @@ Cuisine repo
 
     fun getMeals(
         cuisineId: String,
-        cartId: String,filter:String,
+        cartId: String,filter:String,restaurant_id:String,
 
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
@@ -787,7 +787,7 @@ Cuisine repo
                 CommonUtils.getToken(),
                 cuisineId,
                 CommonUtils.getLoginType(),
-                CommonUtils.getUidDevice(), cartId,filter
+                CommonUtils.getUidDevice(), cartId,filter,restaurant_id
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

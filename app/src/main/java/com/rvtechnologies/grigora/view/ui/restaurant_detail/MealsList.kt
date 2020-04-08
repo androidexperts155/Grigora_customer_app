@@ -44,7 +44,8 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
         viewModel.getMeals(
             arguments?.get(AppConstants.CUISINE_ID)!!.toString(),
             cartId,
-            arguments?.get(AppConstants.FILTER_ID)!!.toString()
+            arguments?.get(AppConstants.FILTER_ID)!!.toString(),
+            arguments?.get(AppConstants.RESTAURANT_ID)!!.toString()
         )
 
         viewModel?.isLoading?.observe(this, Observer { isLoading ->

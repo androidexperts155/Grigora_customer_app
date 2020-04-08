@@ -14,25 +14,24 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDeta
 class MealsListViewModel : ViewModel() {
 
 
-
     var isLoading = MutableLiveData<Boolean>()
     var mealsist: MutableLiveData<Any> = MutableLiveData()
 
-    fun getMeals(cuisineId:String,cartId:String,filter:String) {
-        isLoading.value=true
+    fun getMeals(cuisineId: String, cartId: String, filter: String, restaurant_id: String) {
+        isLoading.value = true
         ApiRepo.getInstance()
             .getMeals(
-                cuisineId,cartId,filter
-            ) { success, result ->
-                isLoading.value=false
+                cuisineId, cartId, filter
+            ,restaurant_id) { success, result ->
+                isLoading.value = false
 
                 if (success) {
                     val type =
                         object : TypeToken<CommonResponseModel<MealsListModel>>() {}.type
-                     mealsist.value = Gson().fromJson(result as JsonElement, type)
+                    mealsist.value = Gson().fromJson(result as JsonElement, type)
 
                 } else {
-                     mealsist.value = result
+                    mealsist.value = result
                 }
             }
     }

@@ -189,7 +189,8 @@ interface ApiInterface {
         @Field("login_type") login_type: String,
         @Field("user_id") user_id: String,
         @Field("cart_id") cart_id: String,
-        @Field("veg_filter") veg_filter: String
+        @Field("veg_filter") veg_filter: String,
+        @Field("restaurant_id") restaurant_id: String
 
     ): Call<JsonElement>
 
