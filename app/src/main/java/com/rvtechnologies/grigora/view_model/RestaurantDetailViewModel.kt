@@ -14,12 +14,12 @@ class RestaurantDetailViewModel : ViewModel() {
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
     var restaurantDetail: MutableLiveData<Any> = MutableLiveData()
 
-    fun getRestaurantsDetails(restId: String, price: String) {
+    fun getRestaurantsDetails(restId: String, price: String,filter:String) {
 //        isLoading.value = true
         ApiRepo.getInstance()
             .getRestaurantsDetails(
                 CommonUtils.getToken(),
-                restId, price
+                restId, price,filter
             ) { success, result ->
 //                isLoading.value = false
                 if (success) {
@@ -35,24 +35,6 @@ class RestaurantDetailViewModel : ViewModel() {
 
 
 
-    fun getRestaurantsDetailsCart(token: String, restId: String, price: String, cartId: String) {
-        isLoading.value = true
-        ApiRepo.getInstance()
-            .getRestaurantsDetailsCart(
-                token,
-                restId, price, cartId
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type =
-                        object : TypeToken<CommonResponseModel<RestaurantDetailNewModel>>() {}.type
-                    restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
-
-                } else {
-                    restaurantDetail.value = result
-                }
-            }
-    }
 
     fun updateType(restaurantId: String, type: String, token: String) {
         ApiRepo.getInstance()

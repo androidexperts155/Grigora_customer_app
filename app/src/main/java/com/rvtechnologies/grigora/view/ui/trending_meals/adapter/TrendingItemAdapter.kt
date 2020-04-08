@@ -12,6 +12,7 @@ import com.rvtechnologies.grigora.databinding.TrendingMenuItemViewBinding
 import com.rvtechnologies.grigora.model.RestaurantDetailModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.OnItemClickListener
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.menu_item_view.view.*
 import kotlinx.android.synthetic.main.menu_item_view.view.bt_add
@@ -26,25 +27,34 @@ import kotlinx.android.synthetic.main.trending_menu_item_view.view.*
 
 
 class TrendingItemAdapter(
-    var menuItemList: ArrayList<MenuItemModel>,
+    var menuItemList: ArrayList<RestaurantDetailNewModel.MealItem>,
     var listener: OnItemClickListener, val quantityClicks: QuantityClicks
 ) : RecyclerView.Adapter<TrendingItemAdapter.ViewHolder>() {
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val resModel = menuItemList[position]
 
-        if (resModel.item_count_in_cart > 0) {
-            holder.itemView.li_add.visibility = View.VISIBLE
+//        if (resModel.item_count_in_cart > 0) {
+//            holder.itemView.li_add.visibility = View.VISIBLE
+//            holder.itemView.bt_add.visibility = View.GONE
+//            holder.itemView.tv_quantity.text = resModel.item_count_in_cart.toString()
+//        } else {
+//            holder.itemView.li_add.visibility = View.GONE
+//            holder.itemView.bt_add.visibility = View.VISIBLE
+//        }
+
+             holder.itemView.li_add.visibility = View.GONE
             holder.itemView.bt_add.visibility = View.GONE
-            holder.itemView.tv_quantity.text = resModel.item_count_in_cart.toString()
-        } else {
-            holder.itemView.li_add.visibility = View.GONE
-            holder.itemView.bt_add.visibility = View.VISIBLE
-        }
+            holder.itemView.tv_quantity.visibility = View.GONE
+
+
+
+
+
         holder.itemView.tv_time.text="in "+resModel.time
         holder.itemView.tv_info.text=resModel.total_orders + " Orders("+"${resModel.customers} Customers)"
         holder.itemView.tv_price.text = "₦ " + resModel.price.toString()
-        holder.itemView.rating.rating = resModel.avgRatings
+        holder.itemView.rating.rating = resModel.avg_ratings.toFloat()
         holder.itemView.tv_plus.setOnClickListener {
             quantityClicks.add(0, position)
         }
@@ -57,7 +67,7 @@ class TrendingItemAdapter(
             quantityClicks.add(0, position)
         }
 
-        when (resModel.pureVeg) {
+        when (resModel.pure_veg) {
             "1" -> {
                 holder.itemView.img_type.setImageResource(R.drawable.veg)
             }
@@ -96,7 +106,7 @@ class TrendingItemAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: MenuItemModel,
+            item: RestaurantDetailNewModel.MealItem,
             listener: OnItemClickListener
         ) {
             binding.itemDetail = item

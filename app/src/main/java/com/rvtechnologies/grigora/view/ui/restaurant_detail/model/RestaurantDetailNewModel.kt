@@ -15,6 +15,7 @@ data class RestaurantDetailNewModel(
     val cuisines: String,
     val estimated_preparing_time: String,
     val restaurant_image: String,
+    val restaurant_profile_image: String,
     val featured_items: List<MealItem>,
     val french_address: String,
     val full_time: String,
@@ -34,6 +35,9 @@ data class RestaurantDetailNewModel(
     val total_rating: String,
     val total_review: Int,
     val veg: String,
+    val veg_item: Boolean,
+    val non_veg_item: Boolean,
+    val egg_item: Boolean,
     var normal_cart: NormalCart?,
     var cart: Cart?
 ) {
@@ -90,6 +94,9 @@ data class RestaurantDetailNewModel(
     @SuppressLint("ParcelCreator")
     @Parcelize
     data class MealItem(
+        val time: String,
+        val total_orders: String,
+        val customers: String,
         val approved: String,
         val approx_prep_time: String,
         val avg_ratings: Double,
@@ -104,8 +111,9 @@ data class RestaurantDetailNewModel(
         val image: String,
         val in_offer: String,
         val item_categories: List<ItemCategory>,
+        val item_count_in_cart:Int,
         val name: String,
-        val offer_price: Int,
+        val offer_price: String,
         val parent_cuisine_id: Int,
         var price: String,
         val pure_veg: String,
@@ -191,8 +199,11 @@ data class RestaurantDetailNewModel(
             val background_icon: String,
             val created_at: String,
             val french_name: String,
+            val items_count: String,
+
             val icon: String,
             val id: Int,
+            var filter: String,
             val image: String,
             val name: String,
             val status: String,

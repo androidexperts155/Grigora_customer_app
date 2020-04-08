@@ -21,21 +21,21 @@ class RestaurantDetailsViewModel : ViewModel() {
 
     fun getRestaurantsDetails(token: String, restId: String, price: String) {
         isLoading.value = true
-        ApiRepo.getInstance()
-            .getRestaurantsDetails(
-                token,
-                restId, price
-            ) { success, result ->
-                isLoading.value = false
-                if (success) {
-                    val type =
-                        object : TypeToken<CommonResponseModel<RestaurantDetailModel>>() {}.type
-                    restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
-
-                } else {
-                    restaurantDetail.value = result
-                }
-            }
+//        ApiRepo.getInstance()
+//            .getRestaurantsDetails(
+//                token,
+//                restId, price
+//            ) { success, result ->
+//                isLoading.value = false
+//                if (success) {
+//                    val type =
+//                        object : TypeToken<CommonResponseModel<RestaurantDetailModel>>() {}.type
+//                    restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
+//
+//                } else {
+//                    restaurantDetail.value = result
+//                }
+//            }
     }
 
 

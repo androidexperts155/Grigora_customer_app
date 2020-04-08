@@ -37,7 +37,7 @@ class RestaurantDetail(
     private var COLLAPESD = "collapsed"
     lateinit var restaurantDetailModel: RestaurantDetailNewModel
     private var cartId = ""
-
+    private var filter = ""
     private lateinit var viewModel: RestaurantDetailViewModel
 
     override fun onCreateView(
@@ -69,13 +69,12 @@ class RestaurantDetail(
                     restaurantDetailModel = response.data as RestaurantDetailNewModel
 //                    disable pickup/delivery if restaurant is unavailable or closed
                     handleClosed()
-
                     setPreviousOrder()
                     setFeatured()
                     setPopular()
                     setPromotions()
                     setMenu()
-
+                    manageFilter()
 
                     if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1") {
                         tv_delivery.callOnClick()
@@ -102,7 +101,8 @@ class RestaurantDetail(
                         )
 
                     CommonUtils.loadImage(img_rest, restaurantDetailModel.restaurant_image)
-                    CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_image)
+                    CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_profile_image)
+
                     tv_address.text = restaurantDetailModel.address
                     tv_rating.text = restaurantDetailModel.total_rating
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
@@ -116,12 +116,8 @@ class RestaurantDetail(
                     li_main.visibility = View.VISIBLE
                     img_wall.visibility = View.VISIBLE
 
-
-
                     if (AppConstants.CURRENT_SELECTED == 0)
                         updateCartButton()
-
-
                 } else {
                     CommonUtils.showMessage(parentpager, response.toString())
                 }
@@ -139,6 +135,49 @@ class RestaurantDetail(
                     CommonUtils.hideLoader()
                 }
             })
+    }
+
+
+    private fun manageFilter() {
+        var count = 0
+        if (!restaurantDetailModel.egg_item) {
+            rd_veg.visibility = View.GONE
+            count++
+        }
+
+        if (!restaurantDetailModel.non_veg_item) {
+            rd_nonveg.visibility = View.GONE
+            count++
+
+        }
+
+        if (!restaurantDetailModel.veg_item) {
+            rd_containsegg.visibility = View.GONE
+            count++
+        }
+
+        if(count>=2){
+            rg_veg_nonveg.visibility=View.GONE
+        }
+
+        rg_veg_nonveg.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                R.id.rd_veg -> {
+                    filter = "1"
+                }
+                R.id.rd_nonveg -> {
+                    filter = "0"
+                }
+                R.id.rd_containsegg -> {
+                    filter = "2"
+                }
+            }
+
+            viewModel.getRestaurantsDetails(
+                restaurantId,
+                "", filter
+            )
+        }
     }
 
     private fun setPromotions() {
@@ -217,10 +256,12 @@ class RestaurantDetail(
     }
 
     private fun setMenu() {
-        bt_type.text = restaurantDetailModel.all_data[0].category_name
-        var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
-        list.addAll(restaurantDetailModel.all_data[0].data)
-        rec_parents.adapter = ParentsAdapter(list, this)
+        if (restaurantDetailModel.all_data.isNotEmpty()) {
+            bt_type.text = restaurantDetailModel.all_data[0].category_name
+            var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
+            list.addAll(restaurantDetailModel.all_data[0].data)
+            rec_parents.adapter = ParentsAdapter(list, this)
+        }
     }
 
     private fun handleClosed() {
@@ -268,7 +309,7 @@ class RestaurantDetail(
         (activity as MainActivity).hideAll()
         viewModel.getRestaurantsDetails(
             restaurantId,
-            ""
+            "", filter
         )
 
     }
@@ -427,6 +468,7 @@ class RestaurantDetail(
                 sheet.show(childFragmentManager, "")
             }
             is RestaurantDetailNewModel.AllData.Data -> {
+                item.filter = filter
                 iRecyclerItemClick.onItemClick(item)
             }
         }
@@ -443,7 +485,6 @@ class RestaurantDetail(
 
     override fun refresh(refresh: Boolean) {
         if (refresh) {
-
             //                    handle shimmer
             li_shimmer.visibility = View.VISIBLE
             shimmer_image.visibility = View.VISIBLE
@@ -452,7 +493,7 @@ class RestaurantDetail(
             (activity as MainActivity).fab_cart.visibility = View.GONE
             viewModel.getRestaurantsDetails(
                 restaurantId,
-                ""
+                "", filter
             )
         }
     }

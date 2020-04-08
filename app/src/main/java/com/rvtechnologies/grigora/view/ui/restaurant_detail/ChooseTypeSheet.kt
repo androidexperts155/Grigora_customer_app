@@ -39,6 +39,8 @@ class ChooseTypeSheet(
         super.onViewCreated(view, savedInstanceState)
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
         rc_items.adapter = SheetTypeAdapter(list, this)
+
+        bt_cancel.setOnClickListener { dismiss() }
     }
 
     override fun onItemClick(item: Any) {

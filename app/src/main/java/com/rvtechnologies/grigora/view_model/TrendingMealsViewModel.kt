@@ -77,7 +77,6 @@ class TrendingMealsViewModel : ViewModel() {
                         addCartRes.value = Gson().fromJson(result as JsonElement, type)
                     } else
                         addCartRes.value = result
-
                 }
         }
     }
@@ -94,5 +93,4 @@ class TrendingMealsViewModel : ViewModel() {
                 }
             }
     }
-
 }

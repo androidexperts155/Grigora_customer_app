@@ -34,13 +34,13 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_marginBottom="@dimen/_8sdp"
-            app:dotsColor="?attr/searchHint"
-            app:dotsCornerRadius="@dimen/_4sdp"
-            app:dotsSize="@dimen/_6sdp"
+            app:dotsColor="@color/viewbg"
+            app:dotsCornerRadius="@dimen/_6sdp"
+            app:dotsSize="@dimen/_8sdp"
             app:dotsSpacing="4dp"
-            app:dotsWidthFactor="2.5"
-            app:progressMode="true"
-            app:selectedDotColor="@color/textBlack" />
+            app:dotsWidthFactor="1"
+            app:progressMode="false"
+            app:selectedDotColor="@color/textGrey" />
     
     </RelativeLayout>
     

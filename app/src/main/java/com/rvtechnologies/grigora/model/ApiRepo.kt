@@ -712,6 +712,7 @@ Cuisine repo
         token: String,
         restId: String,
         price: String,
+        filter: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().getRestaurantDetails(
@@ -719,7 +720,8 @@ Cuisine repo
                 CommonUtils.getUidDevice(),
                 restId,
                 price,
-                CommonUtils.getLoginType()
+                CommonUtils.getLoginType(),
+                filter
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -745,6 +747,8 @@ Cuisine repo
         restId: String,
         price: String,
         cartId: String,
+        filter: String,
+
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().getRestaurantDetailsCart(
@@ -752,7 +756,7 @@ Cuisine repo
                 CommonUtils.getUidDevice(),
                 restId,
                 price,
-                cartId, CommonUtils.getLoginType()
+                cartId, CommonUtils.getLoginType(),filter
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -775,12 +779,15 @@ Cuisine repo
 
     fun getMeals(
         cuisineId: String,
+        cartId: String,filter:String,
 
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().getMeals(
                 CommonUtils.getToken(),
-                cuisineId
+                cuisineId,
+                CommonUtils.getLoginType(),
+                CommonUtils.getUidDevice(), cartId,filter
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

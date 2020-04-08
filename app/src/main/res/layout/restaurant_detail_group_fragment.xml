@@ -566,7 +566,54 @@
                                 tools:itemCount="4"
                                 tools:listitem="@layout/item_promo" />
                         </LinearLayout>
-                
+    
+    
+                        <RadioGroup
+        android:layout_marginTop="@dimen/_12sdp"
+                            android:id="@+id/rg_veg_nonveg"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:orientation="horizontal">
+        
+                            <RadioButton
+                                android:id="@+id/rd_veg"
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_8sdp"
+                                android:buttonTint="@color/green"
+                                android:text="@string/veg"
+                                android:textColor="?attr/textWhite" />
+        
+        
+                            <RadioButton
+                                android:id="@+id/rd_nonveg"
+            
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:buttonTint="@color/colorPrimaryDark"
+                                android:text="@string/nonveg"
+                                android:textColor="?attr/textWhite" />
+        
+        
+                            <RadioButton
+                                android:id="@+id/rd_containsegg"
+            
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginLeft="@dimen/_4sdp"
+                                android:buttonTint="@color/duskYellow"
+                                android:text="@string/contains_egg"
+                                android:textColor="?attr/textWhite" />
+    
+                        </RadioGroup>
+    
+    
                         <LinearLayout
                             android:id="@+id/li_featured"
                             android:layout_width="match_parent"
@@ -772,6 +819,9 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="2"
                             tools:listitem="@layout/item_category_parent" />
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="@dimen/_80sdp"/>
             
                     </LinearLayout>
         

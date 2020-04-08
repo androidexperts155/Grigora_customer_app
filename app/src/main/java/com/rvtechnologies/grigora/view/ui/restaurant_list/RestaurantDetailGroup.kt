@@ -1,11 +1,8 @@
 package com.rvtechnologies.grigora.view.ui.restaurant_list
 
-import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
-import android.text.Editable
 import android.text.Html
-import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -19,8 +16,6 @@ import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.RestaurantDetailGroupFragmentBinding
-import com.rvtechnologies.grigora.model.AddCartModel
-import com.rvtechnologies.grigora.model.models.CartDetail
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.*
@@ -33,21 +28,15 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.MealsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ParentsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.PromotionsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
-import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SheetTypeModel
-import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapter
-import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantDetailAdapter
-import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.RestaurantItemAdapter
 import com.rvtechnologies.grigora.view_model.RestaurantDetailGroupViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.alert_login.view.*
-import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.*
 import kotlinx.android.synthetic.main.restaurant_detail_group_fragment.tv_restname
 
 class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
     private var EXPANDED = "expanded"
     private var COLLAPESD = "collapsed"
-
+    private var filter = ""
     lateinit var menuItemModel: MenuItemModel
     private lateinit var fragmentRestaurantsDetailsBinding: RestaurantDetailGroupFragmentBinding
     private lateinit var viewModel: RestaurantDetailGroupViewModel
@@ -80,6 +69,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     setPromotions()
                     setMenu()
                     handleGroup(restaurantDetailModel)
+                    manageFilter()
 
 
 
@@ -106,7 +96,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                         )
 
                     CommonUtils.loadImage(img_rest, restaurantDetailModel.restaurant_image)
-                    CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_image)
+                    CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_profile_image)
                     tv_address.text = restaurantDetailModel.address
                     tv_rating.text = restaurantDetailModel.total_rating
                     tv_reviews.text = restaurantDetailModel.total_review.toString()
@@ -166,10 +156,54 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
         li_disabled.setOnClickListener {
             CommonUtils.showMessage(parentView, getString(R.string.unavailable_func))
+        }
+    }
+
+    private fun manageFilter() {
+        var count = 0
+        if (!restaurantDetailModel.egg_item) {
+            rd_veg.visibility = View.GONE
+            count++
+        }
+
+        if (!restaurantDetailModel.non_veg_item) {
+            rd_nonveg.visibility = View.GONE
+            count++
+
+        }
+
+        if (!restaurantDetailModel.veg_item) {
+            rd_containsegg.visibility = View.GONE
+            count++
+        }
+
+        if(count>=2){
+            rg_veg_nonveg.visibility=View.GONE
+        }
+
+        rg_veg_nonveg.setOnCheckedChangeListener { radioGroup, i ->
+            when (i) {
+                R.id.rd_veg -> {
+                    filter = "1"
+                }
+                R.id.rd_nonveg -> {
+                    filter = "0"
+                }
+                R.id.rd_containsegg -> {
+                    filter = "2"
+                }
+            }
+
+            viewModel.getRestaurantsDetailsCart(
+                CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.TOKEN
+                ),
+                restaurantId,
+                "", cartId, filter
+            )
         }
     }
 
@@ -193,7 +227,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
             rel_invite.visibility = View.VISIBLE
 
-            if (data?.cart!!.user_id.toString() == CommonUtils.getPrefValue(
+            if (data?.cart!!.user_id == CommonUtils.getPrefValue(
                     context!!,
                     PrefConstants.ID
                 )
@@ -211,6 +245,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
         }
     }
+
 
     private fun handleClosed() {
         //        not always opened
@@ -322,16 +357,17 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     it.rotation = -90F
                 }
             }
-
             li_popular.visibility = View.VISIBLE
         }
     }
 
     private fun setMenu() {
-        bt_type.text = restaurantDetailModel.all_data[0].category_name
-        var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
-        list.addAll(restaurantDetailModel.all_data[0].data)
-        rec_parents.adapter = ParentsAdapter(list, this)
+        if (restaurantDetailModel.all_data.isNotEmpty()) {
+            bt_type.text = restaurantDetailModel.all_data[0].category_name
+            var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
+            list.addAll(restaurantDetailModel.all_data[0].data)
+            rec_parents.adapter = ParentsAdapter(list, this)
+        }
     }
 
     private fun getColoredSpanned(text: String, color: String): String? {
@@ -358,7 +394,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                 PrefConstants.TOKEN
             ),
             restaurantId,
-            "", cartId
+            "", cartId, filter
         )
         (activity as MainActivity).fab_cart.visibility = View.GONE
     }
@@ -483,12 +519,13 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
     }
 
     fun chooseType() {
+        if (restaurantDetailModel.all_data.isNotEmpty()) {
+            var list = ArrayList<RestaurantDetailNewModel.AllData>()
+            list.addAll(restaurantDetailModel.all_data)
 
-        var list = ArrayList<RestaurantDetailNewModel.AllData>()
-        list.addAll(restaurantDetailModel.all_data)
-
-        var sheet = ChooseTypeSheet(list, this)
-        sheet.show(childFragmentManager, "")
+            var sheet = ChooseTypeSheet(list, this)
+            sheet.show(childFragmentManager, "")
+        }
     }
 
     override fun onItemClick(item: Any) {
@@ -500,12 +537,17 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                 rec_parents.adapter = ParentsAdapter(list, this)
             }
             is RestaurantDetailNewModel.MealItem -> {
-                var sheet = MealDetailSheet(item, cartId,this)
+                var sheet = MealDetailSheet(item, cartId, this)
                 sheet.show(childFragmentManager, "")
             }
             is RestaurantDetailNewModel.AllData.Data -> {
                 val bundle =
-                    bundleOf(AppConstants.CUISINE_ID to item.id, AppConstants.CART_ID to cartId)
+                    bundleOf(
+                        AppConstants.CUISINE_ID to item.id,
+                        AppConstants.CART_ID to cartId,
+                        AppConstants.CUISINE_NAME to item.name,
+                        AppConstants.FILTER_ID to filter
+                    )
                 view?.findNavController()
                     ?.navigate(
                         R.id.action_restaurantDetailGroup_to_mealsList,
@@ -567,8 +609,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 //                iRecyclerItemClick.onItemClick(3)
 //            else
 //                CommonUtils.showMessage(parentView, getString(R.string.please_add_items))
-
-
         } else
             (activity as MainActivity).showLoginAlert()
     }
@@ -581,10 +621,14 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     PrefConstants.TOKEN
                 ),
                 restaurantId,
-                "", cartId
+                "", cartId, filter
             )
         }
     }
 }
+
+
+
+
 
 

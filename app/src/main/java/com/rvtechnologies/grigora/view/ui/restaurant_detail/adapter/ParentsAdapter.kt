@@ -19,7 +19,6 @@ class ParentsAdapter(
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var tv_count = view.findViewById<TextView>(R.id.tv_count)
         var tv_name = view.findViewById<TextView>(R.id.tv_name)
-
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -37,7 +36,7 @@ class ParentsAdapter(
     }
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-        holder.tv_count.text = list[position].id.toString()
+        holder.tv_count.text = list[position].items_count
         holder.tv_name.text = list[position].name
 
         holder.itemView.setOnClickListener {

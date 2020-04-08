@@ -176,7 +176,8 @@ interface ApiInterface {
         @Field("user_id") user_id: String,
         @Field("restaurant_id") restaurant_id: String,
         @Field("price_range") price_range: String,
-        @Field("login_type") loginType: String
+        @Field("login_type") loginType: String,
+        @Field("veg_filter") veg_filter: String
 
     ): Call<JsonElement>
 
@@ -184,7 +185,12 @@ interface ApiInterface {
     @POST(ApiConstants.GET_MEALS_LIST)
     fun getMeals(
         @Header("Authorization") token: String,
-        @Field("cuisine_id") cuisine_id: String
+        @Field("cuisine_id") cuisine_id: String,
+        @Field("login_type") login_type: String,
+        @Field("user_id") user_id: String,
+        @Field("cart_id") cart_id: String,
+        @Field("veg_filter") veg_filter: String
+
     ): Call<JsonElement>
 
 
@@ -196,7 +202,8 @@ interface ApiInterface {
         @Field("restaurant_id") restaurant_id: String,
         @Field("price_range") price_range: String,
         @Field("cart_id") cart_id: String,
-        @Field("login_type") login_type: String
+        @Field("login_type") login_type: String,
+        @Field("veg_filter") veg_filter: String
 
     ): Call<JsonElement>
 

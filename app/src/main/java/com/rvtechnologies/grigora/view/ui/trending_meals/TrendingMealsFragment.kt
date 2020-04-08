@@ -19,6 +19,8 @@ import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.model.models.TrendingMealsModel
 import com.rvtechnologies.grigora.utils.*
 import com.rvtechnologies.grigora.view.ui.MainActivity
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.MealDetailSheet
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicksDialog
 import com.rvtechnologies.grigora.view.ui.restaurant_list.adapter.ItemsCartAdapter
@@ -29,10 +31,10 @@ import kotlinx.android.synthetic.main.existing_cart_dialog.view.*
 import kotlinx.android.synthetic.main.trending_meals_fragment.*
 
 class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, IRecyclerItemClick,
-    QuantityClicksDialog {
+    QuantityClicksDialog, MealDetailSheet.Refresh {
     lateinit var trendingModel: TrendingMealsModel
     private val cartItemList = ArrayList<CartDetail>()
-    lateinit var menuItemModel: MenuItemModel
+    lateinit var menuItemModel: RestaurantDetailNewModel.MealItem
     private var cartId = ""
 
     companion object {
@@ -61,11 +63,13 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
                     trendingModel = res.data as TrendingMealsModel
-                    rc_trending.adapter = TrendingItemAdapter(trendingModel.trendingItems, this, this)
+                    rc_trending.adapter =
+                        TrendingItemAdapter(trendingModel.trendingItems, this, this)
                 } else {
-
+                    CommonUtils.showMessage(parent, res.message!!)
                 }
             } else {
+                CommonUtils.showMessage(parent, res.toString())
 
             }
 
@@ -96,7 +100,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
                 dialogView.bt_add_new.setOnClickListener {
                     alertDialog?.dismiss()
                     val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to menuItemModel)
-                    moveToDetail(bundle)
+//                    moveToDetail(bundle)
                 }
 
                 dialogView.img_close.setOnClickListener {
@@ -150,24 +154,31 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
         viewModel.trendingMeals()
     }
 
-    private fun showItems(model: MenuItemModel) {
+    private fun showItems(model: RestaurantDetailNewModel.MealItem) {
         menuItemModel = model
         viewModel.getCartItems(viewModel.token.value!!, model.id.toString())
     }
 
     override fun onItemClick(item: Any) {
-        if (item is MenuItemModel) {
+        if (item is RestaurantDetailNewModel.MealItem) {
 //            if (item.itemCategories!!.isNotEmpty()) {
+
+            var sheet = MealDetailSheet(item, "", this)
+            sheet.show(childFragmentManager, "")
+
+
+
+
             menuItemModel = item
             val bundle = bundleOf(AppConstants.MENU_ITEM_MODEL to item)
-            moveToDetail(bundle)
+//            moveToDetail(bundle)
 //            }
         }
     }
 
     override fun add(position: Int, position2: Int) {
         if (CommonUtils.isLogin())
-            if (trendingModel.trendingItems[position2].itemCategories?.size!! > 0) {
+            if (trendingModel.trendingItems[position2].item_categories?.size!! > 0) {
 //                have add ons
                 if (trendingModel.trendingItems[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
@@ -177,7 +188,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
                     menuItemModel = trendingModel.trendingItems[position2]
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trendingItems[position2])
-                    moveToDetail(bundle)
+//                    moveToDetail(bundle)
                 }
             } else {
 //                don't have add ons, simply add
@@ -185,7 +196,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
 //                trendingModel.trending[position2].item_count_in_cart!! + 1
 
                 viewModel.addItemToCart(
-                    trendingModel.trendingItems[position2].restaurantId.toString()!!,
+                    trendingModel.trendingItems[position2].restaurant_id.toString()!!,
                     trendingModel.trendingItems[position2].id.toString(),
                     trendingModel.trendingItems[position2].price.toString(),
                     "1"
@@ -200,7 +211,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
 
     override fun minus(position: Int, position2: Int) {
         if (CommonUtils.isLogin())
-            if (trendingModel.trendingItems[position2].itemCategories?.size!! > 0) {
+            if (trendingModel.trendingItems[position2].item_categories?.size!! > 0) {
 //                have add ons
                 if (trendingModel.trendingItems[position2].item_count_in_cart!! > 0) {
 //                already have added before, call api and get what is added
@@ -210,7 +221,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
                     menuItemModel = trendingModel.trendingItems[position2]
                     val bundle =
                         bundleOf(AppConstants.MENU_ITEM_MODEL to trendingModel.trendingItems[position2])
-                    moveToDetail(bundle)
+//                    moveToDetail(bundle)
                 }
             } else {
 //                don't have add ons, simply add
@@ -218,7 +229,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
 //                trendingModel.trending[position2].item_count_in_cart!! - 1
 
                 viewModel.addItemToCart(
-                    trendingModel.trendingItems[position2].restaurantId.toString()!!,
+                    trendingModel.trendingItems[position2].restaurant_id.toString()!!,
                     trendingModel.trendingItems[position2].id.toString(),
                     trendingModel.trendingItems[position2].price.toString(),
                     "-1"
@@ -249,12 +260,17 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
         )
     }
 
-    fun moveToDetail(bundle: Bundle) {
-        view?.findNavController()
-            ?.navigate(
-                R.id.action_trendingMeals_to_menuItemDetailsFragment,
-                bundle
-            )
+//    fun moveToDetail(bundle: Bundle) {
+//        view?.findNavController()
+//            ?.navigate(
+//                R.id.action_trendingMeals_to_menuItemDetailsFragment,
+//                bundle
+//            )
+//
+//    }
 
+    override fun refresh(refresh: Boolean) {
+        if (refresh)
+            viewModel.trendingMeals()
     }
 }

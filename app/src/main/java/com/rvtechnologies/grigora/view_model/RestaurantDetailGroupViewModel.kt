@@ -21,11 +21,11 @@ class RestaurantDetailGroupViewModel : ViewModel() {
     var addCartRes: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
-    fun getRestaurantsDetailsCart(token: String, restId: String, price: String, cartId: String) {
+    fun getRestaurantsDetailsCart(token: String, restId: String, price: String, cartId: String,filter:String) {
          ApiRepo.getInstance()
             .getRestaurantsDetailsCart(
                 token,
-                restId, price, cartId
+                restId, price, cartId,filter
             ) { success, result ->
                  if (success) {
                     val type =

@@ -279,46 +279,6 @@ class MenuItemSheetViewModel : ViewModel() {
         }
         price *= itemCount.value!!.toDouble()
         this.price.value = CommonUtils.getRoundedOff(price)
-/*
-        val choices = ArrayList<ItemChoicesModel>()
-        try {
-            for (item in selectedChoices.value as Collection<ItemSubCategory>) {
-                if (item.checked) {
-                    if (choices.isEmpty()) {
-                        choices.add(ItemChoicesModel(item.itemCatId, item.id))
-
-                        menuItem.value?.price =
-                            (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-
-                    } else {
-                        var already = false
-                        for (pos in 0 until choices.size) {
-                            val parentId = item.itemCatId
-                            if (choices[pos].id == parentId) {
-                                already = true
-                                var choice = choices[pos].itemSubCategory!!
-                                if (!choices[pos].itemSubCategory?.contains(item.id!!)!!)
-                                    choice =
-                                        choices[pos].itemSubCategory?.plus(",")?.plus(item.id)!!
-
-                                choices[pos] = ItemChoicesModel(parentId, choice)
-                            }
-                        }
-                        if (!already) {
-                            choices.add(ItemChoicesModel(item.itemCatId, item.id))
-                            menuItem.value?.price =
-                                (menuItem.value?.price?.toDouble()!! + item.addOnPrice).toString()
-                        }
-
-                    }
-                }
-            }
-        } catch (e: Exception) {
-            e.printStackTrace()
-        }
-        Log.e("Choices model", Gson().toJson(selectedChoices.value))
-        Log.e("Choices", Gson().toJson(choices))*/
-
     }
 
 

@@ -6,13 +6,14 @@ object AppConstants {
     var FROM_SETTINGS = "from_settings"
     var IS_FOR_HISTORY = "is_for_history"
     var CART_RESTAURANT = ""
+    var CUISINE_NAME = "cuisine_name"
     var CART_COUNT = 0
 
 
     var FILTER_ID = "filter_id"
     var CURRENT_SELECTED = 0
     var CUISINE_ID = "cuisine_id"
-    var SHARE_LINK: String = "share_link"
+     var SHARE_LINK: String = "share_link"
     val IS_FOR_GROUP_ORDER = "is_for_group_order"
     val CART_ID = "cart_id"
     var min_kilo_meter = ""

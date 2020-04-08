@@ -4,6 +4,7 @@ import android.app.Dialog
 import android.os.Bundle
 import android.util.DisplayMetrics
 import android.view.View
+import android.widget.Toast
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -136,14 +137,16 @@ class MealDetailSheet(
         viewModel.response.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    CommonUtils.showMessage(parent, response.message!!)
+                    Toast.makeText(context, response.message!!, Toast.LENGTH_SHORT).show()
+
                     refresh.refresh(true)
                     dismiss()
                     viewModel.destroy(activity as MainActivity)
                 } else
-                    CommonUtils.showMessage(parent, response.message!!)
+                    Toast.makeText(context, response.message!!, Toast.LENGTH_SHORT).show()
+
             } else if (response != null) {
-                CommonUtils.showMessage(this.view, response.toString())
+                Toast.makeText(context, response.toString(), Toast.LENGTH_SHORT).show()
             }
         })
     }
@@ -172,49 +175,56 @@ class MealDetailSheet(
     }
 
     override fun onItemClick(item: Any) {
-        if (item is RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory) {
-            if (item.checked) {
-                var add = true
+        when (item) {
+            is RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory -> {
+                if (item.checked) {
+                    var add = true
 
-                for (i in selectedItemCategoriesList) {
-                    if (i?.id!! == item.id) {
-                        add = false
+                    for (i in selectedItemCategoriesList) {
+                        if (i?.id!! == item.id) {
+                            add = false
+                        }
                     }
-                }
 
-                if (add)
-                    selectedItemCategoriesList.add(item)
-            } else {
-                selectedItemCategoriesList.remove(item)
-            }
-            viewModel.selectedChoices.value = selectedItemCategoriesList
-
-            bi!!.menuItemViewModel = viewModel
-
-            viewModel.refresh()
-            bi!!.rvOptions.adapter?.notifyDataSetChanged()
-        } else if (item is ShowSubAdOnModel) {
-            var subAdOnSheet = SubAdOnSheet(item.subCategory, this)
-            subAdOnSheet.show(childFragmentManager, "")
-        } else if (item is SubAdOnAdded) {
-            if (item.itemSubCategory.checked) {
-                var add = true
-
-                for (i in 0 until selectedItemCategoriesList.size) {
-                    if (selectedItemCategoriesList[i]?.id!! == item.itemSubCategory.id) {
-                        selectedItemCategoriesList[i]?.item_sub_sub_category?.clear()
-                        selectedItemCategoriesList[i]?.item_sub_sub_category?.addAll(item.itemSubCategory.item_sub_sub_category)
+                    if (add)
+                        selectedItemCategoriesList.add(item)
+                } else {
+                    for (i in item.item_sub_sub_category) {
+                        i.checked = false
                     }
+                    selectedItemCategoriesList.remove(item)
                 }
+                viewModel.selectedChoices.value = selectedItemCategoriesList
 
+                bi!!.menuItemViewModel = viewModel
 
+                viewModel.refresh()
+                bi!!.rvOptions.adapter?.notifyDataSetChanged()
             }
-            viewModel.selectedChoices.value = selectedItemCategoriesList
+            is ShowSubAdOnModel -> {
+                var subAdOnSheet = SubAdOnSheet(item.subCategory, this)
+                subAdOnSheet.show(childFragmentManager, "")
+            }
+            is SubAdOnAdded -> {
+                if (item.itemSubCategory.checked) {
+                    var add = true
 
-            bi!!.menuItemViewModel = viewModel
+                    for (i in 0 until selectedItemCategoriesList.size) {
+                        if (selectedItemCategoriesList[i]?.id!! == item.itemSubCategory.id) {
+                            selectedItemCategoriesList[i]?.item_sub_sub_category?.clear()
+                            selectedItemCategoriesList[i]?.item_sub_sub_category?.addAll(item.itemSubCategory.item_sub_sub_category)
+                        }
+                    }
 
-            viewModel.refresh()
-            bi!!.rvOptions.adapter?.notifyDataSetChanged()
+
+                }
+                viewModel.selectedChoices.value = selectedItemCategoriesList
+
+                bi!!.menuItemViewModel = viewModel
+
+                viewModel.refresh()
+                bi!!.rvOptions.adapter?.notifyDataSetChanged()
+            }
         }
     }
 

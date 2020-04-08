@@ -16,11 +16,12 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.MealsAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.FeaturedModel
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.MealsListModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view_model.MealsListViewModel
 import kotlinx.android.synthetic.main.meals_list_fragment.*
 
-class MealsList : Fragment(), IRecyclerItemClick ,MealDetailSheet.Refresh{
+class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
 
     companion object {
         fun newInstance() = MealsList()
@@ -38,13 +39,29 @@ class MealsList : Fragment(), IRecyclerItemClick ,MealDetailSheet.Refresh{
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MealsListViewModel::class.java)
-        viewModel.getMeals(arguments?.get(AppConstants.CUISINE_ID)!!.toString())
+
+        var cartId = arguments?.containsKey(AppConstants.CART_ID)!!.toString()
+        viewModel.getMeals(
+            arguments?.get(AppConstants.CUISINE_ID)!!.toString(),
+            cartId,
+            arguments?.get(AppConstants.FILTER_ID)!!.toString()
+        )
+
+        viewModel?.isLoading?.observe(this, Observer { isLoading ->
+            if (isLoading) {
+                context?.let { it1 -> CommonUtils.showLoader(it1, getString(R.string.loading)) }
+            } else {
+                CommonUtils.hideLoader()
+            }
+        })
 
         viewModel.mealsist.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
+                    var mealsListModel = response.data as MealsListModel
+
                     var list = ArrayList<RestaurantDetailNewModel.MealItem>()
-                    list.addAll(response.data as ArrayList<RestaurantDetailNewModel.MealItem>)
+                    list.addAll(mealsListModel.items)
                     rc_meals.adapter = MealsAdapter(list, this)
                 } else {
                     CommonUtils.showMessage(parent, response.message!!)
@@ -52,7 +69,6 @@ class MealsList : Fragment(), IRecyclerItemClick ,MealDetailSheet.Refresh{
             } else {
                 CommonUtils.showMessage(parent, response.toString())
             }
-
         })
     }
 
@@ -63,14 +79,14 @@ class MealsList : Fragment(), IRecyclerItemClick ,MealDetailSheet.Refresh{
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-        (activity as MainActivity).backTitle("Beverages")
+        (activity as MainActivity).backTitle(arguments?.get(AppConstants.CUISINE_NAME)!!.toString())
     }
 
     override fun onItemClick(item: Any) {
         if (item is RestaurantDetailNewModel.MealItem) {
             var cartId = arguments?.containsKey(AppConstants.CART_ID)!!.toString()
 
-            var sheet = MealDetailSheet(item, cartId,this)
+            var sheet = MealDetailSheet(item, cartId, this)
             sheet.show(childFragmentManager, "")
         }
     }

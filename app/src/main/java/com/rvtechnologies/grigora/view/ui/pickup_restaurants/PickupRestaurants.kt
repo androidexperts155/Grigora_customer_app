@@ -194,7 +194,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             mMap.clear()
 
             val marker = MarkerOptions().position(LatLng(latitude, longitude))
-                .icon(bitmapDescriptorFromVector(R.drawable.ic_home_run)).title("Home")
+                .icon(bitmapDescriptorFromVector(R.drawable.rest_home)).title("Home")
 
 
             val coordinate =
@@ -226,21 +226,45 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
 
                 val marker = MarkerOptions().position(LatLng(latitude, longitude))
-                    .icon(bitmapDescriptorFromVector(R.drawable.ic_rest))
+                    .icon(bitmapDescriptorFromVector(getMarker(allRestaurants[i])))
                     .title(allRestaurants[i].name)
 
+//                val latLng = LatLng(latitude, longitude)
+//                loadMarkerImage(latLng, allRestaurants[i].image, i)
 
-                val latLng = LatLng(latitude, longitude)
-                loadMarkerImage(latLng, allRestaurants[i].image, i)
 
-
-//                var m = mMap.addMarker(marker)
-//                allRestaurants[i].markerId = m.id
+                var m = mMap.addMarker(marker)
+                allRestaurants[i].markerId = m.id
 
             }
         }
 
 
+    }
+
+    private fun getMarker(restaurantDetailModel: NewDashboardModel.AllRestautants): Int {
+
+        if (restaurantDetailModel.fullTime == "0") {
+            if (!CommonUtils.isRestaurantOpen(
+                    restaurantDetailModel.openingTime,
+                    restaurantDetailModel.closingTime
+                )
+            ) {
+//                restaurant is closed
+                return R.drawable.rest_unavailable
+
+            }
+        } else if ((CommonUtils.isRestaurantOpen(
+                restaurantDetailModel.openingTime,
+                restaurantDetailModel.closingTime
+            ) || restaurantDetailModel.fullTime == "1") && restaurantDetailModel.busyStatus == "1"
+        ) {
+//restaurant is busy
+            return R.drawable.rest_unavailable
+
+        }
+
+        return R.drawable.rest_available
     }
 
     private fun loadMarkerImage(latlng: LatLng, image: String, position: Int) {
