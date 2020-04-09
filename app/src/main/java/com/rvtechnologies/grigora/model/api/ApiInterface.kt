@@ -245,7 +245,8 @@ interface ApiInterface {
         @Field("item_id") itemId: String,
         @Field("quantity") quantity: String,
         @Field("price") price: String,
-        @Field("item_choices") item_choices: String
+        @Field("item_choices") item_choices: String,
+        @Field("item_removeables") item_removeables: String
     ): Call<JsonElement>
 
     @FormUrlEncoded
@@ -257,7 +258,8 @@ interface ApiInterface {
         @Field("item_id") itemId: String,
         @Field("quantity") quantity: String,
         @Field("price") price: String,
-        @Field("item_choices") item_choices: String
+        @Field("item_choices") item_choices: String,
+        @Field("item_removeables") item_removeables: String
     ): Call<JsonElement>
 
 

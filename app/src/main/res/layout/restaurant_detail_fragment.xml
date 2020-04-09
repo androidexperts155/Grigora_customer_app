@@ -25,7 +25,8 @@
             android:backgroundTint="@color/grey_bg"
             android:fitsSystemWindows="true"
             android:theme="@style/AppTheme.AppBarOverlay"
-            app:elevation="0dp">
+            app:elevation="0dp"
+             >
             
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
@@ -112,7 +113,9 @@
                             android:background="?attr/backgroundColor"
                             android:orientation="horizontal"
                             android:padding="@dimen/_8sdp"
-                            android:weightSum="2">
+                            android:weightSum="2"
+                            
+                            >
                             
                             <LinearLayout
                                 android:layout_width="0dp"
@@ -359,7 +362,7 @@
                                     android:layout_alignParentRight="true"
                                     android:layout_marginTop="@dimen/_10sdp"
                                     app:cardBackgroundColor="@color/transparent"
-                                    app:cardCornerRadius="@dimen/_40sdp"
+                                    app:cardCornerRadius="@dimen/_30sdp"
                                     app:cardElevation="0dp">
                                     
                                     <ImageView
@@ -367,7 +370,7 @@
                                         android:layout_width="match_parent"
                                         android:layout_height="match_parent"
                                         android:scaleType="centerCrop"
-                                        tools:src="@mipmap/burger_king" />
+                                        tools:src="@drawable/restaurant" />
                                 </androidx.cardview.widget.CardView>
                             
                             
@@ -456,7 +459,7 @@
                                 android:layout_height="@dimen/_30sdp"
                                 android:background="@drawable/pickup_sel_dis"
                                 android:gravity="center"
-                                 android:text="@string/pickup"
+                                android:text="@string/pickup"
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_12sdp" />
                         </LinearLayout>
@@ -527,16 +530,16 @@
                             tools:itemCount="4"
                             tools:listitem="@layout/item_promo" />
                     </LinearLayout>
-    
+                    
                     <RadioGroup
-                        android:layout_marginTop="@dimen/_12sdp"
                         android:id="@+id/rg_veg_nonveg"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_alignParentLeft="true"
                         android:layout_centerVertical="true"
+                        android:layout_marginTop="@dimen/_12sdp"
                         android:orientation="horizontal">
-        
+                        
                         <RadioButton
                             android:id="@+id/rd_veg"
                             style="@style/mediumText"
@@ -546,11 +549,11 @@
                             android:buttonTint="@color/green"
                             android:text="@string/veg"
                             android:textColor="?attr/textWhite" />
-        
-        
+                        
+                        
                         <RadioButton
                             android:id="@+id/rd_nonveg"
-            
+                            
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -558,11 +561,11 @@
                             android:buttonTint="@color/colorPrimaryDark"
                             android:text="@string/nonveg"
                             android:textColor="?attr/textWhite" />
-        
-        
+                        
+                        
                         <RadioButton
                             android:id="@+id/rd_containsegg"
-            
+                            
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -570,17 +573,18 @@
                             android:buttonTint="@color/duskYellow"
                             android:text="@string/contains_egg"
                             android:textColor="?attr/textWhite" />
-    
+                    
                     </RadioGroup>
-    
-    
+                    
+                    
                     <LinearLayout
                         android:id="@+id/li_featured"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_12sdp"
                         android:orientation="vertical"
-                        android:visibility="gone">
+                        android:visibility="gone"
+                        tools:visibility="visible">
                         
                         
                         <TextView
@@ -601,7 +605,7 @@
                             android:orientation="horizontal"
                             app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                             app:spanCount="2"
-                            tools:itemCount="3"
+                            tools:itemCount="4"
                             
                             tools:listitem="@layout/item_featured" />
                     </LinearLayout>
@@ -631,37 +635,25 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_alignParentLeft="true"
-                                android:layout_alignParentTop="true"
                                 android:layout_centerVertical="true"
                                 android:paddingLeft="@dimen/_8sdp"
                                 android:text="@string/previously_ordered_items"
                                 android:textColor="?attr/textWhite"
                                 android:textSize="@dimen/_14sdp" />
                             
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_26sdp"
-                                android:layout_height="@dimen/_26sdp"
+                            <ImageView
+                                android:id="@+id/collapse_previously"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_centerVertical="true"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginBottom="@dimen/_4sdp"
-                                android:elevation="@dimen/_1sdp"
-                                app:cardBackgroundColor="?attr/viewbg"
-                                app:cardCornerRadius="@dimen/_16sdp">
+                                android:layout_gravity="center"
                                 
-                                <ImageView
-                                    android:id="@+id/collapse_previously"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:clickable="true"
-                                    android:foreground="@drawable/selectable_item_background"
-                                    android:scaleType="centerCrop"
-                                    android:tag="expanded"
-                                    android:tint="?attr/textWhite"
-                                    app:srcCompat="@drawable/ic_expanded" />
-                            </androidx.cardview.widget.CardView>
+                                android:clickable="true"
+                                android:foreground="@drawable/selectable_item_background"
+                                android:scaleType="centerCrop"
+                                android:tag="expanded"
+                                android:tint="?attr/textWhite"
+                                app:srcCompat="@drawable/ic_expanded" />
                         
                         </RelativeLayout>
                         
@@ -709,29 +701,18 @@
                                 android:textSize="@dimen/_14sdp" />
                             
                             
-                            <androidx.cardview.widget.CardView
-                                android:layout_width="@dimen/_26sdp"
-                                android:layout_height="@dimen/_26sdp"
+                            <ImageView
+                                android:id="@+id/collapse_popular"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
-                                android:layout_marginTop="@dimen/_4sdp"
-                                android:layout_marginRight="@dimen/_8sdp"
-                                android:layout_marginBottom="@dimen/_4sdp"
-                                android:elevation="@dimen/_1sdp"
-                                app:cardBackgroundColor="?attr/viewbg"
-                                app:cardCornerRadius="@dimen/_20sdp">
-                                
-                                <ImageView
-                                    android:id="@+id/collapse_popular"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:clickable="true"
-                                    android:foreground="@drawable/selectable_item_background"
-                                    android:scaleType="centerCrop"
-                                    android:tag="expanded"
-                                    android:tint="?attr/textWhite"
-                                    app:srcCompat="@drawable/ic_expanded" />
-                            </androidx.cardview.widget.CardView>
+                                android:layout_gravity="center"
+                                android:clickable="true"
+                                android:foreground="@drawable/selectable_item_background"
+                                android:scaleType="centerCrop"
+                                android:tag="expanded"
+                                android:tint="?attr/textWhite"
+                                app:srcCompat="@drawable/ic_expanded" />
                         
                         </RelativeLayout>
                         
@@ -753,23 +734,42 @@
                         android:layout_marginTop="@dimen/_6sdp"
                         android:background="?attr/viewbg" />
                     
-                    <Button
-                        android:id="@+id/bt_type"
-                        style="@style/titleText"
+                    <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:background="@color/transparent"
-                        android:drawableRight="@drawable/ic_expanded"
-                        android:drawablePadding="@dimen/_8sdp"
-                        android:drawableTint="?attr/textWhite"
+                        android:clickable="true"
+                        android:foreground="@drawable/selectable_item_background"
                         android:onClick="@{()-> restaurantDetailFragment.chooseType()}"
-                        android:padding="@dimen/_8sdp"
-                        android:textAllCaps="false"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_14sdp"
-                        tools:text="Breakfast" />
+                        android:orientation="horizontal">
+                        
+                        <Button
+                            android:id="@+id/bt_type"
+                            style="@style/titleText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@color/transparent"
+                            android:drawableTint="?attr/textWhite"
+                            android:elevation="@dimen/_1sdp"
+                            android:padding="@dimen/_8sdp"
+                            android:textAllCaps="false"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_14sdp"
+                            tools:text="Breakfast" />
+                        
+                        <ImageView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentRight="true"
+                            android:layout_gravity="center"
+                            android:scaleType="centerCrop"
+                            android:tag="expanded"
+                            android:tint="?attr/textWhite"
+                            app:srcCompat="@drawable/ic_expanded" />
+                    
+                    </LinearLayout>
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rec_parents"
@@ -782,7 +782,7 @@
                     
                     <View
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_80sdp"/>
+                        android:layout_height="@dimen/_80sdp" />
                 
                 </LinearLayout>
             

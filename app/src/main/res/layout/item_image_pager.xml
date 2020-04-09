@@ -11,7 +11,7 @@
         android:id="@+id/img_data"
         android:layout_width="match_parent"
         android:layout_height="@dimen/_150sdp"
-        android:scaleType="centerCrop"
-        android:src="@drawable/restaurant" />
+        android:background="?attr/viewbg"
+        android:scaleType="centerCrop" />
 </LinearLayout>
 

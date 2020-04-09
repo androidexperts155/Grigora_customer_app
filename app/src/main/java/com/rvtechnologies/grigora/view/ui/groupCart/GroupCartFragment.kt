@@ -320,7 +320,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         super.onResume()
         if (activity is MainActivity) {
             (activity as MainActivity).hideAll()
-            (activity as MainActivity).backTitle("")
+            (activity as MainActivity).backTitle(getString(R.string.checkout))
             (activity as MainActivity).lockDrawer(true)
             (activity as MainActivity).img_right.visibility = View.VISIBLE
             (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)

@@ -40,7 +40,9 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(MealsListViewModel::class.java)
 
-        var cartId = arguments?.containsKey(AppConstants.CART_ID)!!.toString()
+        var cartId =
+            if (arguments?.containsKey(AppConstants.CART_ID)!!) arguments?.get(AppConstants.CART_ID)!!
+                .toString() else ""
         viewModel.getMeals(
             arguments?.get(AppConstants.CUISINE_ID)!!.toString(),
             cartId,
@@ -85,7 +87,9 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
 
     override fun onItemClick(item: Any) {
         if (item is RestaurantDetailNewModel.MealItem) {
-            var cartId = arguments?.containsKey(AppConstants.CART_ID)!!.toString()
+            var cartId =
+                if (arguments?.containsKey(AppConstants.CART_ID)!!) arguments?.get(AppConstants.CART_ID)!!
+                    .toString() else ""
 
             var sheet = MealDetailSheet(item, cartId, this)
             sheet.show(childFragmentManager, "")

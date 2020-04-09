@@ -151,11 +151,82 @@
                     android:layout_marginTop="@dimen/_8sdp"
                     android:nestedScrollingEnabled="true"
                     android:orientation="vertical"
+                    android:overScrollMode="never"
                     android:visibility="visible"
-                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                     
-                     tools:itemCount="1"
+                    app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                    tools:itemCount="0"
                     tools:listitem="@layout/item_meal_adons" />
+                
+                <LinearLayout
+                    android:id="@+id/li_removables"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+                    
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        
+                        android:layout_height="wrap_content">
+                        
+                        <TextView
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="@dimen/_8sdp"
+                            android:layout_marginRight="@dimen/_4sdp"
+                            android:layout_toLeftOf="@+id/tv_isRequired"
+                            android:ellipsize="end"
+                            android:maxLines="2"
+                            android:text="@string/removables"
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_15sdp" />
+                        
+                        
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card"
+                            android:layout_width="@dimen/_26sdp"
+                            android:layout_height="@dimen/_26sdp"
+                            android:layout_alignParentRight="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:layout_marginRight="@dimen/_8sdp"
+                            android:layout_marginBottom="@dimen/_4sdp"
+                            android:elevation="@dimen/_1sdp"
+                            app:cardBackgroundColor="?attr/viewbg"
+                            app:cardCornerRadius="@dimen/_16sdp">
+                            
+                            <ImageView
+                                android:id="@+id/img_removable"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:clickable="true"
+                                android:foreground="@drawable/selectable_item_background"
+                                android:scaleType="centerCrop"
+                                android:tag="expanded"
+                                android:tint="?attr/textWhite"
+                                app:srcCompat="@drawable/ic_expanded" />
+                        </androidx.cardview.widget.CardView>
+                    
+                    </RelativeLayout>
+                    
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rv_removables"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_4sdp"
+                        android:layout_marginRight="@dimen/_8sdp"
+                        android:layout_marginBottom="@dimen/_8sdp"
+                        android:nestedScrollingEnabled="true"
+                        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+                        tools:itemCount="5"
+                        tools:listitem="@layout/item_inner_adon" />
+                
+                </LinearLayout>
                 
                 
                 <EditText

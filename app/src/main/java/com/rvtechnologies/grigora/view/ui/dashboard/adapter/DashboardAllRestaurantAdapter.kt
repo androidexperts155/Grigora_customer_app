@@ -36,7 +36,7 @@ class DashboardAllRestaurantAdapter(
     }
 
     inner class MyView(view: View) : RecyclerView.ViewHolder(view) {
-//        var rc_images: RecyclerView = view.findViewById(R.id.rc_images)
+        //        var rc_images: RecyclerView = view.findViewById(R.id.rc_images)
         var tv_name: TextView = view.findViewById(R.id.tv_name)
         var tv_delivery_time: TextView = view.findViewById(R.id.tv_delivery_time)
         var tv_rating: TextView = view.findViewById(R.id.tv_rating)
@@ -53,9 +53,13 @@ class DashboardAllRestaurantAdapter(
         if (detail.items.isNotEmpty()) {
 
 
-            holder.vp.adapter = ImagePagerAdapter(holder.itemView.context!!,detail,iRecyclerItemClick)
+            holder.vp.adapter =
+                ImagePagerAdapter(holder.itemView.context!!, detail, iRecyclerItemClick)
 
             holder.dots_indicator.setViewPager(holder.vp)
+            holder.vp.setOnClickListener {
+                iRecyclerItemClick.onItemClick(list[position])
+            }
 
 
 //            holder.rc_images.adapter = ImagesAdapter(detail, iRecyclerItemClick)
@@ -83,7 +87,7 @@ class DashboardAllRestaurantAdapter(
 //            iRecyclerItemClick.onItemClick(list[position])
 //        }
 
-               holder.vp.setOnClickListener {
+        holder.vp.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
         }
 

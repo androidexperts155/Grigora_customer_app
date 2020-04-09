@@ -31,6 +31,8 @@ class ImagePagerAdapter(
 
         var img_data = layout.findViewById<ImageView>(R.id.img_data)
 
+        img_data.setOnClickListener { iRecyclerItemClick.onItemClick(detail) }
+
         CommonUtils.loadImage(img_data!!, detail.items[position].image)
 
         container.addView(layout)

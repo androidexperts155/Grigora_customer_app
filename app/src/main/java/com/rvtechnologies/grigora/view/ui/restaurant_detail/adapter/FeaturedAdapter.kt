@@ -11,6 +11,7 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.FeaturedModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
+import kotlinx.android.synthetic.main.item_featured.view.*
 
 class FeaturedAdapter(
     val list: ArrayList<RestaurantDetailNewModel.MealItem>,
@@ -20,6 +21,7 @@ class FeaturedAdapter(
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var img_meal = view.findViewById<ImageView>(R.id.img_meal)
+        var img_type = view.findViewById<ImageView>(R.id.img_type)
         var tv_name = view.findViewById<TextView>(R.id.tv_name)
         var tv_price = view.findViewById<TextView>(R.id.tv_price)
         var tv_rating = view.findViewById<TextView>(R.id.tv_rating)
@@ -44,6 +46,18 @@ class FeaturedAdapter(
         holder.tv_name.text = list[position].name
         holder.tv_price.text = "₦ " + list[position].price
         holder.tv_rating.text = list[position].avg_ratings.toString()
+
+        when (list[position].pure_veg) {
+            "1" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.veg)
+            }
+            "2" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.containes_egg)
+            }
+            "0" -> {
+                holder.itemView.img_type.setImageResource(R.drawable.non_veg)
+            }
+        }
         holder.itemView.setOnClickListener { iRecyclerItemClick.onItemClick(list[position]) }
     }
 

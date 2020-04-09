@@ -111,7 +111,8 @@ data class RestaurantDetailNewModel(
         val image: String,
         val in_offer: String,
         val item_categories: List<ItemCategory>,
-        val item_count_in_cart:Int,
+        val item_removeables: List<Removables>,
+        val item_count_in_cart: Int,
         val name: String,
         val offer_price: String,
         val parent_cuisine_id: Int,
@@ -123,6 +124,18 @@ data class RestaurantDetailNewModel(
         val total_rating: Int,
         val updated_at: String
     ) : Parcelable {
+
+        @SuppressLint("ParcelCreator")
+        @Parcelize
+        data class Removables(
+            var id: String,
+            var checked: Boolean,
+            var item_id: String,
+            var name: String,
+            var status: String
+        ) : Parcelable
+
+
         @SuppressLint("ParcelCreator")
         @Parcelize
         data class ItemCategory(

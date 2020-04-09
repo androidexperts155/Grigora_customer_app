@@ -21,13 +21,19 @@ class RestaurantDetailGroupViewModel : ViewModel() {
     var addCartRes: MutableLiveData<Any> = MutableLiveData()
     var cartItemList: MutableLiveData<Any> = MutableLiveData()
 
-    fun getRestaurantsDetailsCart(token: String, restId: String, price: String, cartId: String,filter:String) {
-         ApiRepo.getInstance()
+    fun getRestaurantsDetailsCart(
+        token: String,
+        restId: String,
+        price: String,
+        cartId: String,
+        filter: String
+    ) {
+        ApiRepo.getInstance()
             .getRestaurantsDetailsCart(
                 token,
-                restId, price, cartId,filter
+                restId, price, cartId, filter
             ) { success, result ->
-                 if (success) {
+                if (success) {
                     val type =
                         object : TypeToken<CommonResponseModel<RestaurantDetailNewModel>>() {}.type
                     restaurantDetail.value = Gson().fromJson(result as JsonElement, type)
@@ -90,22 +96,22 @@ class RestaurantDetailGroupViewModel : ViewModel() {
     fun addItemToCart(restaurantId: String, itemId: String, price: String, quantity: String) {
         if (token.value.toString().isNotBlank()) {
             isLoading.value = true
-            ApiRepo.getInstance()
-                .addItemToGroupCart(
-                    token = token.value.toString(),
-                    restaurantId = restaurantId,
-                    itemId = itemId,
-                    price = price,
-                    quantity = quantity,
-                    itemChoices = "", cartId = cartId.value.toString()
-                ) { success, result ->
-                    isLoading.value = false
-                    if (success) {
-                        val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
-                        addCartRes.value = Gson().fromJson(result as JsonElement, type)
-                    } else
-                        addCartRes.value = result
-                }
+//            ApiRepo.getInstance()
+//                .addItemToGroupCart(
+//                    token = token.value.toString(),
+//                    restaurantId = restaurantId,
+//                    itemId = itemId,
+//                    price = price,
+//                    quantity = quantity,
+//                    itemChoices = "", cartId = cartId.value.toString()
+//                ) { success, result ->
+//                    isLoading.value = false
+//                    if (success) {
+//                        val type = object : TypeToken<CommonResponseModel<AddCartModel>>() {}.type
+//                        addCartRes.value = Gson().fromJson(result as JsonElement, type)
+//                    } else
+//                        addCartRes.value = result
+//                }
         }
     }
 

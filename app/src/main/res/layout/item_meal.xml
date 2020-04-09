@@ -5,14 +5,28 @@
     android:layout_marginTop="@dimen/_8sdp"
     android:orientation="horizontal">
     
+    <RelativeLayout
+        android:layout_width="@dimen/_90sdp"
+        android:layout_height="wrap_content">
     <ImageView
+        android:id="@+id/img_meal"
         android:layout_width="@dimen/_90sdp"
         android:layout_height="@dimen/_75sdp"
-        android:scaleType="centerCrop"
-        android:id="@+id/img_meal"
-        />
+        android:background="?attr/viewbg"
+        android:scaleType="centerCrop" />
     
-    
+        <ImageView
+            android:src="@drawable/veg"
+            android:layout_width="@dimen/_8sdp"
+            android:layout_height="@dimen/_8sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:layout_gravity="right"
+            android:layout_margin="@dimen/_6sdp"
+            android:id="@+id/img_type"
+            />
+
+</RelativeLayout>
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
@@ -22,8 +36,8 @@
         android:orientation="vertical">
         
         <TextView
-            style="@style/titleText"
             android:id="@+id/tv_name"
+            style="@style/titleText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_4sdp"
@@ -33,10 +47,10 @@
             android:textSize="@dimen/_12sdp" />
         
         <TextView
+            android:id="@+id/tv_desc"
             style="@style/mediumText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/tv_desc"
             android:layout_marginTop="@dimen/_2sdp"
             android:maxLines="2"
             android:text="Bonne less chicken leg marineted in our spices and flame-grilled"
@@ -49,11 +63,11 @@
             android:layout_marginTop="@dimen/_2sdp">
             
             <TextView
+                android:id="@+id/tv_price"
                 style="@style/titleText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentLeft="true"
-                android:id="@+id/tv_price"
                 android:maxLines="1"
                 android:text="₦ 4.00"
                 android:textColor="?attr/textWhite"
@@ -61,15 +75,15 @@
             
             
             <TextView
-                style="@style/mediumText"
                 android:id="@+id/tv_rating"
+                style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
+                android:drawableLeft="@drawable/ic_star_24dp"
                 android:drawableTint="?attr/searchHint"
                 android:text="2.5"
                 android:textColor="?attr/searchHint"
-                android:drawableLeft="@drawable/ic_star_24dp"
                 android:textSize="@dimen/_12sdp" />
         
         </RelativeLayout>

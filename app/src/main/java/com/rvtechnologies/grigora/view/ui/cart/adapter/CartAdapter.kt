@@ -25,19 +25,18 @@ class CartAdapter(
         val cartModel = cartItemList[position]
         val isFrench = GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
 
-        cartModel.itemNameToDisplay =
-            if (isFrench) cartModel.itemFrenchName.toString() else cartModel.itemName.toString()
+        cartModel.itemNameToDisplay = cartModel.quantity!! + "     " + cartModel.itemName!!
         var price = cartModel.price?.toDouble()!!
 
 
         var choicesString = ""
         if (cartModel.item_choices != null && cartModel.item_choices?.isNotEmpty()!!) {
 
-            choicesString = "$choicesString("
+            choicesString = "$choicesString"
             for (item in cartModel.item_choices!!) {
 
-                choicesString =
-                    choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
+//                choicesString =
+//                    choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
                 for (innerItem in item.itemSubCategory!!) {
                     price += innerItem?.addOnPrice!!
                     choicesString =
@@ -46,7 +45,7 @@ class CartAdapter(
                 choicesString = "$choicesString,"
             }
             choicesString = choicesString.removeSuffix(",")
-            choicesString = "$choicesString)"
+            choicesString = "$choicesString"
 
         }
         if (choicesString == "")
@@ -68,8 +67,6 @@ class CartAdapter(
 //            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
             notifyDataSetChanged()
         }
-
-
 
         holder.bind(cartModel, iRecyclerItemClick)
     }

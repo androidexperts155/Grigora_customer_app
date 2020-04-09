@@ -201,7 +201,7 @@ class CartNdOfferViewModel : ViewModel() {
                     itemId = itemId,
                     price = price,
                     quantity = quantity,
-                    itemChoices = ""
+                    itemChoices = "",item_removeables = ""
                 ) { success, result ->
                     isLoading.value = false
                     if (success) {

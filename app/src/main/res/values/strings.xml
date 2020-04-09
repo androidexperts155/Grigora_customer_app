@@ -127,7 +127,7 @@
     <string name="past_orders">Past Orders</string>
     <string name="status">Status :</string>
     <string name="track">Track</string>
-    <string name="add_delivery_note">Add delivery note</string>
+    <string name="add_delivery_note">Add delivery instructions</string>
     <string name="profile">Profile</string>
     <string name="payment_method">Select Payment Method</string>
     <string name="delivery_address">Delivery Address</string>
@@ -173,9 +173,9 @@
     <string name="setting_up">Setting up</string>
     <string name="apply">Apply</string>
     <string name="payment_mode">Payment Details</string>
-    <string name="subtotal">Subtotal :</string>
-    <string name="total">Total :</string>
-    <string name="delivery_fee">Delivery fee :</string>
+    <string name="subtotal">Subtotal</string>
+    <string name="total">Total</string>
+    <string name="delivery_fee">Delivery fee</string>
     <string name="add">Add</string>
     <string name="offers">Offers</string>
     <string name="order_id">Order id</string>
@@ -205,7 +205,7 @@
     <string name="our_vision_detail">To be the leading provider of quick and reliable solutions using technology</string>
     <string name="our_value_proposition">OUR VALUE PROPOSITION</string>
     <string name="our_value_detail">The business model will be operating on, Location Tracking, mobile application, ease of payment, wide range of services and our excellent customer service culture will definitely count as a competitive advantage for Grigora Limited. So also we have a team that can go all the way to give our clients value for their money; a team that are trained and equipped to pay attention to details and deliver services on time and safely</string>
-    <string name="promotion">Promotion :</string>
+    <string name="promotion">Promotion</string>
     <string name="no_promo_selected">No promo selected</string>
     <string name="wallet">My Wallet (₦ %s\)</string>
     <string name="transfr">Transfer</string>
@@ -231,7 +231,7 @@
     <string name="popular">Popular</string>
     <string name="wallet_drawer">Grigora Money : ₦</string>
     <string name="grigora_money">Grigora Money</string>
-    <string name="deliver_to_you">DELIVER TO YOU</string>
+    <string name="deliver_to_you">DELIVER TO YOU IN</string>
     <string name="will_prepare_in">WILL PREPARE IN</string>
     <string name="deliver_in">Delivery in approximately %s\ minutes</string>
     <string name="delivery">delivery</string>
@@ -577,5 +577,7 @@
     <string name="choose_any">"Choose any "</string>
     <string name="delivey_fee">Delivery Fee: ₦</string>
     <string name="back">Back</string>
+    <string name="checkout">Checkout</string>
+    <string name="removables">Removables</string>
 
 </resources><!--₦-->

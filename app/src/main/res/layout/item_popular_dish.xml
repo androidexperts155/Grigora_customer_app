@@ -30,9 +30,9 @@
                 android:id="@+id/img_data"
                 android:layout_width="@dimen/_140sdp"
                 android:layout_height="@dimen/_80sdp"
-                
+                android:background="?attr/viewbg"
                 android:scaleType="centerCrop"
-                android:src="@drawable/restaurant"
+                
                 app:image_url="@{itemDetail.image}" />
             
             <ImageView
@@ -77,6 +77,7 @@
             <RatingBar
                 android:id="@+id/rating"
                 style="@style/RatingBar"
+                 
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:progressBackgroundTint="?attr/viewbg"

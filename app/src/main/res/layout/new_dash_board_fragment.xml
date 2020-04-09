@@ -83,6 +83,10 @@
                 android:orientation="vertical"
                 android:overScrollMode="never"
                 app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager" />
+            <View
+                
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_50sdp"/>
         </LinearLayout>
         
         <LinearLayout

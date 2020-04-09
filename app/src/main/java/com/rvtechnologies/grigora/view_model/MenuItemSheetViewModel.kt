@@ -26,6 +26,9 @@ class MenuItemSheetViewModel : ViewModel() {
         MutableLiveData()
     var selectedChoices: MutableLiveData<ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory?>> =
         MutableLiveData()
+
+
+    var removableList = ArrayList<RestaurantDetailNewModel.MealItem.Removables>()
     var response: MutableLiveData<Any> = MutableLiveData()
 
     init {
@@ -127,6 +130,21 @@ class MenuItemSheetViewModel : ViewModel() {
             Log.e("Choices", selected)
 
             isLoading.value = true
+
+            var removables = ""
+
+            if (removableList.size > 0) {
+                for (item in removableList) {
+                    if (item.checked) {
+                        removables += if (removables.isEmpty())
+                            item.id
+                        else
+                            "," + item.id
+                    }
+                }
+            }
+
+
             if (itemCount.value?.toInt()!! > 0) {
                 ApiRepo.getInstance()
                     .addItemToCart(
@@ -136,7 +154,7 @@ class MenuItemSheetViewModel : ViewModel() {
                         price = price.value.toString(),
 //                        price = menuItem.value?.price.toString(),
                         quantity = itemCount.value!!,
-                        itemChoices = selected
+                        itemChoices = selected,item_removeables = removables
                     ) { success, result ->
                         isLoading.value = false
                         if (success) {
@@ -231,6 +249,20 @@ class MenuItemSheetViewModel : ViewModel() {
                 selected = Gson().toJson(choices)
             }
             Log.e("Choices", selected)
+
+            var removables = ""
+
+            if (removableList.size > 0) {
+                for (item in removableList) {
+                    if (item.checked) {
+                        removables += if (removables.isEmpty())
+                            item.id
+                        else
+                            "," + item.id
+                    }
+                }
+            }
+
             isLoading.value = true
             if (itemCount.value?.toInt()!! > 0) {
                 ApiRepo.getInstance()
@@ -241,7 +273,7 @@ class MenuItemSheetViewModel : ViewModel() {
                         price = price.value.toString(),
 //                        price = menuItem.value?.price.toString(),
                         quantity = itemCount.value!!,
-                        itemChoices = selected, cartId = cartId.value.toString()
+                        itemChoices = selected, cartId = cartId.value.toString(),item_removeables = removables
 
                     ) { success, result ->
                         isLoading.value = false

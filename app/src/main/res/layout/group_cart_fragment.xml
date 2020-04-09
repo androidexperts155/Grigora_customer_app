@@ -52,25 +52,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical">
                     
-                    <TextView
-                        android:id="@+id/tv_msg"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="@string/deliver_to_you"
-                        android:textColor="?attr/searchHint"
-                        android:textSize="@dimen/_10sdp" />
                     
-                    <TextView
-                        android:id="@+id/tv_estimated"
-                        style="@style/mediumText"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/_8sdp"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_11sdp"
-                        tools:text="" />
                     
                     <LinearLayout
                         android:id="@+id/li_enabled"
@@ -108,11 +90,62 @@
                             android:textSize="@dimen/_12sdp" />
                     
                     </LinearLayout>
+    
+                    <TextView
+                        android:text="@{cartViewModel.cartData.restaurant_name}"
+        
+                        style="@style/titleText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_13sdp"
+                        tools:text="Restaurant Name" />
+    
+    
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_4sdp">
+        
+                        <TextView
+                            android:id="@+id/tv_msg"
+                            style="@style/mediumText"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:text="@string/deliver_to_you"
+                            android:textColor="?attr/searchHint"
+                            android:textSize="@dimen/_10sdp" />
+        
+                        <TextView
+                            android:id="@+id/tv_estimated"
+                            style="@style/mediumText"
+                            android:layout_marginTop="@dimen/_4sdp"
+                            android:layout_below="@+id/tv_msg"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+            
+                            android:textColor="?attr/textWhite"
+                            android:textSize="@dimen/_11sdp"
+                            tools:text="8 minute" />
+        
+        
+                    
+                    </RelativeLayout>
+    
+    
+    
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
                     
                     
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        
+                        tools:visibility="gone"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:background="?attr/langSelected"
@@ -160,30 +193,26 @@
                     
                     
                     </RelativeLayout>
-                    
-                    
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="?attr/viewbg" />
-                    
+    
+    
+    
+    
                     <RelativeLayout
                         android:id="@+id/rel_group_invite"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:padding="@dimen/_8sdp">
-                        
+        
                         <fragment
                             android:id="@+id/map"
                             android:name="com.google.android.gms.maps.SupportMapFragment"
                             android:layout_width="@dimen/_80sdp"
                             android:layout_height="@dimen/_80sdp"
                             android:enabled="true" />
-                        
+        
                         <TextView
                             android:id="@+id/textView22"
-                            style="@style/normalText"
+                            style="@style/titleText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginStart="@dimen/_8sdp"
@@ -198,12 +227,13 @@
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp"
                             tools:text="Rv technologies, C-127, Sector 71, Mohali. Punjab " />
-                        
+        
                         <TextView
                             android:id="@+id/tv_change"
-                            style="@style/normalText"
+                            style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:textAllCaps="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginTop="@dimen/_4sdp"
@@ -212,8 +242,8 @@
                             android:text="@string/change"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/_10sdp" />
-                        
-                        
+        
+        
                         <EditText
                             android:id="@+id/etDeliveryNote"
                             style="@style/mediumText"
@@ -229,18 +259,18 @@
                             android:hint="@string/add_delivery_note"
                             android:inputType="textMultiLine"
                             android:maxLines="2"
-                            
+            
                             android:paddingBottom="@dimen/_4sdp"
                             android:singleLine="true"
                             android:text="@={cartViewModel.deliveryNote}"
                             android:textColor="?attr/textWhite"
                             android:textColorHint="?attr/searchHint"
                             android:textSize="@dimen/_10sdp"
-                            tools:text="Please make this bit spicy and send 4 Extra Oregano packets. Thanks." />
-                        
+                            />
+        
                         <View
                             android:id="@+id/view"
-                            
+            
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
                             android:layout_below="@+id/etDeliveryNote"
@@ -248,28 +278,37 @@
                             android:layout_marginBottom="@dimen/_4sdp"
                             android:layout_toRightOf="@+id/map"
                             android:background="?attr/viewbg" />
-                    
-                    
+    
+    
                     </RelativeLayout>
-                    
+    
+                    <View
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="?attr/viewbg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"/>
+    
+                    <TextView
+                        style="@style/titleText"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp"
+                        android:text="@string/items"
+                        />
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvOrderItems"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="?attr/viewbg"
-                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/_4sdp"
+                         android:orientation="vertical"
                         android:overScrollMode="never"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="3"
                         tools:listitem="@layout/cart_item" />
                     
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="?attr/viewbg" />
-                    
+                 
                     <TextView
                         style="@style/titleText"
                         android:layout_width="wrap_content"
@@ -408,7 +447,8 @@
                         
                         <TextView
                             android:id="@+id/tv_change_payment"
-                            style="@style/normalText"
+                            style="@style/titleText"
+                            android:textAllCaps="true"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
@@ -440,8 +480,8 @@
                         
                         <ImageView
                             android:id="@+id/img_dis"
-                            android:layout_width="@dimen/_16sdp"
-                            android:layout_height="@dimen/_16sdp"
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_alignParentTop="true"
                             app:srcCompat="@drawable/ic_discount" />
                         
@@ -474,8 +514,8 @@
                         
                         <ImageView
                             android:id="@+id/img_arrow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
+                            android:layout_width="@dimen/_32sdp"
+                            android:layout_height="@dimen/_32sdp"
                             android:layout_alignParentRight="true"
                             android:layout_centerVertical="true"
                             app:srcCompat="@drawable/ic_next_black" />
@@ -534,8 +574,7 @@
                             android:drawablePadding="@dimen/_4sdp"
                             android:drawableTint="?attr/textWhite"
                             android:gravity="end|center"
-                            android:text="@{cartViewModel.cartData.cartSubTotal}"
-                            android:textColor="?attr/textWhite"
+                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp"
                             tools:text="0.0" />
                     

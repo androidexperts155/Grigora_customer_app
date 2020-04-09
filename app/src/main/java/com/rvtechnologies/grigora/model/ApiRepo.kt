@@ -920,6 +920,7 @@ Cuisine repo
         quantity: String,
         price: String,
         itemChoices: String,
+        item_removeables: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addItemToCart(
@@ -930,7 +931,8 @@ Cuisine repo
                 quantity = quantity,
                 item_choices = itemChoices,
                 loginType = CommonUtils.getLoginType(),
-                userId = CommonUtils.getUidDevice()
+                userId = CommonUtils.getUidDevice(),
+                 item_removeables = item_removeables
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -959,7 +961,7 @@ Cuisine repo
         itemId: String,
         quantity: String,
         price: String,
-        itemChoices: String,
+        itemChoices: String,item_removeables:String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addItemToGroupCart(
@@ -969,7 +971,7 @@ Cuisine repo
                 itemId = itemId,
                 price = price,
                 quantity = quantity,
-                item_choices = itemChoices
+                item_choices = itemChoices, item_removeables = item_removeables
             )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

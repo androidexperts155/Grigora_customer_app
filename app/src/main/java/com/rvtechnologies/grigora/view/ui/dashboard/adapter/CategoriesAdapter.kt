@@ -48,10 +48,11 @@ class CategoriesAdapter(
                 )
             )
 //            if (!list[position].background_icon.isNullOrEmpty())
-                CommonUtils.loadImage(holder.img_data, list[position].icon)
+            CommonUtils.loadImage(holder.img_data, list[position].icon)
 
         } else {
-            CommonUtils.loadImage(holder.img_data, list[position].icon)
+            if (list[position].icon.isNotEmpty())
+                CommonUtils.loadImage(holder.img_data, list[position].icon)
 
             if (CommonUtils.isDarkMode()) {
                 holder.tv_data.setTextColor(

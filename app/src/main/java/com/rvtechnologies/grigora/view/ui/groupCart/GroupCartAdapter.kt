@@ -34,18 +34,18 @@ class GroupCartAdapter(
             val cartModel = cartItemList[position] as CartDetail
             val isFrench = GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
 
-            cartModel.itemNameToDisplay =
-                if (isFrench) cartModel.itemFrenchName.toString() else cartModel.itemName.toString()
+            cartModel.itemNameToDisplay = cartModel.quantity!! + "     " + cartModel.itemName!!
+
             var price = cartModel.price?.toDouble()!!
 
             var choicesString = ""
             if (cartModel.item_choices != null && cartModel.item_choices?.isNotEmpty()!!) {
 
-                choicesString = "$choicesString("
+                choicesString = "$choicesString"
                 for (item in cartModel.item_choices!!) {
 
-                    choicesString =
-                        choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
+//                choicesString =
+//                    choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
                     for (innerItem in item.itemSubCategory!!) {
                         price += innerItem?.addOnPrice!!
                         choicesString =
@@ -54,7 +54,7 @@ class GroupCartAdapter(
                     choicesString = "$choicesString,"
                 }
                 choicesString = choicesString.removeSuffix(",")
-                choicesString = "$choicesString)"
+                choicesString = "$choicesString"
 
             }
             if (choicesString == "")
@@ -77,7 +77,7 @@ class GroupCartAdapter(
                 notifyDataSetChanged()
             }
 
-            if (cartModel.user_id.equals(
+        /*    if (cartModel.user_id.equals(
                     CommonUtils.getPrefValue(
                         holder.itemView.context!!,
                         PrefConstants.ID
@@ -86,7 +86,7 @@ class GroupCartAdapter(
             )
                 holder.itemView.linearLayout.visibility = View.VISIBLE
             else
-                holder.itemView.linearLayout.visibility = View.GONE
+                holder.itemView.linearLayout.visibility = View.GONE*/
 
 
             holder.bind(cartModel, iRecyclerItemClick)

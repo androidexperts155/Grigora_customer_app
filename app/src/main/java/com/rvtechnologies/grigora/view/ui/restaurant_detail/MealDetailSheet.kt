@@ -20,15 +20,13 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ItemAdOnsAdapter
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ItemRemovableAdapter
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.ShowSubAdOnModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SubAdOnAdded
 import com.rvtechnologies.grigora.view_model.MenuItemDetailsViewModel
 import com.rvtechnologies.grigora.view_model.MenuItemSheetViewModel
 import kotlinx.android.synthetic.main.fragment_meal_detail_sheet.*
-import java.io.IOException
-import java.io.InputStream
-import java.nio.charset.Charset
 
 
 class MealDetailSheet(
@@ -43,6 +41,7 @@ class MealDetailSheet(
     var bi: FragmentMealDetailSheetBinding? = null
     var bottomSheetBehavior: BottomSheetBehavior<*>? = null
     var list = ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory>()
+    var removableList = ArrayList<RestaurantDetailNewModel.MealItem.Removables>()
     private var selectedItemCategoriesList =
         ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory?>()
 
@@ -95,8 +94,33 @@ class MealDetailSheet(
         bi!!.tvTime.text = getString(R.string.preparein) + " " + mealItem.approx_prep_time + " min"
         bi!!.imgClose.setOnClickListener { close() }
         bi!!.btnAdd.setOnClickListener { viewModel.addItemToCart() }
+        setRemovables()
         setObservers()
         return bottomSheet
+    }
+
+    fun setRemovables() {
+        if (mealItem.item_removeables!!.isNotEmpty()) {
+            bi!!.liRemovables.visibility = View.VISIBLE
+            bi!!.imgRemovable.setOnClickListener {
+                if (bi!!.rvRemovables.visibility == View.VISIBLE) {
+                    it.rotation = -90F
+                    bi!!.rvRemovables.visibility = View.GONE
+                } else {
+                    bi!!.rvRemovables.visibility = View.VISIBLE
+                    it.rotation = -0F
+                }
+            }
+
+            removableList.addAll(mealItem.item_removeables)
+
+
+            bi!!.rvRemovables.adapter = ItemRemovableAdapter(removableList, this)
+
+
+        } else {
+            bi!!.liRemovables.visibility = View.GONE
+        }
     }
 
     fun setObservers() {
@@ -224,6 +248,11 @@ class MealDetailSheet(
 
                 viewModel.refresh()
                 bi!!.rvOptions.adapter?.notifyDataSetChanged()
+            }
+            is Int -> {
+                removableList[item].checked = !removableList[item].checked
+                bi!!.rvRemovables.adapter?.notifyDataSetChanged()
+                viewModel.removableList = removableList
             }
         }
     }
