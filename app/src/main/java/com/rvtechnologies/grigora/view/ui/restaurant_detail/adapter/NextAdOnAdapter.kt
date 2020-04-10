@@ -12,7 +12,10 @@ import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 
-class NextAdOnAdapter(var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCategory>,var selected:Selected) :
+class NextAdOnAdapter(
+    var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCategory>,
+    var selected: Selected
+) :
     RecyclerView.Adapter<NextAdOnAdapter.ViewHolder>() {
 
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
@@ -35,8 +38,11 @@ class NextAdOnAdapter(var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCat
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         holder.tv_name.text = list[position].name
-        holder.tv_price.text =
-            "(+" + holder.itemView.context.getString(R.string.currency_sym) + list[position].add_on_price + ")"
+        if (list[position].add_on_price <= 0) {
+            holder.tv_price.visibility = View.GONE
+        } else
+            holder.tv_price.text =
+                "(+" + holder.itemView.context.getString(R.string.currency_sym) + list[position].add_on_price + ")"
 
         holder.itemView.setOnClickListener {
             list[position].checked = !list[position].checked
@@ -56,7 +62,7 @@ class NextAdOnAdapter(var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCat
                     )
                 )
 
-                selected.isSelected(true,position)
+                selected.isSelected(true, position)
             } else {
                 holder.img_selected.visibility = View.GONE
                 holder.img_desel.visibility = View.VISIBLE
@@ -88,7 +94,7 @@ class NextAdOnAdapter(var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCat
                         )
                     )
                 }
-                selected.isSelected(false,position)
+                selected.isSelected(false, position)
 
 
             }
@@ -97,8 +103,8 @@ class NextAdOnAdapter(var list: ArrayList<RestaurantDetailNewModel.ItemSubSubCat
     }
 
 
-    interface  Selected{
-        fun isSelected(selected:Boolean,position: Int)
+    interface Selected {
+        fun isSelected(selected: Boolean, position: Int)
     }
 
 }

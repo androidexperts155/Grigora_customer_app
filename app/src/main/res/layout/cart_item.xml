@@ -53,11 +53,11 @@
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentTop="true"
+                android:layout_below="@+id/textView20"
                 android:layout_alignParentRight="true"
+                android:layout_marginTop="@dimen/_4sdp"
                 android:background="@drawable/btn_rounded_corners"
-                android:orientation="horizontal"
-                android:visibility="gone">
+                android:orientation="horizontal">
                 
                 <TextView
                     android:id="@+id/tv_minus"
@@ -101,15 +101,17 @@
                     android:textSize="@dimen/_14sdp" />
             </LinearLayout>
             
-            
             <TextView
                 android:id="@+id/textView15"
                 style="@style/mediumText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/textView20"
+                android:layout_alignParentLeft="true"
                 android:layout_marginLeft="@dimen/_18sdp"
-                android:layout_marginTop="4dp"
+                android:layout_marginTop="@dimen/_4sdp"
+                android:layout_marginRight="@dimen/_8sdp"
+                android:layout_toLeftOf="@+id/linearLayout"
                 android:text="@{cartItem.choicesString}"
                 android:textColor="?attr/searchHint"
                 android:textSize="@dimen/_9sdp"
@@ -121,7 +123,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/_1sdp"
                 android:layout_alignWithParentIfMissing="true"
-                android:layout_below="@+id/textView15"
+                android:layout_below="@+id/linearLayout"
                 android:layout_marginTop="@dimen/_8sdp"
                 android:background="?attr/viewbg" />
         

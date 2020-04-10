@@ -39,17 +39,42 @@ class GroupCartAdapter(
             var price = cartModel.price?.toDouble()!!
 
             var choicesString = ""
+
+            choicesString = "$choicesString"
+            if (!cartModel.item_removeables.isNullOrEmpty())
+
+                for (item in cartModel.item_removeables!!) {
+                    choicesString =
+                        choicesString.plus(" ${holder.itemView.context.getString(R.string.no)}  " + item.name)
+
+                    choicesString = "$choicesString,"
+                }
+
+            if (!choicesString.isNullOrEmpty())
+                choicesString = choicesString.removeSuffix(",")
+
+
             if (cartModel.item_choices != null && cartModel.item_choices?.isNotEmpty()!!) {
-
-                choicesString = "$choicesString"
                 for (item in cartModel.item_choices!!) {
+                    if (choicesString.isNullOrEmpty())
+                        choicesString =
+                            holder.itemView.context.getString(R.string.add)
+                    else
+                        choicesString =
+                            choicesString + ", " + holder.itemView.context.getString(R.string.add)
 
-//                choicesString =
-//                    choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
+
                     for (innerItem in item.itemSubCategory!!) {
                         price += innerItem?.addOnPrice!!
+
+                        if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
+                            for (i in innerItem.item_sub_sub_category!!) {
+                                if (i?.add_on_price!!>0)
+                                    price += i?.add_on_price?.toDouble()!!
+                            }
+                        }
                         choicesString =
-                            choicesString.plus(" " + if (isFrench) innerItem.frenchName else innerItem.name)
+                            choicesString.plus(" " + innerItem.name)
                     }
                     choicesString = "$choicesString,"
                 }
@@ -60,7 +85,7 @@ class GroupCartAdapter(
             if (choicesString == "")
                 holder.itemView.textView15.visibility = View.GONE
 
-            cartModel.total = ((price) * cartModel.quantity?.toDouble()!!).toString()
+            cartModel.total = "₦ " + ((price) * cartModel.quantity?.toDouble()!!).toString()
 
             cartModel.choicesString = choicesString
 
@@ -77,16 +102,16 @@ class GroupCartAdapter(
                 notifyDataSetChanged()
             }
 
-        /*    if (cartModel.user_id.equals(
-                    CommonUtils.getPrefValue(
-                        holder.itemView.context!!,
-                        PrefConstants.ID
+                if (cartModel.user_id.equals(
+                        CommonUtils.getPrefValue(
+                            holder.itemView.context!!,
+                            PrefConstants.ID
+                        )
                     )
                 )
-            )
-                holder.itemView.linearLayout.visibility = View.VISIBLE
-            else
-                holder.itemView.linearLayout.visibility = View.GONE*/
+                    holder.itemView.linearLayout.visibility = View.VISIBLE
+                else
+                    holder.itemView.linearLayout.visibility = View.GONE
 
 
             holder.bind(cartModel, iRecyclerItemClick)

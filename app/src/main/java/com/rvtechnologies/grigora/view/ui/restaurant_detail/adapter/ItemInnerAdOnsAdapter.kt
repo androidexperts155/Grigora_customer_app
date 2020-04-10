@@ -31,6 +31,11 @@ class ItemInnerAdOnsAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val innerCategoryModel = itemInnerCategoryList[position]
+
+
+        if (innerCategoryModel.add_on_price <= 0) {
+            holder.binding.tvPrice.visibility = View.GONE
+        }
         innerCategoryModel.addOnPriceString =
             "(+" + holder.itemView.context.getString(R.string.currency_sym) + innerCategoryModel.add_on_price + ")"
 
@@ -177,7 +182,7 @@ class ItemInnerAdOnsAdapter(
                 }
             }
 
-            if (!innerCategoryModel.item_sub_sub_category.isNullOrEmpty() && innerCategoryModel.checked ) {
+            if (!innerCategoryModel.item_sub_sub_category.isNullOrEmpty() && innerCategoryModel.checked) {
                 iRecyclerItemClick.onItemClick(ShowSubAdOnModel(innerCategoryModel))
             }
         }

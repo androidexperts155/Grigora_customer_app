@@ -175,7 +175,7 @@ data class RestaurantDetailNewModel(
     @Parcelize
     data class ItemSubSubCategory(
         var checked: Boolean = false,
-        val add_on_price: String,
+        val add_on_price: Double,
         val created_at: String,
         val french_name: String,
         val id: Int,

@@ -4,6 +4,7 @@ package com.rvtechnologies.grigora.model.models
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -27,6 +28,11 @@ data class ItemSubCategory(
     var updatedAt: String?,
     @Transient
     var checked: Boolean=false,
+
+    @SerializedName("item_sub_sub_category")
+    var item_sub_sub_category: List<RestaurantDetailNewModel.ItemSubSubCategory?>?,
+
+
     @Transient
     var addOnPriceString: String=""
 ): Parcelable

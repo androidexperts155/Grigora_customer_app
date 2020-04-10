@@ -24,10 +24,7 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.ItemRemovabl
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.ShowSubAdOnModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SubAdOnAdded
-import com.rvtechnologies.grigora.view_model.MenuItemDetailsViewModel
 import com.rvtechnologies.grigora.view_model.MenuItemSheetViewModel
-import kotlinx.android.synthetic.main.fragment_meal_detail_sheet.*
-
 
 class MealDetailSheet(
     var mealItem: RestaurantDetailNewModel.MealItem,

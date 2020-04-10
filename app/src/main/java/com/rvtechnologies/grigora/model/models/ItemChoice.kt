@@ -4,6 +4,7 @@ package com.rvtechnologies.grigora.model.models
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -15,6 +16,10 @@ data class ItemChoice(
     var id: String?,
     @SerializedName("item_sub_category")
     var itemSubCategory: List<ItemSubCategory?>?,
+
+
+
+
     @SerializedName("name")
     var name: String?,
     @SerializedName("selection")

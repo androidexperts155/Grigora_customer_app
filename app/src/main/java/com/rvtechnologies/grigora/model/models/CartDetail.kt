@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
 import com.rvtechnologies.grigora.view.ui.groupCart.GroupCartType
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -33,8 +34,13 @@ data class CartDetail(
     var user_id: String?,
 
 
+    @SerializedName("item_removeables")
+    var item_removeables: ArrayList<RestaurantDetailNewModel.MealItem.Removables>?,
+
     @SerializedName("item_choices")
     var item_choices: ArrayList<ItemChoice>?,
+
+
     @Transient
     var itemNameToDisplay: String,
     var choicesString: String,

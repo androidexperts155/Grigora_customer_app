@@ -646,6 +646,12 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                     for (item in innerDetail.item_choices!!) {
                         for (innerItem in item.itemSubCategory!!) {
                             addOnPrice += innerItem?.addOnPrice!!.toDouble()
+                            if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
+                                for (i in innerItem.item_sub_sub_category!!) {
+                                    if (i?.add_on_price!!>0 )
+                                        addOnPrice += i?.add_on_price?.toDouble()!!
+                                }
+                            }
                         }
                     }
                 }

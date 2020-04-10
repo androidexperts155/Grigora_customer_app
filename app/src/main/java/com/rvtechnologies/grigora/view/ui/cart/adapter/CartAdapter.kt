@@ -23,24 +23,48 @@ class CartAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cartModel = cartItemList[position]
-        val isFrench = GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
 
         cartModel.itemNameToDisplay = cartModel.quantity!! + "     " + cartModel.itemName!!
         var price = cartModel.price?.toDouble()!!
 
 
         var choicesString = ""
+
+
+
+        choicesString = "$choicesString"
+        if (!cartModel.item_removeables.isNullOrEmpty())
+
+            for (item in cartModel.item_removeables!!) {
+                choicesString =
+                    choicesString.plus(" ${holder.itemView.context.getString(R.string.no)}  " + item.name)
+
+                choicesString = "$choicesString,"
+            }
+
+        if (!choicesString.isNullOrEmpty())
+            choicesString = choicesString.removeSuffix(",")
+
         if (cartModel.item_choices != null && cartModel.item_choices?.isNotEmpty()!!) {
 
-            choicesString = "$choicesString"
-            for (item in cartModel.item_choices!!) {
 
-//                choicesString =
-//                    choicesString.plus(" " + if (isFrench) item.frenchName else item.name + " : ")
+            for (item in cartModel.item_choices!!) {
+                if (choicesString.isNullOrEmpty())
+                    choicesString =
+                        holder.itemView.context.getString(R.string.add)
+                else
+                    choicesString =
+                        choicesString + ", " + holder.itemView.context.getString(R.string.add)
                 for (innerItem in item.itemSubCategory!!) {
                     price += innerItem?.addOnPrice!!
+                    if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
+                        for (i in innerItem.item_sub_sub_category!!) {
+                            if (i?.add_on_price!!>0)
+                                price += i?.add_on_price!!
+                        }
+                    }
                     choicesString =
-                        choicesString.plus(" " + if (isFrench) innerItem.frenchName else innerItem.name)
+                        choicesString.plus(" " +  innerItem.name)
                 }
                 choicesString = "$choicesString,"
             }
@@ -51,7 +75,7 @@ class CartAdapter(
         if (choicesString == "")
             holder.itemView.textView15.visibility = View.GONE
 
-        cartModel.total = ((price) * cartModel.quantity?.toDouble()!!).toString()
+        cartModel.total = "₦ " + ((price) * cartModel.quantity?.toDouble()!!).toString()
 
         cartModel.choicesString = choicesString
 

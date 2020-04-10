@@ -94,7 +94,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                             "HH:mm:ss",
                             "hh:mm aa"
                         )
-
                     CommonUtils.loadImage(img_rest, restaurantDetailModel.restaurant_image)
                     CommonUtils.loadImage(img_wall, restaurantDetailModel.restaurant_profile_image)
                     tv_address.text = restaurantDetailModel.address
@@ -179,8 +178,8 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
             count++
         }
 
-        if(count>=2){
-            rg_veg_nonveg.visibility=View.GONE
+        if (count >= 2) {
+            rg_veg_nonveg.visibility = View.GONE
         }
 
         rg_veg_nonveg.setOnCheckedChangeListener { radioGroup, i ->
