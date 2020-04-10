@@ -271,12 +271,12 @@ class PaymentActivity : AppCompatActivity() {
 
 
         activitySubmitCreditCardBinding!!.labelSecureSubmission.setOnClickListener {
-            val cardNumber = "50606 66666 66666 6666"
-            val expiryMonth = 11 //any month in the future
-            val expiryYear = 22 // any year in the future. '2018' would work also!
-            val cvv = "123" // cvv of the test card
+            val cardNumber = activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
+            val expiryMonth =  activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().substring(0,activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().lastIndexOf('/')) //any month in the future
+            val expiryYear =  activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().substring(activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().lastIndexOf('/'),activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length) //any month in the future
+            val cvv = activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()// cvv of the test card
 
-            val card = co.paystack.android.model.Card(cardNumber, expiryMonth, expiryYear, cvv)
+            val card = co.paystack.android.model.Card(cardNumber, expiryMonth.toInt(), expiryYear.toIntOrNull(), cvv)
 
             if (card.isValid) {
                 PaystackSdk.chargeCard(
