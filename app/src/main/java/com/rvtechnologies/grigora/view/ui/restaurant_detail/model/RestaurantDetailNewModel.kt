@@ -148,6 +148,7 @@ data class RestaurantDetailNewModel(
             val selection: String,
             val status: String,
             val optional: String,
+            var valid: Boolean,
             val updated_at: String,
             var min: String = "1",
             var max: String = "2",

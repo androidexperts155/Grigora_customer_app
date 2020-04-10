@@ -48,7 +48,7 @@ class ItemInnerAdOnsAdapter(
 
 
             when {
-                max == "1" -> {
+               /* max == "1" -> {
                     //                only single item can be selected
                     val newList =
                         ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory.ItemSubCategory>()
@@ -122,7 +122,7 @@ class ItemInnerAdOnsAdapter(
                         }
                     }
                     updateList(newList)
-                }
+                }*/
                 valid(innerCategoryModel) -> {
                     innerCategoryModel.checked = !innerCategoryModel.checked
                     if (innerCategoryModel.checked) {

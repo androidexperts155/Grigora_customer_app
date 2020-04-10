@@ -181,6 +181,8 @@ class SearchRestaurantAdapter(
         } else {
             holder as CuisineSearchViewHolder
             val resModel = restaurantList[position] as SearchCuisineModel
+            holder.binding.tvName.text = resModel.name
+
             val circularProgressDrawable = CircularProgressDrawable(holder.itemView.context!!)
             circularProgressDrawable.strokeWidth = 5f
             circularProgressDrawable.centerRadius = 30f
@@ -199,7 +201,6 @@ class SearchRestaurantAdapter(
             holder.itemView.setOnClickListener {
                 iRecyclerItemClick.onItemClick(resModel)
             }
-            holder.binding.tvName.text = resModel.name
         }
     }
 

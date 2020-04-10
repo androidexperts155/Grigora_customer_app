@@ -265,7 +265,6 @@
             
             <TextView
                 android:id="@+id/tv_signup"
-                
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -273,7 +272,6 @@
                 android:text="@string/sign_up"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
-        
         
         </LinearLayout>
         

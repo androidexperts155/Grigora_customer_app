@@ -25,13 +25,14 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDeta
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.ShowSubAdOnModel
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.SubAdOnAdded
 import com.rvtechnologies.grigora.view_model.MenuItemSheetViewModel
+import kotlinx.android.synthetic.main.order_menu_item.*
 
 class MealDetailSheet(
     var mealItem: RestaurantDetailNewModel.MealItem,
     var cartId: String,
     var refresh: Refresh
 ) :
-    BottomSheetDialogFragment(),
+    BottomSheetDialogFragment(), ItemAdOnsAdapter.Valid,
     IRecyclerItemClick {
     private lateinit var viewModel: MenuItemSheetViewModel
 
@@ -82,7 +83,7 @@ class MealDetailSheet(
         })
 
         list.addAll(mealItem.item_categories)
-        bi!!.rvOptions.adapter = ItemAdOnsAdapter(list, this)
+        bi!!.rvOptions.adapter = ItemAdOnsAdapter(list, this, this)
 
         CommonUtils.loadImage(bi!!.imgMeal, mealItem.image)
         bi!!.tvName.text = mealItem.name
@@ -90,14 +91,30 @@ class MealDetailSheet(
         bi!!.tvRating.text = mealItem.avg_ratings.toString()
         bi!!.tvTime.text = getString(R.string.preparein) + " " + mealItem.approx_prep_time + " min"
         bi!!.imgClose.setOnClickListener { close() }
-        bi!!.btnAdd.setOnClickListener { viewModel.addItemToCart() }
+        bi!!.btnAdd.setOnClickListener {
+            var valid = true
+            for (item in mealItem.item_categories) {
+                if (!item.valid && item.required == "1") {
+                    valid = false
+                    break
+                }
+            }
+            if (valid) {
+                viewModel.addItemToCart()
+
+            } else {
+                Toast.makeText(context, getString(R.string.select_required), Toast.LENGTH_SHORT)
+                    .show()
+            }
+
+        }
         setRemovables()
         setObservers()
         return bottomSheet
     }
 
     fun setRemovables() {
-        if (mealItem.item_removeables!!.isNotEmpty()) {
+        if (!mealItem.item_removeables.isNullOrEmpty()) {
             bi!!.liRemovables.visibility = View.VISIBLE
             bi!!.imgRemovable.setOnClickListener {
                 if (bi!!.rvRemovables.visibility == View.VISIBLE) {
@@ -256,5 +273,10 @@ class MealDetailSheet(
 
     interface Refresh {
         fun refresh(refresh: Boolean)
+    }
+
+    override fun isValid(position: Int, valid: Boolean) {
+        mealItem.item_categories[position].valid = valid
+        viewModel.menuItem.value!!.item_categories[position].valid = valid
     }
 }

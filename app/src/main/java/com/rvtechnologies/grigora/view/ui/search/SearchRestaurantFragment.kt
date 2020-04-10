@@ -33,7 +33,7 @@ import com.rvtechnologies.grigora.view_model.SearchRestaurantViewModel
 import kotlinx.android.synthetic.main.search_restaurant_fragment.*
 
 class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
-    var filter = ""
+    var filter = "1"
 
     companion object {
         fun newInstance() = SearchRestaurantFragment()
@@ -68,10 +68,10 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
                             restaurantList.addAll(model.mainInfo.restaurants)
                         }
 
-                         rec_search.adapter = SearchRestaurantAdapter(restaurantList, this)
+                        rec_search.adapter = SearchRestaurantAdapter(restaurantList, this)
                     }
                 } else {
-                    CommonUtils.showMessage(parentView, response.toString())
+//                    CommonUtils.showMessage(parentView, response.toString())
                 }
             })
         viewModel?.isLoading?.observe(this,
@@ -111,13 +111,13 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
             }
 
             override fun onTextChanged(p0: CharSequence?, p1: Int, p2: Int, p3: Int) {
-                if (p0.toString().length > 2) {
-                    viewModel?.getRestaurants(
-                        CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                        ed_search.text.toString(),
-                        filter
-                    )
-                }
+//                if (p0.toString().length > 2) {
+                viewModel?.getRestaurants(
+                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                    ed_search.text.toString(),
+                    filter
+                )
+//                }
             }
         })
     }
@@ -142,13 +142,13 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
                     "1"
                 )
             }
-            filter=="1" -> {
+            filter == "1" -> {
                 all()
             }
-            filter=="2" -> {
+            filter == "2" -> {
                 restaurants()
             }
-            filter=="3" -> cuisines()
+            filter == "3" -> cuisines()
         }
 
 
@@ -330,8 +330,7 @@ class SearchRestaurantFragment : Fragment(), IRecyclerItemClick {
 
             view?.findNavController()
                 ?.navigate(R.id.searchRestaurants_to_restaurant_detail, bundle)
-        }
-        else if(item is SearchCuisineModel){
+        } else if (item is SearchCuisineModel) {
             val bundle = bundleOf(
                 AppConstants.FILTER_ID to "121",
                 AppConstants.CUISINE_ID to item.id.toString()

@@ -2,6 +2,7 @@
     <string name="about_us_url_en" translatable="false">http://www.grigora.com/about_us/en/</string>
     <string name="about_us_url_fr" translatable="false">http://www.grigora.com/about_us/fr/</string>
     <string name="terms_and_conditions" translatable="false">http:www.grigora.com/terms-and-condition/en/</string>
+    <string name="privacy_policy_url" translatable="false">http://3.13.78.53/privacy-policy.html</string>
     
     
     <string name="default_notification_channel_id" translatable="false">212</string>
@@ -580,5 +581,6 @@
     <string name="checkout">Checkout</string>
     <string name="removables">Removables</string>
     <string name="no">No</string>
+    <string name="select_required">Please select required fields</string>
 
 </resources><!--₦-->

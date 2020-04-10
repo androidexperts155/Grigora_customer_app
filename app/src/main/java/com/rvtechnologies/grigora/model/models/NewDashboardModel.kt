@@ -95,6 +95,10 @@ data class NewDashboardModel(
             @SerializedName("table_booking")
             var table_booking: String = "",
 
+            @SerializedName("items")
+            var items: ArrayList<Image> = ArrayList(),
+
+
             @SerializedName("no_of_seats")
             var no_of_seats: String = "",
             var uiTpe: String,

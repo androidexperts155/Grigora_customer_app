@@ -31,8 +31,8 @@ class AboutUsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-        if(arguments?.get(AppConstants.PAGE_TYPE) == 2)
-        (activity as MainActivity).backTitle(getString(R.string.termsandconditions))
+        if (arguments?.get(AppConstants.PAGE_TYPE) == 2)
+            (activity as MainActivity).backTitle(getString(R.string.termsandconditions))
         else
             (activity as MainActivity).backTitle(getString(R.string.about_us))
     }

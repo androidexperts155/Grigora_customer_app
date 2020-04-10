@@ -27,6 +27,8 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
         fun newInstance() = MealsList()
     }
 
+    lateinit var mealsListModel: MealsListModel
+
     private lateinit var viewModel: MealsListViewModel
 
     override fun onCreateView(
@@ -61,11 +63,12 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
         viewModel.mealsist.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
-                    var mealsListModel = response.data as MealsListModel
+                    mealsListModel = response.data as MealsListModel
 
                     var list = ArrayList<RestaurantDetailNewModel.MealItem>()
                     list.addAll(mealsListModel.items)
                     rc_meals.adapter = MealsAdapter(list, this)
+                    updateCartButton()
                 } else {
                     CommonUtils.showMessage(parent, response.message!!)
                 }
@@ -97,7 +100,26 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
     }
 
     override fun refresh(refresh: Boolean) {
+        var cartId =
+            if (arguments?.containsKey(AppConstants.CART_ID)!!) arguments?.get(AppConstants.CART_ID)!!
+                .toString() else ""
+        if (refresh) {
+            viewModel.getMeals(
+                arguments?.get(AppConstants.CUISINE_ID)!!.toString(),
+                cartId,
+                arguments?.get(AppConstants.FILTER_ID)!!.toString(),
+                arguments?.get(AppConstants.RESTAURANT_ID)!!.toString()
+            )
+        }
+    }
 
+    private fun updateCartButton() {
+
+        if (mealsListModel.cart != null) {
+            AppConstants.CART_RESTAURANT = mealsListModel.cart!!.name
+            AppConstants.CART_COUNT = mealsListModel.cart!!.quantity
+            (activity as MainActivity).updateCartButton()
+        }
     }
 
 }

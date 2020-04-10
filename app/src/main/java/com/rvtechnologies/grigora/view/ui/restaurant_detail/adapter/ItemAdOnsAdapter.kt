@@ -21,7 +21,7 @@ import kotlinx.android.synthetic.main.item_meal_adons.view.*
 
 class ItemAdOnsAdapter(
     var itemCategoryList: ArrayList<RestaurantDetailNewModel.MealItem.ItemCategory>,
-    var iRecyclerItemClick: IRecyclerItemClick
+    var iRecyclerItemClick: IRecyclerItemClick,var valid:Valid
 ) :
     RecyclerView.Adapter<ItemAdOnsAdapter.ViewHolder>(), IRecyclerItemClick {
 
@@ -64,6 +64,7 @@ class ItemAdOnsAdapter(
                         R.color.green
                     )
                 )
+                valid.isValid(position,true)
             } else {
                 holder.binding.tvIsRequired.setTextColor(
                     ContextCompat.getColor(
@@ -71,6 +72,7 @@ class ItemAdOnsAdapter(
                         R.color.colorPrimaryDark
                     )
                 )
+                valid.isValid(position,false)
             }
 
         } else {
@@ -84,13 +86,17 @@ class ItemAdOnsAdapter(
                             R.color.green
                         )
                     )
-                } else
+                    valid.isValid(position,true)
+
+                } else {
                     holder.binding.tvIsRequired.setTextColor(
                         ContextCompat.getColor(
                             holder.itemView.context!!,
                             R.color.light_gray
                         )
                     )
+                    valid.isValid(position, false)
+                }
             } else {
                 if (selected >= categoryModel.max.toInt()) {
                     holder.binding.tvIsRequired.setTextColor(
@@ -99,13 +105,17 @@ class ItemAdOnsAdapter(
                             R.color.green
                         )
                     )
-                } else
+                    valid.isValid(position,true)
+
+                } else {
                     holder.binding.tvIsRequired.setTextColor(
                         ContextCompat.getColor(
                             holder.itemView.context!!,
                             R.color.text_hint_color
                         )
                     )
+                    valid.isValid(position, false)
+                }
             }
         }
 
@@ -169,5 +179,11 @@ class ItemAdOnsAdapter(
                 iRecyclerItemClick.onItemClick(item)
             }
         }
+    }
+
+
+
+    interface Valid{
+        fun isValid(position:Int,valid:Boolean)
     }
 }
