@@ -116,7 +116,7 @@ class MealsList : Fragment(), IRecyclerItemClick, MealDetailSheet.Refresh {
     private fun updateCartButton() {
 
         if (mealsListModel.cart != null) {
-            AppConstants.CART_RESTAURANT = mealsListModel.cart!!.name
+            AppConstants.CART_RESTAURANT = mealsListModel.items[0].restaurant_name
             AppConstants.CART_COUNT = mealsListModel.cart!!.quantity
             (activity as MainActivity).updateCartButton()
         }

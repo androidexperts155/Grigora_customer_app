@@ -743,31 +743,47 @@
                         android:clickable="true"
                         android:foreground="@drawable/selectable_item_background"
                         android:onClick="@{()-> restaurantDetailFragment.chooseType()}"
-                        android:orientation="horizontal">
+                        android:orientation="vertical">
                         
-                        <Button
-                            android:id="@+id/bt_type"
-                            style="@style/titleText"
+                        
+                        <LinearLayout
+                            android:orientation="horizontal"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:background="@color/transparent"
-                            android:drawableTint="?attr/textWhite"
-                            android:elevation="@dimen/_1sdp"
-                            android:padding="@dimen/_8sdp"
-                            android:textAllCaps="false"
+                            android:layout_height="wrap_content">
+                            <Button
+                                android:id="@+id/bt_type"
+                                style="@style/titleText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:background="@color/transparent"
+                                android:drawableTint="?attr/textWhite"
+                                android:elevation="@dimen/_1sdp"
+                                android:padding="@dimen/_8sdp"
+                                android:textAllCaps="false"
+                                android:textColor="?attr/textWhite"
+                                android:textSize="@dimen/_14sdp"
+                                tools:text="Breakfast" />
+    
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentRight="true"
+                                android:layout_gravity="center"
+                                android:scaleType="centerCrop"
+                                android:tag="expanded"
+                                android:tint="?attr/textWhite"
+                                app:srcCompat="@drawable/ic_expanded" />
+                        </LinearLayout>
+                        
+                        <TextView
+                            android:id="@+id/tv_menu_time"
                             android:textColor="?attr/textWhite"
-                            android:textSize="@dimen/_14sdp"
-                            tools:text="Breakfast" />
-                        
-                        <ImageView
+                            android:textSize="@dimen/_12sdp"
+                            style="@style/mediumText"
+                            android:layout_gravity="start"
+                            tools:text="12:23:23 to 23:23:23"
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentRight="true"
-                            android:layout_gravity="center"
-                            android:scaleType="centerCrop"
-                            android:tag="expanded"
-                            android:tint="?attr/textWhite"
-                            app:srcCompat="@drawable/ic_expanded" />
+                            android:layout_height="wrap_content"/>
                     
                     </LinearLayout>
                     

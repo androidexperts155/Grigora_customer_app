@@ -28,6 +28,7 @@ import com.rvtechnologies.grigora.view_model.RestaurantDetailViewModel
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_restaurant_detail_parent.*
 import kotlinx.android.synthetic.main.restaurant_detail_fragment.*
+import java.lang.ProcessBuilder.Redirect.to
 
 class RestaurantDetail(
     var restaurantId: String,
@@ -257,10 +258,16 @@ class RestaurantDetail(
 
     private fun setMenu() {
         if (restaurantDetailModel.all_data.isNotEmpty()) {
+            if(!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()){
+                tv_menu_time.text=restaurantDetailModel.all_data[0].start_time +" ${getString(R.string.to)} "+restaurantDetailModel.all_data[0].end_time
+            }else
+                tv_menu_time.text=""
+
             bt_type.text = restaurantDetailModel.all_data[0].category_name
             var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
             list.addAll(restaurantDetailModel.all_data[0].data)
             rec_parents.adapter = ParentsAdapter(list, this)
+
         }
     }
 
@@ -462,6 +469,11 @@ class RestaurantDetail(
                 var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
                 list.addAll(restaurantDetailModel.all_data[0].data)
                 rec_parents.adapter = ParentsAdapter(list, this)
+
+                if(!item.start_time.isNullOrEmpty()){
+                    tv_menu_time.text=item.start_time +" ${getString(R.string.to)} "+item.end_time
+                }else
+                    tv_menu_time.text=""
             }
             is RestaurantDetailNewModel.MealItem -> {
                 var sheet = MealDetailSheet(item, "", this)

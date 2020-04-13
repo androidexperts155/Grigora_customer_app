@@ -509,7 +509,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         tv_promotion.text =
             "₦ " + (orderItemModel?.priceBeforePromo!!.toDouble() - orderItemModel?.priceAfterPromo!!.toDouble())
         tv_deliveryfee.text = "₦ " + "20"
-        tv_total.text = "₦ " + orderItemModel?.priceAfterPromo
+        tv_total.text = "₦ " + orderItemModel?.finalPrice
 
         setLocations(
             orderItemModel?.startLat!!,

@@ -207,6 +207,8 @@ data class RestaurantDetailNewModel(
 
     data class AllData(
         val category_name: String,
+        val start_time: String,
+        val end_time: String,
         val `data`: List<Data>
     ) {
         data class Data(

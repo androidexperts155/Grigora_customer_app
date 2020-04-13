@@ -20,7 +20,7 @@
         
         <provider
             android:name="com.facebook.FacebookContentProvider"
-            android:authorities="com.facebook.app.FacebookContentProvider{2250256151942771}"
+            android:authorities="com.facebook.app.FacebookContentProvider{243662833424861}"
             android:exported="true" />
         
         <uses-library

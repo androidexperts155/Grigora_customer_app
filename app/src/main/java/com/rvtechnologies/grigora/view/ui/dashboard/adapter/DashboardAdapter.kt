@@ -187,7 +187,7 @@ class DashboardAdapter(
                 CommonUtils.setOverScroll(holder.rc_data, 1)
             }
             is RestaurantsHorizontal -> {
-                layoutManager.orientation = LinearLayoutManager.VERTICAL
+                layoutManager.orientation = LinearLayoutManager.HORIZONTAL
 
                 holder.rc_data.layoutManager = layoutManager
 

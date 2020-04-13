@@ -8,6 +8,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.OrderItemModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 
 class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
     RecyclerView.Adapter<OrderItemAdapter.OrderItemViewHolder>() {
@@ -29,7 +30,26 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
 
     override fun onBindViewHolder(holder: OrderItemViewHolder, position: Int) {
         holder.tv_name.text = list[position].itemName + " x " + list[position].quantity.toString()
-        holder.tv_price.text = "₦ " + list[position].price
+        var price = list[position].price.toDouble()
+
+
+        if (!list[position].itemChoices.isNullOrEmpty()) {
+            for (item in list[position].itemChoices) {
+                if (!item.itemSubCategory.isNullOrEmpty()) {
+                    for (sub in item.itemSubCategory) {
+                        price += sub.addOnPrice.toDouble()
+                        if (!sub.item_sub_sub_category.isNullOrEmpty()) {
+                            for (subsub in sub.item_sub_sub_category) {
+                                price += subsub.add_on_price
+                            }
+                        }
+                    }
+                }
+                price *= list[position].quantity
+            }
+        }
+
+        holder.tv_price.text = "₦ " + CommonUtils.getRoundedOff(price)
         var choices = ""
         if (list[position].itemChoices.size > 0) {
             for (item in list[position].itemChoices) {
@@ -51,7 +71,7 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
 //        }
 
 //        don't show choices, required by client
-        choices=""
+        choices = ""
         if (choices.isNullOrEmpty())
             holder.tv_choices.visibility = View.GONE
 

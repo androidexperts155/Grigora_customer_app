@@ -362,6 +362,10 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
     private fun setMenu() {
         if (restaurantDetailModel.all_data.isNotEmpty()) {
+            if(!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()){
+                tv_menu_time.text=restaurantDetailModel.all_data[0].start_time +" ${getString(R.string.to)} "+restaurantDetailModel.all_data[0].end_time
+            }else
+                tv_menu_time.text=""
             bt_type.text = restaurantDetailModel.all_data[0].category_name
             var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
             list.addAll(restaurantDetailModel.all_data[0].data)
@@ -534,6 +538,11 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                 var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
                 list.addAll(restaurantDetailModel.all_data[0].data)
                 rec_parents.adapter = ParentsAdapter(list, this)
+
+                if(!item.start_time.isNullOrEmpty()){
+                    tv_menu_time.text=item.start_time +" ${getString(R.string.to)} "+item.end_time
+                }else
+                    tv_menu_time.text=""
             }
             is RestaurantDetailNewModel.MealItem -> {
                 var sheet = MealDetailSheet(item, cartId, this)

@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -208,6 +209,10 @@ data class OrderItemModel(
                 var addOnPrice: String = "",
                 @SerializedName("french_name")
                 var frenchName: String = "",
+
+                @SerializedName("item_sub_sub_category")
+                var item_sub_sub_category: List<RestaurantDetailNewModel.ItemSubSubCategory> = listOf(),
+
                 @SerializedName("id")
                 var id: Int = 0,
                 @SerializedName("name")

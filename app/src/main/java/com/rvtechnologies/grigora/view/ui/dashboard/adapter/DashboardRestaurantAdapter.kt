@@ -6,13 +6,11 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import androidx.viewpager.widget.ViewPager
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
-import com.tbuonomo.viewpagerdotsindicator.DotsIndicator
 
 class DashboardRestaurantAdapter(
     val list: ArrayList<NewDashboardModel.CustomizedData.Restaurant>,
@@ -26,7 +24,7 @@ class DashboardRestaurantAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyView {
         return MyView(
             LayoutInflater.from(parent.context).inflate(
-                R.layout.item_dashboard_rest_vertical_with_image,
+                R.layout.item_dashboard_rest,
                 parent,
                 false
             )
@@ -38,39 +36,17 @@ class DashboardRestaurantAdapter(
     }
 
     inner class MyView(view: View) : RecyclerView.ViewHolder(view) {
+        var img_data: ImageView = view.findViewById(R.id.img_data)
         var tv_name: TextView = view.findViewById(R.id.tv_name)
         var tv_delivery_time: TextView = view.findViewById(R.id.tv_delivery_time)
         var tv_rating: TextView = view.findViewById(R.id.tv_rating)
         var tv_delivery_charges: TextView = view.findViewById(R.id.tv_delivery_charges)
         var tv_closed: TextView = view.findViewById(R.id.tv_closed)
-        var vp: ViewPager = view.findViewById(R.id.vp)
-        var dots_indicator: DotsIndicator = view.findViewById(R.id.dots_indicator)
     }
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
         var detail = list[position]
-//        CommonUtils.loadImage(holder.img_data, detail.image)
-
-        if (!detail.items.isNullOrEmpty()) {
-            detail.uiTpe = uiType
-            holder.vp.adapter =
-                RestImagePagerAdapter(holder.itemView.context!!, detail, iRecyclerItemClick)
-
-            holder.dots_indicator.setViewPager(holder.vp)
-            holder.vp.setOnClickListener {
-                list[position].uiTpe = uiType
-
-                iRecyclerItemClick.onItemClick(list[position])
-            }
-
-
-//            holder.rc_images.adapter = ImagesAdapter(detail, iRecyclerItemClick)
-//            holder.rc_images.setOnClickListener {
-//                iRecyclerItemClick.onItemClick(list[position])
-//            }
-        }
-
-
+        CommonUtils.loadImage(holder.img_data, detail.image)
         holder.tv_name.text = detail.name
 
         holder.tv_rating.text = detail.averageRating.toString()
