@@ -583,5 +583,7 @@
     <string name="no">No</string>
     <string name="select_required">Please select required fields</string>
     <string name="to">to</string>
+    <string name="correct_pin">Enter Correct pin</string>
+    <string name="set_lock">Enable security</string>
 
 </resources><!--₦-->

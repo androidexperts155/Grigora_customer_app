@@ -193,15 +193,16 @@
         
         <com.google.android.material.bottomnavigation.BottomNavigationView
             android:id="@+id/bottom_navigation"
-            style="@style/mediumText"
-            
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:background="?attr/backgroundColor"
+            android:theme="@style/normalText"
             android:visibility="visible"
             app:itemIconTint="@color/bottom_navigation_states"
+            app:itemTextColor="@color/bottom_navigation_states"
+            app:labelVisibilityMode="labeled"
             app:menu="@menu/bottom_navigation_menu" />
     </RelativeLayout>
-    
+
 </androidx.drawerlayout.widget.DrawerLayout>

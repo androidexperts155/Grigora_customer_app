@@ -74,9 +74,9 @@ class GroupCartAdapter(
                             }
                         }
                         choicesString =
-                            choicesString.plus(" " + innerItem.name)
+                            choicesString.plus(" " + innerItem.name+",")
                     }
-                    choicesString = "$choicesString,"
+                    choicesString = "$choicesString"
                 }
                 choicesString = choicesString.removeSuffix(",")
                 choicesString = "$choicesString"

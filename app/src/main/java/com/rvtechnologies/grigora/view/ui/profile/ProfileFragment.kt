@@ -1,40 +1,47 @@
 package com.rvtechnologies.grigora.view.ui.profile
 
+import android.app.Activity.RESULT_OK
+import android.app.KeyguardManager
+import android.content.Context
+import android.content.Context.KEYGUARD_SERVICE
+import android.content.Intent
+import android.os.Build
 import android.os.Bundle
-import android.os.Handler
 import android.provider.Settings
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AlertDialog
+import androidx.core.content.ContextCompat.getSystemService
 import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
-import com.google.gson.Gson
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileFragmentBinding
 import com.rvtechnologies.grigora.model.WalletHistoryModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
-import com.rvtechnologies.grigora.model.models.LogoutModel
-import com.rvtechnologies.grigora.utils.*
+import com.rvtechnologies.grigora.utils.AppConstants
+import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.ProfileViewModel
-import com.rvtechnologies.grigora.view_model.SettingViewModel
-import com.rvtechnologies.grigorahq.network.ConnectionNetwork
-import com.rvtechnologies.grigorahq.network.EventBroadcaster
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.alert_login.view.*
 import kotlinx.android.synthetic.main.profile_fragment.*
 
+
 class ProfileFragment : Fragment() {
+    var d=0
     private lateinit var viewModel: ProfileViewModel
 
     lateinit var historyModel: WalletHistoryModel
     var amount = ""
+
+    private val LOCK_REQUEST_CODE = 221
+    private val SECURITY_SETTING_REQUEST_CODE = 233
+    private var keyguardManager: KeyguardManager? = null
 
 
     companion object {
@@ -161,8 +168,9 @@ class ProfileFragment : Fragment() {
     }
 
     fun toGift() {
-        view?.findNavController()
-            ?.navigate(R.id.action_navigationMyAccounts_to_giftFragment)
+        d=2
+        authenticateApp()
+
     }
 
     fun toAboutUs() {
@@ -188,8 +196,8 @@ class ProfileFragment : Fragment() {
     }
 
     fun toWallet() {
-        view?.findNavController()
-            ?.navigate(R.id.action_navigationMyAccounts_to_walletFragment)
+d=1
+        authenticateApp()
     }
 
     fun toAddress() {
@@ -220,4 +228,70 @@ class ProfileFragment : Fragment() {
         super.onPause()
 
     }
+
+    private fun authenticateApp() {
+
+        keyguardManager =
+            activity!!.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            val i = keyguardManager!!.createConfirmDeviceCredentialIntent(
+                "Please unlock",
+                "Confirm pin"
+            );
+            try {
+                startActivityForResult(i, LOCK_REQUEST_CODE);
+            } catch (e: Exception) {
+                CommonUtils.showMessage(parentView, getString(R.string.set_lock))
+                val intent = Intent(Settings.ACTION_SECURITY_SETTINGS);
+                try {
+                    startActivityForResult(intent, SECURITY_SETTING_REQUEST_CODE);
+                } catch (ex: Exception) {
+                }
+            }
+        }
+    }
+
+    fun isDeviceSecure(): Boolean {
+        activity!!.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
+        //this method only work whose api level is greater than or equal to Jelly_Bean (16)
+        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && keyguardManager!!.isKeyguardSecure();
+
+        //You can also use keyguardManager.isDeviceSecure(); but it requires API Level 23
+
+    }
+
+    //On Click of button do authentication again
+    fun authenticateAgain(view: View) {
+        authenticateApp();
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        when (requestCode) {
+            LOCK_REQUEST_CODE -> {
+                if (resultCode == RESULT_OK) {
+                    if(d==1)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_navigationMyAccounts_to_walletFragment)
+                    else if(d==2)
+                        view?.findNavController()
+                            ?.navigate(R.id.action_navigationMyAccounts_to_giftFragment)
+                } else {
+                    //If screen lock authentication is failed update text
+//                    textView.setText(getResources().getString(R.string.unlock_failed));
+                }
+            }
+            SECURITY_SETTING_REQUEST_CODE -> {
+                if (isDeviceSecure()) {
+                    CommonUtils.showMessage(parentView, getString(R.string.correct_pin))
+                    authenticateApp();
+                } else {
+                    //If screen lock is not enabled just update text
+//                    textView.setText(getResources().getString(R.string.security_device_cancelled));
+                }
+            }
+        }
+    }
+
 }

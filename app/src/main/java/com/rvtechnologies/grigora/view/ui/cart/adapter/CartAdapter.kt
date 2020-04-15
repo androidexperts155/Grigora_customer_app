@@ -49,12 +49,12 @@ class CartAdapter(
 
 
             for (item in cartModel.item_choices!!) {
-                if (choicesString.isNullOrEmpty())
-                    choicesString =
-                        holder.itemView.context.getString(R.string.add)
+
+                choicesString = if (choicesString.isNullOrEmpty())
+                    holder.itemView.context.getString(R.string.add)
                 else
-                    choicesString =
-                        choicesString + ", " + holder.itemView.context.getString(R.string.add)
+                    choicesString + ", " + holder.itemView.context.getString(R.string.add)
+
                 for (innerItem in item.itemSubCategory!!) {
                     price += innerItem?.addOnPrice!!
                     if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
@@ -64,9 +64,9 @@ class CartAdapter(
                         }
                     }
                     choicesString =
-                        choicesString.plus(" " +  innerItem.name)
+                        choicesString.plus(" " +  innerItem.name+",")
                 }
-                choicesString = "$choicesString,"
+                choicesString = "$choicesString"
             }
             choicesString = choicesString.removeSuffix(",")
             choicesString = "$choicesString"
