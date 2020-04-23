@@ -177,7 +177,6 @@
                             android:layout_centerVertical="true"
                             android:layout_marginLeft="@dimen/_8sdp"
                             android:layout_marginRight="@dimen/_4sdp"
-                            android:layout_toLeftOf="@+id/tv_isRequired"
                             android:ellipsize="end"
                             android:maxLines="2"
                             android:text="@string/removables"
@@ -241,6 +240,7 @@
                     android:lines="4"
                     android:padding="@dimen/_8sdp"
                     android:textColor="?attr/textWhite"
+                    android:visibility="gone"
                     android:textColorHint="?attr/searchHint"
                     android:textSize="@dimen/_12sdp" />
                 

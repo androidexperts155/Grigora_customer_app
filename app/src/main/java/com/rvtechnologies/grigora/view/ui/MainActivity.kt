@@ -30,6 +30,10 @@ import com.rvtechnologies.grigora.view.ui.login_signup.GoogleSignin
 import com.rvtechnologies.grigora.view.ui.rating.MealsDataDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RateDriverDialogFragment
 import com.rvtechnologies.grigora.view.ui.rating.RestaurantRatingDialogFragment
+import com.twitter.sdk.android.core.DefaultLogger
+import com.twitter.sdk.android.core.Twitter
+import com.twitter.sdk.android.core.TwitterAuthConfig
+import com.twitter.sdk.android.core.TwitterConfig
 import io.branch.referral.Branch
 import io.branch.referral.BranchError
 import kotlinx.android.synthetic.main.activity_main.*
@@ -45,7 +49,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     lateinit var content: RelativeLayout
     var googleSignIn: GoogleSignin? = null
     var alredayShown = false
-
+    var CONSUMER_KEY = "arBGnENEuayLrERK5zdQU9E2V"
+    var CONSUMER_SECRET: kotlin.String? = "NStIyaKHLuKBHmPaeoXXnxYDoaawf1vwq5UG1ZxtkJeFIsbOeS"
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         this.intent = intent
@@ -104,6 +109,14 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         printHashKey()
+        //twitter
+        val config = TwitterConfig.Builder(this)
+            .logger(DefaultLogger(Log.DEBUG))
+            .twitterAuthConfig(TwitterAuthConfig(CONSUMER_KEY, CONSUMER_SECRET))
+            .debug(false)
+            .build()
+        Twitter.initialize(config)
+
         requestWindowFeature(Window.FEATURE_NO_TITLE)
         getWindow().setFlags(
             WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -437,7 +450,6 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     }
 
 
-
     fun initGoogleSignin(googleSigni: GoogleSignin) {
         this.googleSignIn = googleSigni
     }
@@ -586,7 +598,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun clearStack() {
         Navigation.findNavController(this, R.id.main_nav_fragment)
             .popBackStack(R.id.nav_graph_xml, true)
-     }
+    }
 }
 
 

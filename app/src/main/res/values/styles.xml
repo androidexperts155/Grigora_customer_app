@@ -76,6 +76,7 @@
         <item name="answer_de_selected">@color/viewbg_light</item>
         
         <item name="light_bg">#f8f8f8</item>
+        <item name="pin_sel">#f8f8f8</item>
     
     </style>
     

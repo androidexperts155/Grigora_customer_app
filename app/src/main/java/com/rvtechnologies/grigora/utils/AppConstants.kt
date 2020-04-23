@@ -8,8 +8,10 @@ object AppConstants {
     var CART_RESTAURANT = ""
     var CUISINE_NAME = "cuisine_name"
     var CART_COUNT = 0
+    var CHANGE_PIN = "change_pin"
 
 
+    var NEXT = "next"
     var FILTER_ID = "filter_id"
     var CURRENT_SELECTED = 0
     var CUISINE_ID = "cuisine_id"

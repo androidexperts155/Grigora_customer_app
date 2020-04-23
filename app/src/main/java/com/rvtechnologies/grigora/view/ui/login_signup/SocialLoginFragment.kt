@@ -79,12 +79,12 @@ class SocialLoginFragment : Fragment() {
 
 
         //twitter
-        val config = TwitterConfig.Builder(context)
-            .logger(DefaultLogger(Log.DEBUG))
-            .twitterAuthConfig(TwitterAuthConfig(CONSUMER_KEY, CONSUMER_SECRET))
-            .debug(true)
-            .build()
-        Twitter.initialize(config)
+//        val config = TwitterConfig.Builder(context)
+//            .logger(DefaultLogger(Log.DEBUG))
+//            .twitterAuthConfig(TwitterAuthConfig(CONSUMER_KEY, CONSUMER_SECRET))
+//            .debug(true)
+//            .build()
+//        Twitter.initialize(config)
         mTwitterAuthClient = TwitterAuthClient()
 
         gso =
@@ -289,6 +289,9 @@ class SocialLoginFragment : Fragment() {
         CommonUtils.savePrefs(context, PrefConstants.ID, data.data?.id?.toString())
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
+        CommonUtils.savePrefs(context, PrefConstants.PIN, data.data?.pin?.toString())
+        CommonUtils.savePrefs(context, PrefConstants.EMAIL, data.data?.email?.toString())
+
 
 
         if (data?.data?.have_address!!) {

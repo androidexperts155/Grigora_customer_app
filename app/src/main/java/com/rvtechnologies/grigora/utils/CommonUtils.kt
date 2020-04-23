@@ -192,7 +192,7 @@ object CommonUtils {
     }
 
     fun isValidEmail(email: String): Boolean {
-        return (!TextUtils.isEmpty(email) && Patterns.EMAIL_ADDRESS.matcher(email).matches())
+        return (!email.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches())
     }
 
     fun convertDpToPixel(dp: Int, context: Context): Int {
@@ -435,14 +435,14 @@ object CommonUtils {
             circularProgressDrawable.centerRadius = 30f
             circularProgressDrawable.start()
 
-                Picasso.get()
-                    .load(imageUrl).placeholder(
-                        circularProgressDrawable
-                    )
-                    .error(
-                        circularProgressDrawable
-                    )
-                    .into(imageView)
+            Picasso.get()
+                .load(imageUrl).placeholder(
+                    circularProgressDrawable
+                )
+                .error(
+                    circularProgressDrawable
+                )
+                .into(imageView)
 
 //            Picasso.get()
 //                .load(imageUrl)

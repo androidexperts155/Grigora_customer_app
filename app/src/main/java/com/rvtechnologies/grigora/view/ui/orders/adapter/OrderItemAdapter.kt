@@ -37,7 +37,10 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
             for (item in list[position].itemChoices) {
                 if (!item.itemSubCategory.isNullOrEmpty()) {
                     for (sub in item.itemSubCategory) {
-                        price += sub.addOnPrice.toDouble()
+
+                        if (!sub.addOnPrice.isNullOrEmpty())
+                            price += sub.addOnPrice.toDouble()
+
                         if (!sub.item_sub_sub_category.isNullOrEmpty()) {
                             for (subsub in sub.item_sub_sub_category) {
                                 price += subsub.add_on_price

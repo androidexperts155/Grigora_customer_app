@@ -28,6 +28,7 @@ class GroupCartViewModel : ViewModel() {
     var clientToken = MutableLiveData<Any>()
     var reference = MutableLiveData<String>()
     var deliveryAddress = MutableLiveData<String>()
+    var preparationNote = MutableLiveData<String>()
     var deliveryLat = MutableLiveData<String>()
     var deliveryLong = MutableLiveData<String>()
     var deliveryNote = MutableLiveData<String>()
@@ -41,6 +42,7 @@ class GroupCartViewModel : ViewModel() {
     init {
         promoId.value = "0"
         deliveryNote.value = ""
+        preparationNote.value = ""
     }
 
     fun viewGroupCart(token: String, lat: String, lng: String) {
@@ -85,6 +87,7 @@ class GroupCartViewModel : ViewModel() {
                 delivery_lat = deliveryLat.value.toString(),
                 delivery_long = deliveryLong.value.toString(),
                 delivery_note = deliveryNote.value.toString(),
+                prepartion_note = preparationNote.value.toString(),
                 carttype = cartType
 
             ) { success, result ->
@@ -208,11 +211,12 @@ class GroupCartViewModel : ViewModel() {
         deliveryLat.value = null
         deliveryLong.value = null
         deliveryNote.value = null
+        preparationNote.value = null
         cartItemList.value = null
         addCartRes.value = null
         offerModel.value = null
         responsePlaceOrder.value = null
-         offersListRes.value = null
+        offersListRes.value = null
 
         isLoading.removeObservers(activity)
         responseCart.removeObservers(activity)
@@ -227,11 +231,12 @@ class GroupCartViewModel : ViewModel() {
         deliveryLat.removeObservers(activity)
         deliveryLong.removeObservers(activity)
         deliveryNote.removeObservers(activity)
+        preparationNote.removeObservers(activity)
         cartItemList.removeObservers(activity)
         addCartRes.removeObservers(activity)
         offerModel.removeObservers(activity)
         responsePlaceOrder.removeObservers(activity)
-         offersListRes.removeObservers(activity)
+        offersListRes.removeObservers(activity)
     }
 
 }

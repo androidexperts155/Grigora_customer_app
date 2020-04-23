@@ -60,6 +60,15 @@ interface ApiInterface {
         @Field("email") email: String
     ): Call<JsonElement>
 
+
+    @FormUrlEncoded
+    @POST(ApiConstants.FORGOT_PIN)
+    fun forgotPin(
+        @Header("Authorization") token: String
+        ,
+        @Field("email") email: String
+    ): Call<JsonElement>
+
     @GET(ApiConstants.GET_CUISINE_URL)
     fun getCuisine(
         @Header("Authorization") token: String
@@ -328,6 +337,7 @@ interface ApiInterface {
         @Field("delivery_lat") delivery_lat: String,
         @Field("delivery_long") delivery_long: String,
         @Field("reference") reference: String,
+        @Field("prepartion_note") prepartion_note: String,
         @Field("order_type") order_type: String
     ): Call<JsonElement>
 
@@ -447,6 +457,7 @@ interface ApiInterface {
         @Header("Authorization") token: String,
         @Part("name") name: RequestBody,
         @Part("phone") phone: RequestBody,
+        @Part("email") email: RequestBody,
         @Part image: MultipartBody.Part
     ): Call<JsonElement>
 
@@ -754,6 +765,24 @@ interface ApiInterface {
         @Field("subissue_id") subissue_id: String,
         @Field("ticket_id") ticket_id: String,
         @Field("message") message: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.ADD_PIN)
+    fun addPin(
+        @Header("Authorization") token: String,
+        @Field("security_pin") security_pin: String
+
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHANGE_PIN)
+    fun changePin(
+        @Header("Authorization") token: String,
+        @Field("old_security_pin") old_security_pin: String,
+        @Field("new_security_pin") new_security_pin: String
+
     ): Call<JsonElement>
 
 

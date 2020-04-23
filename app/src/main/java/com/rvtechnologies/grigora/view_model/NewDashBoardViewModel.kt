@@ -44,7 +44,7 @@ class NewDashBoardViewModel : ViewModel() {
             }
     }
 
-    fun mergeCart(cartId:String) {
+    fun mergeCart(cartId: String) {
         isLoading.value = true
         ApiRepo.getInstance()
             .mergeCarts(cartId) { success, result ->

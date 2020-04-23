@@ -2,11 +2,11 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/white"
     android:orientation="vertical"
-    android:id="@+id/parentView"
     tools:context=".view.ui.login_signup.OtpActivity">
     
     
@@ -20,14 +20,14 @@
         android:src="@drawable/img_otp" />
     
     <TextView
+        style="@style/titleText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-         android:textColor="?attr/textWhite"
+        android:layout_gravity="center"
         android:layout_marginTop="@dimen/_20sdp"
-        style="@style/titleText"
-        android:textSize="@dimen/_14sdp"
         android:text="@string/otpverification"
-        android:layout_gravity="center" />
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_14sdp" />
     
     
     <com.mukesh.OtpView
@@ -63,6 +63,8 @@
         android:textSize="@dimen/_12sdp" />
     
     <LinearLayout
+        
+        android:id="@+id/li_resend"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
@@ -90,5 +92,22 @@
             android:textSize="@dimen/_12sdp"
             android:textStyle="bold" />
     </LinearLayout>
+    <LinearLayout
+        android:visibility="gone"
+        android:id="@+id/li_sent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/otp_sent"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+        
+     </LinearLayout>
 
 </LinearLayout>

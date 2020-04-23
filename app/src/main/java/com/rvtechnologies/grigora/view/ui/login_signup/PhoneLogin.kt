@@ -120,6 +120,9 @@ class PhoneLogin : Fragment() {
         CommonUtils.savePrefs(context, PrefConstants.ID, data.data?.id?.toString())
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
+        CommonUtils.savePrefs(context, PrefConstants.EMAIL, data.data?.email?.toString())
+
+
 
         if (data?.data?.have_address!!) {
             view?.findNavController()

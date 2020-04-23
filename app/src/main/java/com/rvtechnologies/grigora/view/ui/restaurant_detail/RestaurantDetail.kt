@@ -7,6 +7,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
@@ -26,9 +27,7 @@ import com.rvtechnologies.grigora.view.ui.restaurant_detail.adapter.PromotionsAd
 import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view_model.RestaurantDetailViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.android.synthetic.main.fragment_restaurant_detail_parent.*
 import kotlinx.android.synthetic.main.restaurant_detail_fragment.*
-import java.lang.ProcessBuilder.Redirect.to
 
 class RestaurantDetail(
     var restaurantId: String,
@@ -120,10 +119,11 @@ class RestaurantDetail(
                     if (AppConstants.CURRENT_SELECTED == 0)
                         updateCartButton()
                 } else {
-                    CommonUtils.showMessage(parentpager, response.toString())
+                    Toast.makeText(context!!, response.toString(), Toast.LENGTH_SHORT).show()
+
                 }
             } else {
-                CommonUtils.showMessage(parentpager, response.toString())
+                Toast.makeText(context!!, response.toString(), Toast.LENGTH_SHORT).show()
             }
 
         })
@@ -157,8 +157,8 @@ class RestaurantDetail(
             count++
         }
 
-        if(count>=2){
-            rg_veg_nonveg.visibility=View.GONE
+        if (count >= 2) {
+            rg_veg_nonveg.visibility = View.GONE
         }
 
         rg_veg_nonveg.setOnCheckedChangeListener { radioGroup, i ->
@@ -258,10 +258,11 @@ class RestaurantDetail(
 
     private fun setMenu() {
         if (restaurantDetailModel.all_data.isNotEmpty()) {
-            if(!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()){
-                tv_menu_time.text=restaurantDetailModel.all_data[0].start_time +" ${getString(R.string.to)} "+restaurantDetailModel.all_data[0].end_time
-            }else
-                tv_menu_time.text=""
+            if (!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()) {
+                tv_menu_time.text =
+                    restaurantDetailModel.all_data[0].start_time + " ${getString(R.string.to)} " + restaurantDetailModel.all_data[0].end_time
+            } else
+                tv_menu_time.text = ""
 
             bt_type.text = restaurantDetailModel.all_data[0].category_name
             var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
@@ -452,7 +453,9 @@ class RestaurantDetail(
             if ((activity as MainActivity).fab_cart.visibility == View.VISIBLE)
                 iRecyclerItemClick.onItemClick(3)
             else
-                CommonUtils.showMessage(parentpager, getString(R.string.please_add_items))
+                Toast.makeText(context!!, getString(R.string.please_add_items), Toast.LENGTH_SHORT)
+                    .show()
+
         } else
             (activity as MainActivity).showLoginAlert()
     }
@@ -470,10 +473,11 @@ class RestaurantDetail(
                 list.addAll(restaurantDetailModel.all_data[0].data)
                 rec_parents.adapter = ParentsAdapter(list, this)
 
-                if(!item.start_time.isNullOrEmpty()){
-                    tv_menu_time.text=item.start_time +" ${getString(R.string.to)} "+item.end_time
-                }else
-                    tv_menu_time.text=""
+                if (!item.start_time.isNullOrEmpty()) {
+                    tv_menu_time.text =
+                        item.start_time + " ${getString(R.string.to)} " + item.end_time
+                } else
+                    tv_menu_time.text = ""
             }
             is RestaurantDetailNewModel.MealItem -> {
                 var sheet = MealDetailSheet(item, "", this)

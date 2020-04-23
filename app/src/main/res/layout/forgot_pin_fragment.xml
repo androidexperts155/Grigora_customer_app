@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:tools="http://schemas.android.com/tools">
+    
+    <data>
+        
+        <variable
+            name="forgotPassword"
+            type="com.rvtechnologies.grigora.view.ui.forgotpin.ForgotPin" />
+        
+        <variable
+            name="forgotPasswordViewModel"
+            type="com.rvtechnologies.grigora.view.ui.forgotpin.ForgotPinViewModel" />
+    </data>
+    
+    
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/parentView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="?attr/backgroundColor">
+        
+        
+        <ImageView
+            android:id="@+id/img"
+            android:layout_width="@dimen/_110sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/splash_bottom" />
+        
+        <ImageView
+            android:layout_width="@dimen/_155sdp"
+            android:layout_height="@dimen/_130sdp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:src="@drawable/splash_top" />
+        
+        
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical">
+            
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/mediumText"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/please_enter_your_registered_pin"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            
+            <TextView
+                
+                style="@style/mediumText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/_14sdp"
+                android:text="@string/email"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp" />
+            
+            <EditText
+                style="@style/normalText"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:inputType="textEmailAddress"
+                android:padding="@dimen/_4sdp"
+                android:singleLine="true"
+                android:text="@={forgotPasswordViewModel.email}"
+                android:textColor="?attr/textWhite"
+                android:textSize="@dimen/_12sdp"
+                tools:text="Amit@gmail.com" />
+            
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/viewbg" />
+            
+            
+            <Button
+                android:id="@+id/bt_signup"
+                style="@style/titleText"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/_35sdp"
+                android:layout_below="@+id/li_terms"
+                android:layout_centerHorizontal="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="@dimen/_48sdp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="@dimen/_48sdp"
+                android:layout_marginBottom="8dp"
+                android:background="@drawable/btn_rounded"
+                android:elevation="1dp"
+                android:onClick="@{()-> forgotPasswordViewModel.forgotPassword()}"
+                android:paddingLeft="@dimen/_22sdp"
+                android:paddingRight="@dimen/_22sdp"
+                android:text="@string/send"
+                android:textAllCaps="true"
+                android:textColor="@android:color/white"
+                android:textSize="@dimen/_12sdp" />
+        
+        
+        </LinearLayout>
+    
+    
+    </RelativeLayout>
+</layout>

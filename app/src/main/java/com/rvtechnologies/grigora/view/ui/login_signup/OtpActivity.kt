@@ -125,7 +125,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     setResult(RESULT_OK, i);
                     finish();
 
-                                   // [END_EXCLUDE]
+                    // [END_EXCLUDE]
                 } else if (e is FirebaseTooManyRequestsException) {
                     // The SMS quota for the project has been exceeded
                     // [START_EXCLUDE]
@@ -135,8 +135,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                     finish();
 
                     // [END_EXCLUDE]
-                }
-                else{
+                } else {
                     var i = Intent().putExtra("message", e.message.toString())
                     setResult(RESULT_OK, i);
                     finish();
@@ -144,7 +143,6 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
                 // Show a message and update the UI
                 // [START_EXCLUDE]
-
 
 
 //                updateUI(STATE_VERIFY_FAILED)
@@ -265,7 +263,12 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
             this, // Activity (for callback binding)
             callbacks, // OnVerificationStateChangedCallbacks
             token
-        ) // ForceResendingToken from callbacks
+        )
+        // ForceResendingToken from callbacks
+        CommonUtils.showLoader(this, "Verifying")
+
+        li_resend.visibility = View.GONE
+        li_sent.visibility = View.VISIBLE
     }
     // [END resend_verification]
 
@@ -394,6 +397,7 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
                 verifyPhoneNumberWithCode(storedVerificationId, code)
             }
             R.id.buttonResend -> resendVerificationCode(
+
                 intent.getStringExtra("phone"),
                 resendToken
             )

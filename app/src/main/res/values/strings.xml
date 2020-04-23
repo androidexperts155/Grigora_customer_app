@@ -12,6 +12,7 @@
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
+    <string name="paystack_live_public_key" tools:ignore="MissingTranslation">pk_live_0bb1c5ea15ae4223a872e524ea372efad9db4583</string>
     <string name="login">Sign in</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -19,6 +20,7 @@
     <string name="password">Password</string>
     <string name="send">Send</string>
     <string name="please_enter_your_registered">Please enter your registered email to recover your password via email</string>
+    <string name="please_enter_your_registered_pin">Please enter your registered email to recover your security pin via email</string>
     <string name="email">Email</string>
     "Material is the metaphor.\n\n"
     
@@ -188,9 +190,9 @@
     <string name="feedback">Feedback</string>
     <string name="Suggestions">Suggestions</string>
     <string name="refund">Refund</string>
-    <string name="successfull">Successfull</string>
+    <string name="successfull">Successful</string>
     <string name="sendtoadmin">Your request is successfully sent to admin</string>
-    <string name="ok">Ok</string>
+    <string name="ok">OK</string>
     <string name="min">min</string>
     <string name="please_select_type">Please select type</string>
     <string name="required">Required fields</string>
@@ -419,11 +421,11 @@
     
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="transfer_successfull">Transfer Successfull</string>
-    <string name="transfer_successfull_desc">Your funds(points) transferred \n was successfuly done</string>
+    <string name="transfer_successfull">Transfer Successful</string>
+    <string name="transfer_successfull_desc">Your funds(points) transferred \n was successfully done</string>
     <string name="ngn_to_how_naira">1 NGN = %s\ pts</string>
     <string name="next">Next</string>
-    <string name="no_transactions_found">No tranactions found</string>
+    <string name="no_transactions_found">No transactions found</string>
     <string name="invalid_wallet_id">Invalid Wallet Id</string>
     <string name="please_enter_amount">Please Enter Amount</string>
     <string name="money_added">Money Added</string>
@@ -549,7 +551,7 @@
     <string name="search_name_wallet_id">Search by Name/Wallet id</string>
     <string name="please_add_items">Please add Items</string>
     <string name="search">Search</string>
-    <string name="cancelled_by_you">Canclled by you</string>
+    <string name="cancelled_by_you">Canceled by you</string>
     <string name="preparation_started">Your food is being prepared</string>
     <string name="order_delivered">"Delivered "</string>
     <string name="scheduled_order">Scheduled Order</string>
@@ -573,7 +575,7 @@
     <string name="promotion_title">Promotion</string>
     <string name="featured_dishes">Featured Dishes</string>
     <string name="required_">Required</string>
-    <string name="special_instructions">Add your special instrucions here...</string>
+    <string name="special_instructions">Add your special instructions here...</string>
     <string name="optional">Optional</string>
     <string name="choose_any">"Choose any "</string>
     <string name="delivey_fee">Delivery Fee: ₦</string>
@@ -585,5 +587,17 @@
     <string name="to">to</string>
     <string name="correct_pin">Enter Correct pin</string>
     <string name="set_lock">Enable security</string>
+    <string name="otp_sent">"OTP sent to your phone. "</string>
+    <string name="coocking_ins">Cooking Instructions</string>
+    <string name="setpin">Set Pin</string>
+    <string name="delete">Delete</string>
+    <string name="create_pin">Create Pin</string>
+    <string name="confirm_pin">Confirm Pin</string>
+    <string name="pin_mismatch">Pin does not matched</string>
+    <string name="verify_pin">Verify Pin</string>
+    <string name="forgot">Forgot?</string>
+    <string name="add_reset_pin">Add/Reset Pin</string>
+    <string name="invalid_pin">Invalid pin</string>
+    <string name="please_add_email">Please add email before continuing</string>
 
 </resources><!--₦-->

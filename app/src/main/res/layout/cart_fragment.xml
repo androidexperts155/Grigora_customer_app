@@ -99,7 +99,7 @@
                     
                     <TextView
                         android:text="@{cartViewModel.cartData.restaurantName}"
-    
+                        
                         style="@style/titleText"
                         android:layout_marginTop="@dimen/_8sdp"
                         android:layout_width="wrap_content"
@@ -123,7 +123,7 @@
                             android:text="@string/deliver_to_you"
                             android:textColor="?attr/searchHint"
                             android:textSize="@dimen/_10sdp" />
-    
+                        
                         <TextView
                             android:id="@+id/tv_estimated"
                             style="@style/mediumText"
@@ -152,7 +152,7 @@
                             tools:visibility="visible" />
                     </RelativeLayout>
                     
-                  
+                    
                     
                     <View
                         android:layout_width="match_parent"
@@ -230,7 +230,7 @@
                             android:textColor="?attr/textWhite"
                             android:textColorHint="?attr/searchHint"
                             android:textSize="@dimen/_10sdp"
-                             />
+                            />
                         
                         <View
                             android:id="@+id/view"
@@ -252,7 +252,7 @@
                         android:background="?attr/viewbg"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/_1sdp"/>
-    
+                    
                     <TextView
                         style="@style/titleText"
                         android:layout_marginTop="@dimen/_8sdp"
@@ -261,19 +261,19 @@
                         android:textColor="?attr/textWhite"
                         android:textSize="@dimen/_12sdp"
                         android:text="@string/items"
-                         />
+                        />
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvOrderItems"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_4sdp"
-                         android:orientation="vertical"
+                        android:orientation="vertical"
                         android:overScrollMode="never"
                         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                         tools:itemCount="2"
                         tools:listitem="@layout/cart_item" />
-                 
+                    
                     <TextView
                         style="@style/titleText"
                         android:layout_width="wrap_content"
@@ -508,6 +508,35 @@
                         android:layout_marginTop="8dp"
                         android:background="?attr/viewbg" />
                     
+                    <EditText
+                        android:id="@+id/ed_meal_instructions"
+                        style="@style/mediumText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView22"
+                        android:minLines="2"
+                        android:layout_marginStart="@dimen/_8sdp"
+                        android:layout_marginTop="@dimen/_16sdp"
+                        android:layout_marginBottom="@dimen/_4sdp"
+                        android:layout_toRightOf="@+id/map"
+                        android:background="@android:color/transparent"
+                        android:gravity="start"
+                        android:hint="@string/coocking_ins"
+                        android:inputType="textMultiLine"
+                        android:maxLines="2"
+                        
+                        android:paddingBottom="@dimen/_4sdp"
+                        android:singleLine="true"
+                        android:text="@={cartViewModel.preparationNote}"
+                        android:textColor="?attr/textWhite"
+                        android:textColorHint="?attr/searchHint"
+                        android:textSize="@dimen/_10sdp"
+                        />
+                    <View
+                        android:background="?attr/viewbg"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/_1sdp"/>
+                    
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
@@ -538,7 +567,7 @@
                             android:drawablePadding="@dimen/_4sdp"
                             android:drawableTint="?attr/textWhite"
                             android:gravity="end|center"
-                             android:textColor="?attr/textWhite"
+                            android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp"
                             tools:text="0.0" />
                     

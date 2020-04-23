@@ -272,17 +272,34 @@ class PaymentActivity : AppCompatActivity() {
 
         activitySubmitCreditCardBinding!!.labelSecureSubmission.setOnClickListener {
             val cardNumber = activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
-            val expiryMonth =  activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().substring(0,activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().lastIndexOf('/')) //any month in the future
-            val expiryYear =  activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().substring(activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().lastIndexOf('/'),activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length) //any month in the future
-            val cvv = activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()// cvv of the test card
+            val expiryMonth = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                .substring(
+                    0,
+                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                        .lastIndexOf('/')
+                ) //any month in the future
+            val expiryYear = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                .substring(
+                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                        .lastIndexOf('/'),
+                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length
+                ) //any month in the future
+            val cvv =
+                activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()// cvv of the test card
 
-            val card = co.paystack.android.model.Card(cardNumber, expiryMonth.toInt(), expiryYear.toIntOrNull(), cvv)
+            val card = co.paystack.android.model.Card(
+                cardNumber,
+                expiryMonth.toInt(),
+                expiryYear.toIntOrNull(),
+                cvv
+            )
 
             if (card.isValid) {
                 PaystackSdk.chargeCard(
                     this,
-                    Charge().setCard(card).setAmount(intent.getIntExtra("amount",0)).setCurrency("NGN")
-                        .setEmail("test@yopmail.com"),
+                    Charge().setCard(card).setAmount(intent.getIntExtra("amount", 0))
+                        .setCurrency("NGN")
+                        .setEmail(CommonUtils.getPrefValue(this!!, PrefConstants.EMAIL)),
                     object : Paystack.TransactionCallback {
                         override fun onSuccess(transaction: Transaction) {
                             var intent = Intent()

@@ -6,6 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -29,7 +30,10 @@ class SignUpFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        CommonUtils.changeStatusBarColor(ContextCompat.getColor(context!!, R.color.lightGrey), activity as MainActivity)
+        CommonUtils.changeStatusBarColor(
+            ContextCompat.getColor(context!!, R.color.lightGrey),
+            activity as MainActivity
+        )
         signUpViewModel = ViewModelProviders.of(this).get(SignUpFragmentViewModel::class.java)
         signUpViewModel?.signUpResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {
@@ -68,6 +72,9 @@ class SignUpFragment : Fragment() {
         CommonUtils.savePrefs(context, PrefConstants.ID, data.data?.id?.toString())
         CommonUtils.savePrefs(context, PrefConstants.NAME, data.data?.name?.toString())
         CommonUtils.savePrefs(context, PrefConstants.IMAGE, data.data?.image?.toString())
+        CommonUtils.savePrefs(context, PrefConstants.PIN, data.data?.pin?.toString())
+        CommonUtils.savePrefs(context, PrefConstants.EMAIL, data.data?.email?.toString())
+
         back()
     }
 
@@ -82,7 +89,10 @@ class SignUpFragment : Fragment() {
     fun signUp() {
         if (signUpViewModel?.isValidData()!!) {
             startActivityForResult(
-                Intent(context, OtpActivity::class.java).putExtra("phone", "+"+ccp.selectedCountryCode.toString()+signUpViewModel?.phone?.value), ccp.selectedCountryCode.toInt()
+                Intent(context, OtpActivity::class.java).putExtra(
+                    "phone",
+                    "+" + ccp.selectedCountryCodeWithPlus.toString() + signUpViewModel?.phone?.value
+                ), AppConstants.OTP_CODE
             )
         }
     }
@@ -96,15 +106,19 @@ class SignUpFragment : Fragment() {
         }
     }
 
+    fun termsAndConditions() {
+        var bundle = bundleOf(AppConstants.PAGE_TYPE to 2)
+        view?.findNavController()?.navigate(R.id.action_signUpFragment_to_aboutUs, bundle)
+    }
+
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstants.OTP_CODE) {
             if (data?.getBooleanExtra("verified", false)!!) {
                 signUpViewModel?.signUp()
             }
-        }
-        else{
-          var message=  data!!.getStringExtra("message")
+        } else {
+            var message = data!!.getStringExtra("message")
             CommonUtils.showMessage(parentView, message)
         }
     }

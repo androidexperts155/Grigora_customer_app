@@ -85,9 +85,23 @@ class SettingFragment : Fragment() {
     }
 
     fun toChangeLanguage() {
-        var bundle= bundleOf(AppConstants.FROM_SETTINGS to true)
-        view?.findNavController()?.navigate(R.id.action_settingFragment_to_chooseLanguageFragment,bundle)
+        var bundle = bundleOf(AppConstants.FROM_SETTINGS to true)
+        view?.findNavController()
+            ?.navigate(R.id.action_settingFragment_to_chooseLanguageFragment, bundle)
     }
+
+    fun toChangePin() {
+        if (CommonUtils.getPrefValue(context!!, PrefConstants.EMAIL).isNullOrEmpty()) {
+            CommonUtils.showMessage(parent, getString(R.string.please_add_email))
+            view?.findNavController()
+                ?.navigate(R.id.action_settingsFragment_to_profile)
+        } else {
+            var bundle = bundleOf(AppConstants.CHANGE_PIN to true)
+            view?.findNavController()
+                ?.navigate(R.id.action_settingsFragment_to_pin, bundle)
+        }
+    }
+
 
     fun toChangePassword() {
         view?.findNavController()?.navigate(R.id.action_settingFragment_to_changePasswordFragment)

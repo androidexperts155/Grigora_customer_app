@@ -489,7 +489,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         if (position == -1) {
             if (addMoreList[position2].itemCategories?.size!! > 0) {
                 viewModel.addItemToCart(
-                    addMoreList[position2].restaurantId.toString()!!,
+                    addMoreList[position2].restaurantId.toString(),
                     addMoreList[position2].id.toString(),
                     addMoreList[position2].price.toString(),
                     "1"
@@ -505,7 +505,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             }
         } else {
             viewModel.updateCartQty(
-                viewModel.token?.value!!,
+                viewModel.token.value!!,
                 cartItemList.get(position).id!!,
                 cartItemList.get(position).cartId!!,
                 "1"
@@ -518,7 +518,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         } else {
             viewModel.updateCartQty(
-                viewModel.token?.value!!,
+                viewModel.token.value!!,
                 cartItemList.get(position).id!!,
                 cartItemList.get(position).cartId!!,
                 "-1"
@@ -527,9 +527,9 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun setPromo() {
-        viewModel.promoId?.value = viewModel.offerModel?.value!!.percentage!!.toString()
+        viewModel.promoId.value = viewModel.offerModel.value!!.percentage!!.toString()
 
-        tv_dis.text = viewModel.offerModel?.value!!.code
+        tv_dis.text = viewModel.offerModel.value!!.code
         tv_promo.text = getString(R.string.promo_applied)
         tv_promo.setTextColor(ContextCompat.getColor(context!!, R.color.green))
         img_arrow.visibility = GONE
@@ -539,19 +539,19 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     fun removePromo() {
-        viewModel.promoId?.value = "0"
+        viewModel.promoId.value = "0"
         tv_dis.text = getString(R.string.apply_promocode)
         tv_promo.text = getString(R.string.no_promo_selected)
         tv_promo.setTextColor(ContextCompat.getColor(context!!, R.color.textGrey))
         img_arrow.visibility = VISIBLE
         tv_remove.visibility = GONE
 
-        if (viewModel.offerModel?.value != null) {
-            viewModel.cartData?.value?.discount = "0"
+        if (viewModel.offerModel.value != null) {
+            viewModel.cartData.value?.discount = "0"
 
 
 
-            tv_promotion.text = viewModel.cartData?.value?.discount
+            tv_promotion.text = viewModel.cartData.value?.discount
 
         } else {
             CommonUtils.showMessage(view, getString(R.string.no_promo_selected))
@@ -562,7 +562,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     override fun onItemClick(item: Any) {
         if (item is Int) {
             if (item != 0) {
-                viewModel.paymentMode?.value = item.toString()
+                viewModel.paymentMode.value = item.toString()
                 if (item == 2) {
                     tv_payment_type.text = getString(R.string.credit_or_debit_card)
                 }
@@ -700,10 +700,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun setPrices() {
-        if (viewModel.cartData?.value?.discount.isNullOrEmpty()) {
-            viewModel.cartData?.value?.discount = "0.0"
+        if (viewModel.cartData.value?.discount.isNullOrEmpty()) {
+            viewModel.cartData.value?.discount = "0.0"
         }
-        tv_promotion.text = viewModel.cartData?.value?.discount
+        tv_promotion.text = viewModel.cartData.value?.discount
 
         viewModel.deliveryPrice.value =
             if (isPickup) "0.0" else CommonUtils.getRoundedOff(getDeliveryPrice())
@@ -720,25 +720,25 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                         if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
                             for (i in innerItem.item_sub_sub_category!!) {
                                 if (i?.add_on_price!! > 0)
-                                    addOnPrice += i?.add_on_price!!
+                                    addOnPrice += i.add_on_price
                             }
                         }
                     }
                 }
             }
-            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail?.quantity!!))
+            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail.quantity!!))
         }
 
-        viewModel.cartData?.value!!.cartTotal =
+        viewModel.cartData.value!!.cartTotal =
             (cartSubTotal + viewModel.deliveryPrice.value!!.toDouble()).toString()
         cartDataModel.cartSubTotal = cartSubTotal.toString()
-        viewModel.cartData?.value?.cartSubTotal = cartSubTotal.toString()
+        viewModel.cartData.value?.cartSubTotal = cartSubTotal.toString()
 
 
-        viewModel.cartData?.value?.totalPrice =
-            CommonUtils.getRoundedOff(viewModel.cartData?.value?.cartTotal?.toDouble()!! - viewModel.cartData?.value?.discount!!.toDouble())
+        viewModel.cartData.value?.totalPrice =
+            CommonUtils.getRoundedOff(viewModel.cartData.value?.cartTotal?.toDouble()!! - viewModel.cartData.value?.discount!!.toDouble())
 
-        viewModel.cartData?.value?.beforePromo =
+        viewModel.cartData.value?.beforePromo =
             CommonUtils.getRoundedOff(viewModel.cartData?.value?.cartSubTotal?.toDouble()!!)
                 .toDouble()
 

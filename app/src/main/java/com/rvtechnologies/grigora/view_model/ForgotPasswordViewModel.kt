@@ -8,13 +8,11 @@ import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
 
-class ForgotPasswordViewModel: ViewModel() {
+class ForgotPasswordViewModel : ViewModel() {
     var email: MutableLiveData<String> = MutableLiveData()
 
     var isLoading = MutableLiveData<Boolean>()
     var forgotPasswordResult = MutableLiveData<Any>()
-
-
 
     fun forgotPassword() {
         isLoading.value = true
@@ -35,9 +33,10 @@ class ForgotPasswordViewModel: ViewModel() {
                     }
                 }
         }
+        else
+            isLoading.value = false
+
     }
-
-
 
 
 }

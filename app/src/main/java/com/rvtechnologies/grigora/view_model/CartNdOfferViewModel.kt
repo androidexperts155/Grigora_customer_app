@@ -30,6 +30,7 @@ class CartNdOfferViewModel : ViewModel() {
     var deliveryLat = MutableLiveData<String>()
     var deliveryLong = MutableLiveData<String>()
     var deliveryNote = MutableLiveData<String>()
+    var preparationNote = MutableLiveData<String>()
     var cartItemList = MutableLiveData<Any>()
     var addCartRes = MutableLiveData<Any>()
     var offerModel = MutableLiveData<OfferModel>()
@@ -40,6 +41,7 @@ class CartNdOfferViewModel : ViewModel() {
     init {
         promoId.value = "0"
         deliveryNote.value = ""
+        preparationNote.value = ""
     }
 
     fun viewCart(token: String, lat: String, lng: String) {
@@ -85,6 +87,7 @@ class CartNdOfferViewModel : ViewModel() {
                 delivery_lat = deliveryLat.value.toString(),
                 delivery_long = deliveryLong.value.toString(),
                 delivery_note = deliveryNote.value.toString(),
+                prepartion_note = preparationNote.value.toString(),
                 carttype = cartType
             ) { success, result ->
                 isLoading.value = false
@@ -245,6 +248,7 @@ class CartNdOfferViewModel : ViewModel() {
         deliveryLat.value = null
         deliveryLong.value = null
         deliveryNote.value = null
+        preparationNote.value = null
         cartItemList.value = null
         addCartRes.value = null
         offerModel.value = null
@@ -265,6 +269,7 @@ class CartNdOfferViewModel : ViewModel() {
         deliveryLat.removeObservers(activity)
         deliveryLong.removeObservers(activity)
         deliveryNote.removeObservers(activity)
+        preparationNote.removeObservers(activity)
         cartItemList.removeObservers(activity)
         addCartRes.removeObservers(activity)
         offerModel.removeObservers(activity)

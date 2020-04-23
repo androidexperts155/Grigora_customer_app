@@ -48,10 +48,11 @@ class ProfileDetailsViewModel : ViewModel() {
         isLoading.value = true
         val name = RequestBody.create(MediaType.parse("multipart/form"), name.value.toString())
         val phone = RequestBody.create(MediaType.parse("multipart/form"), phone.value.toString())
+        val email = RequestBody.create(MediaType.parse("multipart/form"), email.value.toString())
 
         val profilePic: MultipartBody.Part?
         if (!CommonUtils.isLink(image.value.toString())) {
-            val imgFile = File(CommonUtils.compressFile(image.value.toString()))
+            val imgFile = File(image.value.toString())
             val profileImage_ = RequestBody.create(MediaType.parse("image/*"), imgFile)
             profilePic = MultipartBody.Part.createFormData("image", imgFile.name, profileImage_)
         } else {
@@ -64,6 +65,7 @@ class ProfileDetailsViewModel : ViewModel() {
                 token = token.value.toString(),
                 name = name,
                 phone = phone,
+                email = email,
                 image = profilePic
             ) { success, result ->
                 isLoading.value = false

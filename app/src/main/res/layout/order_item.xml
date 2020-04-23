@@ -38,8 +38,7 @@
                 android:layout_alignParentTop="true"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="@dimen/_8sdp"
-                android:layout_toRightOf="@+id/card"
-                android:text="@{orderModel.idToShow}"
+                 android:text="@{orderModel.idToShow}"
                 android:textColor="?attr/searchHint"
                 android:textSize="@dimen/_8sdp"
                 tools:text="#12jsj43" />

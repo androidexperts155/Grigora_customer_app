@@ -11,6 +11,10 @@ import kotlinx.android.parcel.Parcelize
 data class User(
     @SerializedName("address")
     var address: String?,
+
+    @SerializedName("security_pin")
+    var pin: String?,
+
     @SerializedName("approved")
     var approved: String?,
     @SerializedName("created_at")

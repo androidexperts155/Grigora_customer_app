@@ -12,6 +12,7 @@ object ApiConstants {
     const val PROMO_RESTAURANTS = "promo-restaurants"
 
     const val FORGOT_PASSWORD_URL = "forgot-password"
+    const val FORGOT_PIN = "forgot-pin"
 
     const val GET_ALL_CATEGORIES_URL = "get-all-categories"
     const val GET_CUISINE_URL = "get-cuisine"
@@ -99,5 +100,7 @@ object ApiConstants {
     const val GET_SUB_ISSUES = "get-sub-issues"
     const val GET_CHAT = "getchat"
     const val SEND_MESSGAE = "chat"
+    const val ADD_PIN = "add-pin"
+    const val CHANGE_PIN = "change-pin"
     const val TRENDING_MEALS = "trending-items"
 }

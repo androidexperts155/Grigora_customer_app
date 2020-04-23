@@ -33,16 +33,10 @@ import kotlinx.android.synthetic.main.profile_fragment.*
 
 
 class ProfileFragment : Fragment() {
-    var d=0
     private lateinit var viewModel: ProfileViewModel
 
     lateinit var historyModel: WalletHistoryModel
     var amount = ""
-
-    private val LOCK_REQUEST_CODE = 221
-    private val SECURITY_SETTING_REQUEST_CODE = 233
-    private var keyguardManager: KeyguardManager? = null
-
 
     companion object {
         fun newInstance() = ProfileFragment()
@@ -150,7 +144,15 @@ class ProfileFragment : Fragment() {
     }
 
     fun toPurchasedCards() {
-        view?.findNavController()?.navigate(R.id.action_navigationMyAccounts_to_purchasedCards)
+        if (CommonUtils.getPrefValue(context!!, PrefConstants.EMAIL).isNullOrEmpty()) {
+            CommonUtils.showMessage(parentView, getString(R.string.please_add_email))
+            toProfileDetails()
+        } else {
+            var bundle = bundleOf(AppConstants.NEXT to R.id.action_pin_to_purchasedCards)
+            view?.findNavController()
+                ?.navigate(R.id.action_navigationMyAccounts_to_pin, bundle)
+        }
+
     }
 
     fun toSettings() {
@@ -168,8 +170,16 @@ class ProfileFragment : Fragment() {
     }
 
     fun toGift() {
-        d=2
-        authenticateApp()
+
+        if (CommonUtils.getPrefValue(context!!, PrefConstants.EMAIL).isNullOrEmpty()) {
+            CommonUtils.showMessage(parentView, getString(R.string.please_add_email))
+            toProfileDetails()
+        } else {
+            var bundle = bundleOf(AppConstants.NEXT to R.id.action_pin_to_giftFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_navigationMyAccounts_to_pin, bundle)
+        }
+
 
     }
 
@@ -196,8 +206,17 @@ class ProfileFragment : Fragment() {
     }
 
     fun toWallet() {
-d=1
-        authenticateApp()
+
+        if (CommonUtils.getPrefValue(context!!, PrefConstants.EMAIL).isNullOrEmpty()) {
+            CommonUtils.showMessage(parentView, getString(R.string.please_add_email))
+            toProfileDetails()
+        } else {
+            var bundle = bundleOf(AppConstants.NEXT to R.id.action_pin_to_walletFragment)
+            view?.findNavController()
+                ?.navigate(R.id.action_navigationMyAccounts_to_pin, bundle)
+        }
+
+
     }
 
     fun toAddress() {
@@ -224,74 +243,5 @@ d=1
 
     }
 
-    override fun onPause() {
-        super.onPause()
-
-    }
-
-    private fun authenticateApp() {
-
-        keyguardManager =
-            activity!!.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-
-            val i = keyguardManager!!.createConfirmDeviceCredentialIntent(
-                "Please unlock",
-                "Confirm pin"
-            );
-            try {
-                startActivityForResult(i, LOCK_REQUEST_CODE);
-            } catch (e: Exception) {
-                CommonUtils.showMessage(parentView, getString(R.string.set_lock))
-                val intent = Intent(Settings.ACTION_SECURITY_SETTINGS);
-                try {
-                    startActivityForResult(intent, SECURITY_SETTING_REQUEST_CODE);
-                } catch (ex: Exception) {
-                }
-            }
-        }
-    }
-
-    fun isDeviceSecure(): Boolean {
-        activity!!.getSystemService(Context.KEYGUARD_SERVICE) as KeyguardManager?
-        //this method only work whose api level is greater than or equal to Jelly_Bean (16)
-        return Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN && keyguardManager!!.isKeyguardSecure();
-
-        //You can also use keyguardManager.isDeviceSecure(); but it requires API Level 23
-
-    }
-
-    //On Click of button do authentication again
-    fun authenticateAgain(view: View) {
-        authenticateApp();
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        when (requestCode) {
-            LOCK_REQUEST_CODE -> {
-                if (resultCode == RESULT_OK) {
-                    if(d==1)
-                    view?.findNavController()
-                        ?.navigate(R.id.action_navigationMyAccounts_to_walletFragment)
-                    else if(d==2)
-                        view?.findNavController()
-                            ?.navigate(R.id.action_navigationMyAccounts_to_giftFragment)
-                } else {
-                    //If screen lock authentication is failed update text
-//                    textView.setText(getResources().getString(R.string.unlock_failed));
-                }
-            }
-            SECURITY_SETTING_REQUEST_CODE -> {
-                if (isDeviceSecure()) {
-                    CommonUtils.showMessage(parentView, getString(R.string.correct_pin))
-                    authenticateApp();
-                } else {
-                    //If screen lock is not enabled just update text
-//                    textView.setText(getResources().getString(R.string.security_device_cancelled));
-                }
-            }
-        }
-    }
 
 }

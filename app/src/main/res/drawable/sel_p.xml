@@ -1,0 +1,27 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <!-- The bottom layer is blue square.-->
+    
+    <!-- The middle layer is green circle.-->
+    <item>
+        <shape android:shape="oval">
+            <size
+                android:width="@dimen/_15sdp"
+                android:height="@dimen/_15sdp" />
+            <solid android:color="@color/green" />
+        </shape>
+    </item>
+    
+    <item
+        android:width="@dimen/_11sdp"
+        android:height="@dimen/_11sdp"
+        android:gravity="center">
+        <shape
+            android:shape="oval"
+            android:thickness="25dp"
+            android:useLevel="false">
+            <solid android:color="@color/green" />
+        </shape>
+    </item>
+
+
+</layer-list>

@@ -30,6 +30,7 @@ import com.opensooq.supernova.gligar.GligarPicker
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileDetailsFragmentBinding
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
+import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.model.models.UserDetails
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -70,6 +71,15 @@ class ProfileDetailsFragment : Fragment() {
                         PrefConstants.IMAGE,
                         userDetails.image?.toString()
                     )
+                    CommonUtils.savePrefs(
+                        context,
+                        PrefConstants.EMAIL,
+                        userDetails?.email?.toString()
+                    )
+
+                    if (userDetails.email.isNullOrEmpty()) {
+                        etEmail.isEnabled = true
+                    }
 
                     profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
                     profileDetailsFragmentBinding?.profileDetailsView = this
@@ -92,6 +102,7 @@ class ProfileDetailsFragment : Fragment() {
             }
         })
     }
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -205,8 +216,6 @@ class ProfileDetailsFragment : Fragment() {
 
                     viewModel.image.value = imagesList[0]
                     profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
-
-
 //
                 }
             }

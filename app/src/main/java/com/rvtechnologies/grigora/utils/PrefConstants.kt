@@ -4,6 +4,8 @@ object PrefConstants {
     val PREF_NAME = "grigora"
     val PERMANENT_PREF = "grigora_permanent"
     val TOKEN = "token"
+    val EMAIL = "email"
+    val PIN = "pin"
 
     val LATITUDE = "latitude"
     val LONGITUDE = "longitude"

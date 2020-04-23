@@ -34,7 +34,6 @@
                     android:layout_width="@dimen/_200sdp"
                     android:layout_height="@dimen/_90sdp"
                     android:scaleType="centerCrop"
-                     app:layout_constraintEnd_toStartOf="@+id/imgRestaurant"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:normal_image_url="@{menuItemModel.image}" />
@@ -119,7 +118,6 @@
                     android:progressTint="@color/duskYellow"
                     android:rating="@{menuItemModel.avgRatings}"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/imgRestaurant"
                     app:layout_constraintHorizontal_bias="0.0"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView56"

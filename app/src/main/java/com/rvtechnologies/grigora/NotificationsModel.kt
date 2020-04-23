@@ -7,6 +7,8 @@ import com.rvtechnologies.grigora.view.ui.notifications.Notification
 data class NotificationsModel(
     @SerializedName("created_at")
     var createdAt: String = "",
+    @SerializedName("security_pin")
+    var pin: String?,
 
     @SerializedName("order_id")
     var orderId: Int = 0,
