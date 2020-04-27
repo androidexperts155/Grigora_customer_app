@@ -43,6 +43,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
     private var restaurantId = ""
     private var cartId = ""
     lateinit var restaurantDetailModel: RestaurantDetailNewModel
+    var first = true
 
     companion object {
         fun newInstance() = RestaurantDetailGroup()
@@ -71,15 +72,11 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     handleGroup(restaurantDetailModel)
                     manageFilter()
 
-
-
                     tv_restname.text = restaurantDetailModel.restaurant_name
                     if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1")
                         tv_delivery.callOnClick()
                     else
                         tv_pickup.callOnClick()
-
-
 
                     if (restaurantDetailModel.full_time.equals("1")) {
                         tv_tt.text = getString(R.string.open_24_hours)
@@ -213,12 +210,15 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
         } else if (data.cart_id.isNullOrEmpty()) {
             var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
             groupOrderAlreadyPlaced.show(childFragmentManager, "")
-        }
 
-        if (arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!!) {
+        }else
+            fab_cart_group.visibility = View.GONE
+
+        if (arguments?.containsKey(AppConstants.IS_FOR_GROUP_ORDER)!! && first) {
             if (data?.cart != null) {
                 var inviteFragment = InviteFragment(data.cart?.share_link!!)
                 inviteFragment.show(childFragmentManager, "")
+                first = false
             }
         }
 
@@ -362,10 +362,11 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
     private fun setMenu() {
         if (restaurantDetailModel.all_data.isNotEmpty()) {
-            if(!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()){
-                tv_menu_time.text=restaurantDetailModel.all_data[0].start_time +" ${getString(R.string.to)} "+restaurantDetailModel.all_data[0].end_time
-            }else
-                tv_menu_time.text=""
+            if (!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()) {
+                tv_menu_time.text =
+                    restaurantDetailModel.all_data[0].start_time + " ${getString(R.string.to)} " + restaurantDetailModel.all_data[0].end_time
+            } else
+                tv_menu_time.text = ""
             bt_type.text = restaurantDetailModel.all_data[0].category_name
             var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
             list.addAll(restaurantDetailModel.all_data[0].data)
@@ -526,7 +527,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
             var list = ArrayList<RestaurantDetailNewModel.AllData>()
             list.addAll(restaurantDetailModel.all_data)
 
-            var sheet = ChooseTypeSheet(list, this)
+            var sheet = ChooseTypeSheet(bt_type.text.toString(), restaurantDetailModel, list, this)
             sheet.show(childFragmentManager, "")
         }
     }
@@ -539,10 +540,11 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                 list.addAll(restaurantDetailModel.all_data[0].data)
                 rec_parents.adapter = ParentsAdapter(list, this)
 
-                if(!item.start_time.isNullOrEmpty()){
-                    tv_menu_time.text=item.start_time +" ${getString(R.string.to)} "+item.end_time
-                }else
-                    tv_menu_time.text=""
+                if (!item.start_time.isNullOrEmpty()) {
+                    tv_menu_time.text =
+                        item.start_time + " ${getString(R.string.to)} " + item.end_time
+                } else
+                    tv_menu_time.text = ""
             }
             is RestaurantDetailNewModel.MealItem -> {
                 var sheet = MealDetailSheet(item, cartId, this)
@@ -565,9 +567,6 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     )
             }
         }
-
-
-
         if (item is MenuItemModel) {
             menuItemModel = item
             menuItemModel.isForGroupCart = true

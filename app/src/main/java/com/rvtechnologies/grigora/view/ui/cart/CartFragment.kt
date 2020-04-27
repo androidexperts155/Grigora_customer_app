@@ -527,7 +527,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun setPromo() {
-        viewModel.promoId.value = viewModel.offerModel.value!!.percentage!!.toString()
+        viewModel.promoId.value = viewModel.offerModel.value!!.id!!.toString()
 
         tv_dis.text = viewModel.offerModel.value!!.code
         tv_promo.text = getString(R.string.promo_applied)
@@ -726,7 +726,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                     }
                 }
             }
-            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail.quantity!!))
+            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail.quantity))
         }
 
         viewModel.cartData.value!!.cartTotal =

@@ -34,7 +34,7 @@ class GroupCartAdapter(
             val cartModel = cartItemList[position] as CartDetail
             val isFrench = GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
 
-            cartModel.itemNameToDisplay = cartModel.quantity!! + "     " + cartModel.itemName!!
+            cartModel.itemNameToDisplay = cartModel.quantity + "     " + cartModel.itemName!!
 
             var price = cartModel.price?.toDouble()!!
 
@@ -69,12 +69,12 @@ class GroupCartAdapter(
 
                         if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
                             for (i in innerItem.item_sub_sub_category!!) {
-                                if (i?.add_on_price!!>0)
+                                if (i?.add_on_price!! > 0)
                                     price += i?.add_on_price?.toDouble()!!
                             }
                         }
                         choicesString =
-                            choicesString.plus(" " + innerItem.name+",")
+                            choicesString.plus(" " + innerItem.name + ",")
                     }
                     choicesString = "$choicesString"
                 }
@@ -102,23 +102,33 @@ class GroupCartAdapter(
                 notifyDataSetChanged()
             }
 
-                if (cartModel.user_id.equals(
-                        CommonUtils.getPrefValue(
-                            holder.itemView.context!!,
-                            PrefConstants.ID
-                        )
+            if (cartModel.user_id.equals(
+                    CommonUtils.getPrefValue(
+                        holder.itemView.context!!,
+                        PrefConstants.ID
                     )
                 )
-                    holder.itemView.linearLayout.visibility = View.VISIBLE
-                else
-                    holder.itemView.linearLayout.visibility = View.GONE
+            )
+                holder.itemView.linearLayout.visibility = View.VISIBLE
+            else
+                holder.itemView.linearLayout.visibility = View.INVISIBLE
 
 
             holder.bind(cartModel, iRecyclerItemClick)
         } else {
             holder as MyView
-            holder.tv_title.text =
-                (cartItemList[position] as com.rvtechnologies.grigora.model.CartDetail).name
+            if ((cartItemList[position] as com.rvtechnologies.grigora.model.CartDetail).id.toString() == CommonUtils.getPrefValue(
+                    holder.itemView.context,
+                    PrefConstants.ID
+                )
+            )
+                holder.tv_title.text =
+                    (cartItemList[position] as com.rvtechnologies.grigora.model.CartDetail).name + holder.itemView.context.getString(
+                        R.string.your_order
+                    )
+            else
+                holder.tv_title.text =
+                    (cartItemList[position] as com.rvtechnologies.grigora.model.CartDetail).name
         }
     }
 

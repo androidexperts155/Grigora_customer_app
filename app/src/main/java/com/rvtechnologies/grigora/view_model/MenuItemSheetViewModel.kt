@@ -267,7 +267,7 @@ class MenuItemSheetViewModel : ViewModel() {
             if (itemCount.value?.toInt()!! > 0) {
                 ApiRepo.getInstance()
                     .addItemToGroupCart(
-                        token = token.value.toString(),
+                        token = CommonUtils.getToken(),
                         restaurantId = menuItem.value?.restaurant_id.toString(),
                         itemId = menuItem.value?.id.toString(),
                         price = price.value.toString(),

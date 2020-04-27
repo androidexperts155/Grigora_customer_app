@@ -51,9 +51,9 @@ class ReviewsFragment : Fragment() {
                     if (reviewRes.status!!) {
                         reviewItemList.clear()
                         reviewItemList.addAll(reviewRes.data as Collection<ReviewItem>)
-                        rvReviews.adapter?.notifyDataSetChanged()
+                        rvReviews.adapter = RestaurantReviewAdapter(reviewItemList)
                     } else {
-                        reviewRes.message?.let { CommonUtils.showMessage(parentView, it) }
+                        CommonUtils.showMessage(parentView, reviewRes.message!!)
                     }
                 } else
                     CommonUtils.showMessage(parentView, reviewRes.toString())
@@ -74,13 +74,11 @@ class ReviewsFragment : Fragment() {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).backTitle(getString(R.string.reviews))
         (activity as MainActivity).lockDrawer(true)
-
+        viewModel.getRestaurantsReviews()
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        rvReviews.adapter = RestaurantReviewAdapter(reviewItemList)
-        viewModel.getRestaurantsReviews()
     }
 
 }

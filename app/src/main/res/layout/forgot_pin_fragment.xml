@@ -99,7 +99,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@drawable/btn_rounded"
                 android:elevation="1dp"
-                android:onClick="@{()-> forgotPasswordViewModel.forgotPassword()}"
+                android:onClick="@{()-> forgotPassword.forgotPassword()}"
                 android:paddingLeft="@dimen/_22sdp"
                 android:paddingRight="@dimen/_22sdp"
                 android:text="@string/send"

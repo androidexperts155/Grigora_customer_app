@@ -26,7 +26,7 @@ data class CartDetail(
     @SerializedName("price")
     var price: String?,
     @SerializedName("quantity")
-    var quantity: String?,
+    var quantity: String,
     @SerializedName("updated_at")
     var updatedAt: String?,
 

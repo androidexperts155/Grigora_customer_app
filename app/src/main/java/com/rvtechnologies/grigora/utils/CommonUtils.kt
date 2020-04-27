@@ -414,6 +414,7 @@ object CommonUtils {
     }
 
     fun getDeviceId(): String {
+
         return Settings.Secure.getString(
             GrigoraApp.getInstance().activity!!.getContentResolver(),
             Settings.Secure.ANDROID_ID
@@ -541,7 +542,7 @@ object CommonUtils {
         sdf.timeZone = TimeZone.getTimeZone("UTC")
         var localUtcDate = getFormattedTimeOrDate(sdf.format(Date()), format, format)
 
-        return sdf1.parse(localUtcDate).time.compareTo(sdf1.parse(openingTime).time) == 1 && sdf.parse(
+        return sdf1.parse(localUtcDate).time.compareTo(sdf1.parse(openingTime).time) == 1 && sdf1.parse(
             localUtcDate
         ).time.compareTo(sdf1.parse(closingTime).time) == -1
     }

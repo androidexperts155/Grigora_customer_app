@@ -203,7 +203,7 @@ class ApiRepo {
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
 
-        ApiClient.getClient().forgotPin(CommonUtils.getToken(),email)
+        ApiClient.getClient().forgotPin(CommonUtils.getToken(), email)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -311,13 +311,13 @@ Cuisine repo
     }
 
 
-     fun addPin(
+    fun addPin(
         pin: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().addPin(
             CommonUtils.getToken(),
-             pin
+            pin
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -336,13 +336,14 @@ Cuisine repo
                 }
             })
     }
- fun changePin(
-        pin: String,newPin:String,
+
+    fun changePin(
+        pin: String, newPin: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().changePin(
             CommonUtils.getToken(),
-             pin,newPin
+            pin, newPin
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -1049,8 +1050,10 @@ Cuisine repo
             itemId = itemId,
             price = price,
             quantity = quantity,
-            item_choices = itemChoices, item_removeables = item_removeables
-        )
+            item_choices = itemChoices,
+            item_removeables = item_removeables
+
+            )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1471,7 +1474,7 @@ Cuisine repo
         image: MultipartBody.Part,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
-        ApiClient.getClient().saveProfile(token, name, phone,email, image)
+        ApiClient.getClient().saveProfile(token, name, phone, email, image)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,

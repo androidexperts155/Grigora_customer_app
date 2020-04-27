@@ -24,17 +24,11 @@ class CartAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cartModel = cartItemList[position]
 
-        cartModel.itemNameToDisplay = cartModel.quantity!! + "     " + cartModel.itemName!!
+        cartModel.itemNameToDisplay = cartModel.quantity+ "     " + cartModel.itemName!!
         var price = cartModel.price?.toDouble()!!
-
-
         var choicesString = ""
-
-
-
         choicesString = "$choicesString"
         if (!cartModel.item_removeables.isNullOrEmpty())
-
             for (item in cartModel.item_removeables!!) {
                 choicesString =
                     choicesString.plus(" ${holder.itemView.context.getString(R.string.no)}  " + item.name)

@@ -135,7 +135,7 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
             }
         })
 
-        viewModel?.notificationsDelete.observe(this,Observer{
+        viewModel?.notificationsDelete.observe(this, Observer {
             view?.findNavController()?.popBackStack()
         })
 
@@ -194,7 +194,8 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
 
             viewModel.deleteNotification(
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                item.id.toString()
+                item.id.toString(), false
+
             )
 
             when (item.notificationType) {
@@ -258,7 +259,7 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
             item as Int
             viewModel.deleteNotification(
                 CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                (list[item] as NotificationsModel).id.toString()
+                (list[item] as NotificationsModel).id.toString(), true
             )
 
             list.removeAt(item)

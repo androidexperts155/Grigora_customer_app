@@ -63,29 +63,34 @@ class GrigoraApp : Application() {
 
                 val token = task.result?.token
 
-                ApiClient.getClient().updateFirebaseToken(
+
+                if (activity != null)
+                    ApiClient.getClient().updateFirebaseToken(
                         token = CommonUtils.getPrefValue(
                             activity?.baseContext,
                             PrefConstants.TOKEN
-                        ), deviceType = "0", deviceToken = token!!, deviceId = CommonUtils.getDeviceId()
+                        ),
+                        deviceType = "0",
+                        deviceToken = token!!,
+                        deviceId = CommonUtils.getDeviceId()
 
                     )
-                    .enqueue(object : Callback<JsonElement> {
-                        override fun onResponse(
-                            call: Call<JsonElement>?,
-                            response: Response<JsonElement>?
-                        ) {
-                            if (response != null && response.isSuccessful)
-                                Log.e("response_token", response.body().toString())
-                            else {
+                        .enqueue(object : Callback<JsonElement> {
+                            override fun onResponse(
+                                call: Call<JsonElement>?,
+                                response: Response<JsonElement>?
+                            ) {
+                                if (response != null && response.isSuccessful)
+                                    Log.e("response_token", response.body().toString())
+                                else {
+                                }
                             }
-                        }
 
-                        override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
-                            Log.d("error", t!!.message)
-                        }
+                            override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                                Log.d("error", t!!.message)
+                            }
 
-                    })
+                        })
 
             })
     }

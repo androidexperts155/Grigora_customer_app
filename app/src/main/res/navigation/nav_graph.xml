@@ -1102,8 +1102,8 @@
             app:popExitAnim="@anim/slide_out_right" />
         
         <action
-            android:id="@+id/action_groupCartFragment_to_restaurantDetailParent"
-            app:destination="@id/restaurantDetailParent"
+            android:id="@+id/action_groupCartFragment_to_restaurantGroup"
+            app:destination="@id/restaurantDetailGroup"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"

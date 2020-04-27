@@ -27,6 +27,12 @@ class OffersAdapter(
             holder.itemView.bt_apply.setOnClickListener {
                 iRecyclerItemClick.onItemClick(offerModel)
             }
+            holder.itemView.bt_apply.setBackgroundColor(
+                ContextCompat.getColor(
+                    holder.itemView.context,
+                    R.color.colorPrimaryDark
+                )
+            )
             holder.itemView.bt_apply.setTextColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
@@ -35,10 +41,19 @@ class OffersAdapter(
             )
         } else {
             holder.itemView.bt_apply.setOnClickListener(null)
-            holder.itemView.bt_apply.setTextColor(
+
+            holder.itemView.bt_apply.setBackgroundColor(
                 ContextCompat.getColor(
                     holder.itemView.context,
                     R.color.viewbg
+                )
+            )
+
+
+            holder.itemView.bt_apply.setTextColor(
+                ContextCompat.getColor(
+                    holder.itemView.context,
+                    R.color.white
                 )
             )
         }
@@ -69,3 +84,4 @@ class OffersAdapter(
     }
 
 }
+//show +_ buttons in group cart

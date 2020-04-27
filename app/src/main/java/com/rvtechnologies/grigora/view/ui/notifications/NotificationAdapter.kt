@@ -135,7 +135,7 @@ class NotificationAdapter(
             format.timeZone = TimeZone.getDefault()
 
 
-            if (!(list[position] as NotificationsModel).timeToShow.isBlank()) {
+            if (!(list[position] as NotificationsModel).timeToShow.isNullOrEmpty()) {
                 holder.tv_time.text = holder.tv_time.context.getString(R.string.yesterday)
             } else {
 

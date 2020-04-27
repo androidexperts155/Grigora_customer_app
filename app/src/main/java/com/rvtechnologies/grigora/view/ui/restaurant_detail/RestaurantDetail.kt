@@ -138,7 +138,6 @@ class RestaurantDetail(
             })
     }
 
-
     private fun manageFilter() {
         var count = 0
         if (!restaurantDetailModel.egg_item) {
@@ -444,7 +443,7 @@ class RestaurantDetail(
         var list = ArrayList<RestaurantDetailNewModel.AllData>()
         list.addAll(restaurantDetailModel.all_data)
 
-        var sheet = ChooseTypeSheet(list, this)
+        var sheet = ChooseTypeSheet(bt_type.text.toString(),restaurantDetailModel,list, this)
         sheet.show(childFragmentManager, "")
     }
 

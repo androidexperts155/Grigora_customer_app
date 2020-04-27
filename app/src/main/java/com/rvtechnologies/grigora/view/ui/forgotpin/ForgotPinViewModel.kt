@@ -25,18 +25,16 @@ class ForgotPinViewModel : ViewModel() {
                 ) { success, result ->
                     isLoading.value = false
                     if (success) {
-
                         val type = object :
-                            TypeToken<CommonResponseModel<ArrayList<NotificationsModel>>>() {}.type
+                            TypeToken<CommonResponseModel<NotificationsModel>>() {}.type
                         forgotPasswordResult.value = Gson().fromJson(result as JsonElement, type)
-
-
                     } else {
                         forgotPasswordResult.value = result
                     }
                 }
-        } else
+        } else {
             isLoading.value = false
+         }
 
     }
 }

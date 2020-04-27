@@ -35,8 +35,9 @@ class NotificationsViewModel : ViewModel() {
             }
     }
 
-    fun deleteNotification(token: String, id: String) {
-        isLoading.value = true
+    fun deleteNotification(token: String, id: String, showLoader: Boolean) {
+        if (showLoader)
+            isLoading.value = true
 
         ApiRepo.getInstance()
             .deleteNotification(

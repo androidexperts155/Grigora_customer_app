@@ -598,6 +598,7 @@
     <string name="forgot">Forgot?</string>
     <string name="add_reset_pin">Add/Reset Pin</string>
     <string name="invalid_pin">Invalid pin</string>
+    <string name="your_order">(Your Order)</string>
     <string name="please_add_email">Please add email before continuing</string>
 
 </resources><!--₦-->

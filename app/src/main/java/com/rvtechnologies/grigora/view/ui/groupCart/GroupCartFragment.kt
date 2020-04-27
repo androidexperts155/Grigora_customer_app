@@ -130,6 +130,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                                 list.add(data)
                             }
                         }
+                        cartItemList.clear()
                         cartItemList.addAll(list)
                         rvOrderItems.adapter = GroupCartAdapter(
                             cartDataModel.user_id.toString(),
@@ -198,7 +199,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                         )
                 } else if (response != null) {
                 }
-            } else {
+            } else if (response != null) {
                 CommonUtils.showMessage(parentView, response.toString())
             }
         })
@@ -261,7 +262,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         viewModel?.isLoading?.observe(this, Observer { isLoading ->
             if (isLoading) {
                 context?.let { it1 -> CommonUtils.showLoader(it1, getString(R.string.loading)) }
-            } else {
+            } else if (isLoading != null) {
                 CommonUtils.hideLoader()
             }
         })
@@ -346,20 +347,26 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
     fun addMore() {
 //        navigate to restaurant detail
 
+//        val bundle = bundleOf(
+//            AppConstants.RESTAURANT_ID to restId,
+//            AppConstants.RESTAURANT_PICKUP to "0",
+//            AppConstants.RESTAURANT_BOOKING to "0",
+//            AppConstants.RESTAURANT_SEATES to "0",
+//            AppConstants.RESTAURANT_CLOSING_TIME to "0",
+//            AppConstants.RESTAURANT_OPENING_TIME to "0",
+//            AppConstants.RESTAURANT_ALWAYS_OPEN to "0",
+//            AppConstants.FROM_PICKUP to false
+//        )
+
         val bundle = bundleOf(
             AppConstants.RESTAURANT_ID to restId,
-            AppConstants.RESTAURANT_PICKUP to "0",
-            AppConstants.RESTAURANT_BOOKING to "0",
-            AppConstants.RESTAURANT_SEATES to "0",
-            AppConstants.RESTAURANT_CLOSING_TIME to "0",
-            AppConstants.RESTAURANT_OPENING_TIME to "0",
-            AppConstants.RESTAURANT_ALWAYS_OPEN to "0",
+            AppConstants.CART_ID to cartDataModel.id,
             AppConstants.FROM_PICKUP to false
         )
 
         view?.findNavController()
             ?.navigate(
-                R.id.action_groupCartFragment_to_restaurantDetailParent, bundle
+                R.id.action_groupCartFragment_to_restaurantGroup, bundle
             )
 
     }
@@ -434,7 +441,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
     }
 
     fun changeLocation() {
-        val builder = AlertDialog.Builder(activity!!,R.style.TimePickerTheme)
+        val builder = AlertDialog.Builder(activity!!, R.style.TimePickerTheme)
         //set title for alert dialog
         builder.setTitle(R.string.change_title)
         //set message for alert dialog
@@ -485,9 +492,8 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         }
     }
 
-
     private fun setPromo() {
-        viewModel.promoId?.value = viewModel.offerModel?.value!!.percentage!!.toString()
+        viewModel.promoId?.value = viewModel.offerModel?.value!!.id!!.toString()
 
         tv_dis.text = viewModel.offerModel?.value!!.code
         tv_promo.text = getString(R.string.promo_applied)
@@ -568,7 +574,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
 
     private fun manageSwitch() {
         tv_delivery.setOnClickListener {
-            cart_type="1"
+            cart_type = "1"
 
             if (CommonUtils.isDarkMode()) {
                 tv_pickup.setTextColor(ContextCompat.getColor(context!!, R.color.white))
@@ -597,7 +603,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         }
 
         tv_pickup.setOnClickListener {
-            cart_type="2"
+            cart_type = "2"
             tv_pickup.setBackgroundResource(R.drawable.pickup_sel)
             tv_delivery.setBackgroundResource(R.drawable.delivery_de_sel)
 
@@ -648,7 +654,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             addOnPrice += innerItem?.addOnPrice!!.toDouble()
                             if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
                                 for (i in innerItem.item_sub_sub_category!!) {
-                                    if (i?.add_on_price!!>0 )
+                                    if (i?.add_on_price!! > 0)
                                         addOnPrice += i?.add_on_price?.toDouble()!!
                                 }
                             }

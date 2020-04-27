@@ -34,7 +34,7 @@ class ForgotPin : Fragment() {
 
         viewModel?.forgotPasswordResult?.observe(this, Observer { response ->
             if (response is CommonResponseModel<*>) {
-                if(response.status!!){
+                if (response.status!!) {
                     CommonUtils.showMessage(parentView, response.message!!)
                     CommonUtils.savePrefs(
                         context!!,
@@ -44,8 +44,7 @@ class ForgotPin : Fragment() {
 
                     view?.findNavController()?.popBackStack()
                     view?.findNavController()?.popBackStack()
-                }
-                else
+                } else
                     CommonUtils.showMessage(parentView, response.message!!)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
@@ -82,6 +81,15 @@ class ForgotPin : Fragment() {
             (activity as MainActivity).backTitle("")
             (activity as MainActivity).lockDrawer(true)
         }
+    }
+
+    fun forgotPassword() {
+        CommonUtils.hideKeyboard(activity as MainActivity)
+        if (!CommonUtils.isValidEmail(viewModel.email.value.toString())) {
+            CommonUtils.showMessage(parentView, getString(R.string.invalid))
+        }
+        else
+            viewModel.forgotPassword()
     }
 
 }
