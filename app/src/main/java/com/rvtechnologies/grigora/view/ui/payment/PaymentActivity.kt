@@ -37,6 +37,7 @@ import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.GrigoraApp
 import com.rvtechnologies.grigora.utils.PrefConstants
+import com.whiteelephant.monthpicker.MonthPickerDialog
 import java.util.*
 
 class PaymentActivity : AppCompatActivity() {
@@ -144,6 +145,10 @@ class PaymentActivity : AppCompatActivity() {
                 lock = false
             }
         })
+
+        activitySubmitCreditCardBinding!!.inputLayoutExpiredDate.setOnClickListener {
+            monthYearPicker()
+        }
 
         val display = windowManager.defaultDisplay
         val size = Point()
@@ -281,7 +286,7 @@ class PaymentActivity : AppCompatActivity() {
             val expiryYear = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
                 .substring(
                     activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-                        .lastIndexOf('/'),
+                        .lastIndexOf('/') + 1,
                     activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length
                 ) //any month in the future
             val cvv =
@@ -293,6 +298,7 @@ class PaymentActivity : AppCompatActivity() {
                 expiryYear.toIntOrNull(),
                 cvv
             )
+
 
             if (card.isValid) {
                 PaystackSdk.chargeCard(
@@ -317,6 +323,11 @@ class PaymentActivity : AppCompatActivity() {
                                 .show()
                         }
                     })
+            } else {
+                CommonUtils.showMessage(
+                    activitySubmitCreditCardBinding!!.parent,
+                    getString(R.string.invalidCard)
+                )
             }
         }
 
@@ -486,6 +497,35 @@ class PaymentActivity : AppCompatActivity() {
         val resources = context.resources
         val metrics = resources.displayMetrics
         return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
+    }
+
+
+    private fun monthYearPicker() {
+
+        var today = Calendar.getInstance()
+
+        var builder = MonthPickerDialog.Builder(this, object : MonthPickerDialog.OnDateSetListener {
+            override fun onDateSet(selectedMonth: Int, selectedYear: Int) {
+
+
+                var month = if (selectedMonth + 1 < 10) {
+                    "0${selectedMonth + 1}"
+                } else
+                    (selectedMonth + 1).toString()
+
+                var year = selectedYear.toString()
+                    .substring(
+                        selectedYear.toString().length - 2,
+                        selectedYear.toString().length
+                    )
+
+                activitySubmitCreditCardBinding!!.inputEditExpiredDate.setText("$month/$year")
+            }
+
+        }, today.get(Calendar.YEAR), today.get(Calendar.MONTH)).setMaxYear(2040)
+        builder.setMinYear(today.get(Calendar.YEAR))
+            .setTitle(getString(R.string.set_ending_time)).build().show()
+
     }
 
 

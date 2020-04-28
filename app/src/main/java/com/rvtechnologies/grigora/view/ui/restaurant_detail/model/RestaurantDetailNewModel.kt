@@ -52,6 +52,8 @@ data class RestaurantDetailNewModel(
         val quantity: Int,
         val restaurant_id: Int,
         val restaurant_name: String,
+
+
         val share_link: String,
         val status: String,
         val total_price: String,

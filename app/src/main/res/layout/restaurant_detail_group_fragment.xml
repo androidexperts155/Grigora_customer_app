@@ -64,35 +64,34 @@
         </com.google.android.material.appbar.AppBarLayout>
         
         
-        
         <RelativeLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
-    
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+            
             <androidx.core.widget.NestedScrollView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:fillViewport="true"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior">
-        
-        
+                
+                
                 <LinearLayout
-            
+                    
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingTop="@dimen/_8sdp">
-            
+                    
                     <LinearLayout
                         android:id="@+id/li_shimmer"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         tools:visibility="gone">
-                
+                        
                         <include layout="@layout/rest_detail_shimmer" />
                     </LinearLayout>
-            
+                    
                     <LinearLayout
                         android:id="@+id/li_main"
                         android:layout_width="match_parent"
@@ -100,12 +99,12 @@
                         android:orientation="vertical"
                         android:visibility="gone"
                         tools:visibility="visible">
-                
+                        
                         <androidx.cardview.widget.CardView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:cardElevation="@dimen/_8sdp">
-                    
+                            
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
@@ -113,14 +112,14 @@
                                 android:orientation="horizontal"
                                 android:padding="@dimen/_8sdp"
                                 android:weightSum="2">
-                        
+                                
                                 <LinearLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1.3"
                                     android:orientation="vertical">
-                            
-                            
+                                    
+                                    
                                     <TextView
                                         android:id="@+id/tv_restaurantname"
                                         style="@style/titleText"
@@ -129,7 +128,7 @@
                                         android:textColor="?attr/textWhite"
                                         android:textSize="@dimen/_15sdp"
                                         tools:text="Burger King" />
-                            
+                                    
                                     <TextView
                                         android:id="@+id/tv_cuisines"
                                         style="@style/mediumText"
@@ -142,13 +141,13 @@
                                         android:textColor="?attr/textWhite"
                                         android:textSize="@dimen/_11sdp"
                                         tools:text="North Indian, Chinese, Fast Food" />
-                            
+                                    
                                     <LinearLayout
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_marginTop="@dimen/_6sdp"
                                         android:orientation="horizontal">
-                                
+                                        
                                         <ImageView
                                             android:layout_width="@dimen/_16sdp"
                                             android:layout_height="@dimen/_16sdp"
@@ -156,22 +155,22 @@
                                             android:layout_marginRight="@dimen/_4sdp"
                                             android:tint="?attr/textWhite"
                                             app:srcCompat="@drawable/ic_location" />
-                                
+                                        
                                         <TextView
                                             android:id="@+id/tv_address"
                                             style="@style/mediumText"
                                             android:layout_width="wrap_content"
                                             android:layout_height="wrap_content"
-                                    
+                                            
                                             android:ellipsize="end"
                                             android:gravity="left"
                                             android:maxLines="2"
                                             android:textColor="?attr/textWhite"
                                             android:textSize="@dimen/_11sdp"
                                             tools:text="Sector 45, Chandigarh, Punjab, India" />
-                            
+                                    
                                     </LinearLayout>
-                            
+                                    
                                     <LinearLayout
                                         android:id="@+id/li_time"
                                         android:layout_width="wrap_content"
@@ -180,7 +179,7 @@
                                         android:gravity="center_vertical"
                                         android:orientation="horizontal"
                                         android:visibility="visible">
-                                
+                                        
                                         <com.airbnb.lottie.LottieAnimationView
                                             android:id="@+id/stopwatch"
                                             android:layout_width="@dimen/_20sdp"
@@ -189,7 +188,7 @@
                                             app:lottie_autoPlay="true"
                                             app:lottie_fileName="stopwatch.json"
                                             app:lottie_loop="true" />
-                                
+                                        
                                         <TextView
                                             android:id="@+id/tv_deliver"
                                             style="@style/titleText"
@@ -203,7 +202,7 @@
                                             android:textStyle="italic"
                                             tools:text="Deliver in 36 Minutes" />
                                     </LinearLayout>
-                            
+                                    
                                     <LinearLayout
                                         android:id="@+id/li_status"
                                         android:layout_width="wrap_content"
@@ -214,8 +213,8 @@
                                         android:gravity="center_vertical"
                                         android:orientation="horizontal"
                                         android:visibility="gone">
-                                
-                                
+                                        
+                                        
                                         <TextView
                                             android:id="@+id/tv_status"
                                             style="@style/titleText"
@@ -229,8 +228,8 @@
                                             android:textColor="@color/colorPrimaryDark"
                                             android:textSize="@dimen/_11sdp" />
                                     </LinearLayout>
-                            
-                            
+                                    
+                                    
                                     <TextView
                                         android:id="@+id/tv_delivery_fee"
                                         style="@style/mediumText"
@@ -243,31 +242,31 @@
                                         android:text="Delivery Fee: ₦ 0.00"
                                         android:textColor="@color/colorPrimaryDark"
                                         android:textSize="@dimen/_11sdp" />
-                        
+                                
                                 </LinearLayout>
-                        
+                                
                                 <RelativeLayout
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="0.7">
-                            
+                                    
                                     <RelativeLayout
                                         android:id="@+id/li_rating_review"
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:layout_alignParentRight="true"
                                         android:clickable="true"
-                                
+                                        
                                         android:onClick="@{()-> restaurantDetailsView.reviewClick()}"
                                         android:orientation="horizontal"
                                         android:weightSum="2">
-                                
+                                        
                                         <View
                                             android:layout_width="@dimen/_30sdp"
                                             android:layout_height="@dimen/_30sdp"
                                             android:layout_marginLeft="@dimen/_20sdp"
                                             android:background="@color/viewbg" />
-                                
+                                        
                                         <LinearLayout
                                             android:id="@+id/l1"
                                             android:layout_width="@dimen/_40sdp"
@@ -277,7 +276,7 @@
                                             android:orientation="vertical"
                                             android:paddingTop="@dimen/_4sdp"
                                             android:paddingBottom="@dimen/_4sdp">
-                                    
+                                            
                                             <TextView
                                                 android:id="@+id/tv_rating"
                                                 style="@style/normalText"
@@ -286,15 +285,15 @@
                                                 android:text="0.0"
                                                 android:textColor="@color/white"
                                                 android:textSize="@dimen/_8sdp" />
-                                    
+                                            
                                             <ImageView
                                                 android:layout_width="@dimen/_10sdp"
                                                 android:layout_height="@dimen/_10sdp"
                                                 android:tint="@color/white"
                                                 app:srcCompat="@drawable/ic_star_24dp" />
-                                
+                                        
                                         </LinearLayout>
-                                
+                                        
                                         <LinearLayout
                                             android:layout_width="@dimen/_40sdp"
                                             android:layout_height="@dimen/_30sdp"
@@ -304,7 +303,7 @@
                                             android:orientation="vertical"
                                             android:paddingTop="@dimen/_4sdp"
                                             android:paddingBottom="@dimen/_4sdp">
-                                    
+                                            
                                             <TextView
                                                 android:id="@+id/tv_reviews"
                                                 style="@style/normalText"
@@ -313,7 +312,7 @@
                                                 android:text="0"
                                                 android:textColor="@color/textBlack"
                                                 android:textSize="@dimen/_8sdp" />
-                                    
+                                            
                                             <TextView
                                                 style="@style/normalText"
                                                 android:layout_width="wrap_content"
@@ -321,12 +320,12 @@
                                                 android:text="@string/REVIEWS"
                                                 android:textColor="@color/textBlack"
                                                 android:textSize="@dimen/_7sdp" />
-                                
+                                        
                                         </LinearLayout>
-                            
-                            
+                                    
+                                    
                                     </RelativeLayout>
-                            
+                                    
                                     <TextView
                                         android:id="@+id/tv_tt"
                                         style="@style/normalText"
@@ -339,7 +338,7 @@
                                         android:text="@string/open_or_close_time"
                                         android:textColor="?attr/searchHint"
                                         android:textSize="@dimen/_8sdp" />
-                            
+                                    
                                     <TextView
                                         android:id="@+id/tv_time"
                                         style="@style/normalText"
@@ -351,7 +350,7 @@
                                         android:text="9am to 10pm"
                                         android:textColor="?attr/searchHint"
                                         android:textSize="@dimen/_8sdp" />
-                            
+                                    
                                     <androidx.cardview.widget.CardView
                                         android:layout_width="@dimen/_60sdp"
                                         android:layout_height="@dimen/_60sdp"
@@ -361,7 +360,7 @@
                                         app:cardBackgroundColor="@color/transparent"
                                         app:cardCornerRadius="@dimen/_40sdp"
                                         app:cardElevation="0dp">
-                                
+                                        
                                         <ImageView
                                             android:id="@+id/img_rest"
                                             android:layout_width="match_parent"
@@ -369,18 +368,18 @@
                                             android:scaleType="centerCrop"
                                             tools:src="@mipmap/burger_king" />
                                     </androidx.cardview.widget.CardView>
-                        
-                        
+                                
+                                
                                 </RelativeLayout>
-                    
-                    
+                            
+                            
                             </LinearLayout>
-                
+                        
                         </androidx.cardview.widget.CardView>
-                
+                        
                         <RelativeLayout
                             android:id="@+id/rel_invite"
-                    
+                            
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_15sdp"
@@ -388,7 +387,7 @@
                             android:background="?attr/langSelected"
                             android:padding="@dimen/_10sdp"
                             android:visibility="visible">
-                    
+                            
                             <TextView
                                 android:id="@+id/tv_group_order_title"
                                 style="@style/mediumText"
@@ -397,7 +396,7 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_12sdp"
                                 tools:text="Group order by Vikas" />
-                    
+                            
                             <TextView
                                 android:id="@+id/tv_order_limit"
                                 style="@style/normalText"
@@ -407,8 +406,8 @@
                                 android:textColor="@color/white"
                                 android:textSize="@dimen/_10sdp"
                                 tools:text="Group order by Vikas" />
-                    
-                    
+                            
+                            
                             <TextView
                                 style="@style/normalText"
                                 android:layout_width="wrap_content"
@@ -428,29 +427,29 @@
                                 android:text="@string/invite"
                                 android:textColor="@color/textBlack"
                                 android:textSize="@dimen/_12sdp" />
-                
-                
+                        
+                        
                         </RelativeLayout>
-                
-                
+                        
+                        
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:paddingLeft="@dimen/_8sdp"
                             android:paddingRight="@dimen/_8sdp">
-                    
+                            
                             <LinearLayout
                                 android:id="@+id/li_enabled"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                        
+                                
                                 android:layout_alignParentLeft="true"
                                 android:layout_centerVertical="true"
                                 android:layout_gravity="center"
                                 android:layout_marginTop="@dimen/_8sdp"
                                 android:orientation="horizontal"
                                 android:visibility="visible">
-                        
+                                
                                 <TextView
                                     android:id="@+id/tv_delivery"
                                     style="@style/titleText"
@@ -462,8 +461,8 @@
                                     android:text="@string/Delivery"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/_12sdp" />
-                        
-                        
+                                
+                                
                                 <TextView
                                     android:id="@+id/tv_pickup"
                                     style="@style/titleText"
@@ -475,9 +474,9 @@
                                     android:text="@string/pickup"
                                     android:textColor="?attr/textWhite"
                                     android:textSize="@dimen/_12sdp" />
-                    
+                            
                             </LinearLayout>
-                    
+                            
                             <LinearLayout
                                 android:id="@+id/li_disabled"
                                 android:layout_width="wrap_content"
@@ -488,7 +487,7 @@
                                 android:layout_marginTop="@dimen/_8sdp"
                                 android:orientation="horizontal"
                                 android:visibility="gone">
-                        
+                                
                                 <TextView
                                     style="@style/titleText"
                                     android:layout_width="@dimen/_80sdp"
@@ -498,12 +497,12 @@
                                     android:text="@string/Delivery"
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/_12sdp" />
-                        
+                                
                                 <View
                                     android:layout_width="@dimen/_1sdp"
                                     android:layout_height="match_parent"
                                     android:backgroundTint="?attr/textWhite" />
-                        
+                                
                                 <TextView
                                     style="@style/titleText"
                                     android:layout_width="@dimen/_80sdp"
@@ -514,13 +513,11 @@
                                     android:textColor="@color/white"
                                     android:textSize="@dimen/_12sdp" />
                             </LinearLayout>
-                
-                
-                
-                
+                        
+                        
                         </RelativeLayout>
-                
-                
+                        
+                        
                         <TextView
                             android:id="@+id/tv_pickup_desc"
                             style="@style/mediumText"
@@ -530,33 +527,33 @@
                             android:layout_marginRight="@dimen/_8sdp"
                             android:background="@drawable/schedule_bg"
                             android:padding="@dimen/_8sdp"
-                    
+                            
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_10sdp"
                             tools:text="This is a Pickup Order. Please pick it from Sector 45, Chandigarh, 3 KM away." />
-                
-                
+                        
+                        
                         <LinearLayout
                             android:id="@+id/li_promotion"
                             android:layout_width="match_parent"
-                    
+                            
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:orientation="vertical"
                             android:visibility="gone"
                             tools:visibility="visible">
-                    
-                    
+                            
+                            
                             <TextView
                                 style="@style/titleText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:padding="@dimen/_8sdp"
-                        
+                                
                                 android:text="@string/promotion_title"
                                 android:textColor="?attr/textWhite"
                                 android:textSize="@dimen/_14sdp" />
-                    
+                            
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rc_promo"
                                 android:layout_width="match_parent"
@@ -566,17 +563,17 @@
                                 tools:itemCount="4"
                                 tools:listitem="@layout/item_promo" />
                         </LinearLayout>
-    
-    
+                        
+                        
                         <RadioGroup
-        android:layout_marginTop="@dimen/_12sdp"
                             android:id="@+id/rg_veg_nonveg"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_centerVertical="true"
+                            android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="horizontal">
-        
+                            
                             <RadioButton
                                 android:id="@+id/rd_veg"
                                 style="@style/mediumText"
@@ -586,11 +583,11 @@
                                 android:buttonTint="@color/green"
                                 android:text="@string/veg"
                                 android:textColor="?attr/textWhite" />
-        
-        
+                            
+                            
                             <RadioButton
                                 android:id="@+id/rd_nonveg"
-            
+                                
                                 style="@style/mediumText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -598,11 +595,11 @@
                                 android:buttonTint="@color/colorPrimaryDark"
                                 android:text="@string/nonveg"
                                 android:textColor="?attr/textWhite" />
-        
-        
+                            
+                            
                             <RadioButton
                                 android:id="@+id/rd_containsegg"
-            
+                                
                                 style="@style/mediumText"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -610,10 +607,10 @@
                                 android:buttonTint="@color/duskYellow"
                                 android:text="@string/contains_egg"
                                 android:textColor="?attr/textWhite" />
-    
+                        
                         </RadioGroup>
-    
-    
+                        
+                        
                         <LinearLayout
                             android:id="@+id/li_featured"
                             android:layout_width="match_parent"
@@ -621,8 +618,8 @@
                             android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="vertical"
                             android:visibility="gone">
-                    
-                    
+                            
+                            
                             <TextView
                                 style="@style/titleText"
                                 android:layout_width="wrap_content"
@@ -632,7 +629,7 @@
                                 android:text="@string/featured_dishes"
                                 android:textColor="?attr/textWhite"
                                 android:textSize="@dimen/_14sdp" />
-                    
+                            
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rec_featured"
                                 android:layout_width="match_parent"
@@ -642,11 +639,11 @@
                                 app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
                                 app:spanCount="2"
                                 tools:itemCount="3"
-                        
+                                
                                 tools:listitem="@layout/item_featured" />
                         </LinearLayout>
-                
-                
+                        
+                        
                         <LinearLayout
                             android:id="@+id/li_previously_orderd"
                             android:layout_width="match_parent"
@@ -654,18 +651,18 @@
                             android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="vertical"
                             android:visibility="visible">
-                    
+                            
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_2sdp"
                                 android:background="?attr/viewbg" />
-                    
+                            
                             <RelativeLayout
                                 android:layout_width="match_parent"
-                        
+                                
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_8sdp">
-                        
+                                
                                 <TextView
                                     style="@style/titleText"
                                     android:layout_width="wrap_content"
@@ -677,7 +674,7 @@
                                     android:text="@string/previously_ordered_items"
                                     android:textColor="?attr/textWhite"
                                     android:textSize="@dimen/_14sdp" />
-                        
+                                
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="@dimen/_26sdp"
                                     android:layout_height="@dimen/_26sdp"
@@ -689,7 +686,7 @@
                                     android:elevation="@dimen/_1sdp"
                                     app:cardBackgroundColor="?attr/viewbg"
                                     app:cardCornerRadius="@dimen/_16sdp">
-                            
+                                    
                                     <ImageView
                                         android:id="@+id/collapse_previously"
                                         android:layout_width="wrap_content"
@@ -702,10 +699,10 @@
                                         android:tint="?attr/textWhite"
                                         app:srcCompat="@drawable/ic_expanded" />
                                 </androidx.cardview.widget.CardView>
-                    
+                            
                             </RelativeLayout>
-                    
-                    
+                            
+                            
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rec_previously"
                                 android:layout_width="match_parent"
@@ -716,8 +713,8 @@
                                 tools:itemCount="1"
                                 tools:listitem="@layout/item_meal" />
                         </LinearLayout>
-                
-                
+                        
+                        
                         <LinearLayout
                             android:id="@+id/li_popular"
                             android:layout_width="match_parent"
@@ -725,21 +722,21 @@
                             android:layout_marginTop="@dimen/_12sdp"
                             android:orientation="vertical"
                             android:visibility="visible">
-                    
+                            
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="@dimen/_2sdp"
                                 android:background="?attr/viewbg" />
-                    
+                            
                             <RelativeLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/_14sdp">
-                        
+                                
                                 <TextView
                                     style="@style/titleText"
                                     android:layout_width="wrap_content"
-                            
+                                    
                                     android:layout_height="wrap_content"
                                     android:layout_alignParentLeft="true"
                                     android:layout_centerVertical="true"
@@ -747,8 +744,8 @@
                                     android:text="@string/popular_dishes"
                                     android:textColor="?attr/textWhite"
                                     android:textSize="@dimen/_14sdp" />
-                        
-                        
+                                
+                                
                                 <androidx.cardview.widget.CardView
                                     android:layout_width="@dimen/_26sdp"
                                     android:layout_height="@dimen/_26sdp"
@@ -759,7 +756,7 @@
                                     android:elevation="@dimen/_1sdp"
                                     app:cardBackgroundColor="?attr/viewbg"
                                     app:cardCornerRadius="@dimen/_20sdp">
-                            
+                                    
                                     <ImageView
                                         android:id="@+id/collapse_popular"
                                         android:layout_width="wrap_content"
@@ -772,10 +769,10 @@
                                         android:tint="?attr/textWhite"
                                         app:srcCompat="@drawable/ic_expanded" />
                                 </androidx.cardview.widget.CardView>
-                    
+                            
                             </RelativeLayout>
-                    
-                    
+                            
+                            
                             <androidx.recyclerview.widget.RecyclerView
                                 android:id="@+id/rec_popular"
                                 android:layout_width="match_parent"
@@ -786,13 +783,13 @@
                                 tools:itemCount="1"
                                 tools:listitem="@layout/item_meal" />
                         </LinearLayout>
-                
+                        
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="@dimen/_2sdp"
                             android:layout_marginTop="@dimen/_6sdp"
                             android:background="?attr/viewbg" />
-    
+                        
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -803,12 +800,13 @@
                             android:foreground="@drawable/selectable_item_background"
                             android:onClick="@{()-> restaurantDetailsView.chooseType()}"
                             android:orientation="vertical">
-        
-        
+                            
+                            
                             <LinearLayout
-                                android:orientation="horizontal"
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+                                
                                 <Button
                                     android:id="@+id/bt_type"
                                     style="@style/titleText"
@@ -822,7 +820,7 @@
                                     android:textColor="?attr/textWhite"
                                     android:textSize="@dimen/_14sdp"
                                     tools:text="Breakfast" />
-            
+                                
                                 <ImageView
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -833,18 +831,19 @@
                                     android:tint="?attr/textWhite"
                                     app:srcCompat="@drawable/ic_expanded" />
                             </LinearLayout>
-        
+                            
                             <TextView
                                 android:id="@+id/tv_menu_time"
+                                style="@style/mediumText"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="start"
                                 android:textColor="?attr/textWhite"
                                 android:textSize="@dimen/_12sdp"
-                                style="@style/mediumText"
-                                android:layout_gravity="start"
-                                tools:text="12:23:23 to 23:23:23"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"/>
-    
+                                tools:text="12:23:23 to 23:23:23" />
+                        
                         </LinearLayout>
+                        
                         <androidx.recyclerview.widget.RecyclerView
                             android:id="@+id/rec_parents"
                             android:layout_width="match_parent"
@@ -853,23 +852,24 @@
                             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
                             tools:itemCount="2"
                             tools:listitem="@layout/item_category_parent" />
+                        
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="@dimen/_80sdp"/>
-            
+                            android:layout_height="@dimen/_80sdp" />
+                    
                     </LinearLayout>
-        
-        
+                
+                
                 </LinearLayout>
-    
-    
+            
+            
             </androidx.core.widget.NestedScrollView>
-    
-            <LinearLayout
+            
+            <RelativeLayout
                 android:id="@+id/fab_cart_group"
-                android:layout_width="wrap_content"
+                android:layout_width="@dimen/_220sdp"
                 android:layout_height="wrap_content"
-                 android:layout_alignParentBottom="true"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_margin="@dimen/_8sdp"
                 android:background="@drawable/btn_rounded_cart"
@@ -879,20 +879,20 @@
                 android:onClick="@{()->restaurantDetailsView.showcart()}"
                 android:orientation="horizontal"
                 android:paddingLeft="@dimen/_15sdp"
+                
                 android:paddingTop="@dimen/_8sdp"
                 android:paddingRight="@dimen/_15sdp"
                 android:paddingBottom="@dimen/_8sdp"
                 android:visibility="visible"
                 app:elevation="1dp">
-        
+                
                 <ImageView
                     android:layout_width="@dimen/_20sdp"
                     android:layout_height="@dimen/_20sdp"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="@dimen/_8sdp"
                     app:srcCompat="@drawable/ic_cart" />
-        
+                
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -900,17 +900,17 @@
                     android:layout_centerVertical="true"
                     android:gravity="center"
                     android:orientation="vertical">
-            
+                    
                     <TextView
                         style="@style/mediumText"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="@string/viewcart"
                         android:textAllCaps="true"
-                
+                        
                         android:textColor="@color/white"
                         android:textSize="@dimen/_8sdp" />
-            
+                    
                     <TextView
                         android:id="@+id/tv_restname"
                         style="@style/titleText"
@@ -919,14 +919,25 @@
                         android:textColor="@color/white"
                         android:textSize="@dimen/_10sdp"
                         tools:text="Aroma Express Bar" />
-        
+                
                 </LinearLayout>
-    
-    
-            </LinearLayout>
-
-        </RelativeLayout>
+                
+                <TextView
+                    android:id="@+id/tv_itemss"
+                    style="@style/titleText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_10sdp"
+                    tools:text="7 Items" />
+            
+            
+            </RelativeLayout>
         
+        </RelativeLayout>
+    
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
     
     <data>

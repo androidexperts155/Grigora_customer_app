@@ -600,5 +600,7 @@
     <string name="invalid_pin">Invalid pin</string>
     <string name="your_order">(Your Order)</string>
     <string name="please_add_email">Please add email before continuing</string>
+    <string name="invalidCard">Invalid Card</string>
+    <string name="set_ending_time">Set Expiry Date</string>
 
 </resources><!--₦-->

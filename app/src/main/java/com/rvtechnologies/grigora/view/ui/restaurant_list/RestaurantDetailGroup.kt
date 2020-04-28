@@ -73,6 +73,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
                     manageFilter()
 
                     tv_restname.text = restaurantDetailModel.restaurant_name
+
                     if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1")
                         tv_delivery.callOnClick()
                     else
@@ -207,6 +208,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
         viewModel.cartId.value = data.cart?.id.toString()
         if (data.cart != null && data.cart?.quantity!! > 0) {
             fab_cart_group.visibility = View.VISIBLE
+            tv_itemss.text = restaurantDetailModel.cart?.quantity.toString()+" "+getString(R.string.items)
         } else if (data.cart_id.isNullOrEmpty()) {
             var groupOrderAlreadyPlaced = GroupOrderAlreadyPlaced(this)
             groupOrderAlreadyPlaced.show(childFragmentManager, "")

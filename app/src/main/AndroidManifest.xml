@@ -101,7 +101,7 @@
             android:value="@string/google_api_key" />
         <meta-data
             android:name="co.paystack.android.PublicKey"
-            android:value="@string/paystack_live_public_key" />
+            android:value="@string/paystack_test_public_key" />
         
         <service
             android:name=".utils.MyFirebaseMessagingService"
