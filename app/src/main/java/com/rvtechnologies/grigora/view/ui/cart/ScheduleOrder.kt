@@ -324,7 +324,6 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
             context!!, R.style.TimePickerTheme,
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
 
-
                 if (hourOfDay > 12)
                     tv_hours.text = (hourOfDay - 12).toString()
                 else
@@ -381,7 +380,7 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
     }
 
     fun schedule() {
-        if (ed_note.text.toString().isNullOrBlank())
+        if (!ed_note.text.toString().isNullOrBlank())
             sharedViewModel.scheduleNote.value = ed_note.text.toString()
         else
             sharedViewModel.scheduleNote.value = ""

@@ -28,7 +28,7 @@ class RestaurantAdapter(
 
         if ((resModel.fullTime == "0")) {
             resModel.closeToShow =
-                "${holder.itemView.context!!.getString(R.string.closes)} ${CommonUtils.getFormattedTimeOrDate(
+                "${holder.itemView.context!!.getString(R.string.closes)} ${CommonUtils.getFormattedUtc(
                     resModel.closingTime,
                     "HH:mm:ss",
                     "hh:mm aa"

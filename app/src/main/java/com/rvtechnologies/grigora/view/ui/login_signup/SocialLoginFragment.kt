@@ -3,13 +3,18 @@ package com.rvtechnologies.grigora.view.ui.login_signup
 
 import android.content.Intent
 import android.os.Bundle
+import android.text.SpannableString
+import android.text.Spanned
+import android.text.TextPaint
+import android.text.method.LinkMovementMethod
+import android.text.style.ClickableSpan
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ScrollView
 import android.widget.Toast
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -24,19 +29,23 @@ import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInOptions
 import com.google.android.gms.common.api.ApiException
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.AuthResult
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.OAuthProvider
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view_model.SocialLoginViewModel
 import com.twitter.sdk.android.core.*
 import com.twitter.sdk.android.core.identity.TwitterAuthClient
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.social_login_fragment.*
 import org.json.JSONException
-import java.lang.Exception
 import java.util.*
 
 class SocialLoginFragment : Fragment() {
@@ -110,43 +119,72 @@ class SocialLoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
+        setBottom()
         img_facebook.setOnClickListener {
             fbLogin()
         }
         img_twitter.setOnClickListener {
-            mTwitterAuthClient!!.authorize(
-                activity,
-                object : Callback<TwitterSession>() {
-                    override fun success(twitterSessionResult: Result<TwitterSession>) { // Success
-                        session = TwitterCore.getInstance().sessionManager.activeSession
-                        val authToken = session!!.authToken
-                        val token = authToken.token
-                        val secret = authToken.secret
-                        mTwitterAuthClient!!.requestEmail(
-                            session,
-                            object : Callback<String?>() {
-                                override fun success(emailResult: Result<String?>) {
-                                    var email = emailResult.data
-                                    val name = session!!.getUserName()
-                                    email = session!!.getUserId().toString() + "@twitter.com"
-                                    //                                        Toast.makeText(Login.this, "vvv:"+session.getUserId(), Toast.LENGTH_SHORT).show();
-//                                    hitSocialLoginApi(name, email, 3, "" + session.getUserId())
-                                }
 
-                                override fun failure(e: TwitterException) {
-                                    Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT)
-                                        .show()
-                                }
-                            })
-                        Log.e("twitterData", "" + twitterSessionResult.data)
-                        //                        Toast.makeText(Login.this, "Login Success" + session.getUserName(), Toast.LENGTH_SHORT).show();
-                    }
+            val provider: OAuthProvider.Builder = OAuthProvider.newBuilder("twitter.com")
+            provider.addCustomParameter("lang", "en")
 
-                    override fun failure(e: TwitterException) {
-                        e.printStackTrace()
-                    }
-                })
+            FirebaseAuth.getInstance()
+                .startActivityForSignInWithProvider(activity as MainActivity, provider.build())
+                .addOnSuccessListener(
+                    OnSuccessListener<AuthResult?> {
+                        print(it!!.user?.email)
+                        val name = it!!.user!!.displayName.toString()
+                        val email = it!!.user?.email.toString()
+                        val uid = it!!.user?.uid.toString()
+                        viewModel.login(name, email, "", "2", uid)
+
+                        // User is signed in.
+                        // IdP data available in
+                        // authResult.getAdditionalUserInfo().getProfile().
+                        // The OAuth access token can also be retrieved:
+                        // authResult.getCredential().getAccessToken().
+                        // The OAuth secret can be retrieved by calling:
+                        // authResult.getCredential().getSecret().
+                    })
+                .addOnFailureListener(
+                    OnFailureListener {
+                        CommonUtils.showMessage(parentView, it.localizedMessage)
+                        // Handle failure.
+                    })
+
+
+            /* mTwitterAuthClient!!.authorize(
+                 activity,
+                 object : Callback<TwitterSession>() {
+                     override fun success(twitterSessionResult: Result<TwitterSession>) { // Success
+                         session = TwitterCore.getInstance().sessionManager.activeSession
+                         val authToken = session!!.authToken
+                         val token = authToken.token
+                         val secret = authToken.secret
+                         mTwitterAuthClient!!.requestEmail(
+                             session,
+                             object : Callback<String?>() {
+                                 override fun success(emailResult: Result<String?>) {
+                                     var email = emailResult.data
+                                     val name = session!!.getUserName()
+                                     email = session!!.getUserId().toString() + "@twitter.com"
+                                     //                                        Toast.makeText(Login.this, "vvv:"+session.getUserId(), Toast.LENGTH_SHORT).show();
+ //                                    hitSocialLoginApi(name, email, 3, "" + session.getUserId())
+                                 }
+
+                                 override fun failure(e: TwitterException) {
+                                     Toast.makeText(context, "Login failed", Toast.LENGTH_SHORT)
+                                         .show()
+                                 }
+                             })
+                         Log.e("twitterData", "" + twitterSessionResult.data)
+                         //                        Toast.makeText(Login.this, "Login Success" + session.getUserName(), Toast.LENGTH_SHORT).show();
+                     }
+
+                     override fun failure(e: TwitterException) {
+                         e.printStackTrace()
+                     }
+                 })*/
 
         }
         img_google.setOnClickListener {
@@ -300,6 +338,37 @@ class SocialLoginFragment : Fragment() {
             view?.findNavController()
                 ?.navigate(R.id.action_social_fragment_to_selectLocationFragment)
         }
+    }
+
+    fun setBottom() {
+        val text = SpannableString(getString(R.string.termsandconditions_social))
+        var span1 = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+                var bundle = bundleOf(AppConstants.PAGE_TYPE to 2)
+                view?.findNavController()?.navigate(R.id.action_social_fragment_to_about_us, bundle)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+            }
+        }
+
+        var span2 = object : ClickableSpan() {
+            override fun onClick(p0: View) {
+                var bundle = bundleOf(AppConstants.PAGE_TYPE to 5)
+                view?.findNavController()?.navigate(R.id.action_social_fragment_to_about_us, bundle)
+            }
+
+            override fun updateDrawState(ds: TextPaint) {
+                super.updateDrawState(ds)
+            }
+        }
+        text.setSpan(span1, 39, 59, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+        text.setSpan(span2, 64, 78, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE)
+
+        tv_bottom.text = text
+        tv_bottom.setMovementMethod(LinkMovementMethod.getInstance());
+
     }
 
 

@@ -23,10 +23,7 @@ class ScheduleOrderDetails : Fragment() {
 
     private lateinit var viewModel: ScheduleOrderDetailsViewModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
 
-    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,

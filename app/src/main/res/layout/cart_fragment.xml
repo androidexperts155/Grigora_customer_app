@@ -98,12 +98,12 @@
                     </LinearLayout>
                     
                     <TextView
-                        android:text="@{cartViewModel.cartData.restaurantName}"
-                        
                         style="@style/titleText"
-                        android:layout_marginTop="@dimen/_8sdp"
+                        
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:text="@{cartViewModel.cartData.restaurantName}"
                         android:textColor="?attr/textWhite"
                         android:textSize="@dimen/_13sdp"
                         tools:text="Restaurant Name" />
@@ -127,10 +127,10 @@
                         <TextView
                             android:id="@+id/tv_estimated"
                             style="@style/mediumText"
-                            android:layout_marginTop="@dimen/_4sdp"
-                            android:layout_below="@+id/tv_msg"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_msg"
+                            android:layout_marginTop="@dimen/_4sdp"
                             
                             android:textColor="?attr/textWhite"
                             android:textSize="@dimen/_11sdp"
@@ -151,7 +151,6 @@
                             android:textSize="@dimen/_10sdp"
                             tools:visibility="visible" />
                     </RelativeLayout>
-                    
                     
                     
                     <View
@@ -196,13 +195,13 @@
                             style="@style/mediumText"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:textAllCaps="true"
                             android:layout_alignParentRight="true"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginTop="@dimen/_4sdp"
                             android:gravity="center"
                             android:onClick="@{()->cartFragment.changeLocation()}"
                             android:text="@string/change"
+                            android:textAllCaps="true"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/_10sdp" />
                         
@@ -213,7 +212,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_below="@+id/textView22"
-                            android:minLines="2"
                             android:layout_marginStart="@dimen/_8sdp"
                             android:layout_marginTop="@dimen/_8sdp"
                             android:layout_marginBottom="@dimen/_4sdp"
@@ -223,14 +221,14 @@
                             android:hint="@string/add_delivery_note"
                             android:inputType="textMultiLine"
                             android:maxLines="2"
+                            android:minLines="2"
                             
                             android:paddingBottom="@dimen/_4sdp"
                             android:singleLine="true"
                             android:text="@={cartViewModel.deliveryNote}"
                             android:textColor="?attr/textWhite"
                             android:textColorHint="?attr/searchHint"
-                            android:textSize="@dimen/_10sdp"
-                            />
+                            android:textSize="@dimen/_10sdp" />
                         
                         <View
                             android:id="@+id/view"
@@ -248,20 +246,19 @@
                     
                     
                     <View
-                        android:layout_marginTop="@dimen/_8sdp"
-                        android:background="?attr/viewbg"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"/>
+                        android:layout_height="@dimen/_1sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
+                        android:background="?attr/viewbg" />
                     
                     <TextView
                         style="@style/titleText"
-                        android:layout_marginTop="@dimen/_8sdp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_12sdp"
+                        android:layout_marginTop="@dimen/_8sdp"
                         android:text="@string/items"
-                        />
+                        android:textColor="?attr/textWhite"
+                        android:textSize="@dimen/_12sdp" />
                     
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rvOrderItems"
@@ -416,11 +413,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_alignParentRight="true"
-                            android:textAllCaps="true"
                             android:clickable="true"
                             android:gravity="center"
                             android:onClick="@{()->cartFragment.showPaymentOptionsDialog()}"
                             android:text="@string/change"
+                            android:textAllCaps="true"
                             android:textColor="@color/colorPrimaryDark"
                             android:textSize="@dimen/_10sdp" />
                     
@@ -514,7 +511,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_below="@+id/textView22"
-                        android:minLines="2"
                         android:layout_marginStart="@dimen/_8sdp"
                         android:layout_marginTop="@dimen/_16sdp"
                         android:layout_marginBottom="@dimen/_4sdp"
@@ -524,18 +520,19 @@
                         android:hint="@string/coocking_ins"
                         android:inputType="textMultiLine"
                         android:maxLines="2"
+                        android:minLines="2"
                         
                         android:paddingBottom="@dimen/_4sdp"
                         android:singleLine="true"
                         android:text="@={cartViewModel.preparationNote}"
                         android:textColor="?attr/textWhite"
                         android:textColorHint="?attr/searchHint"
-                        android:textSize="@dimen/_10sdp"
-                        />
+                        android:textSize="@dimen/_10sdp" />
+                    
                     <View
-                        android:background="?attr/viewbg"
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/_1sdp"/>
+                        android:layout_height="@dimen/_1sdp"
+                        android:background="?attr/viewbg" />
                     
                     <RelativeLayout
                         android:layout_width="match_parent"

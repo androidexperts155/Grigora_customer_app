@@ -114,6 +114,9 @@ class OrderFragment : Fragment(), IRecyclerItemClick, RateDriverDialogFragment.D
             }
 
             rvOrders.adapter = OrderAdapter(orderList, this, currentIndex)
+//            if(orderList.size==0){
+//                CommonUtils.showMessage(parentView,getString(R.string.no_orders_yet))
+//            }
         }
     }
 

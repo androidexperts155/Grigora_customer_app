@@ -602,5 +602,9 @@
     <string name="please_add_email">Please add email before continuing</string>
     <string name="invalidCard">Invalid Card</string>
     <string name="set_ending_time">Set Expiry Date</string>
+    <string name="privacy_policy">Privacy Policy</string>
+    <string name="verify_email">Please verify email and Login.</string>
+    <string name="no_orders_yet">No orders yet</string>
+    <string name="invalidcvv">Invalid CVV</string>
 
 </resources><!--₦-->

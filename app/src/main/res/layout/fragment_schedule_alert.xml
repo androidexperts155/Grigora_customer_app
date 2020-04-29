@@ -65,7 +65,7 @@
             android:id="@+id/bt_submit"
             
             style="@style/titleText"
-            android:layout_width="@dimen/_120sdp"
+            android:layout_width="wrap_content"
             android:layout_height="@dimen/_35sdp"
             android:layout_below="@id/stopwatch"
             android:layout_centerHorizontal="true"

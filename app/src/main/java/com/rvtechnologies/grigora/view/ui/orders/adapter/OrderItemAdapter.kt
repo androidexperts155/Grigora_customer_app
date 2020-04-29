@@ -48,8 +48,8 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
                         }
                     }
                 }
-                price *= list[position].quantity
             }
+            price *= list[position].quantity
         }
 
         holder.tv_price.text = "₦ " + CommonUtils.getRoundedOff(price)

@@ -133,7 +133,7 @@ class ContactUs : Fragment() {
         }
     }
 
-    fun call(){
+    fun call() {
 
         Dexter.withActivity(activity)
             .withPermission(Manifest.permission.CALL_PHONE)
@@ -156,7 +156,8 @@ class ContactUs : Fragment() {
 
 
     }
-    fun email(){
+
+    fun email() {
         val email = Intent(Intent.ACTION_SENDTO)
         email.setData(Uri.parse("mailto:support@grigora.net"));
         startActivity(email)
@@ -211,6 +212,16 @@ class ContactUs : Fragment() {
             )
             view?.findNavController()?.navigate(R.id.action_contactUs_to_all_chat, bundle)
         }
+    }
+
+    fun liveChat() {
+        var bundle = bundleOf(
+            AppConstants.ISSUE_ID to "4",
+            AppConstants.SUB_ISSUE_ID to "",
+            AppConstants.TICKET_ID to ""
+        )
+        view?.findNavController()?.navigate(R.id.action_contactUs_to_all_chat, bundle)
+
     }
 
     private fun hasSubIssues(id: String): Boolean {

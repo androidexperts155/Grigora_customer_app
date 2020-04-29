@@ -283,7 +283,15 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         })
 
         viewModel?.reference?.value = ""
-
+        viewModel?.viewGroupCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
+            )
+        )
     }
 
     override fun onCreateView(
@@ -315,6 +323,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         rv_people_also_ordered.adapter = AlsoOrderedCartAdapter(addMoreList, this, this, -1)
         manageSwitch()
 
+
     }
 
     override fun onResume() {
@@ -333,15 +342,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
 
-        viewModel?.viewGroupCart(
-            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LATITUDE
-            ), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LONGITUDE
-            )
-        )
+
     }
 
     fun addMore() {

@@ -686,7 +686,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
                     Handler()
                         .postDelayed({
-                            img_5.startAnimation(anim)
+                            if (img_5 != null)
+                                img_5.startAnimation(anim)
                         }, random)
                 }
                 8 -> {
@@ -1228,7 +1229,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         }
         return data
     }
-
 
     private fun showDirections() {
         val url = getDirectionsUrl(

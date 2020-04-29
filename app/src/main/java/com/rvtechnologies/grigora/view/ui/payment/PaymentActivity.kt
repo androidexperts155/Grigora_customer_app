@@ -153,181 +153,87 @@ class PaymentActivity : AppCompatActivity() {
         val display = windowManager.defaultDisplay
         val size = Point()
         display.getSize(size)
-//        val width = size.x
-//        val height = size.y
-//
-//        val adapter: PagerAdapter = MyPagerAdapter()
-//        activitySubmitCreditCardBinding!!.viewPager.adapter = adapter
-//        activitySubmitCreditCardBinding!!.viewPager.clipToPadding = false
-//        activitySubmitCreditCardBinding!!.viewPager.setPadding(width / 4, 0, width / 4, 0)
-//        activitySubmitCreditCardBinding!!.viewPager.pageMargin = width / 14
-//        activitySubmitCreditCardBinding!!.viewPager.setPagingEnabled(false)
-//        activitySubmitCreditCardBinding!!.viewPager.addOnPageChangeListener(object :
-//            ViewPager.OnPageChangeListener {
-//            override fun onPageScrollStateChanged(state: Int) {
-//            }
-//
-//            override fun onPageScrolled(
-//                position: Int,
-//                positionOffset: Float,
-//                positionOffsetPixels: Int
-//            ) {
-//            }
-//
-//            override fun onPageSelected(position: Int) {
-//                when (position) {
-//                    0 -> {
-//                        updateProgressBar(25)
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusableInTouchMode =
-//                            true
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.requestFocus()
-//                        return
-//                    }
-//                    1 -> {
-//                        updateProgressBar(50)
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusableInTouchMode =
-//                            true
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.requestFocus()
-//                        return
-//                    }
-//                    2 -> {
-//                        updateProgressBar(75)
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusableInTouchMode =
-//                            true
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.requestFocus()
-//                        return
-//                    }
-//                    3 -> {
-//                        updateProgressBar(100)
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusableInTouchMode =
-//                            true
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.requestFocus()
-//                        return
-//                    }
-//                    4 -> {
-//                        activitySubmitCreditCardBinding!!.inputEditCardNumber.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditExpiredDate.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCardHolder.isFocusable = false
-//                        activitySubmitCreditCardBinding!!.inputEditCvvCode.isFocusable = false
-//                        return
-//                    }
-//                }
-//            }
-//        })
-
-//        val onEditorActionListener =
-//            OnEditorActionListener { v, actionId, event ->
-//                var handled = false
-//                if (actionId == EditorInfo.IME_ACTION_NEXT) {
-////                    activitySubmitCreditCardBinding!!.viewPager.currentItem =
-////                        activitySubmitCreditCardBinding!!.viewPager.currentItem + 1
-//                    handled = true
-//                }
-//                if (actionId == EditorInfo.IME_ACTION_DONE) {
-//                    submit()
-//                    handled = true
-//                }
-//                handled
-//            }
-
-//        activitySubmitCreditCardBinding!!.inputEditCardNumber.setOnEditorActionListener(
-//
-//            onEditorActionListener
-//
-//
-//        )
-//        activitySubmitCreditCardBinding!!.inputEditExpiredDate.setOnEditorActionListener(
-//
-//            onEditorActionListener
-//        )
-//        activitySubmitCreditCardBinding!!.inputEditCardHolder.setOnEditorActionListener(
-//            onEditorActionListener
-//        )
-//        activitySubmitCreditCardBinding!!.inputEditCvvCode.setOnEditorActionListener(
-//            onEditorActionListener
-//        )
-//
-//        activitySubmitCreditCardBinding?.inputEditCardNumber?.requestFocus()
-
         inSet = AnimatorInflater.loadAnimator(this, R.animator.card_flip_in) as AnimatorSet
         outSet = AnimatorInflater.loadAnimator(this, R.animator.card_flip_out) as AnimatorSet
 
-        /*    card_form.cardRequired(true)
-               .expirationRequired(true)
-               .cvvRequired(true)
-               .cardholderName(CardForm.FIELD_REQUIRED)
-               .postalCodeRequired(true)
-               .mobileNumberRequired(true)
-               .mobileNumberExplanation("SMS is required on this number")
-               .actionLabel("Purchase")
-               .setup(this)*/
-
 
         activitySubmitCreditCardBinding!!.labelSecureSubmission.setOnClickListener {
-            val cardNumber = activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
-            val expiryMonth = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-                .substring(
-                    0,
-                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-                        .lastIndexOf('/')
-                ) //any month in the future
-            val expiryYear = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-                .substring(
-                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-                        .lastIndexOf('/') + 1,
-                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length
-                ) //any month in the future
-            val cvv =
-                activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()// cvv of the test card
-
-            val card = co.paystack.android.model.Card(
-                cardNumber,
-                expiryMonth.toInt(),
-                expiryYear.toIntOrNull(),
-                cvv
-            )
-
-
-            if (card.isValid) {
-                PaystackSdk.chargeCard(
-                    this,
-                    Charge().setCard(card).setAmount(intent.getIntExtra("amount", 0))
-                        .setCurrency("NGN")
-                        .setEmail(CommonUtils.getPrefValue(this!!, PrefConstants.EMAIL)),
-                    object : Paystack.TransactionCallback {
-                        override fun onSuccess(transaction: Transaction) {
-                            var intent = Intent()
-                            intent.putExtra("reference", transaction.reference)
-                            setResult(Activity.RESULT_OK, intent)
-                            finish()
-                        }
-
-                        override fun beforeValidate(transaction: Transaction) {
-                        }
-
-                        override fun onError(error: Throwable, transaction: Transaction) {
-//handle error here
-                            Toast.makeText(this@PaymentActivity, "" + error, Toast.LENGTH_SHORT)
-                                .show()
-                        }
-                    })
-            } else {
+            if (activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString().length < 16) {
                 CommonUtils.showMessage(
                     activitySubmitCreditCardBinding!!.parent,
                     getString(R.string.invalidCard)
                 )
+            } else if (
+                activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length < 5
+            ) {
+                CommonUtils.showMessage(
+                    activitySubmitCreditCardBinding!!.parent,
+                    getString(R.string.invalid_date)
+                )
+
+            } else if (
+                activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString().length < 3
+            ) {
+                CommonUtils.showMessage(
+                    activitySubmitCreditCardBinding!!.parent,
+                    getString(R.string.invalidcvv)
+                )
+
+            } else {
+                val cardNumber =
+                    activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
+                val expiryMonth =
+                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                        .substring(
+                            0,
+                            activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                                .lastIndexOf('/')
+                        ) //any month in the future
+                val expiryYear =
+                    activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                        .substring(
+                            activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
+                                .lastIndexOf('/') + 1,
+                            activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length
+                        ) //any month in the future
+                val cvv =
+                    activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()// cvv of the test card
+
+                val card = co.paystack.android.model.Card(
+                    cardNumber,
+                    expiryMonth.toInt(),
+                    expiryYear.toIntOrNull(),
+                    cvv
+                )
+                if (card.isValid) {
+                    PaystackSdk.chargeCard(
+                        this,
+                        Charge().setCard(card).setAmount(intent.getIntExtra("amount", 0))
+                            .setCurrency("NGN")
+                            .setEmail(CommonUtils.getPrefValue(this!!, PrefConstants.EMAIL)),
+                        object : Paystack.TransactionCallback {
+                            override fun onSuccess(transaction: Transaction) {
+                                var intent = Intent()
+                                intent.putExtra("reference", transaction.reference)
+                                setResult(Activity.RESULT_OK, intent)
+                                finish()
+                            }
+
+                            override fun beforeValidate(transaction: Transaction) {
+                            }
+
+                            override fun onError(error: Throwable, transaction: Transaction) {
+                                //handle error here
+                                Toast.makeText(this@PaymentActivity, "" + error, Toast.LENGTH_SHORT)
+                                    .show()
+                            }
+                        })
+                } else {
+                    CommonUtils.showMessage(
+                        activitySubmitCreditCardBinding!!.parent,
+                        getString(R.string.invalidCard)
+                    )
+                }
             }
         }
 
@@ -434,7 +340,7 @@ class PaymentActivity : AppCompatActivity() {
 
     private fun reset() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
-        activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.GONE
+//        activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.GONE
         flipToGray()
 //        activitySubmitCreditCardBinding!!.viewPager.currentItem = 0
         activitySubmitCreditCardBinding!!.inputEditCardNumber.setText("")

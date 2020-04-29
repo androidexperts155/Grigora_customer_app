@@ -123,8 +123,11 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
 
                             rv_notifcations.adapter = NotificationAdapter(list, this)
                         }
+                    } else {
+                        CommonUtils.showMessage(parent, response.message!!)
                     }
-                }
+                } else
+                    CommonUtils.showMessage(parent, response.toString())
             })
 
         viewModel?.isLoading?.observe(this, Observer { isLoading ->

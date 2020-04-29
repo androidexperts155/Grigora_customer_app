@@ -49,8 +49,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     lateinit var content: RelativeLayout
     var googleSignIn: GoogleSignin? = null
     var alredayShown = false
-    var CONSUMER_KEY = "arBGnENEuayLrERK5zdQU9E2V"
-    var CONSUMER_SECRET: kotlin.String? = "NStIyaKHLuKBHmPaeoXXnxYDoaawf1vwq5UG1ZxtkJeFIsbOeS"
+    var CONSUMER_KEY = "koLwe43RuNy2nvhWFzVY1ssFG"
+    var CONSUMER_SECRET: kotlin.String? = "2wVMF6TfJHXSfsTDb7pFJolHt5W0UX1UpuDXg0RRVC8L98ZXJc"
     override fun onNewIntent(intent: Intent) {
         super.onNewIntent(intent)
         this.intent = intent
@@ -430,7 +430,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         if (requestCode == 121) {
             var task = GoogleSignIn.getSignedInAccountFromIntent(data)
             googleSignIn?.signInResult(task)
-        }
+        } else if (data!=null && data.hasExtra("message"))
+            CommonUtils.showMessage(drawerLayout,data.getStringExtra("message"))
     }
 
     private fun printHashKey() {

@@ -50,6 +50,9 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
         viewModel = ViewModelProviders.of(this).get(NewDashBoardViewModel::class.java)
         GrigoraApp.getInstance().updateToken()
 
+
+
+
         viewModel.isLoading.observe(this, Observer { it ->
             if (it) {
                 li_not_delivering.visibility = View.GONE
@@ -60,6 +63,11 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 shimmer_view.visibility = View.GONE
                 li_data.visibility = View.VISIBLE
             }
+        })
+
+
+        viewModel.checkUnderLocationResult.observe(this,Observer{
+            viewModel.getAllCart()
         })
 
         viewModel.dashboardResult.observe(this, Observer { response ->
@@ -205,7 +213,7 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
 
         if (getAllCart) {
             getAllCart = false
-            viewModel.getAllCart()
+            viewModel.checkUnderLocation()
         } else
             viewModel.getDashboardData(map)
 

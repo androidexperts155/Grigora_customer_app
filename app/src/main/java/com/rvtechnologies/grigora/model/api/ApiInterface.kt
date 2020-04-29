@@ -262,7 +262,7 @@ interface ApiInterface {
     @POST(ApiConstants.ADD_IN_GROUP_CART)
     fun addItemToGroupCart(
         @Header("Authorization") token: String,
-          @Field("cart_id") cartId: String,
+        @Field("cart_id") cartId: String,
         @Field("restaurant_id") restaurantId: String,
         @Field("item_id") itemId: String,
         @Field("quantity") quantity: String,
@@ -358,8 +358,12 @@ interface ApiInterface {
         @Field("delivery_address") delivery_address: String,
         @Field("delivery_lat") delivery_lat: String,
         @Field("delivery_long") delivery_long: String,
+        @Field("reference") reference: String,
+
         @Field("schedule_time") schedule_time: String,
-        @Field("order_type") order_type: String
+        @Field("order_type") order_type: String,
+        @Field("prepartion_note") prepartion_note: String
+
     ): Call<JsonElement>
 
 
@@ -793,6 +797,17 @@ interface ApiInterface {
         @Field("latitude") latitude: String,
         @Field("longitude") longitude: String,
         @Field("user_id") uid: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHECK_UNDER_LOCATION)
+    fun checkUnderLocation(
+        @Header("Authorization") token: String,
+        @Field("lat") lat: String,
+        @Field("long") long: String,
+        @Field("login_type") login_type: String,
+        @Field("user_id") user_id: String
     ): Call<JsonElement>
 
 

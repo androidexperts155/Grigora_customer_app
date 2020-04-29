@@ -32,8 +32,9 @@ import java.util.concurrent.TimeUnit
 class OtpActivity : AppCompatActivity(), View.OnClickListener {
     // [START declare_auth]
     private lateinit var auth: FirebaseAuth
-    // [END declare_auth]
 
+    // [END declare_auth]
+    private var alreadyHere = true;
     private var verificationInProgress = false
     private var storedVerificationId: String? = ""
     private lateinit var resendToken: PhoneAuthProvider.ForceResendingToken
@@ -109,7 +110,6 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
 
             override fun onVerificationFailed(e: FirebaseException) {
                 CommonUtils.hideLoader()
-
                 // This callback is invoked in an invalid request for verification is made,
                 // for instance if the the phone number format is not valid.
                 Log.w(TAG, "onVerificationFailed", e)
@@ -174,9 +174,12 @@ class OtpActivity : AppCompatActivity(), View.OnClickListener {
     // [START on_start_check_user]
     override fun onStart() {
         super.onStart()
-        // Check if user is signed in (non-null) and update UI accordingly.
-        val currentUser = auth.currentUser
-        updateUI(currentUser)
+        if (alreadyHere) {
+            // Check if user is signed in (non-null) and update UI accordingly.
+            val currentUser = auth.currentUser
+            updateUI(currentUser)
+            alreadyHere = false
+        }
 
         // [START_EXCLUDE]
         if (!verificationInProgress && validatePhoneNumber()) {

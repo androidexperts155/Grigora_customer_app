@@ -15,6 +15,7 @@ import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import androidx.navigation.findNavController
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
@@ -87,6 +88,7 @@ class ProfileDetailsFragment : Fragment() {
                     etEmail.addTextChangedListener(listener)
                     etPhone.addTextChangedListener(listener)
                     userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
+                    view?.findNavController()?.popBackStack()
                 } else {
                     userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
                 }

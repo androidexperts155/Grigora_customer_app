@@ -54,18 +54,17 @@ class CommonViewAll : Fragment(), IRecyclerItemClick {
                     restaurantList.addAll(model.mainInfo)
                     rec_rest.adapter = RestaurantAdapter(restaurantList, this)
                     rec_rest.adapter?.notifyDataSetChanged()
+                } else {
+                    CommonUtils.showMessage(parentView, response.message!!)
                 }
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
         })
 
-
         viewModel.token.value = CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN)
         viewModel.lat.value = CommonUtils.getPrefValue(context!!, PrefConstants.LATITUDE)
         viewModel.lng.value = CommonUtils.getPrefValue(context!!, PrefConstants.LONGITUDE)
-
-
     }
 
     override fun onCreateView(

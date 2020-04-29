@@ -27,9 +27,9 @@ class OrderAdapter(
 
         val status = when (orderModel.orderStatus) {
             0 -> holder.itemView.context.getString(R.string.waiting_for_confirmation)
-            1 -> holder.itemView.context.getString(R.string.order_accepted)
+            1 -> holder.itemView.context.getString(R.string.order_schduled)
             9 -> holder.itemView.context.getString(R.string.preparation_started)
-            2 -> holder.itemView.context.getString(R.string.order_schduled)
+            2 -> holder.itemView.context.getString(R.string.order_accepted)
             8 -> holder.itemView.context.getString(R.string.cancelled_by_you)
             3 -> holder.itemView.context.getString(R.string.driver_assigned)
             4 -> holder.itemView.context.getString(R.string.picked)

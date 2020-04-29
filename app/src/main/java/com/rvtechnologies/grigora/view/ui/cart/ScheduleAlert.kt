@@ -25,6 +25,7 @@ class ScheduleAlert(var iRecyclerItemClick: IRecyclerItemClick) : DialogFragment
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.isCancelable=false
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         bt_submit.setOnClickListener {

@@ -31,7 +31,10 @@ class AboutUsFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         (activity as MainActivity).hideAll()
-        if (arguments?.get(AppConstants.PAGE_TYPE) == 2)
+        if (arguments?.get(AppConstants.PAGE_TYPE) == 5){
+            (activity as MainActivity).backTitle(getString(R.string.privacy_policy))
+        }
+       else if (arguments?.get(AppConstants.PAGE_TYPE) == 2)
             (activity as MainActivity).backTitle(getString(R.string.termsandconditions))
         else
             (activity as MainActivity).backTitle(getString(R.string.about_us))
@@ -42,6 +45,7 @@ class AboutUsFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         var address =
             when {
+                arguments?.get(AppConstants.PAGE_TYPE) == 5 -> getString(R.string.privacy_policy_url)
                 arguments?.get(AppConstants.PAGE_TYPE) == 2 -> getString(R.string.terms_and_conditions)
                 GrigoraApp.getInstance()
                     .getCurrentLanguage() == AppConstants.FRENCH -> getString(R.string.about_us_url_fr)

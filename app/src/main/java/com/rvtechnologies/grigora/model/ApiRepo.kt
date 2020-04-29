@@ -9,6 +9,7 @@ import com.rvtechnologies.grigora.model.api.ApiClient
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.GrigoraApp
+import com.rvtechnologies.grigora.utils.PrefConstants
 import okhttp3.MultipartBody
 import okhttp3.RequestBody
 import retrofit2.Call
@@ -1053,7 +1054,7 @@ Cuisine repo
             item_choices = itemChoices,
             item_removeables = item_removeables
 
-            )
+        )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -1303,6 +1304,10 @@ Cuisine repo
         delivery_long: String,
         delivery_note: String,
         carttype: String,
+        reference: String,
+
+
+        preparationNote: String,
         onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient().scheduleOrder(
@@ -1315,11 +1320,13 @@ Cuisine repo
             price_after_promo = price_after_promo,
             final_price = final_price,
             payment_method = payment_method,
+            reference = reference,
+
             schedule_time = schedule_time,
             delivery_address = delivery_address,
             delivery_lat = delivery_lat,
             delivery_long = delivery_long,
-            delivery_note = delivery_note, order_type = carttype
+            delivery_note = delivery_note, order_type = carttype, prepartion_note = preparationNote
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -2505,6 +2512,44 @@ Cuisine repo
 
             })
     }
+
+
+    fun checkUnderLocation(
+          onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+        ApiClient.getClient()
+            .checkUnderLocation(
+                token = CommonUtils.getToken(),
+                 user_id = CommonUtils.getUidDevice(),
+                login_type = CommonUtils.getLoginType(),
+                lat = CommonUtils.getPrefValue(
+                    GrigoraApp.getInstance().activity?.baseContext,
+                    PrefConstants.LATITUDE
+                ),
+                long = CommonUtils.getPrefValue(
+                    GrigoraApp.getInstance().activity?.baseContext,
+                    PrefConstants.LONGITUDE
+                )
+            )
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun getUpdatedTime(
         origin: String,

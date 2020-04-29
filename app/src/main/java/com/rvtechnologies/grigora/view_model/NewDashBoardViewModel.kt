@@ -15,6 +15,7 @@ class NewDashBoardViewModel : ViewModel() {
     var dashboardResult = MutableLiveData<Any>()
     var allCartResult = MutableLiveData<Any>()
     var mergeCartResult = MutableLiveData<Any>()
+    var checkUnderLocationResult = MutableLiveData<Any>()
 
     fun getDashboardData(map: HashMap<String, Any>) {
         isLoading.value = true
@@ -54,6 +55,21 @@ class NewDashBoardViewModel : ViewModel() {
                     mergeCartResult.value = Gson().fromJson(result as JsonElement, type)
                 } else {
                     mergeCartResult.value = result
+                }
+            }
+    }
+
+
+    fun checkUnderLocation() {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .checkUnderLocation { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                    checkUnderLocationResult.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    checkUnderLocationResult.value = result
                 }
             }
     }

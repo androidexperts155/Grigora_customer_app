@@ -52,9 +52,11 @@ class CartNdOfferViewModel : ViewModel() {
                 if (success) {
                     try {
                         val type = object : TypeToken<CommonResponseModel<CartDataModel>>() {}.type
-                        responseCart.postValue(Gson().fromJson(
-                            result as JsonElement, type
-                        ))
+                        responseCart.postValue(
+                            Gson().fromJson(
+                                result as JsonElement, type
+                            )
+                        )
                     } catch (e: Exception) {
                         e.printStackTrace()
                     }
@@ -104,7 +106,7 @@ class CartNdOfferViewModel : ViewModel() {
             }
     }
 
-    fun scheduleOrderNow(cartType: String, time: String, note: String) {
+    fun scheduleOrderNow(cartType: String, time: String) {
         val cartData = cartData.value
         if (promoId.value == null) {
             promoId.value = ""
@@ -121,12 +123,15 @@ class CartNdOfferViewModel : ViewModel() {
                 price_after_promo = cartData?.afterPromo.toString(),
                 final_price = cartData?.cartTotal.toString(),
                 payment_method = paymentMode.value.toString(),
+                reference = reference.value!!,
+
                 schedule_time = time,
                 delivery_address = deliveryAddress.value.toString(),
                 delivery_lat = deliveryLat.value.toString(),
                 delivery_long = deliveryLong.value.toString(),
-                delivery_note = note,
+                delivery_note = deliveryNote.value.toString(),
                 carttype = cartType
+                , preparationNote = preparationNote.value.toString()
 
             ) { success, result ->
                 isLoading.value = false
@@ -204,7 +209,7 @@ class CartNdOfferViewModel : ViewModel() {
                     itemId = itemId,
                     price = price,
                     quantity = quantity,
-                    itemChoices = "",item_removeables = ""
+                    itemChoices = "", item_removeables = ""
                 ) { success, result ->
                     isLoading.value = false
                     if (success) {

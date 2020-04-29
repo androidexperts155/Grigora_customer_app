@@ -65,6 +65,17 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
                     trendingModel = res.data as TrendingMealsModel
                     rc_trending.adapter =
                         TrendingItemAdapter(trendingModel.trendingItems, this, this)
+
+                    if (trendingModel.cart != null) {
+                        cartId = trendingModel.cart?.id.toString()
+                        if (trendingModel.cart?.quantity!! > 0) {
+                            AppConstants.CART_COUNT = trendingModel.cart?.quantity!!
+                            AppConstants.CART_RESTAURANT = trendingModel.cart?.restaurant_name!!
+                        }
+
+                        (activity as MainActivity).updateCartButton()
+                    }
+
                 } else {
                     CommonUtils.showMessage(parent, res.message!!)
                 }
@@ -118,8 +129,11 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
                 if (response.status!!) {
                     var data = response.data as AddCartModel
                     cartId = data.cartId.toString()
-                    if (data.quantity > 0)
+                    if (data.quantity > 0) {
                         AppConstants.CART_COUNT = data.quantity
+                        AppConstants.CART_RESTAURANT = trendingModel.cart?.restaurant_name!!
+
+                    }
 
                     viewModel.trendingMeals()
                     (activity as MainActivity).updateCartButton()

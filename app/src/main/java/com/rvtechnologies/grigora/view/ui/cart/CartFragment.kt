@@ -155,18 +155,21 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                     setPrices()
 
-                } else {
-
-                    AppConstants.CART_COUNT = 0
-                    AppConstants.CART_RESTAURANT = ""
-//                    empty?.visibility = VISIBLE
-//                    cartView?.visibility = GONE
-                    (activity as MainActivity).clearStack()
-                    (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
                 }
-            } else if (response != null) {
-                CommonUtils.showMessage(parentView, response.toString())
+//                else {
+//                    CommonUtils.showMessage(parentView, response.message.toString())
+//
+////                    AppConstants.CART_COUNT = 0
+////                    AppConstants.CART_RESTAURANT = ""
+//////                    empty?.visibility = VISIBLE
+//////                    cartView?.visibility = GONE
+////                    (activity as MainActivity).clearStack()
+////                    (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
+//                }
             }
+//            else if (response != null) {
+//                CommonUtils.showMessage(parentView, response.toString())
+//            }
         })
 
         viewModel.responseClearCart?.observe(this, Observer { response ->
@@ -258,6 +261,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             }
         })
 
+
     }
 
     override fun onCreateView(
@@ -289,6 +293,10 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             button5.text = getString(R.string.schedule_order)
         }
         manageSwitch()
+
+        if (cartSharedViewModel != null && cartSharedViewModel.scheduleNote.value != null)
+            viewModel.preparationNote.value=cartSharedViewModel.scheduleNote.value
+
     }
 
     override fun onResume() {
@@ -307,6 +315,8 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         }
 
         rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
+
+
         viewModel.viewCart(
             CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
                 context,
@@ -380,8 +390,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                     )
                     viewModel.scheduleOrderNow(
                         cart_type,
-                        time,
-                        cartSharedViewModel.scheduleNote.value!!
+                        time
                     )
                 } else {
                     viewModel!!.placeOrderNow(cart_type)
@@ -437,8 +446,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                         viewModel.scheduleOrderNow(
                             cart_type,
-                            time,
-                            cartSharedViewModel.scheduleNote.value!!
+                            time
                         )
                     } else {
                         viewModel.placeOrderNow(cart_type)
@@ -618,6 +626,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     }
 
     private fun handleTime() {
+
+        if(cartSharedViewModel.scheduleDate.value.isNullOrEmpty() || cartSharedViewModel.scheduleTime.value.isNullOrEmpty())
+            dialogShown=false
+
+
         if (cartDataModel.fullTime == "0") {
             if (!CommonUtils.isRestaurantOpen(
                     cartDataModel.openingTime!!,

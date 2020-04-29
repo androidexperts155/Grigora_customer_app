@@ -16,154 +16,157 @@
             android:layout_height="@dimen/_1sdp"
             android:background="?attr/viewbg" />
         
-        
-        <LinearLayout
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="12dp"
-            android:layout_marginTop="@dimen/_80sdp"
-            android:layout_marginRight="12dp"
-            android:layout_marginBottom="@dimen/_20sdp"
-            android:background="@drawable/shadow"
-            android:orientation="vertical"
-            android:padding="20dp">
+            android:layout_height="match_parent">
             
-            <com.github.siyamed.shapeimageview.CircularImageView
-                android:id="@+id/profilePic"
-                android:layout_width="@dimen/_96sdp"
-                android:layout_height="0dp"
-                android:layout_gravity="center"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="15dp"
-                android:layout_marginEnd="8dp"
-                android:onClick="@{()->profileDetailsView.chooseProfilePic()}"
-                android:src="@drawable/user_placeholder"
-                app:image_url_person="@{profileDetailsViewModel.image}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintDimensionRatio="h,1:1"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.10" />
-            
-            
-            <TextView
-                style="@style/mediumText"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_8sdp"
-                android:text="@string/name"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
-            
-            <EditText
-                android:id="@+id/etName"
-                style="@style/normalText"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="12dp"
+                android:layout_marginTop="@dimen/_80sdp"
+                android:layout_marginRight="12dp"
+                android:layout_marginBottom="@dimen/_20sdp"
+                android:background="@drawable/shadow"
+                android:orientation="vertical"
+                android:padding="20dp">
                 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:inputType="textPersonName"
-                android:padding="@dimen/_4sdp"
-                android:singleLine="true"
-                android:text="@={profileDetailsViewModel.name}"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp"
-                tools:text="Amit" />
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewbg" />
-            
-            <TextView
-                style="@style/mediumText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:text="@string/email"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
-            
-            <EditText
-                android:id="@+id/etEmail"
-                style="@style/normalText"
+                <com.github.siyamed.shapeimageview.CircularImageView
+                    android:id="@+id/profilePic"
+                    android:layout_width="@dimen/_96sdp"
+                    android:layout_height="0dp"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginEnd="8dp"
+                    android:onClick="@{()->profileDetailsView.chooseProfilePic()}"
+                    android:src="@drawable/user_placeholder"
+                    app:image_url_person="@{profileDetailsViewModel.image}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintDimensionRatio="h,1:1"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:layout_constraintVertical_bias="0.10" />
                 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:editable="false"
-                android:enabled="false"
-                android:inputType="textEmailAddress"
-                android:padding="@dimen/_4sdp"
                 
-                android:singleLine="true"
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:text="@string/name"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
                 
-                android:text="@={profileDetailsViewModel.email}"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp"
-                tools:text="Amit" />
-            
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewbg" />
-            
-            <TextView
-                style="@style/mediumText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/_16sdp"
-                android:text="@string/phone"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
-            
-            <EditText
-                android:id="@+id/etPhone"
-                style="@style/normalText"
+                <EditText
+                    android:id="@+id/etName"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:inputType="textPersonName"
+                    android:padding="@dimen/_4sdp"
+                    android:singleLine="true"
+                    android:text="@={profileDetailsViewModel.name}"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Amit" />
                 
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:editable="false"
-                android:enabled="false"
-                android:inputType="phone"
-                android:padding="@dimen/_4sdp"
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
                 
-                android:singleLine="true"
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/email"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
                 
-                android:text="@={profileDetailsViewModel.phone}"
-                android:textColor="?attr/textWhite"
-                android:textSize="@dimen/_12sdp" />
+                <EditText
+                    android:id="@+id/etEmail"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:editable="false"
+                    android:enabled="false"
+                    android:inputType="textEmailAddress"
+                    android:padding="@dimen/_4sdp"
+                    
+                    android:singleLine="true"
+                    
+                    android:text="@={profileDetailsViewModel.email}"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Amit" />
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+                
+                <TextView
+                    style="@style/mediumText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_16sdp"
+                    android:text="@string/phone"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <EditText
+                    android:id="@+id/etPhone"
+                    style="@style/normalText"
+                    
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@android:color/transparent"
+                    android:editable="false"
+                    android:enabled="false"
+                    android:inputType="phone"
+                    android:padding="@dimen/_4sdp"
+                    
+                    android:singleLine="true"
+                    
+                    android:text="@={profileDetailsViewModel.phone}"
+                    android:textColor="?attr/textWhite"
+                    android:textSize="@dimen/_12sdp" />
+                
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/viewbg" />
+                
+                
+                <Button
+                    android:id="@+id/btnSave"
+                    style="@style/titleText"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_35sdp"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginStart="@dimen/_48sdp"
+                    android:layout_marginTop="@dimen/_24sdp"
+                    android:layout_marginEnd="@dimen/_48sdp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/btn_rounded"
+                    android:elevation="1dp"
+                    android:onClick="@{()-> profileDetailsViewModel.saveProfile()}"
+                    android:paddingLeft="@dimen/_22sdp"
+                    android:paddingRight="@dimen/_22sdp"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/_12sdp" />
             
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/viewbg" />
-            
-            
-            <Button
-                android:id="@+id/btnSave"
-                style="@style/titleText"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/_35sdp"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginStart="@dimen/_48sdp"
-                android:layout_marginTop="@dimen/_24sdp"
-                android:layout_marginEnd="@dimen/_48sdp"
-                android:layout_marginBottom="8dp"
-                android:background="@drawable/btn_rounded"
-                android:elevation="1dp"
-                android:onClick="@{()-> profileDetailsViewModel.saveProfile()}"
-                android:paddingLeft="@dimen/_22sdp"
-                android:paddingRight="@dimen/_22sdp"
-                android:text="@string/save"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/_12sdp" />
-        
-        </LinearLayout>
-    
+            </LinearLayout>
+        </ScrollView>
     </LinearLayout>
     
     <data>

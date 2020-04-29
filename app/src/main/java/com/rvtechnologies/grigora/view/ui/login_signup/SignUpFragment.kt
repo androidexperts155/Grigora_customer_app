@@ -37,8 +37,11 @@ class SignUpFragment : Fragment() {
         signUpViewModel = ViewModelProviders.of(this).get(SignUpFragmentViewModel::class.java)
         signUpViewModel?.signUpResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {
-                CommonUtils.showMessage(parentView, "Welcome " + response.data?.name)
-                saveData(response)
+                if (response.status!!) {
+                    CommonUtils.showMessage(parentView, getString(R.string.verify_email))
+                    saveData(response)
+                } else
+                    CommonUtils.showMessage(parentView, response.message!!)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -114,9 +117,10 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstants.OTP_CODE) {
-            if (data?.getBooleanExtra("verified", false)!!) {
-                signUpViewModel?.signUp()
-            }
+            if (data?.extras!!.containsKey("verified"))
+                if (data?.getBooleanExtra("verified", false)!!) {
+                    signUpViewModel?.signUp()
+                }
         } else {
             var message = data!!.getStringExtra("message")
             CommonUtils.showMessage(parentView, message)
