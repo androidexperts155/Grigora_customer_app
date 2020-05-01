@@ -78,6 +78,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private val cartItemList = ArrayList<CartDetail>()
     private val addMoreList = ArrayList<MenuItemModel>()
     private var isPickup = false
+    private var load=true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -316,7 +317,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
 
-
+if(load)
         viewModel.viewCart(
             CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
                 context,
@@ -437,6 +438,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 if (!CommonUtils.isLogin()) {
                     (activity as MainActivity).showLoginAlert()
                 } else {
+                    load=false
                     if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
                         var time = CommonUtils.localToUtc(
                             cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,

@@ -63,8 +63,6 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             })
 
         viewModel.restaurantsResponse.observe(this, Observer {
-
-
             var model = (it as CommonResponseModel<*>).data as PickupRestaurantsModel
             var temp = ArrayList<NewDashboardModel.AllRestautants>()
             temp.addAll(model.mainInfo)
@@ -76,8 +74,24 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             }
             mMap.clear()
             updateMap()
+        })
 
-
+        viewModel.convertPickup.observe(this, Observer {
+            val bundle = bundleOf(
+                AppConstants.RESTAURANT_ID to data.id,
+                AppConstants.RESTAURANT_PICKUP to data.pickup,
+                AppConstants.RESTAURANT_BOOKING to data.table_booking,
+                AppConstants.RESTAURANT_SEATES to data.no_of_seats,
+                AppConstants.RESTAURANT_CLOSING_TIME to data.closingTime,
+                AppConstants.RESTAURANT_OPENING_TIME to data.openingTime,
+                AppConstants.RESTAURANT_ALWAYS_OPEN to data.fullTime,
+                AppConstants.FROM_PICKUP to true
+            )
+            view?.findNavController()
+                ?.navigate(
+                    R.id.action_pickupRestaurants_to_rest_parent,
+                    bundle
+                )
         })
 
     }
@@ -104,23 +118,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
 
 
         img_next.setOnClickListener {
-
-
-            val bundle = bundleOf(
-                AppConstants.RESTAURANT_ID to data.id,
-                AppConstants.RESTAURANT_PICKUP to data.pickup,
-                AppConstants.RESTAURANT_BOOKING to data.table_booking,
-                AppConstants.RESTAURANT_SEATES to data.no_of_seats,
-                AppConstants.RESTAURANT_CLOSING_TIME to data.closingTime,
-                AppConstants.RESTAURANT_OPENING_TIME to data.openingTime,
-                AppConstants.RESTAURANT_ALWAYS_OPEN to data.fullTime,
-                AppConstants.FROM_PICKUP to true
-            )
-            view?.findNavController()
-                ?.navigate(
-                    R.id.action_pickupRestaurants_to_rest_parent,
-                    bundle
-                )
+            viewModel.updateType(data.id.toString(), "2", CommonUtils.getToken());
         }
 
         card_search.setOnClickListener {

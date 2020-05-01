@@ -205,8 +205,8 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
         fields = listOf(Place.Field.ID, Place.Field.LAT_LNG, Place.Field.NAME, Place.Field.ADDRESS)
 
         var intent: Intent = Autocomplete.IntentBuilder(
-                AutocompleteActivityMode.OVERLAY, fields
-            ).setTypeFilter(TypeFilter.ADDRESS)
+            AutocompleteActivityMode.OVERLAY, fields
+        ).setTypeFilter(TypeFilter.ADDRESS)
             .build(activity!!)
         startActivityForResult(intent, AppConstants.SELECT_AREA)
     }
@@ -332,7 +332,7 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
     fun updateMap() {
         mMap.clear()
         val marker = MarkerOptions().position(LatLng(latitude, longitude))
-            .icon(BitmapDescriptorFactory.fromResource(R.drawable.driver_icon)).title("Driver")
+            .icon(BitmapDescriptorFactory.fromResource(R.drawable.driver_icon))
         mMap.addMarker(marker)
         if (marker == null) {
             return

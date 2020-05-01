@@ -7,6 +7,7 @@ import com.google.gson.JsonElement
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import java.util.regex.Pattern
 
 
 class SignUpFragmentViewModel : ViewModel() {
@@ -57,6 +58,13 @@ class SignUpFragmentViewModel : ViewModel() {
     Validate login credentials from user
      */
     fun isValidData(): Boolean {
+        val specailCharPatten: Pattern = Pattern.compile("[^a-z0-9 ]", Pattern.CASE_INSENSITIVE)
+        val UpperCasePatten: Pattern = Pattern.compile("[A-Z ]")
+         val digitCasePatten: Pattern = Pattern.compile("[0-9 ]")
+
+
+
+
         if (name.value.isNullOrBlank()) {
             isLoading.value = false
             signUpResult.value = "Invalid name"
@@ -65,7 +73,7 @@ class SignUpFragmentViewModel : ViewModel() {
             isLoading.value = false
             signUpResult.value = "Invalid Email"
             return false
-        } else if (password.value.isNullOrBlank()) {
+        } else if (password.value.isNullOrBlank() || password.value.toString().length<6) {
             isLoading.value = false
             signUpResult.value = "Invalid Password"
             return false

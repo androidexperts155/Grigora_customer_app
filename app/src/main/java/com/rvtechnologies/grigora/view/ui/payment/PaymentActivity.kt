@@ -206,6 +206,10 @@ class PaymentActivity : AppCompatActivity() {
                     cvv
                 )
                 if (card.isValid) {
+                    CommonUtils.showLoader(
+                        this@PaymentActivity!!,
+                        ""
+                    )
                     PaystackSdk.chargeCard(
                         this,
                         Charge().setCard(card).setAmount(intent.getIntExtra("amount", 0))
@@ -213,6 +217,9 @@ class PaymentActivity : AppCompatActivity() {
                             .setEmail(CommonUtils.getPrefValue(this!!, PrefConstants.EMAIL)),
                         object : Paystack.TransactionCallback {
                             override fun onSuccess(transaction: Transaction) {
+                                CommonUtils.hideLoader(
+
+                                )
                                 var intent = Intent()
                                 intent.putExtra("reference", transaction.reference)
                                 setResult(Activity.RESULT_OK, intent)
@@ -220,9 +227,13 @@ class PaymentActivity : AppCompatActivity() {
                             }
 
                             override fun beforeValidate(transaction: Transaction) {
+
                             }
 
                             override fun onError(error: Throwable, transaction: Transaction) {
+                                CommonUtils.hideLoader(
+
+                                )
                                 //handle error here
                                 Toast.makeText(this@PaymentActivity, "" + error, Toast.LENGTH_SHORT)
                                     .show()

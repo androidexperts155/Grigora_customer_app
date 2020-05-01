@@ -12,6 +12,7 @@ import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.NewDashboardModel
 
 class PickupRestaurantsViewModel : ViewModel() {
+    var convertPickup: MutableLiveData<Any> = MutableLiveData()
     var restaurantsResponse: MutableLiveData<Any> = MutableLiveData()
     var isLoading: MutableLiveData<Boolean> = MutableLiveData()
 
@@ -32,5 +33,23 @@ class PickupRestaurantsViewModel : ViewModel() {
                     restaurantsResponse.value = result
                 }
             }
+    }
+
+    fun updateType(restaurantId: String, type: String, token: String) {
+        ApiRepo.getInstance()
+            .changeOrderType(
+                token = token,
+                restaurant_id = restaurantId,
+                cart_type = type
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                    convertPickup.value = Gson().fromJson(result as JsonElement, type)
+                } else {
+                    convertPickup.value = result
+                }
+            }
+
     }
 }

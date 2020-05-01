@@ -88,7 +88,47 @@ class ProfileDetailsFragment : Fragment() {
                     etEmail.addTextChangedListener(listener)
                     etPhone.addTextChangedListener(listener)
                     userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
+                } else {
+                    userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
+                }
+            } else {
+                CommonUtils.showMessage(parentView, userDataRes.toString())
+            }
+        })
+        viewModel.updateDetails.observe(this, Observer { userDataRes ->
+            if (userDataRes is CommonResponseModel<*>) {
+                if (userDataRes.status!!) {
+                    val userDetails = userDataRes.data as UserDetails
+                    viewModel.name.value = userDetails.name?.toString()
+                    viewModel.email.value = userDetails.email?.toString()
+                    viewModel.phone.value = userDetails.phone?.toString()
+                    viewModel.image.value = userDetails.image?.toString()
+
+                    CommonUtils.savePrefs(context, PrefConstants.ID, userDetails.id?.toString())
+                    CommonUtils.savePrefs(context, PrefConstants.NAME, userDetails.name?.toString())
+                    CommonUtils.savePrefs(
+                        context,
+                        PrefConstants.IMAGE,
+                        userDetails.image?.toString()
+                    )
+                    CommonUtils.savePrefs(
+                        context,
+                        PrefConstants.EMAIL,
+                        userDetails?.email?.toString()
+                    )
+
+                    if (userDetails.email.isNullOrEmpty()) {
+                        etEmail.isEnabled = true
+                    }
+
+                    profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
+                    profileDetailsFragmentBinding?.profileDetailsView = this
+                    etName.addTextChangedListener(listener)
+                    etEmail.addTextChangedListener(listener)
+                    etPhone.addTextChangedListener(listener)
+                    userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
                     view?.findNavController()?.popBackStack()
+
                 } else {
                     userDataRes.message?.let { CommonUtils.showMessage(parentView, it) }
                 }

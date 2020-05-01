@@ -43,7 +43,7 @@ import kotlin.collections.ArrayList
 
 class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
     OnItemClickListener {
-
+private var load=true
     private var mMap: GoogleMap? = null
     var placeClicked = false
     var dialogShown = false
@@ -283,15 +283,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         })
 
         viewModel?.reference?.value = ""
-        viewModel?.viewGroupCart(
-            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LATITUDE
-            ), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LONGITUDE
-            )
-        )
+
     }
 
     override fun onCreateView(
@@ -341,7 +333,16 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         }
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-
+        if(load)
+        viewModel?.viewGroupCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
+            )
+        )
 
     }
 
@@ -427,6 +428,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         if (resultCode == Activity.RESULT_OK && requestCode == 400) {
             val result = data?.getStringExtra("reference")
             if (result != null) {
+                load=false
                 viewModel.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
 

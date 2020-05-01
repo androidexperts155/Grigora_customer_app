@@ -76,7 +76,9 @@ class RestaurantDetail(
                     setMenu()
                     manageFilter()
 
-                    if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1") {
+
+
+                     if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1") {
                         tv_delivery.callOnClick()
                     } else {
                         tv_pickup.callOnClick()

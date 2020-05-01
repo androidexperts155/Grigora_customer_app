@@ -692,6 +692,13 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 }
                 8 -> {
 //    8 -> "Order cancelled by use"
+                    var deniedFragment =
+                        OrderDeniedFragment(
+                            3,
+                           "",
+                            this
+                        )
+                    deniedFragment.show(childFragmentManager, "")
 
                 }
 

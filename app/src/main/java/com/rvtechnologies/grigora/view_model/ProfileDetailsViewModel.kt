@@ -25,6 +25,7 @@ class ProfileDetailsViewModel : ViewModel() {
 
     val isLoading = MutableLiveData<Boolean>()
     val userDetailsRes = MutableLiveData<Any>()
+    val updateDetails = MutableLiveData<Any>()
 
 
     fun getProfileData() {
@@ -71,10 +72,10 @@ class ProfileDetailsViewModel : ViewModel() {
                 isLoading.value = false
                 if (success) {
                     val type = object : TypeToken<CommonResponseModel<UserDetails>>() {}.type
-                    userDetailsRes.value = Gson().fromJson(result as JsonElement, type)
+                    updateDetails.value = Gson().fromJson(result as JsonElement, type)
 
                 } else {
-                    userDetailsRes.value = result
+                    updateDetails.value = result
                 }
             }
     }

@@ -32,6 +32,7 @@ class OrderDeniedFragment(
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        this.isCancelable = false
         dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
 
         tv_title.text = text
@@ -67,7 +68,7 @@ class OrderDeniedFragment(
 
     override fun onResume() {
         super.onResume()
-        this.isCancelable=false
+        this.isCancelable = false
 
         var displayMetrics = DisplayMetrics()
         (activity as MainActivity).windowManager.defaultDisplay.getMetrics(displayMetrics)
