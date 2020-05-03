@@ -80,6 +80,10 @@ class Pin : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
+        tv_user_name.text=CommonUtils.getPrefValue(context!!, PrefConstants.NAME)
+
         if (!CommonUtils.getPrefValue(context!!, PrefConstants.PIN).isNullOrEmpty())
             previousPin = CommonUtils.getPrefValue(context!!, PrefConstants.PIN)
 
@@ -196,7 +200,7 @@ class Pin : Fragment() {
                 if (changePin) {
                     op1.callOnClick()
                 } else
-                    view?.findNavController()!!.navigate(next)
+                    view?.findNavController()!!.navigate(next,arguments)
     }
 
     private fun listToString(): String {

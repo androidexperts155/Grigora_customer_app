@@ -62,7 +62,6 @@ class MealDetailSheet(
         bottomSheetBehavior!!.peekHeight =
             (displayMetrics.heightPixels)
 
-
         bottomSheetBehavior!!.setBottomSheetCallback(object :
             BottomSheetBehavior.BottomSheetCallback() {
             override fun onSlide(bottomSheet: View, slideOffset: Float) {

@@ -24,7 +24,7 @@ class CartAdapter(
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val cartModel = cartItemList[position]
 
-        cartModel.itemNameToDisplay = cartModel.quantity+ "     " + cartModel.itemName!!
+        cartModel.itemNameToDisplay = cartModel.quantity + "     " + cartModel.itemName!!
         var price = cartModel.price?.toDouble()!!
         var choicesString = ""
         choicesString = "$choicesString"
@@ -50,15 +50,8 @@ class CartAdapter(
                     choicesString + ", " + holder.itemView.context.getString(R.string.add)
 
                 for (innerItem in item.itemSubCategory!!) {
-                    price += innerItem?.addOnPrice!!
-                    if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
-                        for (i in innerItem.item_sub_sub_category!!) {
-                            if (i?.add_on_price!!>0)
-                                price += i?.add_on_price!!
-                        }
-                    }
                     choicesString =
-                        choicesString.plus(" " +  innerItem.name+",")
+                        choicesString.plus(" " + innerItem?.name + ",")
                 }
                 choicesString = "$choicesString"
             }

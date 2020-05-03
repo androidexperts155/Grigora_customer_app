@@ -61,7 +61,12 @@ class TimeBottomSheetDialog(
 
 
     override fun onItemClick(item: Any) {
-        iRecyclerItemClick.onItemClick(item)
+        var data=item;
+        var d=(data as String).toInt()
+        if(d<10)
+            data="0$data"
+
+        iRecyclerItemClick.onItemClick(data)
         dismiss()
     }
 

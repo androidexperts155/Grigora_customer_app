@@ -138,6 +138,7 @@ class OrdersParentFragment : Fragment() {
 //            (activity as MainActivity).setRightIcon(R.drawable.ic_logout)
             (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).img_back.setOnClickListener { null }
 
 
         }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/parentView"
     android:background="?attr/backgroundColor"
     android:orientation="vertical"
     tools:context=".view.ui.orders.ScheduleOrderDetails">
@@ -158,12 +159,13 @@
                 android:layout_height="@dimen/_30sdp"
                 android:layout_alignParentRight="true"
                 android:background="@color/colorPrimaryDark"
+                android:textAllCaps="false"
                 android:clickable="true"
                 android:padding="@dimen/_8sdp"
                 android:text="@string/cancel"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_12sdp"
-                android:visibility="gone" />
+                android:visibility="visible" />
         
         </RelativeLayout>
         

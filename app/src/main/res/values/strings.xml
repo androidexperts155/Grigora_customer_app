@@ -606,5 +606,8 @@
     <string name="verify_email">Please verify email and Login.</string>
     <string name="no_orders_yet">No orders yet</string>
     <string name="invalidcvv">Invalid CVV</string>
+    <string name="booking_details">Booking Details</string>
+    <string name="number_of_people">No. of People</string>
+    <string name="date">Date</string>
 
 </resources><!--₦-->

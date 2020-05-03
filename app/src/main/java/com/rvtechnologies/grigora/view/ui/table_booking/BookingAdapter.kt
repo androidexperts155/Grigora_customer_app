@@ -9,8 +9,9 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.TableBookingHistoryModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
-class BookingAdapter(var list: ArrayList<TableBookingHistoryModel>) :
+class BookingAdapter(var list: ArrayList<TableBookingHistoryModel>,var iRecyclerItemClick: IRecyclerItemClick) :
     RecyclerView.Adapter<BookingAdapter.BookingView>() {
 
     inner class BookingView(view: View) : RecyclerView.ViewHolder(view) {
@@ -48,9 +49,7 @@ class BookingAdapter(var list: ArrayList<TableBookingHistoryModel>) :
 //            CommonUtils.getFormattedUtc(list[position].start_time_from, "HH:mm-ss", "HH:mm:ss")+" - "+CommonUtils.getFormattedUtc(list[position].start_time_to, "HH:mm-ss", "HH:mm:ss")
 
         holder.tv_time.text =
-            list[position].start_time_from + " - " + list[position].start_time_to
-
-
+            CommonUtils.getFormattedUtc(list[position].start_time_from,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(list[position].start_time_to,"HH:mm:ss","hh:mm aa")
 
         when (list[position].booking_status) {
             1 -> {
@@ -106,6 +105,8 @@ class BookingAdapter(var list: ArrayList<TableBookingHistoryModel>) :
                 )
             }
         }
+
+        holder.itemView.setOnClickListener { iRecyclerItemClick.onItemClick(list[position]) }
 
     }
 

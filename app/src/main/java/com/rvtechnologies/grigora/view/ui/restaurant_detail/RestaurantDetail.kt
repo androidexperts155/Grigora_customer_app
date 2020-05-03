@@ -260,8 +260,9 @@ class RestaurantDetail(
     private fun setMenu() {
         if (restaurantDetailModel.all_data.isNotEmpty()) {
             if (!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()) {
+
                 tv_menu_time.text =
-                    restaurantDetailModel.all_data[0].start_time + " ${getString(R.string.to)} " + restaurantDetailModel.all_data[0].end_time
+                    CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].end_time,"HH:mm:ss","hh:mm aa")
             } else
                 tv_menu_time.text = ""
 
@@ -476,7 +477,7 @@ class RestaurantDetail(
 
                 if (!item.start_time.isNullOrEmpty()) {
                     tv_menu_time.text =
-                        item.start_time + " ${getString(R.string.to)} " + item.end_time
+                        CommonUtils.getFormattedUtc(item.start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(item.end_time,"HH:mm:ss","hh:mm aa")
                 } else
                     tv_menu_time.text = ""
             }

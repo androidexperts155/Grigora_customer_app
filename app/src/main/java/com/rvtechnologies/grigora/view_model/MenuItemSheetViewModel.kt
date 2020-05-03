@@ -151,10 +151,10 @@ class MenuItemSheetViewModel : ViewModel() {
                         token = token.value.toString(),
                         restaurantId = menuItem.value?.restaurant_id.toString(),
                         itemId = menuItem.value?.id.toString(),
-                        price = price.value.toString(),
+                        price = (price.value!!.toDouble() / itemCount.value!!.toInt()).toString(),
 //                        price = menuItem.value?.price.toString(),
                         quantity = itemCount.value!!,
-                        itemChoices = selected,item_removeables = removables
+                        itemChoices = selected, item_removeables = removables
                     ) { success, result ->
                         isLoading.value = false
                         if (success) {
@@ -273,7 +273,9 @@ class MenuItemSheetViewModel : ViewModel() {
                         price = price.value.toString(),
 //                        price = menuItem.value?.price.toString(),
                         quantity = itemCount.value!!,
-                        itemChoices = selected, cartId = cartId.value.toString(),item_removeables = removables
+                        itemChoices = selected,
+                        cartId = cartId.value.toString(),
+                        item_removeables = removables
 
                     ) { success, result ->
                         isLoading.value = false

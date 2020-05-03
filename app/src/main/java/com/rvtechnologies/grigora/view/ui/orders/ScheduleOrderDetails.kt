@@ -6,8 +6,11 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 
 import com.rvtechnologies.grigora.R
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.OrderItemModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -24,7 +27,6 @@ class ScheduleOrderDetails : Fragment() {
     private lateinit var viewModel: ScheduleOrderDetailsViewModel
 
 
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -35,6 +37,25 @@ class ScheduleOrderDetails : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ScheduleOrderDetailsViewModel::class.java)
+
+
+        viewModel.cancelOrderRes.observe(this, Observer { response ->
+            if (response is CommonResponseModel<*>) {
+                view?.findNavController()?.popBackStack()
+            } else {
+                CommonUtils.showMessage(parentView, response.toString())
+            }
+        })
+
+        viewModel.isLoading.observe(this,
+            Observer { response ->
+                if (response) {
+                    CommonUtils.showLoader(activity!!, getString(R.string.loading))
+                } else {
+                    CommonUtils.hideLoader()
+                }
+            })
+
     }
 
     override fun onResume() {
@@ -49,6 +70,13 @@ class ScheduleOrderDetails : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         var orderDetail = arguments?.get(AppConstants.SCHEDULED_ORDER_MODEL) as OrderItemModel
+        tv_date.text = CommonUtils.getFormattedUtc(
+            orderDetail.scheduleTime,
+            "yyyy-MM-dd HH:mm:ss",
+            "hh:mm aa, dd MMMM YYYY"
+        )
+
+
         tv_order_id.text = orderDetail.idToShow
         tv_name.text = orderDetail.restaurantName
         tv_cuisines.text = orderDetail.restaurant_cusines
@@ -65,5 +93,10 @@ class ScheduleOrderDetails : Fragment() {
             (orderDetail.priceBeforePromo.toDouble() - orderDetail.priceAfterPromo.toDouble()).toString()
 
         CommonUtils.loadImage(img_rest, orderDetail.restaurantImage)
+
+        bt_cancel.setOnClickListener {
+            viewModel.cancelOrder(orderDetail.id.toString())
+
+        }
     }
 }

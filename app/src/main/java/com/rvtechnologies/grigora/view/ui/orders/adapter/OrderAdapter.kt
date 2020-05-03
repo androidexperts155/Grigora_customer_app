@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.OrderItemBinding
 import com.rvtechnologies.grigora.model.models.OrderItemModel
+import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 
 class OrderAdapter(
@@ -21,8 +22,16 @@ class OrderAdapter(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val orderModel = orderList[position]
+//        "2020-05-02 13:49:40"
+        orderModel.createdAtToUse = ""
+        orderModel.createdAtToUse = CommonUtils.getFormattedUtc(
+            orderModel.createdAt,
+            "yyyy-MM-dd HH:mm:ss",
+            "hh:mm aa, dd MMMM YYYY"
+        )
         orderModel.finalPriceToShow = ""
-        orderModel.finalPriceToShow = "₦ " + (orderModel.finalPrice)
+        orderModel.finalPriceToShow =
+            "₦ " + CommonUtils.getRoundedOff((orderModel?.priceAfterPromo.toDouble() + orderModel.deliveryFee.toDouble()))
 
 
         val status = when (orderModel.orderStatus) {

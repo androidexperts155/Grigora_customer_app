@@ -918,6 +918,14 @@
             app:popExitAnim="@anim/slide_out_right" />
     
     
+        <action
+            android:id="@+id/action_notifications_to_pin"
+            app:destination="@id/pin"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    
     </fragment>
     <fragment
         android:id="@+id/referAndEarn"
@@ -1377,6 +1385,19 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/navigationMyAccounts"
             app:popUpToInclusive="false" />
+    
+        <action
+            android:id="@+id/action_pin_to_transfer_money"
+            app:destination="@id/transferMoney"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpTo="@id/notifications"
+            app:popUpToInclusive="false" />
+        
+        
         <action
             android:id="@+id/action_pin_to_forgotPin"
             app:destination="@id/forgotPin"

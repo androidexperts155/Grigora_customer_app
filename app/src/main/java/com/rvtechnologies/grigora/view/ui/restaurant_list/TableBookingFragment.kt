@@ -111,7 +111,8 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
 
 // 31 - 28=3
         setCalender(
-            Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH) - CommonUtils.getFormattedTimeOrDate(
+            Calendar.getInstance()
+                .getActualMaximum(Calendar.DAY_OF_MONTH) - CommonUtils.getFormattedTimeOrDate(
                 Calendar.getInstance().time,
                 "yyyy-MM-dd HH:mm:ss",
                 "dd"
@@ -182,7 +183,8 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
             currentMonthYear = Calendar.getInstance()
 // 31 - 28=3
             setCalender(
-                Calendar.getInstance().getActualMaximum(Calendar.DAY_OF_MONTH) - CommonUtils.getFormattedTimeOrDate(
+                Calendar.getInstance()
+                    .getActualMaximum(Calendar.DAY_OF_MONTH) - CommonUtils.getFormattedTimeOrDate(
                     Calendar.getInstance().time,
                     "yyyy-MM-dd HH:mm:ss",
                     "dd"
@@ -200,18 +202,17 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
 
             var bodyMap = HashMap<String, Any?>()
             bodyMap["restaurant_id"] = args?.get(AppConstants.RESTAURANT_ID).toString()
-            bodyMap["no_of_seats"] = noOfSeates.toString()
+            bodyMap["no_of_seats"] = tv_count.text.toString()
             bodyMap["date"] = CommonUtils.getFormattedTimeOrDate(
                 selectedDate,
                 "yyyy-MM-dd HH:mm:ss",
                 "yyyy-MM-dd"
             )
-            bodyMap["start_time_from"] = "${tv_hour.text.toString()}.${tv_minute.text.toString()}"
-            bodyMap["start_time_to"] =
-                "${tv_to_hour.text.toString()}.${tv_to_minute.text.toString()}"
+            bodyMap["start_time_from"] = CommonUtils.localToUtc("${tv_hour.text.toString()}:${tv_minute.text.toString()}:00","HH:mm:ss")
+            bodyMap["start_time_to"] =CommonUtils.localToUtc("${tv_to_hour.text.toString()}:${tv_to_minute.text.toString()}:00","HH:mm:ss")
+
 
             viewModel.bookTable(headersMap, bodyMap)
-
         }
     }
 
@@ -234,12 +235,12 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
         current = 3
 
 
-        var time = tv_hour.text.toString().toInt() + 2
+        var time = tv_hour.text.toString().toInt() + 1
         if (time == 24) {
             time = 23
         }
         var timeDialog =
-            TimeBottomSheetDialog(this, time, getClosingHours() + 1, true)
+            TimeBottomSheetDialog(this, time, getClosingHours(), true)
         timeDialog.show(this.childFragmentManager, "")
     }
 
@@ -338,17 +339,29 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
     }
 
     private fun getOpeningHours(): Int {
-        return if (is24HourOpen())
+        var currentTime = CommonUtils.getFormattedTimeOrDate(
+            Date(),
+            "HH:mm:ss",
+            "HH"
+        ).toInt() + 1
+
+
+        var openingTime = if (is24HourOpen())
             0
-        else CommonUtils.getFormattedTimeOrDate(
+        else CommonUtils.getFormattedUtc(
             openingTime,
             "HH:mm:ss",
             "HH"
         ).toInt()
+
+
+        return if (openingTime > currentTime)
+            openingTime else currentTime
+
     }
 
     private fun getOpeningMinutes(): Int {
-        var minutes = CommonUtils.getFormattedTimeOrDate(
+        var minutes = CommonUtils.getFormattedUtc(
             openingTime,
             "HH:mm:ss",
             "mm"
@@ -360,7 +373,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
         return if (is24HourOpen())
             1
         else if (minutes != 0)
-            CommonUtils.getFormattedTimeOrDate(
+            CommonUtils.getFormattedUtc(
                 closingTime,
                 "HH:mm:ss",
                 "mm"
@@ -370,17 +383,23 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
     }
 
     private fun getClosingHours(): Int {
+        var sub = 2
+
+        if (current == 3)
+            sub = 0
+
+
         return if (is24HourOpen())
             22
-        else CommonUtils.getFormattedTimeOrDate(
+        else CommonUtils.getFormattedUtc(
             closingTime,
             "HH:mm:ss",
             "HH"
-        ).toInt() - 2
+        ).toInt() - sub
     }
 
     private fun getClosingMinutes(): Int {
-        var minutes = CommonUtils.getFormattedTimeOrDate(
+        var minutes = CommonUtils.getFormattedUtc(
             closingTime,
             "HH:mm:ss",
             "mm"
@@ -392,7 +411,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
         return if (is24HourOpen())
             59
         else if (minutes != 0)
-            CommonUtils.getFormattedTimeOrDate(
+            CommonUtils.getFormattedUtc(
                 closingTime,
                 "HH:mm:ss",
                 "mm"
@@ -421,7 +440,7 @@ class TableBookingFragment(val args: Bundle?) : Fragment(), IRecyclerItemClick {
 
     override fun onResume() {
         super.onResume()
-        (activity as MainActivity).fab_cart.visibility=View.GONE
+        (activity as MainActivity).fab_cart.visibility = View.GONE
 
     }
 }

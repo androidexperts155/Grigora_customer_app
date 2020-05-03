@@ -78,7 +78,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private val cartItemList = ArrayList<CartDetail>()
     private val addMoreList = ArrayList<MenuItemModel>()
     private var isPickup = false
-    private var load=true
+    private var load = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -156,17 +156,16 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
                     setPrices()
 
+                } else {
+                    CommonUtils.showMessage(parentView, response.message.toString())
+
+                    AppConstants.CART_COUNT = 0
+                    AppConstants.CART_RESTAURANT = ""
+//                    empty?.visibility = VISIBLE
+//                    cartView?.visibility = GONE
+                    (activity as MainActivity).clearStack()
+                    (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
                 }
-//                else {
-//                    CommonUtils.showMessage(parentView, response.message.toString())
-//
-////                    AppConstants.CART_COUNT = 0
-////                    AppConstants.CART_RESTAURANT = ""
-//////                    empty?.visibility = VISIBLE
-//////                    cartView?.visibility = GONE
-////                    (activity as MainActivity).clearStack()
-////                    (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
-//                }
             }
 //            else if (response != null) {
 //                CommonUtils.showMessage(parentView, response.toString())
@@ -261,8 +260,6 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 setPromo()
             }
         })
-
-
     }
 
     override fun onCreateView(
@@ -296,7 +293,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
         manageSwitch()
 
         if (cartSharedViewModel != null && cartSharedViewModel.scheduleNote.value != null)
-            viewModel.preparationNote.value=cartSharedViewModel.scheduleNote.value
+            viewModel.preparationNote.value = cartSharedViewModel.scheduleNote.value
 
     }
 
@@ -317,16 +314,16 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
         rvOrderItems.adapter = CartAdapter(cartItemList, this, this)
 
-if(load)
-        viewModel.viewCart(
-            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LATITUDE
-            ), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LONGITUDE
+        if (load)
+            viewModel.viewCart(
+                CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LATITUDE
+                ), CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LONGITUDE
+                )
             )
-        )
 
 
     }
@@ -438,7 +435,7 @@ if(load)
                 if (!CommonUtils.isLogin()) {
                     (activity as MainActivity).showLoginAlert()
                 } else {
-                    load=false
+                    load = false
                     if (cartSharedViewModel.isScheduledOrder.value != null && cartSharedViewModel.isScheduledOrder.value!!) {
                         var time = CommonUtils.localToUtc(
                             cartSharedViewModel.scheduleDate.value!! + " " + cartSharedViewModel.scheduleTime.value!!,
@@ -629,8 +626,8 @@ if(load)
 
     private fun handleTime() {
 
-        if(cartSharedViewModel.scheduleDate.value.isNullOrEmpty() || cartSharedViewModel.scheduleTime.value.isNullOrEmpty())
-            dialogShown=false
+        if (cartSharedViewModel.scheduleDate.value.isNullOrEmpty() || cartSharedViewModel.scheduleTime.value.isNullOrEmpty())
+            dialogShown = false
 
 
         if (cartDataModel.fullTime == "0") {
@@ -728,20 +725,20 @@ if(load)
         for (cartDetail in cartDataModel.cartDetails!!) {
             var price = cartDetail?.price?.toDouble()!!
             var addOnPrice = 0.0
-            if (cartDetail.item_choices != null && cartDetail.item_choices?.isNotEmpty()!!) {
-                for (item in cartDetail.item_choices!!) {
-                    for (innerItem in item.itemSubCategory!!) {
-                        addOnPrice += innerItem?.addOnPrice!!
-                        if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
-                            for (i in innerItem.item_sub_sub_category!!) {
-                                if (i?.add_on_price!! > 0)
-                                    addOnPrice += i.add_on_price
-                            }
-                        }
-                    }
-                }
-            }
-            cartSubTotal += ((price + addOnPrice) * Integer.parseInt(cartDetail.quantity))
+//            if (cartDetail.item_choices != null && cartDetail.item_choices?.isNotEmpty()!!) {
+//                for (item in cartDetail.item_choices!!) {
+//                    for (innerItem in item.itemSubCategory!!) {
+//                        addOnPrice += innerItem?.addOnPrice!!
+//                        if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
+//                            for (i in innerItem.item_sub_sub_category!!) {
+//                                if (i?.add_on_price!! > 0)
+//                                    addOnPrice += i.add_on_price
+//                            }
+//                        }
+//                    }
+//                }
+//            }
+            cartSubTotal += ((price) * Integer.parseInt(cartDetail.quantity))
         }
 
         viewModel.cartData.value!!.cartTotal =

@@ -26,23 +26,16 @@ class GroupCartAdapter(
     val TITLE = 1
     val CART = 2
 
-
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-
         if (holder is CartViewHolder) {
 
             val cartModel = cartItemList[position] as CartDetail
-            val isFrench = GrigoraApp.getInstance().getCurrentLanguage() == AppConstants.FRENCH
 
             cartModel.itemNameToDisplay = cartModel.quantity + "     " + cartModel.itemName!!
-
             var price = cartModel.price?.toDouble()!!
-
             var choicesString = ""
-
             choicesString = "$choicesString"
             if (!cartModel.item_removeables.isNullOrEmpty())
-
                 for (item in cartModel.item_removeables!!) {
                     choicesString =
                         choicesString.plus(" ${holder.itemView.context.getString(R.string.no)}  " + item.name)
@@ -53,28 +46,19 @@ class GroupCartAdapter(
             if (!choicesString.isNullOrEmpty())
                 choicesString = choicesString.removeSuffix(",")
 
-
             if (cartModel.item_choices != null && cartModel.item_choices?.isNotEmpty()!!) {
-                for (item in cartModel.item_choices!!) {
-                    if (choicesString.isNullOrEmpty())
-                        choicesString =
-                            holder.itemView.context.getString(R.string.add)
-                    else
-                        choicesString =
-                            choicesString + ", " + holder.itemView.context.getString(R.string.add)
 
+
+                for (item in cartModel.item_choices!!) {
+
+                    choicesString = if (choicesString.isNullOrEmpty())
+                        holder.itemView.context.getString(R.string.add)
+                    else
+                        choicesString + ", " + holder.itemView.context.getString(R.string.add)
 
                     for (innerItem in item.itemSubCategory!!) {
-                        price += innerItem?.addOnPrice!!
-
-                        if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
-                            for (i in innerItem.item_sub_sub_category!!) {
-                                if (i?.add_on_price!! > 0)
-                                    price += i?.add_on_price?.toDouble()!!
-                            }
-                        }
                         choicesString =
-                            choicesString.plus(" " + innerItem.name + ",")
+                            choicesString.plus(" " + innerItem?.name + ",")
                     }
                     choicesString = "$choicesString"
                 }
@@ -92,27 +76,15 @@ class GroupCartAdapter(
 
             holder.itemView.tv_plus.setOnClickListener {
                 quantityClicks.add(position, 0)
-                cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) + 1).toString()
+//            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) + 1).toString()
                 notifyDataSetChanged()
             }
 
             holder.itemView.tv_minus.setOnClickListener {
                 quantityClicks.minus(position, 0)
-                cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
+//            cartModel.quantity = (Integer.parseInt(cartModel.quantity!!) - 1).toString()
                 notifyDataSetChanged()
             }
-
-            if (cartModel.user_id.equals(
-                    CommonUtils.getPrefValue(
-                        holder.itemView.context!!,
-                        PrefConstants.ID
-                    )
-                )
-            )
-                holder.itemView.linearLayout.visibility = View.VISIBLE
-            else
-                holder.itemView.linearLayout.visibility = View.INVISIBLE
-
 
             holder.bind(cartModel, iRecyclerItemClick)
         } else {

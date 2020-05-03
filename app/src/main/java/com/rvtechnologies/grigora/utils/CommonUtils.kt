@@ -563,6 +563,21 @@ object CommonUtils {
         return "" + sdf.format(d)
     }
 
+
+    fun getFormattedDate(data: String, patternFrom: String, patternTo: String): String {
+        var d: Date? = null
+        val sdf = SimpleDateFormat(patternFrom)
+
+        try {
+            d = sdf.parse(data)
+        } catch (ex: ParseException) {
+            Log.e("exp", "" + ex.message)
+        }
+
+        sdf.applyPattern(patternTo)
+        return "" + sdf.format(d)
+    }
+
     fun getRoundedOff(value: Double): String {
         val df = DecimalFormat("###.###")
         return df.format(value)

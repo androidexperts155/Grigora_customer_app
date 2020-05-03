@@ -164,6 +164,7 @@ class TrendingMealsFragment : Fragment(), OnItemClickListener, QuantityClicks, I
         (activity as MainActivity).backTitle(getString(R.string.trending))
         (activity as MainActivity).img_back.visibility = View.GONE
         (activity as MainActivity).showBottomNavigation(2)
+        (activity as MainActivity).img_back.setOnClickListener { null }
 
         viewModel.trendingMeals()
     }

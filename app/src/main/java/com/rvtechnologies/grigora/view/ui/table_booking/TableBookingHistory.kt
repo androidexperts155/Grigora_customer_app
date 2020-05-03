@@ -18,11 +18,12 @@ import com.rvtechnologies.grigora.model.TableBookingHistoryModel
 import com.rvtechnologies.grigora.model.TableBookingModel
 import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
 import kotlinx.android.synthetic.main.table_booking_history_fragment.*
 
-class TableBookingHistory : Fragment() {
+class TableBookingHistory : Fragment(), IRecyclerItemClick {
 
     companion object {
         fun newInstance() = TableBookingHistory()
@@ -45,7 +46,7 @@ class TableBookingHistory : Fragment() {
         viewModel.tableBookingList.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
                 history = res.data as ArrayList<TableBookingHistoryModel>
-                rec_history.adapter = BookingAdapter(history)
+                rec_history.adapter = BookingAdapter(history, this)
             } else {
                 CommonUtils.showMessage(parent, res.toString())
             }
@@ -132,8 +133,7 @@ class TableBookingHistory : Fragment() {
                     temp.add(item)
 
 
-
-        rec_history.adapter = BookingAdapter(temp)
+        rec_history.adapter = BookingAdapter(temp, this)
     }
 
     override fun onResume() {
@@ -141,6 +141,13 @@ class TableBookingHistory : Fragment() {
         (activity as MainActivity).hideAll()
         (activity as MainActivity).backTitle(getString(R.string.table_booking))
         viewModel.getList(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
+    }
+
+    override fun onItemClick(item: Any) {
+        if (item is TableBookingHistoryModel) {
+            var dialog = BookingDetailDialog(item)
+            dialog.show(childFragmentManager, "")
+        }
     }
 
 }

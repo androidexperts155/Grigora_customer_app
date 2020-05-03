@@ -20,12 +20,11 @@
         
         <TextView
             style="@style/mediumText"
-            
+            android:id="@+id/tv_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_16sdp"
-            android:text="Rajat"
-            android:textColor="?attr/textWhite"
+             android:textColor="?attr/textWhite"
             android:textSize="@dimen/_12sdp" />
         
         <TextView

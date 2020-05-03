@@ -34,21 +34,21 @@ class OrderItemAdapter(val list: ArrayList<OrderItemModel.OrderDetail>) :
 
 
         if (!list[position].itemChoices.isNullOrEmpty()) {
-            for (item in list[position].itemChoices) {
-                if (!item.itemSubCategory.isNullOrEmpty()) {
-                    for (sub in item.itemSubCategory) {
-
-                        if (!sub.addOnPrice.isNullOrEmpty())
-                            price += sub.addOnPrice.toDouble()
-
-                        if (!sub.item_sub_sub_category.isNullOrEmpty()) {
-                            for (subsub in sub.item_sub_sub_category) {
-                                price += subsub.add_on_price
-                            }
-                        }
-                    }
-                }
-            }
+//            for (item in list[position].itemChoices) {
+//                if (!item.itemSubCategory.isNullOrEmpty()) {
+//                    for (sub in item.itemSubCategory) {
+//
+//                        if (!sub.addOnPrice.isNullOrEmpty())
+//                            price += sub.addOnPrice.toDouble()
+//
+//                        if (!sub.item_sub_sub_category.isNullOrEmpty()) {
+//                            for (subsub in sub.item_sub_sub_category) {
+//                                price += subsub.add_on_price
+//                            }
+//                        }
+//                    }
+//                }
+//            }
             price *= list[position].quantity
         }
 

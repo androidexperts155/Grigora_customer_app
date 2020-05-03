@@ -82,7 +82,8 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
                 historyModel = historyRes.data as WalletHistoryModel
                 wallet.text = "₦ " + CommonUtils.getRoundedOff(historyModel.wallet.toDouble())
 
-                tv_points.text =  "₦ " +CommonUtils.getRoundedOff(((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()))
+                tv_points.text =
+                    "₦ " + CommonUtils.getRoundedOff(((historyModel.wallet.toDouble()) * (historyModel.naira_to_points).toDouble()))
                 tv_wallet_id.text = historyModel.wallet_id
 
             } else {
@@ -155,11 +156,13 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
 
     private fun redeem(item: String) {
         viewModel.redeem(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN), item)
+        ed_wallet_id.setText("")
     }
 
     override fun onItemClick(item: Any) {
         if (item is ReceivedVoucherModel) {
-            redeem(item.voucher_code)
+            ed_wallet_id.setText(item.voucher_code)
+//            redeem(item.voucher_code)
         }
     }
 

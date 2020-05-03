@@ -430,8 +430,8 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         if (requestCode == 121) {
             var task = GoogleSignIn.getSignedInAccountFromIntent(data)
             googleSignIn?.signInResult(task)
-        } else if (data!=null && data.hasExtra("message"))
-            CommonUtils.showMessage(drawerLayout,data.getStringExtra("message"))
+        } else if (data != null && data.hasExtra("message"))
+            CommonUtils.showMessage(drawerLayout, data.getStringExtra("message"))
     }
 
     private fun printHashKey() {
@@ -473,7 +473,7 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
         tv_title.text = title
         img_back.setOnClickListener {
             CommonUtils.hideKeyboard(this)
-            onBackPressed()
+            Navigation.findNavController(this, R.id.main_nav_fragment).popBackStack()
         }
 
     }
@@ -599,6 +599,10 @@ class MainActivity : AppCompatActivity(), RateDriverDialogFragment.DriverRate,
     fun clearStack() {
         Navigation.findNavController(this, R.id.main_nav_fragment)
             .popBackStack(R.id.nav_graph_xml, true)
+    }
+
+    override fun onBackPressed() {
+        img_back.callOnClick()
     }
 }
 

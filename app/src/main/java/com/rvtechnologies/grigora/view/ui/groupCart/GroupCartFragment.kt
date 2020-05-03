@@ -43,7 +43,7 @@ import kotlin.collections.ArrayList
 
 class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
     OnItemClickListener {
-private var load=true
+    private var load = true
     private var mMap: GoogleMap? = null
     var placeClicked = false
     var dialogShown = false
@@ -333,16 +333,16 @@ private var load=true
         }
 
         val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
-        if(load)
-        viewModel?.viewGroupCart(
-            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LATITUDE
-            ), CommonUtils.getPrefValue(
-                context,
-                PrefConstants.LONGITUDE
+        if (load)
+            viewModel?.viewGroupCart(
+                CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LATITUDE
+                ), CommonUtils.getPrefValue(
+                    context,
+                    PrefConstants.LONGITUDE
+                )
             )
-        )
 
     }
 
@@ -428,7 +428,7 @@ private var load=true
         if (resultCode == Activity.RESULT_OK && requestCode == 400) {
             val result = data?.getStringExtra("reference")
             if (result != null) {
-                load=false
+                load = false
                 viewModel.reference?.value = result
                 cartFragmentBinding?.cartViewModel = viewModel
 
@@ -478,8 +478,9 @@ private var load=true
 
         } else {
             var data = cartItemList[position] as CartDetail
-            viewModel.addItemToCart(
-                restId, data.itemId.toString(), data.price.toString(), "1"
+            viewModel.updateCartQty(
+                CommonUtils.getToken(),
+                data.itemId.toString(), data.cartId!!, "1"
             )
         }
     }
@@ -489,8 +490,9 @@ private var load=true
 
         } else {
             var data = cartItemList[position] as CartDetail
-            viewModel.addItemToCart(
-                restId, data.itemId.toString(), data.price.toString(), "-1"
+            viewModel.updateCartQty(
+                CommonUtils.getToken(),
+                data.itemId.toString(), data.cartId!!, "-1"
             )
         }
     }
@@ -650,21 +652,21 @@ private var load=true
 
                 var addOnPrice = 0.0
 
-                if (innerDetail.item_choices != null && innerDetail.item_choices?.isNotEmpty()!!) {
-
-                    for (item in innerDetail.item_choices!!) {
-                        for (innerItem in item.itemSubCategory!!) {
-                            addOnPrice += innerItem?.addOnPrice!!.toDouble()
-                            if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
-                                for (i in innerItem.item_sub_sub_category!!) {
-                                    if (i?.add_on_price!! > 0)
-                                        addOnPrice += i?.add_on_price?.toDouble()!!
-                                }
-                            }
-                        }
-                    }
-                }
-                cartSubTotal += ((price + addOnPrice) * innerDetail?.quantity!!.toDouble())
+//                if (innerDetail.item_choices != null && innerDetail.item_choices?.isNotEmpty()!!) {
+//
+//                    for (item in innerDetail.item_choices!!) {
+//                        for (innerItem in item.itemSubCategory!!) {
+//                            addOnPrice += innerItem?.addOnPrice!!.toDouble()
+//                            if (innerItem.item_sub_sub_category!!.isNotEmpty()) {
+//                                for (i in innerItem.item_sub_sub_category!!) {
+//                                    if (i?.add_on_price!! > 0)
+//                                        addOnPrice += i?.add_on_price?.toDouble()!!
+//                                }
+//                            }
+//                        }
+//                    }
+//                }
+                cartSubTotal += ((price) * innerDetail?.quantity!!.toDouble())
             }
         }
 

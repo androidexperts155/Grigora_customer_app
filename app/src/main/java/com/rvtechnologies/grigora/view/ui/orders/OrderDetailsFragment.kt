@@ -378,6 +378,8 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             }
         }
         stop = false
+
+        viewModel.getOrderDetails()
     }
 
     override fun onPause() {
@@ -508,8 +510,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
         tv_subtotal.text = "₦ " + orderItemModel?.priceBeforePromo
         tv_promotion.text =
             "₦ " + (orderItemModel?.priceBeforePromo!!.toDouble() - orderItemModel?.priceAfterPromo!!.toDouble())
-        tv_deliveryfee.text = "₦ " + "20"
-        tv_total.text = "₦ " + orderItemModel?.finalPrice
+        tv_deliveryfee.text = "₦ " + orderItemModel.deliveryFee
+        tv_total.text =
+            "₦ " + CommonUtils.getRoundedOff((orderItemModel?.priceAfterPromo.toDouble() + orderItemModel.deliveryFee.toDouble()))
 
         setLocations(
             orderItemModel?.startLat!!,
@@ -695,7 +698,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                     var deniedFragment =
                         OrderDeniedFragment(
                             3,
-                           "",
+                            "",
                             this
                         )
                     deniedFragment.show(childFragmentManager, "")
@@ -1347,5 +1350,4 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             return poly
         }
     }
-
 }

@@ -231,20 +231,27 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
                         )
                 }
                 15, 16, 8, 18, 20, 21 -> {
+
+
                     val bundle = bundleOf(
+                        AppConstants.NEXT to R.id.action_pin_to_transfer_money,
                         AppConstants.IS_FOR_HISTORY to true
                     )
                     view?.findNavController()
                         ?.navigate(
-                            R.id.action_notifications_to_transferMoney,
+                            R.id.action_notifications_to_pin,
                             bundle
                         )
                 }
 
                 17 -> {
+                    val bundle = bundleOf(
+                        AppConstants.NEXT to R.id.action_pin_to_purchasedCards
+                    )
                     view?.findNavController()
                         ?.navigate(
-                            R.id.action_notifications_to_purchasedCards
+                            R.id.action_notifications_to_pin,
+                            bundle
                         )
                 }
 

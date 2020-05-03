@@ -17,6 +17,9 @@ data class OrderItemModel(
     var createdAt: String = "",
 
 
+    var createdAtToUse: String = "",
+
+
 
     @SerializedName("order_type")
     var orderType: String = "",

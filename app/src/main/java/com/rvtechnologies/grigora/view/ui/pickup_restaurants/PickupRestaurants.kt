@@ -159,6 +159,7 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
         (activity as MainActivity).backTitle(getString(R.string.pickup))
         (activity as MainActivity).showBottomNavigation(1)
         (activity as MainActivity).img_back.visibility = View.GONE
+        (activity as MainActivity).img_back.setOnClickListener { null }
 
     }
 

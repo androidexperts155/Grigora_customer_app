@@ -104,6 +104,9 @@ class ProfileFragment : Fragment() {
             (activity as MainActivity).lockDrawer(true)
             (activity as MainActivity).img_back.visibility = View.GONE
             (activity as MainActivity).showBottomNavigation(4)
+
+            (activity as MainActivity).img_back.setOnClickListener { null }
+
         }
         viewModel.getHistory(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN))
 

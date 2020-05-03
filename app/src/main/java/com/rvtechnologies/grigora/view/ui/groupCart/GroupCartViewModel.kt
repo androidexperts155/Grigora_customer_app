@@ -179,6 +179,21 @@ class GroupCartViewModel : ViewModel() {
         }
     }
 
+    fun updateCartQty(token: String, itemId: String, cartId: String, quantity: String) {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .updateCartQty(
+                token,
+                itemId, quantity, cartId
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    val type = object : TypeToken<CommonResponseModel<*>>() {}.type
+                    addCartRes.value = Gson().fromJson(result as JsonElement, type)
+                }
+            }
+    }
+
     fun updateType(restaurantId: String, type: String, token: String) {
         ApiRepo.getInstance()
             .changeOrderType(
