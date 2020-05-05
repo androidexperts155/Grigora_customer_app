@@ -49,7 +49,6 @@ class LoginFragmentViewModel : ViewModel() {
     }
 
 
-
     /*
     Validate login credentials from user
      */
@@ -68,36 +67,23 @@ class LoginFragmentViewModel : ViewModel() {
 
     fun phoneLogin() {
         isLoading.value = true
-        if (isValidPhone()) {
-            ApiRepo.getInstance()
-                .phoneLogin(
-                    email.value.toString().trim()
-                ) { success, result ->
-                    isLoading.value = false
-                    if (success) {
-                        loginResult.value =
-                            Gson().fromJson(
-                                result as JsonElement,
-                                LoginResponseModel::class.java
-                            )
-                    } else {
-                        loginResult.value = result
-                    }
-                }
-        }
-    }
 
-    fun isValidPhone(): Boolean {
-        return if (email.value.isNullOrBlank()) {
-            isLoading.value = false
-            loginResult.value = "Invalid Phone"
-            false
-        } else if (email.value.toString().length < 9) {
-            isLoading.value = false
-            loginResult.value = "Invalid Phone"
-            false
-        } else
-            true
+        ApiRepo.getInstance()
+            .phoneLogin(
+                email.value.toString().trim()
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+                    loginResult.value =
+                        Gson().fromJson(
+                            result as JsonElement,
+                            LoginResponseModel::class.java
+                        )
+                } else {
+                    loginResult.value = result
+                }
+            }
+
     }
 
 

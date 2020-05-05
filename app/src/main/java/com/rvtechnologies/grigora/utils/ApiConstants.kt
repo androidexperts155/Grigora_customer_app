@@ -104,4 +104,6 @@ object ApiConstants {
     const val CHANGE_PIN = "change-pin"
     const val TRENDING_MEALS = "trending-items"
     const val CHECK_UNDER_LOCATION = "check-under-location"
+    const val CHECK_EMAIL = "check-email"
+    const val CHECK_PHONE = "check-phone"
 }

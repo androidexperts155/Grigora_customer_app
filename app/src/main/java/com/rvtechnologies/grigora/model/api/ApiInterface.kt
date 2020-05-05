@@ -60,6 +60,19 @@ interface ApiInterface {
         @Field("email") email: String
     ): Call<JsonElement>
 
+    @FormUrlEncoded
+    @POST(ApiConstants.CHECK_EMAIL)
+    fun checkEmail(
+        @Field("email") email: String
+    ): Call<JsonElement>
+
+    @FormUrlEncoded
+    @POST(ApiConstants.CHECK_PHONE)
+    fun checkPhone(
+        @Field("phone") phone: String
+    ): Call<JsonElement>
+
+
 
     @FormUrlEncoded
     @POST(ApiConstants.FORGOT_PIN)

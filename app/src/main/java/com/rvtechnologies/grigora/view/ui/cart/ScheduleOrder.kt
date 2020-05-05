@@ -23,6 +23,7 @@ import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.DayAdapter
 import com.rvtechnologies.grigora.view_model.CartSharedViewModel
 import kotlinx.android.synthetic.main.schedule_order_fragment.*
+import java.text.SimpleDateFormat
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -79,6 +80,8 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
     private fun setDates() {
         var date = Calendar.getInstance()
+
+
 
         daysList.add(
             DayModel(
@@ -143,10 +146,11 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
             for (i in 0.until(daysList.size)) {
                 if (daysList[i].selected && i != item.toInt()) {
                     deSelected = i
-                    sharedViewModel.scheduleDate.value = daysList[i].fullDate
                 }
             }
             daysList[item.toInt()].selected = true
+            sharedViewModel.scheduleDate.value = daysList[item.toInt()].fullDate
+
             rc_days.adapter?.notifyItemChanged(item.toInt())
             daysList[deSelected].selected = false
             rc_days.adapter?.notifyItemChanged(deSelected)
@@ -216,7 +220,6 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
     }
 
     fun lunch() {
-
         tv_hours.text = "12"
         tv_minutes.text = "00"
         tv_am_pm.text = "PM"
@@ -274,9 +277,8 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         tv_minutes.text = "00"
         tv_am_pm.text = "PM"
 
-
         sharedViewModel.scheduleTime.value =
-            "08" + ":" + "00" + ":00"
+            "20" + ":" + "00" + ":00"
 
         tv_breakfast.setBackgroundResource(R.drawable.food_time_de_selected)
         tv_lunch.setBackgroundResource(R.drawable.food_time_de_selected)
@@ -323,11 +325,19 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
         var timePickerDialog = TimePickerDialog(
             context!!, R.style.TimePickerTheme,
             TimePickerDialog.OnTimeSetListener { view, hourOfDay, minute ->
-
-                if (hourOfDay > 12)
-                    tv_hours.text = (hourOfDay - 12).toString()
-                else
-                    tv_hours.text = hourOfDay.toString()
+                if (hourOfDay > 12) {
+                    var h = (hourOfDay - 12)
+                    if (h < 10)
+                        tv_hours.text = "0$h"
+                    else
+                        tv_hours.text = "$h"
+                } else {
+                    var h = hourOfDay
+                    if (h < 10)
+                        tv_hours.text = "0$h"
+                    else
+                        tv_hours.text = "$h"
+                }
 
                 tv_minutes.text = minute.toString()
 
@@ -339,10 +349,8 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
                 sharedViewModel.scheduleTime.value =
                     hourOfDay.toString() + ":" + tv_minutes.text.toString() + ":00"
-
-
             },
-            Calendar.getInstance().get(Calendar.HOUR_OF_DAY),
+            Calendar.getInstance().get(Calendar.HOUR_OF_DAY) + 1,
             Calendar.getInstance().get(Calendar.MINUTE),
             false
         )
@@ -387,7 +395,14 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
 
         sharedViewModel.isScheduledOrder.value = true
 
+
+
+
+
+
+
         when {
+
             sharedViewModel.scheduleTime.value.isNullOrEmpty() -> {
                 CommonUtils.showMessage(parentView, getString(R.string.please_select_time))
             }
@@ -398,7 +413,14 @@ class ScheduleOrder : Fragment(), IRecyclerItemClick {
                 view?.findNavController()?.navigate(R.id.action_scheduleOrder_to_navigationCart)
             }
             else -> {
-                view?.findNavController()?.popBackStack()
+                val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+
+                var scheduleDate =
+                    sdf.parse("${sharedViewModel.scheduleDate.value} ${sharedViewModel.scheduleTime.value}")
+                if (scheduleDate.compareTo(Date()) < 1) {
+                    CommonUtils.showMessage(parentView, getString(R.string.past_time))
+                } else
+                    view?.findNavController()?.popBackStack()
             }
         }
     }

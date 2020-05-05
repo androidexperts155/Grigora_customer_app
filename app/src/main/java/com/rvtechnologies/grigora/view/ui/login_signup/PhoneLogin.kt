@@ -3,6 +3,8 @@ package com.rvtechnologies.grigora.view.ui.login_signup
 import android.content.Intent
 import androidx.lifecycle.ViewModelProviders
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -60,8 +62,6 @@ class PhoneLogin : Fragment() {
                 CommonUtils.hideLoader()
             }
         })
-
-
     }
 
     override fun onCreateView(
@@ -91,7 +91,7 @@ class PhoneLogin : Fragment() {
     }
 
     fun toOTP() {
-        if (viewModel?.isValidPhone()!!) {
+        if (CommonUtils.isValidPhone(ed_phone.text.toString())!!) {
 
             var auth = FirebaseAuth.getInstance()
             if (auth.currentUser != null)
@@ -100,9 +100,11 @@ class PhoneLogin : Fragment() {
             startActivityForResult(
                 Intent(context, OtpActivity::class.java).putExtra(
                     "phone",
-                    "+"+ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
+                    "+" + ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
                 ), AppConstants.OTP_CODE
             )
+        } else {
+            ed_phone.error = getString(R.string.invalid_phone)
         }
     }
 

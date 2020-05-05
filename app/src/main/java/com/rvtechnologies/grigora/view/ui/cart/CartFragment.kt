@@ -211,7 +211,12 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 CommonUtils.showMessage(parentView, response.message!!)
                 if (response.status!!) {
                     if (response.data is PlaceOrderModel) {
-                        var scheduleSuccess = ScheduleSuccess(this)
+
+                         var scheduleSuccess = ScheduleSuccess(
+                            this,
+                            cartSharedViewModel.scheduleDate.value!!,
+                            cartSharedViewModel.scheduleTime.value!!
+                        )
                         scheduleSuccess.show(childFragmentManager, "")
                     }
                 }
@@ -618,7 +623,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     private fun handleScheduleViewModel() {
 //        cartSharedViewModel.isScheduledOrder.value = false
         cartSharedViewModel.isScheduledOrder.observe(this, Observer { it ->
-            if (it) {
+            if (it != null) {
                 button5.text = getString(R.string.schedule_order)
             }
         })
@@ -709,6 +714,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
     override fun onDestroy() {
         super.onDestroy()
         viewModel.destroy(activity as MainActivity)
+        cartSharedViewModel.destroy(activity as MainActivity)
     }
 
     private fun setPrices() {

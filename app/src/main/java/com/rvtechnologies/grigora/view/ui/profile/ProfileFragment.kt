@@ -19,6 +19,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.navigation.findNavController
+import com.google.firebase.auth.FirebaseAuth
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.ProfileFragmentBinding
 import com.rvtechnologies.grigora.model.WalletHistoryModel
@@ -228,6 +229,9 @@ class ProfileFragment : Fragment() {
     }
 
     fun logout() {
+        var auth = FirebaseAuth.getInstance()
+        if (auth.currentUser != null)
+            auth.signOut()
         viewModel.logout(CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN), device_id())
     }
 

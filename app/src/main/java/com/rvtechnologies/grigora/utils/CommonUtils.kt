@@ -10,7 +10,6 @@ import android.media.ExifInterface
 import android.os.Build
 import android.os.Environment
 import android.provider.Settings
-import android.text.TextUtils
 import android.util.DisplayMetrics
 import android.util.Log
 import android.util.Patterns
@@ -39,6 +38,8 @@ import java.text.DecimalFormat
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
+import java.util.regex.Matcher
+import java.util.regex.Pattern
 
 object CommonUtils {
     fun getFormattedTimeOrDate(data: Any, patternFrom: String, patternTo: String): String {
@@ -194,6 +195,28 @@ object CommonUtils {
     fun isValidEmail(email: String): Boolean {
         return (!email.isNullOrEmpty() && Patterns.EMAIL_ADDRESS.matcher(email).matches())
     }
+
+    fun isValidPhone(phone: String): Boolean {
+        return (!(phone.isNullOrBlank() || phone.length < 8 || phone.length > 14))
+    }
+
+
+    fun isValidPassword(password: String): Boolean {
+//        ^                 # start-of-string
+//        (?=.*[0-9])       # a digit must occur at least once
+//        (?=.*[a-z])       # a lower case letter must occur at least once
+//        (?=.*[A-Z])       # an upper case letter must occur at least once
+//        (?=.*[@#$%^&+=])  # a special character must occur at least once you can replace with your special characters
+//        (?=\\S+$)          # no whitespace allowed in the entire string
+//        .{4,}             # anything, at least six places though
+//        $                 # end-of-string
+
+        var PASSWORD_PATTERN = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@/<>;:}{_)(*@!`~|#$%^&+=])(?=\\S+$).{6,}$"
+        var pattern = Pattern.compile(PASSWORD_PATTERN)
+        var matcher = pattern.matcher(password)
+        return matcher.matches()
+    }
+
 
     fun convertDpToPixel(dp: Int, context: Context): Int {
         val resources = context.resources

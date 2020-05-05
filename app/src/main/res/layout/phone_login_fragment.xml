@@ -92,6 +92,7 @@
                         android:textSize="@dimen/_12sdp" />
                     
                     <EditText
+                        android:id="@+id/ed_phone"
                         style="@style/normalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"

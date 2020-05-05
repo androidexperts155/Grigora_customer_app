@@ -7,7 +7,7 @@
     android:background="@color/transparent"
     android:orientation="vertical">
     
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/round_white"
@@ -15,6 +15,10 @@
         android:orientation="vertical"
         android:padding="@dimen/_16sdp">
         
+        <ImageView
+            android:src="@drawable/schedule"
+            android:layout_width="@dimen/_180sdp"
+            android:layout_height="@dimen/_180sdp"/>
         
         <TextView
             android:id="@+id/tv_title"
@@ -24,13 +28,13 @@
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="@string/schedule_request_sent"
+            android:text="@string/successfully_scheduled"
             android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_16sdp" />
+            android:textSize="@dimen/_14sdp" />
         
         <TextView
             android:id="@+id/tv_rate"
-            style="@style/normalText"
+            style="@style/mediumText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tv_title"
@@ -38,20 +42,21 @@
             android:layout_marginTop="@dimen/_4sdp"
             android:gravity="center"
             android:text="@string/schedule_request_sent_info"
-            android:textColor="?attr/textWhite"
-            android:textSize="@dimen/_10sdp" />
-        
-        
-        <com.airbnb.lottie.LottieAnimationView
-            android:id="@+id/stopwatch"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:layout_below="@+id/tv_rate"
+            android:textColor="?attr/textGray"
+            android:textSize="@dimen/_11sdp" />
+    
+        <TextView
+            android:id="@+id/tv_time"
+            style="@style/titleText"
+            android:layout_width="@dimen/_220sdp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="@dimen/_8sdp"
-            app:lottie_autoPlay="true"
-            app:lottie_fileName="timer_scheduled.json"
-            app:lottie_loop="false" />
+            android:gravity="center"
+            tools:text="12:00"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp" />
+        
         
         <Button
             android:id="@+id/bt_submit"
@@ -77,5 +82,5 @@
             android:textSize="@dimen/_14sdp" />
     
     
-    </RelativeLayout>
+    </LinearLayout>
 </LinearLayout>

@@ -15,6 +15,7 @@ import androidx.navigation.findNavController
 import com.google.android.gms.auth.api.phone.SmsRetrieverClient
 import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentSignUpBinding
+import com.rvtechnologies.grigora.model.models.CommonResponseModel
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
@@ -26,6 +27,11 @@ import kotlinx.android.synthetic.main.fragment_sign_up.*
 import kotlinx.android.synthetic.main.fragment_sign_up.parentView
 
 class SignUpFragment : Fragment() {
+
+    var emailAlreadyExists = false
+    var phoneAlreadyExists = false
+
+
     private var signUpViewModel: SignUpFragmentViewModel? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,6 +40,9 @@ class SignUpFragment : Fragment() {
             ContextCompat.getColor(context!!, R.color.lightGrey),
             activity as MainActivity
         )
+
+
+
         signUpViewModel = ViewModelProviders.of(this).get(SignUpFragmentViewModel::class.java)
         signUpViewModel?.signUpResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {
@@ -46,13 +55,36 @@ class SignUpFragment : Fragment() {
                 CommonUtils.showMessage(parentView, response.toString())
             }
         })
-
         signUpViewModel?.isLoading?.observe(this, Observer { isLoading ->
             if (isLoading) {
                 CommonUtils.showLoader(context!!, "Signing Up")
             } else {
                 CommonUtils.hideLoader()
             }
+        })
+
+        signUpViewModel?.checkEmail?.observe(this, Observer { res ->
+            if (res is CommonResponseModel<*>) {
+                if (res.status!!) {
+                    ed_email.error = getString(R.string.already_exists)
+                    emailAlreadyExists = true
+                } else
+                    emailAlreadyExists = false
+            }
+
+        })
+
+
+
+        signUpViewModel?.checkPhone?.observe(this, Observer { res ->
+            if (res is CommonResponseModel<*>) {
+                if (res.status!!) {
+                    ed_phone.error = getString(R.string.already_exists)
+                    phoneAlreadyExists = true
+                } else
+                    phoneAlreadyExists = false
+            }
+
         })
     }
 
@@ -68,6 +100,57 @@ class SignUpFragment : Fragment() {
         signUpFragmentBinding.signUpFragmentViewModel = signUpViewModel
         signUpFragmentBinding.signUpFragment = this
         return signUpFragmentBinding.root
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        ed_email.onFocusChangeListener = View.OnFocusChangeListener { view, b -> hasEmailFocus(b) }
+        ed_phone.onFocusChangeListener = View.OnFocusChangeListener { view, b -> hasPhoneFocus(b) }
+        ed_name.onFocusChangeListener = View.OnFocusChangeListener { view, b -> hasNameFocus(b) }
+        ed_password.onFocusChangeListener =
+            View.OnFocusChangeListener { view, b -> hasPasswordFocus(b) }
+        ed_confirm_password.onFocusChangeListener =
+            View.OnFocusChangeListener { view, b -> hasConfirmPasswordFocus(b) }
+    }
+
+    private fun hasEmailFocus(has: Boolean) {
+        if (!has) {
+            if (!CommonUtils.isValidEmail(ed_email.text.toString()))
+                ed_email.error = getString(R.string.invalid_email)
+            else signUpViewModel?.checkEmail()
+        }
+
+
+    }
+
+    private fun hasPhoneFocus(has: Boolean) {
+        if (!has) {
+            if (!CommonUtils.isValidPhone(ed_phone.text.toString()))
+                ed_phone.error = getString(R.string.invalid_phone)
+            else
+                signUpViewModel?.checkPhone(ccp.selectedCountryCodeWithPlus + ed_phone.text.toString())
+
+        }
+    }
+
+    private fun hasNameFocus(has: Boolean) {
+        if (!has)
+            if (ed_name.text.toString().isNullOrEmpty())
+                ed_name.error = getString(R.string.invalid_name)
+    }
+
+    private fun hasPasswordFocus(has: Boolean) {
+        if (!has)
+            if (!CommonUtils.isValidPassword(ed_password.text.toString()))
+                ed_password.error = getString(R.string.invalid_password)
+    }
+
+    private fun hasConfirmPasswordFocus(has: Boolean) {
+        if (!has)
+            if (ed_password.text.toString() != ed_confirm_password.text.toString())
+                ed_confirm_password.error = getString(R.string.invalid_confirm_password)
+
     }
 
     private fun saveData(data: LoginResponseModel) {
@@ -90,7 +173,7 @@ class SignUpFragment : Fragment() {
     }
 
     fun signUp() {
-        if (signUpViewModel?.isValidData()!!) {
+        if (isValidData()) {
             startActivityForResult(
                 Intent(context, OtpActivity::class.java).putExtra(
                     "phone",
@@ -117,13 +200,56 @@ class SignUpFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == AppConstants.OTP_CODE) {
-            if (data?.extras!!.containsKey("verified"))
-                if (data?.getBooleanExtra("verified", false)!!) {
-                    signUpViewModel?.signUp()
+            if (data!=null && data.extras!!.containsKey("verified"))
+                if (data.getBooleanExtra("verified", false)) {
+                    signUpViewModel?.signUp(ccp.selectedCountryCodeWithPlus)
                 }
-        } else {
-            var message = data!!.getStringExtra("message")
+        } else if(data!=null && data.hasExtra("message")) {
+            var message = data.getStringExtra("message")
             CommonUtils.showMessage(parentView, message)
         }
+    }
+
+    private fun isValidData(): Boolean {
+        var valid = true
+
+        if (!CommonUtils.isValidPhone(ed_phone.text.toString())) {
+            valid = false
+            ed_phone.error = getString(R.string.invalid_phone)
+        } else if (phoneAlreadyExists) {
+            valid = false
+            ed_phone.error = getString(R.string.already_exists)
+        }
+
+
+        if (!CommonUtils.isValidEmail(ed_email.text.toString())) {
+            valid = false
+            ed_email.error = getString(R.string.invalid_email)
+        } else if (emailAlreadyExists) {
+            valid = false
+            ed_email.error = getString(R.string.already_exists)
+        }
+
+        if (ed_name.text.toString().isNullOrEmpty()) {
+            valid = false
+            ed_name.error = getString(R.string.invalid_name)
+        }
+
+        if (!CommonUtils.isValidPassword(ed_password.text.toString())) {
+            valid = false
+            ed_password.error = getString(R.string.invalid_password)
+        } else if (ed_password.text.toString() != ed_confirm_password.text.toString()) {
+            valid = false
+            ed_confirm_password.error = getString(R.string.invalid_confirm_password)
+        }
+
+        if (!chk_terms_text.isChecked) {
+            valid = false
+            CommonUtils.showMessage(parent, getString(R.string.please_check_terms))
+        }
+
+
+
+        return valid
     }
 }

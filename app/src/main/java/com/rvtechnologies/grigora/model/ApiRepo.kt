@@ -198,6 +198,56 @@ class ApiRepo {
             })
     }
 
+    fun checkEmail(
+        email: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().checkEmail(email)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun checkPhone(
+        phone: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().checkPhone(phone)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
 
     fun forgotPin(
         email: String,
@@ -2515,12 +2565,12 @@ Cuisine repo
 
 
     fun checkUnderLocation(
-          onResult: (isSuccess: Boolean, response: Any?) -> Unit
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
     ) {
         ApiClient.getClient()
             .checkUnderLocation(
                 token = CommonUtils.getToken(),
-                 user_id = CommonUtils.getUidDevice(),
+                user_id = CommonUtils.getUidDevice(),
                 login_type = CommonUtils.getLoginType(),
                 lat = CommonUtils.getPrefValue(
                     GrigoraApp.getInstance().activity?.baseContext,

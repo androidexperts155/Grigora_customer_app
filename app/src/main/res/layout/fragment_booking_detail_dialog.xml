@@ -97,19 +97,27 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp">
             
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/group_order"
+                android:id="@+id/img1"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"/>
             <TextView
+                android:layout_marginLeft="@dimen/_4sdp"
                 style="@style/mediumText"
-                
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/number_of_people"
+                 android:text="@string/number_of_people"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
             
             
             <TextView
                 android:id="@+id/tv_number"
+                android:layout_centerVertical="true"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -124,13 +132,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp">
+    
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/calender"
+                android:id="@+id/img2"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"/>
             
             <TextView
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/img2"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:text="@string/date"
+                 android:text="@string/date"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
             
@@ -138,6 +155,7 @@
             <TextView
                 android:id="@+id/tv_date"
                 style="@style/mediumText"
+                android:layout_centerVertical="true"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
@@ -151,12 +169,23 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp">
+    
+    
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/timee"
+                android:id="@+id/img3"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"/>
+            
             
             <TextView
+                android:layout_toRightOf="@id/img3"
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                 android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_centerVertical="true"
                 android:text="@string/time"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
@@ -164,6 +193,8 @@
             
             <TextView
                 android:id="@+id/tv_time"
+                android:layout_centerVertical="true"
+    
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -178,12 +209,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/_8sdp">
+    
+            <ImageView
+                android:layout_alignParentLeft="true"
+                android:src="@drawable/table_no"
+                android:id="@+id/img4"
+                android:layout_width="@dimen/_24sdp"
+                android:layout_height="@dimen/_24sdp"/>
             
             <TextView
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
+                android:layout_toRightOf="@+id/img4"
+                android:layout_marginLeft="@dimen/_4sdp"
+                android:layout_centerVertical="true"
                 android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
+                
                 android:text="@string/status"
                 android:textColor="?attr/textWhite"
                 android:textSize="@dimen/_12sdp" />
@@ -191,6 +232,8 @@
             
             <TextView
                 android:id="@+id/tv_status"
+                android:layout_centerVertical="true"
+    
                 style="@style/mediumText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

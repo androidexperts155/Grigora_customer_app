@@ -22,13 +22,13 @@
         android:overScrollMode="never">
         
         
-        
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:id="@+id/parent"
             android:background="?attr/backgroundColor">
-    
-    
+            
+            
             <ImageView
                 android:id="@+id/img"
                 android:layout_width="@dimen/_110sdp"
@@ -36,185 +36,187 @@
                 android:layout_height="@dimen/_130sdp"
                 android:layout_alignParentRight="true"
                 android:src="@drawable/splash_bottom" />
+            
             <LinearLayout
                 android:id="@+id/li_fields"
-                android:layout_below="@id/img"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/img"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
                 android:layout_marginBottom="8dp"
                 android:orientation="vertical">
+                
                 <TextView
-                    android:layout_marginTop="@dimen/_8sdp"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:text="@string/name"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-        
+                
                 <EditText
+                     android:id="@+id/ed_name"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:inputType="textPersonName"
-                    tools:text="Amit"
                     android:padding="@dimen/_4sdp"
                     android:singleLine="true"
                     android:text="@={signUpFragmentViewModel.name}"
                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
-        
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Amit" />
+                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/viewbg" />
-        
-        
+                
+                
                 <TextView
-                    android:layout_marginTop="@dimen/_10sdp"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/email"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-        
+                
                 <EditText
+                    android:id="@+id/ed_email"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
                     android:inputType="textEmailAddress"
-                    tools:text="Amit@gmail.com"
                     android:padding="@dimen/_4sdp"
                     android:singleLine="true"
                     android:text="@={signUpFragmentViewModel.email}"
                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
-        
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Amit@gmail.com" />
+                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/viewbg" />
-        
+                
                 <TextView
-                    android:layout_marginTop="@dimen/_10sdp"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/phone_number"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
                 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="horizontal"
+                    android:layout_height="wrap_content"
                     android:gravity="center_vertical"
-                    android:layout_height="wrap_content">
-    
+                    android:orientation="horizontal">
+                    
                     <com.hbb20.CountryCodePicker
-                        app:ccp_showFlag="true"
-                        app:ccp_showFullName="false"
-                        app:ccp_showNameCode="false"
-                        app:ccp_showPhoneCode="true"
-                        app:ccpDialog_searchEditTextTint="@color/colorPrimary"
-                        app:ccpDialog_backgroundColor="@color/white"
-                        app:ccpDialog_textColor="@color/textBlack"
-                        app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
                         android:id="@+id/ccp"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical"
-                        android:theme="@style/AppTheme.Light" />
+                        android:theme="@style/AppTheme.Light"
+                        app:ccpDialog_backgroundColor="@color/white"
+                        app:ccpDialog_fastScroller_bubbleColor="@color/quantum_bluegrey50"
+                        app:ccpDialog_searchEditTextTint="@color/colorPrimary"
+                        app:ccpDialog_textColor="@color/textBlack"
+                        app:ccp_showFlag="true"
+                        app:ccp_showFullName="false"
+                        app:ccp_showNameCode="false"
+                        app:ccp_showPhoneCode="true" />
+                    
                     <EditText
-                        android:inputType="phone"
-                        android:text="@={signUpFragmentViewModel.phone}"
+                        android:id="@+id/ed_phone"
                         style="@style/normalText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@android:color/transparent"
-                        tools:text="7696379802"
+                        android:inputType="phone"
                         android:maxLength="10"
                         android:padding="@dimen/_4sdp"
                         android:singleLine="true"
+                        android:text="@={signUpFragmentViewModel.phone}"
                         android:textColor="?attr/textWhite"
-                        android:textSize="@dimen/_12sdp" />
-
-
+                        android:textSize="@dimen/_12sdp"
+                        tools:text="7696379802" />
+                
+                
                 </LinearLayout>
-        
-        
+                
+                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/viewbg" />
-    
+                
                 <TextView
-                    android:layout_marginTop="@dimen/_10sdp"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/password"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-    
+                
                 <EditText
-                    android:inputType="textPassword"
-                    android:text="@={signUpFragmentViewModel.password}"
+                    android:id="@+id/ed_password"
                     style="@style/normalText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/transparent"
-                    tools:text="Amit"
+                    android:inputType="textPassword"
                     android:padding="@dimen/_4sdp"
                     android:singleLine="true"
+                    android:text="@={signUpFragmentViewModel.password}"
                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
-    
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="Amit" />
+                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/viewbg" />
-    
+                
                 <TextView
-                    android:layout_marginTop="@dimen/_10sdp"
                     style="@style/mediumText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/_10sdp"
                     android:text="@string/confirm_password"
                     android:textColor="?attr/textWhite"
                     android:textSize="@dimen/_12sdp" />
-    
+                
                 <EditText
-                    android:inputType="textPassword"
-                    android:text="@={signUpFragmentViewModel.confirm_password}"
+                    android:id="@+id/ed_confirm_password"
                     style="@style/normalText"
-                    
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    
                     android:background="@android:color/transparent"
-                    tools:text="111111"
+                    android:inputType="textPassword"
                     android:padding="@dimen/_4sdp"
                     android:singleLine="true"
+                    android:text="@={signUpFragmentViewModel.confirm_password}"
                     android:textColor="?attr/textWhite"
-                    android:textSize="@dimen/_12sdp" />
-    
+                    android:textSize="@dimen/_12sdp"
+                    tools:text="111111" />
+                
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/viewbg" />
-    
+            
             </LinearLayout>
-    
-    
-    
-    
             
-            
-          
             
             <LinearLayout
                 android:id="@+id/li_terms"
@@ -238,13 +240,13 @@
                     android:textSize="@dimen/_10sdp" />
                 
                 <TextView
-                    android:onClick="@{()-> signUpFragment.termsAndConditions()}"
                     android:id="@+id/tv_conditions"
+                    style="@style/mediumText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:layout_marginLeft="4dp"
-                    style="@style/mediumText"
+                    android:onClick="@{()-> signUpFragment.termsAndConditions()}"
                     android:text="@string/termsandconditions"
                     android:textColor="@color/colorPrimaryDark"
                     android:textSize="@dimen/_10sdp" />

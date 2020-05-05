@@ -8,7 +8,6 @@
      <string name="login">se connecter</string>
     <string name="sign_up">S\'inscrire</string>
     <string name="forgot_password">Mot de passe oublié?</string>
-    <string name="email_phone_number">E-mail /numéro de téléphone</string>
     <string name="password">Mot de passe</string>
     <string name="send">Envoyer</string>
     <string name="please_enter_your_registered">Veuillez saisir votre e-mail enregistré pour récupérer votre mot de passe par e-mail</string>
@@ -123,7 +122,6 @@
     <string name="status">Statut:</string>
     <string name="track">Piste</string>
     <string name="add_delivery_note">Ajouter des instructions de livraison</string>
-    <string name="profile">Profil</string>
     <string name="payment_method">Sélectionnez le mode de paiement</string>
     <string name="delivery_address">Adresse de livraison</string>
     <string name="logout">Se déconnecter</string>
@@ -151,9 +149,6 @@
     <string name="continuetxt">Continue</string>
     <string name="french">français</string>
     <string name="english">Anglais</string>
-    <string name="home">Accueil</string>
-    <string name="nearby">Proche</string>
-    <string name="bag">Chariot</string>
     <string name="my_account">Mon compte</string>
     <string name="orders">Ordres</string>
     
@@ -209,25 +204,16 @@
 <!--    <string name="confirmation_message">Transférer ₦ %s\ vers %s\ pour %s\?</string>-->
 <!--    <string name="confirmation_message1">Transférer ₦ %s\ vers %s\?</string>-->
     <string name="enter_amount">Entrer le montant</string>
-    <string name="pay">Payer</string>
     <string name="op1">₦ 100</string>
     <string name="op2">₦ 200</string>
     <string name="op3">₦ 500</string>
-    <string name="add_amount">Ajouter un montant</string>
     <string name="ratings">sur 5 avis</string>
-    <string name="notdelivering">Désolé, nous ne livrons pas encore à votre adresse. Nous serons bientôt là.</string>
-    <string name="changelocation">Change Location</string>
     
     
-    <string name="choose_categories">Choisissez des catégories</string>
-    
-    <string name="quick_order">Commande rapide</string>
     <string name="popular">Populaire</string>
-    <string name="wallet_drawer">Grigora Money: Et</string>
     <string name="grigora_money">Grigora Money</string>
     <string name="deliver_to_you">VOUS LIVRER EN</string>
     <string name="will_prepare_in">SE PREPARERA</string>
-    <string name="deliver_in">Livraison dans environ %s \minutes</string>
     <string name="delivery">livraison</string>
     <string name="Delivery">Livraison</string>
     <string name="apply_promocode">Appliquer le code promo</string>
@@ -252,10 +238,8 @@
     <string name="driver_assigned">Pilote attribué</string>
     
     
-    <string name="food_delivery_message">Comment était la livraison de nourriture?</string>
     <string name="no_thanks">Non merci</string>
     <string name="food_message">Quelle a été votre expérience avec %s \</string>
-    <string name="meals_message">Dites-nous comment vous évalueriez ces articles?</string>
     <string name="ttext">j\'ai lu et accepté les</string>
     <string name="termsandconditions">termes</string>
     <string name="select_language">Choisir la langue</string>
@@ -335,8 +319,6 @@
     <string name="donotforgettorate">N\'oubliez pas de noter la nourriture</string>
     <string name="group_order">Commande de groupe</string>
     <string name="trending">Tendance</string>
-    <string name="Quiz">Quiz</string>
-    <string name="new_quiz_available">Nouveau quiz disponible</string>
     <string name="share_order">Partagez votre commande avec des amis</string>
     <string name="desc1">La façon la plus simple de commander de la nourriture pour un groupe d\'amis en suivant trois étapes faciles</string>
     <string name="desc2">1. Définissez une limite de personnes et lancez une commande de groupe</string>
@@ -344,7 +326,6 @@
     <string name="desc4">3. Faites livrer les aliments ensemble</string>
     <string name="group_order_limit">Limite de commande de groupe</string>
     <string name="per_person_limit">Limite par personne</string>
-    <string name="none">Aucun</string>
     <string name="others">Autres</string>
     <string name="start_group_order">Lancer la commande de groupe</string>
     <string name="want_to_learn_more">Envie d\'en savoir plus</string>
@@ -406,12 +387,9 @@
     <string name="items">Articles</string>
     <string name="enter_wallet_id">Entrez l\'ID du portefeuille</string>
     <string name="transactions">Transactions</string>
-    <string name="transfered">Transféré</string>
-    <string name="received">Reçu</string>
     <string name="participants">Participants</string>
     
     
-    <string name="hello_blank_fragment">Bonjour fragment vierge</string>
     <string name="transfer_successfull">Transfert réussi</string>
     <string name="transfer_successfull_desc">Vos fonds (points) transférés \nont été effectués avec succès</string>
     <string name="ngn_to_how_naira">1 NGN = %s \pts</string>
@@ -447,7 +425,6 @@
     <string name="busy">Ne pas accepter</string>
     <string name="rest_unav">Restaurant non disponible</string>
     <string name="rest_unav_info">Vous pouvez choisir de planifier \nafin d\'obtenir plus tard</string>
-    <string name="schedule_">Programme?</string>
     <string name="schedule">Planifier la commande</string>
     <string name="rate_driver">Les taux\</string>
     <string name="late_delivery">Livraison tardive</string>
@@ -472,7 +449,6 @@
     <string name="buy_gift_card">Acheter une carte-cadeau</string>
     <string name="give_gift">Acheter la carte Grigora</string>
     <string name="buy">Acheter</string>
-    <string name="unavailable">Cet article n\'est pas disponible</string>
     <string name="add_tip">Ajouter un conseil au chauffeur</string>
     <string name="approved">Approuvé</string>
     <string name="pending">En attente</string>
@@ -486,7 +462,6 @@
     <string name="add_points_info">Achetez /envoyez des cartes de réduction à votre famille ou à vos amis.</string>
     <string name="send_card">Envoyez des cartes-cadeaux à votre famille ou à vos amis.</string>
     <string name="proceed_preview_card">Passer à la carte d\'aperçu</string>
-    <string name="search_nameoremail">Recherche par nom /adresse e-mail</string>
     <string name="gift_to">Cadeau à</string>
     <string name="chat">Chat</string>
     <string name="type_here">Tapez votre message ici...</string>
@@ -500,7 +475,6 @@
     <string name="delivery_pickup_info">"Pas de LIVRAISONS DISPONIBLES MAINTENANT. \N TOUJOURS FAIM? ESSAYEZ DE RAMASSER"</string>
     <string name="delivery_pickup_info_more">"Désolé! Pas de livraison pour le moment. Vous pouvez toujours passer commande pour l\'auto-ramassage. Vous voulez voir ce qui est disponible?"</string>
     <string name="see_stores">Voir les magasins ouverts au ramassage</string>
-    <string name="dismiss">Rejeter</string>
     <string name="order_cancel_info">Pas de coureurs disponibles pour le moment. Vous pouvez convertir la commande en commande d\'enlèvement en sélectionnant l\'option d\'enlèvement ou attendre la disponibilité du pilote</string>
     <string name="cancel">Annuler</string>
     <string name="wait_for_driver">Attendre le chauffeur</string>
@@ -508,14 +482,6 @@
     <string name="restaurant_asked_more_time">Le restaurant a demandé plus de temps</string>
     <string name="delivering_in">Livrer dans</string>
     <string name="addtip">Ajouter un conseil</string>
-    <string name="money_info">Naira %s\ uniquement</string>
-    <string name="fifty">Cinquante</string>
-    <string name="hundred">Cent</string>
-    <string name="two_hundred">Deux cent</string>
-    <string name="four_hundred">Quatre cents</string>
-    <string name="five_hundred">Cinq cents</string>
-    <string name="eight_hundred">Huit cent</string>
-    <string name="thousand">Un millier</string>
     <string name="buy_for_others">Acheter pour les autres</string>
     <string name="buy_for_self">Acheter pour soi</string>
     <string name="proceed_to_buy">Procéder à l\'achat d\'un bon</string>
@@ -541,7 +507,6 @@
     <string name="enter_name_wallet_id">Entrez le nom ou l\'identifiant du portefeuille</string>
     <string name="search_name_wallet_id">Recherche par nom /identifiant de portefeuille</string>
     <string name="please_add_items">Veuillez ajouter des articles</string>
-    <string name="search">Chercher</string>
     <string name="cancelled_by_you">Annulé par vous</string>
     <string name="preparation_started">Votre nourriture est en cours de préparation</string>
     <string name="order_delivered">"Livré "</string>
@@ -575,9 +540,6 @@
     <string name="removables">Amovibles</string>
     <string name="no">Non</string>
     <string name="select_required">Veuillez sélectionner les champs obligatoires</string>
-    <string name="to">à</string>
-    <string name="correct_pin">Entrez la broche correcte</string>
-    <string name="set_lock">Activer la sécurité</string>
     <string name="otp_sent">"OTP envoyé sur votre téléphone."</string>
     <string name="coocking_ins">Instructions de cuissons</string>
     <string name="setpin">Définir la broche</string>

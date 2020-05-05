@@ -12,11 +12,9 @@
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
-    <string name="paystack_live_public_key" tools:ignore="MissingTranslation">pk_live_0bb1c5ea15ae4223a872e524ea372efad9db4583</string>
     <string name="login">Sign in</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
-    <string name="email_phone_number">Email/Phone number</string>
     <string name="password">Password</string>
     <string name="send">Send</string>
     <string name="please_enter_your_registered">Please enter your registered email to recover your password via email</string>
@@ -131,7 +129,6 @@
     <string name="status">Status :</string>
     <string name="track">Track</string>
     <string name="add_delivery_note">Add delivery instructions</string>
-    <string name="profile">Profile</string>
     <string name="payment_method">Select Payment Method</string>
     <string name="delivery_address">Delivery Address</string>
     <string name="logout">Logout</string>
@@ -159,9 +156,6 @@
     <string name="continuetxt">Continue</string>
     <string name="french">French</string>
     <string name="english">English</string>
-    <string name="home">Home</string>
-    <string name="nearby">Nearby</string>
-    <string name="bag">Cart</string>
     <string name="my_account">My Account</string>
     <string name="orders">Orders</string>
     
@@ -217,26 +211,18 @@
     <string name="confirmation_message">Transfer ₦ %s\ to %s\ for %s?</string>
     <string name="confirmation_message1">Transfer ₦ %s\ to %s\?</string>
     <string name="enter_amount">Enter amount</string>
-    <string name="pay">Pay</string>
     <string name="op1">₦100</string>
     <string name="op2">₦200</string>
     <string name="op3">₦500</string>
-    <string name="add_amount">Add Amount</string>
     <string name="ratings">of 5 ratings</string>
-    <string name="notdelivering">Sorry, we are not delivering to your address yet. We will be there soon.</string>
-    <string name="changelocation">Change Location</string>
     
     
     <!--    new designs-->
-    <string name="choose_categories">Choose Categories</string>
     
-    <string name="quick_order">Quick Order</string>
     <string name="popular">Popular</string>
-    <string name="wallet_drawer">Grigora Money : ₦</string>
     <string name="grigora_money">Grigora Money</string>
     <string name="deliver_to_you">DELIVER TO YOU IN</string>
     <string name="will_prepare_in">WILL PREPARE IN</string>
-    <string name="deliver_in">Delivery in approximately %s\ minutes</string>
     <string name="delivery">delivery</string>
     <string name="Delivery">Delivery</string>
     <string name="apply_promocode">Apply Promocode</string>
@@ -261,10 +247,8 @@
     <string name="driver_assigned">Driver Assigned</string>
     
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="food_delivery_message">How was food delivery?</string>
     <string name="no_thanks">No Thanks</string>
     <string name="food_message">How was your experience with %s\</string>
-    <string name="meals_message">Tell us how you\'d rate these items?</string>
     <string name="ttext">I have read and agree to the</string>
     <string name="termsandconditions"> Terms &amp; conditions </string>
     <string name="select_language">Select Language</string>
@@ -344,8 +328,6 @@
     <string name="donotforgettorate">Don\'t forget to Rate Food</string>
     <string name="group_order">Group Order</string>
     <string name="trending">Trending</string>
-    <string name="Quiz">Quiz</string>
-    <string name="new_quiz_available">New Quiz Available</string>
     <string name="share_order">Share your order with friends</string>
     <string name="desc1">The easiest way to order food for friends group by following three easy steps</string>
     <string name="desc2">1. Set a person limit and start a group order</string>
@@ -353,7 +335,6 @@
     <string name="desc4">3. Get food delivered together</string>
     <string name="group_order_limit">Group order limit</string>
     <string name="per_person_limit">Per person limit</string>
-    <string name="none">None</string>
     <string name="others">Others</string>
     <string name="start_group_order">Start Group Order</string>
     <string name="want_to_learn_more">Want to learn more</string>
@@ -415,12 +396,9 @@
     <string name="items">Items</string>
     <string name="enter_wallet_id">Enter Wallet Id</string>
     <string name="transactions">Transactions</string>
-    <string name="transfered">Transferred</string>
-    <string name="received">Received</string>
     <string name="participants">Participants</string>
     
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="transfer_successfull">Transfer Successful</string>
     <string name="transfer_successfull_desc">Your funds(points) transferred \n was successfully done</string>
     <string name="ngn_to_how_naira">1 NGN = %s\ pts</string>
@@ -449,14 +427,14 @@
     <string name="add_note">Add a note</string>
     <string name="note_hint">You can add your note here...</string>
     <string name="schedule_request_sent">Request Sent</string>
-    <string name="schedule_request_sent_info">You will be notified once restaurant \n confirmed your Order</string>
+    <string name="schedule_request_sent_info">Your order has been scheduled for</string>
+    <string name="schedule_request_sent_info_more">and will be delivered in</string>
     <string name="upcoming_orders">Upcoming Orders</string>
     <string name="reorder">Re-Order</string>
     <string name="closed">Currently Closed</string>
     <string name="busy">Not accepting</string>
     <string name="rest_unav">Restaurant Unavailable</string>
     <string name="rest_unav_info">You can opt to schedule\n order to get later</string>
-    <string name="schedule_">Schedule?</string>
     <string name="schedule">Schedule Order</string>
     <string name="rate_driver">Rate %s\</string>
     <string name="late_delivery">Late Delivery</string>
@@ -481,7 +459,6 @@
     <string name="buy_gift_card">Buy Gift Card</string>
     <string name="give_gift">Buy Grigora Card</string>
     <string name="buy">Buy</string>
-    <string name="unavailable">This item is unavailable</string>
     <string name="add_tip">Add a tip for driver</string>
     <string name="approved">Approved</string>
     <string name="pending">Pending</string>
@@ -495,7 +472,6 @@
     <string name="add_points_info">Buy/Send Voucher cards to Family or  \n Friend(s).</string>
     <string name="send_card">Send Voucher cards to Family or  Friend(s).</string>
     <string name="proceed_preview_card">Proceed To Preview Card</string>
-    <string name="search_nameoremail">Search by Name/Email Address</string>
     <string name="gift_to">Gift To</string>
     <string name="chat">Chat</string>
     <string name="type_here">Type your message here...</string>
@@ -509,7 +485,6 @@
     <string name="delivery_pickup_info">"No DELIVERIES AVAILABLE NOW.\n STILL HUNGRY? TRY PICK UP"</string>
     <string name="delivery_pickup_info_more">"Sorry! No deliveries at the moment. You can still place order for self pickup. Want to see what's available?"</string>
     <string name="see_stores">See stores open for pickup</string>
-    <string name="dismiss">Dismiss</string>
     <string name="order_cancel_info">No available riders at the moment. You can convert the order into pickup order by selecting the pickup option or can wait for driver availability</string>
     <string name="cancel">Cancel</string>
     <string name="wait_for_driver">Wait for driver</string>
@@ -517,14 +492,6 @@
     <string name="restaurant_asked_more_time">Restaurant has asked for More Time</string>
     <string name="delivering_in">Delivering in</string>
     <string name="addtip">Add tip</string>
-    <string name="money_info">Naira %s\ only</string>
-    <string name="fifty">Fifty</string>
-    <string name="hundred">One Hundred</string>
-    <string name="two_hundred">Two Hundred</string>
-    <string name="four_hundred">Four Hundred</string>
-    <string name="five_hundred">Five Hundred</string>
-    <string name="eight_hundred">Eight Hundred</string>
-    <string name="thousand">One Thousand</string>
     <string name="buy_for_others">Buy for Others</string>
     <string name="buy_for_self">Buy for Self</string>
     <string name="proceed_to_buy">Proceed to Buy Voucher</string>
@@ -550,7 +517,6 @@
     <string name="enter_name_wallet_id">Enter Name or Wallet Id</string>
     <string name="search_name_wallet_id">Search by Name/Wallet id</string>
     <string name="please_add_items">Please add Items</string>
-    <string name="search">Search</string>
     <string name="cancelled_by_you">Canceled by you</string>
     <string name="preparation_started">Your food is being prepared</string>
     <string name="order_delivered">"Delivered "</string>
@@ -584,9 +550,6 @@
     <string name="removables">Removables</string>
     <string name="no">No</string>
     <string name="select_required">Please select required fields</string>
-    <string name="to">to</string>
-    <string name="correct_pin">Enter Correct pin</string>
-    <string name="set_lock">Enable security</string>
     <string name="otp_sent">"OTP sent to your phone. "</string>
     <string name="coocking_ins">Cooking Instructions</string>
     <string name="setpin">Set Pin</string>
@@ -604,10 +567,24 @@
     <string name="set_ending_time">Set Expiry Date</string>
     <string name="privacy_policy">Privacy Policy</string>
     <string name="verify_email">Please verify email and Login.</string>
-    <string name="no_orders_yet">No orders yet</string>
     <string name="invalidcvv">Invalid CVV</string>
     <string name="booking_details">Booking Details</string>
     <string name="number_of_people">No. of People</string>
     <string name="date">Date</string>
+    <string name="invalid_email">Invalid Email</string>
+    <string name="invalid_phone">Invalid Phone</string>
+    <string name="already_exists">Already exists</string>
+    <string name="invalid_name">Please enter name</string>
+    <string name="invalid_password">Must have at least 6 characters and contain 1 Uppercase, 1 Lowercase, 1 Digit and 1 Special character</string>
+    <string name="invalid_confirm_password">Must match with Password</string>
+    <string name="please_check_terms">Please check Terms and Conditions</string>
+    <string name="successfully_scheduled">Successfully Scheduled</string>
+    <string name="past_time">Can\'t select past time</string>
+    
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="your_coupen_code">Your coupen code</string>
+    <string name="gifted_by">gifted by</string>
+    <string name="was_redeemed">was redeemed successfully</string>
 
 </resources><!--₦-->
