@@ -144,7 +144,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:layout_marginLeft="@dimen/_8sdp"
                     android:background="@drawable/selectable_item_background"
-                    android:onClick="@{()->referAndEarnView.twitterClick()}"
+                    android:onClick="@{()->referAndEarnView.t()}"
                     android:src="@drawable/img_twitter" />
                 
                 <ImageButton

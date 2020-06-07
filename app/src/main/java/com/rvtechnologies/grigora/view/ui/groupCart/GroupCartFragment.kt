@@ -32,6 +32,8 @@ import com.rvtechnologies.grigora.view.ui.MainActivity
 import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.MealDetailSheet
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 
 import kotlinx.android.synthetic.main.activity_main.*
@@ -41,7 +43,7 @@ import kotlinx.android.synthetic.main.group_cart_fragment.tv_group_order_title
 import kotlinx.android.synthetic.main.group_cart_fragment.tv_order_limit
 import kotlin.collections.ArrayList
 
-class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
+class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,MealDetailSheet.Refresh,
     OnItemClickListener {
     private var load = true
     private var mMap: GoogleMap? = null
@@ -56,7 +58,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
     private lateinit var viewModel: GroupCartViewModel
     private var cartFragmentBinding: GroupCartFragmentBinding? = null
     private val cartItemList = ArrayList<GroupCartType>()
-    private val addMoreList = ArrayList<MenuItemModel>()
+    private val addMoreList = ArrayList<RestaurantDetailNewModel.MealItem>()
     private var isPickup = false
     override fun onMapReady(googleMap: GoogleMap?) {
         mMap = googleMap
@@ -97,18 +99,29 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
             if (response is CommonResponseModel<*>) {
                 if (response.status!!) {
                     cartDataModel = response.data as GroupCartModel
+
+
+
+
                     viewModel.cartData.value = cartDataModel
                     cart_type = cartDataModel.cart_type
                     restId = cartDataModel.restaurant_id.toString()
                     viewModel.getOffers(restId)
 
 //                    handleTime()
-                    if (cart_type == "1") {
+
+                    if (cartDataModel.pickup == "0") {
+                        li_enabled.visibility = View.GONE
                         isPickup = false
                         tv_delivery.callOnClick()
                     } else {
-                        tv_pickup.callOnClick()
-                        isPickup = true
+                        if (cart_type == "1") {
+                            isPickup = false
+                            tv_delivery.callOnClick()
+                        } else {
+                            tv_pickup.callOnClick()
+                            isPickup = true
+                        }
                     }
 
                     addMoreList.clear()
@@ -125,7 +138,8 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                         var list = ArrayList<GroupCartType>()
 
                         for (item in cartDataModel.cart_details) {
-                            list.add(item)
+                            if (item.cart.isNotEmpty())
+                                list.add(item)
                             for (data in item.cart) {
                                 list.add(data)
                             }
@@ -155,6 +169,14 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                             PrefConstants.ID
                         )
                     ) {
+                        (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
+                        (activity as MainActivity).img_right.visibility = View.VISIBLE
+
+                        (activity as MainActivity).img_right.setOnClickListener {
+                            viewModel.clearCart()
+                        }
+
+
                         li_enabled.visibility = View.VISIBLE
                         tv_change.visibility = VISIBLE
                         tv_change_payment.visibility = VISIBLE
@@ -165,6 +187,10 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                         tv_order_limit.text =
                             "₦ ${cartDataModel?.max_per_person} ${getString(R.string.per_person_limit)}"
                     } else {
+                        rel_group_invite.visibility = View.GONE
+                        v_g.visibility = View.GONE
+                        lib.visibility = View.GONE
+                        (activity as MainActivity).img_right.visibility = View.GONE
                         li_enabled.visibility = View.GONE
                         tv_change.visibility = GONE
                         tv_change_payment.visibility = GONE
@@ -245,18 +271,25 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
         })
         viewModel.addCartRes?.observe(this, Observer { response ->
             if (response != null)
-                viewModel.viewGroupCart(
-                    CommonUtils.getPrefValue(
-                        context,
-                        PrefConstants.TOKEN
-                    ), CommonUtils.getPrefValue(
-                        context,
-                        PrefConstants.LATITUDE
-                    ), CommonUtils.getPrefValue(
-                        context,
-                        PrefConstants.LONGITUDE
-                    )
-                )
+                if (response is CommonResponseModel<*>) {
+                    if (response.status!!) {
+                        viewModel.viewGroupCart(
+                            CommonUtils.getPrefValue(
+                                context,
+                                PrefConstants.TOKEN
+                            ), CommonUtils.getPrefValue(
+                                context,
+                                PrefConstants.LATITUDE
+                            ), CommonUtils.getPrefValue(
+                                context,
+                                PrefConstants.LONGITUDE
+                            )
+                        )
+                    } else {
+                        CommonUtils.showMessage(parentView, response.message!!)
+                    }
+                }
+
         })
 
         viewModel?.isLoading?.observe(this, Observer { isLoading ->
@@ -324,15 +357,8 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
             (activity as MainActivity).hideAll()
             (activity as MainActivity).backTitle(getString(R.string.checkout))
             (activity as MainActivity).lockDrawer(true)
-            (activity as MainActivity).img_right.visibility = View.VISIBLE
-            (activity as MainActivity).img_right.setImageResource(R.drawable.ic_delete)
-            (activity as MainActivity).img_right.setOnClickListener {
-                viewModel.clearCart()
-            }
-
         }
 
-        val token = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         if (load)
             viewModel?.viewGroupCart(
                 CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
@@ -417,7 +443,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
                 Intent(
                     activity,
                     PaymentActivity::class.java
-                ).putExtra("amount", viewModel?.cartData?.value?.total_price!!.toDouble().toInt()),
+                ).putExtra("amount", viewModel?.cartData?.value?.total_price!!.toDouble()),
                 400
             )
         }
@@ -476,11 +502,14 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
     override fun add(position: Int, position2: Int) {
         if (position == -1) {
 
+
+            var sheet = MealDetailSheet(addMoreList[position2], cartDataModel.id.toString(), this)
+            sheet.show(childFragmentManager, "")
         } else {
             var data = cartItemList[position] as CartDetail
             viewModel.updateCartQty(
                 CommonUtils.getToken(),
-                data.itemId.toString(), data.cartId!!, "1"
+                data.id.toString(), data.cartId!!, "1"
             )
         }
     }
@@ -492,7 +521,7 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
             var data = cartItemList[position] as CartDetail
             viewModel.updateCartQty(
                 CommonUtils.getToken(),
-                data.itemId.toString(), data.cartId!!, "-1"
+                data.id.toString(), data.cartId!!, "-1"
             )
         }
     }
@@ -535,6 +564,11 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
             if (item != 0) {
                 viewModel?.paymentMode?.value = item.toString()
             }
+        }
+        else if(item is RestaurantDetailNewModel.MealItem)
+        {
+            var sheet = MealDetailSheet(item, cartDataModel.id.toString(), this)
+            sheet.show(childFragmentManager, "")
         }
     }
 
@@ -743,6 +777,18 @@ class GroupCartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Qu
     override fun onDestroy() {
         super.onDestroy()
         viewModel.destroy(activity as MainActivity)
+    }
+
+    override fun refresh(refresh: Boolean) {
+        viewModel?.viewGroupCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
+            )
+        )
     }
 
 

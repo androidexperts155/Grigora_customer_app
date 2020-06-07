@@ -63,17 +63,21 @@ class PickupRestaurants : Fragment(), OnMapReadyCallback, GoogleMap.OnMarkerClic
             })
 
         viewModel.restaurantsResponse.observe(this, Observer {
-            var model = (it as CommonResponseModel<*>).data as PickupRestaurantsModel
-            var temp = ArrayList<NewDashboardModel.AllRestautants>()
-            temp.addAll(model.mainInfo)
-            allRestaurants.clear()
-            for (data in temp) {
-                if (data.items != null && data.items.size > 0) {
-                    allRestaurants.add(data)
+            if (it is CommonResponseModel<*>) {
+                var model = (it as CommonResponseModel<*>).data as PickupRestaurantsModel
+                var temp = ArrayList<NewDashboardModel.AllRestautants>()
+                temp.addAll(model.mainInfo)
+                allRestaurants.clear()
+                for (data in temp) {
+                    if (data.items != null && data.items.size > 0) {
+                        allRestaurants.add(data)
+                    }
                 }
+                mMap.clear()
+                updateMap()
+            } else {
+                CommonUtils.showMessage(parentView, it.toString())
             }
-            mMap.clear()
-            updateMap()
         })
 
         viewModel.convertPickup.observe(this, Observer {

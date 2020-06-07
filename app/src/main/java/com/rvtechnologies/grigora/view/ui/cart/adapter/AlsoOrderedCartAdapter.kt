@@ -14,12 +14,13 @@ import com.rvtechnologies.grigora.model.RestaurantDetailModel
  import com.rvtechnologies.grigora.model.models.CartDataModel
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.utils.OnItemClickListener
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import kotlinx.android.synthetic.main.item_also_ordered.view.*
 
 
 class AlsoOrderedCartAdapter(
-    var menuItemList: ArrayList<MenuItemModel>,
+    var menuItemList: ArrayList<RestaurantDetailNewModel.MealItem>,
     var listener: OnItemClickListener, val quantityClicks: QuantityClicks, val pos: Int
 ) : RecyclerView.Adapter<AlsoOrderedCartAdapter.ViewHolder>() {
 
@@ -29,7 +30,7 @@ class AlsoOrderedCartAdapter(
         holder.itemView.bt_add.visibility = View.VISIBLE
 
         holder.itemView.tv_price.text = "₦ " + resModel.price
-        holder.itemView.rating.rating = resModel.avgRatings
+        holder.itemView.rating.rating = resModel.avg_ratings.toFloat()
 //        holder.itemView.tv_plus.setOnClickListener {
 //            quantityClicks.add(pos, position)
 //        }
@@ -42,7 +43,7 @@ class AlsoOrderedCartAdapter(
             quantityClicks.add(pos, position)
         }
 
-        when (resModel.pureVeg) {
+        when (resModel.pure_veg) {
             "1" -> {
                 holder.itemView.img_type.setImageResource(R.drawable.veg)
             }
@@ -81,7 +82,7 @@ class AlsoOrderedCartAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(
-            item: MenuItemModel,
+            item: RestaurantDetailNewModel.MealItem,
             listener: OnItemClickListener
         ) {
             binding.itemDetail = item

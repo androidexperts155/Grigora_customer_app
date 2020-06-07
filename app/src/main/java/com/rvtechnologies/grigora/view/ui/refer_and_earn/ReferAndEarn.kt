@@ -92,6 +92,15 @@ class ReferAndEarn : Fragment() {
         })
     }
 
+    fun t(){
+        val tweetUrl =
+            ("https://twitter.com/intent/tweet?text=${tv_link.text}&url="
+                    + "https://www.google.com")
+        val uri = Uri.parse(tweetUrl)
+        startActivity(Intent(Intent.ACTION_VIEW, uri))
+    }
+
+
     override fun onResume() {
         super.onResume()
 

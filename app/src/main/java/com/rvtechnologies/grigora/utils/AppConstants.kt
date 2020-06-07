@@ -9,6 +9,9 @@ object AppConstants {
     var CUISINE_NAME = "cuisine_name"
     var CART_COUNT = 0
     var CHANGE_PIN = "change_pin"
+    var USER_ID = "uid"
+    var FROM = "from"
+    var PHONE = "phone"
 
 
     var NEXT = "next"

@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import com.google.gson.Gson
 import com.google.gson.JsonElement
+import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
 import com.rvtechnologies.grigora.model.models.User
 import com.rvtechnologies.grigora.utils.CommonUtils
+import com.rvtechnologies.grigora.utils.GrigoraApp
 
 
 class LoginFragmentViewModel : ViewModel() {
@@ -53,24 +55,26 @@ class LoginFragmentViewModel : ViewModel() {
     Validate login credentials from user
      */
     private fun isValidData(): Boolean {
+
+
         if (email.value.isNullOrBlank() || !CommonUtils.isValidEmail(email.value.toString())) {
             isLoading.value = false
-            loginResult.value = "Invalid Email"
+            loginResult.value = GrigoraApp.getInstance().activity?.getString(R.string.invalid_email)
             return false
         } else if (password.value.isNullOrBlank()) {
             isLoading.value = false
-            loginResult.value = "Invalid Password"
+            loginResult.value = GrigoraApp.getInstance().activity?.getString(R.string.please_fill_password)
             return false
         } else
             return true
     }
 
-    fun phoneLogin() {
+    fun phoneLogin(code: String) {
         isLoading.value = true
 
         ApiRepo.getInstance()
-            .phoneLogin(
-                email.value.toString().trim()
+            .checkPhone(
+                code + email.value.toString().trim()
             ) { success, result ->
                 isLoading.value = false
                 if (success) {

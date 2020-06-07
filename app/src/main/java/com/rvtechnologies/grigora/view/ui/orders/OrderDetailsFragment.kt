@@ -22,6 +22,7 @@ import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import android.view.animation.AnimationUtils
+import androidx.appcompat.app.AlertDialog
 import androidx.core.content.ContextCompat
 import androidx.core.graphics.scale
 import androidx.fragment.app.Fragment
@@ -101,7 +102,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     var driverMarker: Marker? = null
     var animateMarker: AnimateMarker? = null
     var listOfMarker = ArrayList<Marker>()
-
 
     companion object {
         fun newInstance() = OrderDetailsFragment()
@@ -271,7 +271,29 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             mapFragment.getMapAsync(this)
         }
 
-        bt_cancel.setOnClickListener { viewModel.cancelOrder() }
+        bt_cancel.setOnClickListener {
+            val builder = AlertDialog.Builder(activity!!, R.style.TimePickerTheme)
+            //set title for alert dialog
+            builder.setTitle(R.string.cancel_order)
+            //set message for alert dialog
+            builder.setMessage(R.string.cencel_desc)
+            //performing positive action
+            builder.setPositiveButton(R.string.continueTxt) { dialogInterface, which ->
+                dialogInterface.dismiss()
+                viewModel.cancelOrder()
+            }
+
+            //performing negative action
+            builder.setNegativeButton(R.string.places_cancel) { dialogInterface, which ->
+                dialogInterface.dismiss()
+            }
+            // Create the AlertDialog
+            val alertDialog: AlertDialog = builder.create()
+            // Set other dialog properties
+            alertDialog.setCancelable(false)
+            alertDialog.show()
+
+        }
 
 
         sheetBehavior = BottomSheetBehavior.from(li_bottomsheet)
@@ -487,6 +509,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
 
 //        handle what to show in call buttons
         if (isPickUp) {
+            tv_5.text = getString(R.string.ready_for_pickup)
             li_last.visibility = GONE
             tv_rest_desc.text = orderItemModel?.deliveryAddress
 //            it is pickup, so show restaurant details in call button
@@ -735,6 +758,27 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             tv_status.text = ""
         }
 
+        if (status == 6) {
+            type = orderItemModel!!.cancel_type.toInt()
+            when (type) {
+                1 -> {
+                    message = getString(R.string.cancelled_by_you)
+                }
+                2 -> {
+                    message = getString(R.string.items_not_available)
+                }
+                3 -> {
+                    message = getString(R.string.elapsed_time_cancelled)
+                }
+
+                4 -> {
+                    message = getString(R.string.no_riders_at_the_moment)
+                }
+                5 -> {
+                    message = getString(R.string.restaurant_not_available)
+                }
+            }
+        }
         updateStatus(status)
     }
 
@@ -837,7 +881,6 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             driverMarker = mMap!!.addMarker(markerOptions_driver)
         }
     }
-
 
     fun updateOwnLocation() {
         var myLocation =
@@ -961,8 +1004,20 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 CommonUtils.getPrefValue(context!!, PrefConstants.IMAGE),
                 MINE_TAG
             )
-        else
-            loadMarkerImage(latLng, R.drawable.ic_user, MINE_TAG)
+        else {
+            val height: Int = resources.getDimension(R.dimen._40sdp).toInt()
+            val width: Int = resources.getDimension(R.dimen._40sdp).toInt()
+            val b = (activity!!.resources
+                .getDrawable(R.drawable.ic_user) as BitmapDrawable).bitmap
+
+            val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
+            val markerOptions_driver = MarkerOptions()
+            markerOptions_driver.position(latLng)
+            markerOptions_driver.icon(BitmapDescriptorFactory.fromBitmap(smallMarker))
+                .anchor(0.5f, 0.5f).flat(true)
+            driverMarker = mMap!!.addMarker(markerOptions_driver)
+//            loadMarkerImage(latLng, R.drawable.ic_user, MINE_TAG)
+        }
     }
 
     private fun setRestaurantImage() {
@@ -1188,7 +1243,10 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
                 // Adding all the points in the route to LineOptions
                 lineOptions.addAll(points)
                 lineOptions.width(12f)
-                lineOptions.color(Color.DKGRAY)
+                if (CommonUtils.isDarkMode())
+                    lineOptions.color(Color.WHITE)
+                else
+                    lineOptions.color(Color.BLACK)
                 Log.d("onPostExecute", "onPostExecute lineoptions decoded")
             }
 

@@ -31,6 +31,7 @@ class AddressList : Fragment(), IRecyclerItemClick {
     private var addressesList = ArrayList<AddressModel>()
     private var adapter: AddressesAdapter? = null
     private lateinit var viewModel: AddressListViewModel
+    var remove = 0;
 
     companion object {
         fun newInstance() = AddressList()
@@ -55,6 +56,19 @@ class AddressList : Fragment(), IRecyclerItemClick {
             } else {
                 CommonUtils.hideLoader()
             }
+
+        })
+
+        viewModel.deleteresult.observe(this, Observer {
+            if (it is CommonResponseModel<*>) {
+                if (it.status!!) {
+                    addressesList.removeAt(remove)
+                    adapter?.notifyDataSetChanged()
+                } else {
+                    CommonUtils.showMessage(parentView, it.message!!)
+                }
+            } else
+                CommonUtils.showMessage(parentView, it.toString())
 
         })
     }
@@ -87,7 +101,7 @@ class AddressList : Fragment(), IRecyclerItemClick {
             (activity as MainActivity).backTitle(getString(R.string.delivery_location))
             (activity as MainActivity).setRightIcon(R.drawable.ic_add_black)
             (activity as MainActivity).lockDrawer(true)
-            (activity as MainActivity).img_right.setOnClickListener{
+            (activity as MainActivity).img_right.setOnClickListener {
                 addClicked()
             }
 
@@ -101,21 +115,20 @@ class AddressList : Fragment(), IRecyclerItemClick {
     }
 
     override fun onItemClick(item: Any) {
-        item as AddressModel
-        CommonUtils.savePrefs(context, PrefConstants.LATITUDE, item.latitude)
-        CommonUtils.savePrefs(context, PrefConstants.LONGITUDE, item.longitude)
-        CommonUtils.savePrefs(context, PrefConstants.ADDRESS, item.address)
-        CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, item.completeAddress)
-        CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, item.id.toString())
+        if (item is Int) {
+            viewModel.deleteLocation(addressesList[item].id.toString())
+            remove = item
+        } else {
+            item as AddressModel
+            CommonUtils.savePrefs(context, PrefConstants.LATITUDE, item.latitude)
+            CommonUtils.savePrefs(context, PrefConstants.LONGITUDE, item.longitude)
+            CommonUtils.savePrefs(context, PrefConstants.ADDRESS, item.address)
+            CommonUtils.savePrefs(context, PrefConstants.COMPLETE_ADDRESS, item.completeAddress)
+            CommonUtils.savePrefs(context, PrefConstants.ADDRESS_ID, item.id.toString())
 
-        (activity as MainActivity).clearStack()
-        (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
+            (activity as MainActivity).clearStack()
+            (activity as MainActivity).selectedNavigation(R.id.dashBoardFragment)
+        }
 
-
-//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//            .popBackStack(R.id.nav_graph_xml, true)
-//
-//        Navigation.findNavController(activity as MainActivity, R.id.main_nav_fragment)
-//            .navigate(R.id.dashBoardFragment)
     }
 }

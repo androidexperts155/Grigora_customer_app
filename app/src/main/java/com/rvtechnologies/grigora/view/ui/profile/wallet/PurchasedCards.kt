@@ -120,13 +120,14 @@ class PurchasedCards : Fragment(), IRecyclerItemClick {
 
                         rc_cards.adapter = MyCardsAdapter(list, this)
                     }
-                }
-                else {
+                } else {
+                    list.clear()
+                    if (rc_cards.adapter != null)
+                        rc_cards.adapter?.notifyDataSetChanged()
                     CommonUtils.showMessage(parent, response.message!!)
                 }
 
-            }
-            else {
+            } else {
                 CommonUtils.showMessage(parent, response.toString())
             }
 
@@ -135,7 +136,11 @@ class PurchasedCards : Fragment(), IRecyclerItemClick {
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
                     CommonUtils.showMessage(parent, res.message!!)
-                    viewModel.getPurchasedCards()
+//                    show success
+                    var d = RedeemSuccess(res.voucher_code!!, "", this)
+                    d.show(childFragmentManager, "")
+
+
                 } else {
                     CommonUtils.showMessage(parent, res.message!!)
                 }
@@ -170,6 +175,8 @@ class PurchasedCards : Fragment(), IRecyclerItemClick {
             } else {
                 viewModel.redeem(CommonUtils.getToken(), item.voucher_code)
             }
+        } else if (item is Boolean) {
+            viewModel.getPurchasedCards()
         }
     }
 

@@ -14,13 +14,19 @@ import com.rvtechnologies.grigora.model.models.LocationTypeModel
 class AddressListViewModel : ViewModel() {
 
     var token: MutableLiveData<String> = MutableLiveData()
+
     /*
     Observers
      */
     var isLoading = MutableLiveData<Boolean>()
     var addressesResult = MutableLiveData<Any>()
 
-        fun getAddresses() {
+    var deleteresult = MutableLiveData<Any>()
+
+
+
+
+    fun getAddresses() {
         isLoading.value = true
         ApiRepo.getInstance()
             .getAllAddresses(
@@ -36,6 +42,27 @@ class AddressListViewModel : ViewModel() {
 
                 } else {
                     addressesResult.value = result
+                }
+
+            }
+    }
+
+    fun deleteLocation(id:String) {
+        isLoading.value = true
+        ApiRepo.getInstance()
+            .deleteLocation(
+                id
+            ) { success, result ->
+                isLoading.value = false
+                if (success) {
+
+                    Log.e("Tag :: ", (result as JsonElement).toString())
+                    val type = object :
+                        TypeToken<CommonResponseModel<*>>() {}.type
+                    deleteresult.value = Gson().fromJson(result, type)
+
+                } else {
+                    deleteresult.value = result
                 }
 
             }

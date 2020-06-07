@@ -15,6 +15,14 @@ interface ApiInterface {
         @Path("langId") langId: String
     ): Call<JsonElement>
 
+
+    @GET(ApiConstants.DELETE_LOCATION + "/{id}")
+    fun deleteLocation(
+        @Header("Authorization") token: String,
+        @Path("id") id: String
+    ): Call<JsonElement>
+
+
     @FormUrlEncoded
     @POST(ApiConstants.LOGIN_URL)
     fun login(
@@ -66,12 +74,34 @@ interface ApiInterface {
         @Field("email") email: String
     ): Call<JsonElement>
 
+
+    @FormUrlEncoded
+    @POST(ApiConstants.DELETE_USER)
+    fun deleteUser(
+        @Field("user_id") user_id: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.VERIFY_OTP)
+    fun verifyOtp(
+        @Field("otp") otp: String,
+        @Field("user_id") uid: String
+    ): Call<JsonElement>
+
+
+    @FormUrlEncoded
+    @POST(ApiConstants.RESEND_OTP)
+    fun resendOtp(
+        @Field("user_id") uid: String
+    ): Call<JsonElement>
+
+
     @FormUrlEncoded
     @POST(ApiConstants.CHECK_PHONE)
     fun checkPhone(
         @Field("phone") phone: String
     ): Call<JsonElement>
-
 
 
     @FormUrlEncoded
@@ -199,7 +229,9 @@ interface ApiInterface {
         @Field("restaurant_id") restaurant_id: String,
         @Field("price_range") price_range: String,
         @Field("login_type") loginType: String,
-        @Field("veg_filter") veg_filter: String
+        @Field("veg_filter") veg_filter: String,
+        @Field("latitude") latitude: String,
+        @Field("logitude") logitude: String
 
     ): Call<JsonElement>
 
@@ -226,7 +258,9 @@ interface ApiInterface {
         @Field("price_range") price_range: String,
         @Field("cart_id") cart_id: String,
         @Field("login_type") login_type: String,
-        @Field("veg_filter") veg_filter: String
+        @Field("veg_filter") veg_filter: String,
+        @Field("latitude") latitude: String,
+        @Field("logitude") logitude: String
 
     ): Call<JsonElement>
 

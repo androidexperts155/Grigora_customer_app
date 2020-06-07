@@ -31,15 +31,20 @@ class ChangePasswordFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        val changePasswordBinding=DataBindingUtil.inflate(inflater,R.layout.change_password_fragment, container, false) as ChangePasswordFragmentBinding
-        changePasswordBinding.changePasswordModel=viewModel
+        val changePasswordBinding = DataBindingUtil.inflate(
+            inflater,
+            R.layout.change_password_fragment,
+            container,
+            false
+        ) as ChangePasswordFragmentBinding
+        changePasswordBinding.changePasswordModel = viewModel
         return changePasswordBinding.root
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         viewModel = ViewModelProviders.of(this).get(ChangePasswordViewModel::class.java)
-        viewModel.token.value=CommonUtils.getPrefValue(context,PrefConstants.TOKEN)
+        viewModel.token.value = CommonUtils.getPrefValue(context, PrefConstants.TOKEN)
         viewModel.changePasswordRes.observe(this, Observer { changePasswordRes ->
             if (changePasswordRes is CommonResponseModel<*>) {
                 changePasswordRes.message?.let { CommonUtils.showMessage(parentView, it) }
@@ -48,14 +53,37 @@ class ChangePasswordFragment : Fragment() {
             }
         })
 
-        viewModel.isLoading.observe(this, Observer {isLoading->
-            if(isLoading){
-                CommonUtils.showLoader(context,getString(R.string.loading))
-            }
-            else{
+        viewModel.isLoading.observe(this, Observer { isLoading ->
+            if (isLoading) {
+                CommonUtils.showLoader(context, getString(R.string.loading))
+            } else {
                 CommonUtils.hideLoader()
             }
         })
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        buttonVerifyPhone.setOnClickListener { changePassword() }
+    }
+
+    fun changePassword() {
+        var valid = true
+
+        if (!CommonUtils.isValidPassword(etNewPassword.text.toString())) {
+            valid = false
+            etNewPassword.error = getString(R.string.invalid_password)
+        }
+
+        if (etNewPassword.text.toString() != etConfirmPassword.text.toString()) {
+            etConfirmPassword.error = getString(R.string.invalid_confirm_password)
+            valid = false
+        }
+
+
+        if (valid)
+            viewModel.changePassword();
     }
 
 

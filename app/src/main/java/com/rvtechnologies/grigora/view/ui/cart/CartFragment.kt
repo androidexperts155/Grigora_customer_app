@@ -32,6 +32,8 @@ import com.rvtechnologies.grigora.view.ui.payment.PaymentActivity
 import com.rvtechnologies.grigora.view.ui.cart.adapter.AlsoOrderedCartAdapter
 import com.rvtechnologies.grigora.view.ui.cart.adapter.CartAdapter
 import com.rvtechnologies.grigora.view.ui.orders.PaymentOptionsDialog
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.MealDetailSheet
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import com.rvtechnologies.grigora.view.ui.restaurant_list.QuantityClicks
 import com.rvtechnologies.grigora.view_model.CartNdOfferViewModel
 import com.rvtechnologies.grigora.view_model.CartSharedViewModel
@@ -40,7 +42,7 @@ import kotlinx.android.synthetic.main.cart_fragment.*
 import kotlin.collections.ArrayList
 
 class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, QuantityClicks,
-    OnItemClickListener {
+    OnItemClickListener ,MealDetailSheet.Refresh{
     private var mMap: GoogleMap? = null
     var dialogShown = false
     var placeClicked = false
@@ -76,7 +78,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     private var cartFragmentBinding: CartFragmentBinding? = null
     private val cartItemList = ArrayList<CartDetail>()
-    private val addMoreList = ArrayList<MenuItemModel>()
+    private val addMoreList = ArrayList<RestaurantDetailNewModel.MealItem>()
     private var isPickup = false
     private var load = true
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -108,19 +110,25 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 if (response.status!!) {
                     cartDataModel = response.data as CartDataModel
 
-
                     viewModel.cartData?.value = response.data as CartDataModel
                     restaurantId = cartDataModel.restaurantId!!
                     viewModel.getOffers(restaurantId)
 
                     handleTime()
                     cart_type = cartDataModel.cart_type.toString()
-                    if (cart_type == "1") {
+
+                    if (cartDataModel.pickup == "0") {
+                        li_enabled.visibility = View.GONE
                         isPickup = false
                         tv_delivery.callOnClick()
                     } else {
-                        tv_pickup.callOnClick()
-                        isPickup = true
+                        if (cart_type == "1") {
+                            isPickup = false
+                            tv_delivery.callOnClick()
+                        } else {
+                            tv_pickup.callOnClick()
+                            isPickup = true
+                        }
                     }
                     restId = cartDataModel.restaurantId.toString()
 
@@ -212,10 +220,11 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 if (response.status!!) {
                     if (response.data is PlaceOrderModel) {
 
-                         var scheduleSuccess = ScheduleSuccess(
+                        var scheduleSuccess = ScheduleSuccess(
                             this,
                             cartSharedViewModel.scheduleDate.value!!,
                             cartSharedViewModel.scheduleTime.value!!
+                            , isPickup
                         )
                         scheduleSuccess.show(childFragmentManager, "")
                     }
@@ -404,7 +413,7 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
                 Intent(
                     activity,
                     PaymentActivity::class.java
-                ).putExtra("amount", viewModel?.cartData.value?.totalPrice!!.toDouble().toInt()),
+                ).putExtra("amount", viewModel?.cartData.value?.totalPrice!!.toDouble()),
                 400
             )
 //            var mBottomSheetDialog = BottomSheetDialog(activity!!)
@@ -499,21 +508,24 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
 
     override fun add(position: Int, position2: Int) {
         if (position == -1) {
-            if (addMoreList[position2].itemCategories?.size!! > 0) {
+            if (addMoreList[position2].item_categories?.size!! > 0) {
                 viewModel.addItemToCart(
-                    addMoreList[position2].restaurantId.toString(),
+                    addMoreList[position2].restaurant_id.toString(),
                     addMoreList[position2].id.toString(),
                     addMoreList[position2].price.toString(),
                     "1"
                 )
             } else {
-                val bundle =
-                    bundleOf(AppConstants.MENU_ITEM_MODEL to addMoreList[position2])
+//                val bundle =
+//                    bundleOf(AppConstants.MENU_ITEM_MODEL to addMoreList[position2])
+//
+//                view?.findNavController()
+//                    ?.navigate(
+//                        R.id.action_navigationCart_to_menuItemDetailsFragment, bundle
+//                    )
 
-                view?.findNavController()
-                    ?.navigate(
-                        R.id.action_navigationCart_to_menuItemDetailsFragment, bundle
-                    )
+                var sheet = MealDetailSheet(addMoreList[position2], "", this)
+                sheet.show(childFragmentManager, "")
             }
         } else {
             viewModel.updateCartQty(
@@ -593,14 +605,18 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             } else {
                 view?.findNavController()?.popBackStack()
             }
-        } else if (item is MenuItemModel) {
-            val bundle =
-                bundleOf(AppConstants.MENU_ITEM_MODEL to item)
+        } else if (item is RestaurantDetailNewModel.MealItem) {
+//            val bundle =
+//                bundleOf(AppConstants.MENU_ITEM_MODEL to item)
 
-            view?.findNavController()
-                ?.navigate(
-                    R.id.action_navigationCart_to_menuItemDetailsFragment, bundle
-                )
+
+            var sheet = MealDetailSheet(item, "", this)
+            sheet.show(childFragmentManager, "")
+
+//            view?.findNavController()
+//                ?.navigate(
+//                    R.id.action_navigationCart_to_menuItemDetailsFragment, bundle
+//                )
         }
     }
 
@@ -828,6 +844,17 @@ class CartFragment : Fragment(), IRecyclerItemClick, OnMapReadyCallback, Quantit
             PrefConstants.MIN_KILO_METER
         ).toDouble())
     }
+
+    override fun refresh(refresh: Boolean) {
+        viewModel.viewCart(
+            CommonUtils.getPrefValue(context, PrefConstants.TOKEN), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LATITUDE
+            ), CommonUtils.getPrefValue(
+                context,
+                PrefConstants.LONGITUDE
+            )
+        )    }
 
 
 }

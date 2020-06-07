@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
@@ -26,6 +27,7 @@ import com.rvtechnologies.grigora.R
 import com.rvtechnologies.grigora.databinding.FragmentLoginBinding
 import com.rvtechnologies.grigora.model.ApiRepo
 import com.rvtechnologies.grigora.model.models.LoginResponseModel
+import com.rvtechnologies.grigora.utils.AppConstants
 import com.rvtechnologies.grigora.utils.CommonUtils
 import com.rvtechnologies.grigora.utils.PrefConstants
 import com.rvtechnologies.grigora.view.ui.MainActivity
@@ -51,8 +53,17 @@ class LoginFragment : Fragment(), GoogleSignin {
 
         loginViewModel?.loginResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {
-                CommonUtils.showMessage(parentView, "Welcome " + response.data?.name)
-                saveData(response)
+                if (response.email_verified!! && response.phone_verified!!)
+                    saveData(response)
+                else if (!response.phone_verified!!) {
+//                    navigate to otp
+                    var bundle =
+                        bundleOf(AppConstants.USER_ID to response.user_id, AppConstants.FROM to 2, AppConstants.PHONE to response.phone)
+                    view?.findNavController()
+                        ?.navigate(R.id.action_loginFragment2_to_otpFragment, bundle)
+                } else if (!response.email_verified!!) {
+                    CommonUtils.showMessage(parentView, getString(R.string.verify_email))
+                }
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }

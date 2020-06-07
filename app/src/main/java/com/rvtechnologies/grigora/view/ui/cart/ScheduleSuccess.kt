@@ -13,14 +13,14 @@ import com.rvtechnologies.grigora.utils.IRecyclerItemClick
 import kotlinx.android.synthetic.main.fragment_schedule_success.*
 import java.text.SimpleDateFormat
 import java.util.*
-
 /**
  * A simple [Fragment] subclass.
  */
 class ScheduleSuccess(
     var iRecyclerItemClick: IRecyclerItemClick,
     var date: String,
-    var time: String
+    var time: String,
+    var isPickup:Boolean
 ) : DialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -33,18 +33,18 @@ class ScheduleSuccess(
         }
 
         var date = CommonUtils.getFormattedDate(date, "yyyy-MM-dd", "dd MMM")
+        if(isPickup)
+            tv_rate.text =
+                getString(R.string.schedule_request_sent_info) + " " + date + " " + getString(R.string.can_be_picked_in)
+            else
         tv_rate.text =
             getString(R.string.schedule_request_sent_info) + " " + date + " " + getString(R.string.schedule_request_sent_info_more)
 //        HH:mm:ss
-
         val sdf = SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
 
-
         var scheduleDate = sdf.parse("${this.date} $time")
-
         var currentTime = Date()
         var d = (scheduleDate.time - currentTime.time)
-
 
         val p1 = (d / 1000) % 60
         var p2 = (d / 1000) / 60

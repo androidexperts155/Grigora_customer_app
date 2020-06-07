@@ -55,7 +55,6 @@ class ProfileFragment : Fragment() {
             }
         })
 
-
         viewModel.logoutRes.observe(this, Observer {
             CommonUtils.delPrefValue(context!!)
 

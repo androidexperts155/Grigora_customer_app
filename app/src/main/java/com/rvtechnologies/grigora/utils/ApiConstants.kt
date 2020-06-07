@@ -1,14 +1,16 @@
 package com.rvtechnologies.grigora.utils
 
 object ApiConstants {
-    const val BASE_URL = "http://3.13.78.53/api/"
-    const val SOCKET_URL = "http://3.13.78.53:3000/"
+
+     const val BASE_URL = "https://grigora.net/api/"
+     const val SOCKET_URL = "https://grigora.net:3000"
 
     const val CHANGE_LANGUAGE_URL = "change-language"
     const val LOGIN_URL = "login"
     const val PHONE_LOGIN_URL = "phone-login"
     const val SIGNUP_URL = "signup"
-    const val SOCIAL_LOGIN_URL = "social-login"
+    const val DELETE_USER = "delete-user"
+     const val SOCIAL_LOGIN_URL = "social-login"
     const val PROMO_RESTAURANTS = "promo-restaurants"
 
     const val FORGOT_PASSWORD_URL = "forgot-password"
@@ -96,6 +98,7 @@ object ApiConstants {
     const val SHOW_ALL_FILTER_DATA = "show-all-filter-data"
     const val RE_ORDER = "re-order"
     const val DELETE_NOTIFICATION = "delete-notification"
+    const val DELETE_LOCATION = "delete-user-location"
     const val FAQ = "faqs"
     const val GET_SUB_ISSUES = "get-sub-issues"
     const val GET_CHAT = "getchat"
@@ -106,4 +109,6 @@ object ApiConstants {
     const val CHECK_UNDER_LOCATION = "check-under-location"
     const val CHECK_EMAIL = "check-email"
     const val CHECK_PHONE = "check-phone"
+    const val RESEND_OTP = "resend-otp"
+    const val VERIFY_OTP = "verify-otp"
 }

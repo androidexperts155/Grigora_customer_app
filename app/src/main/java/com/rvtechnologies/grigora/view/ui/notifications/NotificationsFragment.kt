@@ -262,6 +262,14 @@ class NotificationsFragment : Fragment(), IRecyclerItemClick {
 
                         )
                 }
+
+                111 -> {
+                    view?.findNavController()
+                        ?.navigate(
+                            R.id.action_notifications_to_quiz
+
+                        )
+                }
             }
 
 

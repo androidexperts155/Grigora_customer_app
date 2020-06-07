@@ -78,10 +78,17 @@ class RestaurantDetail(
 
 
 
-                     if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1") {
+
+                    if (restaurantDetailModel.pickup == "0") {
+                        li_enabled.visibility = View.GONE
+                        li_disabled.visibility = View.GONE
                         tv_delivery.callOnClick()
                     } else {
-                        tv_pickup.callOnClick()
+                        if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1") {
+                            tv_delivery.callOnClick()
+                        } else {
+                            tv_pickup.callOnClick()
+                        }
                     }
 
                     if (!restaurantDetailModel.cart_id.isNullOrEmpty()) {
@@ -143,7 +150,7 @@ class RestaurantDetail(
     private fun manageFilter() {
         var count = 0
         if (!restaurantDetailModel.egg_item) {
-            rd_veg.visibility = View.GONE
+            rd_containsegg.visibility = View.GONE
             count++
         }
 
@@ -154,9 +161,10 @@ class RestaurantDetail(
         }
 
         if (!restaurantDetailModel.veg_item) {
-            rd_containsegg.visibility = View.GONE
+            rd_veg.visibility = View.GONE
             count++
         }
+
 
         if (count >= 2) {
             rg_veg_nonveg.visibility = View.GONE
@@ -262,7 +270,15 @@ class RestaurantDetail(
             if (!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()) {
 
                 tv_menu_time.text =
-                    CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].end_time,"HH:mm:ss","hh:mm aa")
+                    CommonUtils.getFormattedUtc(
+                        restaurantDetailModel.all_data[0].start_time,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    ) + " - " + CommonUtils.getFormattedUtc(
+                        restaurantDetailModel.all_data[0].end_time,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    )
             } else
                 tv_menu_time.text = ""
 
@@ -472,12 +488,20 @@ class RestaurantDetail(
             is RestaurantDetailNewModel.AllData -> {
                 bt_type.text = item.category_name
                 var list = ArrayList<RestaurantDetailNewModel.AllData.Data>()
-                list.addAll(restaurantDetailModel.all_data[0].data)
+                list.addAll(item.data)
                 rec_parents.adapter = ParentsAdapter(list, this)
 
-                if (!item.start_time.isNullOrEmpty()) {
+                if (!item.start_time.isNullOrEmpty() && !item.end_time.isNullOrEmpty()) {
                     tv_menu_time.text =
-                        CommonUtils.getFormattedUtc(item.start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(item.end_time,"HH:mm:ss","hh:mm aa")
+                        CommonUtils.getFormattedUtc(
+                            item.start_time,
+                            "HH:mm:ss",
+                            "hh:mm aa"
+                        ) + " - " + CommonUtils.getFormattedUtc(
+                            item.end_time,
+                            "HH:mm:ss",
+                            "hh:mm aa"
+                        )
                 } else
                     tv_menu_time.text = ""
             }

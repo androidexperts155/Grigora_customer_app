@@ -28,6 +28,7 @@
         android:src="@drawable/driver" />
     
     <TextView
+        android:id="@+id/tv_rest"
         style="@style/mediumText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -10,6 +10,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.core.content.ContextCompat
+import androidx.core.os.bundleOf
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.Observer
 import androidx.navigation.findNavController
@@ -48,8 +49,17 @@ class PhoneLogin : Fragment() {
 
         viewModel?.loginResult?.observe(this, Observer { response ->
             if (response is LoginResponseModel) {
-                CommonUtils.showMessage(parentView, "Welcome " + response.data?.name)
-                saveData(response)
+                if (response.status!!) {
+                    var bundle =
+                        bundleOf(
+                            AppConstants.USER_ID to response.user_id,
+                            AppConstants.FROM to 3,
+                            AppConstants.PHONE to ccp.selectedCountryCodeWithPlus+viewModel.email.value.toString().trim()
+                        )
+                    view?.findNavController()
+                        ?.navigate(R.id.action_phoneLogin_fragment_to_otp, bundle)
+                } else
+                    CommonUtils.showMessage(parentView, response.message!!)
             } else {
                 CommonUtils.showMessage(parentView, response.toString())
             }
@@ -92,17 +102,17 @@ class PhoneLogin : Fragment() {
 
     fun toOTP() {
         if (CommonUtils.isValidPhone(ed_phone.text.toString())!!) {
-
-            var auth = FirebaseAuth.getInstance()
-            if (auth.currentUser != null)
-                auth.signOut()
-
-            startActivityForResult(
-                Intent(context, OtpActivity::class.java).putExtra(
-                    "phone",
-                    "+" + ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
-                ), AppConstants.OTP_CODE
-            )
+            viewModel.phoneLogin(ccp.selectedCountryCodeWithPlus)
+//            var auth = FirebaseAuth.getInstance()
+//            if (auth.currentUser != null)
+//                auth.signOut()
+//
+//            startActivityForResult(
+//                Intent(context, OtpActivity::class.java).putExtra(
+//                    "phone",
+//                    "+" + ccp.selectedCountryCodeWithPlus + viewModel?.email?.value
+//                ), AppConstants.OTP_CODE
+//            )
         } else {
             ed_phone.error = getString(R.string.invalid_phone)
         }
@@ -113,7 +123,7 @@ class PhoneLogin : Fragment() {
         if (requestCode == AppConstants.OTP_CODE) {
             if (data?.extras != null && data?.extras?.containsKey("verified")!!)
                 if (data?.getBooleanExtra("verified", false)!!)
-                    viewModel.phoneLogin()
+                    viewModel.phoneLogin(ccp.selectedCountryCodeWithPlus)
         }
     }
 

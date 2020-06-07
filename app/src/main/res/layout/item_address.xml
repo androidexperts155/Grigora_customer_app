@@ -28,10 +28,9 @@
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="@dimen/_8sdp"
         android:layout_marginTop="2dp"
-        android:layout_marginRight="@dimen/_8sdp"
-        android:layout_toLeftOf="@+id/img_check"
-        android:maxLines="2"
-        android:textColor="@color/textBlack"
+        android:layout_marginRight="@dimen/_48sdp"
+         android:maxLines="2"
+        android:textColor="?attr/textWhite"
         android:textSize="@dimen/_10sdp"
         tools:text="At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque " />
     
@@ -46,7 +45,7 @@
         android:layout_marginTop="4dp"
         android:layout_marginRight="@dimen/_8sdp"
         android:maxLines="2"
-        android:textColor="@color/textGrey"
+        android:textColor="?attr/textGray"
         android:textSize="@dimen/_10sdp"
         tools:text="At vero eos et accusamus et iusto odio " />
     
@@ -60,6 +59,17 @@
         android:layout_marginRight="@dimen/_8sdp"
         android:tint="@color/colorPrimaryDark"
         app:srcCompat="@drawable/ic_check_" />
+    
+    <ImageView
+        android:id="@+id/img_delete"
+        android:visibility="gone"
+        android:layout_width="@dimen/_18sdp"
+        android:layout_height="@dimen/_18sdp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginLeft="@dimen/_8sdp"
+        android:layout_marginRight="@dimen/_8sdp"
+        app:srcCompat="@drawable/ic_send_to_trash" />
     
     <View
         android:layout_width="match_parent"

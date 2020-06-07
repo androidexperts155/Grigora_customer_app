@@ -34,7 +34,6 @@ import com.rvtechnologies.grigora.view.ui.notifications.Notification
 import com.rvtechnologies.grigora.view_model.ContactUsViewModel
 import kotlinx.android.synthetic.main.contact_us_fragment.*
 
-
 class ContactUs : Fragment() {
     private lateinit var viewModel: ContactUsViewModel
     private var contactUsFragmentBinding: ContactUsFragmentBinding? = null
@@ -75,7 +74,6 @@ class ContactUs : Fragment() {
                 CommonUtils.hideLoader()
             }
         })
-
     }
 
     override fun onCreateView(
@@ -88,7 +86,6 @@ class ContactUs : Fragment() {
             container,
             false
         ) as ContactUsFragmentBinding
-
 
         contactUsFragmentBinding?.contactUsView = this
         return contactUsFragmentBinding?.root
@@ -134,12 +131,11 @@ class ContactUs : Fragment() {
     }
 
     fun call() {
-
         Dexter.withActivity(activity)
             .withPermission(Manifest.permission.CALL_PHONE)
             .withListener(object : PermissionListener {
                 override fun onPermissionGranted(response: PermissionGrantedResponse) {
-                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "09010669160"))
+                    val intent = Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "+2349010669160"))
                     startActivity(intent)
                 }
 
@@ -150,16 +146,13 @@ class ContactUs : Fragment() {
                     permission: PermissionRequest,
                     token: PermissionToken
                 ) {
-
                 }
             }).check()
-
-
     }
 
     fun email() {
         val email = Intent(Intent.ACTION_SENDTO)
-        email.setData(Uri.parse("mailto:support@grigora.net"));
+        email.setData(Uri.parse("mailto:hello@grigora.ng"));
         startActivity(email)
     }
 

@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.DialogFragment
 
 import com.rvtechnologies.grigora.R
- import com.rvtechnologies.grigora.utils.IRecyclerItemClick
-  import kotlinx.android.synthetic.main.fragment_redeem_success.*
+import com.rvtechnologies.grigora.utils.IRecyclerItemClick
+import kotlinx.android.synthetic.main.fragment_redeem_success.*
 
 /**
  * A simple [Fragment] subclass.
@@ -32,21 +32,27 @@ class RedeemSuccess(
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         dialog?.getWindow()?.setBackgroundDrawableResource(android.R.color.transparent)
-
-
+        this.isCancelable = false
 
         bt_view.setOnClickListener {
             iRecyclerItemClick.onItemClick(true)
             dismiss()
         }
 
-        var data =
-            getNormal(getString(R.string.your_coupen_code)) + " " + getBold("dskjfghds") + " " + getString(
-                R.string.gifted_by
-            )+" "+ getBold("John")+" "+getString(R.string.was_redeemed)
+        if (name.isNullOrEmpty()) {
+            var data =
+                getNormal(getString(R.string.your_coupen_code)) + " " + getBold(code) + " " + getString(
+                    R.string.was_redeemed
+                )
+            tv_info.text = Html.fromHtml(data)
+        } else {
+            var data =
+                getNormal(getString(R.string.your_coupen_code)) + " " + getBold(code) + " " + getString(
+                    R.string.gifted_by
+                ) + " " + getBold(name) + " " + getString(R.string.was_redeemed)
+            tv_info.text = Html.fromHtml(data)
+        }
 
-
-      tv_info.text=  Html.fromHtml(data)
     }
 
 

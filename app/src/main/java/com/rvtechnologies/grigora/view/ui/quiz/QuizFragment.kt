@@ -5,6 +5,8 @@ import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.navigation.Navigation
@@ -56,8 +58,19 @@ class QuizFragment : Fragment(), IRecyclerItemClick {
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
                     quizModel = res.data as QuizModel
-                    rc_answers.adapter = QuizAdapter(quizModel, this)
+                    if(quizModel.type=="1"){
+                        rc_answers.adapter = QuizAdapter(quizModel, this)
+                        rc_answers.visibility=VISIBLE
+                        ed_answer.visibility=GONE
+                    }
+                    else {
+                        rc_answers.visibility = GONE
+                        ed_answer.visibility = VISIBLE
+                    }
+
+
                     tv_question.text = quizModel.question
+
 
                     if (!quizModel.image.isNullOrEmpty()) {
                         val circularProgressDrawable = CircularProgressDrawable(context!!)
@@ -96,14 +109,28 @@ class QuizFragment : Fragment(), IRecyclerItemClick {
 
         bt_submit.setOnClickListener {
 
-            if (quizModel.selected != -1) {
-                viewModel.submitAnswer(
-                    CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
-                    quizModel.question,
-                    quizModel.options[quizModel.selected]
-                )
-            } else
-                CommonUtils.showMessage(parent, getString(R.string.please_select_an_answer))
+            if(quizModel.type=="1") {
+                if (quizModel.selected != -1) {
+                    viewModel.submitAnswer(
+                        CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                        quizModel.question,
+                        quizModel.options[quizModel.selected]
+                    )
+                } else
+                    CommonUtils.showMessage(parent, getString(R.string.please_select_an_answer))
+            }
+            else {
+                if(ed_answer.text.toString().isNullOrEmpty()){
+                    CommonUtils.showMessage(parent, getString(R.string.please_enter_answer))
+                }else
+                {
+                    viewModel.submitAnswer(
+                        CommonUtils.getPrefValue(context!!, PrefConstants.TOKEN),
+                        quizModel.question,
+                        ed_answer.text.toString()
+                    )
+                }
+            }
         }
     }
 

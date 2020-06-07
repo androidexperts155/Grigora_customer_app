@@ -160,9 +160,8 @@ class WalletFragment : Fragment(), IRecyclerItemClick {
             Intent(
                 activity,
                 PaymentActivity::class.java
-            ).putExtra("amount", amount.toDouble().toInt()), 400
+            ).putExtra("amount", amount.toDouble()), 400
         )
-
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

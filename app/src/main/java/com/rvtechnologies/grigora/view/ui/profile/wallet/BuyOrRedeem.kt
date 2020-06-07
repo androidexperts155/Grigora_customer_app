@@ -54,6 +54,10 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
                     rc_vouchers.adapter = VouchersAdapter(receivedVouchers, this)
 
                 } else {
+                    receivedVouchers.clear()
+                    if (rc_vouchers.adapter != null)
+                        rc_vouchers.adapter?.notifyDataSetChanged()
+
                     CommonUtils.showMessage(parent, response?.message!!)
                 }
             } else {
@@ -63,11 +67,9 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
         viewModel.redeemRes.observe(this, Observer { res ->
             if (res is CommonResponseModel<*>) {
                 if (res.status!!) {
-                    CommonUtils.showMessage(parent, res.message!!)
-                    viewModel.getHistory(CommonUtils.getToken())
-                    viewModel.getCards(
-                        CommonUtils.getToken()
-                    )
+//                   show dialog
+                    var d = RedeemSuccess(res.voucher_code!!, res.user_name!!, this)
+                    d.show(childFragmentManager, "")
                 } else {
                     CommonUtils.showMessage(parent, res.message!!)
                 }
@@ -163,6 +165,11 @@ class BuyOrRedeem : Fragment(), IRecyclerItemClick {
         if (item is ReceivedVoucherModel) {
             ed_wallet_id.setText(item.voucher_code)
 //            redeem(item.voucher_code)
+        } else if (item is Boolean) {
+            viewModel.getHistory(CommonUtils.getToken())
+            viewModel.getCards(
+                CommonUtils.getToken()
+            )
         }
     }
 

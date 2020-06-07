@@ -2,9 +2,10 @@ package com.rvtechnologies.grigora.model
 
 import com.rvtechnologies.grigora.model.models.MenuItemModel
 import com.rvtechnologies.grigora.view.ui.groupCart.GroupCartType
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 
 data class GroupCartModel(
-    var add_more_items: List<MenuItemModel>,
+    var add_more_items: ArrayList<RestaurantDetailNewModel.MealItem>,
     var app_fee: Int,
     var cart_details: List<CartDetail>,
     var cart_type: String,

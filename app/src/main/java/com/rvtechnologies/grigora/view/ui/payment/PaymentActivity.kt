@@ -158,10 +158,18 @@ class PaymentActivity : AppCompatActivity() {
 
 
         activitySubmitCreditCardBinding!!.labelSecureSubmission.setOnClickListener {
-            if (activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString().length < 16) {
+            if (activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
+                    .isNullOrEmpty()
+            ) {
                 CommonUtils.showMessage(
                     activitySubmitCreditCardBinding!!.parent,
-                    getString(R.string.invalidCard)
+                    getString(R.string.please_enter_card_number)
+                )
+
+            } else if (activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString().length < 16) {
+                CommonUtils.showMessage(
+                    activitySubmitCreditCardBinding!!.parent,
+                    getString(R.string.invalidCardnumber)
                 )
             } else if (
                 activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString().length < 5
@@ -171,6 +179,14 @@ class PaymentActivity : AppCompatActivity() {
                     getString(R.string.invalid_date)
                 )
 
+            } else if (activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()
+                    .isNullOrEmpty()
+            ) {
+
+                CommonUtils.showMessage(
+                    activitySubmitCreditCardBinding!!.parent,
+                    getString(R.string.please_enter_cvv)
+                )
             } else if (
                 activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString().length < 3
             ) {
@@ -205,6 +221,12 @@ class PaymentActivity : AppCompatActivity() {
                     expiryYear.toIntOrNull(),
                     cvv
                 )
+
+
+
+
+
+
                 if (card.isValid) {
                     CommonUtils.showLoader(
                         this@PaymentActivity!!,
@@ -212,9 +234,9 @@ class PaymentActivity : AppCompatActivity() {
                     )
                     PaystackSdk.chargeCard(
                         this,
-                        Charge().setCard(card).setAmount(intent.getIntExtra("amount", 0))
+                        Charge().setCard(card).setAmount((intent.getDoubleExtra("amount", 0.0) * 100).toInt())
                             .setCurrency("NGN")
-                            .setEmail(CommonUtils.getPrefValue(this!!, PrefConstants.EMAIL)),
+                            .setEmail(CommonUtils.getPrefValue(this, PrefConstants.EMAIL)),
                         object : Paystack.TransactionCallback {
                             override fun onSuccess(transaction: Transaction) {
                                 CommonUtils.hideLoader(
@@ -335,20 +357,6 @@ class PaymentActivity : AppCompatActivity() {
         imm.showSoftInput(view, 0)
     }
 
-    private fun submit() {
-//        activitySubmitCreditCardBinding!!.viewPager.currentItem = 4
-        card!!.cardNumber = activitySubmitCreditCardBinding!!.inputEditCardNumber.text.toString()
-        card!!.expiredDate = activitySubmitCreditCardBinding!!.inputEditExpiredDate.text.toString()
-        card!!.cardHolder = activitySubmitCreditCardBinding!!.inputEditCardHolder.text.toString()
-        card!!.cvvCode = activitySubmitCreditCardBinding!!.inputEditCvvCode.text.toString()
-//        Toast.makeText(this@PaymentActivity, card.toString(), Toast.LENGTH_LONG).show()
-        Handler().postDelayed({
-            window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_NOTHING)
-            activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.VISIBLE
-            hideKeyboard(activitySubmitCreditCardBinding!!.inputEditCvvCode)
-        }, 300)
-    }
-
     private fun reset() {
         window.setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE or WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE)
 //        activitySubmitCreditCardBinding!!.labelSecureSubmission.visibility = View.GONE
@@ -416,7 +424,6 @@ class PaymentActivity : AppCompatActivity() {
         return dp * (metrics.densityDpi.toFloat() / DisplayMetrics.DENSITY_DEFAULT)
     }
 
-
     private fun monthYearPicker() {
 
         var today = Calendar.getInstance()
@@ -444,7 +451,6 @@ class PaymentActivity : AppCompatActivity() {
             .setTitle(getString(R.string.set_ending_time)).build().show()
 
     }
-
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         super.onCreateOptionsMenu(menu)

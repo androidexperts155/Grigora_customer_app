@@ -140,31 +140,31 @@ class FilterAdapter(
 
             if (list[position].selectionType == "2") {
                 if (!list[position].multiSelected.isNullOrEmpty()) {
-                    var name = ""
-                    if (list[position].multiSelected.contains("1")) {
-                        name = "₦"
-                    }
-
-                    if (list[position].multiSelected.contains("2")) {
-                        if (name != "")
-                            name += ",₦₦"
-                        else
-                            name += "₦₦"
-                    }
-
-                    if (list[position].multiSelected.contains("3")) {
-                        if (name != "")
-                            name += ",₦₦₦"
-                        else
-                            name += "₦₦₦"
-                    }
-
-                    if (list[position].multiSelected.contains("4")) {
-                        if (name != "")
-                            name += ",₦₦₦₦"
-                        else
-                            name += "₦₦₦₦"
-                    }
+                    var name =  holder.tv_filter_name.context.getString(R.string.price)
+//                    if (list[position].multiSelected.contains("1")) {
+//                        name = "₦"
+//                    }
+//
+//                    if (list[position].multiSelected.contains("2")) {
+//                        if (name != "")
+//                            name += ",₦₦"
+//                        else
+//                            name += "₦₦"
+//                    }
+//
+//                    if (list[position].multiSelected.contains("3")) {
+//                        if (name != "")
+//                            name += ",₦₦₦"
+//                        else
+//                            name += "₦₦₦"
+//                    }
+//
+//                    if (list[position].multiSelected.contains("4")) {
+//                        if (name != "")
+//                            name += ",₦₦₦₦"
+//                        else
+//                            name += "₦₦₦₦"
+//                    }
                     holder.tv_filter_name.text = name
                 } else
                     holder.tv_filter_name.text = list[position].name

@@ -109,7 +109,7 @@ data class NewDashboardModel(
             @SerializedName("approved")
             var approved: String = "",
             @SerializedName("average_rating")
-            var averageRating: Int = 0,
+            var averageRating: Float = 0F,
             @SerializedName("busy_status")
             var busyStatus: String = "",
             @SerializedName("closing_time")

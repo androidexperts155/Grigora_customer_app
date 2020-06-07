@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/parentView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="?attr/backgroundColor"
+    android:orientation="vertical"
+     >
+    
+    
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/_150sdp"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_40sdp"
+        android:src="@drawable/img_otp" />
+    
+    
+    
+    
+    <TextView
+        android:id="@+id/tv_sent_to"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_30sdp"
+        tools:text="Otp sent to : +917689998845"
+        
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_12sdp" />
+    
+    
+    
+    
+    <TextView
+        style="@style/titleText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_20sdp"
+        android:text="@string/otpverification"
+        android:textColor="?attr/textWhite"
+        android:textSize="@dimen/_14sdp" />
+    
+    
+    <com.mukesh.OtpView
+        android:id="@+id/otp_view"
+        style="@style/mediumText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="@dimen/_25sdp"
+        android:inputType="number"
+        android:itemBackground="@color/white"
+        android:textColor="@android:color/black"
+        app:itemCount="6"
+        app:lineColor="?attr/lightGray"
+        app:viewType="rectangle" />
+    
+    <Button
+        android:id="@+id/buttonVerifyPhone"
+        style="@style/titleText"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/_35sdp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginStart="@dimen/_48sdp"
+        android:layout_marginTop="@dimen/_24sdp"
+        android:layout_marginEnd="@dimen/_48sdp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/btn_rounded"
+        android:elevation="1dp"
+        android:paddingLeft="@dimen/_22sdp"
+        android:paddingRight="@dimen/_22sdp"
+        android:text="@string/continueTxt"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_12sdp" />
+    
+    <LinearLayout
+        
+        android:id="@+id/li_resend"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/didnot_got"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+        
+        <TextView
+            android:id="@+id/buttonResend"
+            style="@style/titleText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:background="@android:color/transparent"
+            android:elevation="1dp"
+            android:padding="8dp"
+            android:text="@string/resend"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_12sdp"
+            android:textStyle="bold" />
+    </LinearLayout>
+    
+    <LinearLayout
+        android:id="@+id/li_sent"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:visibility="gone">
+        
+        <TextView
+            style="@style/mediumText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/otp_sent"
+            android:textColor="?attr/textWhite"
+            android:textSize="@dimen/_10sdp" />
+    
+    </LinearLayout>
+
+</LinearLayout>

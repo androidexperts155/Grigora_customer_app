@@ -243,7 +243,7 @@ class GiftFragment : Fragment(), IRecyclerItemClick {
                     Intent(
                         activity,
                         PaymentActivity::class.java
-                    ).putExtra("amount", voucherCodeModel.amount), 400
+                    ).putExtra("amount", voucherCodeModel.amount.toDouble()), 400
                 )
             }
 

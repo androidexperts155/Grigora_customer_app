@@ -273,10 +273,10 @@ class NewDashBoardFragment : Fragment(), IRecyclerItemClick {
                 if (item.multiSelected == null)
                     item.multiSelected = ""
 
-                list.add(PriceFilterModel(item.multiSelected.contains("1"), "₦", "1"))
-                list.add(PriceFilterModel(item.multiSelected.contains("2"), "₦₦", "2"))
-                list.add(PriceFilterModel(item.multiSelected.contains("3"), "₦₦₦", "3"))
-                list.add(PriceFilterModel(item.multiSelected.contains("4"), "₦₦₦₦", "4"))
+                list.add(PriceFilterModel(item.multiSelected.contains("1"), "10", "2"))
+                list.add(PriceFilterModel(item.multiSelected.contains("2"), "100", "3"))
+                list.add(PriceFilterModel(item.multiSelected.contains("3"), "1000", "4"))
+                list.add(PriceFilterModel(item.multiSelected.contains("4"), "10000", "5"))
 
                 var filteredPrice = FilteredPrice(list)
 

@@ -74,10 +74,18 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
                     tv_restname.text = restaurantDetailModel.restaurant_name
 
-                    if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1")
+
+
+                    if (restaurantDetailModel.pickup == "0") {
+                        li_enabled.visibility = View.GONE
+                        li_disabled.visibility = View.GONE
                         tv_delivery.callOnClick()
-                    else
-                        tv_pickup.callOnClick()
+                    } else {
+                        if (!restaurantDetailModel.order_type.isNullOrEmpty() && restaurantDetailModel.order_type == "1")
+                            tv_delivery.callOnClick()
+                        else
+                            tv_pickup.callOnClick()
+                    }
 
                     if (restaurantDetailModel.full_time.equals("1")) {
                         tv_tt.text = getString(R.string.open_24_hours)
@@ -161,7 +169,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
     private fun manageFilter() {
         var count = 0
         if (!restaurantDetailModel.egg_item) {
-            rd_veg.visibility = View.GONE
+            rd_containsegg.visibility = View.GONE
             count++
         }
 
@@ -172,7 +180,7 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
         }
 
         if (!restaurantDetailModel.veg_item) {
-            rd_containsegg.visibility = View.GONE
+            rd_veg.visibility = View.GONE
             count++
         }
 
@@ -367,7 +375,15 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
         if (restaurantDetailModel.all_data.isNotEmpty()) {
             if (!restaurantDetailModel.all_data[0].start_time.isNullOrEmpty()) {
                 tv_menu_time.text =
-                    CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(restaurantDetailModel.all_data[0].end_time,"HH:mm:ss","hh:mm aa")
+                    CommonUtils.getFormattedUtc(
+                        restaurantDetailModel.all_data[0].start_time,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    ) + " - " + CommonUtils.getFormattedUtc(
+                        restaurantDetailModel.all_data[0].end_time,
+                        "HH:mm:ss",
+                        "hh:mm aa"
+                    )
             } else
                 tv_menu_time.text = ""
             bt_type.text = restaurantDetailModel.all_data[0].category_name
@@ -545,7 +561,15 @@ class RestaurantDetailGroup : Fragment(), IRecyclerItemClick, MealDetailSheet.Re
 
                 if (!item.start_time.isNullOrEmpty()) {
                     tv_menu_time.text =
-                        CommonUtils.getFormattedUtc(item.start_time,"HH:mm:ss","hh:mm aa") + " - " + CommonUtils.getFormattedUtc(item.end_time,"HH:mm:ss","hh:mm aa")
+                        CommonUtils.getFormattedUtc(
+                            item.start_time,
+                            "HH:mm:ss",
+                            "hh:mm aa"
+                        ) + " - " + CommonUtils.getFormattedUtc(
+                            item.end_time,
+                            "HH:mm:ss",
+                            "hh:mm aa"
+                        )
                 } else
                     tv_menu_time.text = ""
             }

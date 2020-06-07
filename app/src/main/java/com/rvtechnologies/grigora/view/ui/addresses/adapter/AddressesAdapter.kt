@@ -39,6 +39,7 @@ class AddressesAdapter(
         var tv_location: TextView = view.findViewById(R.id.tv_location)
         var tv_apt_number: TextView = view.findViewById(R.id.tv_apt_number)
         var img_check: ImageView = view.findViewById(R.id.img_check)
+        var img_delete: ImageView = view.findViewById(R.id.img_delete)
     }
 
     override fun onBindViewHolder(holder: MyView, position: Int) {
@@ -99,11 +100,12 @@ class AddressesAdapter(
                     )
                 )
             }
-
-
             holder.img_check.visibility = View.VISIBLE
+            holder.img_delete.visibility = View.GONE
+
         } else {
             holder.img_check.visibility = View.GONE
+            holder.img_delete.visibility = View.VISIBLE
             if (CommonUtils.isDarkMode()) {
                 holder.tv_type.setTextColor(
                     ContextCompat.getColor(
@@ -147,6 +149,10 @@ class AddressesAdapter(
 
         holder.itemView.setOnClickListener {
             iRecyclerItemClick.onItemClick(list[position])
+        }
+
+        holder.img_delete.setOnClickListener {
+            iRecyclerItemClick.onItemClick(position)
         }
     }
 

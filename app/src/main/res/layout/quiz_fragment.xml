@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
     android:id="@+id/parent"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="?attr/backgroundColor"
     android:orientation="vertical"
@@ -57,9 +57,9 @@
             tools:text="What attraction in Monetrial is one of the largest in the world?" />
         
         <com.github.siyamed.shapeimageview.RoundedImageView
+            android:id="@+id/img_data"
             android:layout_width="@dimen/_220sdp"
             android:layout_height="@dimen/_120sdp"
-            android:id="@+id/img_data"
             android:layout_gravity="center"
             android:layout_marginTop="@dimen/_25sdp"
             android:layout_marginBottom="@dimen/_8sdp"
@@ -69,8 +69,8 @@
         
         
         <androidx.recyclerview.widget.RecyclerView
-            android:layout_width="match_parent"
             android:id="@+id/rc_answers"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/_16sdp"
             android:layout_marginRight="@dimen/_16sdp"
@@ -78,6 +78,25 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             tools:itemCount="5"
             tools:listitem="@layout/item_answer" />
+        
+        <EditText
+            android:id="@+id/ed_answer"
+            style="@style/mediumText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/_16sdp"
+            android:layout_marginTop="@dimen/_8sdp"
+            android:layout_marginRight="@dimen/_16sdp"
+            android:background="@drawable/edit_stroke_contact"
+            android:gravity="top|start"
+            android:hint="@string/answer"
+            android:inputType="textMultiLine"
+            android:maxLines="3"
+            android:minLines="3"
+            android:padding="@dimen/_8sdp"
+            android:textColor="?attr/textWhite"
+            android:textColorHint="?attr/searchHint"
+            android:textSize="@dimen/_12sdp" />
         
         <Button
             android:id="@+id/bt_submit"

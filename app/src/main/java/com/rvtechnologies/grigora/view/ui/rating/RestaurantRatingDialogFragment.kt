@@ -44,6 +44,7 @@ class RestaurantRatingDialogFragment(
         dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
 
         tv_name.text = getString(R.string.rate_driver, orderItemModel.restaurantName)
+        tv_rest.text=getString(R.string.food_message,orderItemModel.restaurantName)
         val circularProgressDrawable = CircularProgressDrawable(context!!)
         circularProgressDrawable.strokeWidth = 5f
         circularProgressDrawable.centerRadius = 30f

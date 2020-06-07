@@ -54,6 +54,14 @@ data class OrderItemModel(
     var driverLong: String = "",
     @SerializedName("driver_name")
     var driverName: String = "",
+
+    @SerializedName("driver_average_rating")
+    var driver_average_rating: Double = 0.0,
+
+    @SerializedName("driver_order_count")
+    var driver_order_count: Int = 0,
+
+
     @SerializedName("driver_phone")
     var driverPhone: String = "",
     @SerializedName("end_lat")
@@ -78,6 +86,10 @@ data class OrderItemModel(
     var orderStatus: Int?,
     @SerializedName("payment_data")
     var paymentData: String = "",
+
+    @SerializedName("cancel_type")
+    var cancel_type: String = "",
+
     @SerializedName("payment_method")
     var paymentMethod: String = "",
     @SerializedName("preparing_end_time")

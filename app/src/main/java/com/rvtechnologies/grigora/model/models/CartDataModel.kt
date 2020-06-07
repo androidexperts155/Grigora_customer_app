@@ -4,6 +4,7 @@ package com.rvtechnologies.grigora.model.models
 import android.annotation.SuppressLint
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName
+import com.rvtechnologies.grigora.view.ui.restaurant_detail.model.RestaurantDetailNewModel
 import kotlinx.android.parcel.Parcelize
 
 @SuppressLint("ParcelCreator")
@@ -25,7 +26,7 @@ data class CartDataModel(
     var estimated_delivery_time: String?,
 
     @SerializedName("add_more_items")
-    var add_more_items: ArrayList<MenuItemModel>,
+    var add_more_items: ArrayList<RestaurantDetailNewModel.MealItem>,
 
 
     @SerializedName("created_at")
@@ -58,6 +59,10 @@ data class CartDataModel(
 
     @SerializedName("closingTime")
     var closingTime: String?,
+
+    @SerializedName("pickup")
+    var pickup: String?,
+
 
     @SerializedName("openingTime")
     var openingTime: String?,

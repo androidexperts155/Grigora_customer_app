@@ -412,6 +412,7 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+        
         <action
             android:id="@+id/action_loginFragment2_to_selectLocationFragment"
             app:destination="@id/selectLocationFragment"
@@ -431,6 +432,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+        
+        <action
+            android:id="@+id/action_loginFragment2_to_otpFragment"
+            app:destination="@id/otpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    
+    
     </fragment>
     <fragment
         android:id="@+id/signUpFragment"
@@ -447,6 +458,14 @@
         <action
             android:id="@+id/action_signUpFragment_to_aboutUs"
             app:destination="@id/aboutUsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+        
+        <action
+            android:id="@+id/action_signUpFragment_to_otp"
+            app:destination="@id/otpFragment"
             app:enterAnim="@anim/slide_in_right"
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
@@ -545,7 +564,7 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    
+        
         <action
             android:id="@+id/action_settingsFragment_to_profile"
             app:destination="@id/profileDetailsFragment"
@@ -692,12 +711,12 @@
             app:popExitAnim="@anim/slide_out_right" />
         
         <action
-        android:id="@+id/action_social_fragment_to_about_us"
-        app:destination="@id/aboutUsFragment"
-        app:enterAnim="@anim/slide_in_right"
-        app:exitAnim="@anim/slide_out_left"
-        app:popEnterAnim="@anim/slide_in_left"
-        app:popExitAnim="@anim/slide_out_right" />
+            android:id="@+id/action_social_fragment_to_about_us"
+            app:destination="@id/aboutUsFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
     
     
     </fragment>
@@ -797,6 +816,20 @@
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right"
             app:popUpToInclusive="true" />
+    
+    
+        <action
+            android:id="@+id/action_phoneLogin_fragment_to_otp"
+            app:destination="@id/otpFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+             app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+              />
+        
+        
+        
+        
     
     
     </fragment>
@@ -908,6 +941,16 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
+    
+    
+        <action
+            android:id="@+id/action_notifications_to_quiz"
+            app:destination="@id/quizFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right" />
+    
         
         <action
             android:id="@+id/action_notifications_to_scheduledOrder"
@@ -916,8 +959,8 @@
             app:exitAnim="@anim/slide_out_left"
             app:popEnterAnim="@anim/slide_in_left"
             app:popExitAnim="@anim/slide_out_right" />
-    
-    
+        
+        
         <action
             android:id="@+id/action_notifications_to_pin"
             app:destination="@id/pin"
@@ -1340,6 +1383,31 @@
     </fragment>
     
     <fragment
+        android:id="@+id/otpFragment"
+        android:name="com.rvtechnologies.grigora.view.ui.login_signup.OtpFragment"
+        android:label="Otp">
+        <action
+            android:id="@+id/action_otpFragment_to_addressListFragment"
+            app:destination="@id/addressListFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true" />
+    
+        <action
+            android:id="@+id/action_otpFragment_to_selectLocationFragment"
+            app:destination="@id/selectLocationFragment"
+            app:enterAnim="@anim/slide_in_right"
+            app:exitAnim="@anim/slide_out_left"
+            app:launchSingleTop="true"
+            app:popEnterAnim="@anim/slide_in_left"
+            app:popExitAnim="@anim/slide_out_right"
+            app:popUpToInclusive="true" />
+    </fragment>
+    
+    <fragment
         android:id="@+id/forgotPin"
         android:name="com.rvtechnologies.grigora.view.ui.forgotpin.ForgotPin"
         android:label="ForgotPIn">
@@ -1385,7 +1453,7 @@
             app:popExitAnim="@anim/slide_out_right"
             app:popUpTo="@id/navigationMyAccounts"
             app:popUpToInclusive="false" />
-    
+        
         <action
             android:id="@+id/action_pin_to_transfer_money"
             app:destination="@id/transferMoney"

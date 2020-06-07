@@ -50,6 +50,30 @@ class ApiRepo {
             })
     }
 
+    fun deleteLocation(
+        id: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().deleteLocation(CommonUtils.getToken(),id)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+            })
+    }
+
 
     /*
     Login repo
@@ -204,6 +228,86 @@ class ApiRepo {
     ) {
 
         ApiClient.getClient().checkEmail(email)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+    fun deleteUser(
+        userId: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().deleteUser(userId)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+
+
+
+    fun verifyOtp(
+        uid: String,
+        otp: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().verifyOtp(otp,uid)
+            .enqueue(object : Callback<JsonElement> {
+                override fun onResponse(
+                    call: Call<JsonElement>?,
+                    response: Response<JsonElement>?
+                ) {
+                    if (response != null && response.isSuccessful)
+                        onResult(true, response.body()!!)
+                    else {
+                        onResult(false, CommonUtils.parseError(response))
+                    }
+                }
+
+                override fun onFailure(call: Call<JsonElement>?, t: Throwable?) {
+                    onResult(false, t?.message)
+                }
+
+            })
+    }
+
+    fun resendOtp(
+        uid: String,
+        onResult: (isSuccess: Boolean, response: Any?) -> Unit
+    ) {
+
+        ApiClient.getClient().resendOtp(uid)
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
                     call: Call<JsonElement>?,
@@ -851,7 +955,14 @@ Cuisine repo
             restId,
             price,
             CommonUtils.getLoginType(),
-            filter
+            filter, CommonUtils.getPrefValue(
+                GrigoraApp.getInstance().activity?.baseContext,
+                PrefConstants.LATITUDE
+            ),
+            CommonUtils.getPrefValue(
+                GrigoraApp.getInstance().activity?.baseContext,
+                PrefConstants.LONGITUDE
+            )
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(
@@ -886,7 +997,15 @@ Cuisine repo
             CommonUtils.getUidDevice(),
             restId,
             price,
-            cartId, CommonUtils.getLoginType(), filter
+            cartId, CommonUtils.getLoginType(), filter,
+             CommonUtils.getPrefValue(
+                GrigoraApp.getInstance().activity?.baseContext,
+                PrefConstants.LATITUDE
+            ),
+            CommonUtils.getPrefValue(
+                GrigoraApp.getInstance().activity?.baseContext,
+                PrefConstants.LONGITUDE
+            )
         )
             .enqueue(object : Callback<JsonElement> {
                 override fun onResponse(

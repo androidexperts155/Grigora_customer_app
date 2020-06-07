@@ -69,10 +69,13 @@ class GroupCartAdapter(
             if (choicesString == "")
                 holder.itemView.textView15.visibility = View.GONE
 
-            cartModel.total = "₦ " + ((price) * cartModel.quantity?.toDouble()!!).toString()
+            cartModel.total = "₦ " + CommonUtils.getRoundedOff(((price) * cartModel.quantity?.toDouble()!!))
 
             cartModel.choicesString = choicesString
 
+            if(cartModel.user_id!=CommonUtils.getUid()){
+                holder.itemView.linearLayout.visibility=View.GONE
+            }
 
             holder.itemView.tv_plus.setOnClickListener {
                 quantityClicks.add(position, 0)
@@ -154,5 +157,5 @@ class GroupCartAdapter(
 
     inner class MyView(view: View) : RecyclerView.ViewHolder(view) {
         var tv_title: TextView = view.findViewById(R.id.tv_title)
-    }
+     }
 }

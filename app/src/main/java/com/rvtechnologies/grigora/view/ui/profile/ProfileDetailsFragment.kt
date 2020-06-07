@@ -9,6 +9,7 @@ import android.text.Editable
 import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
 import android.view.View.VISIBLE
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
@@ -19,11 +20,8 @@ import androidx.navigation.findNavController
 import com.karumi.dexter.Dexter
 import com.karumi.dexter.MultiplePermissionsReport
 import com.karumi.dexter.PermissionToken
-import com.karumi.dexter.listener.PermissionDeniedResponse
-import com.karumi.dexter.listener.PermissionGrantedResponse
 import com.karumi.dexter.listener.PermissionRequest
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener
-import com.karumi.dexter.listener.single.PermissionListener
 import com.opensooq.supernova.gligar.GligarPicker
 //import com.fxn.pix.Options
 //import com.fxn.pix.Pix
@@ -60,27 +58,36 @@ class ProfileDetailsFragment : Fragment() {
             if (userDataRes is CommonResponseModel<*>) {
                 if (userDataRes.status!!) {
                     val userDetails = userDataRes.data as UserDetails
-                    viewModel.name.value = userDetails.name?.toString()
-                    viewModel.email.value = userDetails.email?.toString()
-                    viewModel.phone.value = userDetails.phone?.toString()
-                    viewModel.image.value = userDetails.image?.toString()
+                    viewModel.name.value = userDetails.name
+                    viewModel.email.value = userDetails.email
+                    viewModel.phone.value = userDetails.phone
+                    viewModel.image.value = userDetails.image
 
                     CommonUtils.savePrefs(context, PrefConstants.ID, userDetails.id?.toString())
                     CommonUtils.savePrefs(context, PrefConstants.NAME, userDetails.name?.toString())
                     CommonUtils.savePrefs(
                         context,
                         PrefConstants.IMAGE,
-                        userDetails.image?.toString()
+                        userDetails.image
                     )
                     CommonUtils.savePrefs(
                         context,
                         PrefConstants.EMAIL,
-                        userDetails?.email?.toString()
+                        userDetails?.email
                     )
 
                     if (userDetails.email.isNullOrEmpty()) {
+                        viewModel.email.value = ""
                         etEmail.isEnabled = true
                     }
+
+                    if (userDetails.phone.isNullOrEmpty()) {
+                        ccp.visibility=View.VISIBLE
+                        viewModel.phone.value = ""
+                        etPhone.isEnabled = true
+                    }
+                    else
+                        ccp.visibility=GONE
 
                     profileDetailsFragmentBinding?.profileDetailsViewModel = viewModel
                     profileDetailsFragmentBinding?.profileDetailsView = this
@@ -144,7 +151,6 @@ class ProfileDetailsFragment : Fragment() {
             }
         })
     }
-
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -241,6 +247,7 @@ class ProfileDetailsFragment : Fragment() {
             (activity as MainActivity).img_menu.visibility = View.GONE
             (activity as MainActivity).img_back.visibility = View.VISIBLE
             (activity as MainActivity).lockDrawer(true)
+            (activity as MainActivity).backTitle(getString(R.string.my_account))
         }
     }
 

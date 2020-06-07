@@ -270,7 +270,7 @@ class MenuItemSheetViewModel : ViewModel() {
                         token = CommonUtils.getToken(),
                         restaurantId = menuItem.value?.restaurant_id.toString(),
                         itemId = menuItem.value?.id.toString(),
-                        price = price.value.toString(),
+                        price = (price.value!!.toDouble() / itemCount.value!!.toInt()).toString(),
 //                        price = menuItem.value?.price.toString(),
                         quantity = itemCount.value!!,
                         itemChoices = selected,

@@ -49,6 +49,20 @@ class SignUpFragmentViewModel : ViewModel() {
             }
     }
 
+    fun deleteUser(userId: String) {
+        ApiRepo.getInstance()
+            .deleteUser(
+                userId
+            ) { success, result ->
+                if (success) {
+
+                } else {
+
+                }
+            }
+    }
+
+
     fun checkPhone(phone: String) {
         ApiRepo.getInstance()
             .checkPhone(
@@ -66,14 +80,14 @@ class SignUpFragmentViewModel : ViewModel() {
     }
 
 
-    fun signUp(code:String) {
+    fun signUp(code: String) {
         isLoading.value = true
         if (isValidData()) {
             ApiRepo.getInstance()
                 .signUp(
                     name.value.toString().trim(),
                     email.value.toString().trim(),
-                    code+phone.value.toString().trim(),
+                    code + phone.value.toString().trim(),
                     password.value.toString().trim(),
                     confirm_password.value.toString().trim()
                 ) { success, result ->

@@ -139,7 +139,6 @@ class TransferMoney : Fragment(), IRecyclerItemClick {
         spinner.adapter =
             ArrayAdapter(context!!, android.R.layout.simple_spinner_dropdown_item, arr)
 
-
         spinner.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
             override fun onNothingSelected(parent: AdapterView<*>?) {
             }

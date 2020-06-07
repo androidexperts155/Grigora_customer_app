@@ -35,12 +35,9 @@ import java.util.*
 
 class MyFirebaseMessagingService : FirebaseMessagingService() {
     companion object {
-
         private val TAG = MyFirebaseMessagingService::class.java.simpleName
         val NOTIFICATION_CHANNEL_ID = "10001"
     }
-
-
     override fun onNewToken(p0: String) {
         Log.d(TAG, "onNewToken: " + p0)
     }
@@ -93,6 +90,10 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
             if (notificationType.notificationType.toInt() == 17
             ) {
                 destinationId = R.id.purchasedCards
+            }
+
+            if(notificationType.notificationType.toInt()==111){
+                destinationId = R.id.quizFragment
             }
 
             // Your Schedule order is placed waiting for restaurant confirmation : 1
@@ -155,6 +156,8 @@ class MyFirebaseMessagingService : FirebaseMessagingService() {
                     notificationType.message = remoteMessage.data["body"]!!
                 }
             }
+
+
 
 
         } catch (e: Exception) {

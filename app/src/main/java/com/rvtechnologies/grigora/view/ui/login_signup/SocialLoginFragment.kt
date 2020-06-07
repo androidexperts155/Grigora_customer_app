@@ -132,9 +132,9 @@ class SocialLoginFragment : Fragment() {
                 .startActivityForSignInWithProvider(activity as MainActivity, provider.build())
                 .addOnSuccessListener(
                     OnSuccessListener<AuthResult?> {
-                        print(it!!.user?.email)
+                        print(it!!.user!!.providerData[1].email)
                         val name = it!!.user!!.displayName.toString()
-                        val email = it!!.user?.email.toString()
+                        val email = it!!.user!!.providerData[1].email.toString()
                         val uid = it!!.user?.uid.toString()
                         viewModel.login(name, email, "", "2", uid)
 
@@ -295,7 +295,7 @@ class SocialLoginFragment : Fragment() {
             try {
                 Log.i("Response", response.toString())
                 val email =
-                    response.jsonObject.getString("id") + "@facebook.com"
+                    response.jsonObject.getString("email")
                 val firstName =
                     response.jsonObject.getString("first_name")
                 val lastName =

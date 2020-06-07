@@ -1,8 +1,8 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
-    <string name="about_us_url_en" translatable="false">http://www.grigora.com/about_us/en/</string>
-    <string name="about_us_url_fr" translatable="false">http://www.grigora.com/about_us/fr/</string>
-    <string name="terms_and_conditions" translatable="false">http:www.grigora.com/terms-and-condition/en/</string>
-    <string name="privacy_policy_url" translatable="false">http://3.13.78.53/privacy-policy.html</string>
+    <string name="about_us_url_en" translatable="false">https://grigora.net/about_us/en/</string>
+    <string name="about_us_url_fr" translatable="false">https://grigora.net/about_us/fr/</string>
+    <string name="terms_and_conditions" translatable="false">https://grigora.net/terms-and-condition/en/</string>
+    <string name="privacy_policy_url" translatable="false">https://grigora.net/privacy-policy/en/</string>
     
     
     <string name="default_notification_channel_id" translatable="false">212</string>
@@ -12,6 +12,7 @@
     
     <string name="app_name">Grigora</string>
     <string name="paystack_test_public_key" tools:ignore="MissingTranslation">pk_test_1589707187876487d9643c4845406aee4b88b90e</string>
+    <string name="paystack_live_public_key" tools:ignore="MissingTranslation">pk_live_0bb1c5ea15ae4223a872e524ea372efad9db4583</string>
     <string name="login">Sign in</string>
     <string name="sign_up">Sign Up</string>
     <string name="forgot_password">Forgot Password?</string>
@@ -428,7 +429,6 @@
     <string name="note_hint">You can add your note here...</string>
     <string name="schedule_request_sent">Request Sent</string>
     <string name="schedule_request_sent_info">Your order has been scheduled for</string>
-    <string name="schedule_request_sent_info_more">and will be delivered in</string>
     <string name="upcoming_orders">Upcoming Orders</string>
     <string name="reorder">Re-Order</string>
     <string name="closed">Currently Closed</string>
@@ -580,11 +580,28 @@
     <string name="please_check_terms">Please check Terms and Conditions</string>
     <string name="successfully_scheduled">Successfully Scheduled</string>
     <string name="past_time">Can\'t select past time</string>
+    <string name="schedule_request_sent_info_more">and will be delivered in</string>
     
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
-    <string name="your_coupen_code">Your coupen code</string>
-    <string name="gifted_by">gifted by</string>
-    <string name="was_redeemed">was redeemed successfully</string>
+     <string name="your_coupen_code">Votre code promoe</string>
+    <string name="gifted_by">offert par</string>
+    <string name="was_redeemed">a été racheté avec succèsy</string>
+    <string name="invalid_otp">OTP non valide</string>
+    <string name="please_enter_card_number">Veuillez saisir le numéro de carte</string>
+    <string name="otp_sent_to">"Otp envoyé à: "</string>
+    <string name="please_enter_cvv">Veuillez saisir CVV</string>
+    <string name="invalidCardnumber">Numéro de carte invalide</string>
+ 
+    <string name="ready_for_pickup">Ready for Pickup</string>
+    
+    <string name="please_fill_password">Veuillez saisir votre mot de passe</string>
+    <string name="items_not_available">Items not Available</string>
+    <string name="no_riders_at_the_moment">"No riders at the moment. "</string>
+    <string name="elapsed_time_cancelled">Food Preparation time ellapses order and delivery</string>
+    <string name="can_be_picked_in">You can pickup in </string>
+    <string name="answer">Enter your answer here</string>
+    <string name="please_enter_answer">Please enter answer</string>
+    <string name="customers">Customers</string>
+    <string name="cancel_order">Cancel Order?</string>
+    <string name="cencel_desc">Do you want to cancel order?</string>
 
 </resources><!--₦-->
