@@ -1008,7 +1008,7 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
             val height: Int = resources.getDimension(R.dimen._40sdp).toInt()
             val width: Int = resources.getDimension(R.dimen._40sdp).toInt()
             val b = (activity!!.resources
-                .getDrawable(R.drawable.ic_user) as BitmapDrawable).bitmap
+                .getDrawable(R.drawable.user) as BitmapDrawable).bitmap
 
             val smallMarker = Bitmap.createScaledBitmap(b, width, height, false)
             val markerOptions_driver = MarkerOptions()
@@ -1021,6 +1021,9 @@ class OrderDetailsFragment : Fragment(), OnMapReadyCallback, RateDriverDialogFra
     }
 
     private fun setRestaurantImage() {
+        if (orderItemModel?.restaurantImage == null) {
+            orderItemModel?.restaurantImage = ""
+        }
         val latLng =
             LatLng(orderItemModel?.startLat!!.toDouble(), orderItemModel?.startLong!!.toDouble())
         loadMarkerImage(latLng, orderItemModel?.restaurantImage!!, RESTAURANT_TAG)

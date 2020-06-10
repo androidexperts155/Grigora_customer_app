@@ -247,7 +247,6 @@
     <string name="almostready">Your order is ready to Dispatch</string>
     <string name="driver_assigned">Driver Assigned</string>
     
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="no_thanks">No Thanks</string>
     <string name="food_message">How was your experience with %s\</string>
     <string name="ttext">I have read and agree to the</string>
@@ -399,8 +398,7 @@
     <string name="transactions">Transactions</string>
     <string name="participants">Participants</string>
     
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="transfer_successfull">Transfer Successful</string>
+     <string name="transfer_successfull">Transfer Successful</string>
     <string name="transfer_successfull_desc">Your funds(points) transferred \n was successfully done</string>
     <string name="ngn_to_how_naira">1 NGN = %s\ pts</string>
     <string name="next">Next</string>
@@ -582,14 +580,16 @@
     <string name="past_time">Can\'t select past time</string>
     <string name="schedule_request_sent_info_more">and will be delivered in</string>
     
-     <string name="your_coupen_code">Votre code promoe</string>
-    <string name="gifted_by">offert par</string>
-    <string name="was_redeemed">a été racheté avec succèsy</string>
-    <string name="invalid_otp">OTP non valide</string>
-    <string name="please_enter_card_number">Veuillez saisir le numéro de carte</string>
-    <string name="otp_sent_to">"Otp envoyé à: "</string>
-    <string name="please_enter_cvv">Veuillez saisir CVV</string>
-    <string name="invalidCardnumber">Numéro de carte invalide</string>
+    <string name="your_coupen_code">Your coupon code</string>
+    <string name="gifted_by">gifted by</string>
+    <string name="was_redeemed">was redeemed successfully</string>
+    <string name="invalid_otp">Invalid OTP</string>
+    <string name="please_enter_card_number">Please enter card number</string>
+    
+    <string name="otp_sent_to">"Otp sent to: "</string>
+    
+    <string name="please_enter_cvv">Please enter CVV</string>
+    <string name="invalidCardnumber">Invalid Card Number</string>
  
     <string name="ready_for_pickup">Ready for Pickup</string>
     

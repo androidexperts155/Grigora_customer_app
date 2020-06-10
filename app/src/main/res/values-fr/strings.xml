@@ -582,14 +582,19 @@
     <string name="past_time">Impossible de sélectionner le temps passé</string>
     <string name="schedule_request_sent_info_more">et sera livré en</string>
     
-     <string name="your_coupen_code">Your coupon code</string>
-    <string name="gifted_by">gifted by</string>
-    <string name="was_redeemed">was redeemed successfully</string>
-    <string name="invalid_otp">Invalid OTP</string>
-    <string name="please_enter_card_number">Please enter card number</string>
-    <string name="otp_sent_to">"Otp sent to: "</string>
-    <string name="please_enter_cvv">Please enter CVV</string>
-    <string name="invalidCardnumber">Invalid Card Number</string>
+    
+    
+    <string name="your_coupen_code">Votre code promoe</string>
+    <string name="gifted_by">offert par</string>
+    <string name="was_redeemed">a été racheté avec succèsy</string>
+    <string name="invalid_otp">OTP non valide</string>
+    <string name="please_enter_card_number">Veuillez saisir le numéro de carte</string>
+    <string name="please_enter_cvv">Veuillez saisir CVV</string>
+    <string name="invalidCardnumber">Numéro de carte invalide</string>
+    
+    <string name="otp_sent_to">"Otp envoyé à: "</string>
+    
+    
     <string name="please_fill_password">Please fill Password</string>
     <string name="ready_for_pickup">Prêt pour le ramassage</string>
     

@@ -14,8 +14,8 @@ class ChangePasswordViewModel : ViewModel() {
     var newPassword = MutableLiveData<String>()
     var confirmPassword = MutableLiveData<String>()
 
-    var isLoading= MutableLiveData<Boolean>()
-    var changePasswordRes= MutableLiveData<Any>()
+    var isLoading = MutableLiveData<Boolean>()
+    var changePasswordRes = MutableLiveData<Any>()
 
 
     fun changePassword() {
@@ -43,9 +43,8 @@ class ChangePasswordViewModel : ViewModel() {
                         changePasswordRes.value = result
                     }
                 }
-        }
-        else{
-            changePasswordRes.value="Password does not match"
+        } else {
+            changePasswordRes.value = "Password does not match"
         }
     }
 
