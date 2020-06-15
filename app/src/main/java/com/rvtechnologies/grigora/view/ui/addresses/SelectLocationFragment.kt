@@ -4,14 +4,17 @@ import android.Manifest.permission
 import android.annotation.SuppressLint
 import android.app.Activity
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.location.Location
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.Handler
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AlertDialog
 import androidx.databinding.DataBindingUtil
 import androidx.databinding.ViewDataBinding
 import androidx.fragment.app.Fragment
@@ -233,50 +236,66 @@ class SelectLocationFragment : Fragment(), OnMapReadyCallback, IRecyclerItemClic
 
     @SuppressLint("MissingPermission")
     private fun getCurrentLocation() {
-        activity?.getString(R.string.loading_getting_location)?.let {
-            CommonUtils.showLoader(
-                activity!!,
-                it
-            )
-        }
         var mLocation: Location?
-
         val lm = context?.getSystemService(Context.LOCATION_SERVICE) as LocationManager
         val providers = lm.getProviders(true)
+        if (providers.size == 0) {
+            AlertDialog.Builder(context!!, R.style.TimePickerTheme)
+                .setMessage(R.string.gps_not_enabled)
+                .setPositiveButton(
+                    R.string.open_location_settings
+                ) { dialog, which -> activity?.startActivity(Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS)); }
+                .setNegativeButton(
+                    R.string.cancel
+                ) { dialog, which -> }.show()
 
-        for (i in providers.size - 1 downTo 0) {
-            mLocation = lm.getLastKnownLocation(providers[i])
-            if (mLocation != null) {
-                latitude = mLocation.latitude
-                longitude = mLocation.longitude
-                updateMap()
-                activity?.let {
-                    AddressUtils.getAddressFromLocation(latitude.toDouble(), longitude.toDouble(),
-                        it, Handler {
-                            address = it.data?.get("address").toString()
-                            CommonUtils.hideLoader()
-
-                            if (latitude > 0.0 &&
-                                longitude > 0.0
-                            ) {
-                                txtAddress.text = address
-
-                                (activity as MainActivity).updateLocation()
-
-                            } else {
-                                CommonUtils.showMessage(
-                                    parentView,
-                                    getString(R.string.error_location)
-                                )
-                            }
-                            return@Handler true
-                        })
+        } else
+            for (i in providers.size - 1 downTo 0) {
+                activity?.getString(R.string.loading_getting_location)?.let {
+                    CommonUtils.showLoader(
+                        activity!!,
+                        it
+                    )
                 }
-                break
-            }
 
-        }
+                mLocation = lm.getLastKnownLocation(providers[i])
+                if (mLocation != null) {
+                    latitude = mLocation.latitude
+                    longitude = mLocation.longitude
+                    updateMap()
+                    activity?.let {
+                        AddressUtils.getAddressFromLocation(latitude.toDouble(),
+                            longitude.toDouble(),
+                            it,
+                            Handler {
+                                address = it.data?.get("address").toString()
+                                CommonUtils.hideLoader()
+                                if (latitude > 0.0 &&
+                                    longitude > 0.0
+                                ) {
+                                    txtAddress.text = address
+
+                                    (activity as MainActivity).updateLocation()
+
+                                } else {
+                                    CommonUtils.showMessage(
+                                        parentView,
+                                        getString(R.string.error_location)
+                                    )
+                                }
+                                return@Handler true
+                            })
+                    }
+                    break
+                }
+
+                if (i == 0 && mLocation == null) {
+                    getCurrentLocation()
+                }
+
+            }
     }
+
 
     fun saveLocationContinue() {
         CommonUtils.hideLoader()

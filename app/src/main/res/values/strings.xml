@@ -603,5 +603,7 @@
     <string name="customers">Customers</string>
     <string name="cancel_order">Cancel Order?</string>
     <string name="cencel_desc">Do you want to cancel order?</string>
+    <string name="gps_not_enabled">GPS not enabled</string>
+    <string name="open_location_settings">Open location settings</string>
 
 </resources><!--₦-->
